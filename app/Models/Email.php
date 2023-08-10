@@ -100,4 +100,40 @@ class Email extends Model
 
         return true;
     }
+
+    /**
+     * E-mail Productgroup Mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function productgroupMail(array $data) : bool {
+        // Envia e-mail.
+        Mail::to($data['validatedData']['mail'])->send(new ReportMail([
+            'pathToReport' => storage_path('app/public/pdf/' . $data['config']['name'] . '/' . Report::find($data['validatedData']['report_id'])->file),
+            'subject'      => 'Relatório de ' . $data['config']['title'],
+            'title'        => $data['config']['title'],
+            'comment'      => $data['validatedData']['comment'],
+        ]));
+
+        return true;
+    }
+
+    /**
+     * E-mail Invoice Mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function invoiceMail(array $data) : bool {
+        // Envia e-mail.
+        Mail::to($data['validatedData']['mail'])->send(new ReportMail([
+            'pathToReport' => storage_path('app/public/pdf/' . $data['config']['name'] . '/' . Report::find($data['validatedData']['report_id'])->file),
+            'subject'      => 'Relatório de ' . $data['config']['title'],
+            'title'        => $data['config']['title'],
+            'comment'      => $data['validatedData']['comment'],
+        ]));
+
+        return true;
+    }
 }
