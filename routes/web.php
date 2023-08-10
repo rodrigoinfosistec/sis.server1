@@ -7,6 +7,8 @@ use App\Http\Controllers\UsergroupController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuditController;
 
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\InvoiceController;
 
 Route::get('/', function () {
@@ -23,5 +25,7 @@ Route::middleware([
     Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::get('/audit', [AuditController::class, 'index'])->name('audit');
 
+    Route::get('/company', [CompanyController::class, 'index'])->name('company');
+    Route::get('/provider', [ProviderController::class, 'index'])->name('provider');
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
 });
