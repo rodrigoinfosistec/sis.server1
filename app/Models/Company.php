@@ -26,6 +26,85 @@ class Company extends Model
     ];
 
     /**
+     * Esconde Nome Fantasia que seja igual à Razão Social.
+     * @var int $id
+     * 
+     * @return string $nickname
+     */
+    public static function nicknameNoRepeatName($id){
+        // Empresa.
+        $company = Company::find($id);
+
+        // Verifica se Nome Fantasia é igual à Razão Social.
+        if(empty($company->nickname) || $company->nickname == $company->name):
+            return null;
+        else:
+            return $company->nickname;
+        endif;
+    }
+
+    /**
+     * Verifica se [id, name] está vazio.
+     * @var <null, int> $id
+     * 
+     * @return array $company
+     */
+    public static function validateNull($id) : array {
+        $company = [
+            'company_id'   => null,
+            'company_name' => null,
+        ];
+    
+        if(!empty($id)):
+            $company = [
+                'company_id'   => $id,
+                'company_name' => Company::find($id)->name,
+            ];
+        endif;
+
+        return $company;
+    }
+
+    /**
+     * Verifica se Nickname está vazio.
+     * @var <null, int> $nickname
+     * 
+     * @return <string, null> $nick
+     */
+    public static function nicknameValidateNull($nickname){
+        // Inicializa variável.
+        $nick = null;
+    
+        // Verifica se Nickname está vazio.
+        if (!empty($nickname)) $nick = Str::upper($nickname);
+
+        return $nick;
+    }
+
+    /**
+     * Formata CNPJ.
+     * @var string $cnpj
+     * 
+     * @return $cnpj_format
+     */
+    public static function encodeCnpj(string $cnpj) : string {
+        // Formata CNPJ.
+        $cnpj_format = 
+            $cnpj[0]  . $cnpj[1] . 
+            '.'       . 
+            $cnpj[2]  . $cnpj[3] . $cnpj[4]  . 
+            '.'       . 
+            $cnpj[5]  . $cnpj[6] . $cnpj[7]  . 
+            '/'       . 
+            $cnpj[8]  . $cnpj[9] . $cnpj[10] . $cnpj[11] . 
+            '-' . 
+            $cnpj[12] . $cnpj[13]
+        ;
+
+        return (string)$cnpj_format;
+    }
+
+    /**
      * Valida cadastro.
      * @var array $data
      * 
