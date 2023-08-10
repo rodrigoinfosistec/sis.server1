@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Email extends Model
 {
-    
     /**
      * E-mail Usergroup Mail.
      * @var array $data

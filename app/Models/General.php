@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class General extends Model
 {
-    
     /**
      * Converte valor monetário ($ -> R$), 2 casas decimais
      * @var float $float_encode
