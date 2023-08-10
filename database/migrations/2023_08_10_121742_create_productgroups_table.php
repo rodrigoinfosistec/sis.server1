@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('productgroups', function (Blueprint $table) {
             $table->id();
+
+            $table->string('code');
+            $table->string('origin');
+            $table->string('name');
+
             $table->timestamps();
         });
     }

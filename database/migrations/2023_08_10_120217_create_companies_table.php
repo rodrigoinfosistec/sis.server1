@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
+
+            $table->string('cnpj')->unique();
+            $table->string('name');
+            $table->string('nickname')->nullable()->default(null);
+
             $table->timestamps();
         });
     }
