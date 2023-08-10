@@ -251,7 +251,6 @@ class InvoiceShow extends Component
             'existsReport' => Report::where('folder', $this->config['name'])->exists(),
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Invoice::where([
-                                ['company_id', Logo::getCompanyId()],
                                 [$this->filter, 'like', '%'. $this->search . '%'],
                             ])->orderBy('id', 'DESC')->paginate(12),
         ]);
