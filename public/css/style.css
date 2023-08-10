@@ -1,0 +1,6 @@
+/**
+ * cor da linha selecionada através do input checkbox
+ */
+ .row_selected{
+    background-color: #FDF59C;
+}
