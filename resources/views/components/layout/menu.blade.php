@@ -38,7 +38,7 @@
                         </x-responsive-nav-link>
 
                         {{-- Grupo de Produto --}}
-                        <x-responsive-nav-link href="{{-- route('productgroup') --}}" :active="request()->routeIs('productgroup')" class="text-decoration-none">
+                        <x-responsive-nav-link href="{{ route('productgroup') }}" :active="request()->routeIs('productgroup')" class="text-decoration-none">
                             <i class="{{ App\Models\Page::getIconByName('productgroup') }}"></i> {{ App\Models\Page::getTitleByName('productgroup') }}
                         </x-responsive-nav-link>
                     </div>
