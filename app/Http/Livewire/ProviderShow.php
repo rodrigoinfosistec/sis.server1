@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\General;
 use App\Models\Report;
 
 use App\Models\Page;
