@@ -1,0 +1,6 @@
+Alterações:
+
+quantidade => Alterar quantidade no arquivo quantidade.txt da empresa desejada.
+	Ex.: 3 = será mostrada apenas as imagens 1.jpg, 2.jpg e 3.jpg (Independente da quantidade de imagens disponíveis)
+
+Imagens => Substituir ou adicionar imagens [.jpg, 1600X300px], enumerar a sequencia desejada.
