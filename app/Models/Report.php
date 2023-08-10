@@ -345,4 +345,124 @@ class Report extends Model
         return true;
     }
 
+    /**
+     * Invoice Xml
+     * @var array $data
+     * 
+     * @return <object, null> $xml 
+     */
+    public static function xmlInvoice(array $data){
+        // Salva o arquivo xml.
+        $file_name = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.xml';
+        $path      = public_path('/storage/xml/' . $data['config']['name'] . '/');
+        File::makeDirectory($path, $mode = 0777, true, true);
+        $data['validatedData']['xml']->storeAs('public/xml/' . $data['config']['name'] . '/', $file_name);
+
+        // Instancia o objeto Xml.
+        $xmlFile    = file_get_contents($path . $file_name);
+        @$xmlObject = simplexml_load_string($xmlFile);
+
+        // verifica se é um xml.
+        if($xmlObject):
+            // "Renomeia" o arquivo com a chave do xml.
+            $data['validatedData']['xml']->storeAs('public/xml/' . $data['config']['name'] . '/', $xmlObject->protNFe->infProt->chNFe . '.xml');
+            
+            // Exclui o arquivo.
+            unlink($path . $file_name);
+
+            // Atribui à variável.
+            $xml = $xmlObject;
+        else:
+            // Exclui o arquivo.
+            unlink($path . $file_name);
+
+            // Atribui à variável.
+            $xml = null;
+        endif;
+
+        return  $xml;
+    }
+
+    /**
+     * Invoice Csv
+     * @var array $data
+     * 
+     * @return <object, null> $csv
+     */
+    public static function csvInvoice(array $data){
+        // Salva o arquivo csv.
+        $file_name = $data['validatedData']['chNFe'] . '.csv';
+        $path      = public_path('/storage/csv/' . $data['config']['name'] . '/');
+        File::makeDirectory($path, $mode = 0777, true, true);
+        $data['validatedData']['csv']->storeAs('public/csv/' . $data['config']['name'] . '/', $file_name);
+
+        // Instancia dados do csv.
+        $data = file($path . $file_name); 
+
+        // Verifica se é um csv de produtos.
+        if($data[0][0] == 'C' && $data[0][12] == 'R' && $data[0][23] == 'C'):
+            // Percorre as linhas do arquivo csv.
+            foreach($data as $key => $line):
+                // Desconsidera a linha de cabeçalho (promeira linha).
+                if($key != 0):
+                    // Separa dados em cada linha.
+                    $l = explode(';', $line);
+
+                    // Monta array csv.
+                    $CsvArray[] = [
+                        'identifier' => $key,
+                        'code'       => str_replace('"', '', $l[0]),
+                        'reference'  => str_replace('"', '', $l[1]),
+                        'ean'        => str_replace('"', '', $l[2]),
+                        'name'       => str_replace('"', '', $l[3]),
+                        'cost'       => str_replace('"', '', $l[4]),
+                        'margin'     => str_replace('"', '', $l[5]),
+                        'value'      => str_replace('"', '', $l[6]),
+                    ];
+                endif;
+            endforeach;
+
+            // Atribui à variável.
+            $csv = $CsvArray;
+        else:
+            // Exclui o arquivo.
+            unlink($path . $file_name);
+
+            // Atribui à variável.
+            $csv = null;
+        endif;
+
+        return  $csv;
+    }
+
+    /**
+     * Invoice Generate
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function invoiceGenerate(array $data) : bool {
+        // Gera o arquivo PDF.
+        $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf', [
+            'user'  => auth()->user()->name,
+            'title' => $data['config']['title'],
+            'date'  => date('d/m/Y H:i:s'),
+            'list'  => $list = Invoice::where([
+                            [$data['filter'], 'like', '%'. $data['search'] . '%'],
+                        ])->orderBy('id', 'DESC')->get(), 
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
+
+        // Salva o arquivo PDF.
+        File::makeDirectory($data['path'], $mode = 0777, true, true);
+        $pdf->save($data['path'] . $data['file_name']);
+
+        // Registra os dados do arquivo PDF.
+        Report::create([
+            'user_id' => auth()->user()->id,
+            'folder'  => $data['config']['name'],
+            'file'    => $data['file_name']
+        ]);
+
+        return true;
+    }
 }
