@@ -28,12 +28,12 @@
                 <li class="nav-item">
                     <div class="pt-2 pb-0 border-t border-gray-200">
                         {{-- Empresa --}}
-                        <x-responsive-nav-link href="{{-- route('company') --}}" :active="request()->routeIs('company')" class="text-decoration-none">
+                        <x-responsive-nav-link href="{{ route('company') }}" :active="request()->routeIs('company')" class="text-decoration-none">
                             <i class="{{ App\Models\Page::getIconByName('company') }}"></i> {{ App\Models\Page::getTitleByName('company') }}
                         </x-responsive-nav-link>
 
                         {{-- Fornecedor --}}
-                        <x-responsive-nav-link href="{{-- route('provider') --}}" :active="request()->routeIs('provider')" class="text-decoration-none">
+                        <x-responsive-nav-link href="{{ route('provider') }}" :active="request()->routeIs('provider')" class="text-decoration-none">
                             <i class="{{ App\Models\Page::getIconByName('provider') }}"></i> {{ App\Models\Page::getTitleByName('provider') }}
                         </x-responsive-nav-link>
 
