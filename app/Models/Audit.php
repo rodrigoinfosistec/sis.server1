@@ -800,4 +800,125 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Business Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function providerBusinessAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . 'Negociação de ' . $data['config']['title'] . '{' .
+                'provider_id='            . $after->provider_id            . ',' .
+                'multiplier_type='        . $after->multiplier_type        . ',' .
+                'multiplier_quantity='    . $after->multiplier_quantity    . ',' .
+                'multiplier_value='       . $after->multiplier_value       . ',' .
+                'multiplier_ipi='         . $after->multiplier_ipi         . ',' .
+                'multiplier_ipi_aliquot=' . $after->multiplier_ipi_aliquot . ',' .
+                'margin='                 . $after->margin                 . ',' .
+                'shipping='               . $after->shipping               . ',' .
+                'discount='               . $after->discount               . ',' .
+                'addition='               . $after->addition               . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Business Edit.
+     * @var array $data
+     * @var object $before
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function providerBusinessEdit(array $data, object $before, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[atualizou]' . 'Negociação de ' . $data['config']['title'] . ' {' .
+                'provider_id='            . $before->provider_id            . '>' . $after->provider_id            . ',' .
+                'multiplier_type='        . $before->multiplier_type        . '>' . $after->multiplier_type        . ',' .
+                'multiplier_quantity='    . $before->multiplier_quantity    . '>' . $after->multiplier_quantity    . ',' .
+                'multiplier_value='       . $before->multiplier_value       . '>' . $after->multiplier_value       . ',' .
+                'multiplier_ipi='         . $before->multiplier_ipi         . '>' . $after->multiplier_ipi         . ',' .
+                'multiplier_ipi_aliquot=' . $before->multiplier_ipi_aliquot . '>' . $after->multiplier_ipi_aliquot . ',' .
+                'margin='                 . $before->margin                 . '>' . $after->margin                 . ',' .
+                'shipping='               . $before->shipping               . '>' . $after->shipping               . ',' .
+                'discount='               . $before->discount               . '>' . $after->discount               . ',' .
+                'addition='               . $before->addition               . '>' . $after->addition               . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Business Erase.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function providerBusinessErase(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[excluíu]' . 'Negociação de ' . $data['config']['title'] . '{' .
+                'provider_id='            . $after->provider_id            . ',' .
+                'multiplier_type='        . $after->multiplier_type        . ',' .
+                'multiplier_quantity='    . $after->multiplier_quantity    . ',' .
+                'multiplier_value='       . $after->multiplier_value       . ',' .
+                'multiplier_ipi='         . $after->multiplier_ipi         . ',' .
+                'multiplier_ipi_aliquot=' . $after->multiplier_ipi_aliquot . ',' .
+                'margin='                 . $after->margin                 . ',' .
+                'shipping='               . $after->shipping               . ',' .
+                'discount='               . $after->discount               . ',' .
+                'addition='               . $after->addition               . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria ProviderBusinessDefault Edit.
+     * @var array $data
+     * @var object $before
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function providerBusinessDefaultEdit(array $data, object $before, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[atualizou]' . 'Negociação padrão de ' . $data['config']['title'] . ' {' .
+                'multiplier_quantity='    . $before->multiplier_quantity    . '>' . $after->multiplier_quantity    . ',' .
+                'multiplier_value='       . $before->multiplier_value       . '>' . $after->multiplier_value       . ',' .
+                'multiplier_ipi='         . $before->multiplier_ipi         . '>' . $after->multiplier_ipi         . ',' .
+                'multiplier_ipi_aliquot=' . $before->multiplier_ipi_aliquot . '>' . $after->multiplier_ipi_aliquot . ',' .
+                'margin='                 . $before->margin                 . '>' . $after->margin                 . ',' .
+                'shipping='               . $before->shipping               . '>' . $after->shipping               . ',' .
+                'discount='               . $before->discount               . '>' . $after->discount               . ',' .
+                'addition='               . $before->addition               . '>' . $after->addition               . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
 }
