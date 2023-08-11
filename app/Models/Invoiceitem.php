@@ -74,39 +74,363 @@ class Invoiceitem extends Model
     public function invoicecsv(){return $this->belongsTo(Invoicecsv::class);}
 
     /**
-     * Define dados do item.
-     * @var array $item_data
+     * Formata index.
+     * @var float $value
+     * 
+     * @return float $index
      */
-    public static function item(array $item_data) : array {
-        dd($item_data);
-        //Define dados do item.
-        $item = [
-            'equipment'         => $old_item['equipment'],
-            'productgroup_id'   => $old_item['productgroup_id'],
-            'invoicecsv_id'     => $old_item['invoicecsv_id'],
-            'signal'            => $old_item['signal'],
-            'amount'            => $old_item['amount'],
-            'identifier'        => $invoiceitem['nItem'],
-            'code'              => $invoiceitem->prod->cProd,
-            'ean'               => Invoiceitem::eanEmpty($invoiceitem->prod->cEANTrib),
-            'name'              => Str::upper($invoiceitem->prod->xProd),
-            'ncm'               => $invoiceitem->prod->NCM,
-            'cfop'              => $invoiceitem->prod->CFOP,
-            'cest'              => Invoiceitem::eanEmpty($invoiceitem->prod->CEST),
-            'measure'           => Str::upper($invoiceitem->prod->uCom),
-            'quantity'          => $invoiceitem->prod->qCom,
-            'quantity_final'    => Invoiceitem::quantityFinal((float)$invoiceitem->prod->qCom, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id),
-            'value'             => $invoiceitem->prod->vUnCom,
-            'value_final'       => Invoiceitem::valueFinal((float)$invoiceitem->prod->vUnCom, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id),
-            'value_total'       => $invoiceitem->prod->vProd,
-            'value_total_final' => Invoiceitem::valueTotalFinal((float)$invoiceitem->prod->vProd, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id),
-            'ipi'               => $item['ipi'],
-            'ipi_final'         => $item['ipi_final'],
-            'ipi_aliquot'       => $item['ipi_aliquot'],
-            'ipi_aliquot_final' => $item['ipi_aliquot_final'],
+    public static function formatIndex(float $value) : float {
+        // Força o número com 9 dígitos.
+        $value = number_format($value, '9', '.');
+
+        // Separa o inteiro e o decimal.
+        $x = explode('.', $value);
+
+        // Formata index.
+        $index = $x[0] . '.' . $x[1][0] . '0';
+
+        return (float)$index;
+    }
+
+    /**
+     * Teste se todos os itens da NFe possuem o campo updated true.
+     * @var int $invoice_id
+     * 
+     * @return bool $updated
+     */
+    public static function updatedAll(int $invoice_id) : bool {
+        // Inicializa variável.
+        $updated = false;
+
+        // Verifica não existe nehum item sem atualização do updated.
+        if(Invoiceitem::where(['invoice_id' => $invoice_id, 'updated' => false])->doesntExist()):
+            $updated = true;
+        endif;
+
+        return $updated;
+    }
+
+    /**
+     * Verifica se Cest está vazio.
+     * @var <null, int> $cest
+     * 
+     * @return string $cest
+     */
+    public static function cestEmpty($cest) : string {
+        // Verifica se Cest está vazio.
+        if (!$cest) $cest = null;
+
+        return (string)$cest;
+    }
+
+    /**
+     * Verifica se valor IPI está vazio.
+     * @var <null, int> $vIpi
+     * 
+     * @return float $vIpi
+     */
+    public static function vIpiEmpty($vIpi) : float {
+        // Verifica se valor IPI está vazio.
+        if (!empty($vIpi)) $vIpi = 0.000;
+
+        return (float)$vIpi;
+    }
+
+    /**
+     * Verifica se alíquota IPI está vazia.
+     * @var <null, int> $pIpi
+     * 
+     * @return float $pIpi
+     */
+    public static function pIpiEmpty($pIpi) : float {
+        // Verifica se alíquota IPI está vazia.
+        if (!$pIpi) $pIpi = 0.000;
+
+        return (float)$pIpi;
+    }
+
+    /**
+     * Verifica se Ean está vazio.
+     * @var <null, int> $ean
+     * 
+     * @return string $ean
+     */
+    public static function eanEmpty($ean) : string {
+        // Verifica se Ean está vazio.
+        if (!$ean) $ean = null;
+
+        return (string)$ean;
+    }
+
+    /**
+     * Gera a quantidade final.
+     * @var float $quantity
+     * @var int $providerbusiness_id
+     * 
+     * @return float $quantity_final
+     */
+    public static function quantityFinal(float $quantity, int $providerbusiness_id) : float {
+        // Gera a quantidade final.
+        (float)$quantity_final = ($quantity / (float)Providerbusiness::find($providerbusiness_id)->multiplier_quantity) * 100;
+
+        return $quantity_final;
+    }
+
+    /**
+     * Gera o valor final.
+     * @var float $value
+     * @var int $providerbusiness_id
+     * 
+     * @return float $value_final
+     */
+    public static function valueFinal(float $value, int $providerbusiness_id) : float {
+        // Gera o valor final.
+        (float)$value_final = ($value /Providerbusiness::find($providerbusiness_id)->multiplier_value) * 100;
+
+        return $value_final;
+    }
+
+    /**
+     * Gera o valor total final.
+     * @var float $value_total
+     * @var int $providerbusiness_id
+     * 
+     * @return float $value_total_final
+     */
+    public static function valueTotalFinal(float $value_total, int $providerbusiness_id) : float {
+        // Gera o valor total final.
+        (float)$value_total_final = ($value_total / Providerbusiness::find($providerbusiness_id)->multiplier_value) * 100;
+
+        return $value_total_final;
+    }
+
+    /**
+     * Gera o valor ipi final.
+     * @var <float, null> $ipi
+     * @var int $providerbusiness_id
+     * 
+     * @return float $ipi_final
+     */
+    public static function ipiFinal($ipi, int $providerbusiness_id){
+        // Verifica se ipi está vazio.
+        if($ipi):
+            // verifica se o muktiplicador ipi está vazio.
+            if(Providerbusiness::find($providerbusiness_id)->multiplier_ipi):
+                // Gera o valor ipi final.
+                $ipi_final = ($ipi / Providerbusiness::find($providerbusiness_id)->multiplier_ipi) * 100;
+            else:
+                $ipi_final = 0.000;
+            endif;
+        else:
+            $ipi_final = $ipi;
+        endif;
+
+        return $ipi_final;
+    }
+
+    /**
+     * Evita o valor 0.
+     * @var float $value
+     * 
+     * @return float $value
+     */
+    public static function valueNotZero(float $value) : float {
+        // Evita o valor 0.
+        if ($value <= 0)  $value = 1.00;
+
+        return $value;
+    }
+
+    /**
+     * Converte quantidade e valor.
+     * @var array $data,
+     * 
+     * @return array $value
+     */
+    public static function signalAmount(array $data) : array {
+        // Converte quantidade e valor.
+        if($data['signal'] == '/'):
+            $quantity_final = Invoiceitem::valueNotZero(General::encodeFloat3($data['quantity_final'])) * General::encodeFloat3($data['amount']);
+            $value_final    = General::encodeFloat3($data['value_final'])                               / General::encodeFloat3($data['amount']);
+        else:
+            $quantity_final = Invoiceitem::valueNotZero(General::encodeFloat3($data['quantity_final'])) / General::encodeFloat3($data['amount']);
+            $value_final    = General::encodeFloat3($data['value_final'])                               * General::encodeFloat3($data['amount']);
+        endif;
+
+        // Monta array
+        $value = [
+            'quantity_final'    => (float)$quantity_final,
+            'value_final'       => (float)$value_final,
+            'value_total_final' => (float)$quantity_final * $value_final,
         ];
 
-        return $item;
+        return $value;
+    }
+
+    /**
+     * Gera o valor ipi aliquot final.
+     * @var <float, null> $ipi_aliquot
+     * @var int $providerbusiness_id
+     * 
+     * @return float $ipi_aliquot_final
+     */
+    public static function ipiAliquotFinal($ipi_aliquot, int $providerbusiness_id){
+        // Verifica se ipi_aliquot está vazio.
+        if($ipi_aliquot):
+            // Verifica se multiplicador aliquota ipi está vazia.
+            if(Providerbusiness::find($providerbusiness_id)->multiplier_ipi_aliquot):
+                // Gera o valor ipi aliquot final.
+                $ipi_aliquot_final = ($ipi_aliquot / Providerbusiness::find($providerbusiness_id)->multiplier_ipi_aliquot) * 100;
+            else:
+                $ipi_aliquot_final = 0.000;
+            endif;
+        else:
+            $ipi_aliquot_final = $ipi_aliquot;
+        endif;
+
+        return $ipi_aliquot_final;
+    }
+
+    /**
+     * Verifica se item já foi atribuido a outra Nota Fiscal.
+     * @var int $invoice_id
+     * @var string $code
+     * 
+     * @return array $$array_old_item
+     */
+    public static function oldItem(int $invoice_id, string $code) : array {
+        // Inicializa as variáveis.
+        $equipment       = false;
+        $productgroup_id = null;
+        $invoicecsv_id   = null;
+        $signal          = '/';
+        $amount          = 1.000;
+
+        // Percorre todos os itens com o mesmo codigo, exceto o desta Nota Fiscal.
+        foreach(Invoiceitem::where([['code', $code], ['invoice_id', '!=', $invoice_id]])->orderBy('id', 'DESC')->get() as $key_item => $item):
+            // Verifica se o Fornecedor do item é o mesmo desta Nota Fiscal.
+            if($item->invoice->provider->id == Invoice::find($invoice_id)->provider_id):
+                // Verifica se as variáveis já foram atribuidas.
+                if(!$assigned):
+                    // Verifica se existe invoice CSV vinculado ao produto.
+                    if(!empty($item->invoicecsv_id)):
+                        // Recupera o invoicecsv, caso exista.
+                        if($csv = Invoicecsv::where(['invoice_id' => $invoice_id, 'code' => Invoicecsv::find($item->invoicecsv_id)->code])->first()):
+                            $invoicecsv_id = $csv->id;
+                        endif;
+                    endif;
+
+                    // Atribui as variáveis.
+                    $equipment       = $item->equipment;
+                    $productgroup_id = $item->productgroup_id;
+                    $signal          = $item->signal;
+                    $amount          = $item->amount;
+
+                    // Força a saída do loop ao encontrar a primeira ocorrência.
+                    break;
+                endif;
+            endif;
+        endforeach;
+
+        $array_old_item = [
+            'equipment'       => $equipment,
+            'productgroup_id' => $productgroup_id,
+            'invoicecsv_id'   => $invoicecsv_id,
+            'signal'          => $signal,
+            'amount'          => $amount,
+        ];
+
+        return $array_old_item;
+    }
+
+    /**
+     * Trata o campo updated.
+     * @var <null, id> $productgroup_id
+     * @var <null, id> $invoicecsv_id
+     * 
+     * @return bool $updated
+     */
+    public static function itemUpdated($productgroup_id, $invoicecsv_id) : bool {
+        // Inicializa a variável.
+        $updated = false;
+
+        if (!empty($productgroup_id) && !empty($invoicecsv_id)) $updated = true;
+
+        return (bool)$updated;
+    }
+
+    /**
+     * Gerar o index dos eFiscos.
+     * @var int $invoice_id
+     * 
+     * @return bool $generate
+     */
+    public static function generateIndex(int $invoice_id){
+        // Inicializa variável.
+        $generate = null;
+
+        // Verifica se todos os itens possuem Item CSV e Grupo de Produto atribuído.
+        if(Invoiceitem::updatedAll($invoice_id)):
+            // Inicializa o array.
+            $efisco_value = [];
+
+            // Percorre todos eFiscos da Nota Fiscal.
+            foreach(Invoiceefisco::where('invoice_id', $invoice_id)->get() as $key_efisco => $efisco):
+                // Atrinui valor inicial zero (0.00) às variáveis.
+                $efisco_value_total[$efisco->id]       = 0.00;
+                $efisco_value_total_final[$efisco->id] = 0.00;
+                $efisco_ipi[$efisco->id]               = 0.00;
+                $efisco_ipi_final[$efisco->id]         = 0.00;
+
+                //Percorre todos os itens da Nota Fiscal.
+                foreach(Invoiceitem::where('invoice_id', $invoice_id)->get() as $key_item => $item):
+                    // Verifica se Grupo de Produto do eFisco é o mesmo do item.
+                    if($efisco->productgroup_id == $item->productgroup_id):
+                        // Incrementa os valores.
+                        $efisco_value_total[$efisco->id]       = $efisco_value_total[$efisco->id]       + $item->value_total;
+                        $efisco_value_total_final[$efisco->id] = $efisco_value_total_final[$efisco->id] + $item->value_total_final;
+                        $efisco_ipi[$efisco->id]               = $efisco_ipi[$efisco->id]               + $item->ipi;
+                        $efisco_ipi_final[$efisco->id]         = $efisco_ipi_final[$efisco->id]         + $item->ipi_final;
+                    endif;
+                endforeach;
+
+                // Atribui o ICMS.
+                $efisco_icms[$efisco->id] = $efisco->icms;
+
+                // Monta a Referência.
+                $reference[$efisco->id] = ($efisco_icms[$efisco->id] / ($efisco_value_total_final[$efisco->id] + $efisco_ipi_final[$efisco->id])) * 100.00;
+
+                // Monta o Index.
+                $index[$efisco->id] = Invoiceitem::formatIndex(100.00 - $reference[$efisco->id]);
+
+                // Atualiza eFisco, definindo o index.
+                Invoiceefisco::find($efisco->id)->update([
+                    'value_invoice' => $efisco_value_total[$efisco->id],
+                    'value_final'   => $efisco_value_total_final[$efisco->id],
+                    'ipi_invoice'   => $efisco_ipi[$efisco->id],
+                    'ipi_final'     => $efisco_ipi_final[$efisco->id],
+                    'index'         => $index[$efisco->id],
+                ]);
+
+                //Percorre todos os itens da Nota Fiscal com este efisco.
+                Invoiceitem::where(['invoice_id' => $invoice_id, 'productgroup_id' => $efisco->productgroup_id])->update([
+                    'index' => $index[$efisco->id],
+                ]);
+            endforeach;
+
+            // Monta retorno. Útil para consulta.
+            $generate = [
+            'efisco_value_total'       => $efisco_value_total,
+            'efisco_value_total_final' => $efisco_value_total_final,
+            'efisco_ipi'               => $efisco_ipi,
+            'efisco_ipi_final'         => $efisco_ipi_final,
+            'efisco_icms'              => $efisco_icms,
+            'reference'                => $reference,
+            'index'                    => $index,
+            ];
+        endif;
+
+        return $generate;
     }
 
     /**
@@ -146,39 +470,44 @@ class Invoiceitem extends Model
 
         // Percorre todos os itens da Nota Fiscal.
         foreach($data['validatedData']['xmlObject']->NFe->infNFe->det as $invoiceitem):
-            // Define dados do item.
-            $item = Invoiceitem::item([
-                'invoice'          => $invoice,
-                'providerbusiness' => $providerbusiness,
-                'invoiceitem'      => $invoiceitem,
-            ]);
+            // Busca dados do último cadastro do item, caso exista.
+            $old_item = Invoiceitem::oldItem((int)$invoice->id, (string)$invoiceitem->prod->cProd);
+
+            // Trata IPI.
+            if(!empty($invoiceitem->imposto->IPI->IPITrib->vIPI) && !empty($invoiceitem->imposto->IPI->IPITrib->pIPI)):
+                $vIPI = $invoiceitem->imposto->IPI->IPITrib->vIPI;
+                $pIPI = $invoiceitem->imposto->IPI->IPITrib->pIPI;
+            else:
+                $vIPI = false;
+                $pIPI = false;
+            endif;
 
             // Cadastra.
             Invoiceitem::create([
                 'invoice_id'        => $invoice->id,
-                'equipment'         => $item['equipment'],
-                'productgroup_id'   => $item['productgroup_id'],
-                'invoicecsv_id'     => $item['invoicecsv_id'],
-                'signal'            => $item['invoicecsv_id'],
-                'amount'            => $item['amount'],
-                'identifier'        => $item['identifier'],
-                'code'              => $item['code'],
-                'ean'               => $item['ean'],
-                'name'              => $item['name'],
-                'ncm'               => $item['ncm'],
-                'cfop'              => $item['cfop'],
-                'cest'              => $item['cest'],
-                'measure'           => $item['measure'],
-                'quantity'          => $item['quantity'],
-                'quantity_final'    => $item['quantity_final'],
-                'value'             => $item['value'],
-                'value_final'       => $item['value_final'],
-                'value_total'       => $item['value_total'],
-                'value_total_final' => $item['value_total_final'],
-                'ipi'               => $item['ipi'],
-                'ipi_final'         => $item['ipi_final'],
-                'ipi_aliquot'       => $item['ipi_aliquot'],
-                'ipi_aliquot_final' => $item['ipi_aliquot_final'],
+                'equipment'         => $old_item['equipment'],
+                'productgroup_id'   => $old_item['productgroup_id'],
+                'invoicecsv_id'     => $old_item['invoicecsv_id'],
+                'signal'            => $old_item['signal'],
+                'amount'            => $old_item['amount'],
+                'identifier'        => $invoiceitem['nItem'],
+                'code'              => $invoiceitem->prod->cProd,
+                'ean'               => Invoiceitem::eanEmpty($invoiceitem->prod->cEANTrib),
+                'name'              => Str::upper($invoiceitem->prod->xProd),
+                'ncm'               => $invoiceitem->prod->NCM,
+                'cfop'              => $invoiceitem->prod->CFOP,
+                'cest'              => Invoiceitem::eanEmpty($invoiceitem->prod->CEST),
+                'measure'           => Str::upper($invoiceitem->prod->uCom),
+                'quantity'          => $invoiceitem->prod->qCom,
+                'quantity_final'    => Invoiceitem::quantityFinal((float)$invoiceitem->prod->qCom, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id),
+                'value'             => $invoiceitem->prod->vUnCom,
+                'value_final'       => Invoiceitem::valueFinal((float)$invoiceitem->prod->vUnCom, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id),
+                'value_total'       => $invoiceitem->prod->vProd,
+                'value_total_final' => Invoiceitem::valueTotalFinal((float)$invoiceitem->prod->vProd, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id),
+                'ipi'               => !empty($invoiceitem->imposto->IPI->IPITrib->vIPI) ? $invoiceitem->imposto->IPI->IPITrib->vIPI : null,
+                'ipi_final'         => !empty(Invoiceitem::ipiFinal($invoiceitem->imposto->IPI->IPITrib->vIPI, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id)),
+                'ipi_aliquot'       => Invoiceitem::pIpiEmpty($invoiceitem->imposto->IPI->IPITrib->pIPI),
+                'ipi_aliquot_final' => Invoiceitem::pIpiEmpty(Invoiceitem::ipiAliquotFinal($invoiceitem->imposto->IPI->IPITrib->pIPI, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id)),
                 'margin'            => $providerbusiness->margin,
                 'shipping'          => $providerbusiness->shipping,
                 'discount'          => $providerbusiness->discount,
