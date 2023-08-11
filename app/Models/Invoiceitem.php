@@ -478,8 +478,8 @@ class Invoiceitem extends Model
                 $vIPI = $invoiceitem->imposto->IPI->IPITrib->vIPI;
                 $pIPI = $invoiceitem->imposto->IPI->IPITrib->pIPI;
             else:
-                $vIPI = false;
-                $pIPI = false;
+                $vIPI = 0.000;
+                $pIPI = 0.000;
             endif;
 
             // Cadastra.
@@ -504,7 +504,7 @@ class Invoiceitem extends Model
                 'value_final'       => Invoiceitem::valueFinal((float)$invoiceitem->prod->vUnCom, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id),
                 'value_total'       => $invoiceitem->prod->vProd,
                 'value_total_final' => Invoiceitem::valueTotalFinal((float)$invoiceitem->prod->vProd, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id),
-                'ipi'               => !empty($invoiceitem->imposto->IPI->IPITrib->vIPI) ? $invoiceitem->imposto->IPI->IPITrib->vIPI : null,
+                'ipi'               => !empty($invoiceitem->imposto->IPI->IPITrib->vIPI) ? $invoiceitem->imposto->IPI->IPITrib->vIPI : 0.000,
                 'ipi_final'         => !empty(Invoiceitem::ipiFinal($invoiceitem->imposto->IPI->IPITrib->vIPI, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id)),
                 'ipi_aliquot'       => Invoiceitem::pIpiEmpty($invoiceitem->imposto->IPI->IPITrib->pIPI),
                 'ipi_aliquot_final' => Invoiceitem::pIpiEmpty(Invoiceitem::ipiAliquotFinal($invoiceitem->imposto->IPI->IPITrib->pIPI, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id)),
