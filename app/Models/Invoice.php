@@ -384,7 +384,7 @@ class Invoice extends Model
         Invoicecsv::add($data);
 
         // Cadastra itens da NFe.
-        Invoiceitem::add($data);
+        //Invoiceitem::add($data);
 
         return true;
     }

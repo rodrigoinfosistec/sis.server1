@@ -434,6 +434,27 @@ class Invoiceitem extends Model
     }
 
     /**
+     * Retorna matriz com os dados ipi
+     * @var array $invoiceitem
+     * @var int $invoice
+     * 
+     * @return array $ipi
+     */
+    public static function ipi(int $invoice, array $invoiceitem) : array {
+        // Inicializa array $ipi
+        $ipi = [
+            'ipi'               => 0.000,
+            'ipi_final'         => 0.000,
+            'ipi_aliquot'       => 0.000,
+            'ipi_aliquot_final' => 0.000,
+        ];
+
+        
+
+        return $ipi;
+    }
+    
+    /**
      * Valida cadastro.
      * @var array $data
      * 
@@ -473,6 +494,8 @@ class Invoiceitem extends Model
             // Busca dados do último cadastro do item, caso exista.
             $old_item = Invoiceitem::oldItem((int)$invoice->id, (string)$invoiceitem->prod->cProd);
 
+            $ipi = Invoiceitem::ipi($invoiceitem);
+
             // Cadastra.
             Invoiceitem::create([
                 'invoice_id'        => $invoice->id,
@@ -495,10 +518,10 @@ class Invoiceitem extends Model
                 'value_final'       => Invoiceitem::valueFinal((float)$invoiceitem->prod->vUnCom, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id),
                 'value_total'       => $invoiceitem->prod->vProd,
                 'value_total_final' => Invoiceitem::valueTotalFinal((float)$invoiceitem->prod->vProd, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id),
-                'ipi'               => !empty($invoiceitem->imposto->IPI->IPITrib->vIPI) ? $invoiceitem->imposto->IPI->IPITrib->vIPI : null,
-                'ipi_final'         => !empty(Invoiceitem::ipiFinal($invoiceitem->imposto->IPI->IPITrib->vIPI, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id)),
-                'ipi_aliquot'       => Invoiceitem::pIpiEmpty($invoiceitem->imposto->IPI->IPITrib->pIPI),
-                'ipi_aliquot_final' => Invoiceitem::pIpiEmpty(Invoiceitem::ipiAliquotFinal($invoiceitem->imposto->IPI->IPITrib->pIPI, Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first()->id)),
+                'ipi'               => $ipi['ipi'],
+                'ipi_final'         => $ipi['ipi_final'],
+                'ipi_aliquot'       => $ipi['ipi_aliquot'],
+                'ipi_aliquot_final' => $ipi['ipi_aliquot_final'],
                 'margin'            => $providerbusiness->margin,
                 'shipping'          => $providerbusiness->shipping,
                 'discount'          => $providerbusiness->discount,
