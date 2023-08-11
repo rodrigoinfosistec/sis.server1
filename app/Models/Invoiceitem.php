@@ -494,6 +494,7 @@ class Invoiceitem extends Model
             // Busca dados do último cadastro do item, caso exista.
             $old_item = Invoiceitem::oldItem((int)$invoice->id, (string)$invoiceitem->prod->cProd);
 
+            // Define o ipi.
             $ipi = Invoiceitem::ipi($invoiceitem);
 
             // Cadastra.
