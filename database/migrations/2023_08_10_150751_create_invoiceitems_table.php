@@ -40,16 +40,16 @@ return new class extends Migration
             $table->float('value_total', 12, 3);
             $table->float('value_total_final', 12, 3);
 
-            $table->float('ipi', 12, 3);
-            $table->float('ipi_final', 12, 3);
-            $table->float('ipi_aliquot', 12, 3);
-            $table->float('ipi_aliquot_final', 12, 3);
+            $table->float('ipi', 12, 3)->default(0.000);
+            $table->float('ipi_final', 12, 3)->default(0.000);
+            $table->float('ipi_aliquot', 12, 3)->default(0.000);
+            $table->float('ipi_aliquot_final', 12, 3)->default(0.000);
 
             $table->float('margin', 12, 2);
             $table->float('shipping', 12, 2);
 
-            $table->float('discount', 12, 2);
-            $table->float('addition', 12, 2);
+            $table->float('discount', 12, 2)->default(0.00);
+            $table->float('addition', 12, 2)->default(0.00);
 
             $table->boolean('updated')->default(false);
 
