@@ -102,7 +102,7 @@ class Invoiceitem extends Model
         // Inicializa variável.
         $updated = false;
 
-        // Verifica não existe nehum item sem atualização do updated.
+        // Verifica não existe nenhum item sem atualização do updated.
         if(Invoiceitem::where(['invoice_id' => $invoice_id, 'updated' => false])->doesntExist()):
             $updated = true;
         endif;
