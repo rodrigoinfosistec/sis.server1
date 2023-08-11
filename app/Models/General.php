@@ -60,8 +60,19 @@ class General extends Model
 
         // Converte a string em float com 3 casas decimais.
         if(!empty($float_decode)) $float_encode = number_format(str_replace(",", ".", str_replace(".", "", $float_decode)), 3, '.', '');
-        
+
         return (float)$float_encode;
     }
 
+    /**
+     * Trata id que pode assumir valor null
+     * @var <string, int> $id
+     * 
+     * @return <null, int> $id
+     */
+    public static function idNullable($id){
+        if(empty($id)) $id = null;
+
+        return $id;
+    }
 }
