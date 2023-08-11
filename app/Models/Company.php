@@ -318,7 +318,7 @@ class Company extends Model
 
         // Verifica se alguma Nota Fiscal já utiliza a empresa.
         if(Invoice::where(['company_id' => $data['validatedData']['company_id']])->exists()):
-            $message = $data['config']['title'] . ' ' . Company::find($data['validatedData']['company_id'])->name . ' utilizada em nota fiscal ' . Invoice::where(['company_id' => $data['validatedData']['company_id']])->fisrt()->key . '.';
+            $message = $data['config']['title'] . ' ' . Company::find($data['validatedData']['company_id'])->name . ' utilizada em nota fiscal ' . Invoice::where(['company_id' => $data['validatedData']['company_id']])->first()->number . '.';
         endif;
 
         // Desvio.

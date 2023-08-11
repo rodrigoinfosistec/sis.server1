@@ -282,7 +282,7 @@ class Provider extends Model
         // Nota Fiscal.
         $invoice = Invoice::where(['provider_id' => $data['validatedData']['provider_id']])->get();
         if($invoice->count() > 0):
-            $message = $data['config']['title'] . ' ' . Provider::find($data['validatedData']['provider_id'])->name . ' utilizado em nota fiscal ' . $invoice[0]->key . '.';
+            $message = $data['config']['title'] . ' ' . Provider::find($data['validatedData']['provider_id'])->name . ' utilizada em nota fiscal ' . Invoice::where(['provider_id' => $data['validatedData']['provider_id']])->first()->number . '.';
         endif;
 
         // Desvio.
