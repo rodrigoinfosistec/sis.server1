@@ -2,14 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\General;
 use App\Models\Report;
 
-use App\Models\Page;
-use App\Models\User;
 use App\Models\Provider;
-use App\Models\Providerbusiness;
-use App\Models\Providerbusinessdefault;
 
 use Livewire\WithPagination;
 use Livewire\Component;

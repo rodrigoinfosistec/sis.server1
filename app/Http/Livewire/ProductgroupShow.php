@@ -4,8 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Report;
 
-use App\Models\Page;
-use App\Models\User;
 use App\Models\Productgroup;
 
 use Livewire\WithPagination;
