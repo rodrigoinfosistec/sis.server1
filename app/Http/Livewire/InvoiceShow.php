@@ -311,6 +311,70 @@ class InvoiceShow extends Component
         }
 
     /**
+     * editBusiness()
+     *  modernizeBusiness()
+     */
+    public function editBusiness(int $provider_id)
+    {
+        // Fornecedor.
+        $provider = Provider::find($provider_id);
+
+        // Negociação com o Fornecedor.
+        $business = Providerbusiness::where('provider_id', $provider_id)->first();
+
+        // Inicializa propriedades dinâmicas.
+        $this->provider_id                     = $provider->id;
+        $this->provider_cnpj                   = $provider->cnpj;
+        $this->provider_name                   = $provider->name;
+        $this->business_id                     = $business->id;
+        $this->business_multiplier_type        = $business->multiplier_type;
+        $this->business_multiplier             = Providerbusiness::multiplierType($business->multiplier_type, General::decodeFloat2($business->multiplier_quantity), General::decodeFloat2($business->multiplier_value));
+        $this->business_multiplier_quantity    = General::decodeFloat2($business->multiplier_quantity);
+        $this->business_multiplier_value       = General::decodeFloat2($business->multiplier_value);
+        $this->business_multiplier_ipi         = General::decodeFloat2($business->multiplier_ipi);
+        $this->business_multiplier_ipi_aliquot = General::decodeFloat2($business->multiplier_ipi_aliquot);
+        $this->business_margin                 = General::decodeFloat2($business->margin);
+        $this->business_shipping               = General::decodeFloat2($business->shipping);
+        $this->business_discount               = General::decodeFloat2($business->discount);
+        $this->business_addition               = General::decodeFloat2($business->addition);
+    }
+        public function modernizeBusiness()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'business_multiplier_type'        => ['required'],
+                'business_multiplier'             => ['required'],
+                'business_multiplier_ipi'         => ['required'],
+                'business_multiplier_ipi_aliquot' => ['required'],
+                'business_margin'                 => ['required'],
+                'business_shipping'               => ['required'],
+                'business_discount'               => ['required'],
+                'business_addition'               => ['required'],
+            ]);
+
+            // Estende $validatedData
+            $validatedData['provider_id']         = $this->provider_id;
+            $validatedData['providerbusiness_id'] = $this->business_id;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Providerbusiness::validateEdit($data);
+
+            // Atualiza.
+            if ($valid) Providerbusiness::edit($data);
+
+            // Executa dependências.
+            if ($valid) Providerbusiness::dependencyEdit($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
      * addEfisco()
      *  registerEfisco()
      */
@@ -375,70 +439,6 @@ class InvoiceShow extends Component
         $this->issue         = date_format(date_create($invoice->issue), 'd/m/Y H:i:s');
         $this->created       = $invoice->created_at->format('d/m/Y H:i:s');
     }
-
-    /**
-     * editBusiness()
-     *  modernizeBusiness()
-     */
-    public function editBusiness(int $provider_id)
-    {
-        // Fornecedor.
-        $provider = Provider::find($provider_id);
-
-        // Negociação com o Fornecedor.
-        $business = Providerbusiness::where('provider_id', $provider_id)->first();
-
-        // Inicializa propriedades dinâmicas.
-        $this->provider_id                     = $provider->id;
-        $this->provider_cnpj                   = $provider->cnpj;
-        $this->provider_name                   = $provider->name;
-        $this->business_id                     = $business->id;
-        $this->business_multiplier_type        = $business->multiplier_type;
-        $this->business_multiplier             = Providerbusiness::multiplierType($business->multiplier_type, General::decodeFloat2($business->multiplier_quantity), General::decodeFloat2($business->multiplier_value));
-        $this->business_multiplier_quantity    = General::decodeFloat2($business->multiplier_quantity);
-        $this->business_multiplier_value       = General::decodeFloat2($business->multiplier_value);
-        $this->business_multiplier_ipi         = General::decodeFloat2($business->multiplier_ipi);
-        $this->business_multiplier_ipi_aliquot = General::decodeFloat2($business->multiplier_ipi_aliquot);
-        $this->business_margin                 = General::decodeFloat2($business->margin);
-        $this->business_shipping               = General::decodeFloat2($business->shipping);
-        $this->business_discount               = General::decodeFloat2($business->discount);
-        $this->business_addition               = General::decodeFloat2($business->addition);
-    }
-        public function modernizeBusiness()
-        {
-            // Valida campos.
-            $validatedData = $this->validate([
-                'business_multiplier_type'        => ['required'],
-                'business_multiplier'             => ['required'],
-                'business_multiplier_ipi'         => ['required'],
-                'business_multiplier_ipi_aliquot' => ['required'],
-                'business_margin'                 => ['required'],
-                'business_shipping'               => ['required'],
-                'business_discount'               => ['required'],
-                'business_addition'               => ['required'],
-            ]);
-
-            // Estende $validatedData
-            $validatedData['provider_id']         = $this->provider_id;
-            $validatedData['providerbusiness_id'] = $this->business_id;
-
-            // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
-
-            // Valida atualização.
-            $valid = Providerbusiness::validateEdit($data);
-
-            // Atualiza.
-            if ($valid) Providerbusiness::edit($data);
-
-            // Executa dependências.
-            if ($valid) Providerbusiness::dependencyEdit($data);
-
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
-        }
 
     /**
      * editItem()
