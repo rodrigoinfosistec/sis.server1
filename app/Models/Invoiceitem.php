@@ -418,8 +418,8 @@ class Invoiceitem extends Model
                 'quantity_final'    => (($invoiceitem->quantity / $providerbusiness->multiplier_quantity) * 100),
                 'value_final'       => (($invoiceitem->value / $providerbusiness->multiplier_value) * 100),
                 'value_total_final' => (($invoiceitem->value_total / $providerbusiness->multiplier_value) * 100),
-                'ipi_final'         => (($invoiceitem->ipi / $providerbusiness->multiplier_ipi) * 100),
-                'ipi_aliquot_final' => (($invoiceitem->ipi_aliquot / $providerbusiness->multiplier_ipi_aliquot) * 100),
+                'ipi_final'         => ($providerbusiness->multiplier_ipi > 0) ? (($invoiceitem->ipi / $providerbusiness->multiplier_ipi) * 100) : 0.00,
+                'ipi_aliquot_final' => ($providerbusiness->multiplier_ipi_aliquot > 0) ? (($invoiceitem->ipi_aliquot / $providerbusiness->multiplier_ipi_aliquot) * 100) : 0.00,
 
                 'margin'            => $providerbusiness->margin,
                 'shipping'          => $providerbusiness->shipping,
