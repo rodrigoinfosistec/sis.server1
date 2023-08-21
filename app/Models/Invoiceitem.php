@@ -169,25 +169,33 @@ class Invoiceitem extends Model
          * 
          * @return bool $generate
          */
-        public static function generateIndex(int $invoice_id){
+        public static function generateIndex(array $data){
             // Inicializa variável.
             $generate = null;
 
-            // Conta Efisco.
-            $qtd_efisco_invoice = Invoiceefisco::where('invoice_id', $invoice_id)->get()->count();
-            $qtd_efisco_select  = 1;
-
             // Conta CSV.
-            $qtd_csv_invoice = Invoicecsv::where('invoice_id', $invoice_id)->get()->count();
-            $qtd_csv_select  = 1;
+            $qtd_csv_invoice = Invoicecsv::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count();
+            $key_csv = [];
+            foreach(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $item):
+                if (!empty($item->invoicecsv_id)) $key_csv[$item->invoicecsv_id] = '';
+            endforeach;
+            $qtd_csv_select = count($key_csv);
+
+            // Conta Efisco.
+            $qtd_efisco_invoice = Invoiceefisco::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count();
+            $key_efisco = [];
+            foreach(Invoiceitem::where('invoice_id', $invoice_id)->get() as $item):
+                if (!empty($item->productgroup_id)) $key_efisco[$item->productgroup_id] = '';
+            endforeach;
+            $qtd_efisco_select  = count($key_efisco);
 
             // Verifica se todos os itens possuem Item CSV e Grupo de Produto atribuído.
-            if($qtd_efisco_select == $qtd_efisco_invoice && $qtd_csv_select == $qtd_csv_invoice):
+            if($qtd_csv_invoice == $qtd_csv_select && $qtd_efisco_invoice == $qtd_efisco_select):
                 // Inicializa o array.
                 $efisco_value = [];
 
                 // Percorre todos eFiscos da Nota Fiscal.
-                foreach(Invoiceefisco::where('invoice_id', $invoice_id)->get() as $key_efisco => $efisco):
+                foreach(Invoiceefisco::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $key_efisco => $efisco):
                     // Atrinui valor inicial zero (0.00) às variáveis.
                     $efisco_value_total[$efisco->id]       = 0.00;
                     $efisco_value_total_final[$efisco->id] = 0.00;
@@ -195,7 +203,7 @@ class Invoiceitem extends Model
                     $efisco_ipi_final[$efisco->id]         = 0.00;
 
                     //Percorre todos os itens da Nota Fiscal.
-                    foreach(Invoiceitem::where('invoice_id', $invoice_id)->get() as $key_item => $item):
+                    foreach(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $key_item => $item):
                         // Verifica se Grupo de Produto do eFisco é o mesmo do item.
                         if($efisco->productgroup_id == $item->productgroup_id):
                             // Incrementa os valores.
@@ -225,7 +233,7 @@ class Invoiceitem extends Model
                     ]);
 
                     //Percorre todos os itens da Nota Fiscal com este efisco.
-                    Invoiceitem::where(['invoice_id' => $invoice_id, 'productgroup_id' => $efisco->productgroup_id])->update([
+                    Invoiceitem::where(['invoice_id' => $data['validatedData']['invoice_id'], 'productgroup_id' => $efisco->productgroup_id])->update([
                         'index' => $index[$efisco->id],
                     ]);
                 endforeach;
@@ -446,7 +454,7 @@ class Invoiceitem extends Model
      */
     public static function dependencyEdit(array $data) : bool {
         // Atualiza index.
-        //Invoiceitem::generateIndex($data);
+        Invoiceitem::generateIndex($data);
 
         return true;
     }
