@@ -407,49 +407,6 @@ class Invoiceitem extends Model
     }
 
     /**
-     * Atualiza.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function edit(array $data) : bool {
-        // Atualiza item.
-        Invoiceitem::find($data['validatedData']['invoiceitem_id'])->update([
-            'equipment'         => $data['validatedData']['equipment'],
-            'productgroup_id'   => General::idNullable($data['validatedData']['productgroup_id']),
-            'invoicecsv_id'     => General::idNullable($data['validatedData']['invoicecsv_id']),
-            'quantity_final'    => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['quantity_final'])),
-            'value_final'       => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['value_final'])),
-            'value_total_final' => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['quantity_final'])) * Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['value_final'])),
-            'ipi_final'         => General::encodeFloat3($data['validatedData']['ipi_final']),
-            'ipi_aliquot_final' => General::encodeFloat3($data['validatedData']['ipi_aliquot_final']),
-            'margin'            => Invoiceitem::valueNotZero(General::encodeFloat2($data['validatedData']['margin'])),
-            'shipping'          => General::encodeFloat2($data['validatedData']['shipping']),
-            'updated'           => Invoiceitem::itemUpdated($data['validatedData']['productgroup_id'], $data['validatedData']['invoicecsv_id']),
-        ]);
-
-        // Mensagem.
-        $message = 'Itens da ' . $data['config']['title'] . ' ' . Invoice::find($data['validatedData']['invoice_id'])->number . ' atualizados com sucesso.';
-        session()->flash('message', $message);
-        session()->flash('color', 'success');
-
-        return true;
-    }
-
-    /**
-     * Executa dependências de atualização.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function dependencyEdit(array $data) : bool {
-        // Atualiza index.
-        Invoiceitem::generateIndex($data['validatedData']['invoice_id']);
-
-        return true;
-    }
-
-    /**
      * Atualiza pós Businnes.
      * @var array $data
      * 
@@ -488,6 +445,49 @@ class Invoiceitem extends Model
             'ipi_final'     => null,
             'index'         => null,
         ]);
+
+        return true;
+    }
+
+    /**
+     * Atualiza.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function edit(array $data) : bool {
+        // Atualiza item.
+        Invoiceitem::find($data['validatedData']['invoiceitem_id'])->update([
+            'equipment'         => $data['validatedData']['equipment'],
+            'productgroup_id'   => General::idNullable($data['validatedData']['productgroup_id']),
+            'invoicecsv_id'     => General::idNullable($data['validatedData']['invoicecsv_id']),
+            'quantity_final'    => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['quantity_final'])),
+            'value_final'       => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['value_final'])),
+            'value_total_final' => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['quantity_final'])) * Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['value_final'])),
+            'ipi_final'         => General::encodeFloat3($data['validatedData']['ipi_final']),
+            'ipi_aliquot_final' => General::encodeFloat3($data['validatedData']['ipi_aliquot_final']),
+            'margin'            => Invoiceitem::valueNotZero(General::encodeFloat2($data['validatedData']['margin'])),
+            'shipping'          => General::encodeFloat2($data['validatedData']['shipping']),
+            'updated'           => Invoiceitem::itemUpdated($data['validatedData']['productgroup_id'], $data['validatedData']['invoicecsv_id']),
+        ]);
+
+        // Mensagem.
+        $message = 'Itens da ' . $data['config']['title'] . ' ' . Invoice::find($data['validatedData']['invoice_id'])->number . ' atualizados com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyEdit(array $data) : bool {
+        // Atualiza index.
+        Invoiceitem::generateIndex($data['validatedData']['invoice_id']);
 
         return true;
     }

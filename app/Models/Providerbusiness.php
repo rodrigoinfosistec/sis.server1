@@ -64,11 +64,11 @@ class Providerbusiness extends Model
     public static function multiplier(string $type, string $multiplier) : array {
         // Define o multiplicador a ser utilizado.
         if($type == 'quantity'):
-            $quantity = $multiplier;
-            $value    = '100,00';
+            (string)$quantity = $multiplier;
+            (string)$value    = '100,00';
         else:
-            $value    = $multiplier;
-            $quantity = '100,00';
+            (string)$value    = $multiplier;
+            (string)$quantity = '100,00';
         endif;
 
         // Monta array.
@@ -167,6 +167,11 @@ class Providerbusiness extends Model
         // Verifica se multiplicador é zero(0,00%).
         if(General::encodeFloat2($data['validatedData']['business_multiplier']) < 1):
             $message = "Multiplicador da Nota Fiscal não pode ser menor que 1,00% .";
+        endif;
+
+        // Verifica se margem é zero(0,00%).
+        if(General::encodeFloat2($data['validatedData']['business_margin']) < 5):
+            $message = "Margem de Lucro não pode ser menor que 5,00% .";
         endif;
 
         // Desvio.
