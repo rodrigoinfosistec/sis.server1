@@ -157,11 +157,8 @@
     @endif
 
     @if(App\Models\Invoiceefisco::where('invoice_id', $item->id)->exists())
-        @if(App\Models\Invoiceitem::updatedAll($item->id))
-            <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-amount :id="$item->id"/>
-        @else
-            <x-layout.card.card-body-content-table-body-line-cell-action-edit-item :id="$item->id"/>
-        @endif
+        {{--<x-layout.card.card-body-content-table-body-line-cell-action-edit-item-amount :id="$item->id"/>--}}
+        <x-layout.card.card-body-content-table-body-line-cell-action-edit-item :id="$item->id"/>
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-muted/>
     @endif

@@ -49,8 +49,6 @@ return new class extends Migration
             $table->float('discount', 12, 2)->default(0.00);
             $table->float('addition', 12, 2)->default(0.00);
 
-            $table->boolean('updated')->default(false);
-
             $table->float('index', 12, 2)->nullable()->default(null);
 
             $table->float('price', 12, 2)->nullable()->default(null);

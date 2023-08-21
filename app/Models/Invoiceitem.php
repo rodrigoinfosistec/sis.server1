@@ -52,8 +52,6 @@ class Invoiceitem extends Model
         'discount',
         'addition',
 
-        'updated',
-
         'index',
 
         'price',
@@ -88,24 +86,6 @@ class Invoiceitem extends Model
             $index = $x[0] . '.' . $x[1][0] . '0';
 
             return (float)$index;
-        }
-
-        /**
-         * Teste se todos os itens da NFe possuem o campo updated true.
-         * @var int $invoice_id
-         * 
-         * @return bool $updated
-         */
-        public static function updatedAll(int $invoice_id) : bool {
-            // Inicializa variável.
-            $updated = false;
-
-            // Verifica não existe nenhum item sem atualização do updated.
-            if(Invoiceitem::where(['invoice_id' => $invoice_id, 'updated' => false])->doesntExist()):
-                $updated = true;
-            endif;
-
-            return $updated;
         }
 
         /**
@@ -182,22 +162,6 @@ class Invoiceitem extends Model
 
         return $array_old_item;
     }
-
-        /**
-         * Trata o campo updated.
-         * @var <null, id> $productgroup_id
-         * @var <null, id> $invoicecsv_id
-         * 
-         * @return bool $updated
-         */
-        public static function itemUpdated($productgroup_id, $invoicecsv_id) : bool {
-            // Inicializa a variável.
-            $updated = false;
-
-            if (!empty($productgroup_id) && !empty($invoicecsv_id)) $updated = true;
-
-            return (bool)$updated;
-        }
 
         /**
          * Gerar o index dos eFiscos.
@@ -367,28 +331,6 @@ class Invoiceitem extends Model
     }
 
     /**
-     * Valida atualização.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function validateEdit(array $data) : bool {
-        $message = null;
-
-        // ...
-
-        // Desvio.
-        if(!empty($message)):
-            session()->flash('message', $message );
-            session()->flash('color', 'danger');
-
-            return false;
-        endif;
-
-        return true;
-    }
-
-    /**
      * Atualiza pós Businnes.
      * @var array $data
      * 
@@ -413,7 +355,6 @@ class Invoiceitem extends Model
                 'discount'          => $providerbusiness->discount,
                 'addition'          => $providerbusiness->addition,
 
-                'updated'           => false,
                 'index'             => null,
                 'price'             => null,
                 'card'              => null,
@@ -429,6 +370,31 @@ class Invoiceitem extends Model
             'ipi_final'     => null,
             'index'         => null,
         ]);
+
+        return true;
+    }
+
+    /**
+     * Valida atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateEdit(array $data) : bool {
+        $message = null;
+
+        // Verifica se as quantidades de itens da Nota Fiscal e itens CSV estão iguais.
+        if(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count() != Invoicecsv::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count()):
+            $message = 'Quantidade diferente de itens da Nota Fiscal(' . Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count() . ') e itens CSV(' . Invoicecsv::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count() . ').';
+        endif;
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
 
         return true;
     }
@@ -454,7 +420,6 @@ class Invoiceitem extends Model
             'ipi_aliquot_final' => General::encodeFloat3($data['validatedData']['ipi_aliquot_final']),
             'margin'            => (General::encodeFloat2($data['validatedData']['margin']) > $item->margin) ? General::encodeFloat2($data['validatedData']['margin']) : $item->margin,
             'shipping'          => General::encodeFloat2($data['validatedData']['shipping']),
-            'updated'           => Invoiceitem::itemUpdated($data['validatedData']['productgroup_id'], $data['validatedData']['invoicecsv_id']),
         ]);
 
         // Mensagem.
