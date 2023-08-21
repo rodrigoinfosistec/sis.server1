@@ -184,12 +184,12 @@ class Invoiceitem extends Model
             // Conta Efisco.
             $qtd_efisco_invoice = Invoiceefisco::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count();
             $key_efisco = [];
-            foreach(Invoiceitem::where('invoice_id', $invoice_id)->get() as $item):
+            foreach(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $item):
                 if (!empty($item->productgroup_id)) $key_efisco[$item->productgroup_id] = '';
             endforeach;
-            $qtd_efisco_select  = count($key_efisco);
+            $qtd_efisco_select = count($key_efisco);
 
-            // Verifica se todos os itens possuem Item CSV e Grupo de Produto atribuído.
+            // Verifica se todos os itens possuem item CSV e Grupo de Produto atribuído.
             if($qtd_csv_invoice == $qtd_csv_select && $qtd_efisco_invoice == $qtd_efisco_select):
                 // Inicializa o array.
                 $efisco_value = [];
