@@ -446,7 +446,7 @@ class Invoiceitem extends Model
      */
     public static function dependencyEdit(array $data) : bool {
         // Atualiza index.
-        Invoiceitem::generateIndex($data);
+        //Invoiceitem::generateIndex($data);
 
         return true;
     }
