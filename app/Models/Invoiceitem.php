@@ -413,28 +413,26 @@ class Invoiceitem extends Model
      * @return bool true
      */
     public static function editBusiness(array $data) : bool {
-        // Percorre as Notas Fiscais que possuem o mesmo Fornecedor desta Negociação.
-        foreach(Invoice::where('provider_id', $data['validatedData']['provider_id'])->get() as $key => $invoice):
-            // Percorre os itens da Nota Fiscal.
-            foreach(Invoiceitem::where('invoice_id', $invoice->id)->get() as $key => $invoiceitem):
-                // Atualiza o item da Nota Fiscal.
-                Invoiceitem::find($invoiceitem->id)->update([
-                    'quantity_final'    => Invoiceitem::quantityFinal((float)$invoiceitem->quantity, $data['validatedData']['providerbusiness_id']),
-                    'value_final'       => Invoiceitem::valueFinal((float)$invoiceitem->value, $data['validatedData']['providerbusiness_id']),
-                    'value_total_final' => Invoiceitem::valueTotalFinal((float)$invoiceitem->value_total, $data['validatedData']['providerbusiness_id']),
-                    'ipi_final'         => Invoiceitem::vIpiEmpty(Invoiceitem::ipiFinal($invoiceitem->ipi, $data['validatedData']['providerbusiness_id'])),
-                    'ipi_aliquot_final' => Invoiceitem::pIpiEmpty(Invoiceitem::ipiAliquotFinal($invoiceitem->ipi_aliquot, $data['validatedData']['providerbusiness_id'])),
-                    'margin'            => General::encodeFloat2($data['validatedData']['business_margin']),
-                    'shipping'          => General::encodeFloat2($data['validatedData']['business_shipping']),
-                    'discount'          => General::encodeFloat2($data['validatedData']['business_discount']),
-                    'addition'          => General::encodeFloat2($data['validatedData']['business_addition']),
-                    'updated'           => false,
-                    'index'             => null,
-                    'price'             => null,
-                    'card'              => null,
-                    'retail'            => null,
-                ]);
-            endforeach;
+        
+        // Percorre os itens da Nota Fiscal.
+        foreach(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $key => $invoiceitem):
+            // Atualiza o item da Nota Fiscal.
+            Invoiceitem::find($invoiceitem->id)->update([
+                'quantity_final'    => Invoiceitem::quantityFinal((float)$invoiceitem->quantity, $data['validatedData']['providerbusiness_id']),
+                'value_final'       => Invoiceitem::valueFinal((float)$invoiceitem->value, $data['validatedData']['providerbusiness_id']),
+                'value_total_final' => Invoiceitem::valueTotalFinal((float)$invoiceitem->value_total, $data['validatedData']['providerbusiness_id']),
+                'ipi_final'         => Invoiceitem::vIpiEmpty(Invoiceitem::ipiFinal($invoiceitem->ipi, $data['validatedData']['providerbusiness_id'])),
+                'ipi_aliquot_final' => Invoiceitem::pIpiEmpty(Invoiceitem::ipiAliquotFinal($invoiceitem->ipi_aliquot, $data['validatedData']['providerbusiness_id'])),
+                'margin'            => General::encodeFloat2($data['validatedData']['business_margin']),
+                'shipping'          => General::encodeFloat2($data['validatedData']['business_shipping']),
+                'discount'          => General::encodeFloat2($data['validatedData']['business_discount']),
+                'addition'          => General::encodeFloat2($data['validatedData']['business_addition']),
+                'updated'           => false,
+                'index'             => null,
+                'price'             => null,
+                'card'              => null,
+                'retail'            => null,
+            ]);
         endforeach;
 
         // Reseta eFisco.

@@ -284,11 +284,17 @@ class InvoiceShow extends Component
                 // Inicializa array csv.
                 $CsvArray  = $valid['CsvArray'];
 
+                // Provider.
+                $provider = Provider::where('cnpj', Provider::encodeCnpj((string)$xmlObject->NFe->infNFe->emit->CNPJ))->first();
+
+                // Company.
+                $company = Company::where('cnpj', Company::encodeCnpj((string)$xmlObject->NFe->infNFe->dest->CNPJ))->first();
+
                 // Estende $data['validatedData'].
-                $data['validatedData']['provider_id']   = Provider::where('cnpj', Provider::encodeCnpj((string)$xmlObject->NFe->infNFe->emit->CNPJ))->first()->id;
-                $data['validatedData']['provider_name'] = Provider::where('cnpj', Provider::encodeCnpj((string)$xmlObject->NFe->infNFe->emit->CNPJ))->first()->name;
-                $data['validatedData']['company_id']    = Company::where('cnpj', Company::encodeCnpj((string)$xmlObject->NFe->infNFe->dest->CNPJ))->first()->id;
-                $data['validatedData']['company_name']  = Company::where('cnpj', Company::encodeCnpj((string)$xmlObject->NFe->infNFe->dest->CNPJ))->first()->name;
+                $data['validatedData']['provider_id']   = $provider->id;
+                $data['validatedData']['provider_name'] = $provider->name;
+                $data['validatedData']['company_id']    = $company->id;
+                $data['validatedData']['company_name']  = $company->name;
                 $data['validatedData']['key']           = Invoice::encodeKey((string)$xmlObject->protNFe->infProt->chNFe);
                 $data['validatedData']['number']        = Invoice::encodeNumber((string)$xmlObject->NFe->infNFe->ide->nNF);
                 $data['validatedData']['range']         = Invoice::encodeRange((string)$xmlObject->NFe->infNFe->ide->serie);
@@ -314,13 +320,13 @@ class InvoiceShow extends Component
      * editBusiness()
      *  modernizeBusiness()
      */
-    public function editBusiness(int $provider_id, int $invoice_id)
+    public function editBusiness(int $invoice_id)
     {
         // Fornecedor.
-        $provider = Provider::find($provider_id);
+        $provider = Provider::find(Invoice::find($invoice_id)->provider_id);
 
         // Negociação com o Fornecedor.
-        $business = Providerbusiness::where('provider_id', $provider_id)->first();
+        $business = Providerbusiness::where('provider_id', $provider->id)->first();
 
         // Inicializa propriedades dinâmicas.
         $this->invoice_id                      = $invoice_id;
@@ -359,7 +365,7 @@ class InvoiceShow extends Component
             // Estende $validatedData
             $validatedData['provider_id']         = $this->provider_id;
             $validatedData['providerbusiness_id'] = $this->business_id;
-            $validatedData['invoice_id']          = $this->invice_id;
+            $validatedData['invoice_id']          = $this->invoice_id;
 
             // Define $data.
             $data['config']        = $this->config;

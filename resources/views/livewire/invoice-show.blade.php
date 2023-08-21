@@ -148,7 +148,7 @@
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="150">
-    <x-layout.card.card-body-content-table-body-line-cell-action-edit-business :id="$item->provider_id"/>
+    <x-layout.card.card-body-content-table-body-line-cell-action-edit-business :id="$item->id"/>
 
     @if(App\Models\Invoiceefisco::where('invoice_id', $item->id)->exists())
         <x-layout.card.card-body-content-table-body-line-cell-action-add-efisco-on :id="$item->id"/>
