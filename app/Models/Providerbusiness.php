@@ -199,8 +199,8 @@ class Providerbusiness extends Model
         Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->update([
             'provider_id'            => $data['validatedData']['provider_id'],
             'multiplier_type'        => $data['validatedData']['business_multiplier_type'],
-            'multiplier_quantity'    => ($data['validatedData']['business_multiplier_type'] == 'quantity') ? General::encodeFloat2($multiplier['quantity']) : 100.00,
-            'multiplier_value'       => ($data['validatedData']['business_multiplier_type'] == 'value') ? General::encodeFloat2($multiplier['value']) : 100.00,
+            'multiplier_quantity'    => ($data['validatedData']['business_multiplier_type'] == 'quantity') ? General::encodeFloat2($data['validatedData']['business_multiplier']) : 100.00,
+            'multiplier_value'       => ($data['validatedData']['business_multiplier_type'] == 'value') ? General::encodeFloat2($data['validatedData']['business_multiplier']) : 100.00,
             'multiplier_ipi'         => General::encodeFloat2($data['validatedData']['business_multiplier_ipi']),
             'multiplier_ipi_aliquot' => General::encodeFloat2($data['validatedData']['business_multiplier_ipi_aliquot']),
             'margin'                 => General::encodeFloat2($data['validatedData']['business_margin']),
