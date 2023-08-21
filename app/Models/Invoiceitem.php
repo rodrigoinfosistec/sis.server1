@@ -90,23 +90,23 @@ class Invoiceitem extends Model
             return (float)$index;
         }
 
-    /**
-     * Teste se todos os itens da NFe possuem o campo updated true.
-     * @var int $invoice_id
-     * 
-     * @return bool $updated
-     */
-    public static function updatedAll(int $invoice_id) : bool {
-        // Inicializa variável.
-        $updated = false;
+        /**
+         * Teste se todos os itens da NFe possuem o campo updated true.
+         * @var int $invoice_id
+         * 
+         * @return bool $updated
+         */
+        public static function updatedAll(int $invoice_id) : bool {
+            // Inicializa variável.
+            $updated = false;
 
-        // Verifica não existe nenhum item sem atualização do updated.
-        if(Invoiceitem::where(['invoice_id' => $invoice_id, 'updated' => false])->doesntExist()):
-            $updated = true;
-        endif;
+            // Verifica não existe nenhum item sem atualização do updated.
+            if(Invoiceitem::where(['invoice_id' => $invoice_id, 'updated' => false])->doesntExist()):
+                $updated = true;
+            endif;
 
-        return $updated;
-    }
+            return $updated;
+        }
 
         /**
          * Converte quantidade e valor.

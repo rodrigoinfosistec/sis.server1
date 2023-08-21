@@ -72,7 +72,7 @@ class Invoice extends Model
         endif;
 
         // Verifica se todos os itens foram atualizados.
-        if(!Invoiceitem::updatedAll($invoice_id)):
+        if(Invoiceitem::where(['invoice_id' => $invoice_id, 'updated' => false])->exists()):
             // Incrementa a quantidade de alertas.
             $alerts['amount']++;
 
@@ -82,7 +82,7 @@ class Invoice extends Model
 
         // Verifica se existe eFisco Vinculado com a Nota, porém não vinculado a nenhum item.
         // Verifica se todos os itens da Nota Fiscal estão atualizados.
-        if(Invoiceitem::updatedAll($invoice_id)):
+        if(Invoiceitem::where(['invoice_id' => $invoice_id, 'updated' => false])->exists()):
             // Verifica se existe eFisco cadastrado na Nota Fiscal.
             if(Invoiceefisco::where('invoice_id', $invoice_id)->exists()):
                 // Inicializa array.
