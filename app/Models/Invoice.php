@@ -59,7 +59,7 @@ class Invoice extends Model
             $alerts['amount']++;
 
             // Incrementa a mensagem de alertas.
-            $alerts['message'][] = "Quantidade diferentes de itens da Nota Fiscal e itens CSV.";
+            $alerts['message'][] = 'Quantidade diferente de itens da Nota Fiscal(' . Invoiceitem::where('invoice_id', $invoice_id)->get()->count() . ') e itens CSV(' . Invoicecsv::where('invoice_id', $invoice_id)->get()->count() . ').';
         endif;
 
         // Verifica se existem eFiscos vinculados à nota.
@@ -68,16 +68,7 @@ class Invoice extends Model
             $alerts['amount']++;
 
             // Incrementa a mensagem de alertas.
-            $alerts['message'][] = "Nenhum eFisco vinculado com a Nota Fiscal.";
-        endif;
-
-        // Verifica se todos os itens da Nota Fiscal estão atualizados (updated = true/1).
-        if(Invoiceitem::where(['invoice_id' => $invoice_id, 'updated' => false])->exists()):
-            // Incrementa a quantidade de alertas.
-            $alerts['amount']++;
-
-            // Incrementa a mensagem de alertas.
-            $alerts['message'][] = "Existem itens na Nota Fiscal sem Grupo de Produto ou sem CSV vinculados.";
+            $alerts['message'][] = 'Nenhum eFisco cadastrado na Nota Fiscal.';
         endif;
 
         // Verifica se existe algum item CSV Vinculado com a Nota, porém não vinculado a nenhum item.
@@ -121,18 +112,6 @@ class Invoice extends Model
                 $alerts['message'][] = 'Existe eFisco(s) vinculado(s) à Nota Fiscal, que não está(ão) vinculado(s) a nenhum item.';
             endif;
         endif;
-
-        // Verifica se todos os eFiscos vinculados a itens estão cadastrados na Nota Fiscal.
-        foreach(Invoiceitem::where('invoice_id', $invoice_id)->get() as $key => $item):
-            // verifica em cada item se o Grupo de Produto vinculado a ele está também vinculado à Nota Fiscal.
-            if(Invoiceefisco::where(['invoice_id' => $invoice_id, 'productgroup_id' => $item->productgroup_id])->doesntExist()):
-                // Incrementa a quantidade de alertas.
-                $alerts['amount']++;
-
-                // Incrementa a mensagem de alertas.
-                $alerts['message'][] = 'Existe Item vinculado a Grupo de Produto, que não está cadastrado em eFiscos da Nota Fiscal.';
-            endif;
-        endforeach;
 
         return $alerts;
     }
