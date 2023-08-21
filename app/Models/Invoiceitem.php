@@ -40,8 +40,6 @@ class Invoiceitem extends Model
         'quantity_final',
         'value',
         'value_final',
-        'value_total',
-        'value_total_final',
 
         'ipi',
         'ipi_final',
@@ -353,9 +351,6 @@ class Invoiceitem extends Model
                 'value'             => $invoiceitem->prod->vUnCom,
                 'value_final'       => (((float)$invoiceitem->prod->vUnCom / (float)$providerbusiness->multiplier_value) * 100),
 
-                'value_total'       => $invoiceitem->prod->vProd,
-                'value_total_final' => (((float)$invoiceitem->prod->vProd / (float)$providerbusiness->multiplier_value) * 100),
-
                 'ipi'               => !empty($invoiceitem->imposto->IPI->IPITrib->vIPI) ? $invoiceitem->imposto->IPI->IPITrib->vIPI : 0.00,
                 'ipi_final'         => !empty($invoiceitem->imposto->IPI->IPITrib->vIPI) ? (((float)$invoiceitem->imposto->IPI->IPITrib->vIPI / (float)$providerbusiness->multiplier_ipi) * 100) : 0.00,
 
@@ -413,20 +408,23 @@ class Invoiceitem extends Model
      * @return bool true
      */
     public static function editBusiness(array $data) : bool {
+        // Negociação com Fornecedor.
+        $providerbusiness = Providerbusiness::where('provider_id', Invoice::find($data['validatedData']['invoice_id'])->provider_id)->first();
+
         // Percorre os itens da Nota Fiscal.
         foreach(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $key => $invoiceitem):
             // Atualiza o item da Nota Fiscal.
             Invoiceitem::find($invoiceitem->id)->update([
-                'quantity_final'    => Invoiceitem::quantityFinal((float)$invoiceitem->quantity, $data['validatedData']['providerbusiness_id']),
-                'value_final'       => Invoiceitem::valueFinal((float)$invoiceitem->value, $data['validatedData']['providerbusiness_id']),
-                'value_total_final' => Invoiceitem::valueTotalFinal((float)$invoiceitem->value_total, $data['validatedData']['providerbusiness_id']),
-                'ipi_final'         => Invoiceitem::vIpiEmpty(Invoiceitem::ipiFinal($invoiceitem->ipi, $data['validatedData']['providerbusiness_id'])),
-                'ipi_aliquot_final' => Invoiceitem::pIpiEmpty(Invoiceitem::ipiAliquotFinal($invoiceitem->ipi_aliquot, $data['validatedData']['providerbusiness_id'])),
+                'quantity_final'    => (($invoiceitem->quantity / $providerbusiness->multiplier_quantity) * 100),
+                'value_final'       => (($invoiceitem->value / $providerbusiness->multiplier_value) * 100),
+                'value_total_final' => (($invoiceitem->value_total / $providerbusiness->multiplier_value) * 100),
+                'ipi_final'         => (($invoiceitem->ipi / $providerbusiness->multiplier_ipi) * 100),
+                'ipi_aliquot_final' => (($invoiceitem->ipi_aliquot / $providerbusiness->multiplier_ipi_aliquot) * 100),
 
-                'margin'            => General::encodeFloat2($data['validatedData']['business_margin']),
-                'shipping'          => General::encodeFloat2($data['validatedData']['business_shipping']),
-                'discount'          => General::encodeFloat2($data['validatedData']['business_discount']),
-                'addition'          => General::encodeFloat2($data['validatedData']['business_addition']),
+                'margin'            => $providerbusiness->margin,
+                'shipping'          => $providerbusiness->shipping,
+                'discount'          => $providerbusiness->discount,
+                'addition'          => $providerbusiness->addition,
 
                 'updated'           => false,
                 'index'             => null,
@@ -437,7 +435,7 @@ class Invoiceitem extends Model
         endforeach;
 
         // Reseta eFisco.
-        Invoiceefisco::where('invoice_id', $invoice->id)->update([
+        Invoiceefisco::where('invoice_id', $data['validatedData']['invoice_id'])->update([
             'value_invoice' => null,
             'value_final'   => null,
             'ipi_invoice'   => null,
@@ -462,7 +460,6 @@ class Invoiceitem extends Model
             'invoicecsv_id'     => General::idNullable($data['validatedData']['invoicecsv_id']),
             'quantity_final'    => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['quantity_final'])),
             'value_final'       => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['value_final'])),
-            'value_total_final' => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['quantity_final'])) * Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['value_final'])),
             'ipi_final'         => General::encodeFloat3($data['validatedData']['ipi_final']),
             'ipi_aliquot_final' => General::encodeFloat3($data['validatedData']['ipi_aliquot_final']),
             'margin'            => Invoiceitem::valueNotZero(General::encodeFloat2($data['validatedData']['margin'])),

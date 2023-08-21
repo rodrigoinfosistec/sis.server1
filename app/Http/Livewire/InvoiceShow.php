@@ -87,8 +87,6 @@ class InvoiceShow extends Component
     public $array_item_quantity_final    = [];
     public $array_item_value             = [];
     public $array_item_value_final       = [];
-    public $array_item_value_total       = [];
-    public $array_item_value_total_final = [];
     public $array_item_ipi               = [];
     public $array_item_ipi_final         = [];
     public $array_item_ipi_aliquot       = [];
@@ -214,8 +212,6 @@ class InvoiceShow extends Component
         $this->array_item_quantity_final    = [];
         $this->array_item_value             = [];
         $this->array_item_value_final       = [];
-        $this->array_item_value_total       = [];
-        $this->array_item_value_total_final = [];
         $this->array_item_ipi               = [];
         $this->array_item_ipi_final         = [];
         $this->array_item_ipi_aliquot       = [];
@@ -483,7 +479,6 @@ class InvoiceShow extends Component
             $this->array_item_measure[$invoiceitem->id]           = $invoiceitem->measure;
             $this->array_item_quantity_final[$invoiceitem->id]    = General::decodeFloat3($invoiceitem->quantity_final);
             $this->array_item_value_final[$invoiceitem->id]       = General::decodeFloat3($invoiceitem->value_final);
-            $this->array_item_value_total_final[$invoiceitem->id] = General::decodeFloat3($invoiceitem->value_final * $invoiceitem->quantity_final);
             $this->array_item_ipi_final[$invoiceitem->id]         = General::decodeFloat3($invoiceitem->ipi_final);
             $this->array_item_ipi_aliquot_final[$invoiceitem->id] = General::decodeFloat3($invoiceitem->ipi_aliquot_final);
             $this->array_item_margin[$invoiceitem->id]            = General::decodeFloat2($invoiceitem->margin);
@@ -560,7 +555,6 @@ class InvoiceShow extends Component
             $this->array_item_measure[$invoiceitem->id]           = $invoiceitem->measure;
             $this->array_item_quantity_final[$invoiceitem->id]    = General::decodeFloat3($invoiceitem->quantity_final);
             $this->array_item_value_final[$invoiceitem->id]       = General::decodeFloat3($invoiceitem->value_final);
-            $this->array_item_value_total_final[$invoiceitem->id] = General::decodeFloat3($invoiceitem->value_total_final);
             $this->array_item_ipi_final[$invoiceitem->id]         = General::decodeFloat3($invoiceitem->ipi_final);
             $this->array_item_ipi_aliquot_final[$invoiceitem->id] = General::decodeFloat3($invoiceitem->ipi_aliquot_final);
             $this->array_item_margin[$invoiceitem->id]            = General::decodeFloat2($invoiceitem->margin);
@@ -632,7 +626,6 @@ class InvoiceShow extends Component
             $this->array_item_measure[$invoiceitem->id]           = $invoiceitem->measure;
             $this->array_item_quantity_final[$invoiceitem->id]    = General::decodeFloat3($invoiceitem->quantity_final);
             $this->array_item_value_final[$invoiceitem->id]       = General::decodeFloat3($invoiceitem->value_final);
-            $this->array_item_value_total_final[$invoiceitem->id] = General::decodeFloat3($invoiceitem->value_total_final);
             $this->array_item_ipi_final[$invoiceitem->id]         = General::decodeFloat3($invoiceitem->ipi_final);
             $this->array_item_ipi_aliquot_final[$invoiceitem->id] = General::decodeFloat3($invoiceitem->ipi_aliquot_final);
             $this->array_item_margin[$invoiceitem->id]            = General::decodeFloat2($invoiceitem->margin);
