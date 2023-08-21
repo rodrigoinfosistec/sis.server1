@@ -413,7 +413,9 @@ class Invoiceitem extends Model
      * @return bool true
      */
     public static function editBusiness(array $data) : bool {
-        
+        // Negociação com o Fornecedor.
+        $providerbusiness = Providerbusness::where('provider_id', Invoice::find($data['validatedData']['invoice_id'])->provider_id)->first();
+
         // Percorre os itens da Nota Fiscal.
         foreach(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $key => $invoiceitem):
             // Atualiza o item da Nota Fiscal.
