@@ -69,24 +69,24 @@ class Invoiceitem extends Model
     public function productgroup(){return $this->belongsTo(Productgroup::class);}
     public function invoicecsv(){return $this->belongsTo(Invoicecsv::class);}
 
-        /**
-         * Formata index.
-         * @var float $value
-         * 
-         * @return float $index
-         */
-        public static function formatIndex(float $value) : float {
-            // Força o número com 9 dígitos.
-            $value = number_format($value, '9', '.');
+    /**
+     * Formata index.
+     * @var float $value
+     * 
+     * @return float $index
+     */
+    public static function formatIndex(float $value) : float {
+        // Força o número com 9 dígitos.
+        $value = number_format($value, '9', '.');
 
-            // Separa o inteiro e o decimal.
-            $x = explode('.', $value);
+        // Separa o inteiro e o decimal.
+        $x = explode('.', $value);
 
-            // Formata index.
-            $index = $x[0] . '.' . $x[1][0] . '0';
+        // Formata index.
+        $index = $x[0] . '.' . $x[1][0] . '0';
 
-            return (float)$index;
-        }
+        return (float)$index;
+    }
 
         /**
          * Converte quantidade e valor.
@@ -173,8 +173,16 @@ class Invoiceitem extends Model
             // Inicializa variável.
             $generate = null;
 
+            // Conta Efisco.
+            $qtd_efisco_invoice = Invoiceefisco::where('invoice_id', $invoice_id)->get()->count();
+            $qtd_efisco_select  = 1;
+
+            // Conta CSV.
+            $qtd_csv_invoice = Invoicecsv::where('invoice_id', $invoice_id)->get()->count();
+            $qtd_csv_select  = 1;
+
             // Verifica se todos os itens possuem Item CSV e Grupo de Produto atribuído.
-            if(Invoiceitem::updatedAll($invoice_id)):
+            if($qtd_efisco_select == $qtd_efisco_invoice && $qtd_csv_select == $qtd_csv_invoice):
                 // Inicializa o array.
                 $efisco_value = [];
 
@@ -438,7 +446,7 @@ class Invoiceitem extends Model
      */
     public static function dependencyEdit(array $data) : bool {
         // Atualiza index.
-        //Invoiceitem::generateIndex($data['validatedData']['invoice_id']);
+        Invoiceitem::generateIndex($data);
 
         return true;
     }
