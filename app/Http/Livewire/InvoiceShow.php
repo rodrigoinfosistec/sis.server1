@@ -328,11 +328,14 @@ class InvoiceShow extends Component
         $this->provider_name                   = $provider->name;
         $this->business_id                     = $business->id;
         $this->business_multiplier_type        = $business->multiplier_type;
+
         $this->business_multiplier             = Providerbusiness::multiplierType($business->multiplier_type, General::decodeFloat2($business->multiplier_quantity), General::decodeFloat2($business->multiplier_value));
+
         $this->business_multiplier_quantity    = General::decodeFloat2($business->multiplier_quantity);
         $this->business_multiplier_value       = General::decodeFloat2($business->multiplier_value);
         $this->business_multiplier_ipi         = General::decodeFloat2($business->multiplier_ipi);
         $this->business_multiplier_ipi_aliquot = General::decodeFloat2($business->multiplier_ipi_aliquot);
+
         $this->business_margin                 = General::decodeFloat2($business->margin);
         $this->business_shipping               = General::decodeFloat2($business->shipping);
         $this->business_discount               = General::decodeFloat2($business->discount);
