@@ -63,16 +63,4 @@ class General extends Model
 
         return (float)$float_encode;
     }
-
-        /**
-         * Trata id que pode assumir valor null
-         * @var <string, int> $id
-         * 
-         * @return <null, int> $id
-         */
-        public static function idNullable($id){
-            if(empty($id)) $id = null;
-
-            return $id;
-        }
 }
