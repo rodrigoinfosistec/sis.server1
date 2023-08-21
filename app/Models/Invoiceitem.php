@@ -71,24 +71,24 @@ class Invoiceitem extends Model
     public function productgroup(){return $this->belongsTo(Productgroup::class);}
     public function invoicecsv(){return $this->belongsTo(Invoicecsv::class);}
 
-    /**
-     * Formata index.
-     * @var float $value
-     * 
-     * @return float $index
-     */
-    public static function formatIndex(float $value) : float {
-        // Força o número com 9 dígitos.
-        $value = number_format($value, '9', '.');
+        /**
+         * Formata index.
+         * @var float $value
+         * 
+         * @return float $index
+         */
+        public static function formatIndex(float $value) : float {
+            // Força o número com 9 dígitos.
+            $value = number_format($value, '9', '.');
 
-        // Separa o inteiro e o decimal.
-        $x = explode('.', $value);
+            // Separa o inteiro e o decimal.
+            $x = explode('.', $value);
 
-        // Formata index.
-        $index = $x[0] . '.' . $x[1][0] . '0';
+            // Formata index.
+            $index = $x[0] . '.' . $x[1][0] . '0';
 
-        return (float)$index;
-    }
+            return (float)$index;
+        }
 
         /**
          * Teste se todos os itens da NFe possuem o campo updated true.
@@ -453,16 +453,19 @@ class Invoiceitem extends Model
      * @return bool true
      */
     public static function edit(array $data) : bool {
+        // Item.
+        $item = Invoiceitem::find($data['validatedData']['invoiceitem_id']);
+
         // Atualiza item.
         Invoiceitem::find($data['validatedData']['invoiceitem_id'])->update([
             'equipment'         => $data['validatedData']['equipment'],
-            'productgroup_id'   => General::idNullable($data['validatedData']['productgroup_id']),
-            'invoicecsv_id'     => General::idNullable($data['validatedData']['invoicecsv_id']),
-            'quantity_final'    => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['quantity_final'])),
-            'value_final'       => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['value_final'])),
+            'productgroup_id'   => !empty($data['validatedData']['productgroup_id']) ? $data['validatedData']['productgroup_id'] : null,
+            'invoicecsv_id'     => !empty($data['validatedData']['invoicecsv_id']) ? $data['validatedData']['invoicecsv_id']  : null,
+            'quantity_final'    => (General::encodeFloat3($data['validatedData']['quantity_final']) > $item->quantity) ? General::encodeFloat3($data['validatedData']['quantity_final']) : $item->quantity,
+            'value_final'       => (General::encodeFloat3($data['validatedData']['value_final']) > $item->value) ? General::encodeFloat3($data['validatedData']['value_final']) : $item->quantity,
             'ipi_final'         => General::encodeFloat3($data['validatedData']['ipi_final']),
             'ipi_aliquot_final' => General::encodeFloat3($data['validatedData']['ipi_aliquot_final']),
-            'margin'            => Invoiceitem::valueNotZero(General::encodeFloat2($data['validatedData']['margin'])),
+            'margin'            => (General::encodeFloat2($data['validatedData']['margin']) > $item->margin) ? General::encodeFloat2($data['validatedData']['margin']) : $item->margin,
             'shipping'          => General::encodeFloat2($data['validatedData']['shipping']),
             'updated'           => Invoiceitem::itemUpdated($data['validatedData']['productgroup_id'], $data['validatedData']['invoicecsv_id']),
         ]);
@@ -576,8 +579,8 @@ class Invoiceitem extends Model
         // Atualiza item.
         Invoiceitem::find($data['validatedData']['invoiceitem_id'])->update([
             'equipment'         => $data['validatedData']['equipment'],
-            'productgroup_id'   => General::idNullable($data['validatedData']['productgroup_id']),
-            'invoicecsv_id'     => General::idNullable($data['validatedData']['invoicecsv_id']),
+            'productgroup_id'   => !empty($data['validatedData']['productgroup_id']) ? $data['validatedData']['productgroup_id'] : null,
+            'invoicecsv_id'     => !empty($data['validatedData']['invoicecsv_id']) ? $data['validatedData']['invoicecsv_id'] : null,
             'quantity_final'    => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['quantity_final'])),
             'value_final'       => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['value_final'])),
             'value_total_final' => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['quantity_final'])) * Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['value_final'])),
