@@ -292,7 +292,7 @@ class Invoiceitem extends Model
     }
 
     /**
-     * Verifica se item já foi atribuido a outra Nota Fiscal.
+     * Verifica se o item já foi atribuido a outra Nota Fiscal.
      * @var int $invoice_id
      * @var string $code
      * 
@@ -310,25 +310,22 @@ class Invoiceitem extends Model
         foreach(Invoiceitem::where([['code', $code], ['invoice_id', '!=', $invoice_id]])->orderBy('id', 'DESC')->get() as $key_item => $item):
             // Verifica se o Fornecedor do item é o mesmo desta Nota Fiscal.
             if($item->invoice->provider->id == Invoice::find($invoice_id)->provider_id):
-                // Verifica se as variáveis já foram atribuidas.
-                if(!$assigned):
-                    // Verifica se existe invoice CSV vinculado ao produto.
-                    if(!empty($item->invoicecsv_id)):
-                        // Recupera o invoicecsv, caso exista.
-                        if($csv = Invoicecsv::where(['invoice_id' => $invoice_id, 'code' => Invoicecsv::find($item->invoicecsv_id)->code])->first()):
-                            $invoicecsv_id = $csv->id;
-                        endif;
+                // Verifica se existe invoice CSV vinculado ao produto.
+                if(!empty($item->invoicecsv_id)):
+                    // Recupera o invoicecsv, caso exista.
+                    if($csv = Invoicecsv::where(['invoice_id' => $invoice_id, 'code' => Invoicecsv::find($item->invoicecsv_id)->code])->first()):
+                        $invoicecsv_id = $csv->id;
                     endif;
-
-                    // Atribui as variáveis.
-                    $equipment       = $item->equipment;
-                    $productgroup_id = $item->productgroup_id;
-                    $signal          = $item->signal;
-                    $amount          = $item->amount;
-
-                    // Força a saída do loop ao encontrar a primeira ocorrência.
-                    break;
                 endif;
+
+                // Atribui as variáveis.
+                $equipment       = $item->equipment;
+                $productgroup_id = $item->productgroup_id;
+                $signal          = $item->signal;
+                $amount          = $item->amount;
+
+                // Força a saída do loop ao encontrar a primeira ocorrência.
+                break;
             endif;
         endforeach;
 
