@@ -40,45 +40,45 @@ class Providerbusiness extends Model
      */
     public function provider(){return $this->belongsTo(Provider::class);}
 
-    /**
-     * Define o multiplicador ser utilizado.
-     * @var string $type
-     * @var string $quantity
-     * @var string $value
-     * 
-     * @return string $multiplier
-     */
-    public static function multiplierType(string $type, string $quantity, string $value) : string {
-        ($type == 'quantity') ? $multiplier = $quantity :  $multiplier = $value;
+        /**
+         * Define o multiplicador ser utilizado.
+         * @var string $type
+         * @var string $quantity
+         * @var string $value
+         * 
+         * @return string $multiplier
+         */
+        public static function multiplierType(string $type, string $quantity, string $value) : string {
+            ($type == 'quantity') ? $multiplier = $quantity :  $multiplier = $value;
 
-        return (string)$multiplier;
-    }
+            return (string)$multiplier;
+        }
 
-    /**
-     * Define o multiplicador a ser utilizado.
-     * @var string $type
-     * @var string $multiplier
-     * 
-     * @return string $array_multiplier
-     */
-    public static function multiplier(string $type, string $multiplier) : array {
-        // Define o multiplicador a ser utilizado.
-        if($type == 'quantity'):
-            (string)$quantity = $multiplier;
-            (string)$value    = '100,00';
-        else:
-            (string)$value    = $multiplier;
-            (string)$quantity = '100,00';
-        endif;
+        /**
+         * Define o multiplicador a ser utilizado.
+         * @var string $type
+         * @var string $multiplier
+         * 
+         * @return string $array_multiplier
+         */
+        public static function multiplier(string $type, string $multiplier) : array {
+            // Define o multiplicador a ser utilizado.
+            if($type == 'quantity'):
+                (string)$quantity = $multiplier;
+                (string)$value    = '100,00';
+            else:
+                (string)$value    = $multiplier;
+                (string)$quantity = '100,00';
+            endif;
 
-        // Monta array.
-        $array_multiplier = [
-            'quantity' => $quantity,
-            'value'    => $value,
-        ];
+            // Monta array.
+            $array_multiplier = [
+                'quantity' => $quantity,
+                'value'    => $value,
+            ];
 
-        return $array_multiplier;
-    }
+            return $array_multiplier;
+        }
 
     /**
      * Valida cadastro.
@@ -195,15 +195,12 @@ class Providerbusiness extends Model
         // Before.
         $before = Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->first();
 
-        // Define o tipo do multiplicador.
-        $multiplier = Providerbusiness::multiplier($data['validatedData']['business_multiplier_type'], $data['validatedData']['business_multiplier']);
-
         // Atualiza.
         Providerbusiness::where('provider_id', $data['validatedData']['provider_id'])->update([
             'provider_id'            => $data['validatedData']['provider_id'],
             'multiplier_type'        => $data['validatedData']['business_multiplier_type'],
-            'multiplier_quantity'    => General::encodeFloat2($multiplier['quantity']),
-            'multiplier_value'       => General::encodeFloat2($multiplier['value']),
+            'multiplier_quantity'    => ($data['validatedData']['business_multiplier_type'] == 'quantity') ? General::encodeFloat2($multiplier['quantity']) : 100.00,
+            'multiplier_value'       => ($data['validatedData']['business_multiplier_type'] == 'value') ? General::encodeFloat2($multiplier['value']) : 100.00,
             'multiplier_ipi'         => General::encodeFloat2($data['validatedData']['business_multiplier_ipi']),
             'multiplier_ipi_aliquot' => General::encodeFloat2($data['validatedData']['business_multiplier_ipi_aliquot']),
             'margin'                 => General::encodeFloat2($data['validatedData']['business_margin']),

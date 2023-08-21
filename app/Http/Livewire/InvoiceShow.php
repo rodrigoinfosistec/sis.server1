@@ -314,7 +314,7 @@ class InvoiceShow extends Component
      * editBusiness()
      *  modernizeBusiness()
      */
-    public function editBusiness(int $provider_id)
+    public function editBusiness(int $provider_id, int $invoice_id)
     {
         // Fornecedor.
         $provider = Provider::find($provider_id);
@@ -323,14 +323,15 @@ class InvoiceShow extends Component
         $business = Providerbusiness::where('provider_id', $provider_id)->first();
 
         // Inicializa propriedades dinâmicas.
+        $this->invoice_id                      = $invoice_id;
+
         $this->provider_id                     = $provider->id;
         $this->provider_cnpj                   = $provider->cnpj;
         $this->provider_name                   = $provider->name;
+
         $this->business_id                     = $business->id;
         $this->business_multiplier_type        = $business->multiplier_type;
-
         $this->business_multiplier             = ($business->multiplier_type == 'quantity') ? (string)General::decodeFloat2($business->multiplier_quantity) : (string)General::decodeFloat2($business->multiplier_value);
-
         $this->business_multiplier_quantity    = General::decodeFloat2($business->multiplier_quantity);
         $this->business_multiplier_value       = General::decodeFloat2($business->multiplier_value);
         $this->business_multiplier_ipi         = General::decodeFloat2($business->multiplier_ipi);
@@ -358,6 +359,7 @@ class InvoiceShow extends Component
             // Estende $validatedData
             $validatedData['provider_id']         = $this->provider_id;
             $validatedData['providerbusiness_id'] = $this->business_id;
+            $validatedData['invoice_id']          = $this->invice_id;
 
             // Define $data.
             $data['config']        = $this->config;
