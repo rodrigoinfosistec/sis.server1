@@ -96,9 +96,13 @@ class InvoiceShow extends Component
     public $array_item_discount          = [];
     public $array_item_addition          = [];
     public $array_item_index             = [];
-    public $array_item_price             = [];
-    public $array_item_card              = [];
-    public $array_item_retail            = [];
+
+    public $array_item_hold   = [];
+    public $array_item_price  = [];
+    public $array_item_card   = [];
+    public $array_item_retail = [];
+
+    public $hold_all;
 
     /**
      * Construtor.
@@ -221,9 +225,13 @@ class InvoiceShow extends Component
         $this->array_item_discount          = [];
         $this->array_item_addition          = [];
         $this->array_item_index             = [];
-        $this->array_item_price             = [];
-        $this->array_item_card              = [];
-        $this->array_item_retail            = [];
+
+        $this->array_item_hold   = [];
+        $this->array_item_price  = [];
+        $this->array_item_card   = [];
+        $this->array_item_retail = [];
+
+        $this->hold_all = '';
     }
 
     /**

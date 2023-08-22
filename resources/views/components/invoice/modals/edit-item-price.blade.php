@@ -24,27 +24,47 @@
 
                 <th class="" style="padding: 0;">
                     <div class="text-center" style="width: 22px;">
-                        <div class="form-check" style="margin-bottom: -6px; margin-left: 2px;">
-                            <input type="checkbox" class="form-check-input" style="width: 12px; height: 12px;" disabled>
+                        {{-- --}}
+                    </div>
+                </th>
+
+                <th class="" style="padding: 0;">
+                    <div class="" style="width: 56px;">
+                        <span class="text-danger">MANTER?</span>
+                        <div class="form-check form-switch" style="margin-bottom: -10px;">
+                            <input type="checkbox" wire:model="hold_all" class="form-check-input" style="font-size: 10pt; padding: 0;" id="hold_all" role="switch">
+                            <label for="hold_all" class="form-check-label fw-bold" style="font-size: 6pt; margin-top: 5px; margin-left: -6px;">TODOS</label>
                         </div>
                     </div>
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="" style="width: 90px;">
-                        EAN/NCM/CEST
+                    <div class="text-center text-primary" style="width: 65px;">
+                        FINAL(R$)
                     </div>
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="" style="width: 90px;">
-                        DADOS CSV
+                    <div class="text-center text-primary" style="width: 65px;">
+                        CARTÃO(R$)
                     </div>
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 50px;">
-                        EMB.
+                    <div class="text-center text-primary" style="width: 65px;">
+                        VAREJO(R$)
+                    </div>
+                </th>
+                
+                <th class="" style="padding: 0;">
+                    <div class="text-center" style="width: 55px;">
+                        ÍNDICE
+                    </div>
+                </th>
+
+                <th class="" style="padding: 0;">
+                    <div class="" style="width: 50px;">
+                        MRG/FRT
                     </div>
                 </th>
 
@@ -55,23 +75,17 @@
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 75px;">
-                        INDEX
+                    <div class="text-center" style="width: 50px;">
+                        EMB.
                     </div>
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 155px;">
-                        PRODUTO CSV
+                    <div class="" style="width: 60px;">
+                        IPI
                     </div>
                 </th>
-
-                <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 125px;">
-                        GRUPO PRODUTO
-                    </div>
-                </th>
-
+                
                 <th class="" style="padding: 0;">
                     <div class="" style="width: 36px;">
                         EQUIP.
@@ -79,37 +93,14 @@
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 75px;">
-                        VALOR(R$)
+                    <div class="" style="width: 90px;">
+                        DADOS CSV
                     </div>
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 75px;">
-                        QUANTIDADE
-                    </div>
-                </th>
-
-                <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 65px;">
-                        IPI(R$)
-                </th>
-
-                <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 65px;">
-                        IPI(%)
-                    </div>
-                </th>
-
-                <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 75px;">
-                        MARGEM(%)
-                    </div>
-                </th>
-
-                <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 75px;">
-                        FRETE(%)
+                    <div class="" style="width: 90px;">
+                        EAN/NCM/CEST
                     </div>
                 </th>
             </tr>
@@ -149,14 +140,104 @@
                 </tr>
 
                 <tr style="border-bottom: 1px solid #ddd;">
-                    {{-- EAN/NCM/CEST --}}
+                    
+                    {{-- MANTER? --}}
+                    <td class="" style="line-height: 1; padding: 0;">
+                        <div class="" style="width: 46px; margin-left: 11px;">
+                            <div class="form-check form-switch">
+                                <input type="checkbox" wire:model="array_item_hold.{{ $invoiceitem->id }}" class="form-check-input" style="font-size: 10pt;" id="array_item_hold_{{ $invoiceitem->id }}" role="switch">
+                                <label for="array_item_hold_{{ $invoiceitem->id }}" class="form-check-label"></label>
+                            </div>
+                        </div>
+                    </td>
+
+                    {{-- FINAL(R$) --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 90px;">
-                            {{ $invoiceitem->ean }}
+                        <div class="" style="width: 75px;">
+                            <span class="text-danger">R$ {{-- App\Models\General::decodeFloat3($invoiceitem->price_csv) ?? '' --}}</span>
+                            <input type="text" wire:model="array_item_price.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_item_price_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required>
+                        </div>
+                    </td>
+
+                    {{-- CARTÃO(R$) --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="" style="width: 65px;">
+                            <span class="text-danger">R$ {{-- App\Models\General::decodeFloat3($invoiceitem->card_csv) ?? '' --}}</span>
+                            <input type="text" wire:model="array_item_card.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 60px;" id="array_item_card_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required>
+                        </div>
+                    </td>
+
+                    {{-- VAREJO(R$) --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="" style="width: 65px;">
+                            <span class="text-danger">R$ {{-- App\Models\General::decodeFloat3($invoiceitem->retail_csv) ?? '' --}}</span>
+                            <input type="text" wire:model="array_item_retail.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 60px;" id="array_item_retail_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required>
+                        </div>
+                    </td>
+
+                    {{-- ÍNDICE --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="text-center" style="width: 55px; font-size: 9pt;">
+                            {{ App\Models\general::decodeFloat2($invoiceitem->index) }} %
+                        </div>
+                    </td>
+
+                    {{-- MRG/FRT --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="" style="width: 50px;">
+                            {{ App\Models\general::decodeFloat2($invoiceitem->margin) }} %
                             <br>
-                            {{ $invoiceitem->ncm }}
+                            {{ App\Models\general::decodeFloat2($invoiceitem->shipping) }} %
+                        </div>
+                    </td>
+
+                    {{-- QTD/UNT/TOT --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="" style="width: 80px;">
+                            @php
+                                if($invoiceitem->signal == '/'):
+                                    $qtd = $invoiceitem->quantity_final * $invoiceitem->amount;
+                                    $vlr = $invoiceitem->value_final / $invoiceitem->amount;
+                                else:
+                                    $qtd = $invoiceitem->quantity_final / $invoiceitem->amount;
+                                    $vlr = $invoiceitem->value_final * $invoiceitem->amount;
+                                endif;
+                            @endphp
+                            {{ App\Models\general::decodeFloat3($qtd) }} <span class="text-danger">X</span>
                             <br>
-                            {{ $invoiceitem->cest }}
+                            R$ {{ App\Models\general::decodeFloat3($vlr) }}
+                            <br>
+                            <span class="text-danger">R$ {{ App\Models\general::decodeFloat3($qtd * $vlr) }}</span>
+                        </div>
+                    </td>
+
+                    {{-- EMB. --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="text-center" style="width: 50px;">
+                            {{ $invoiceitem->measure }}
+                            <br>
+                            <span class="text-danger">{{ $invoiceitem->signal }}</span>
+                            <br>
+                            {{ App\Models\general::decodeFloat3($invoiceitem->amount) }}
+                        </div>
+                    </td>
+
+                    {{-- IPI --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="" style="width: 60px;">
+                            R$ {{ App\Models\general::decodeFloat3($invoiceitem->ipi_final) }}
+                            <br>
+                            {{ App\Models\general::decodeFloat3($invoiceitem->ipi_aliquot_final) }} %
+                        </div>
+                    </td>
+                    
+                    {{-- EQUIP. --}}
+                    <td class="" style="line-height: 1; padding: 0;">
+                        <div class="" style="width: 25px; margin-left: 11px;">
+                            <div class="form-check form-switch">
+                                <input type="checkbox" wire:model="array_item_equipment.{{ $invoiceitem->id }}" class="form-check-input" style="font-size: 10pt;" id="array_item_equipment_{{ $invoiceitem->id }}" role="switch" disabled>
+                                <label for="array_item_equipment_{{ $invoiceitem->id }}" class="form-check-label"></label>
+                            </div>
                         </div>
                     </td>
 
@@ -171,101 +252,14 @@
                         </div>
                     </td>
     
-                    {{-- EMB. --}}
+                    {{-- EAN/NCM/CEST --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="text-center" style="width: 50px;">
-                            {{ $invoiceitem->measure }}
+                        <div class="" style="width: 90px;">
+                            {{ $invoiceitem->ean }}
                             <br>
-                            <span class="text-danger">{{ $invoiceitem->signal }}</span>
+                            {{ $invoiceitem->ncm }}
                             <br>
-                            {{ App\Models\general::decodeFloat3($invoiceitem->amount) }}
-                        </div>
-                    </td>
-
-                    {{-- QTD/UNT/TOT --}}
-                    <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 80px;">
-                            {{ App\Models\general::decodeFloat3($invoiceitem->quantity_final) }} <span class="text-danger">X</span>
-                            <br>
-                            R$ {{ App\Models\general::decodeFloat3($invoiceitem->value_final) }}
-                            <br>
-                            <span class="text-danger">R$ {{ App\Models\general::decodeFloat3($invoiceitem->quantity_final * $invoiceitem->value_final) }}</span>
-                        </div>
-                    </td>
-
-                    {{-- PRODUTO CSV --}}
-                    <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 155px;">
-                            <select wire:model="array_item_invoicecsv_id.{{ $invoiceitem->id }}" class="form-select form-control-sm text-uppercase" style="font-size: 8pt;  padding: 0 30px 0 2px; width: 150px;" id="array_item_invoicecsv_id_{{ $invoiceitem->id }}" disabled>
-                                <option value="" class="text-muted fw-bold" style="font-size: 7pt;">ESCOLHA...</option>
-                                @foreach (App\Models\Invoicecsv::where('invoice_id', $invoice_id)->get() as $invoicecsv))
-                                    <option value="{{ $invoicecsv->id }}">{{ $invoicecsv->reference }} &#187; {{ $invoicecsv->name }} &#187; {{ $invoicecsv->ean }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </td>
-
-                    {{-- GRUPO PRODUTO --}}
-                    <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 125px;">
-                            <select wire:model="array_item_productgroup_id.{{ $invoiceitem->id }}" class="form-select form-control-sm text-uppercase" style="font-size: 8pt;  padding: 0 30px 0 2px; width: 120px;" id="array_item_productgroup_id_{{ $invoiceitem->id }}" disabled>
-                                <option value="" class="text-muted fw-bold" style="font-size: 7pt;">ESCOLHA...</option>
-                                @foreach (App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get() as $invoiceefisco))
-                                    <option value="{{ $invoiceefisco->productgroup->id }}">{{ $invoiceefisco->productgroup->code }} &#187; {{ $invoiceefisco->productgroup->origin }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </td>
-
-                    {{-- EQUIP. --}}
-                    <td class="" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 25px; margin-left: 11px;">
-                            <div class="form-check form-switch">
-                                <input type="checkbox" wire:model="array_item_equipment.{{ $invoiceitem->id }}" class="form-check-input" style="font-size: 10pt;" id="array_item_equipment_{{ $invoiceitem->id }}" role="switch" disabled>
-                                <label for="array_item_equipment_{{ $invoiceitem->id }}" class="form-check-label"></label>
-                            </div>
-                        </div>
-                    </td>
-
-                    {{-- VALOR(R$) --}}
-                    <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 75px;">
-                            <input type="text" wire:model="array_item_value_final.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_item_value_final_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required disabled>
-                        </div>
-                    </td>
-
-                    {{-- QUANTIDADE --}}
-                    <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 75px;">
-                            <input type="text" wire:model="array_item_quantity_final.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_item_quantity_final_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required disabled>
-                        </div>
-                    </td>
-
-                    {{-- IPI(R$) --}}
-                    <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 65px;">
-                            <input type="text" wire:model="array_item_ipi_final.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 60px;" id="array_item_ipi_final_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required disabled>
-                        </div>
-                    </td>
-
-                    {{-- IPI(%) --}}
-                    <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 65px;">
-                            <input type="text" wire:model="array_item_ipi_aliquot_final.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 60px;" id="array_item_ipi_aliquot_final_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required disabled>
-                        </div>
-                    </td>
-
-                    {{-- MARGEM(%) --}}
-                    <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 75px;">
-                            <input type="text" wire:model="array_item_margin.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_item_margin_{{ $invoiceitem->id }}" onKeyUp="maskFloat2(this, event)" required disabled>
-                        </div>
-                    </td>
-
-                    {{-- FRETE(%) --}}
-                    <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 75px;">
-                            <input type="text" wire:model="array_item_shipping.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_item_shipping_{{ $invoiceitem->id }}" onKeyUp="maskFloat2(this, event)" required disabled>
+                            {{ $invoiceitem->cest }}
                         </div>
                     </td>
                 </tr>

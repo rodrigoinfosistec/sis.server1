@@ -58,6 +58,10 @@ class Invoiceitem extends Model
         'card',
         'retail',
 
+        'price_csv',
+        'card_csv',
+        'retail_csv',
+
         'created_at',
         'updated_at',
     ];

@@ -55,6 +55,10 @@ return new class extends Migration
             $table->float('card', 12, 2)->nullable()->default(null);
             $table->float('retail', 12, 2)->nullable()->default(null);
 
+            $table->float('price_csv', 12, 2)->nullable()->default(null);
+            $table->float('card_csv', 12, 2)->nullable()->default(null);
+            $table->float('retail_csv', 12, 2)->nullable()->default(null);
+
             $table->timestamps();
 
             $table->foreign('invoice_id')->references('id')->on('invoices');
