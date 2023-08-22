@@ -583,6 +583,7 @@ class Audit extends Model
                 'cnpj='     . $after->cnpj     . ',' .
                 'name='     . $after->name     . ',' .
                 'nickname=' . $after->nickname . ',' .
+                'price='    . $after->price    . ',' .
             '}',
         ]);
 
@@ -608,6 +609,7 @@ class Audit extends Model
                 'cnpj='     . $before->cnpj     . '>' . $after->cnpj     . ',' .
                 'name='     . $before->name     . '>' . $after->name     . ',' .
                 'nickname=' . $before->nickname . '>' . $after->nickname . ',' .
+                'price='    . $before->price    . '>' . $after->price . ',' .
             '}',
         ]);
 
@@ -631,6 +633,7 @@ class Audit extends Model
                 'cnpj='     . $data['validatedData']['cnpj']       . ',' .
                 'name='     . $data['validatedData']['name']       . ',' .
                 'nickname=' . $data['validatedData']['nickname']   . ',' .
+                'price='    . $data['validatedData']['price']      . ',' .
             '}',
         ]);
 

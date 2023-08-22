@@ -33,6 +33,7 @@ class CompanyShow extends Component
     public $cnpj;
     public $name;
     public $nickname;
+    public $price;
     public $created;
 
     public $xml;
@@ -58,6 +59,7 @@ class CompanyShow extends Component
             'cnpj'     => ['required', 'min:18', 'max:18', 'unique:companies,cnpj,'.$this->company_id.''],
             'name'     => ['required', 'between:3,60'],
             'nickname' => ['nullable', 'between:3,60'],
+            'price'    => ['required'],
 
             'txt' => ['file', 'required'],
             'xml' => ['file', 'required'],
@@ -92,6 +94,7 @@ class CompanyShow extends Component
         $this->cnpj       = '';
         $this->name       = '';
         $this->nickname   = '';
+        $this->price      = '';
         $this->created    = '';
 
         $this->xml = '';
@@ -136,6 +139,7 @@ class CompanyShow extends Component
                 'cnpj'     => ['required', 'min:18', 'max:18', 'unique:companies'],
                 'name'     => ['required', 'between:3,60'],
                 'nickname' => ['nullable', 'between:3,60'],
+                'price'    => ['required'],
             ]);
 
             // Define $data.
@@ -187,6 +191,7 @@ class CompanyShow extends Component
                 $data['validatedData']['cnpj']     = Company::encodeCnpj((string)$xmlObject->NFe->infNFe->dest->CNPJ);
                 $data['validatedData']['name']     = (string)$xmlObject->NFe->infNFe->dest->xNome;
                 $data['validatedData']['nickname'] = (string)$xmlObject->NFe->infNFe->dest->xFant;
+                $data['validatedData']['price']    = '1';
             endif;
 
             // Cadastra.
@@ -229,6 +234,7 @@ class CompanyShow extends Component
                 $data['validatedData']['cnpj']     = Company::encodeCnpj((string)$txtArray['cnpj']);
                 $data['validatedData']['name']     = (string)$txtArray['name'];
                 $data['validatedData']['nickname'] = (string)$txtArray['nickname'];
+                $data['validatedData']['price']    = '1';
             endif;
 
             // Cadastra.
@@ -256,6 +262,7 @@ class CompanyShow extends Component
         $this->cnpj       = $company->cnpj;
         $this->name       = $company->name;
         $this->nickname   = $company->nickname;
+        $this->price      = $company->price;
         $this->created    = $company->created_at->format('d/m/Y H:i:s');
     }
 
@@ -273,6 +280,7 @@ class CompanyShow extends Component
         $this->cnpj       = $company->cnpj;
         $this->name       = $company->name;
         $this->nickname   = $company->nickname;
+        $this->price      = $company->price;
         $this->created    = $company->created_at->format('d/m/Y H:i:s');
     }
         public function modernize()
@@ -282,6 +290,7 @@ class CompanyShow extends Component
                 'cnpj'     => ['required', 'min:18', 'max:18', 'unique:companies,cnpj,'.$this->company_id.''],
                 'name'     => ['required', 'between:3,60'],
                 'nickname' => ['nullable', 'between:3,60'],
+                'price'    => ['required'],
             ]);
 
             // Estende $validatedData
@@ -319,6 +328,7 @@ class CompanyShow extends Component
         $this->cnpj       = $company->cnpj;
         $this->name       = $company->name;
         $this->nickname   = $company->nickname;
+        $this->price      = $company->price;
         $this->created    = $company->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
@@ -328,6 +338,7 @@ class CompanyShow extends Component
             $validatedData['cnpj']       = $this->cnpj;
             $validatedData['name']       = $this->name;
             $validatedData['nickname']   = $this->nickname;
+            $validatedData['price']      = $this->price;
 
             // Define $data.
             $data['config']        = $this->config;

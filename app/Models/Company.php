@@ -21,6 +21,8 @@ class Company extends Model
         'name',
         'nickname',
 
+        'price',
+
         'created_at',
         'updated_at',
     ];
@@ -138,6 +140,7 @@ class Company extends Model
             'cnpj'     => $data['validatedData']['cnpj'],
             'name'     => Str::upper($data['validatedData']['name']),
             'nickname' => Company::nicknameValidateNull($data['validatedData']['nickname']),
+            'price'    => $data['validatedData']['price'],
         ]);
 
         // After.
@@ -276,6 +279,7 @@ class Company extends Model
             'cnpj'     => $data['validatedData']['cnpj'],
             'name'     => Str::upper($data['validatedData']['name']),
             'nickname' => Company::nicknameValidateNull($data['validatedData']['nickname']),
+            'price'    => $data['validatedData']['price'],
         ]);
 
         // After.

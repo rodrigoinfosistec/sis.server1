@@ -55,6 +55,15 @@
 
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
+        PREÇO TIPO
+    </x-layout.modal.modal-erase-body-line-title>
+    <x-layout.modal.modal-erase-body-line-content>
+        {{ $price }}
+    </x-layout.modal.modal-erase-body-line-content>
+</x-layout.modal.modal-erase-body-line>
+
+<x-layout.modal.modal-erase-body-line>
+    <x-layout.modal.modal-erase-body-line-title>
         CADASTRO
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>

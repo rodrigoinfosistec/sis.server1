@@ -71,6 +71,7 @@
 <option value="cnpj">CNPJ</option>
 <option value="name">RAZÃO SOCIAL</option>
 <option value="nickname">NOME FANTASIA</option>
+<option value="price">TIPO PREÇO</option>
 <option value="created_at">DATA CADASTRO</option>
 {{-- filtro nome --}}
 

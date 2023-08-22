@@ -11,12 +11,25 @@
 
 {{-- conteúdo --}}
 <x-layout.modal.modal-add-body-group>
-    <x-layout.modal.modal-add-body-group-item columms="8">
+    <x-layout.modal.modal-add-body-group-item columms="6">
         <x-layout.modal.modal-add-body-group-item-label item="cnpj" title="CNPJ" plus="none"/>
 
         <input type="text" wire:model="cnpj" class="form-control form-control-sm" id="cnpj" onKeyUp="maskCnpj(this, event)">
 
         <x-layout.modal.modal-add-body-group-item-error item="cnpj" message="$message"/>
+    </x-layout.modal.modal-add-body-group-item>
+
+    <x-layout.modal.modal-add-body-group-item columms="6">
+        <x-layout.modal.modal-add-body-group-item-label item="price" title="PREÇO TIPO" plus="none"/>
+
+        <select wire:model="price" class="form-select form-select-sm text-uppercase" id="price">
+            <x-layout.modal.modal-add-body-group-item-option-muted/>
+
+            <option value="1">1</option>
+            <option value="2">2</option>
+        </select>
+
+        <x-layout.modal.modal-add-body-group-item-error item="price" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
 

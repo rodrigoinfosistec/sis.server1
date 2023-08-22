@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('nickname')->nullable()->default(null);
 
+            $table->string('price')->default("1");
+
             $table->timestamps();
         });
     }

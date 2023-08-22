@@ -347,10 +347,10 @@ class Invoiceitem extends Model
         $price_full = $cost + (($cost * $item->margin) / 100);
         $price      = Invoiceitem::roundUp($price_full, 2);
 
-        // Distingue.
-        $card_full = 
+        // .
+        $card_full = '';
 
-        dd($cost);
+        dd($price);
     }
 
     /**

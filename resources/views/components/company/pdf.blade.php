@@ -24,6 +24,10 @@
 <x-layout.pdf.pdf-table-header-column>
     NOME FANTASIA
 </x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
+    PREÇO TIPO
+</x-layout.pdf.pdf-table-header-column>
 {{-- conteúdo título --}}
 
         </x-layout.pdf.pdf-table-header>
@@ -51,6 +55,11 @@
 {{-- NOME FANTASIA --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     {{ $item->nickname }}
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- PREÇO TIPO --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    {{ $item->price }}
 </x-layout.pdf.pdf-table-body-line-cell>
 {{-- conteúdo --}}
 
