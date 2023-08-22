@@ -208,17 +208,14 @@ class Invoiceitem extends Model
     }
 
     /**
-     * Verifica se todos os eFiscos estão sendo utilizados.
-     * @var int $invoice_id
+     * Verifica se todos os indices foram calculados
      * 
      * @return bool $index
      */
     public static function indexOk(int $invoice_id) : bool {
-        $index = true;
+        $index = false;
 
-        foreach(Invoiceitem::where(['invoice_id' => $invoice_id])->get() as $key => $item):
-
-        endforeach;
+        if (Invoiceitem::where(['invoice_id' => $invoice_id, 'index' => NULL])->doesntExist()) $index = true;
 
         return (bool)$index;
     }
@@ -230,11 +227,9 @@ class Invoiceitem extends Model
      * @return bool $price
      */
     public static function priceOk(int $invoice_id) : bool {
-        $price = true;
+        $price = false;
 
-        if(1 == 1):
-
-        endif;
+        if (Invoiceitem::where(['invoice_id' => $invoice_id, 'price' => NULL])->doesntExist()) $price = true;
 
         return (bool)$price;
     }
