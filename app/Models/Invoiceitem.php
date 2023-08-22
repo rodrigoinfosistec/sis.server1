@@ -219,9 +219,6 @@ class Invoiceitem extends Model
 
         // Verifica se todos os itens possuem item CSV e Grupo de Produto atribuído.
         if(Invoiceitem::csvOk($data['validatedData']['invoice_id']) && Invoiceitem::itemOk($data['validatedData']['invoice_id'])):
-            // Inicializa o array.
-            $efisco_value = [];
-
             // Percorre todos eFiscos da Nota Fiscal.
             foreach(Invoiceefisco::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $key_efisco => $efisco):
                 // Atrinui valor inicial zero (0.00) às variáveis.
@@ -241,6 +238,7 @@ class Invoiceitem extends Model
                         $efisco_ipi_final[$efisco->id]         = $efisco_ipi_final[$efisco->id]         + $item->ipi_final;
                     endif;
                 endforeach;
+                dd($efisco_ipi_final);
 
                 // Atribui o ICMS.
                 $efisco_icms[$efisco->id] = $efisco->icms;
