@@ -178,16 +178,16 @@
                     {{-- ÍNDICE --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text-center" style="width: 55px; font-size: 9pt;">
-                            {{ App\Models\general::decodeFloat2($invoiceitem->index) }} %
+                            {{ !empty($invoiceitem->index) ? App\Models\General::decodeFloat2($invoiceitem->index) : 'none' }} %
                         </div>
                     </td>
 
                     {{-- MRG/FRT --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="" style="width: 50px;">
-                            {{ App\Models\general::decodeFloat2($invoiceitem->margin) }} %
+                            {{ App\Models\General::decodeFloat2($invoiceitem->margin) }} %
                             <br>
-                            {{ App\Models\general::decodeFloat2($invoiceitem->shipping) }} %
+                            {{ App\Models\General::decodeFloat2($invoiceitem->shipping) }} %
                         </div>
                     </td>
 
@@ -203,9 +203,9 @@
                                     $vlr = $invoiceitem->value_final * $invoiceitem->amount;
                                 endif;
                             @endphp
-                            {{ App\Models\general::decodeFloat3($qtd) }} <span class="text-danger">X</span>
+                            {{ App\Models\General::decodeFloat3($qtd) }} <span class="text-danger">X</span>
                             <br>
-                            R$ {{ App\Models\general::decodeFloat3($vlr) }}
+                            R$ {{ App\Models\General::decodeFloat3($vlr) }}
                             <br>
                             <span class="text-danger">R$ {{ App\Models\general::decodeFloat3($qtd * $vlr) }}</span>
                         </div>
@@ -244,11 +244,11 @@
                     {{-- DADOS CSV --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="" style="width: 90px;">
-                            REF<i class="bi-caret-right-fill text-muted"></i>{{ $invoiceitem->invoicecsv->reference }}
+                            REF<i class="bi-caret-right-fill text-muted"></i>{{ $invoiceitem->invoicecsv->reference ?? '' }}
                             <br>
-                            EAN<i class="bi-caret-right-fill text-muted"></i>{{ $invoiceitem->invoicecsv->ean }}
+                            EAN<i class="bi-caret-right-fill text-muted"></i>{{ $invoiceitem->invoicecsv->ean ?? '' }}
                             <br>
-                            INT<i class="bi-caret-right-fill text-muted"></i>{{ $invoiceitem->invoicecsv->code }}
+                            INT<i class="bi-caret-right-fill text-muted"></i>{{ $invoiceitem->invoicecsv->code ?? '' }}
                         </div>
                     </td>
     

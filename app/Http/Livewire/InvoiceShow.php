@@ -433,27 +433,58 @@ class InvoiceShow extends Component
             $this->dispatchBrowserEvent('close-modal');
         }
 
-    /** 
-     * detailAlert()
+    /**
+     * eraseEfisco()
+     *  excludeEfisco()
      */
-    public function detailAlert(int $invoice_id)
+    public function eraseEfisco(int $invoice_id)
     {
         // Nota Fiscal.
         $invoice = Invoice::find($invoice_id);
 
         // Inicializa propriedades dinâmicas.
         $this->invoice_id    = $invoice->id;
-        $this->provider_id   = $invoice->provider_id;
-        $this->provider_name = $invoice->provider_name;
-        $this->company_id    = $invoice->company_id;
-        $this->company_name  = $invoice->company_name;
-        $this->key           = $invoice->key;
         $this->number        = $invoice->number;
-        $this->range         = $invoice->range;
-        $this->total         = $invoice->total;
-        $this->issue         = date_format(date_create($invoice->issue), 'd/m/Y H:i:s');
-        $this->created       = $invoice->created_at->format('d/m/Y H:i:s');
+        $this->provider_name = $invoice->provider_name;
     }
+        public function excludeEfisco(int $invoiceefisco_id)
+        {
+            // eFisco.
+            $invoiceefisco = Invoiceefisco::find($invoiceefisco_id);
+
+            // Define $validatedData
+            $validatedData['invoiceefisco_id']           = $invoiceefisco->id;
+            $validatedData['invoice_id']                 = $invoiceefisco->invoice_id;
+            $validatedData['invoice_number']             = $invoiceefisco->invoice->number;
+            $validatedData['provider_name']              = $invoiceefisco->invoice->provider->name;
+            $validatedData['efisco_productgroup_id']     = $invoiceefisco->productgroup_id;
+            $validatedData['efisco_productgroup_code']   = $invoiceefisco->productgroup->code;
+            $validatedData['efisco_productgroup_origin'] = $invoiceefisco->productgroup->origin;
+            $validatedData['efisco_icms']                = $invoiceefisco->icms;
+            $validatedData['efisco_value']               = $invoiceefisco->value;
+            $validatedData['efisco_value_invoice']       = $invoiceefisco->value_invoice;
+            $validatedData['efisco_value_final']         = $invoiceefisco->value_final;
+            $validatedData['efisco_ipi_invoice']         = $invoiceefisco->ipi_invoice;
+            $validatedData['efisco_ipi_final']           = $invoiceefisco->ipi_final;
+            $validatedData['efisco_index']               = $invoiceefisco->iindex;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida exclusão.
+            $valid = Invoiceefisco::validateErase($data);
+
+            // Executa dependências.
+            if ($valid) Invoiceefisco::dependencyErase($data);
+
+            // Exclui.
+            if ($valid) Invoiceefisco::erase($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
 
     /**
      * editItem()
@@ -734,58 +765,27 @@ class InvoiceShow extends Component
             $this->dispatchBrowserEvent('close-modal');
         }
 
-    /**
-     * eraseEfisco()
-     *  excludeEfisco()
+    /** 
+     * detailAlert()
      */
-    public function eraseEfisco(int $invoice_id)
+    public function detailAlert(int $invoice_id)
     {
         // Nota Fiscal.
         $invoice = Invoice::find($invoice_id);
 
         // Inicializa propriedades dinâmicas.
         $this->invoice_id    = $invoice->id;
-        $this->number        = $invoice->number;
+        $this->provider_id   = $invoice->provider_id;
         $this->provider_name = $invoice->provider_name;
+        $this->company_id    = $invoice->company_id;
+        $this->company_name  = $invoice->company_name;
+        $this->key           = $invoice->key;
+        $this->number        = $invoice->number;
+        $this->range         = $invoice->range;
+        $this->total         = $invoice->total;
+        $this->issue         = date_format(date_create($invoice->issue), 'd/m/Y H:i:s');
+        $this->created       = $invoice->created_at->format('d/m/Y H:i:s');
     }
-        public function excludeEfisco(int $invoiceefisco_id)
-        {
-            // eFisco.
-            $invoiceefisco = Invoiceefisco::find($invoiceefisco_id);
-
-            // Define $validatedData
-            $validatedData['invoiceefisco_id']           = $invoiceefisco->id;
-            $validatedData['invoice_id']                 = $invoiceefisco->invoice_id;
-            $validatedData['invoice_number']             = $invoiceefisco->invoice->number;
-            $validatedData['provider_name']              = $invoiceefisco->invoice->provider->name;
-            $validatedData['efisco_productgroup_id']     = $invoiceefisco->productgroup_id;
-            $validatedData['efisco_productgroup_code']   = $invoiceefisco->productgroup->code;
-            $validatedData['efisco_productgroup_origin'] = $invoiceefisco->productgroup->origin;
-            $validatedData['efisco_icms']                = $invoiceefisco->icms;
-            $validatedData['efisco_value']               = $invoiceefisco->value;
-            $validatedData['efisco_value_invoice']       = $invoiceefisco->value_invoice;
-            $validatedData['efisco_value_final']         = $invoiceefisco->value_final;
-            $validatedData['efisco_ipi_invoice']         = $invoiceefisco->ipi_invoice;
-            $validatedData['efisco_ipi_final']           = $invoiceefisco->ipi_final;
-            $validatedData['efisco_index']               = $invoiceefisco->iindex;
-
-            // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
-
-            // Valida exclusão.
-            $valid = Invoiceefisco::validateErase($data);
-
-            // Executa dependências.
-            if ($valid) Invoiceefisco::dependencyErase($data);
-
-            // Exclui.
-            if ($valid) Invoiceefisco::erase($data);
-
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
-        }
 
     /**
      * generate()
