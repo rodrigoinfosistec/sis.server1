@@ -596,6 +596,9 @@ class Invoiceitem extends Model
      * @return bool true
      */
     public static function editPrice(array $data) : bool {
+        // Item
+        $item = Invoiceitem::find($data['validatedData']['invoiceitem_id']);
+
         // Atualiza item.
         Invoiceitem::find($data['validatedData']['invoiceitem_id'])->update([
             'equipment'         => $data['validatedData']['equipment'],

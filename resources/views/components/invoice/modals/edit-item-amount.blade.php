@@ -101,12 +101,6 @@
                         FRETE(%)
                     </div>
                 </th>
-
-                <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 85px;">
-                        TOTAL(R$)
-                    </div>
-                </th>
             </tr>
         </thead>
 
@@ -253,13 +247,6 @@
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="" style="width: 75px;">
                             <input type="text" wire:model="array_item_shipping.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_item_shipping_{{ $invoiceitem->id }}" onKeyUp="maskFloat2(this, event)" required disabled>
-                        </div>
-                    </td>
-
-                    {{-- TOTAL(R$) --}}
-                    <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 85px;">
-                            <input type="text" value="{{ App\Models\General::decodeFloat2(App\Models\General::encodeFloat2($array_item_value_final[$invoiceitem->id]) * App\Models\General::encodeFloat2($array_item_quantity_final[$invoiceitem->id])) }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 80px;" id="array_item_value_total_final_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required disabled>
                         </div>
                     </td>
                 </tr>

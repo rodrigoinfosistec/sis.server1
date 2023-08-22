@@ -37,8 +37,14 @@
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 160px;">
-                        EMBALAGEM
+                    <div class="" style="width: 90px;">
+                        DADOS CSV
+                    </div>
+                </th>
+
+                <th class="" style="padding: 0;">
+                    <div class="text-center" style="width: 50px;">
+                        EMB.
                     </div>
                 </th>
 
@@ -100,12 +106,6 @@
                         FRETE(%)
                     </div>
                 </th>
-
-                <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 85px;">
-                        TOTAL(R$)
-                    </div>
-                </th>
             </tr>
         </thead>
 
@@ -154,21 +154,25 @@
                         </div>
                     </td>
 
-                    {{-- EMBALAGEM --}}
+                    {{-- DADOS CSV --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="text-center fw-bold" style="width: 160px; height: 25px;">
-                            <div class="float-start text-end" style="width: 40px; margin-top: 8px; font-size: 8pt; margin-right: 2px;">
-                                {{ $invoiceitem->measure }}
-                            </div>
-                            <div class="float-start" style="width: 45px;">
-                                <select wire:model="array_item_signal.{{ $invoiceitem->id }}" class="form-select form-control-sm text-uppercase text-danger" style="font-size: 8pt;  padding: 0 30px 0 5px;" id="array_item_signal_{{ $invoiceitem->id }}" required>
-                                    <option value="*" class="text-muted fw-bold" style="font-size: 6pt;">*</option>
-                                    <option value="/" class="text-muted fw-bold" style="font-size: 6pt;">/</option>
-                                </select>
-                            </div>
-                            <div class="float-start" style="width: 68px;">
-                                <input type="text" wire:model="array_item_amount.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px;" id="array_item_amount_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required>
-                            </div>
+                        <div class="" style="width: 90px;">
+                            REF<i class="bi-caret-right-fill text-muted"></i>{{ $invoiceitem->invoicecsv->reference }}
+                            <br>
+                            EAN<i class="bi-caret-right-fill text-muted"></i>{{ $invoiceitem->invoicecsv->ean }}
+                            <br>
+                            INT<i class="bi-caret-right-fill text-muted"></i>{{ $invoiceitem->invoicecsv->code }}
+                        </div>
+                    </td>
+    
+                    {{-- EMB. --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="text-center" style="width: 50px;">
+                            {{ $invoiceitem->measure }}
+                            <br>
+                            <span class="text-danger">{{ $invoiceitem->signal }}</span>
+                            <br>
+                            {{ $invoiceitem->amount }}
                         </div>
                     </td>
 
@@ -252,13 +256,6 @@
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="" style="width: 75px;">
                             <input type="text" wire:model="array_item_shipping.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_item_shipping_{{ $invoiceitem->id }}" onKeyUp="maskFloat2(this, event)" required disabled>
-                        </div>
-                    </td>
-
-                    {{-- TOTAL(R$) --}}
-                    <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 85px;">
-                            <input type="text" wire:model="array_item_value_total_final.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 80px;" id="array_item_value_total_final_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required disabled>
                         </div>
                     </td>
                 </tr>
