@@ -300,6 +300,7 @@ class Invoice extends Model
                 $dataCompany['validatedData']['cnpj']     = Company::encodeCnpj((string)$xmlObject->NFe->infNFe->dest->CNPJ);
                 $dataCompany['validatedData']['name']     = (string)$xmlObject->NFe->infNFe->dest->xNome;
                 $dataCompany['validatedData']['nickname'] = (string)$xmlObject->NFe->infNFe->dest->xFant;
+                $dataCompany['validatedData']['price']    = '1';
                 $dataCompany['config']                    = $data['config'];
 
                 // Cadastra a Empresa.

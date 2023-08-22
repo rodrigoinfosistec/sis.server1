@@ -331,26 +331,63 @@ class Invoiceitem extends Model
      * @return void
      */
     public static function price(array $data) : void {
-        // Item.
-        $item   = Invoiceitem::find($data['validatedData']['invoiceitem_id']);
-        //$efisco = Invoiceefisco::where(['invoice_id' => $data['validatedData']['invoice_id'], 'productgroup_id' => $item->productgroup_id])->first();
+        // Nota Fiscal.
+        $invoice = Invoice::find($data['validatedData']['invoice_id']);
 
-        // Cálculo dos custos.
-        $cost_begin         = $item->value_final;
+        // Item.
+        $item = Invoiceitem::find($data['validatedData']['invoiceitem_id']);
+
+        // Tipo Preço.
+        $price_type = (int)$invoice->company->price;
+
+        // Cálculo Custo.
+        $cost_begin         = $item->value_final * $item->quantity_final;
         $cost_plus_index    = ($cost_begin / $item->index) * 100;
         $cost_plus_ipi      = $cost_plus_index + (($cost_plus_index * $item->ipi_aliquot_final) / 100);
-
+        $cost_plus_shipping = $cost_plus_ipi + (($cost_plus_ipi * $item->shipping) / 100);
         // Custo.
-        $cost = $cost_plus_ipi + (($cost_plus_ipi * $item->shipping) / 100);
+        $cost = ($cost_plus_shipping / $item->quantity_final) / $item->amount;
 
         // Preço Final.
         $price_full = $cost + (($cost * $item->margin) / 100);
-        $price      = Invoiceitem::roundUp($price_full, 2);
+        $price = Invoiceitem::roundUp($price_full, 2);
 
-        // .
-        $card_full = '';
+        // Preço Cartão.
+        $card_full = $price / 0.9;
+        $card = Invoiceitem::roundUp($card_full, 2);
 
-        dd($price);
+        // Cálculo Preço Varejo - Define a Percentagem sobre o cartão.
+        if($card_full <= 20)                             : $retail_aliquot = 50;
+            elseif($card_full > 20 && $card_full <= 50)  : $retail_aliquot = 40;
+            elseif($card_full > 50 && $card_full <= 80)  : $retail_aliquot = 30;
+            elseif($card_full > 80 && $card_full <= 200) : $retail_aliquot = 20;
+            else                                         : $retail_aliquot = 15;
+        endif;
+        $retail_full = $card_full + (($card_full * $retail_aliquot) / 100);
+        $retail_nick = Invoiceitem::roundUp($retail_full, 2);
+        // Ajusta Centavos.
+        $integer  = (int)$retail_nick;
+        $fraction = $retail_nick - $integer;
+        if($retail_nick > 3):
+            if($fraction >= 0 && $fraction <= 0.25):
+                $integer = $integer - 1;
+                $fraction = 0.99;
+            elseif($fraction >= 0.26 && $fraction <= 0.8):
+                $fraction = 0.5;
+            else:
+                $fraction = 0.99;
+            endif;
+        else:
+            if($fraction >= 0 && $fraction <= 0.6):
+                $fraction = 0.5;
+            else:
+                $fraction = 0.99;
+            endif;
+        endif;
+        // Preço Varejo
+        $retail = Invoiceitem::roundUp($integer + $fraction, 2);
+
+        dd($retail);
     }
 
     /**
