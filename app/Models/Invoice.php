@@ -113,6 +113,14 @@ class Invoice extends Model
             endif;
         endif;
 
+        if(!Invoiceitem::indexOk($invoice_id)):
+            // Incrementa a quantidade de alertas.
+            $alerts['amount']++;
+
+            // Incrementa a mensagem de alertas.
+            $alerts['message'][] = 'Defina o Itens CSV, os Grupos de Produto e confirme os atributos dos itens.';
+        endif;
+
         if(!Invoiceitem::priceOk($invoice_id)):
             // Incrementa a quantidade de alertas.
             $alerts['amount']++;
