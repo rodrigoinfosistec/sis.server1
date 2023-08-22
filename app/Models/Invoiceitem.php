@@ -92,6 +92,21 @@ class Invoiceitem extends Model
         return (float)$index;
     }
 
+    /**
+     * Arredonda Preço.
+     * @var float $value
+     * 
+     * @return float $index
+     */
+    public static function roundUp($value, $places=0)
+    {
+        if($places < 0):
+            $places = 0;
+        endif;
+        $mult = pow(10, $places);
+        return ceil($value * $mult) / $mult;
+    }
+
         /**
          * Converte quantidade e valor.
          * @var array $data,
@@ -310,6 +325,35 @@ class Invoiceitem extends Model
     }
 
     /**
+     * Define os Preços.
+     * @var array $data
+     * 
+     * @return void
+     */
+    public static function price(array $data) : void {
+        // Item.
+        $item   = Invoiceitem::find($data['validatedData']['invoiceitem_id']);
+        //$efisco = Invoiceefisco::where(['invoice_id' => $data['validatedData']['invoice_id'], 'productgroup_id' => $item->productgroup_id])->first();
+
+        // Cálculo dos custos.
+        $cost_begin         = $item->value_final;
+        $cost_plus_index    = ($cost_begin / $item->index) * 100;
+        $cost_plus_ipi      = $cost_plus_index + (($cost_plus_index * $item->ipi_aliquot_final) / 100);
+
+        // Custo.
+        $cost = $cost_plus_ipi + (($cost_plus_ipi * $item->shipping) / 100);
+
+        // Preço Final.
+        $price_full = $cost + (($cost * $item->margin) / 100);
+        $price      = Invoiceitem::roundUp($price_full, 2);
+
+        // Distingue.
+        $card_full = 
+
+        dd($cost);
+    }
+
+    /**
      * Valida cadastro.
      * @var array $data
      * 
@@ -487,7 +531,7 @@ class Invoiceitem extends Model
             'productgroup_id'   => !empty($data['validatedData']['productgroup_id']) ? $data['validatedData']['productgroup_id'] : null,
             'invoicecsv_id'     => !empty($data['validatedData']['invoicecsv_id']) ? $data['validatedData']['invoicecsv_id']  : null,
             'quantity_final'    => (General::encodeFloat3($data['validatedData']['quantity_final']) > $item->quantity) ? General::encodeFloat3($data['validatedData']['quantity_final']) : $item->quantity,
-            'value_final'       => (General::encodeFloat3($data['validatedData']['value_final']) > $item->value) ? General::encodeFloat3($data['validatedData']['value_final']) : $item->quantity,
+            'value_final'       => (General::encodeFloat3($data['validatedData']['value_final']) > $item->value) ? General::encodeFloat3($data['validatedData']['value_final']) : $item->value,
             'ipi_final'         => General::encodeFloat3($data['validatedData']['ipi_final']),
             'ipi_aliquot_final' => General::encodeFloat3($data['validatedData']['ipi_aliquot_final']),
             'margin'            => (General::encodeFloat2($data['validatedData']['margin']) > $item->margin) ? General::encodeFloat2($data['validatedData']['margin']) : $item->margin,
@@ -566,7 +610,8 @@ class Invoiceitem extends Model
      * @return bool true
      */
     public static function dependencyEditAmount(array $data) : bool {
-        // ...
+        // Define preços.
+        Invoiceitem::price($data);
 
         return true;
     }
