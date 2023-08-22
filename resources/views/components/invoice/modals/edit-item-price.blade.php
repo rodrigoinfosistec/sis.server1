@@ -49,6 +49,12 @@
                 </th>
 
                 <th class="" style="padding: 0;">
+                    <div class="" style="width: 80px;">
+                        QTD/UNT/TOT
+                    </div>
+                </th>
+
+                <th class="" style="padding: 0;">
                     <div class="text-center" style="width: 75px;">
                         INDEX
                     </div>
@@ -172,14 +178,18 @@
                             <br>
                             <span class="text-danger">{{ $invoiceitem->signal }}</span>
                             <br>
-                            {{ $invoiceitem->amount }}
+                            {{ App\Models\general::decodeFloat3($invoiceitem->amount) }}
                         </div>
                     </td>
 
-                    {{-- INDEX(%) --}}
+                    {{-- QTD/UNT/TOT --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 75px;">
-                            <input type="text" wire:model="array_item_index.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_item_index_{{ $invoiceitem->id }}" onKeyUp="maskFloat2(this, event)" required>
+                        <div class="" style="width: 80px;">
+                            {{ App\Models\general::decodeFloat3($invoiceitem->quantity_final) }} <span class="text-danger">X</span>
+                            <br>
+                            R$ {{ App\Models\general::decodeFloat3($invoiceitem->value_final) }}
+                            <br>
+                            <span class="text-danger">R$ {{ App\Models\general::decodeFloat3($invoiceitem->quantity_final * $invoiceitem->value_final) }}</span>
                         </div>
                     </td>
 
