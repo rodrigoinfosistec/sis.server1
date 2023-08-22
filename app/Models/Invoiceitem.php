@@ -230,7 +230,7 @@ class Invoiceitem extends Model
                 //Percorre todos os itens da Nota Fiscal.
                 foreach(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $key_item => $item):
                     // Verifica se Grupo de Produto do eFisco é o mesmo do item.
-                    if($efisco->productgroup_id == $item->productgroup_id):
+                    if((int)$efisco->productgroup_id == (int)$item->productgroup_id):
                         // Incrementa os valores.
                         $efisco_value_total[$efisco->id]       = $efisco_value_total[$efisco->id]       + $item->value_total;
                         $efisco_value_total_final[$efisco->id] = $efisco_value_total_final[$efisco->id] + $item->value_total_final;
