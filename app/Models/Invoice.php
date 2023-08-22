@@ -113,6 +113,14 @@ class Invoice extends Model
             endif;
         endif;
 
+        if(!Invoiceitem::priceOk($invoice_id)):
+            // Incrementa a quantidade de alertas.
+            $alerts['amount']++;
+
+            // Incrementa a mensagem de alertas.
+            $alerts['message'][] = 'Defina as quantidades das embalagens dos itens e o índice de cálculo dos preços.';
+        endif;
+
         return $alerts;
     }
 

@@ -208,6 +208,20 @@ class Invoiceitem extends Model
     }
 
     /**
+     * Verifica se todos os eFiscos estão sendo utilizados.
+     * @var int $invoice_id
+     * 
+     * @return bool $price
+     */
+    public static function priceOk(int $invoice_id) : bool {
+        $price = false;
+
+        
+
+        return (bool)$price;
+    }
+
+    /**
      * Gerar o index dos eFiscos.
      * @var int $invoice_id
      * 
