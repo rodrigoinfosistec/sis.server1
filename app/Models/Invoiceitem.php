@@ -163,95 +163,123 @@ class Invoiceitem extends Model
         return $array_old_item;
     }
 
-        /**
-         * Gerar o index dos eFiscos.
-         * @var int $invoice_id
-         * 
-         * @return bool $generate
-         */
-        public static function generateIndex(array $data){
-            // Inicializa variável.
-            $generate = null;
+    /**
+     * Verifica se todos os itens csv estão sendo utilizados.
+     * @var int $invoice_id
+     * 
+     * @return bool $csv
+     */
+    public static function csvOk(int $invoice_id) : bool {
+        $csv = false;
 
-            // Conta CSV.
-            $qtd_csv_invoice = Invoicecsv::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count();
-            $key_csv = [];
-            foreach(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $item):
-                if (!empty($item->invoicecsv_id)) $key_csv[$item->invoicecsv_id] = '';
-            endforeach;
-            $qtd_csv_select = count($key_csv);
+        // Conta CSV.
+        $qtd_csv_invoice = Invoicecsv::where('invoice_id', $invoice_id)->get()->count();
+        $key_csv = [];
+        foreach(Invoiceitem::where('invoice_id', $invoice_id)->get() as $item):
+            if (!empty($item->invoicecsv_id)) $key_csv[$item->invoicecsv_id] = '';
+        endforeach;
+        $qtd_csv_select = count($key_csv);
 
-            // Conta Efisco.
-            $qtd_efisco_invoice = Invoiceefisco::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count();
-            $key_efisco = [];
-            foreach(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $item):
-                if (!empty($item->productgroup_id)) $key_efisco[$item->productgroup_id] = '';
-            endforeach;
-            $qtd_efisco_select = count($key_efisco);
+        if ($qtd_csv_invoice == $qtd_csv_select) $csv = true;
 
-            // Verifica se todos os itens possuem item CSV e Grupo de Produto atribuído.
-            if($qtd_csv_invoice == $qtd_csv_select && $qtd_efisco_invoice == $qtd_efisco_select):
-                // Inicializa o array.
-                $efisco_value = [];
+        return (bool)$csv;
+    }
 
-                // Percorre todos eFiscos da Nota Fiscal.
-                foreach(Invoiceefisco::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $key_efisco => $efisco):
-                    // Atrinui valor inicial zero (0.00) às variáveis.
-                    $efisco_value_total[$efisco->id]       = 0.00;
-                    $efisco_value_total_final[$efisco->id] = 0.00;
-                    $efisco_ipi[$efisco->id]               = 0.00;
-                    $efisco_ipi_final[$efisco->id]         = 0.00;
+    /**
+     * Verifica se todos os eFiscos estão sendo utilizados.
+     * @var int $invoice_id
+     * 
+     * @return bool $efisco
+     */
+    public static function itemOk(int $invoice_id) : bool {
+        $efisco = false;
 
-                    //Percorre todos os itens da Nota Fiscal.
-                    foreach(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $key_item => $item):
-                        // Verifica se Grupo de Produto do eFisco é o mesmo do item.
-                        if($efisco->productgroup_id == $item->productgroup_id):
-                            // Incrementa os valores.
-                            $efisco_value_total[$efisco->id]       = $efisco_value_total[$efisco->id]       + $item->value_total;
-                            $efisco_value_total_final[$efisco->id] = $efisco_value_total_final[$efisco->id] + $item->value_total_final;
-                            $efisco_ipi[$efisco->id]               = $efisco_ipi[$efisco->id]               + $item->ipi;
-                            $efisco_ipi_final[$efisco->id]         = $efisco_ipi_final[$efisco->id]         + $item->ipi_final;
-                        endif;
-                    endforeach;
+        // Conta Efisco.
+        $qtd_efisco_invoice = Invoiceefisco::where('invoice_id', $invoice_id)->get()->count();
+        $key_efisco = [];
+        foreach(Invoiceitem::where('invoice_id', $invoice_id)->get() as $item):
+            if (!empty($item->productgroup_id)) $key_efisco[$item->productgroup_id] = '';
+        endforeach;
+        $qtd_efisco_select = count($key_efisco);
 
-                    // Atribui o ICMS.
-                    $efisco_icms[$efisco->id] = $efisco->icms;
+        if ($qtd_efisco_invoice == $qtd_efisco_select) $efisco = true;
 
-                    // Monta a Referência.
-                    $reference[$efisco->id] = ($efisco_icms[$efisco->id] / ($efisco_value_total_final[$efisco->id] + $efisco_ipi_final[$efisco->id])) * 100.00;
+        return (bool)$efisco;
+    }
 
-                    // Monta o Index.
-                    $index[$efisco->id] = Invoiceitem::formatIndex(100.00 - $reference[$efisco->id]);
+    /**
+     * Gerar o index dos eFiscos.
+     * @var int $invoice_id
+     * 
+     * @return bool $generate
+     */
+    public static function generateIndex(array $data){
+        // Inicializa variável.
+        $generate = null;
 
-                    // Atualiza eFisco, definindo o index.
-                    Invoiceefisco::find($efisco->id)->update([
-                        'value_invoice' => $efisco_value_total[$efisco->id],
-                        'value_final'   => $efisco_value_total_final[$efisco->id],
-                        'ipi_invoice'   => $efisco_ipi[$efisco->id],
-                        'ipi_final'     => $efisco_ipi_final[$efisco->id],
-                        'index'         => $index[$efisco->id],
-                    ]);
+        // Verifica se todos os itens possuem item CSV e Grupo de Produto atribuído.
+        if(Invoiceitem::csvOk($data['validatedData']['invoice_id']) && Invoiceitem::itemOk($data['validatedData']['invoice_id'])):
+            // Inicializa o array.
+            $efisco_value = [];
 
-                    //Percorre todos os itens da Nota Fiscal com este efisco.
-                    Invoiceitem::where(['invoice_id' => $data['validatedData']['invoice_id'], 'productgroup_id' => $efisco->productgroup_id])->update([
-                        'index' => $index[$efisco->id],
-                    ]);
+            // Percorre todos eFiscos da Nota Fiscal.
+            foreach(Invoiceefisco::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $key_efisco => $efisco):
+                // Atrinui valor inicial zero (0.00) às variáveis.
+                $efisco_value_total[$efisco->id]       = 0.00;
+                $efisco_value_total_final[$efisco->id] = 0.00;
+                $efisco_ipi[$efisco->id]               = 0.00;
+                $efisco_ipi_final[$efisco->id]         = 0.00;
+
+                //Percorre todos os itens da Nota Fiscal.
+                foreach(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $key_item => $item):
+                    // Verifica se Grupo de Produto do eFisco é o mesmo do item.
+                    if($efisco->productgroup_id == $item->productgroup_id):
+                        // Incrementa os valores.
+                        $efisco_value_total[$efisco->id]       = $efisco_value_total[$efisco->id]       + $item->value_total;
+                        $efisco_value_total_final[$efisco->id] = $efisco_value_total_final[$efisco->id] + $item->value_total_final;
+                        $efisco_ipi[$efisco->id]               = $efisco_ipi[$efisco->id]               + $item->ipi;
+                        $efisco_ipi_final[$efisco->id]         = $efisco_ipi_final[$efisco->id]         + $item->ipi_final;
+                    endif;
                 endforeach;
 
-                // Monta retorno. Útil para consulta.
-                $generate = [
-                'efisco_value_total'       => $efisco_value_total,
-                'efisco_value_total_final' => $efisco_value_total_final,
-                'efisco_ipi'               => $efisco_ipi,
-                'efisco_ipi_final'         => $efisco_ipi_final,
-                'efisco_icms'              => $efisco_icms,
-                'reference'                => $reference,
-                'index'                    => $index,
-                ];
-            endif;
+                // Atribui o ICMS.
+                $efisco_icms[$efisco->id] = $efisco->icms;
 
-            return $generate;
-        }
+                // Monta a Referência.
+                $reference[$efisco->id] = ($efisco_icms[$efisco->id] / ($efisco_value_total_final[$efisco->id] + $efisco_ipi_final[$efisco->id])) * 100.00;
+
+                // Monta o Index.
+                $index[$efisco->id] = Invoiceitem::formatIndex(100.00 - $reference[$efisco->id]);
+
+                // Atualiza eFisco, definindo o index.
+                Invoiceefisco::find($efisco->id)->update([
+                    'value_invoice' => $efisco_value_total[$efisco->id],
+                    'value_final'   => $efisco_value_total_final[$efisco->id],
+                    'ipi_invoice'   => $efisco_ipi[$efisco->id],
+                    'ipi_final'     => $efisco_ipi_final[$efisco->id],
+                    'index'         => $index[$efisco->id],
+                ]);
+
+                //Percorre todos os itens da Nota Fiscal com este efisco.
+                Invoiceitem::where(['invoice_id' => $data['validatedData']['invoice_id'], 'productgroup_id' => $efisco->productgroup_id])->update([
+                    'index' => $index[$efisco->id],
+                ]);
+            endforeach;
+
+            // Monta retorno. Útil para consulta.
+            $generate = [
+            'efisco_value_total'       => $efisco_value_total,
+            'efisco_value_total_final' => $efisco_value_total_final,
+            'efisco_ipi'               => $efisco_ipi,
+            'efisco_ipi_final'         => $efisco_ipi_final,
+            'efisco_icms'              => $efisco_icms,
+            'reference'                => $reference,
+            'index'                    => $index,
+            ];
+        endif;
+
+        return $generate;
+    }
 
     /**
      * Valida cadastro.
