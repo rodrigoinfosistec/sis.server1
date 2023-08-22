@@ -259,7 +259,7 @@
                     {{-- TOTAL(R$) --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="" style="width: 85px;">
-                            <input type="text" wire:model="array_item_value_total_final.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 80px;" id="array_item_value_total_final_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required disabled>
+                            <input type="text" value="{{ App\Models\General::decodeFloat2(App\Models\General::encodeFloat2($array_item_value_final[$invoiceitem->id]) * App\Models\General::encodeFloat2($array_item_quantity_final[$invoiceitem->id])) }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 80px;" id="array_item_value_total_final_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required disabled>
                         </div>
                     </td>
                 </tr>

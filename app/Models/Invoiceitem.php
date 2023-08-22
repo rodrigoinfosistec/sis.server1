@@ -543,8 +543,8 @@ class Invoiceitem extends Model
         // Atualiza item.
         Invoiceitem::find($data['validatedData']['invoiceitem_id'])->update([
             'signal' => $data['validatedData']['signal'],
-            'amount' => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['amount'])),
-            'index'  => Invoiceitem::valueNotZero(General::encodeFloat2($data['validatedData']['index'])),
+            'amount' => ($data['validatedData']['amount'] > 0) ? General::encodeFloat3($data['validatedData']['amount']) : 1.00,
+            'index'  => ($data['validatedData']['index'] > 0) ? General::encodeFloat2($data['validatedData']['index']) : 100.00,
         ]);
 
         // Mensagem.
