@@ -222,37 +222,36 @@ class Invoiceitem extends Model
             // Percorre todos eFiscos da Nota Fiscal.
             foreach(Invoiceefisco::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $key_efisco => $efisco):
                 // Atrinui valor inicial zero (0.00) às variáveis.
-                $efisco_value_total[$efisco->id]       = 0.00;
-                $efisco_value_total_final[$efisco->id] = 0.00;
-                $efisco_ipi[$efisco->id]               = 0.00;
-                $efisco_ipi_final[$efisco->id]         = 0.00;
+                $efisco_value_invoice[$efisco->id] = 0.00;
+                $efisco_value_final[$efisco->id]   = 0.00;
+                $efisco_ipi[$efisco->id]           = 0.00;
+                $efisco_ipi_final[$efisco->id]     = 0.00;
 
                 //Percorre todos os itens da Nota Fiscal.
                 foreach(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get() as $key_item => $item):
                     // Verifica se Grupo de Produto do eFisco é o mesmo do item.
                     if((int)$efisco->productgroup_id == (int)$item->productgroup_id):
                         // Incrementa os valores.
-                        $efisco_value_total[$efisco->id]       = $efisco_value_total[$efisco->id]       + $item->value_total;
-                        $efisco_value_total_final[$efisco->id] = $efisco_value_total_final[$efisco->id] + $item->value_total_final;
-                        $efisco_ipi[$efisco->id]               = $efisco_ipi[$efisco->id]               + $item->ipi;
-                        $efisco_ipi_final[$efisco->id]         = $efisco_ipi_final[$efisco->id]         + $item->ipi_final;
+                        $efisco_value_invoice[$efisco->id] = $efisco_value_invoice[$efisco->id] + ($item->value * $item->quantity);
+                        $efisco_value_final[$efisco->id]   = $efisco_value_final[$efisco->id]   + ($item->value_final * $item->quantity_final);
+                        $efisco_ipi[$efisco->id]           = $efisco_ipi[$efisco->id]           + $item->ipi;
+                        $efisco_ipi_final[$efisco->id]     = $efisco_ipi_final[$efisco->id]     + $item->ipi_final;
                     endif;
                 endforeach;
-                dd($efisco_ipi_final);
 
                 // Atribui o ICMS.
                 $efisco_icms[$efisco->id] = $efisco->icms;
 
                 // Monta a Referência.
-                $reference[$efisco->id] = ($efisco_icms[$efisco->id] / ($efisco_value_total_final[$efisco->id] + $efisco_ipi_final[$efisco->id])) * 100.00;
+                $reference[$efisco->id] = ($efisco_icms[$efisco->id] / ($efisco_value_final[$efisco->id] + $efisco_ipi_final[$efisco->id])) * 100.00;
 
                 // Monta o Index.
                 $index[$efisco->id] = Invoiceitem::formatIndex(100.00 - $reference[$efisco->id]);
 
                 // Atualiza eFisco, definindo o index.
                 Invoiceefisco::find($efisco->id)->update([
-                    'value_invoice' => $efisco_value_total[$efisco->id],
-                    'value_final'   => $efisco_value_total_final[$efisco->id],
+                    'value_invoice' => $efisco_value_invoice[$efisco->id],
+                    'value_final'   => $efisco_value_final[$efisco->id],
                     'ipi_invoice'   => $efisco_ipi[$efisco->id],
                     'ipi_final'     => $efisco_ipi_final[$efisco->id],
                     'index'         => $index[$efisco->id],
@@ -266,13 +265,13 @@ class Invoiceitem extends Model
 
             // Monta retorno. Útil para consulta.
             $generate = [
-            'efisco_value_total'       => $efisco_value_total,
-            'efisco_value_total_final' => $efisco_value_total_final,
-            'efisco_ipi'               => $efisco_ipi,
-            'efisco_ipi_final'         => $efisco_ipi_final,
-            'efisco_icms'              => $efisco_icms,
-            'reference'                => $reference,
-            'index'                    => $index,
+            'efisco_value_invoice' => $efisco_value_invoice,
+            'efisco_value_final'   => $efisco_value_final,
+            'efisco_ipi'           => $efisco_ipi,
+            'efisco_ipi_final'     => $efisco_ipi_final,
+            'efisco_icms'          => $efisco_icms,
+            'reference'            => $reference,
+            'index'                => $index,
             ];
         endif;
 
