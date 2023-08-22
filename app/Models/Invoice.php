@@ -118,7 +118,7 @@ class Invoice extends Model
             $alerts['amount']++;
 
             // Incrementa a mensagem de alertas.
-            $alerts['message'][] = 'Defina as quantidades das embalagens dos itens e o índice de cálculo dos preços.';
+            $alerts['message'][] = 'Defina a quantidade das embalagens dos itens e confirme o índice de cálculo dos preços.';
         endif;
 
         return $alerts;

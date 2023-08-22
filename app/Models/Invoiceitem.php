@@ -211,12 +211,30 @@ class Invoiceitem extends Model
      * Verifica se todos os eFiscos estão sendo utilizados.
      * @var int $invoice_id
      * 
+     * @return bool $index
+     */
+    public static function indexOk(int $invoice_id) : bool {
+        $index = true;
+
+        foreach(Invoiceitem::where(['invoice_id' => $invoice_id])->get() as $key => $item):
+
+        endforeach;
+
+        return (bool)$index;
+    }
+
+    /**
+     * Verifica se todos os eFiscos estão sendo utilizados.
+     * @var int $invoice_id
+     * 
      * @return bool $price
      */
     public static function priceOk(int $invoice_id) : bool {
-        $price = false;
+        $price = true;
 
-        
+        if(1 == 1):
+
+        endif;
 
         return (bool)$price;
     }
