@@ -157,9 +157,59 @@
         <span class="fst-italic fw-normal" style="font-size: 7pt;">R$</span>{{ App\Models\General::decodeFloat2($item->retail) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
-
                 </x-layout.pdf.pdf-table-body-line>
             @endforeach
         </x-layout.pdf.pdf-table-body>
     </x-layout.pdf.pdf-table>
+
+{{-- eFisco --}}
+<div style="width: 700px; margin-top: 50px; border: solid 1px #ddd;">
+    <h6>eFisco</h6>
+    <table class="table table-sm">
+        <tr class="text-muted" style="font-size: 8pt; border-bottom: 2px #ddd solid;">
+            <th>GRUPO</th>
+            <th>ICMS EFISCO</th>
+            <th>PRODUTO EFISCO</th>
+            <th>PRODUTO XML</th>
+            <th>PRODUTO FINAL</th>
+            <th>IPI XML</th>
+            <th>IPI FINAL</th>
+            <th>ÍNDICE</th>
+        </tr>
+        @foreach(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get() as $key => $efisco)
+            <tr class="text-uppercase" style="font-size: 7pt;">
+{{-- START CONTEÚDO EFISCO --}}
+
+{{-- GRUPO --}}
+<td>{{ $efisco->productgroup->code }} {{ $efisco->productgroup->origin }}</td>
+
+{{-- ICMS EFISCO --}}
+<td>R$ {{ number_format($efisco->icms, 2, ',', '.') }}</td>
+
+{{-- PRODUTO EFISCO --}}
+<td>R$ {{ number_format($efisco->value, 2, ',', '.') }}</td>
+
+{{-- PRODUTO XML --}}
+<td>R$ {{ number_format($efisco->value_invoice, 2, ',', '.') }}</td>
+
+{{-- PRODUTO FINAL --}}
+<td>R$ {{ number_format($efisco->value_final, 2, ',', '.') }}<span class="text-muted">({{ number_format($price->multiplier_value, 2, ',', '.') }}%)</span></td>
+
+{{-- IPI XML --}}
+<td>R$ {{ number_format($efisco->ipi_invoice, 2, ',', '.') }}</td>
+
+{{-- IPI FINAL --}}
+<td>R$ {{ number_format($efisco->ipi_final, 2, ',', '.') }}<span class="text-muted">({{ number_format($price->multiplier_ipi, 2, ',', '.') }}%)</span></td>
+
+{{-- ÍNDICE --}}
+<td>{{ number_format($efisco->index, 2, ',', '.') }} %</td>
+
+{{-- END CONTEÚDO EFISCO --}}
+            </tr>
+        @endforeach
+        <tr class="text-muted" style="font-size: 8pt; border-top: 1px #ddd solid;">
+
+        </tr>
+    </table>
+</div>
 </x-app.pdf.layout>

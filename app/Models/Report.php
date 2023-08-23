@@ -475,10 +475,11 @@ class Report extends Model
     public static function invoicePriceGenerate(array $data) : bool {
         // Gera o arquivo PDF.
         $pdf = PDF::loadView('components.invoice.pdf-price', [
-            'user'  => auth()->user()->name,
-            'title' => 'Preços',
-            'date'  => date('d/m/Y H:i:s'),
-            'list'  => $list = Invoiceitem::where('invoice_id', $data['invoice_id'])->orderBy('identifier', 'ASC')->get(), 
+            'user'       => auth()->user()->name,
+            'title'      => 'Preços',
+            'date'       => date('d/m/Y H:i:s'),
+            'invoice_id' => $data['invoice_id'],
+            'list'       => $list = Invoiceitem::where('invoice_id', $data['invoice_id'])->orderBy('identifier', 'ASC')->get(), 
         ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
 
         // Salva o arquivo PDF.
