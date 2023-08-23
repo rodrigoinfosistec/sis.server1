@@ -325,20 +325,31 @@ class Invoiceitem extends Model
     }
 
     /**
+     * // Define o Tipo de Preço.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function price(array $data) : bool {
+        // Define o Tipo de Preço.
+        switch((int)Invoice::find($data['validatedData']['invoice_id'])->company->price):
+            case 1  : Invoiceitem::price1($data); break;
+            case 2  : Invoiceitem::price2($data); break;
+            default : Invoiceitem::price1($data); break;
+        endswitch;
+
+        return true;
+    }
+
+    /**
      * Define os Preços.
      * @var array $data
      * 
      * @return void
      */
-    public static function price(array $data) : void {
-        // Nota Fiscal.
-        $invoice = Invoice::find($data['validatedData']['invoice_id']);
-
+    public static function price1(array $data) : void {
         // Item.
         $item = Invoiceitem::find($data['validatedData']['invoiceitem_id']);
-
-        // Tipo Preço.
-        $price_type = (int)$invoice->company->price;
 
         // Cálculo Custo.
         $cost_begin         = $item->value_final * $item->quantity_final;
@@ -387,7 +398,7 @@ class Invoiceitem extends Model
         // Preço Varejo
         $retail = Invoiceitem::roundUp($integer + $fraction, 2);
 
-        dd($retail);
+        dd($retail.'-'.$card.'-'.$price);
     }
 
     /**
