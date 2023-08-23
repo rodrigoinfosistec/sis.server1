@@ -669,6 +669,9 @@ class InvoiceShow extends Component
             $this->array_item_ipi_aliquot_final[$invoiceitem->id] = General::decodeFloat3($invoiceitem->ipi_aliquot_final);
             $this->array_item_margin[$invoiceitem->id]            = General::decodeFloat2($invoiceitem->margin);
             $this->array_item_shipping[$invoiceitem->id]          = General::decodeFloat2($invoiceitem->shipping);
+            $this->array_item_price[$invoiceitem->id]             = General::decodeFloat2($invoiceitem->price);
+            $this->array_item_card[$invoiceitem->id]              = General::decodeFloat2($invoiceitem->card);
+            $this->array_item_retail[$invoiceitem->id]            = General::decodeFloat2($invoiceitem->retail);
         endforeach;
     }
         public function modernizeItemPrice()
@@ -691,6 +694,9 @@ class InvoiceShow extends Component
                 $validatedData['ipi_aliquot_final'] = $this->array_item_ipi_aliquot_final[$invoiceitem->id];
                 $validatedData['margin']            = $this->array_item_margin[$invoiceitem->id];
                 $validatedData['shipping']          = $this->array_item_shipping[$invoiceitem->id];
+                $validatedData['price']             = $this->array_item_price[$invoiceitem->id];
+                $validatedData['card']              = $this->array_item_card[$invoiceitem->id];
+                $validatedData['retail']            = $this->array_item_retail[$invoiceitem->id];
 
                 // Define $data.
                 $data['config']        = $this->config;

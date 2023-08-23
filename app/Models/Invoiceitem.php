@@ -402,7 +402,7 @@ class Invoiceitem extends Model
         $retail = Invoiceitem::roundUp($integer + $fraction, 2);
 
         // Preço CSV Final.
-        $price_csv = $item->invoicecsv->value;
+        $price_csv = (float)$item->invoicecsv->value;
 
         // Preço CSV Cartão.
         $card_csv_full = $price_csv / 0.9;
@@ -438,6 +438,9 @@ class Invoiceitem extends Model
         endif;
         // Preço CSV Varejo.
         $retail_csv = Invoiceitem::roundUp($integer + $fraction, 2);
+
+        // Evita centavos em produtos com preço 0
+        if(!$price_csv > 0) $retail_csv = 0;
 
         // Atualiza os Preços do item.
         Invoiceitem::find($item->id)->update([
@@ -658,9 +661,13 @@ class Invoiceitem extends Model
                 'addition'          => $providerbusiness->addition,
 
                 'index'             => null,
+                'cost'              => null,
                 'price'             => null,
                 'card'              => null,
                 'retail'            => null,
+                'price_csv'         => null,
+                'card_csv'          => null,
+                'retail_csv'        => null,
             ]);
         endforeach;
 

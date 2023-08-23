@@ -24,7 +24,7 @@
 
                 <th class="" style="padding: 0;">
                     <div class="text-center" style="width: 22px;">
-                        {{-- --}}
+                        {{-- ... --}}
                     </div>
                 </th>
 
@@ -154,31 +154,31 @@
                     {{-- FINAL(R$) --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="" style="width: 75px;">
-                            <span class="text-danger">R$ {{-- App\Models\General::decodeFloat3($invoiceitem->price_csv) ?? '' --}}</span>
-                            <input type="text" wire:model="array_item_price.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_item_price_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required>
+                            <span class="text-danger">R$ {{ App\Models\General::decodeFloat2((float)$invoiceitem->price_csv) ?? 'none' }}</span>
+                            <input type="text" wire:model="array_item_price.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_item_price_{{ $invoiceitem->id }}" onKeyUp="maskFloat2(this, event)" required>
                         </div>
                     </td>
 
                     {{-- CARTÃO(R$) --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 65px;">
-                            <span class="text-danger">R$ {{-- App\Models\General::decodeFloat3($invoiceitem->card_csv) ?? '' --}}</span>
-                            <input type="text" wire:model="array_item_card.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 60px;" id="array_item_card_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required>
+                        <div class="" style="width: 75px;">
+                            <span class="text-danger">R$ {{ App\Models\General::decodeFloat2((float)$invoiceitem->card_csv) ?? 'none' }}</span>
+                            <input type="text" wire:model="array_item_card.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_item_card_{{ $invoiceitem->id }}" onKeyUp="maskFloat2(this, event)" required>
                         </div>
                     </td>
 
                     {{-- VAREJO(R$) --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 65px;">
-                            <span class="text-danger">R$ {{-- App\Models\General::decodeFloat3($invoiceitem->retail_csv) ?? '' --}}</span>
-                            <input type="text" wire:model="array_item_retail.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 60px;" id="array_item_retail_{{ $invoiceitem->id }}" onKeyUp="maskFloat3(this, event)" required>
+                        <div class="" style="width: 75px;">
+                            <span class="text-danger">R$ {{ App\Models\General::decodeFloat2((float)$invoiceitem->retail_csv) ?? 'none' }}</span>
+                            <input type="text" wire:model="array_item_retail.{{ $invoiceitem->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_item_retail_{{ $invoiceitem->id }}" onKeyUp="maskFloat2(this, event)" required>
                         </div>
                     </td>
 
                     {{-- ÍNDICE --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text-center" style="width: 55px; font-size: 9pt;">
-                            {{ !empty($invoiceitem->index) ? App\Models\General::decodeFloat2($invoiceitem->index) : 'none' }} %
+                            {{ !empty($invoiceitem->index) ? App\Models\General::decodeFloat2($invoiceitem->index) : 'none' }}%
                         </div>
                     </td>
 
