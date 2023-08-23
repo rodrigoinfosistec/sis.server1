@@ -489,6 +489,28 @@ class Invoice extends Model
     }
 
     /**
+     * Gera relatório.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function generatePrice(array $data) : bool {
+        // Estende $data.
+        $data['path']      = public_path('/storage/pdf/price/');
+        $data['file_name'] = 'price_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
+
+        dd($data);
+
+        // Gera PDF.
+        //Report::invoicePriceGenerate($data);
+
+        // Auditoria.
+        //Audit::invoicePriceGenerate($data);
+
+        return true;
+    }
+
+    /**
      * Executa dependências de geração de relatório.
      * @var array $data
      * 

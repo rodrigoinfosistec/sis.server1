@@ -877,9 +877,10 @@ class Invoiceitem extends Model
      */
     public static function dependencyEditPrice(array $data) : bool {
         // Gera o Pdf do Preço.
-        
+        Invoice::generatePrice($data['validatedData']['invoice_id']);
 
         // Gera os Arquivos CSV de preço.
+        //Invoice::mailPrice($data['validatedData']['invoice_id']);
 
         return true;
     }
