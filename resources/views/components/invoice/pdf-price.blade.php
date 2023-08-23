@@ -1,9 +1,34 @@
 <x-layout.pdf.pdf>
     @section('browser', $title)
 
-    <x-layout.pdf.pdf-header :title="$title"/>
+    <div style="width: 100%; height: 40px; margin-bottom: 20px;">
+        <div class="float-start" style="width: 40px; height: 40px; margin-right: 10px;">
+            <img src="{{ asset('img/internal/sis/logo.png?' . Illuminate\Support\Str::random(10)) }}" width="40" height="40">
+        </div>
 
-    <x-layout.pdf.pdf-signature :user="$user" :date="$date"/>
+        <div class="float-start" style="width: 100px; height: 30px; margin-right: 10px; margin-top: 7px;">
+            <h2 class="text-uppercase fw-bold" style="font-size: 15pt;">
+                {{ $title }}
+            </h2>
+        </div>
+
+        @php
+            $invoice = App\Models\Invoice::find($invoice_id);
+        @endphp
+        <div class="float-start fw-bold" style="width: 600px; height: 35px; margin-right: 10px; margin-top: 5px; font-size: 7.5pt;">
+            {{ $invoice->provider->name }}
+            <br>
+            <span class="fw-normal">Nota Fiscal: {{ $invoice->number }}</span>
+        </div>
+
+        <div class="float-end" style="width: 100px; height: 40px;">
+            <p class="text-muted text-uppercase fw-semibold" style="font-size: 7.5pt;">
+                {{ $user }}
+                <br>
+                <span style="font-size: 7pt;">{{ $date }}</span>
+            </p>
+        </div>
+    </div>
 
     <x-layout.pdf.pdf-table>
         <x-layout.pdf.pdf-table-header>
@@ -163,73 +188,96 @@
     </x-layout.pdf.pdf-table>
 
 {{-- eFisco --}}
-<div style="width: 700px; margin-top: 50px; border: solid 1px #ddd;">
-    <h6>eFisco</h6>
-    <table class="table table-sm">
-        <tr class="text-muted" style="font-size: 8pt; border-bottom: 2px #ddd solid;">
-            <th>GRUPO</th>
-            <th>ICMS EFISCO</th>
-            <th>PRODUTO EFISCO</th>
-            <th>PRODUTO XML</th>
-            <th>PRODUTO FINAL</th>
-            <th>IPI XML</th>
-            <th>IPI FINAL</th>
-            <th>ÍNDICE</th>
-        </tr>
-        @foreach(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get() as $key => $efisco)
-            <tr class="text-uppercase" style="font-size: 7pt;">
+<div style="width: 100%px; margin-top: 50px;">
+    <div class="float-start" style="width: 600px;">
+        <h6>eFisco</h6>
+        <table class="table table-sm">
+            <tr class="text-muted" style="font-size: 7pt; border-bottom: 2px #ddd solid;">
+                <th>GRUPO</th>
+                <th>ICMS EFISCO</th>
+                <th>PRODUTO EFISCO</th>
+                <th>PRODUTO XML</th>
+                <th>PRODUTO FINAL</th>
+                <th>IPI XML</th>
+                <th>IPI FINAL</th>
+                <th>ÍNDICE</th>
+            </tr>
+            @foreach(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get() as $key => $efisco)
+                <tr class="text-uppercase" style="font-size: 7pt;">
 {{-- START CONTEÚDO EFISCO --}}
 
 {{-- GRUPO --}}
 <td>{{ $efisco->productgroup->code }} {{ $efisco->productgroup->origin }}</td>
 
 {{-- ICMS EFISCO --}}
-<td>R$ {{ number_format($efisco->icms, 2, ',', '.') }}</td>
+<td>R$ {{ App\Models\General::decodeFloat2($efisco->icms) }}</td>
 
 {{-- PRODUTO EFISCO --}}
-<td>R$ {{ number_format($efisco->value, 2, ',', '.') }}</td>
+<td>R$ {{ App\Models\General::decodeFloat2($efisco->value) }}</td>
 
 {{-- PRODUTO XML --}}
-<td>R$ {{ number_format($efisco->value_invoice, 2, ',', '.') }}</td>
+<td>R$ {{ App\Models\General::decodeFloat2($efisco->value_invoice) }}</td>
 
 {{-- PRODUTO FINAL --}}
-<td>R$ {{ number_format($efisco->value_final, 2, ',', '.') }}</td>
+<td>R$ {{ App\Models\General::decodeFloat2($efisco->value_final) }}</td>
 
 {{-- IPI XML --}}
-<td>R$ {{ number_format($efisco->ipi_invoice, 2, ',', '.') }}</td>
+<td>R$ {{ App\Models\General::decodeFloat2($efisco->ipi_invoice) }}</td>
 
 {{-- IPI FINAL --}}
-<td>R$ {{ number_format($efisco->ipi_final, 2, ',', '.') }}</td>
+<td>R$ {{ App\Models\General::decodeFloat2($efisco->ipi_final) }}</td>
 
 {{-- ÍNDICE --}}
-<td>{{ number_format($efisco->index, 2, ',', '.') }} %</td>
+<td>{{ App\Models\General::decodeFloat2($efisco->index) }} %</td>
 
 {{-- END CONTEÚDO EFISCO --}}
-            </tr>
-        @endforeach
-        <tr class="text-muted" style="font-size: 8pt; border-top: 1px #ddd solid;">
+                </tr>
+            @endforeach
+
+            <tr class="text-muted" style="font-size: 8pt; border-top: 1px #ddd solid;">
 
 {{-- START TOTAIS EFISCO --}}
 
 <td>TOTAIS</td>
 
-<td>R$ {{-- $icms_efisco_total --}}</td>
+<td>R$ {{ App\Models\General::decodeFloat2(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get()->sum('icms')) }}</td>
 
-<td>R$ {{-- $produtos_efisco_total --}}</td>
+<td>R$ {{ App\Models\General::decodeFloat2(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get()->sum('value')) }}</td>
 
-<td>R$ {{-- $produtos_xml_total --}}</td>
+<td>R$ {{ App\Models\General::decodeFloat2(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get()->sum('value_invoice')) }}</td>
 
-<td>R$ {{-- $produtos_final_total --}}</td>
+<td>R$ {{ App\Models\General::decodeFloat2(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get()->sum('value_final')) }}</td>
 
-<td>R$ {{-- $ipi_xml_total --}}</td>
+<td>R$ {{ App\Models\General::decodeFloat2(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get()->sum('ipi_invoice')) }}</td>
 
-<td>R$ {{-- $ipi_final_total --}}</td>
+<td>R$ {{ App\Models\General::decodeFloat2(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get()->sum('ipi_final')) }}</td>
 
 <td></td>
 
 {{-- END TOTAIS EFISCO --}}
 
-        </tr>
-    </table>
+            </tr>
+        </table>
+    </div>
+
+    @php
+        $business = App\Models\Providerbusiness::where('provider_id', $invoice->provider_id)->first();
+    @endphp
+    <div class="float-end" style="width: 200px; height: 100px;">
+        <h6>Informações:</h6>
+        <div class="text-muted" style="font-size: 8pt; line-height: 1;">
+            QUANTIDADE: {{ $business->multiplier_quantity }}%
+            <br>
+            VALOR: {{ $business->multiplier_value }}%
+            <br>
+            IPI VALOR: {{ $business->multiplier_ipi }}%
+            <br>
+            IPI ALÍQUOTA: {{ $business->multiplier_ipi_aliquot }}%
+            <br>
+            MARGEM: {{ $business->margin }}%
+            <br>
+            FRETE: {{ $business->shipping }}%
+        </div>
+    </div>
 </div>
 </x-app.pdf.layout>
