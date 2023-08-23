@@ -841,20 +841,7 @@ class Invoiceitem extends Model
         // Item
         $item = Invoiceitem::find($data['validatedData']['invoiceitem_id']);
 
-        // Atualiza item.
-        Invoiceitem::find($data['validatedData']['invoiceitem_id'])->update([
-            'equipment'         => $data['validatedData']['equipment'],
-            'productgroup_id'   => !empty($data['validatedData']['productgroup_id']) ? $data['validatedData']['productgroup_id'] : null,
-            'invoicecsv_id'     => !empty($data['validatedData']['invoicecsv_id']) ? $data['validatedData']['invoicecsv_id'] : null,
-            'quantity_final'    => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['quantity_final'])),
-            'value_final'       => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['value_final'])),
-            'value_total_final' => Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['quantity_final'])) * Invoiceitem::valueNotZero(General::encodeFloat3($data['validatedData']['value_final'])),
-            'ipi_final'         => General::encodeFloat3($data['validatedData']['ipi_final']),
-            'ipi_aliquot_final' => General::encodeFloat3($data['validatedData']['ipi_aliquot_final']),
-            'margin'            => Invoiceitem::valueNotZero(General::encodeFloat2($data['validatedData']['margin'])),
-            'shipping'          => General::encodeFloat2($data['validatedData']['shipping']),
-            'updated'           => Invoiceitem::itemUpdated($data['validatedData']['productgroup_id'], $data['validatedData']['invoicecsv_id']),
-        ]);
+        dd($item);
 
         // Mensagem.
         $message = 'Itens da ' . $data['config']['title'] . ' ' . Invoice::find($data['validatedData']['invoice_id'])->number . ' atualizados com sucesso.';
@@ -871,8 +858,7 @@ class Invoiceitem extends Model
      * @return bool true
      */
     public static function dependencyEditPrice(array $data) : bool {
-        // Atualiza index.
-        Invoiceitem::generateIndex($data['validatedData']['invoice_id']);
+        // ...
 
         return true;
     }

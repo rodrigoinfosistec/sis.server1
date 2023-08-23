@@ -230,7 +230,7 @@
                             {{ App\Models\general::decodeFloat3($invoiceitem->ipi_aliquot_final) }} %
                         </div>
                     </td>
-                    
+
                     {{-- EQUIP. --}}
                     <td class="" style="line-height: 1; padding: 0;">
                         <div class="" style="width: 25px; margin-left: 11px;">

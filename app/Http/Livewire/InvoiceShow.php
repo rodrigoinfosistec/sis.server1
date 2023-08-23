@@ -650,53 +650,26 @@ class InvoiceShow extends Component
         // Percorre os itens da Nota Fiscal.
         foreach(Invoiceitem::where('invoice_id', $invoice_id)->orderBy('identifier', 'ASC')->get() as $key => $invoiceitem):
             // Inicializa variáveis, dinamicamente.
-            $this->array_item_equipment[$invoiceitem->id]         = $invoiceitem->equipment;
-            $this->array_item_productgroup_id[$invoiceitem->id]   = $invoiceitem->productgroup_id;
-            $this->array_item_invoicecsv_id[$invoiceitem->id]     = $invoiceitem->invoicecsv_id;
-            $this->array_item_signal[$invoiceitem->id]            = $invoiceitem->signal;
-            $this->array_item_amount[$invoiceitem->id]            = General::decodeFloat3($invoiceitem->amount);
-            $this->array_item_identifier[$invoiceitem->id]        = $invoiceitem->identifier;
-            $this->array_item_code[$invoiceitem->id]              = $invoiceitem->code;
-            $this->array_item_ean[$invoiceitem->id]               = $invoiceitem->ean;
-            $this->array_item_name[$invoiceitem->id]              = $invoiceitem->name;
-            $this->array_item_ncm[$invoiceitem->id]               = $invoiceitem->ncm;
-            $this->array_item_cfop[$invoiceitem->id]              = $invoiceitem->cfop;
-            $this->array_item_cest[$invoiceitem->id]              = $invoiceitem->cest;
-            $this->array_item_measure[$invoiceitem->id]           = $invoiceitem->measure;
-            $this->array_item_quantity_final[$invoiceitem->id]    = General::decodeFloat3($invoiceitem->quantity_final);
-            $this->array_item_value_final[$invoiceitem->id]       = General::decodeFloat3($invoiceitem->value_final);
-            $this->array_item_ipi_final[$invoiceitem->id]         = General::decodeFloat3($invoiceitem->ipi_final);
-            $this->array_item_ipi_aliquot_final[$invoiceitem->id] = General::decodeFloat3($invoiceitem->ipi_aliquot_final);
-            $this->array_item_margin[$invoiceitem->id]            = General::decodeFloat2($invoiceitem->margin);
-            $this->array_item_shipping[$invoiceitem->id]          = General::decodeFloat2($invoiceitem->shipping);
-            $this->array_item_price[$invoiceitem->id]             = General::decodeFloat2($invoiceitem->price);
-            $this->array_item_card[$invoiceitem->id]              = General::decodeFloat2($invoiceitem->card);
-            $this->array_item_retail[$invoiceitem->id]            = General::decodeFloat2($invoiceitem->retail);
+            $this->array_item_equipment[$invoiceitem->id] = $invoiceitem->equipment;
+            $this->array_item_price[$invoiceitem->id]     = General::decodeFloat2($invoiceitem->price);
+            $this->array_item_card[$invoiceitem->id]      = General::decodeFloat2($invoiceitem->card);
+            $this->array_item_retail[$invoiceitem->id]    = General::decodeFloat2($invoiceitem->retail);
         endforeach;
     }
         public function modernizeItemPrice()
         {
             // Estende $validatedData
             $validatedData['invoice_id'] = $this->invoice_id;
+            $validatedData['hold_all'] = $this->hold_all;
 
             // Percorre os itens da Nota Fiscal.
             foreach(Invoiceitem::where('invoice_id', $this->invoice_id)->get() as $key => $invoiceitem):
                 // Monta array Item da Nota Fiscal.
-                $validatedData['invoiceitem_id']    = $invoiceitem->id;
-                $validatedData['equipment']         = $this->array_item_equipment[$invoiceitem->id];
-                $validatedData['productgroup_id']   = $this->array_item_productgroup_id[$invoiceitem->id];
-                $validatedData['invoicecsv_id']     = $this->array_item_invoicecsv_id[$invoiceitem->id];
-                $validatedData['signal']            = $this->array_item_signal[$invoiceitem->id];
-                $validatedData['amount']            = $this->array_item_amount[$invoiceitem->id];
-                $validatedData['quantity_final']    = $this->array_item_quantity_final[$invoiceitem->id];
-                $validatedData['value_final']       = $this->array_item_value_final[$invoiceitem->id];
-                $validatedData['ipi_final']         = $this->array_item_ipi_final[$invoiceitem->id];
-                $validatedData['ipi_aliquot_final'] = $this->array_item_ipi_aliquot_final[$invoiceitem->id];
-                $validatedData['margin']            = $this->array_item_margin[$invoiceitem->id];
-                $validatedData['shipping']          = $this->array_item_shipping[$invoiceitem->id];
-                $validatedData['price']             = $this->array_item_price[$invoiceitem->id];
-                $validatedData['card']              = $this->array_item_card[$invoiceitem->id];
-                $validatedData['retail']            = $this->array_item_retail[$invoiceitem->id];
+                $validatedData['invoiceitem_id'] = $invoiceitem->id;
+                $validatedData['price']          = $this->array_item_price[$invoiceitem->id];
+                $validatedData['card']           = $this->array_item_card[$invoiceitem->id];
+                $validatedData['retail']         = $this->array_item_retail[$invoiceitem->id];
+                $validatedData['hold']           = $this->array_item_hold[$invoiceitem->id];
 
                 // Define $data.
                 $data['config']        = $this->config;
