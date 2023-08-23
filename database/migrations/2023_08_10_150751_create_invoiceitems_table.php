@@ -51,6 +51,8 @@ return new class extends Migration
 
             $table->float('index', 12, 2)->nullable()->default(null);
 
+            $table->float('cost', 12, 2)->nullable()->default(null);
+
             $table->float('price', 12, 2)->nullable()->default(null);
             $table->float('card', 12, 2)->nullable()->default(null);
             $table->float('retail', 12, 2)->nullable()->default(null);

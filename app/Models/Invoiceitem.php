@@ -54,6 +54,8 @@ class Invoiceitem extends Model
 
         'index',
 
+        'cost',
+
         'price',
         'card',
         'retail',
@@ -357,7 +359,8 @@ class Invoiceitem extends Model
         $cost_plus_ipi      = $cost_plus_index + (($cost_plus_index * $item->ipi_aliquot_final) / 100);
         $cost_plus_shipping = $cost_plus_ipi + (($cost_plus_ipi * $item->shipping) / 100);
         // Custo.
-        $cost = ($cost_plus_shipping / $item->quantity_final) / $item->amount;
+        $cost_full = ($cost_plus_shipping / $item->quantity_final) / $item->amount;
+        $cost      = Invoiceitem::roundUp($cost_full, 2);
 
         // Preço Final.
         $price_full = $cost + (($cost * $item->margin) / 100);
@@ -395,10 +398,57 @@ class Invoiceitem extends Model
                 $fraction = 0.99;
             endif;
         endif;
-        // Preço Varejo
+        // Preço Varejo.
         $retail = Invoiceitem::roundUp($integer + $fraction, 2);
 
-        dd($retail.'-'.$card.'-'.$price);
+        // Preço CSV Final.
+        $price_csv = $item->invoicecsv->value;
+
+        // Preço CSV Cartão.
+        $card_csv_full = $price_csv / 0.9;
+        $card_csv      = Invoiceitem::roundUp($card_csv_full, 2);
+
+        // Cálculo Preço CSV Varejo - Define a Percentagem sobre o cartão.
+        if($card_csv_full <= 20)                                 : $retail_csv_aliquot = 50;
+            elseif($card_csv_full > 20 && $card_csv_full <= 50)  : $retail_csv_aliquot = 40;
+            elseif($card_csv_full > 50 && $card_csv_full <= 80)  : $retail_csv_aliquot = 30;
+            elseif($card_csv_full > 80 && $card_csv_full <= 200) : $retail_csv_aliquot = 20;
+            else                                                 : $retail_csv_aliquot = 15;
+        endif;
+        $retail_csv_full = $card_csv_full + (($card_csv_full * $retail_csv_aliquot) / 100);
+        $retail_csv_nick = Invoiceitem::roundUp($retail_csv_full, 2);
+        // Ajusta Centavos.
+        $integer  = (int)$retail_csv_nick;
+        $fraction = $retail_csv_nick - $integer;
+        if($retail_csv_nick > 3):
+            if($fraction >= 0 && $fraction <= 0.25):
+                $integer = $integer - 1;
+                $fraction = 0.99;
+            elseif($fraction >= 0.26 && $fraction <= 0.8):
+                $fraction = 0.5;
+            else:
+                $fraction = 0.99;
+            endif;
+        else:
+            if($fraction >= 0 && $fraction <= 0.6):
+                $fraction = 0.5;
+            else:
+                $fraction = 0.99;
+            endif;
+        endif;
+        // Preço CSV Varejo.
+        $retail_csv = Invoiceitem::roundUp($integer + $fraction, 2);
+
+        // Atualiza os Preços do item.
+        Invoiceitem::find($item->id)->update([
+            'cost'       => $cost,
+            'price'      => $price,
+            'card'       => $card,
+            'retail'     => $retail,
+            'price_csv'  => $price_csv,
+            'card_csv'   => $card_csv,
+            'retail_csv' => $retail_csv,
+        ]);
     }
 
     /**
