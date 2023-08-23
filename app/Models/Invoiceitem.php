@@ -838,8 +838,15 @@ class Invoiceitem extends Model
      * @return bool true
      */
     public static function editPrice(array $data) : bool {
-        // Item
+        // Item.
         $item = Invoiceitem::find($data['validatedData']['invoiceitem_id']);
+
+        dd($data);
+
+        // Constrói o txt.
+        if(1 == 1):
+
+        endif;
 
         dd($item);
 

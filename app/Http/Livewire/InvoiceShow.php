@@ -654,6 +654,7 @@ class InvoiceShow extends Component
             $this->array_item_price[$invoiceitem->id]     = General::decodeFloat2($invoiceitem->price);
             $this->array_item_card[$invoiceitem->id]      = General::decodeFloat2($invoiceitem->card);
             $this->array_item_retail[$invoiceitem->id]    = General::decodeFloat2($invoiceitem->retail);
+            $this->array_item_hold[$invoiceitem->id]      = false;
         endforeach;
     }
         public function modernizeItemPrice()
