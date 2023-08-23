@@ -263,7 +263,7 @@
     @php
         $business = App\Models\Providerbusiness::where('provider_id', $invoice->provider_id)->first();
     @endphp
-    <div class="float-end" style="width: 200px; height: 100px;">
+    <div class="float-end" style="width: 200px; height: 100px; border:solid 1px #ddd;">
         <h6>Informações:</h6>
         <div class="text-muted" style="font-size: 8pt; line-height: 1;">
             QUANTIDADE: {{ $business->multiplier_quantity }}%
