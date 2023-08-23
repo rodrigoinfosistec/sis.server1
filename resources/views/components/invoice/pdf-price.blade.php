@@ -10,24 +10,53 @@
 
 {{-- conteúdo título --}}
 <x-layout.pdf.pdf-table-header-column>
-    #
+    <div class="text-center" style="width: 40px">ITEM</div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    NÚMERO / SÉRIE / CHAVE
+    NCM/CEST
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    FORNECEDOR / EMPRESA
+    CÓDIGO/EAN/DESCRIÇÃO
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    VALOR NFE
+    QTD
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    EMISSÃO
+    CUSTO
 </x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
+    IPI
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
+    MRG/FRT
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
+    GRUPO
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
+    ÍNDICE
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
+    FINAL
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
+    CARTÃO
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
+    VAREJO
+</x-layout.pdf.pdf-table-header-column>
+
 {{-- conteúdo título --}}
 
         </x-layout.pdf.pdf-table-header>
@@ -37,38 +66,97 @@
                 <x-layout.pdf.pdf-table-body-line>
 
 {{-- conteúdo --}}
-{{-- # --}}
+{{-- ITEM --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    0{{ str_pad($loop->iteration , Str::length($list->count()), '0', STR_PAD_LEFT) }}
+    <div class="fw-bold text-center" style="width: 40px; border: solid 0.5px #fff;">
+        {{ str_pad($loop->iteration, Str::length($list->count()), '0', STR_PAD_LEFT) }}
+    </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
-{{-- NÚMERO / SÉRIE / CHAVE --}}
+{{-- NCM/CEST --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    {{ $item->number }} <span class="text-muted">|</span> {{ $item->range }}
-    <br>
-    <span class="text-muted">
-        {{ $item->key }}
-    </span>
+    <div class="" style="width: 60px; line-height: 1; border: solid 0.5px #fff;">
+        {{ $item->ncm }}
+        <br>
+        {{ $item->cest }}
+    </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
-{{-- FORNECEDOR / EMPRESA --}}
+{{-- CÓDIGO/EAN/DESCRIÇÃO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    {{ $item->provider_name }}
-    <br>
-    {{ $item->company_name }}
+    <div class="fw-bold" style="width: 350px; line-height: 1; padding: 2px; border: solid 0.5px #fff;">
+        <span class="fw-normal">{{ $item->code }} | {{ $item->ean }}</span>
+        <br>
+        {{ $item->name }}
+    </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
-{{-- FORNECEDOR / EMPRESA --}}
+{{-- QTD --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    R$
-    {{ App\Models\General::decodeFloat2($item->total) }}
+    <div class="fw-bold" style="width: 65px; border: solid 0.5px #fff;">
+        {{ App\Models\General::decodeFloat2($item->quantity_final) }}
+    </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
-{{-- EMISSÃO --}}
+{{-- CUSTO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    {{ App\Models\Invoice::decodeIssue($item->issue) }}
+    <div class="" style="width: 70px; font-size: 8pt; border: solid 0.5px #fff;">
+        <span class="fst-italic fw-normal" style="font-size: 7pt;">R$</span>{{ App\Models\General::decodeFloat2($item->cost) }}
+    </div>
 </x-layout.pdf.pdf-table-body-line-cell>
-{{-- conteúdo --}}
+
+{{-- IPI --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div style="width: 40px; border: solid 0.5px #fff;">
+        {{ App\Models\General::decodeFloat2($item->ipi_aliquot_final) }}%
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- MRG/FRT --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div style="width: 45px; line-height: 1; border: solid 0.5px #fff;">
+        {{ App\Models\General::decodeFloat2($item->margin) }}%
+        <br>
+        {{ App\Models\General::decodeFloat2($item->shipping) }}%
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- GRUPO --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div style="width: 60px; line-height: 1; border: solid 0.5px #fff;">
+        {{ $item->productgroup->code }}
+        <br>
+        <span style="font-size: 6pt;">{{ $item->productgroup->origin }}</span>
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- ÍNDICE --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div style="width: 40px; border: solid 0.5px #fff;">
+        {{ App\Models\General::decodeFloat2($item->index) }}%
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- FINAL --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div class="fw-bold" style="width: 70px; font-size: 8pt; border: solid 0.5px #fff;">
+        <span class="fst-italic fw-normal" style="font-size: 7pt;">R$</span>{{ App\Models\General::decodeFloat2($item->price) }}
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- CARTÃO --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div class="fw-bold" style="width: 70px; font-size: 8pt; border: solid 0.5px #fff;">
+        <span class="fst-italic fw-normal" style="font-size: 7pt;">R$</span>{{ App\Models\General::decodeFloat2($item->card) }}
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- VAREJO --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div class="fw-bold" style="width: 70px; font-size: 8pt; border: solid 0.5px #fff;">
+        <span class="fst-italic fw-normal" style="font-size: 7pt;">R$</span>{{ App\Models\General::decodeFloat2($item->retail) }}
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
 
                 </x-layout.pdf.pdf-table-body-line>
             @endforeach

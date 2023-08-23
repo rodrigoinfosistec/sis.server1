@@ -39,7 +39,7 @@
 {{-- conteúdo --}}
 {{-- # --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    0{{ str_pad($loop->iteration , Str::length($list->count()), '0', STR_PAD_LEFT) }}
+    0{{ str_pad($loop->iteration, Str::length($list->count()), '0', STR_PAD_LEFT) }}
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- NÚMERO / SÉRIE / CHAVE --}}

@@ -687,6 +687,9 @@ class InvoiceShow extends Component
                 if ($valid) Invoiceitem::dependencyEditPrice($data);
             endforeach;
 
+            // Gera o PDF.
+            Invoice::generatePrice((int)$data['validatedData']['invoice_id']);
+
             // Fecha modal.
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
