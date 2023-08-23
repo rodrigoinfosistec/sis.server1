@@ -841,8 +841,6 @@ class Invoiceitem extends Model
         // Item.
         $item = Invoiceitem::find($data['validatedData']['invoiceitem_id']);
 
-        dd($data);
-
         // Valida o hold e hold all.
         if(($data['validatedData']['hold'] || $data['validatedData']['hold_all']) && $item->price_csv > 0):
             $price  = $item->price_csv;
@@ -877,7 +875,7 @@ class Invoiceitem extends Model
      */
     public static function dependencyEditPrice(array $data) : bool {
         // Gera o Pdf do Preço.
-        Invoice::generatePrice($data['validatedData']['invoice_id']);
+        Invoice::generatePrice((int)$data['validatedData']['invoice_id']);
 
         // Gera os Arquivos CSV de preço.
         //Invoice::mailPrice($data['validatedData']['invoice_id']);

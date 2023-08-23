@@ -465,4 +465,34 @@ class Report extends Model
 
         return true;
     }
+
+    /**
+     * Invoice Price Generate
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function invoicePriceGenerate(array $data) : bool {
+        // Gera o arquivo PDF.
+        $pdf = PDF::loadView('components.invoice.pdf-price', [
+            'user'  => auth()->user()->name,
+            'title' => 'Preços',
+            'date'  => date('d/m/Y H:i:s'),
+            'list'  => $list = Invoiceitem::where('invoice_id', $data['invoice_id'])->orderBy('identifier', 'ASC')->get(), 
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
+
+        // Salva o arquivo PDF.
+        File::makeDirectory($data['path'], $mode = 0777, true, true);
+        $pdf->save($data['path'] . $data['file_name']);
+
+        // Registra os dados do arquivo PDF.
+        Report::create([
+            'user_id'     => auth()->user()->id,
+            'folder'      => 'price',
+            'file'        => $data['file_name'],
+            'reference_1' => $data['invoice_id'],
+        ]);
+
+        return true;
+    }
 }
