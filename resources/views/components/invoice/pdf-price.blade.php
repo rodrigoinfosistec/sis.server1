@@ -193,13 +193,13 @@
 <td>R$ {{ number_format($efisco->value_invoice, 2, ',', '.') }}</td>
 
 {{-- PRODUTO FINAL --}}
-<td>R$ {{ number_format($efisco->value_final, 2, ',', '.') }}<span class="text-muted">({{ number_format($price->multiplier_value, 2, ',', '.') }}%)</span></td>
+<td>R$ {{ number_format($efisco->value_final, 2, ',', '.') }}</td>
 
 {{-- IPI XML --}}
 <td>R$ {{ number_format($efisco->ipi_invoice, 2, ',', '.') }}</td>
 
 {{-- IPI FINAL --}}
-<td>R$ {{ number_format($efisco->ipi_final, 2, ',', '.') }}<span class="text-muted">({{ number_format($price->multiplier_ipi, 2, ',', '.') }}%)</span></td>
+<td>R$ {{ number_format($efisco->ipi_final, 2, ',', '.') }}</td>
 
 {{-- ÍNDICE --}}
 <td>{{ number_format($efisco->index, 2, ',', '.') }} %</td>
@@ -208,6 +208,26 @@
             </tr>
         @endforeach
         <tr class="text-muted" style="font-size: 8pt; border-top: 1px #ddd solid;">
+
+{{-- START TOTAIS EFISCO --}}
+
+<td>TOTAIS</td>
+
+<td>R$ {{-- $icms_efisco_total --}}</td>
+
+<td>R$ {{-- $produtos_efisco_total --}}</td>
+
+<td>R$ {{-- $produtos_xml_total --}}</td>
+
+<td>R$ {{-- $produtos_final_total --}}</td>
+
+<td>R$ {{-- $ipi_xml_total --}}</td>
+
+<td>R$ {{-- $ipi_final_total --}}</td>
+
+<td></td>
+
+{{-- END TOTAIS EFISCO --}}
 
         </tr>
     </table>
