@@ -646,6 +646,7 @@ class InvoiceShow extends Component
         $this->invoice_id    = $invoice->id;
         $this->number        = $invoice->number;
         $this->provider_name = $invoice->provider->name;
+        $this->hold_all      = false;
 
         // Percorre os itens da Nota Fiscal.
         foreach(Invoiceitem::where('invoice_id', $invoice_id)->orderBy('identifier', 'ASC')->get() as $key => $invoiceitem):
@@ -661,7 +662,7 @@ class InvoiceShow extends Component
         {
             // Estende $validatedData
             $validatedData['invoice_id'] = $this->invoice_id;
-            $validatedData['hold_all'] = $this->hold_all;
+            $validatedData['hold_all']   = $this->hold_all;
 
             // Percorre os itens da Nota Fiscal.
             foreach(Invoiceitem::where('invoice_id', $this->invoice_id)->get() as $key => $invoiceitem):

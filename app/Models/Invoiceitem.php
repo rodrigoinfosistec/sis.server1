@@ -843,12 +843,23 @@ class Invoiceitem extends Model
 
         dd($data);
 
-        // Constrói o txt.
-        if(1 == 1):
-
+        // Valida o hold e hold all.
+        if($data['validatedData']['hold'] || $data['validatedData']['hold_all']):
+            $price  = Gneral::decodeFloat2($item->price_csv);
+            $card   = Gneral::decodeFloat2($item->card_csv);
+            $retail = Gneral::decodeFloat2($item->retail_csv);
+        else:
+            $price  = $data['validatedData']['price'];
+            $card   = $data['validatedData']['card'];
+            $retail = $data['validatedData']['retail'];
         endif;
 
-        dd($item);
+        // Inicializa variáveis.
+        $txt_price  = '';
+        $txt_card   = '';
+        $txt_retail = '';
+
+        
 
         // Mensagem.
         $message = 'Itens da ' . $data['config']['title'] . ' ' . Invoice::find($data['validatedData']['invoice_id'])->number . ' atualizados com sucesso.';
