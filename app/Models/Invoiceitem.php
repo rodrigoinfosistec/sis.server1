@@ -841,25 +841,54 @@ class Invoiceitem extends Model
         // Item.
         $item = Invoiceitem::find($data['validatedData']['invoiceitem_id']);
 
-        dd($data);
-
         // Valida o hold e hold all.
-        if($data['validatedData']['hold'] || $data['validatedData']['hold_all']):
-            $price  = Gneral::decodeFloat2($item->price_csv);
-            $card   = Gneral::decodeFloat2($item->card_csv);
-            $retail = Gneral::decodeFloat2($item->retail_csv);
+        if(($data['validatedData']['hold'] || $data['validatedData']['hold_all']) && $item->price_csv > 0):
+            $price  = $item->price_csv;
+            $card   = $item->card_csv;
+            $retail = $item->retail_csv;
         else:
-            $price  = $data['validatedData']['price'];
-            $card   = $data['validatedData']['card'];
-            $retail = $data['validatedData']['retail'];
+            $price  = General::encodeFloat2($data['validatedData']['price']);
+            $card   = General::encodeFloat2($data['validatedData']['card']);
+            $retail = General::encodeFloat2($data['validatedData']['retail']);
         endif;
 
-        // Inicializa variáveis.
-        $txt_price  = '';
-        $txt_card   = '';
-        $txt_retail = '';
+        // Atualiza Preços.
+        Invoiceitem::find($data['validatedData']['invoiceitem_id'])->update([
+            'price'  => $price,
+            'card'   => $card,
+            'retail' => $retail,
+        ]);
 
-        
+        // Texto Preço Final.
+        $txt_price = 
+            '"' . $item->invoicecsv->code                          . '";'  .
+            '"' . $item->invoicecsv->reference                     . '";' .
+            '"' . $item->invoicecsv->ean                           . '";' .
+            '"' . $item->invoicecsv->name                          . '";' .
+            '"' . General::decodeFloat2($item->invoicecsv->cost)   . '";' .
+            '"' . General::decodeFloat2($item->invoicecsv->margin) . '";' .
+            '"' . $price                                           . '";' .
+        "\n";
+        // Texto Preço Cartão.
+        $txt_card = 
+            '"' . $item->invoicecsv->code                          . '";' .
+            '"' . $item->invoicecsv->reference                     . '";' .
+            '"' . $item->invoicecsv->ean                           . '";' .
+            '"' . $item->invoicecsv->name                          . '";' .
+            '"' . General::decodeFloat2($item->invoicecsv->cost)   . '";' .
+            '"' . General::decodeFloat2($item->invoicecsv->margin) . '";' .
+            '"' . $card                                            . '";' .
+        "\n";
+        // Texto Preço Varejo.
+        $txt_retail = 
+            '"' . $item->invoicecsv->code                          . '";' .
+            '"' . $item->invoicecsv->reference                     . '";' .
+            '"' . $item->invoicecsv->ean                           . '";' .
+            '"' . $item->invoicecsv->name                          . '";' .
+            '"' . General::decodeFloat2($item->invoicecsv->cost)   . '";' .
+            '"' . General::decodeFloat2($item->invoicecsv->margin) . '";' .
+            '"' . $retail                                          . '";' .
+        "\n";
 
         // Mensagem.
         $message = 'Itens da ' . $data['config']['title'] . ' ' . Invoice::find($data['validatedData']['invoice_id'])->number . ' atualizados com sucesso.';
