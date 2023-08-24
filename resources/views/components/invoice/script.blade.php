@@ -12,6 +12,7 @@
         $('#editItemModal').modal('hide');
         $('#editItemAmountModal').modal('hide');
         $('#editItemPriceModal').modal('hide');
+        $('#mailPriceModal').modal('hide');
         $('#eraseModal').modal('hide');
     })
 </script>

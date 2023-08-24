@@ -184,8 +184,10 @@
 
     @if(App\Models\Report::where(['folder' => 'price', 'reference_1' => $item->id])->exists())
         <x-layout.card.card-body-content-table-body-line-cell-action-mail :id="$item->id"/>
+        <x-layout.card.card-body-content-table-body-line-cell-action-print :id="$item->id"/>
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-mail-muted :id="$item->id"/>
+        <x-layout.card.card-body-content-table-body-line-cell-action-print-muted :id="$item->id"/>
     @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
