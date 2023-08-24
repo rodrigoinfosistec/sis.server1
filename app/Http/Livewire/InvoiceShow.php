@@ -842,4 +842,39 @@ class InvoiceShow extends Component
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
         }
+        
+    /**
+     * mailPrice()
+     *  sendPrice()
+     */
+    public function mailPrice()
+    {
+        //...
+    }
+        public function sendPrice()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'report_id' => ['required'],
+                'mail'      => ['required', 'email', 'between:2,255'],
+                'comment'   => ['nullable', 'between:2,255'],
+            ]);
+
+            // Define $data
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida envio do e-mail.
+            $valid = Invoice::validateMailPrice($data);
+
+            // Envia e-mail.
+            if ($valid) Invoice::mailPrice($data);
+
+            // Executa dependências.
+            if ($valid) Invoice::dependencyMailPrice($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
 }

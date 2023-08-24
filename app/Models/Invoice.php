@@ -600,4 +600,62 @@ class Invoice extends Model
 
         return true;
     }
+    
+    /**
+     * Valida envio de e-mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateMailPrice(array $data) : bool {
+        $message = null;
+
+        // Verifica conexão com a internet.
+        if(checkdnsrr('google.com') < 1):
+            $message = 'Sem conexão com a internet..';
+        endif;
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Envia e-mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function mailPrice(array $data) : bool {
+        // Envia e-mail.
+        Email::invoiceMailPrice($data);
+
+        // Auditoria.
+        Audit::invoiceMailPrice($data);
+
+        // Mensagem.
+        $message = 'E-mail para ' . $data['validatedData']['mail'] . ' enviado com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de envio de e-mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyMailPrice(array $data) : bool {
+        //...
+
+        return true;
+    }
 }

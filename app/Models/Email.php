@@ -136,4 +136,22 @@ class Email extends Model
 
         return true;
     }
+    
+    /**
+     * E-mail Invoice Mail Price.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function invoiceMailPrice(array $data) : bool {
+        // Envia e-mail.
+        Mail::to($data['validatedData']['mail'])->send(new ReportMail([
+            'pathToReport' => storage_path('app/public/pdf/price/' . Report::find($data['validatedData']['report_id'])->file),
+            'subject'      => 'Relatório de Preço',
+            'title'        => $data['config']['title'],
+            'comment'      => $data['validatedData']['comment'],
+        ]));
+
+        return true;
+    }
 }

@@ -19,6 +19,7 @@
 @include('components.' .  $config['name'] . '.modals.edit-item-amount')
 @include('components.' .  $config['name'] . '.modals.edit-item-price')
 @include('components.' .  $config['name'] . '.modals.erase')
+@include('components.' .  $config['name'] . '.modals.mail-price')
 
 {{-- extra --}}
 
