@@ -1,6 +1,10 @@
 <x-layout.modal.modal-mail size="" modal="mail" method="send">
     <x-layout.modal.modal-mail-header modal="mail">
         {{ $config['title'] }}
+
+        <x-slot:identifier>
+           
+        </x-slot>
     </x-layout.modal.modal-mail-header>
 
     <x-layout.modal.modal-mail-body>
