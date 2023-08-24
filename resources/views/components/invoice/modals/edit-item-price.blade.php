@@ -57,8 +57,20 @@
                 </th>
                 
                 <th class="" style="padding: 0;">
+                    <div class="text-center" style="width: 75px;">
+                        CUSTO
+                    </div>
+                </th>
+
+                <th class="" style="padding: 0;">
                     <div class="text-center" style="width: 55px;">
                         ÍNDICE
+                    </div>
+                </th>
+
+                <th class="" style="padding: 0;">
+                    <div class="" style="width: 70px;">
+                        GRUPO
                     </div>
                 </th>
 
@@ -89,12 +101,6 @@
                 <th class="" style="padding: 0;">
                     <div class="" style="width: 36px;">
                         EQUIP.
-                    </div>
-                </th>
-
-                <th class="" style="padding: 0;">
-                    <div class="" style="width: 90px;">
-                        DADOS CSV
                     </div>
                 </th>
 
@@ -175,6 +181,13 @@
                         </div>
                     </td>
 
+                    {{-- CUSTO --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="text-center" style="width: 75px; font-size: 9pt;">
+                            R$ {{ !empty($invoiceitem->cost) ? App\Models\General::decodeFloat2($invoiceitem->cost) : 'none' }}
+                        </div>
+                    </td>
+
                     {{-- ÍNDICE --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text-center" style="width: 55px; font-size: 9pt;">
@@ -182,6 +195,15 @@
                         </div>
                     </td>
 
+                    {{-- GRUPO --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="" style="width: 70px;" title="{{ $invoiceitem->productgroup->name }}">
+                            {{ $invoiceitem->productgroup->code ?? '' }}
+                            <br>
+                            {{ $invoiceitem->productgroup->origin ?? '' }}
+                        </div>
+                    </td>
+    
                     {{-- MRG/FRT --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="" style="width: 50px;">
@@ -241,17 +263,6 @@
                         </div>
                     </td>
 
-                    {{-- DADOS CSV --}}
-                    <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 90px;">
-                            REF<i class="bi-caret-right-fill text-muted"></i>{{ $invoiceitem->invoicecsv->reference ?? '' }}
-                            <br>
-                            EAN<i class="bi-caret-right-fill text-muted"></i>{{ $invoiceitem->invoicecsv->ean ?? '' }}
-                            <br>
-                            INT<i class="bi-caret-right-fill text-muted"></i>{{ $invoiceitem->invoicecsv->code ?? '' }}
-                        </div>
-                    </td>
-    
                     {{-- EAN/NCM/CEST --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="" style="width: 90px;">
