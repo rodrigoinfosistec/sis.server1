@@ -1,5 +1,5 @@
-<x-layout.modal.modal-mail size="">
-    <x-layout.modal.modal-mail-header>
+<x-layout.modal.modal-mail size="" modal="mailPrice" method="sendPrice">
+    <x-layout.modal.modal-mail-header modal="mailPrice">
         Preço
     </x-layout.modal.modal-mail-header>
 

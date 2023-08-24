@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="mailModalLabel">
+    <h5 class="modal-title" id="{{ $modal }}ModalLabel">
         <i class="bi-envelope-fill text-secondary" style="font-size: 20px;"></i>
         E-mail de {{ $slot }}
     </h5>
