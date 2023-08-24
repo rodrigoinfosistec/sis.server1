@@ -1,9 +1,11 @@
 <x-layout.modal.modal-mail size="" modal="mailPrice" method="sendPrice">
-    <x-layout.modal.modal-mail-header modal="mail">
-        {{ $config['title'] }}
+    <x-layout.modal.modal-mail-header modal="mailPrice">
+        Preço
 
         <x-slot:identifier>
-           
+            NFe {{ $number }}
+            <br>
+            {{ $provider_name }}
         </x-slot>
     </x-layout.modal.modal-mail-header>
 
@@ -17,7 +19,25 @@
         <select wire:model="report_id" class="form-select form-select-sm text-uppercase" id="report_id">
             <x-layout.modal.modal-mail-body-group-item-option-muted/>
 
-            <x-layout.modal.modal-mail-body-group-item-report folder="price" :list="$list"/>
+            @foreach(App\Models\Report::where(['folder' => 'price', 'reference_1' => $invoice_id])->orderBy('id', 'DESC')->limit(20)->get() as $key =>$report)
+            <option value="{{ $report->id }}">
+                <span class="text-uppercase text-muted fw-bold" style="font-size: 8pt;">
+                    &#10003;
+                    <span class="fst-italic">
+                        {{ str_pad($report->id , Str::length($list->count()), '0', STR_PAD_LEFT); }}
+                    </span>
+
+                    &#187;
+
+                    {{ $report->user->name }}
+
+                    &#187;
+
+                    {{ date_format($report->created_at, "d/m/Y H:i:s") }}
+                </span>
+            </option>
+@endforeach
+
         </select>
 
         <x-layout.modal.modal-mail-body-group-item-error item="report_id" message="$message"/>

@@ -847,7 +847,7 @@ class InvoiceShow extends Component
      * mailPrice()
      *  sendPrice()
      */
-    public function mailPrice(int $invice_id)
+    public function mailPrice(int $invoice_id)
     {
         // Nota Fiscal.
         $invoice = Invoice::find($invoice_id);
