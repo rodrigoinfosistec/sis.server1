@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 use File;
-use ZipArchive;
 
 class Csv extends Model
 {
@@ -45,32 +44,82 @@ class Csv extends Model
      * @return bool true
      */
     public static function invoicePriceGenerate(array $data) : bool {
-        dd($data);
-        // Gera o arquivo CSV.
-        $pdf = PDF::loadView('components.invoice.pdf-price', [
-            'user'                 => auth()->user()->name,
-            'title'                => 'Preços',
-            'date'                 => date('d/m/Y H:i:s'),
-            'invoice_id'           => $data['invoice_id'],
-            'efiscos'              => Invoiceefisco::where('invoice_id', $data['invoice_id'])->get(),
-            'efisco_icms'          => General::decodeFloat2(Invoiceefisco::where('invoice_id', $data['invoice_id'])->get()->sum('icms')),
-            'efisco_value'         => General::decodeFloat2(Invoiceefisco::where('invoice_id', $data['invoice_id'])->get()->sum('value')),
-            'efisco_value_invoice' => General::decodeFloat2(Invoiceefisco::where('invoice_id', $data['invoice_id'])->get()->sum('value_invoice')),
-            'efisco_value_final'   => General::decodeFloat2(Invoiceefisco::where('invoice_id', $data['invoice_id'])->get()->sum('value_final')),
-            'efisco_ipi_invoice'   => General::decodeFloat2(Invoiceefisco::where('invoice_id', $data['invoice_id'])->get()->sum('ipi_invoice')),
-            'efisco_ipi_final'     => General::decodeFloat2(Invoiceefisco::where('invoice_id', $data['invoice_id'])->get()->sum('ipi_final')),
-            'list'                 => $list = Invoiceitem::where('invoice_id', $data['invoice_id'])->orderBy('identifier', 'ASC')->get(), 
-        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
+        // Inicializa variáveis.
+        $txt_price  = '';
+        $txt_card   = '';
+        $txt_retail = '';
 
-        // Salva o arquivo PDF.
-        File::makeDirectory($data['path'], $mode = 0777, true, true);
-        $pdf->save($data['path'] . $data['file_name']);
+        // Conteúdo dos CSV's.
+        foreach(Invoiceitem::where('invoice_id', $data['invoice_id'])->get() as $key => $item):
+            // Preço Final.
+            $txt_price = $txt_price .
+            '"' . $item->invoicecsv->code                                      . '";'.
+            '"' . $item->invoicecsv->reference                                 . '";'.
+            '"' . $item->invoicecsv->ean                                       . '";'.
+            '"' . $item->invoicecsv->name                                      . '";'.
+            '"' . General::decodeFloat2($item->invoicecsv->cost)   . '";'.
+            '"' . General::decodeFloat2($item->invoicecsv->margin) . '";'.
+            '"' . General::decodeFloat2($item->price)              . '";'.
+        "\n";
+
+        // Preço Cartão.
+        $txt_card = $txt_card .
+            '"' . $item->invoicecsv->code                                      . '";'.
+            '"' . $item->invoicecsv->reference                                 . '";'.
+            '"' . $item->invoicecsv->ean                                       . '";'.
+            '"' . $item->invoicecsv->name                                      . '";'.
+            '"' . General::decodeFloat2($item->invoicecsv->cost)   . '";'.
+            '"' . General::decodeFloat2($item->invoicecsv->margin) . '";'.
+            '"' . General::decodeFloat2($item->card)              . '";'.
+        "\n";
+
+        // Preço Varejo.
+        $txt_retail = $txt_retail .
+            '"' . $item->invoicecsv->code                                      . '";'.
+            '"' . $item->invoicecsv->reference                                 . '";'.
+            '"' . $item->invoicecsv->ean                                       . '";'.
+            '"' . $item->invoicecsv->name                                      . '";'.
+            '"' . General::decodeFloat2($item->invoicecsv->cost)   . '";'.
+            '"' . General::decodeFloat2($item->invoicecsv->margin) . '";'.
+            '"' . General::decodeFloat2($item->retail)              . '";'.
+        "\n";
+        endforeach;
+
+        // Concede permissão para gravar no diretório.
+        File::makeDirectory($data['path_csv'], $mode = 0777, true, true);
+
+        // Gera Arquivo CSV com Preço Final.
+        $file_price = fopen($data['path_csv'] . $data['file_name_price'], "a");
+        fwrite($file_price, "Cod Produto;Referencia;Cod. Barras;Descricao;Custo;Margem Lucro;Vl. Unitario\n" . $txt_price);
+        fclose($file_price);
+        
+        // Gera Arquivo CSV com Preço Cartão.
+        $file_card = fopen($data['path_csv'] . $data['file_name_card'], "a");
+        fwrite($file_card, "Cod Produto;Referencia;Cod. Barras;Descricao;Custo;Margem Lucro;Vl. Unitario\n" . $txt_card);
+        fclose($file_card);
+        
+        // Gera Arquivo CSV com Preço Varejo.
+        $file_retail = fopen($data['path_csv'] . $data['file_name_retail'], "a");
+        fwrite($file_retail, "Cod Produto;Referencia;Cod. Barras;Descricao;Custo;Margem Lucro;Vl. Unitario\n" . $txt_retail);
+        fclose($file_retail);
+
+        // Concede permissão para gravar no diretório.
+        File::makeDirectory($data['path_zip'], $mode = 0777, true, true);
+
+        // Gera Arquivo ZIP contendo os Arquivos de Preço CSV.
+        $zip = new \ZipArchive();
+        if($zip->open($data['path_zip'] . $data['file_name_zip'], ZipArchive::CREATE )  === true){
+            $zip->addFile($data['path_csv'] . $data['file_name_price'] , $data['file_name_price']);
+            $zip->addFile($data['path_csv'] . $data['file_name_card']  , $data['file_name_card']);
+            $zip->addFile($data['path_csv'] . $data['file_name_retail'], $data['file_name_retail']);
+            $zip->close();
+        }
 
         // Registra os dados do arquivo CSV.
         Csv::create([
             'user_id'     => auth()->user()->id,
-            'folder'      => 'price',
-            'file'        => $data['file_name'],
+            'folder'      => 'zip/price',
+            'file'        => $data['file_name_zip'],
             'reference_1' => $data['invoice_id'],
         ]);
 

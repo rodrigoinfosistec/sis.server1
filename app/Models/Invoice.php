@@ -502,15 +502,15 @@ class Invoice extends Model
 
     /**
      * Gera relatório.
-     * @var array $data
+     * @var array $data_file
      * 
      * @return bool true
      */
-    public static function generatePricePdf(array $data) : bool {
+    public static function generatePricePdf(array $data_file) : bool {
         // Estende $data.
-        $data['invoice_id'] = $data['validatedData']['invoice_id'];
+        $data['invoice_id'] = $data_file['invoice_id'];
         $data['path']       = public_path('/storage/pdf/price/');
-        $data['file_name']  = 'price_' . auth()->user()->id . '_' . $data['validatedData']['invoice_id'] . '_' . $data['validatedData']['random'] . '.pdf';
+        $data['file_name']  = 'price_' . auth()->user()->id . '_' . $data_file['invoice_id'] . '_' . $data_file['random'] . '.pdf';
 
         // Gera PDF.
         Report::invoicePriceGenerate($data);
@@ -524,18 +524,18 @@ class Invoice extends Model
      * 
      * @return bool true
      */
-    public static function generatePriceCsv(array $data) : bool {
-        dd($data);
+    public static function generatePriceCsv(array $data_file) : bool {
         // Primeira palavra do nome do Fornecedor.
-        $provider_first = explode(' ', Provider::find(Invoice::find($data['validatedData']['invoice_id'])->provider_id)->name)[0];
+        $provider_first = explode(' ', Provider::find(Invoice::find($data_file['invoice_id'])->provider_id)->name)[0];
 
         // Estende $data.
-        $data['invoice_id']       = $data['validatedData']['invoice_id'];
-        $data['path']             = public_path('/storage/zip/price/');
-        $data['file_name_zip']    = 'precos_' . $provider_first . '_' . $data['invoice_id'] . '_' . $data['validatedData']['random'] . '.zip';
-        $data['file_name_price']  = 'final_'  . $provider_first . '_' . $data['invoice_id'] . '_' . $data['validatedData']['random'] . '.pdf';
-        $data['file_name_card']   = 'cartao_' . $provider_first . '_' . $data['invoice_id'] . '_' . $data['validatedData']['random'] . '.pdf';
-        $data['file_name_retail'] = 'varejo_' . $provider_first . '_' . $data['invoice_id'] . '_' . $data['validatedData']['random'] . '.pdf';
+        $data['invoice_id']       = $data_file['invoice_id'];
+        $data['path_csv']         = public_path('/storage/csv/price/');
+        $data['path_zip']         = public_path('/storage/zip/price/');
+        $data['file_name_price']  = $provider_first . '_' . $data_file['invoice_id'] . '_' . $data_file['random'] . '_FINAL.csv';
+        $data['file_name_card']   = $provider_first . '_' . $data_file['invoice_id'] . '_' . $data_file['random'] . '_CARTAO.csv';
+        $data['file_name_retail'] = $provider_first . '_' . $data_file['invoice_id'] . '_' . $data_file['random'] . '_VAREJO.csv';
+        $data['file_name_zip']    = 'preco_' . $provider_first . '_' . $data_file['invoice_id'] . '_' . $data_file['random'] . '.zip';
 
         // Gera PDF.
         Csv::invoicePriceGenerate($data);

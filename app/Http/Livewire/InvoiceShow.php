@@ -665,7 +665,6 @@ class InvoiceShow extends Component
             // Estende $validatedData
             $validatedData['invoice_id'] = $this->invoice_id;
             $validatedData['hold_all']   = $this->hold_all;
-            $validatedData['random']         = Str::random(20);
 
             // Percorre os itens da Nota Fiscal.
             foreach(Invoiceitem::where('invoice_id', $this->invoice_id)->get() as $key => $invoiceitem):
@@ -690,11 +689,14 @@ class InvoiceShow extends Component
                 if ($valid) Invoiceitem::dependencyEditPrice($data);
             endforeach;
 
+            $data_file['invoice_id'] = $this->invoice_id;
+            $data_file['random']     = Str::random(10);
+
             // Gera o PDF.
-            Invoice::generatePricePdf($data);
+            //Invoice::generatePricePdf($data_file);
 
             // Gera o CSV e ZIP.
-            Invoice::generatePriceCsv($data);
+            Invoice::generatePriceCsv($data_file);
 
             // Fecha modal.
             $this->closeModal();
