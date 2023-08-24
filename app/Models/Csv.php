@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 use File;
+use ZipArchive;
 
 class Csv extends Model
 {
@@ -106,15 +107,6 @@ class Csv extends Model
         // Concede permissão para gravar no diretório.
         File::makeDirectory($data['path_zip'], $mode = 0777, true, true);
 
-        // Gera Arquivo ZIP contendo os Arquivos de Preço CSV.
-        $zip = new \ZipArchive();
-        if($zip->open($data['path_zip'] . $data['file_name_zip'], ZipArchive::CREATE )  === true){
-            $zip->addFile($data['path_csv'] . $data['file_name_price'] , $data['file_name_price']);
-            $zip->addFile($data['path_csv'] . $data['file_name_card']  , $data['file_name_card']);
-            $zip->addFile($data['path_csv'] . $data['file_name_retail'], $data['file_name_retail']);
-            $zip->close();
-        }
-
         // Registra os dados do arquivo CSV.
         Csv::create([
             'user_id'     => auth()->user()->id,
@@ -122,6 +114,17 @@ class Csv extends Model
             'file'        => $data['file_name_zip'],
             'reference_1' => $data['invoice_id'],
         ]);
+
+        // Gera Arquivo ZIP contendo os Arquivos de Preço CSV.
+        //dd(ZipArchive::open($data['path_zip'] . $data['file_name_zip'], ZipArchive::CREATE));
+
+        $zip = new ZipArchive();
+        if($zip->open($data['path_zip'] . $data['file_name_zip'], ZipArchive::CREATE)  === true){
+            $zip->addFile($data['path_csv'] . $data['file_name_price'] , $data['file_name_price']);
+            $zip->addFile($data['path_csv'] . $data['file_name_card']  , $data['file_name_card']);
+            $zip->addFile($data['path_csv'] . $data['file_name_retail'], $data['file_name_retail']);
+            $zip->close();
+        }
 
         return true;
     }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Page;
+use App\Models\Invoice;
+use App\Models\Csv;
 
 class InvoiceController extends Controller
 {
@@ -32,5 +34,22 @@ class InvoiceController extends Controller
                 'icon'  => Page::getIconByName($this->pageName), 
             ],
         ]);
+    }
+
+    public function priceZip(int $invoice_id)
+    {
+        $invoice = Invoice::find($invoice_id);
+
+        if($invoice):
+            $path_zip = public_path('/storage/zip/price/');
+            $name_zip = Csv::where(['folder' => 'zip/price', 'reference_1' => $invoice_id])->orderBy('id', 'DESC')->first()->file;
+
+            return response()->download($path_zip . $name_zip);
+        else:
+            session()->flash('message', 'Nenhum Arquivo ZIP de Preço para esta Nota Fiscal.');
+            session()->flash('color', 'danger');
+
+            return redirect()->to('/invoice');
+        endif;
     }
 }

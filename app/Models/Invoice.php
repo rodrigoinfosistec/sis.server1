@@ -532,9 +532,9 @@ class Invoice extends Model
         $data['invoice_id']       = $data_file['invoice_id'];
         $data['path_csv']         = public_path('/storage/csv/price/');
         $data['path_zip']         = public_path('/storage/zip/price/');
-        $data['file_name_price']  = $provider_first . '_' . $data_file['invoice_id'] . '_' . $data_file['random'] . '_FINAL.csv';
-        $data['file_name_card']   = $provider_first . '_' . $data_file['invoice_id'] . '_' . $data_file['random'] . '_CARTAO.csv';
-        $data['file_name_retail'] = $provider_first . '_' . $data_file['invoice_id'] . '_' . $data_file['random'] . '_VAREJO.csv';
+        $data['file_name_price']  = $provider_first . '_' . $data_file['invoice_id'] . '_' . $data_file['random'] . '_1_FINAL.csv';
+        $data['file_name_card']   = $provider_first . '_' . $data_file['invoice_id'] . '_' . $data_file['random'] . '_2_CARTAO.csv';
+        $data['file_name_retail'] = $provider_first . '_' . $data_file['invoice_id'] . '_' . $data_file['random'] . '_3_VAREJO.csv';
         $data['file_name_zip']    = 'preco_' . $provider_first . '_' . $data_file['invoice_id'] . '_' . $data_file['random'] . '.zip';
 
         // Gera PDF.

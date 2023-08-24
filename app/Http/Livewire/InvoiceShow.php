@@ -693,7 +693,7 @@ class InvoiceShow extends Component
             $data_file['random']     = Str::random(10);
 
             // Gera o PDF.
-            //Invoice::generatePricePdf($data_file);
+            Invoice::generatePricePdf($data_file);
 
             // Gera o CSV e ZIP.
             Invoice::generatePriceCsv($data_file);

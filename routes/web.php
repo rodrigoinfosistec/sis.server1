@@ -32,4 +32,5 @@ Route::middleware([
     Route::get('/productgroup', [ProductgroupController::class, 'index'])->name('productgroup');
 
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
+    Route::get('/price-zip/{invoice_id}/', [InvoiceController::class, 'priceZip'])->name('price-zip');
 });
