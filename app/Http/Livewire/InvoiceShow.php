@@ -842,7 +842,7 @@ class InvoiceShow extends Component
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
         }
-        
+
     /**
      * mailPrice()
      *  sendPrice()
