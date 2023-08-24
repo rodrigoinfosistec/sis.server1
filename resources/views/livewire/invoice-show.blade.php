@@ -180,6 +180,12 @@
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-zip-muted :id="$item->id"/>
     @endif
+
+    @if(App\Models\Csv::where(['folder' => 'zip/price', 'reference_1' => $item->id])->exists())
+        <x-layout.card.card-body-content-table-body-line-cell-action-mail :id="$item->id"/>
+    @else
+        <x-layout.card.card-body-content-table-body-line-cell-action-mail-muted :id="$item->id"/>
+    @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
 
