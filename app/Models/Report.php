@@ -475,11 +475,18 @@ class Report extends Model
     public static function invoicePriceGenerate(array $data) : bool {
         // Gera o arquivo PDF.
         $pdf = PDF::loadView('components.invoice.pdf-price', [
-            'user'       => auth()->user()->name,
-            'title'      => 'Preços',
-            'date'       => date('d/m/Y H:i:s'),
-            'invoice_id' => $data['invoice_id'],
-            'list'       => $list = Invoiceitem::where('invoice_id', $data['invoice_id'])->orderBy('identifier', 'ASC')->get(), 
+            'user'                 => auth()->user()->name,
+            'title'                => 'Preços',
+            'date'                 => date('d/m/Y H:i:s'),
+            'invoice_id'           => $data['invoice_id'],
+            'efiscos'              => Invoiceefisco::where('invoice_id', $data['invoice_id'])->get(),
+            'efisco_icms'          => General::decodeFloat2(Invoiceefisco::where('invoice_id', $data['invoice_id'])->get()->sum('icms')),
+            'efisco_value'         => General::decodeFloat2(Invoiceefisco::where('invoice_id', $data['invoice_id'])->get()->sum('value')),
+            'efisco_value_invoice' => General::decodeFloat2(Invoiceefisco::where('invoice_id', $data['invoice_id'])->get()->sum('value_invoice')),
+            'efisco_value_final'   => General::decodeFloat2(Invoiceefisco::where('invoice_id', $data['invoice_id'])->get()->sum('value_final')),
+            'efisco_ipi_invoice'   => General::decodeFloat2(Invoiceefisco::where('invoice_id', $data['invoice_id'])->get()->sum('ipi_invoice')),
+            'efisco_ipi_final'     => General::decodeFloat2(Invoiceefisco::where('invoice_id', $data['invoice_id'])->get()->sum('ipi_final')),
+            'list'                 => $list = Invoiceitem::where('invoice_id', $data['invoice_id'])->orderBy('identifier', 'ASC')->get(), 
         ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
 
         // Salva o arquivo PDF.

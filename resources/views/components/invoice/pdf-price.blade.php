@@ -202,7 +202,7 @@
                 <th>IPI FINAL</th>
                 <th>ÍNDICE</th>
             </tr>
-            @foreach(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get() as $key => $efisco)
+            @foreach($efiscos as $key => $efisco)
                 <tr class="text-uppercase" style="font-size: 7pt;">
 {{-- START CONTEÚDO EFISCO --}}
 
@@ -240,17 +240,17 @@
 
 <td>TOTAIS</td>
 
-<td>R$ {{ App\Models\General::decodeFloat2(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get()->sum('icms')) }}</td>
+<td>R$ {{ $efisco_icms }}</td>
 
-<td>R$ {{ App\Models\General::decodeFloat2(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get()->sum('value')) }}</td>
+<td>R$ {{ $efisco_value }}</td>
 
-<td>R$ {{ App\Models\General::decodeFloat2(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get()->sum('value_invoice')) }}</td>
+<td>R$ {{ $efisco_value_invoice }}</td>
 
-<td>R$ {{ App\Models\General::decodeFloat2(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get()->sum('value_final')) }}</td>
+<td>R$ {{ $efisco_value_final }}</td>
 
-<td>R$ {{ App\Models\General::decodeFloat2(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get()->sum('ipi_invoice')) }}</td>
+<td>R$ {{ $efisco_ipi_invoice }}</td>
 
-<td>R$ {{ App\Models\General::decodeFloat2(App\Models\Invoiceefisco::where('invoice_id', $invoice_id)->get()->sum('ipi_final')) }}</td>
+<td>R$ {{ $efisco_ipi_final }}</td>
 
 <td></td>
 
@@ -263,20 +263,35 @@
     @php
         $business = App\Models\Providerbusiness::where('provider_id', $invoice->provider_id)->first();
     @endphp
-    <div class="float-end" style="width: 200px; height: 100px; border:solid 1px #ddd;">
+    <div class="float-end" style="width: 200px; height: 95px; border:solid 1px #ddd;">
         <h6>Informações:</h6>
-        <div class="text-muted" style="font-size: 8pt; line-height: 1;">
-            QUANTIDADE: {{ $business->multiplier_quantity }}%
-            <br>
-            VALOR: {{ $business->multiplier_value }}%
-            <br>
-            IPI VALOR: {{ $business->multiplier_ipi }}%
-            <br>
-            IPI ALÍQUOTA: {{ $business->multiplier_ipi_aliquot }}%
-            <br>
-            MARGEM: {{ $business->margin }}%
-            <br>
-            FRETE: {{ $business->shipping }}%
+        <div class="text-muted" style=" width: 100%; font-size: 8pt; line-height: 1;">
+            <div class="float-start" style=" width: 90px; border: solid 1px #000;">
+                QUANTIDADE
+                <br>
+                VALOR
+                <br>
+                IPI VALOR
+                <br>
+                IPI ALÍQUOTA
+                <br>
+                MARGEM
+                <br>
+                FRETE
+            </div>
+            <div class="float-end" style="width: 50px; border: solid 1px #000;">
+                {{ $business->multiplier_quantity }}%
+                <br>
+                {{ $business->multiplier_value }}%
+                <br>
+                {{ $business->multiplier_ipi }}%
+                <br>
+                {{ $business->multiplier_ipi_aliquot }}%
+                <br>
+                {{ $business->margin }}%
+                <br>
+                {{ $business->shipping }}%
+            </div>
         </div>
     </div>
 </div>
