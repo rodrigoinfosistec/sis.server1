@@ -189,7 +189,7 @@
 
 {{-- eFisco --}}
 <div style="width: 100%px; margin-top: 50px;">
-    <div class="float-start" style="width: 600px;">
+    <div class="float-start" style="width: 700px;">
         <h6>eFisco</h6>
         <table class="table table-sm">
             <tr class="text-muted" style="font-size: 7pt; border-bottom: 2px #ddd solid;">
@@ -263,35 +263,20 @@
     @php
         $business = App\Models\Providerbusiness::where('provider_id', $invoice->provider_id)->first();
     @endphp
-    <div class="float-end" style="width: 200px; height: 95px; border:solid 1px #ddd;">
-        <h6>Informações:</h6>
-        <div class="text-muted" style=" width: 100%; font-size: 8pt; line-height: 1;">
-            <div class="float-start" style=" width: 90px; border: solid 1px #000;">
-                QUANTIDADE
-                <br>
-                VALOR
-                <br>
-                IPI VALOR
-                <br>
-                IPI ALÍQUOTA
-                <br>
-                MARGEM
-                <br>
-                FRETE
-            </div>
-            <div class="float-end" style="width: 50px; border: solid 1px #000;">
-                {{ $business->multiplier_quantity }}%
-                <br>
-                {{ $business->multiplier_value }}%
-                <br>
-                {{ $business->multiplier_ipi }}%
-                <br>
-                {{ $business->multiplier_ipi_aliquot }}%
-                <br>
-                {{ $business->margin }}%
-                <br>
-                {{ $business->shipping }}%
-            </div>
+    <div class="float-end" style="width: 130px; height: 95px;">
+        <h6 style="font-size: 10pt">Informações:</h6>
+        <div class="text-muted" style="font-size: 7pt; line-height: 1.2;">
+            QUANTIDADE: {{ App\Models\General::decodeFloat2($business->multiplier_quantity) }}%
+            <br>
+            VALOR: ............{{ App\Models\General::decodeFloat2($business->multiplier_value) }}%
+            <br>
+            IPI VALOR: .......{{ App\Models\General::decodeFloat2($business->multiplier_ipi) }}%
+            <br>
+            IPI ALÍQUOTA ..{{ App\Models\General::decodeFloat2($business->multiplier_ipi_aliquot) }}%
+            <br>
+            MARGEM: .........{{ App\Models\General::decodeFloat2($business->margin) }}%
+            <br>
+            FRETE: ..............{{ App\Models\General::decodeFloat2($business->shipping) }}%
         </div>
     </div>
 </div>

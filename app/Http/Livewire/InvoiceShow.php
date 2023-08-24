@@ -688,7 +688,7 @@ class InvoiceShow extends Component
             endforeach;
 
             // Gera o PDF.
-            Invoice::generatePrice((int)$data['validatedData']['invoice_id']);
+            //Invoice::generatePrice((int)$data['validatedData']['invoice_id']);
 
             // Fecha modal.
             $this->closeModal();
