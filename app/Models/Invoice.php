@@ -489,27 +489,6 @@ class Invoice extends Model
     }
 
     /**
-     * Gera relatório.
-     * @var int $invoice_id
-     * 
-     * @return bool true
-     */
-    public static function generatePrice(int $invoice_id) : bool {
-        // Estende $data.
-        $data['invoice_id'] = $invoice_id;
-        $data['path']       = public_path('/storage/pdf/price/');
-        $data['file_name']  = 'price_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
-
-        // Gera PDF.
-        Report::invoicePriceGenerate($data);
-
-        // Auditoria.
-        //Audit::invoicePriceGenerate($data);
-
-        return true;
-    }
-
-    /**
      * Executa dependências de geração de relatório.
      * @var array $data
      * 
@@ -517,6 +496,49 @@ class Invoice extends Model
      */
     public static function dependencyGenerate(array $data) : bool {
         //...
+
+        return true;
+    }
+
+    /**
+     * Gera relatório.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function generatePricePdf(array $data) : bool {
+        // Estende $data.
+        $data['invoice_id'] = $data['validatedData']['invoice_id'];
+        $data['path']       = public_path('/storage/pdf/price/');
+        $data['file_name']  = 'price_' . auth()->user()->id . '_' . $data['validatedData']['invoice_id'] . '_' . $data['validatedData']['random'] . '.pdf';
+
+        // Gera PDF.
+        Report::invoicePriceGenerate($data);
+
+        return true;
+    }
+
+    /**
+     * Gera aquivos CSV e ZIP.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function generatePriceCsv(array $data) : bool {
+        dd($data);
+        // Primeira palavra do nome do Fornecedor.
+        $provider_first = explode(' ', Provider::find(Invoice::find($data['validatedData']['invoice_id'])->provider_id)->name)[0];
+
+        // Estende $data.
+        $data['invoice_id']       = $data['validatedData']['invoice_id'];
+        $data['path']             = public_path('/storage/zip/price/');
+        $data['file_name_zip']    = 'precos_' . $provider_first . '_' . $data['invoice_id'] . '_' . $data['validatedData']['random'] . '.zip';
+        $data['file_name_price']  = 'final_'  . $provider_first . '_' . $data['invoice_id'] . '_' . $data['validatedData']['random'] . '.pdf';
+        $data['file_name_card']   = 'cartao_' . $provider_first . '_' . $data['invoice_id'] . '_' . $data['validatedData']['random'] . '.pdf';
+        $data['file_name_retail'] = 'varejo_' . $provider_first . '_' . $data['invoice_id'] . '_' . $data['validatedData']['random'] . '.pdf';
+
+        // Gera PDF.
+        Csv::invoicePriceGenerate($data);
 
         return true;
     }

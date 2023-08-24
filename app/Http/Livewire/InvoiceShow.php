@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Str;
+
 use App\Models\General;
 use App\Models\Report;
 
@@ -663,6 +665,7 @@ class InvoiceShow extends Component
             // Estende $validatedData
             $validatedData['invoice_id'] = $this->invoice_id;
             $validatedData['hold_all']   = $this->hold_all;
+            $validatedData['random']         = Str::random(20);
 
             // Percorre os itens da Nota Fiscal.
             foreach(Invoiceitem::where('invoice_id', $this->invoice_id)->get() as $key => $invoiceitem):
@@ -688,7 +691,10 @@ class InvoiceShow extends Component
             endforeach;
 
             // Gera o PDF.
-            //Invoice::generatePrice((int)$data['validatedData']['invoice_id']);
+            Invoice::generatePricePdf($data);
+
+            // Gera o CSV e ZIP.
+            Invoice::generatePriceCsv($data);
 
             // Fecha modal.
             $this->closeModal();
