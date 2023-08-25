@@ -16,8 +16,6 @@
                     <x-nav-link href="{{ route('invoice') }}" :active="request()->routeIs('invoice')" class="text-decoration-none">
                         <img src="/img/icon/nfe.png" alt=""/>
                     </x-nav-link>
-
-                    
                 </div>
             </div>
 
@@ -158,8 +156,6 @@
             <x-nav-link href="{{ route('invoice') }}" :active="request()->routeIs('invoice')" class="text-decoration-none" style="margin-right: 10px;">
                 <img src="/img/icon/nfe.png" alt=""/>
             </x-nav-link>
-
-            
         </div>
 
         {{-- Responsive Settings Options --}}

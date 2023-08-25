@@ -54,6 +54,7 @@ class Invoiceitem extends Model
 
         'index',
 
+        'cost_total',
         'cost',
 
         'price',
@@ -362,6 +363,13 @@ class Invoiceitem extends Model
         $cost_full = ($cost_plus_shipping / $item->quantity_final) / $item->amount;
         $cost      = Invoiceitem::roundUp($cost_full, 2);
 
+        // Custo Total di item.
+        if($item->signal == '/'):
+            $cost_total = ($cost * $item->amount) * $item->quantity_final;
+        else:
+            $cost_total = ($cost / $item->amount) * $item->quantity_final;
+        endif;
+
         // Preço Final.
         $price_full = $cost + (($cost * $item->margin) / 100);
         $price = Invoiceitem::roundUp($price_full, 2);
@@ -444,6 +452,7 @@ class Invoiceitem extends Model
 
         // Atualiza os Preços do item.
         Invoiceitem::find($item->id)->update([
+            'cost_total' => $cost_total,
             'cost'       => $cost,
             'price'      => $price,
             'card'       => $card,
@@ -472,6 +481,13 @@ class Invoiceitem extends Model
         // Custo.
         $cost_full = ($cost_plus_shipping / $item->quantity_final) / $item->amount;
         $cost      = Invoiceitem::roundUp($cost_full, 2);
+
+        // Custo Total di item.
+        if($item->signal == '/'):
+            $cost_total = ($cost * $item->amount) * $item->quantity_final;
+        else:
+            $cost_total = ($cost / $item->amount) * $item->quantity_final;
+        endif;
 
         // Preço Final.
         $price_full = $cost + (($cost * $item->margin) / 100) / 0.9;
@@ -532,6 +548,7 @@ class Invoiceitem extends Model
 
         // Atualiza os Preços do item.
         Invoiceitem::find($item->id)->update([
+            'cost_total' => $cost_total,
             'cost'       => $cost,
             'price'      => $price,
             'card'       => $card,
