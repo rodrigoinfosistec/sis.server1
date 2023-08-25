@@ -89,6 +89,12 @@ class Config extends Model
                 'icon'  => 'bi-receipt',
                 'test'  => true,
             ],
+            [
+                'name'  => 'product',
+                'title' => 'Produto',
+                'icon'  => 'bi-box',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
