@@ -136,7 +136,7 @@
 
         <br>
 
-        <span class="text-muted">
+        <span class="text-muted" style="font-size: 7pt;">
             {{ $item->key }}
         </span>
 

@@ -197,7 +197,7 @@
 
                     {{-- GRUPO --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 70px;" title="{{ $invoiceitem->productgroup->name }}">
+                        <div class="" style="width: 70px;" title="{{ $invoiceitem->productgroup->name ?? '' }}">
                             {{ $invoiceitem->productgroup->code ?? '' }}
                             <br>
                             {{ $invoiceitem->productgroup->origin ?? '' }}
