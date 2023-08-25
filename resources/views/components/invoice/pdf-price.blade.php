@@ -194,12 +194,12 @@
         <table class="table table-sm">
             <tr class="text-muted" style="font-size: 7pt; border-bottom: 2px #ddd solid;">
                 <th>GRUPO</th>
-                <th>ICMS EFISCO</th>
                 <th>PRODUTO EFISCO</th>
                 <th>PRODUTO XML</th>
                 <th>PRODUTO FINAL</th>
                 <th>IPI XML</th>
                 <th>IPI FINAL</th>
+                <th>ICMS EFISCO</th>
                 <th>ÍNDICE</th>
             </tr>
             @foreach($efiscos as $key => $efisco)
@@ -208,9 +208,6 @@
 
 {{-- GRUPO --}}
 <td>{{ $efisco->productgroup->code }} {{ $efisco->productgroup->origin }}</td>
-
-{{-- ICMS EFISCO --}}
-<td>R$ {{ App\Models\General::decodeFloat2($efisco->icms) }}</td>
 
 {{-- PRODUTO EFISCO --}}
 <td>R$ {{ App\Models\General::decodeFloat2($efisco->value) }}</td>
@@ -227,8 +224,11 @@
 {{-- IPI FINAL --}}
 <td>R$ {{ App\Models\General::decodeFloat2($efisco->ipi_final) }}</td>
 
+{{-- ICMS EFISCO --}}
+<td class="fw-bold">R$ {{ App\Models\General::decodeFloat2($efisco->icms) }}</td>
+
 {{-- ÍNDICE --}}
-<td>{{ App\Models\General::decodeFloat2($efisco->index) }} %</td>
+<td class="fw-bold">{{ App\Models\General::decodeFloat2($efisco->index) }} %</td>
 
 {{-- END CONTEÚDO EFISCO --}}
                 </tr>
@@ -240,8 +240,6 @@
 
 <td>TOTAIS</td>
 
-<td>R$ {{ $efisco_icms }}</td>
-
 <td>R$ {{ $efisco_value }}</td>
 
 <td>R$ {{ $efisco_value_invoice }}</td>
@@ -251,6 +249,8 @@
 <td>R$ {{ $efisco_ipi_invoice }}</td>
 
 <td>R$ {{ $efisco_ipi_final }}</td>
+
+<td>R$ {{ $efisco_icms }}</td>
 
 <td></td>
 
