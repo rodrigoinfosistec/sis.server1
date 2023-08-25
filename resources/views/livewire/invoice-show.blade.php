@@ -138,12 +138,12 @@
 
         <div class="text-muted" style="font-size: 7pt; line-height: 1;">
             {{ $item->key }}
-        <br>
-        <span class="text-primary" style="font-size: 9pt;">
-            <span class="fst-italic">R$</span>
-            {{ App\Models\General::decodeFloat2($item->total) }}
-        </span>
-    </div>
+            <br>
+            <span class="text-primary" style="font-size: 9pt;">
+                <span class="fst-italic">R$</span>
+                {{ App\Models\General::decodeFloat2($item->total) }}
+            </span>
+        </div>
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
