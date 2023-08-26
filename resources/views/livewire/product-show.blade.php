@@ -99,7 +99,7 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
         
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            {{ $item->code }}<i class="bi-caret-right-fill text-danger" style="font-size: 10px;"></i>{{ $item->ean }}
+            {{ $item->code }}@if(!empty($item->code))<i class="bi-caret-right-fill text-danger" style="font-size: 10px;"></i>@endif{{ $item->ean }}
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>

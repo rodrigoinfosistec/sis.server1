@@ -93,19 +93,19 @@
 
 <x-layout.modal.modal-detail-body-line>
     <x-layout.modal.modal-detail-body-line-title>
-        FORNECEDOR
+        EMPRESA
     </x-layout.modal.modal-detail-body-line-title>
     <x-layout.modal.modal-detail-body-line-content>
-        {{ $invoice_provider_name }} 
+        {{ $invoice_company_name }} 
     </x-layout.modal.modal-detail-body-line-content>
 </x-layout.modal.modal-detail-body-line>
 
 <x-layout.modal.modal-detail-body-line>
     <x-layout.modal.modal-detail-body-line-title>
-        EMPRESA
+        FORNECEDOR
     </x-layout.modal.modal-detail-body-line-title>
     <x-layout.modal.modal-detail-body-line-content>
-        {{ $invoice_company_name }} 
+        {{ $invoice_provider_name }} 
     </x-layout.modal.modal-detail-body-line-content>
 </x-layout.modal.modal-detail-body-line>
 
