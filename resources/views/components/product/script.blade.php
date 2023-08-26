@@ -1,3 +1,8 @@
-<div>
-    <!-- You must be the change you wish to see in the world. - Mahatma Gandhi -->
-</div>
+<script>
+    window.addEventListener('close-modal', event => {
+        $('#generateModal').modal('hide');
+        $('#mailModal').modal('hide');
+
+        $('#detailModal').modal('hide');
+    })
+</script>
