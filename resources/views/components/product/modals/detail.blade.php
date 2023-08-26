@@ -42,7 +42,16 @@
         DESCRIÇÃO
     </x-layout.modal.modal-detail-body-line-title>
     <x-layout.modal.modal-detail-body-line-content>
-        {{ $name }}
+        <span class="text-primary">{{ $name }}</span>
+    </x-layout.modal.modal-detail-body-line-content>
+</x-layout.modal.modal-detail-body-line>
+
+<x-layout.modal.modal-detail-body-line>
+    <x-layout.modal.modal-detail-body-line-title>
+        CUSTO
+    </x-layout.modal.modal-detail-body-line-title>
+    <x-layout.modal.modal-detail-body-line-content>
+        <span class="fw-bold text-primary">R$ {{ App\Models\General::decodeFloat2((float)$cost) }}</span>
     </x-layout.modal.modal-detail-body-line-content>
 </x-layout.modal.modal-detail-body-line>
 
@@ -79,6 +88,33 @@
     </x-layout.modal.modal-detail-body-line-title>
     <x-layout.modal.modal-detail-body-line-content>
         {{ $cest }} 
+    </x-layout.modal.modal-detail-body-line-content>
+</x-layout.modal.modal-detail-body-line>
+
+<x-layout.modal.modal-detail-body-line>
+    <x-layout.modal.modal-detail-body-line-title>
+        FORNECEDOR
+    </x-layout.modal.modal-detail-body-line-title>
+    <x-layout.modal.modal-detail-body-line-content>
+        {{ $invoice_provider_name }} 
+    </x-layout.modal.modal-detail-body-line-content>
+</x-layout.modal.modal-detail-body-line>
+
+<x-layout.modal.modal-detail-body-line>
+    <x-layout.modal.modal-detail-body-line-title>
+        EMPRESA
+    </x-layout.modal.modal-detail-body-line-title>
+    <x-layout.modal.modal-detail-body-line-content>
+        {{ $invoice_company_name }} 
+    </x-layout.modal.modal-detail-body-line-content>
+</x-layout.modal.modal-detail-body-line>
+
+<x-layout.modal.modal-detail-body-line>
+    <x-layout.modal.modal-detail-body-line-title>
+        NOTA FISCAL
+    </x-layout.modal.modal-detail-body-line-title>
+    <x-layout.modal.modal-detail-body-line-content>
+        {{ $this->invoice_number }}<i class="bi-caret-right-fill text-muted"></i>{{ $this->invoice_issue }}
     </x-layout.modal.modal-detail-body-line-content>
 </x-layout.modal.modal-detail-body-line>
 

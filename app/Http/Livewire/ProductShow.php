@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Report;
 
 use App\Models\Invoiceitem;
+use App\Models\Invoice;
 
 use Livewire\WithPagination;
 use Livewire\Component;
@@ -35,6 +36,7 @@ class ProductShow extends Component
     public $code;
     public $ean;
     public $name;
+    public $cost;
     public $ncm;
     public $cfop;
     public $cest;
@@ -89,20 +91,21 @@ class ProductShow extends Component
         $this->comment   = '';
 
         $this->product_id = '';
-        $this->signal = '';
-        $this->amount = '';
-        $this->code = '';
-        $this->ean = '';
-        $this->name = '';
-        $this->ncm = '';
-        $this->cfop = '';
-        $this->cest = '';
-        $this->created = '';
+        $this->signal     = '';
+        $this->amount     = '';
+        $this->code       = '';
+        $this->ean        = '';
+        $this->name       = '';
+        $this->cost       = '';
+        $this->ncm        = '';
+        $this->cfop       = '';
+        $this->cest       = '';
+        $this->created    = '';
 
-        $this->invoice_provider_name;
-        $this->invoice_company_name;
-        $this->invoice_number;
-        $this->invoice_issue;
+        $this->invoice_provider_name = '';
+        $this->invoice_company_name  = '';
+        $this->invoice_number        = '';
+        $this->invoice_issue         = '';
     }
 
     /**
@@ -147,6 +150,7 @@ class ProductShow extends Component
         $this->code       = $product->code;
         $this->ean        = $product->ean;
         $this->name       = $product->name;
+        $this->cost       = $product->cost;
         $this->ncm        = $product->ncm;
         $this->cfop       = $product->cfop;
         $this->cest       = $product->cest;
