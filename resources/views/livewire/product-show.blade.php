@@ -108,12 +108,18 @@
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
-        {{ $item->name }}
-        <br>
-        <span class="text-primary" style="font-size: 9pt;">
-            <span class="fst-italic">R$</span>
-            {{ App\Models\General::decodeFloat2($item->cost) }}
-        </span>
+        <div style="line-height: 1;">
+            {{ $item->name }}
+            <br>
+            <span class="text-primary" style="font-size: 9pt;">
+                <span class="fst-italic">R$</span>
+                {{ App\Models\General::decodeFloat2($item->cost) }}
+            </span>
+            <br>
+            <span class="text-muted" style="font-size: 7pt;">
+                {{ $item->invoice->provider->name }}
+            </span>
+        </div>
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
