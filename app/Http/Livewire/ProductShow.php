@@ -30,6 +30,14 @@ class ProductShow extends Component
     public $comment;
 
     public $product_id;
+    public $signal;
+    public $amount;
+    public $code;
+    public $ean;
+    public $name;
+    public $ncm;
+    public $cfop;
+    public $cest;
     public $created;
 
     /**
@@ -76,7 +84,15 @@ class ProductShow extends Component
         $this->comment   = '';
 
         $this->product_id = '';
-        $this->created         = '';
+        $this->signal = '';
+        $this->amount = '';
+        $this->code = '';
+        $this->ean = '';
+        $this->name = '';
+        $this->ncm = '';
+        $this->cfop = '';
+        $this->cest = '';
+        $this->created = '';
     }
 
     /**
@@ -109,11 +125,27 @@ class ProductShow extends Component
     public function detail(int $product_id)
     {
         // Grupo de Produto.
-        $product = Product::find($product_id);
+        $product = Invoiceitem::find($product_id);
+
+        // Nota Fiscal.
+        $invoice = Invoice::find($product->invoice_id);
 
         // Inicializa propriedades dinâmicas.
         $this->product_id = $product->id;
+        $this->signal     = $product->signal;
+        $this->amount     = $product->amount;
+        $this->code       = $product->code;
+        $this->ean        = $product->ean;
+        $this->name       = $product->name;
+        $this->ncm        = $product->ncm;
+        $this->cfop       = $product->cfop;
+        $this->cest       = $product->cest;
         $this->created    = $product->created_at->format('d/m/Y H:i:s');
+
+        $this->invoice_provider_name = $invoice->provider_name;
+        $this->invoice_company_name  = $invoice->company_name;
+        $this->invoice_number        = $invoice->number;
+        $this->invoice_issue         = date_format(date_create($invoice->issue), 'd/m/Y H:i:s');
     }
 
     /**
