@@ -40,6 +40,11 @@ class ProductShow extends Component
     public $cest;
     public $created;
 
+    public $invoice_provider_name;
+    public $invoice_company_name;
+    public $invoice_number;
+    public $invoice_issue;
+
     /**
      * Construtor.
      */
@@ -93,6 +98,11 @@ class ProductShow extends Component
         $this->cfop = '';
         $this->cest = '';
         $this->created = '';
+
+        $this->invoice_provider_name;
+        $this->invoice_company_name;
+        $this->invoice_number;
+        $this->invoice_issue;
     }
 
     /**
