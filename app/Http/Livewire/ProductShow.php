@@ -97,6 +97,7 @@ class ProductShow extends Component
             'existsReport' => Report::where('folder', $this->config['name'])->exists(),
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Invoiceitem::where([
+                                ['cost', '!=', NULL],
                                 [$this->filter, 'like', '%'. $this->search . '%'],
                             ])->orderBy('id', 'DESC')->limit(200)->paginate(20),
         ]);
