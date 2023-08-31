@@ -1230,4 +1230,27 @@ class Audit extends Model
 
         return true;
     }
+
+    
+    /**
+     * Auditoria Invoice Price Generate.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function invoicePriceGenerate(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[calculou]' . 'Preço' . '{' .
+                'invoice_id=' . $data['invoice_id'] . ',' .
+                'folder='     . 'price'             . ',' .
+                'file_name='  . $data['file_name']  . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }

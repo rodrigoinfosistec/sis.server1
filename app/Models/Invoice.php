@@ -515,6 +515,8 @@ class Invoice extends Model
         // Gera PDF.
         Report::invoicePriceGenerate($data);
 
+        Audit::invoicePriceGenerate($data);
+
         return true;
     }
 
