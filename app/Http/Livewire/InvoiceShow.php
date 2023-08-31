@@ -689,6 +689,7 @@ class InvoiceShow extends Component
                 if ($valid) Invoiceitem::dependencyEditPrice($data);
             endforeach;
 
+            $data_file['config']     = $data['config'];
             $data_file['invoice_id'] = $this->invoice_id;
             $data_file['random']     = Str::random(10);
 

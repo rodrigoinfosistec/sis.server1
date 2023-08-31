@@ -508,6 +508,7 @@ class Invoice extends Model
      */
     public static function generatePricePdf(array $data_file) : bool {
         // Estende $data.
+        $data['config']     = $data_file['config'];
         $data['invoice_id'] = $data_file['invoice_id'];
         $data['path']       = public_path('/storage/pdf/price/');
         $data['file_name']  = 'price_' . auth()->user()->id . '_' . $data_file['invoice_id'] . '_' . $data_file['random'] . '.pdf';
