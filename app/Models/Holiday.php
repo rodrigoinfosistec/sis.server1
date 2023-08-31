@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Holiday extends Model
 {
     /**
+     * Nome da tabela.
+     */
+    protected $table = 'holidays';
+
+    /**
      * Campos manipuláveis.
      */
     protected $fillable = [

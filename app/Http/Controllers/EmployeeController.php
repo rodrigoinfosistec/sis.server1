@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Page;
 
-class ClockController extends Controller
+class EmployeeController extends Controller
 {
     public $pageName;
 
@@ -15,7 +15,7 @@ class ClockController extends Controller
          * Nome da página - Configurável e único.
          * @var string $this->pageName.
          */
-        $this->pageName = 'clock';
+        $this->pageName = 'employee';
 
         /**
          * Expulsa Usuário sem autorização de acesso à Página.
