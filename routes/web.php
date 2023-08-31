@@ -13,7 +13,7 @@ use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\ProductgroupController;
 use App\Http\Controllers\ProductController;
 
-use App\Http\Controllers\EmployeekController;
+use App\Http\Controllers\EmployeeController;
 
 use App\Http\Controllers\HolidayController;
 

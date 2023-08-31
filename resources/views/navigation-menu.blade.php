@@ -17,6 +17,15 @@
                         <img src="/img/icon/nfe.png" alt=""/>
                     </x-nav-link>
                 </div>
+
+                
+                {{-- Navigation Links --}}
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    {{-- Ponto --}}
+                    <x-nav-link href="{{ route('clock') }}" :active="request()->routeIs('clock')" class="text-decoration-none">
+                        <img src="/img/icon/ponto.png" alt=""/>
+                    </x-nav-link>
+                </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -155,6 +164,11 @@
             {{-- Nota Fiscal --}}
             <x-nav-link href="{{ route('invoice') }}" :active="request()->routeIs('invoice')" class="text-decoration-none" style="margin-right: 10px;">
                 <img src="/img/icon/nfe.png" alt=""/>
+            </x-nav-link>
+
+             {{-- Ponto --}}
+             <x-nav-link href="{{ route('clock') }}" :active="request()->routeIs('clock')" class="text-decoration-none" style="margin-right: 10px;">
+                <img src="/img/icon/ponto.png" alt=""/>
             </x-nav-link>
         </div>
 
