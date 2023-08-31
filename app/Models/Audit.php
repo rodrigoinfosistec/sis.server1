@@ -1244,7 +1244,7 @@ class Audit extends Model
             'user_name' => Str::upper(auth()->user()->name),
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
-            'extensive' => '[calculou]' . 'Preço' . '{' .
+            'extensive' => '[calculou]' . 'Preço de Nota Fiscal' . '{' .
                 'invoice_id=' . $data['invoice_id'] . ',' .
                 'folder='     . 'price'             . ',' .
                 'file_name='  . $data['file_name']  . ',' .
