@@ -95,6 +95,24 @@ class Config extends Model
                 'icon'  => 'bi-box',
                 'test'  => true,
             ],
+            [
+                'name'  => 'employee',
+                'title' => 'Funcionário',
+                'icon'  => 'bi-person',
+                'test'  => true,
+            ],
+            [
+                'name'  => 'clock',
+                'title' => 'Ponto',
+                'icon'  => 'bi-fingerprint',
+                'test'  => true,
+            ],
+            [
+                'name'  => 'holiday',
+                'title' => 'Feriado',
+                'icon'  => 'bi-tree',
+                'test'  => true,
+            ],
         ];
 
         return $pages;

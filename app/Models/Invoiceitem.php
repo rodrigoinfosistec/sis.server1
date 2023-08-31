@@ -490,7 +490,7 @@ class Invoiceitem extends Model
         endif;
 
         // Preço Final.
-        $price_full = $cost + (($cost * $item->margin) / 100) / 0.9;
+        $price_full = ($cost + ($cost * $item->margin) / 100) / 0.9;
         $price = Invoiceitem::roundUp($price_full, 2);
 
         // Preço Cartão.
