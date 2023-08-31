@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('holidays', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('user_id');
+
+            $table->date('date');
+            $table->string('week');
+            $table->year('year');
+            $table->string('name');
+
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
