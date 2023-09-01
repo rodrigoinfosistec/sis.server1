@@ -168,7 +168,7 @@
 
 {{-- CALCULADO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div style="width: 30px; line-height: 1; font-size: 7pt; border: solid 0.5px #fff;">
+    <div style="width: 50px; line-height: 1; font-size: 7pt; border: solid 0.5px #fff;">
         {{ App\Models\General::decodeFloat2($item->price_calculated) }}
         <br>
         {{ App\Models\General::decodeFloat2($item->card_calculated) }}
