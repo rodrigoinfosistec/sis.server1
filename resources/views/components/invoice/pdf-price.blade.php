@@ -71,6 +71,10 @@
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
+    CALC
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
     FINAL
 </x-layout.pdf.pdf-table-header-column>
 
@@ -109,7 +113,7 @@
 
 {{-- CÓDIGO/EAN/DESCRIÇÃO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="fw-bold" style="width: 350px; line-height: 1; padding: 2px; border: solid 0.5px #fff;">
+    <div class="fw-bold" style="width: 320px; line-height: 1; padding: 2px; border: solid 0.5px #fff;">
         <span class="fw-normal">{{ $item->code }} | {{ $item->ean }}</span>
         <br>
         {{ $item->name }}
@@ -162,13 +166,22 @@
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
+{{-- CALC --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div style="width: 50px; line-height: 1; font-size: 7pt; border: solid 0.5px #fff;">
+        F.{{ App\Models\General::decodeFloat2($item->price_calculated) }}
+        <br>
+        C.{{ App\Models\General::decodeFloat2($item->card_calculated) }}
+        <br>
+        V.{{ App\Models\General::decodeFloat2($item->retail_calculated) }}
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
 {{-- FINAL --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="fw-bold" style="width: 70px; line-height: 1; font-size: 8pt; border: solid 0.5px #fff;">
+    <div class="fw-bold" style="width: 70px; line-height: 1.2; font-size: 8pt; border: solid 0.5px #fff;">
         <span class="fst-italic fw-normal" style="font-size: 6.5pt;">
-            {{ App\Models\General::decodeFloat2($item->price_csv) }}
-            <span class="text-muted">|</span>
-            {{ App\Models\General::decodeFloat2($item->price_calculated) }}
+            <span class="fst-italic">R$</span>{{ App\Models\General::decodeFloat2($item->price_csv) }}
         </span>
         <br>
         <span class="fst-italic fw-normal" style="font-size: 7pt;">R$</span>{{ App\Models\General::decodeFloat2($item->price) }}
@@ -177,11 +190,9 @@
 
 {{-- CARTÃO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="fw-bold" style="width: 70px; line-height: 1; font-size: 8pt; border: solid 0.5px #fff;">
+    <div class="fw-bold" style="width: 70px; line-height: 1.2; font-size: 8pt; border: solid 0.5px #fff;">
         <span class="fst-italic fw-normal" style="font-size: 6.5pt;">
-            {{ App\Models\General::decodeFloat2($item->card_csv) }}
-            <span class="text-muted">|</span>
-            {{ App\Models\General::decodeFloat2($item->card_calculated) }}
+            <span class="fst-italic">R$</span>{{ App\Models\General::decodeFloat2($item->card_csv) }}
         </span>
         <br>
         <span class="fst-italic fw-normal" style="font-size: 7pt;">R$</span>{{ App\Models\General::decodeFloat2($item->card) }}
@@ -190,11 +201,9 @@
 
 {{-- VAREJO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="fw-bold" style="width: 70px; line-height: 1; font-size: 8pt; border: solid 0.5px #fff;">
+    <div class="fw-bold" style="width: 70px; line-height: 1.2; font-size: 8pt; border: solid 0.5px #fff;">
         <span class="fst-italic fw-normal" style="font-size: 6.5pt;">
-            {{ App\Models\General::decodeFloat2($item->retail_csv) }}
-            <span class="text-muted">|</span>
-            {{ App\Models\General::decodeFloat2($item->retail_calculated) }}
+            <span class="fst-italic">R$</span>{{ App\Models\General::decodeFloat2($item->retail_csv) }}
         </span>
         <br>
         <span class="fst-italic fw-normal" style="font-size: 7pt;">R$</span>{{ App\Models\General::decodeFloat2($item->retail) }}
