@@ -57,6 +57,10 @@ class Invoiceitem extends Model
         'cost_total',
         'cost',
 
+        'price_calculated',
+        'card_calculated',
+        'retail_calculated',
+
         'price',
         'card',
         'retail',
@@ -452,14 +456,17 @@ class Invoiceitem extends Model
 
         // Atualiza os Preços do item.
         Invoiceitem::find($item->id)->update([
-            'cost_total' => $cost_total,
-            'cost'       => $cost,
-            'price'      => $price,
-            'card'       => $card,
-            'retail'     => $retail,
-            'price_csv'  => $price_csv,
-            'card_csv'   => $card_csv,
-            'retail_csv' => $retail_csv,
+            'cost_total'        => $cost_total,
+            'cost'              => $cost,
+            'price_calculated'  => $price,
+            'card_calculated'   => $card,
+            'retail_calculated' => $retail,
+            'price'             => $price,
+            'card'              => $card,
+            'retail'            => $retail,
+            'price_csv'         => $price_csv,
+            'card_csv'          => $card_csv,
+            'retail_csv'        => $retail_csv,
         ]);
     }
 
@@ -549,14 +556,17 @@ class Invoiceitem extends Model
 
         // Atualiza os Preços do item.
         Invoiceitem::find($item->id)->update([
-            'cost_total' => $cost_total,
-            'cost'       => $cost,
-            'price'      => $price,
-            'card'       => $card,
-            'retail'     => $retail,
-            'price_csv'  => $price_csv,
-            'card_csv'   => $card_csv,
-            'retail_csv' => $retail_csv,
+            'cost_total'        => $cost_total,
+            'cost'              => $cost,
+            'price_calculated'  => $price,
+            'card_calculated'   => $card,
+            'retail_calculated' => $retail,
+            'price'             => $price,
+            'card'              => $card,
+            'retail'            => $retail,
+            'price_csv'         => $price_csv,
+            'card_csv'          => $card_csv,
+            'retail_csv'        => $retail_csv,
         ]);
     }
 
