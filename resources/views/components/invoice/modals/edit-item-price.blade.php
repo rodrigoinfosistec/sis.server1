@@ -69,6 +69,12 @@
                 </th>
 
                 <th class="" style="padding: 0;">
+                    <div class="text-center" style="width: 55px;">
+                        CÁLCULO
+                    </div>
+                </th>
+
+                <th class="" style="padding: 0;">
                     <div class="" style="width: 70px;">
                         GRUPO
                     </div>
@@ -189,9 +195,20 @@
                     </td>
 
                     {{-- ÍNDICE --}}
-                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                    <td class="align-middle" style="line-height: 1.1; padding: 0;">
                         <div class="text-center" style="width: 55px; font-size: 9pt;">
                             {{ !empty($invoiceitem->index) ? App\Models\General::decodeFloat2($invoiceitem->index) : 'none' }}%
+                        </div>
+                    </td>
+
+                    {{-- CÁLCULO --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="" style="width: 55px; font-size: 8pt;">
+                            F. {{ !empty($invoiceitem->price_calculated) ? App\Models\General::decodeFloat2($invoiceitem->price_calculated) : 'none' }}
+                            <br>
+                            C. {{ !empty($invoiceitem->price_calculated) ? App\Models\General::decodeFloat2($invoiceitem->card_calculated) : 'none' }}
+                            <br>
+                            V. {{ !empty($invoiceitem->price_calculated) ? App\Models\General::decodeFloat2($invoiceitem->retail_calculated) : 'none' }}
                         </div>
                     </td>
 
