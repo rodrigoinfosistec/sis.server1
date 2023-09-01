@@ -690,6 +690,9 @@ class Invoiceitem extends Model
 
                 'index'             => null,
                 'cost'              => null,
+                'price_calculated'  => null,
+                'card_calculated'   => null,
+                'retail_calculated' => null,
                 'price'             => null,
                 'card'              => null,
                 'retail'            => null,

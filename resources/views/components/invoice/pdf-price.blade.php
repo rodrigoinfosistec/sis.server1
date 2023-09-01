@@ -71,6 +71,10 @@
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
+    CALCULADO
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
     FINAL
 </x-layout.pdf.pdf-table-header-column>
 
@@ -159,6 +163,17 @@
 <x-layout.pdf.pdf-table-body-line-cell>
     <div style="width: 40px; border: solid 0.5px #fff;">
         {{ App\Models\General::decodeFloat2($item->index) }}%
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- CALCULADO --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div style="width: 70px; line-height: 1; font-size: 6.5pt; border: solid 0.5px #fff;">
+        <span class="fst-italic">R$</span>{{ App\Models\General::decodeFloat2($item->price_calculated) }}
+        <br>
+        <span class="fst-italic">R$</span>{{ App\Models\General::decodeFloat2($item->card_calculated) }}
+        <br>
+        <span class="fst-italic">R$</span>{{ App\Models\General::decodeFloat2($item->retail_calculated) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
