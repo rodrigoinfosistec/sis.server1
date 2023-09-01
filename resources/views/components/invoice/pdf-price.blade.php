@@ -71,7 +71,7 @@
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    CALCULADO
+    CALC
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
@@ -113,7 +113,7 @@
 
 {{-- CÓDIGO/EAN/DESCRIÇÃO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="fw-bold" style="width: 350px; line-height: 1; padding: 2px; border: solid 0.5px #fff;">
+    <div class="fw-bold" style="width: 320px; line-height: 1; padding: 2px; border: solid 0.5px #fff;">
         <span class="fw-normal">{{ $item->code }} | {{ $item->ean }}</span>
         <br>
         {{ $item->name }}
@@ -168,12 +168,12 @@
 
 {{-- CALCULADO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div style="width: 70px; line-height: 1; font-size: 6.5pt; border: solid 0.5px #fff;">
-        <span class="fst-italic">R$</span>{{ App\Models\General::decodeFloat2($item->price_calculated) }}
+    <div style="width: 30px; line-height: 1; font-size: 7pt; border: solid 0.5px #fff;">
+        {{ App\Models\General::decodeFloat2($item->price_calculated) }}
         <br>
-        <span class="fst-italic">R$</span>{{ App\Models\General::decodeFloat2($item->card_calculated) }}
+        {{ App\Models\General::decodeFloat2($item->card_calculated) }}
         <br>
-        <span class="fst-italic">R$</span>{{ App\Models\General::decodeFloat2($item->retail_calculated) }}
+        {{ App\Models\General::decodeFloat2($item->retail_calculated) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
