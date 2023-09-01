@@ -478,6 +478,7 @@ class Invoiceitem extends Model
         $cost_plus_index    = ($cost_begin / $item->index) * 100;
         $cost_plus_ipi      = $cost_plus_index + (($cost_plus_index * $item->ipi_aliquot_final) / 100);
         $cost_plus_shipping = $cost_plus_ipi + (($cost_plus_ipi * $item->shipping) / 100);
+
         // Custo.
         $cost_full = ($cost_plus_shipping / $item->quantity_final) / $item->amount;
         $cost      = Invoiceitem::roundUp($cost_full, 2);
