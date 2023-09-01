@@ -69,7 +69,7 @@
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 55px;">
+                    <div class="" style="width: 55px;">
                         CÁLCULO
                     </div>
                 </th>
