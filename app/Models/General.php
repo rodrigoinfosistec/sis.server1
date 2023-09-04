@@ -94,7 +94,13 @@ class General extends Model
     public static  function decodeDate($date_encode) : string {
         // Converte data.
         $date = explode('-', $date_encode);
-        $date_decode = $date[2]. '/' . $date[1] . '/' . $date[0];
+        $date_decode = 
+            $date[2] . 
+            '/' . 
+            $date[1] . 
+            '/' . 
+            $date[0]
+        ;
 
         return (string)$date_decode;
     }
