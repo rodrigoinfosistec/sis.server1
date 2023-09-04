@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Illuminate\Support\Str;
 
 use App\Models\Report;
+use App\Models\General;
 
 use App\Models\Holiday;
 
