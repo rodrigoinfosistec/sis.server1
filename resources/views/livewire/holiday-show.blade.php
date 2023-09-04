@@ -64,7 +64,7 @@
 
 {{-- filtro nome --}}
 <option value="name">DESCRIÇÃO</option>
-<option value="date">DATE</option>
+<option value="date">DATA</option>
 <option value="week">DIA DA SEMANA</option>
 <option value="year">ANO</option>
 {{-- filtro nome --}}
@@ -109,22 +109,16 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
         
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            {{ $item->cnpj }}
+            {{ $item->week }}
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            {{ $item->created_at->format('d/m/y') }}
+            {{ App\Models\General::decodeDate($item->date) }}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
         {{ $item->name }}
-        @if(!empty(App\Models\Provider::nicknameNoRepeatName($item->id)))
-            <br>
-            <span class="text-muted">
-                {{ App\Models\Provider::nicknameNoRepeatName($item->id) }}
-            </span>
-        @endif
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
