@@ -51,7 +51,6 @@
 
 {{-- botão add --}}
 <x-layout.card.card-header-button-more-plus/>
-<x-layout.card.card-header-button-more-plus-xml/>
 {{-- botão add --}}
 
                 </x-layout.card.card-header-button-more>
