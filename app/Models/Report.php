@@ -503,4 +503,36 @@ class Report extends Model
 
         return true;
     }
+    
+    /**
+     * Holiday Generate
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function holidayGenerate(array $data) : bool {
+        // Gera o arquivo PDF.
+        $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf', [
+            'user'  => auth()->user()->name,
+            'title' => $data['config']['title'],
+            'date'  => date('d/m/Y H:i:s'),
+            'list'  => $list = Holiday::where([
+                            [$data['filter'], 'like', '%'. $data['search'] . '%'],
+                        ])->orderBy('name', 'ASC')->get(), 
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
+
+        // Salva o arquivo PDF.
+        File::makeDirectory($data['path'], $mode = 0777, true, true);
+        $pdf->save($data['path'] . $data['file_name']);
+
+        // Registra os dados do arquivo PDF.
+        Report::create([
+            'user_id' => auth()->user()->id,
+            'folder'  => $data['config']['name'],
+            'file'    => $data['file_name']
+        ]);
+
+        return true;
+    }
+
 }

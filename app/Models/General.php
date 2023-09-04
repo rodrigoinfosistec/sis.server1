@@ -63,4 +63,25 @@ class General extends Model
 
         return (float)$float_encode;
     }
+    
+    /**
+     * Traduz dia da semana.
+     * @var string $week_encode
+     * 
+     * @return string $week_decode
+     */
+    public static  function decodeWeek($week_encode) : string {
+        // Verifica o dia a ser traduzido.
+        switch($week_encode):
+            case 'Sunday'   : $week_decode = 'Domingo';       break;
+            case 'Monday'   : $week_decode = 'Segunda-feira'; break;
+            case 'Tuesday'  : $week_decode = 'Terça-feira';   break;
+            case 'Wednesday': $week_decode = 'Quarta-feira';  break;
+            case 'Thursday' : $week_decode = 'Quinta-feira';  break;
+            case 'Friday'   : $week_decode = 'Sexta-feira';   break;
+            case 'Saturday' : $week_decode = 'Sábado';        break;
+        endswitch;
+
+        return $week_decode;
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Str;
+
 use App\Models\Report;
 
 use App\Models\Holiday;
@@ -53,7 +55,7 @@ class HolidayShow extends Component
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
 
-            'date'     => ['required', 'min:18', 'max:18', 'unique:holidays,date,'.$this->holiday_id.''],
+            'date'     => ['required', 'unique:holidays,date,'.$this->holiday_id.''],
             'name'     => ['required', 'between:3,60'],
         ];
     }
@@ -125,12 +127,12 @@ class HolidayShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'date'     => ['required', 'min:18', 'max:18', 'unique:holidays'],
+                'date'     => ['required', 'unique:holidays'],
                 'name'     => ['required', 'between:3,60'],
             ]);
 
             // Etende $validatedData.
-            $validatedData['week'] = Str::upper(Dashboard::decodeWeek(date_format(date_create($validatedData['date']), 'l')));
+            $validatedData['week'] = Str::upper(General::decodeWeek(date_format(date_create($validatedData['date']), 'l')));
             $validatedData['year'] = date_format(date_create($validatedData['date']), 'Y');
 
             // Define $data.
