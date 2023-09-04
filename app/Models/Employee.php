@@ -131,16 +131,6 @@ class Employee extends Model
             $message = 'Arquivo deve ser um txt de colaborador (registro de ponto).';
         endif;
 
-        // Verifica se o funcionário já está cadastrado.
-        if(!empty($txtArray)):
-            if(Employee::where('pis', Employee::encodePis($txtArray['pis']))->first()):
-                $message = $data['config']['title'] . ' ' . Str::upper($txtArray['name']) . ' já está cadastrado.';
-
-                // Exclui o arquivo.
-                unlink($txtArray['path']);
-            endif;
-        endif;
-
         // Desvio.
         if(!empty($message)):
             session()->flash('message', $message );
