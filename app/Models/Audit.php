@@ -1348,26 +1348,28 @@ class Audit extends Model
 
         return true;
     }
-    
+
     /**
-     * Auditoria Company Add.
+     * Auditoria Employee Add.
      * @var array $data
      * @var object $after
      * 
      * @return bool true
      */
-    public static function companyAdd(array $data, object $after) : bool {
+    public static function employeeAdd(array $data, object $after) : bool {
         Audit::create([
             'user_id'   => auth()->user()->id,
             'user_name' => Str::upper(auth()->user()->name),
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
             'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
-                'id='       . $after->id       . ',' .
-                'cnpj='     . $after->cnpj     . ',' .
-                'name='     . $after->name     . ',' .
-                'nickname=' . $after->nickname . ',' .
-                'price='    . $after->price    . ',' .
+                'id='                     . $after->id                     . ',' .
+                'pis='                    . $after->pis                    . ',' .
+                'name='                   . $after->name                   . ',' .
+                'journey_start_week='     . $after->journey_start_week     . ',' .
+                'journey_end_week='       . $after->journey_end_week       . ',' .
+                'journey_start_saturday=' . $after->journey_start_saturday . ',' .
+                'journey_end_saturday='   . $after->journey_end_saturday   . ',' .
             '}',
         ]);
 
@@ -1382,18 +1384,20 @@ class Audit extends Model
      * 
      * @return bool true
      */
-    public static function companyEdit(array $data, object $before, object $after) : bool {
+    public static function employeeEdit(array $data, object $before, object $after) : bool {
         Audit::create([
             'user_id'   => auth()->user()->id,
             'user_name' => Str::upper(auth()->user()->name),
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
             'extensive' => '[atualizou]' . $data['config']['title'] . ' {' .
-                'id='       . $before->id       . '>' . $after->id       . ',' .
-                'cnpj='     . $before->cnpj     . '>' . $after->cnpj     . ',' .
-                'name='     . $before->name     . '>' . $after->name     . ',' .
-                'nickname=' . $before->nickname . '>' . $after->nickname . ',' .
-                'price='    . $before->price    . '>' . $after->price . ',' .
+                'id='                     . $before->id                     . '>' . $after->id                     . ',' .
+                'pis='                    . $before->pis                    . '>' . $after->pis                    . ',' .
+                'name='                   . $before->name                   . '>' . $after->name                   . ',' .
+                'journey_start_week='     . $before->journey_start_week     . '>' . $after->journey_start_week     . ',' .
+                'journey_end_week='       . $before->journey_end_week       . '>' . $after->journey_end_week       . ',' .
+                'journey_start_saturday=' . $before->journey_start_saturday . '>' . $after->journey_start_saturday . ',' .
+                'journey_end_saturday='   . $before->journey_end_saturday   . '>' . $after->journey_end_saturday   . ',' .
             '}',
         ]);
 
@@ -1401,23 +1405,25 @@ class Audit extends Model
     }
 
     /**
-     * Auditoria Company Erase.
+     * Auditoria Employee Erase.
      * @var array $data
      * 
      * @return bool true
      */
-    public static function companyErase(array $data) : bool {
+    public static function employeeErase(array $data) : bool {
         Audit::create([
             'user_id'   => auth()->user()->id,
             'user_name' => Str::upper(auth()->user()->name),
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
             'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
-                'id='       . $data['validatedData']['company_id'] . ',' .
-                'cnpj='     . $data['validatedData']['cnpj']       . ',' .
-                'name='     . $data['validatedData']['name']       . ',' .
-                'nickname=' . $data['validatedData']['nickname']   . ',' .
-                'price='    . $data['validatedData']['price']      . ',' .
+                'id='                     . $data['validatedData']['employee_id']            . ',' .
+                'pis='                    . $data['validatedData']['pis']                    . ',' .
+                'name='                   . $data['validatedData']['name']                   . ',' .
+                'journey_start_week='     . $data['validatedData']['journey_start_week']     . ',' .
+                'journey_end_week='       . $data['validatedData']['journey_end_week']       . ',' .
+                'journey_start_saturday=' . $data['validatedData']['journey_start_saturday'] . ',' .
+                'journey_end_saturday='   . $data['validatedData']['journey_end_saturday']   . ',' .
             '}',
         ]);
 
@@ -1425,12 +1431,12 @@ class Audit extends Model
     }
 
     /**
-     * Auditoria Company Generate.
+     * Auditoria Employee Generate.
      * @var array $data
      * 
      * @return bool true
      */
-    public static function companyGenerate(array $data) : bool {
+    public static function employeeGenerate(array $data) : bool {
         Audit::create([
             'user_id'   => auth()->user()->id,
             'user_name' => Str::upper(auth()->user()->name),
@@ -1451,7 +1457,7 @@ class Audit extends Model
      * 
      * @return bool true
      */
-    public static function companyMail(array $data) : bool {
+    public static function employeeMail(array $data) : bool {
         Audit::create([
             'user_id'   => auth()->user()->id,
             'user_name' => Str::upper(auth()->user()->name),
