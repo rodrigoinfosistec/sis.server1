@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Str;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
@@ -26,5 +28,5 @@ class Employee extends Model
         'created_at',
         'updated_at',
     ];
-    
+
 }
