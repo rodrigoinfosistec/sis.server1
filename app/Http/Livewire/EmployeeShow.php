@@ -57,7 +57,7 @@ class EmployeeShow extends Component
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
 
-            'pis'                    => ['required', 'min:15', 'max:15', 'unique:companies,pis,'.$this->employee_id.''],
+            'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees,pis,'.$this->employee_id.''],
             'name'                   => ['required', 'between:3,60'],
             'journey_start_week'     => ['required'],
             'journey_end_week'       => ['required'],
@@ -139,7 +139,7 @@ class EmployeeShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'pis'                    => ['required', 'min:15', 'max:15', 'unique:companies'],
+                'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees'],
                 'name'                   => ['required', 'between:3,60'],
                 'journey_start_week'     => ['required'],
                 'journey_end_week'       => ['required'],
@@ -252,7 +252,7 @@ class EmployeeShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'pis'                    => ['required', 'min:15', 'max:15', 'unique:companies,pis,'.$this->employee_id.''],
+                'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees,pis,'.$this->employee_id.''],
                 'name'                   => ['required', 'between:3,60'],
                 'journey_start_week'     => ['required'],
                 'journey_end_week'       => ['required'],
