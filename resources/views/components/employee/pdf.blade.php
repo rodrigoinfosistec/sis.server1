@@ -42,14 +42,14 @@
     {{ str_pad($loop->iteration , Str::length($list->count()), '0', STR_PAD_LEFT) }}
 </x-layout.pdf.pdf-table-body-line-cell>
 
-{{-- DESCRIÇÃO --}}
-<x-layout.pdf.pdf-table-body-line-cell>
-    {{ $item->name }}
-</x-layout.pdf.pdf-table-body-line-cell>
-
 {{-- PIS --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     {{ $item->pis }}
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- DESCRIÇÃO --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    {{ $item->name }}
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- JORNADA SEMANA --}}
