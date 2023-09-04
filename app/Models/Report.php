@@ -583,16 +583,19 @@ class Report extends Model
         $data = file($path . $file_name); 
 
         // Verifica se é um txt de empregador.
-        if($data[0][0] == '2' && $data[0][3] == ']'):
+        if($data[0][4] == 'I' && $data[0][5] == '['):
             // Separa dados.
-            $l = explode(']', $data[0]);
+            $l = explode('[', $data[0]);
 
             // Monta o array.
             $txtArray = [
-                'pis '     => $l[1],
-                'name'     => $l[3],
-                'nickname' => '',
-                'path'     => $path . $file_name,
+                'pis '                   => $l[1],
+                'name'                   => $l[2],
+                'journey_start_week'     => '08:00',
+                'journey_end_week'       => '17:00',
+                'journey_start_saturday' => '08:00',
+                'journey_end_saturday'   => '12:00',
+                'path'                   => $path . $file_name,
             ];
 
             // Atribui à variável.
