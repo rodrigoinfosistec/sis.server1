@@ -95,7 +95,7 @@ class Employee extends Model
         Audit::employeeAdd($data, $after);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' ' . $after->name . ' cadastrada com sucesso.';
+        $message = $data['config']['title'] . ' ' . $after->name . ' cadastrado com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -201,7 +201,7 @@ class Employee extends Model
         Audit::employeeEdit($data, $before, $after);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' ' .  $after->name . ' atualizada com sucesso.';
+        $message = $data['config']['title'] . ' ' .  $after->name . ' atualizado com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -268,7 +268,7 @@ class Employee extends Model
         Audit::employeeErase($data);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' ' .  $data['validatedData']['name'] . ' excluída com sucesso.';
+        $message = $data['config']['title'] . ' ' .  $data['validatedData']['name'] . ' excluído com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
