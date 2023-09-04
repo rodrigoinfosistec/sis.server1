@@ -72,7 +72,7 @@ class Employee extends Model
         $after = Employee::where('pis', $data['validatedData']['pis'])->first();
 
         // Auditoria.
-        Audit::companyAdd($data, $after);
+        Audit::employeeAdd($data, $after);
 
         // Mensagem.
         $message = $data['config']['title'] . ' ' . $after->name . ' cadastrada com sucesso.';
@@ -197,10 +197,10 @@ class Employee extends Model
      */
     public static function edit(array $data) : bool {
         // Before.
-        $before = Employee::find($data['validatedData']['company_id']);
+        $before = Employee::find($data['validatedData']['employee_id']);
 
         // Atualiza.
-        Employee::find($data['validatedData']['company_id'])->update([
+        Employee::find($data['validatedData']['employee_id'])->update([
             'pis'     => $data['validatedData']['pis'],
             'name'     => Str::upper($data['validatedData']['name']),
             'nickname' => Employee::nicknameValidateNull($data['validatedData']['nickname']),
@@ -208,10 +208,10 @@ class Employee extends Model
         ]);
 
         // After.
-        $after = Employee::find($data['validatedData']['company_id']);
+        $after = Employee::find($data['validatedData']['employee_id']);
 
         // Auditoria.
-        Audit::companyEdit($data, $before, $after);
+        Audit::employeeEdit($data, $before, $after);
 
         // Mensagem.
         $message = $data['config']['title'] . ' ' .  $after->name . ' atualizada com sucesso.';
@@ -229,8 +229,8 @@ class Employee extends Model
      */
     public static function dependencyEdit(array $data) : bool {
         // Atualiza o nome da Empresa nas Notas Fiscais com ela relacionadas.
-        Invoice::where(['company_id' => $data['validatedData']['company_id']])->update([
-            'company_name' => Str::upper($data['validatedData']['name']),
+        Invoice::where(['employee_id' => $data['validatedData']['employee_id']])->update([
+            'employee_name' => Str::upper($data['validatedData']['name']),
         ]);
 
         return true;
@@ -246,8 +246,8 @@ class Employee extends Model
         $message = null;
 
         // Verifica se alguma Nota Fiscal já utiliza a empresa.
-        if(Invoice::where(['company_id' => $data['validatedData']['company_id']])->exists()):
-            $message = $data['config']['title'] . ' ' . Employee::find($data['validatedData']['company_id'])->name . ' utilizada em nota fiscal ' . Invoice::where(['company_id' => $data['validatedData']['company_id']])->first()->number . '.';
+        if(Invoice::where(['employee_id' => $data['validatedData']['employee_id']])->exists()):
+            $message = $data['config']['title'] . ' ' . Employee::find($data['validatedData']['employee_id'])->name . ' utilizada em nota fiscal ' . Invoice::where(['employee_id' => $data['validatedData']['employee_id']])->first()->number . '.';
         endif;
 
         // Desvio.
@@ -281,10 +281,10 @@ class Employee extends Model
      */
     public static function erase(array $data) : bool {
         // Exclui.
-        Employee::find($data['validatedData']['company_id'])->delete();
+        Employee::find($data['validatedData']['employee_id'])->delete();
 
         // Auditoria.
-        Audit::companyErase($data);
+        Audit::employeeErase($data);
 
         // Mensagem.
         $message = $data['config']['title'] . ' ' .  $data['validatedData']['name'] . ' excluída com sucesso.';
@@ -334,10 +334,10 @@ class Employee extends Model
         $data['file_name'] = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
 
         // Gera PDF.
-        Report::companyGenerate($data);
+        Report::employeeGenerate($data);
 
         // Auditoria.
-        Audit::companyGenerate($data);
+        Audit::employeeGenerate($data);
 
         // Mensagem.
         $message = 'Relatório PDF gerado com sucesso.';
@@ -392,10 +392,10 @@ class Employee extends Model
      */
     public static function mail(array $data) : bool {
         // Envia e-mail.
-        Email::companyMail($data);
+        Email::employeeMail($data);
 
         // Auditoria.
-        Audit::companyMail($data);
+        Audit::employeeMail($data);
 
         // Mensagem.
         $message = 'E-mail para ' . $data['validatedData']['mail'] . ' enviado com sucesso.';
