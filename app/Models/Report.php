@@ -592,14 +592,14 @@ class Report extends Model
 
                     if(Employee::where('pis', $employee_pis)->doesntExist()):
                         // Monta o array.
-                        $txtArray[$key] = [
+                        $txtArray = [
                             'pis ' => $employee_pis,
                             'name' => $l[2],
                             'path' => $path . $file_name,
                         ];
 
                         // Atribui à variável.
-                        $txt[] = $txtArray[$key];
+                        $txt = $txtArray;
                     endif;
                 endif;
             endforeach;
