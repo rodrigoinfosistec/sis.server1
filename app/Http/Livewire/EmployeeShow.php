@@ -190,10 +190,12 @@ class EmployeeShow extends Component
             // Valida.
             if($valid):
                 // Estende $data['validatedData'].
-                $data['validatedData']['pis']     = Employee::encodeCnpj((string)$txtArray['pis']);
-                $data['validatedData']['name']     = (string)$txtArray['name'];
-                $data['validatedData']['journey_start_week'] = (string)$txtArray['journey_start_week'];
-                $data['validatedData']['journey_end_week']    = '1';
+                $data['validatedData']['pis']                    = Employee::encodePis((string)$txtArray['pis']);
+                $data['validatedData']['name']                   = (string)$txtArray['name'];
+                $data['validatedData']['journey_start_week']     = (string)$txtArray['journey_start_week'];
+                $data['validatedData']['journey_end_week']       = (string)$txtArray['journey_end_week'];
+                $data['validatedData']['journey_start_saturday'] = (string)$txtArray['journey_start_saturday'];
+                $data['validatedData']['journey_end_saturday']   = (string)$txtArray['journey_end_saturday'];
             endif;
 
             // Cadastra.
@@ -217,12 +219,14 @@ class EmployeeShow extends Component
         $employee = Employee::find($employee_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->employee_id = $employee->id;
-        $this->pis       = $employee->pis;
-        $this->name       = $employee->name;
-        $this->journey_start_week   = $employee->journey_start_week;
-        $this->journey_end_week      = $employee->journey_end_week;
-        $this->created    = $employee->created_at->format('d/m/Y H:i:s');
+        $this->employee_id            = $employee->id;
+        $this->pis                    = $employee->pis;
+        $this->name                   = $employee->name;
+        $this->journey_start_week     = $employee->journey_start_week;
+        $this->journey_end_week       = $employee->journey_end_week;
+        $this->journey_start_saturday = $employee->journey_start_saturday;
+        $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
 
     /**
@@ -235,21 +239,25 @@ class EmployeeShow extends Component
         $employee = Employee::find($employee_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->employee_id = $employee->id;
-        $this->pis       = $employee->pis;
-        $this->name       = $employee->name;
-        $this->journey_start_week   = $employee->journey_start_week;
-        $this->journey_end_week      = $employee->journey_end_week;
-        $this->created    = $employee->created_at->format('d/m/Y H:i:s');
+        $this->employee_id            = $employee->id;
+        $this->pis                    = $employee->pis;
+        $this->name                   = $employee->name;
+        $this->journey_start_week     = $employee->journey_start_week;
+        $this->journey_end_week       = $employee->journey_end_week;
+        $this->journey_start_saturday = $employee->journey_start_saturday;
+        $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
         public function modernize()
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'pis'     => ['required', 'min:18', 'max:18', 'unique:companies,pis,'.$this->employee_id.''],
-                'name'     => ['required', 'between:3,60'],
-                'journey_start_week' => ['nullable', 'between:3,60'],
-                'journey_end_week'    => ['required'],
+                'pis'                    => ['required', 'min:15', 'max:15', 'unique:companies,pis,'.$this->employee_id.''],
+                'name'                   => ['required', 'between:3,60'],
+                'journey_start_week'     => ['required'],
+                'journey_end_week'       => ['required'],
+                'journey_start_saturday' => ['required'],
+                'journey_end_saturday'   => ['required'],
             ]);
 
             // Estende $validatedData
@@ -283,21 +291,25 @@ class EmployeeShow extends Component
         $employee = Employee::find($employee_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->employee_id = $employee->id;
-        $this->pis       = $employee->pis;
-        $this->name       = $employee->name;
-        $this->journey_start_week   = $employee->journey_start_week;
-        $this->journey_end_week      = $employee->journey_end_week;
-        $this->created    = $employee->created_at->format('d/m/Y H:i:s');
+        $this->employee_id            = $employee->id;
+        $this->pis                    = $employee->pis;
+        $this->name                   = $employee->name;
+        $this->journey_start_week     = $employee->journey_start_week;
+        $this->journey_end_week       = $employee->journey_end_week;
+        $this->journey_start_saturday = $employee->journey_start_saturday;
+        $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
         {
             // Define $validatedData
-            $validatedData['employee_id'] = $this->employee_id;
-            $validatedData['pis']       = $this->pis;
-            $validatedData['name']       = $this->name;
-            $validatedData['journey_start_week']   = $this->journey_start_week;
-            $validatedData['journey_end_week']      = $this->journey_end_week;
+            $validatedData['employee_id']            = $this->employee_id;
+            $validatedData['pis']                    = $this->pis;
+            $validatedData['name']                   = $this->name;
+            $validatedData['journey_start_week']     = $this->journey_start_week;
+            $validatedData['journey_end_week']       = $this->journey_end_week;
+            $validatedData['journey_start_saturday'] = $this->journey_start_saturday;
+            $validatedData['journey_end_saturday']   = $this->journey_end_saturday;
 
             // Define $data.
             $data['config']        = $this->config;
