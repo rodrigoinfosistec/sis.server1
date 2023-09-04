@@ -1,3 +1,13 @@
-<div>
-    <!-- It is quality rather than quantity that matters. - Lucius Annaeus Seneca -->
-</div>
+<script>
+    window.addEventListener('close-modal', event => {
+        $('#generateModal').modal('hide');
+        $('#mailModal').modal('hide');
+
+        $('#addTxtModal').modal('hide');
+        $('#addModal').modal('hide');
+
+        $('#detailModal').modal('hide');
+        $('#editModal').modal('hide');
+        $('#eraseModal').modal('hide');
+    })
+</script>

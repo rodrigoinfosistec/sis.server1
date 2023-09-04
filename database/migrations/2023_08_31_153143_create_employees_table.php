@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name');
             $table->string('pis')->unique();
+            $table->string('name');
 
             $table->string('journey_start_week')->default('08:00');
             $table->string('journey_end_week')->default('17:00');
