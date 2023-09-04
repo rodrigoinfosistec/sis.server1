@@ -41,7 +41,7 @@
 
 {{-- DATA --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    {{ $item->date }}
+    {{ App\Models\General::decodeDate($item->date) }}
 </x-layout.pdf.pdf-table-body-line-cell>
 {{-- conteúdo --}}
 
