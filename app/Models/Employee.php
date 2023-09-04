@@ -15,10 +15,8 @@ class Employee extends Model
      * Campos manipuláveis.
      */
     protected $fillable = [
-        'user_id',
-
-        'name',
         'pis',
+        'name',
 
         'journey_start_week',
         'journey_end_week',
@@ -28,9 +26,5 @@ class Employee extends Model
         'created_at',
         'updated_at',
     ];
-
-    /**
-     * Relaciona Models.
-     */
-    public function user(){return $this->belongsTo(User::class);}
+    
 }
