@@ -28,7 +28,27 @@ class Employee extends Model
         'created_at',
         'updated_at',
     ];
-    
+
+    /**
+     * Converte data.
+     * @var string $pis_decode
+     * 
+     * @return string $pis_encode
+     */
+    public static function encodePis(string $pis_decode) : string {
+        $pis_encode = 
+            $pis_decode[0] . $pis_decode[1]  . $pis_decode[2] . $pis_decode[3] . 
+            '.' . 
+            $pis_decode[4] . $pis_decode[5]  . $pis_decode[6] . $pis_decode[7] . $pis_decode[8] . 
+            '.' .
+            $pis_decode[9] . $pis_decode[10] . 
+            '/' . 
+            $pis_decode[11]
+        ;
+
+        return (string)$pis_encode;
+    }
+
     /**
      * Valida cadastro.
      * @var array $data
@@ -95,41 +115,6 @@ class Employee extends Model
     }
 
     /**
-     * Valida cadastro XML.
-     * @var array $data
-     * 
-     * @return <object, bool>
-     */
-    public static function validateAddXml(array $data){
-        $message = null;
-
-        // Salva o arquivo, caso seja um xml.
-        $xmlObject = Report::xmlEmployee($data);
-
-        // Verifica se é um arquivo xml.
-        if(empty($xmlObject)):
-            $message = 'Arquivo deve ser um xml (NFe).';
-        endif;
-
-        // Verifica se a empresa já está cadastrada.
-        if(!empty($xmlObject)):
-            if(Employee::where('pis', Employee::encodeCnpj($xmlObject->NFe->infNFe->dest->CNPJ))->first()):
-                $message = $data['config']['title'] . ' ' . Str::upper($xmlObject->NFe->infNFe->dest->xNome) . ' já está cadastrada.';
-            endif;
-        endif;
-
-        // Desvio.
-        if(!empty($message)):
-            session()->flash('message', $message );
-            session()->flash('color', 'danger');
-
-            return false;
-        endif;
-
-        return $xmlObject;
-    }
-
-    /**
      * Valida cadastro TXT.
      * @var array $data
      * 
@@ -143,13 +128,13 @@ class Employee extends Model
 
         // Verifica se é um arquivo txt.
         if(empty($txtArray)):
-            $message = 'Arquivo deve ser um txt de empregador (registro de ponto).';
+            $message = 'Arquivo deve ser um txt de colaborador (registro de ponto).';
         endif;
 
-        // Verifica se a empresa já está cadastrada.
+        // Verifica se o funcionário já está cadastrado.
         if(!empty($txtArray)):
-            if(Employee::where('pis', Employee::encodeCnpj($txtArray['pis']))->first()):
-                $message = $data['config']['title'] . ' ' . Str::upper($txtArray['name']) . ' já está cadastrada.';
+            if(Employee::where('pis', Employee::encodePis($txtArray['pis']))->first()):
+                $message = $data['config']['title'] . ' ' . Str::upper($txtArray['name']) . ' já está cadastrado.';
 
                 // Exclui o arquivo.
                 unlink($txtArray['path']);
@@ -201,10 +186,12 @@ class Employee extends Model
 
         // Atualiza.
         Employee::find($data['validatedData']['employee_id'])->update([
-            'pis'     => $data['validatedData']['pis'],
-            'name'     => Str::upper($data['validatedData']['name']),
-            'nickname' => Employee::nicknameValidateNull($data['validatedData']['nickname']),
-            'price'    => $data['validatedData']['price'],
+            'pis'                    => $data['validatedData']['pis'],
+            'name'                   => Str::upper($data['validatedData']['name']),
+            'journey_start_week'     => $data['validatedData']['journey_start_week'],
+            'journey_end_week'       => $data['validatedData']['journey_end_week'],
+            'journey_start_saturday' => $data['validatedData']['journey_start_saturday'],
+            'journey_end_saturday'   => $data['validatedData']['journey_end_saturday'],
         ]);
 
         // After.
@@ -228,10 +215,7 @@ class Employee extends Model
      * @return bool true
      */
     public static function dependencyEdit(array $data) : bool {
-        // Atualiza o nome da Empresa nas Notas Fiscais com ela relacionadas.
-        Invoice::where(['employee_id' => $data['validatedData']['employee_id']])->update([
-            'employee_name' => Str::upper($data['validatedData']['name']),
-        ]);
+        // ...
 
         return true;
     }
@@ -245,10 +229,7 @@ class Employee extends Model
     public static function validateErase(array $data) : bool {
         $message = null;
 
-        // Verifica se alguma Nota Fiscal já utiliza a empresa.
-        if(Invoice::where(['employee_id' => $data['validatedData']['employee_id']])->exists()):
-            $message = $data['config']['title'] . ' ' . Employee::find($data['validatedData']['employee_id'])->name . ' utilizada em nota fiscal ' . Invoice::where(['employee_id' => $data['validatedData']['employee_id']])->first()->number . '.';
-        endif;
+        // ...
 
         // Desvio.
         if(!empty($message)):

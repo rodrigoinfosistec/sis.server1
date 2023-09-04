@@ -98,4 +98,5 @@ class General extends Model
 
         return (string)$date_decode;
     }
+
 }
