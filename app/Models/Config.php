@@ -120,19 +120,19 @@ class Config extends Model
                 'test'  => true,
             ],
             [
-                'name'  => 'attest',
+                'name'  => 'employeeattest',
                 'title' => 'Atestado',
                 'icon'  => 'bi-clipboard-pulse',
                 'test'  => true,
             ],
             [
-                'name'  => 'declaration',
+                'name'  => 'employeedeclaration',
                 'title' => 'Declaração',
                 'icon'  => 'bi-clipboard-check',
                 'test'  => true,
             ],
             [
-                'name'  => 'absence',
+                'name'  => 'employeeabsence',
                 'title' => 'Falta',
                 'icon'  => 'bi-clipboard-x',
                 'test'  => true,
