@@ -187,6 +187,13 @@ class EmployeeShow extends Component
             // Valida cadastro.
             $valid = $txtArray = Employee::validateAddTxt($data); 
 
+            // Valida.
+            if($valid):
+                // Estende $data['validatedData'].
+                $data['validatedData']['pis']  = Employee::encodePis((string)$txtArray['pis']);
+                $data['validatedData']['name'] = (string)$txtArray['name'];
+            endif;
+
             // Cadastra.
             if ($valid) Employee::add($data);
 

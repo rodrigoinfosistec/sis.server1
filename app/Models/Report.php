@@ -534,7 +534,7 @@ class Report extends Model
 
         return true;
     }
-    
+
     /**
      * Employee Generate
      * @var array $data
