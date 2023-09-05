@@ -643,5 +643,5 @@ class Report extends Model
 
         return true;
     }
-
+    
 }
