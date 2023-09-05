@@ -584,8 +584,8 @@ class Report extends Model
 
         // Verifica se é um txt de empregador.
         if($data[0][4] == 'I' && $data[0][5] == '['):
-            foreach($data as $key => $line):
-                if($line[4] == 'I' && $line[5] == '['):
+            // foreach($data as $key => $line):
+                // if($line[4] == 'I' && $line[5] == '['):
                      // Separa dados.
                      $l = explode('[', $line);
                      $employee_pis = Employee::encodePis($l[1]);
@@ -601,8 +601,8 @@ class Report extends Model
                         // Atribui à variável.
                         $txt = $txtArray;
                     endif;
-                endif;
-            endforeach;
+                // endif;
+            // endforeach;
         else:
             // Exclui o arquivo.
             unlink($path . $file_name);
