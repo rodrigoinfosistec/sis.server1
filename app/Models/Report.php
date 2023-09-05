@@ -588,7 +588,7 @@ class Report extends Model
             $l = explode('[', $data[0]);
 
             // Monta o array.
-            $txtArray = [
+            $txtArray[0] = [
                 'pis'  => $l[1],
                 'name' => $l[2],
                 'path' => $path . $file_name,
