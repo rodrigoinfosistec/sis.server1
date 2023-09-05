@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('employeeattestdays', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('employeeattest_id');
+
+            $table->date('date');
+
             $table->timestamps();
+
+            $table->foreign('employeevacation_id')->references('id')->on('employeeattests');
         });
     }
 
