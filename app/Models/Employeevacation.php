@@ -79,7 +79,7 @@ class Employeevacation extends Model
         Audit::employeevacationAdd($data, $after);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' ' . $after->employee_name . ' cadastrada com sucesso.';
+        $message = $data['config']['title'] . ' do funcionário ' . $after->employee_name . ' cadastrada com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -146,7 +146,7 @@ class Employeevacation extends Model
         Audit::employeevacationErase($data);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' ' .  $data['validatedData']['employee_name'] . ' excluído com sucesso.';
+        $message = $data['config']['title'] . ' do funcionário ' .  $data['validatedData']['employee_name'] . ' excluída com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -163,7 +163,7 @@ class Employeevacation extends Model
         $message = null;
 
         // verifica se existe algum item retornado na pesquisa.
-        if($list = Employee::where([
+        if($list = Employeevacation::where([
                 [$data['filter'], 'like', '%'. $data['search'] . '%'],
             ])->doesntExist()):
 
@@ -189,14 +189,14 @@ class Employeevacation extends Model
      */
     public static function generate(array $data) : bool {
         // Estende $data.
-        $data['path']      = public_path('/storage/pdf/' . $data['config']['employee_name'] . '/');
-        $data['file_name'] = $data['config']['employee_name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
+        $data['path']      = public_path('/storage/pdf/' . $data['config']['name'] . '/');
+        $data['file_name'] = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
 
         // Gera PDF.
-        Report::employeeGenerate($data);
+        Report::employeevacationGenerate($data);
 
         // Auditoria.
-        Audit::employeeGenerate($data);
+        Audit::employeevacationGenerate($data);
 
         // Mensagem.
         $message = 'Relatório PDF gerado com sucesso.';
@@ -251,10 +251,10 @@ class Employeevacation extends Model
      */
     public static function mail(array $data) : bool {
         // Envia e-mail.
-        Email::employeeMail($data);
+        Email::employeevacationMail($data);
 
         // Auditoria.
-        Audit::employeeMail($data);
+        Audit::employeevacationMail($data);
 
         // Mensagem.
         $message = 'E-mail para ' . $data['validatedData']['mail'] . ' enviado com sucesso.';
