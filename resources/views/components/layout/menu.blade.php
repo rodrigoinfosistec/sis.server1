@@ -36,11 +36,6 @@
                         <x-responsive-nav-link href="{{ route('provider') }}" :active="request()->routeIs('provider')" class="text-decoration-none">
                             <i class="{{ App\Models\Page::getIconByName('provider') }}"></i> {{ App\Models\Page::getTitleByName('provider') }}
                         </x-responsive-nav-link>
-
-                        {{-- Funcionário --}}
-                        <x-responsive-nav-link href="{{ route('employee') }}" :active="request()->routeIs('employee')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('employee') }}"></i> {{ App\Models\Page::getTitleByName('employee') }}
-                        </x-responsive-nav-link>
                     </div>
 
                     <div class="pt-2 pb-0 border-t border-gray-200">
@@ -59,6 +54,16 @@
                         {{-- Feriado --}}
                         <x-responsive-nav-link href="{{ route('holiday') }}" :active="request()->routeIs('holiday')" class="text-decoration-none">
                             <i class="{{ App\Models\Page::getIconByName('holiday') }}"></i> {{ App\Models\Page::getTitleByName('holiday') }}
+                        </x-responsive-nav-link>
+
+                        {{-- Funcionário --}}
+                        <x-responsive-nav-link href="{{ route('employee') }}" :active="request()->routeIs('employee')" class="text-decoration-none">
+                            <i class="{{ App\Models\Page::getIconByName('employee') }}"></i> {{ App\Models\Page::getTitleByName('employee') }}
+                        </x-responsive-nav-link>
+
+                        {{-- Férias --}}
+                        <x-responsive-nav-link href="{{ route('employeevacation') }}" :active="request()->routeIs('employeevacation')" class="text-decoration-none">
+                            <i class="{{ App\Models\Page::getIconByName('employeevacation') }}"></i> {{ App\Models\Page::getTitleByName('employeevacation') }}
                         </x-responsive-nav-link>
                     </div>
                 </li>
