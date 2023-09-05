@@ -185,20 +185,26 @@ class EmployeeShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida cadastro.
-            $valid = $txtArray = Employee::validateAddTxt($data); 
+            $valid = $txtArray = Employee::validateAddTxt($data);
 
             // Valida.
             if($valid):
                 // Estende $data['validatedData'].
-                $data['validatedData']['pis']  = Employee::encodePis((string)$txtArray['pis']);
-                $data['validatedData']['name'] = (string)$txtArray['name'];
+                $data['validatedData']['pis']                    = Employee::encodePis((string)$txtArray['pis']);
+                $data['validatedData']['name']                   = (string)$txtArray['name'];
+                $data['validatedData']['journey_start_week']     = '08:00';
+                $data['validatedData']['journey_end_week']       = '17:00';
+                $data['validatedData']['journey_start_saturday'] = '08:00';
+                $data['validatedData']['journey_end_saturday']   = '12:00';
             endif;
 
-            // Cadastra.
-            if ($valid) Employee::add($data);
+            if(Employee::where('pis', $data['validatedData']['pis'])->doesntExist()):
+                // Cadastra.
+                if ($valid) Employee::add($data);
 
-            // Executa dependências.
-            if ($valid) Employee::dependencyAdd($data);
+                // Executa dependências.
+                if ($valid) Employee::dependencyAdd($data);
+            endif;
 
             // Fecha modal.
             $this->closeModal();

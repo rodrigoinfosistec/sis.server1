@@ -580,7 +580,7 @@ class Report extends Model
         $data['validatedData']['txt']->storeAs('public/txt/' . $data['config']['name'] . '/', $file_name);
 
         // Instancia dados do txt.
-        $data = file($path . $file_name); 
+        $data = file($path . $file_name);
 
         // Verifica se é um txt de empregador.
         if($data[0][4] == 'I' && $data[0][5] == '['):
@@ -589,9 +589,9 @@ class Report extends Model
 
             // Monta o array.
             $txtArray = [
-                'pis'      => $l[1],
-                'name'     => $l[3],
-                'path'     => $path . $file_name,
+                'pis'  => $l[1],
+                'name' => $l[2],
+                'path' => $path . $file_name,
             ];
 
             // Atribui à variável.
