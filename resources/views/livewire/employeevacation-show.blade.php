@@ -112,7 +112,7 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            {{ $item->date_start }}<i class="bi-caret-right-fill text-muted"></i>{{ $item->date_end }}
+            {{ App\Models\General::decodeDate($item->date_start) }}<i class="bi-caret-right-fill text-muted"></i>{{ App\Models\General::decodeDate($item->date_end) }}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 

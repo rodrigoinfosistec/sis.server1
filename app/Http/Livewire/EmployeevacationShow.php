@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Report;
+use App\Models\General;
 
 use App\Models\Employee;
 use App\Models\Employeevacation;
@@ -162,8 +163,8 @@ class EmployeevacationShow extends Component
         $this->employeevacation_id = $employeevacation->id;
         $this->employee_id         = $employeevacation->employee_id;
         $this->employee_name       = $employeevacation->employee_name;
-        $this->date_start          = $employeevacation->date_start;
-        $this->date_end            = $employeevacation->date_end;
+        $this->date_start          = General::decodedate($employeevacation->date_start);
+        $this->date_end            = General::decodedate($employeevacation->date_end);
         $this->created             = $employeevacation->created_at->format('d/m/Y H:i:s');
     }
 
@@ -180,13 +181,13 @@ class EmployeevacationShow extends Component
         $this->employeevacation_id = $employeevacation->id;
         $this->employee_id         = $employeevacation->employee_id;
         $this->employee_name       = $employeevacation->employee_name;
-        $this->date_start          = $employeevacation->date_start;
-        $this->date_end            = $employeevacation->date_end;
+        $this->date_start          = General::decodedate($employeevacation->date_start);
+        $this->date_end            = General::decodedate($employeevacation->date_end);
         $this->created             = $employeevacation->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
         {
-            // Define $validatedData
+            // Define $validatedData.
             $validatedData['employeevacation_id'] = $this->employeevacation_id;
             $validatedData['employee_id']         = $this->employee_id;
             $validatedData['employee_name']       = $this->employee_name;
