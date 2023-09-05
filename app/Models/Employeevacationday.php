@@ -2,10 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Employeevacationday extends Model
 {
-    use HasFactory;
+    /**
+     * Nome da tabela.
+     */
+    protected $table = 'employeevacationdays';
+
+    /**
+     * Campos manipuláveis.
+     */
+    protected $fillable = [
+        'employeevacation_id ',
+
+        'date',
+
+        'created_at',
+        'updated_at',
+    ];
 }
