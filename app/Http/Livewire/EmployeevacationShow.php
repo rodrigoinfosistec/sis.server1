@@ -127,12 +127,9 @@ class EmployeevacationShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'employee_id'                    => ['required', 'min:15', 'max:15', 'unique:employeevacations'],
-                'employee_name'                   => ['required', 'between:3,60'],
-                'date_start'     => ['required'],
-                'date_end'       => ['required'],
-                'journey_start_saturday' => ['required'],
-                'journey_end_saturday'   => ['required'],
+                'employee_id' => ['required'],
+                'date_start'  => ['required'],
+                'date_end'    => ['required'],
             ]);
 
             // Define $data.
@@ -153,125 +150,22 @@ class EmployeevacationShow extends Component
             $this->dispatchBrowserEvent('close-modal');
         }
 
-    /**
-     * addTxt()
-     *  registerTxt()
-     */
-    public function addTxt()
-    {
-        //...
-    }
-        public function registerTxt()
-        {
-            // Valida campos.
-            $validatedData = $this->validate([
-                'txt' => ['file', 'required'],
-            ]);
-
-            // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
-
-            // Valida cadastro.
-            $valid = $txtArray = Employeevacation::validateAddTxt($data);
-
-            // Valida.
-            if($valid):
-                foreach($txtArray as $key => $employeevacation):
-                    // Estende $data['validatedData'].
-                    $data['validatedData']['employee_id']                    = Employeevacation::encodePis((string)$employeevacation['employee_id']);
-                    $data['validatedData']['employee_name']                   = (string)$employeevacation['employee_name'];
-                    $data['validatedData']['date_start']     = '08:00';
-                    $data['validatedData']['date_end']       = '17:00';
-                    $data['validatedData']['journey_start_saturday'] = '08:00';
-                    $data['validatedData']['journey_end_saturday']   = '12:00';
-
-                    if(Employeevacation::where('employee_id', $data['validatedData']['employee_id'])->doesntExist()):
-                        // Cadastra.
-                        if ($valid) Employeevacation::add($data);
-
-                        // Executa dependências.
-                        if ($valid) Employeevacation::dependencyAdd($data);
-                    endif;
-                endforeach;
-            endif;
-
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
-            return redirect()->to('/employeevacation');
-        }
-
     /** 
      * detail()
      */
     public function detail(int $employeevacation_id)
     {
-        // Empresa.
+        // Férias.
         $employeevacation = Employeevacation::find($employeevacation_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->employeevacation_id            = $employeevacation->id;
-        $this->employee_id                    = $employeevacation->employee_id;
-        $this->employee_name                   = $employeevacation->employee_name;
-        $this->date_start     = $employeevacation->date_start;
-        $this->date_end       = $employeevacation->date_end;
-        $this->journey_start_saturday = $employeevacation->journey_start_saturday;
-        $this->journey_end_saturday   = $employeevacation->journey_end_saturday;
-        $this->created                = $employeevacation->created_at->format('d/m/Y H:i:s');
+        $this->employeevacation_id = $employeevacation->id;
+        $this->employee_id         = $employeevacation->employee_id;
+        $this->employee_name       = $employeevacation->employee_name;
+        $this->date_start          = $employeevacation->date_start;
+        $this->date_end            = $employeevacation->date_end;
+        $this->created             = $employeevacation->created_at->format('d/m/Y H:i:s');
     }
-
-    /**
-     * edit()
-     *  modernize()
-     */
-    public function edit(int $employeevacation_id)
-    {
-        // Empresa.
-        $employeevacation = Employeevacation::find($employeevacation_id);
-
-        // Inicializa propriedades dinâmicas.
-        $this->employeevacation_id            = $employeevacation->id;
-        $this->employee_id                    = $employeevacation->employee_id;
-        $this->employee_name                   = $employeevacation->employee_name;
-        $this->date_start     = $employeevacation->date_start;
-        $this->date_end       = $employeevacation->date_end;
-        $this->journey_start_saturday = $employeevacation->journey_start_saturday;
-        $this->journey_end_saturday   = $employeevacation->journey_end_saturday;
-        $this->created                = $employeevacation->created_at->format('d/m/Y H:i:s');
-    }
-        public function modernize()
-        {
-            // Valida campos.
-            $validatedData = $this->validate([
-                'employee_id'                    => ['required', 'min:15', 'max:15', 'unique:employeevacations,employee_id,'.$this->employeevacation_id.''],
-                'employee_name'                   => ['required', 'between:3,60'],
-                'date_start'     => ['required'],
-                'date_end'       => ['required'],
-                'journey_start_saturday' => ['required'],
-                'journey_end_saturday'   => ['required'],
-            ]);
-
-            // Estende $validatedData
-            $validatedData['employeevacation_id'] = $this->employeevacation_id;
-
-            // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
-
-            // Valida atualização.
-            $valid = Employeevacation::validateEdit($data);
-
-            // Atualiza.
-            if ($valid) Employeevacation::edit($data);
-
-            // Executa dependências.
-            if ($valid) Employeevacation::dependencyEdit($data);
-
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
-        }
 
     /**
      * erase()
@@ -279,29 +173,25 @@ class EmployeevacationShow extends Component
      */
     public function erase(int $employeevacation_id)
     {
-        // Empresa.
+        // Férias.
         $employeevacation = Employeevacation::find($employeevacation_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->employeevacation_id            = $employeevacation->id;
-        $this->employee_id                    = $employeevacation->employee_id;
-        $this->employee_name                   = $employeevacation->employee_name;
-        $this->date_start     = $employeevacation->date_start;
-        $this->date_end       = $employeevacation->date_end;
-        $this->journey_start_saturday = $employeevacation->journey_start_saturday;
-        $this->journey_end_saturday   = $employeevacation->journey_end_saturday;
-        $this->created                = $employeevacation->created_at->format('d/m/Y H:i:s');
+        $this->employeevacation_id = $employeevacation->id;
+        $this->employee_id         = $employeevacation->employee_id;
+        $this->employee_name       = $employeevacation->employee_name;
+        $this->date_start          = $employeevacation->date_start;
+        $this->date_end            = $employeevacation->date_end;
+        $this->created             = $employeevacation->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
         {
             // Define $validatedData
-            $validatedData['employeevacation_id']            = $this->employeevacation_id;
-            $validatedData['employee_id']                    = $this->employee_id;
-            $validatedData['employee_name']                   = $this->employee_name;
-            $validatedData['date_start']     = $this->date_start;
-            $validatedData['date_end']       = $this->date_end;
-            $validatedData['journey_start_saturday'] = $this->journey_start_saturday;
-            $validatedData['journey_end_saturday']   = $this->journey_end_saturday;
+            $validatedData['employeevacation_id'] = $this->employeevacation_id;
+            $validatedData['employee_id']         = $this->employee_id;
+            $validatedData['employee_name']       = $this->employee_name;
+            $validatedData['date_start']          = $this->date_start;
+            $validatedData['date_end']            = $this->date_end;
 
             // Define $data.
             $data['config']        = $this->config;

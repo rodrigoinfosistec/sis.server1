@@ -219,7 +219,7 @@ class EmployeeShow extends Component
      */
     public function detail(int $employee_id)
     {
-        // Empresa.
+        // Funcionário.
         $employee = Employee::find($employee_id);
 
         // Inicializa propriedades dinâmicas.
@@ -239,7 +239,7 @@ class EmployeeShow extends Component
      */
     public function edit(int $employee_id)
     {
-        // Empresa.
+        // Funcionário.
         $employee = Employee::find($employee_id);
 
         // Inicializa propriedades dinâmicas.
@@ -291,7 +291,7 @@ class EmployeeShow extends Component
      */
     public function erase(int $employee_id)
     {
-        // Empresa.
+        // Funcionário.
         $employee = Employee::find($employee_id);
 
         // Inicializa propriedades dinâmicas.
