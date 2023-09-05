@@ -1377,7 +1377,7 @@ class Audit extends Model
     }
 
     /**
-     * Auditoria Company Edit.
+     * Auditoria Employee Edit.
      * @var array $data
      * @var object $before
      * @var object $after
@@ -1475,5 +1475,99 @@ class Audit extends Model
 
         return true;
     }
+    
+    /**
+     * Auditoria Employee Vacation Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function employeevacationAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='            . $after->id            . ',' .
+                'employee_id='   . $after->employee_id   . ',' .
+                'employee_name=' . $after->employee_name . ',' .
+                'date_start='    . $after->date_start    . ',' .
+                'date_end='      . $after->date_end      . ',' .
+            '}',
+        ]);
 
+        return true;
+    }
+
+    /**
+     * Auditoria Employee Vacation Erase.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function employeevacationErase(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
+                'id='            . $data['validatedData']['employeevacation_id'] . ',' .
+                'employee_id='   . $data['validatedData']['employee_id']         . ',' .
+                'employee_name=' . $data['validatedData']['employee_name']       . ',' .
+                'date_start='    . $data['validatedData']['date_start']          . ',' .
+                'date_end='      . $data['validatedData']['date_end']            . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Employee Vacation Generate.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function employeevacationGenerate(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[gerou relatório]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name'] . ',' .
+                'file_name=' . $data['file_name']      . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Employee Vacation Mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function employeevacationMail(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[enviou e-mail]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name']                    . ',' .
+                'report_id=' . $data['validatedData']['report_id']        . ',' .
+                'email='     . $data['validatedData']['mail']             . ',' .
+                'subject='   . 'Relatório de ' . $data['config']['title'] . ',' .
+                'title='     . $data['config']['title']                   . ',' .
+                'comment='   . $data['validatedData']['comment']          . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }
