@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('employeevacation_id')->references('id')->on('employeeattests');
+            $table->foreign('employeeattest_id')->references('id')->on('employeeattests');
         });
     }
 
