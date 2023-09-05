@@ -15,7 +15,7 @@ class Employeevacationday extends Model
      * Campos manipuláveis.
      */
     protected $fillable = [
-        'employeevacation_id ',
+        'employeevacation_id',
 
         'date',
 

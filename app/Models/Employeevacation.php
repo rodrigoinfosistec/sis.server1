@@ -79,7 +79,7 @@ class Employeevacation extends Model
         ]);
 
         // After.
-        $after = Employeevacation::where('date_start', $data['validatedData']['date_start'])->first();
+        $after = Employeevacation::where(['date_start' => $data['validatedData']['date_start'], 'employee_id' => $data['validatedData']['employee_id']])->first();
 
         // Auditoria.
         Audit::employeevacationAdd($data, $after);
@@ -99,7 +99,20 @@ class Employeevacation extends Model
      * @return bool true
      */
     public static function dependencyAdd(array $data) : bool {
-        // ...
+        // Férias de funcionário.
+        $employeevacation = Employeevacation::where(['date_start' => $data['validatedData']['date_start'], 'employee_id' => $data['validatedData']['employee_id']])->first();
+
+        // Percorre todas as datas da Férias.
+        $y = $data['validatedData']['date_start'];
+        while($y <= $data['validatedData']['date_end']):
+            // Cadastra dia de Férias.
+            Employeevacationday::create([
+                'employeevacation_id' => $employeevacation->id,
+                'date'                => $y,
+            ]);
+
+            $y = date('Y-m-d', strtotime('+1 days', strtotime($y)));
+        endwhile;
 
         return true;
     }
@@ -133,7 +146,12 @@ class Employeevacation extends Model
      * @return bool true
      */
     public static function dependencyErase(array $data) : bool {
-        // ...
+        // Férias de funcionário.
+        $employeevacation = Employeevacation::where(['date_start' => $data['validatedData']['date_start'], 'employee_id' => $data['validatedData']['employee_id']])->first();
+        dd($employeevacation);
+
+        // Exclui dias das férias.
+        Employeevacationday::where('employeevacation_id', $employeevacation->id)->delete();
 
         return true;
     }
