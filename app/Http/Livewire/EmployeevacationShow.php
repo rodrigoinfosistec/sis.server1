@@ -54,9 +54,9 @@ class EmployeevacationShow extends Component
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
 
-            'employee_id'   => ['required', 'min:15', 'max:15', 'unique:employeevacations,employee_id,'.$this->employeevacation_id.''],
-            'date_start'    => ['required'],
-            'date_end'      => ['required'],
+            'employee_id' => ['required'],
+            'date_start'  => ['required'],
+            'date_end'    => ['required'],
         ];
     }
 
@@ -84,16 +84,12 @@ class EmployeevacationShow extends Component
         $this->mail      = '';
         $this->comment   = '';
 
-        $this->employeevacation_id            = '';
-        $this->employee_id                    = '';
-        $this->employee_name                   = '';
-        $this->date_start     = '';
-        $this->date_end       = '';
-        $this->journey_start_saturday = '';
-        $this->journey_end_saturday   = '';
-        $this->created                = '';
-
-        $this->txt = '';
+        $this->employeevacation_id = '';
+        $this->employee_id         = '';
+        $this->employee_name       = '';
+        $this->date_start          = '';
+        $this->date_end            = '';
+        $this->created             = '';
     }
 
     /**
@@ -108,14 +104,14 @@ class EmployeevacationShow extends Component
      * Renderiza página.
      */
     public function render(){
-        return view('livewire.' . $this->config['employee_name'] . '-show', [
+        return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
             'existsItem'   => Employeevacation::exists(),
-            'existsReport' => Report::where('folder', $this->config['employee_name'])->exists(),
-            'reports'      => Report::where('folder', $this->config['employee_name'])->orderBy('id', 'DESC')->limit(12)->get(),
+            'existsReport' => Report::where('folder', $this->config['name'])->exists(),
+            'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Employeevacation::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
-                            ])->orderBy('employee_name', 'ASC')->paginate(12),
+                            ])->orderBy('date_start', 'DESC')->paginate(12),
         ]);
     }
 
