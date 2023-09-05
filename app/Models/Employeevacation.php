@@ -37,7 +37,7 @@ class Employeevacation extends Model
         $message = null;
 
         // Verifica se final da jornada da semana é maior que o início.
-        if($data['validatedData']['journey_start_week'] >= $data['validatedData']['journey_end_week']):
+        if($data['validatedData']['date_start'] >= $data['validatedData']['date_end']):
             $message = 'Horário final da jornada da semana deve ser maior que o início da jornada';
         endif;
 
@@ -65,23 +65,21 @@ class Employeevacation extends Model
      */
     public static function add(array $data) : bool {
         // Cadastra.
-        Employee::create([
-            'pis'                    => $data['validatedData']['pis'],
-            'name'                   => Str::upper($data['validatedData']['name']),
-            'journey_start_week'     => $data['validatedData']['journey_start_week'],
-            'journey_end_week'       => $data['validatedData']['journey_end_week'],
-            'journey_start_saturday' => $data['validatedData']['journey_start_saturday'],
-            'journey_end_saturday'   => $data['validatedData']['journey_end_saturday'],
+        Employeevacation::create([
+            'employee_id'   => $data['validatedData']['employee_id'],
+            'employee_name' => Employee::find($data['validatedData']['employee_id'])->name,
+            'date_start'    => $data['validatedData']['date_start'],
+            'date_end'      => $data['validatedData']['date_end'],
         ]);
 
         // After.
-        $after = Employee::where('pis', $data['validatedData']['pis'])->first();
+        $after = Employeevacation::where('date_start', $data['validatedData']['date_start'])->first();
 
         // Auditoria.
-        Audit::employeeAdd($data, $after);
+        Audit::employeevacationAdd($data, $after);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' ' . $after->name . ' cadastrado com sucesso.';
+        $message = $data['config']['title'] . ' ' . $after->employee_name . ' cadastrada com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -142,13 +140,13 @@ class Employeevacation extends Model
      */
     public static function erase(array $data) : bool {
         // Exclui.
-        Employee::find($data['validatedData']['employee_id'])->delete();
+        Employeevacation::find($data['validatedData']['employeevacation_id'])->delete();
 
         // Auditoria.
-        Audit::employeeErase($data);
+        Audit::employeevacationErase($data);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' ' .  $data['validatedData']['name'] . ' excluído com sucesso.';
+        $message = $data['config']['title'] . ' ' .  $data['validatedData']['employee_name'] . ' excluído com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -191,8 +189,8 @@ class Employeevacation extends Model
      */
     public static function generate(array $data) : bool {
         // Estende $data.
-        $data['path']      = public_path('/storage/pdf/' . $data['config']['name'] . '/');
-        $data['file_name'] = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
+        $data['path']      = public_path('/storage/pdf/' . $data['config']['employee_name'] . '/');
+        $data['file_name'] = $data['config']['employee_name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
 
         // Gera PDF.
         Report::employeeGenerate($data);
