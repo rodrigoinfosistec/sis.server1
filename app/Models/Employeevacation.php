@@ -146,12 +146,8 @@ class Employeevacation extends Model
      * @return bool true
      */
     public static function dependencyErase(array $data) : bool {
-        // Férias de funcionário.
-        $employeevacation = Employeevacation::where(['date_start' => $data['validatedData']['date_start'], 'employee_id' => $data['validatedData']['employee_id']])->first();
-        dd($employeevacation);
-
         // Exclui dias das férias.
-        Employeevacationday::where('employeevacation_id', $employeevacation->id)->delete();
+        Employeevacationday::where('employeevacation_id', $data['validatedData']['employeevacation_id'])->delete();
 
         return true;
     }

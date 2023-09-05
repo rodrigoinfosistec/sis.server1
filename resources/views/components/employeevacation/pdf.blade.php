@@ -45,12 +45,12 @@
 
 {{-- INÍCIO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    {{ $item->date_start }}
+    {{ App\Models\General::decodedate($item->date_start) }}
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- FINAL --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    {{ $item->date_end }}
+    {{ App\Models\General::decodedate($item->date_end) }}
 </x-layout.pdf.pdf-table-body-line-cell>
 {{-- conteúdo --}}
 
