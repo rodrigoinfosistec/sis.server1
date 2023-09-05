@@ -584,25 +584,18 @@ class Report extends Model
 
         // Verifica se é um txt de empregador.
         if($data[0][4] == 'I' && $data[0][5] == '['):
-            // foreach($data as $key => $line):
-                // if($line[4] == 'I' && $line[5] == '['):
-                     // Separa dados.
-                     $l = explode('[', $line);
-                     $employee_pis = Employee::encodePis($l[1]);
+            // Separa dados.
+            $l = explode('[', $data[0]);
 
-                    if(Employee::where('pis', $employee_pis)->doesntExist()):
-                        // Monta o array.
-                        $txtArray = [
-                            'pis ' => $employee_pis,
-                            'name' => $l[2],
-                            'path' => $path . $file_name,
-                        ];
+            // Monta o array.
+            $txtArray = [
+                'pis'      => $l[1],
+                'name'     => $l[3],
+                'path'     => $path . $file_name,
+            ];
 
-                        // Atribui à variável.
-                        $txt = $txtArray;
-                    endif;
-                // endif;
-            // endforeach;
+            // Atribui à variável.
+            $txt = $txtArray;
         else:
             // Exclui o arquivo.
             unlink($path . $file_name);
