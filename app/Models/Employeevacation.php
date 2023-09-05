@@ -41,6 +41,17 @@ class Employeevacation extends Model
             $message = 'Final das férias deve ser maior que o início da férias.';
         endif;
 
+        // Percorre todos os dias da férias.
+        $y = $data['validatedData']['date_start'];
+        while($y <= $data['validatedData']['date_end']):
+            // Verifica se alguma data da férias já consta em outra férias.
+            if(Employeevacationday::where('date', $y)->exists()):
+                $message = 'O dia ' . App\Models\General::encodeDate($y) . ' já consta em outra férias do funcionário ' . $data['validatedData']['employee_name'] . '.';
+            endif;
+
+            $y = date('Y-m-d', strtotime('+1 days', strtotime($y)));
+        endwhile;
+
         // Desvio.
         if(!empty($message)):
             session()->flash('message', $message );
