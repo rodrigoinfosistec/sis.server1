@@ -158,7 +158,7 @@ class Employee extends Model
      */
     public static function validateEdit(array $data) : bool {
         $message = null;
-        
+
         // Verifica se final da jornada da semana é maior que o início.
         if($data['validatedData']['journey_start_week'] >= $data['validatedData']['journey_end_week']):
             $message = 'Horário final da jornada da semana deve ser maior que o início da jornada';
