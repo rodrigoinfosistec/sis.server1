@@ -6,7 +6,6 @@
 @include('components.' .  $config['name'] . '.modals.mail')
 
 {{-- plus --}}
-@include('components.' .  $config['name'] . '.modals.add-txt')
 @include('components.' .  $config['name'] . '.modals.add')
 
 {{-- info --}}
@@ -14,7 +13,6 @@
 
 {{-- ações --}}
 @include('components.' .  $config['name'] . '.modals.detail')
-@include('components.' .  $config['name'] . '.modals.edit')
 @include('components.' .  $config['name'] . '.modals.erase')
 {{-- modal --}}
 
@@ -53,7 +51,6 @@
 
 {{-- botão add --}}
 <x-layout.card.card-header-button-more-plus/>
-<x-layout.card.card-header-button-more-plus-txt/>
 {{-- botão add --}}
 
                 </x-layout.card.card-header-button-more>
@@ -66,15 +63,15 @@
                     <x-layout.card.card-body-navigation-search-filter>
 
 {{-- filtro nome --}}
-<option value="pis">PIS</option>
-<option value="name">NOME</option>
-<option value="created_at">DATA CADASTRO</option>
+<option value="employee_name">Funcionário</option>
+<option value="date_start">INÍCIO</option>
+<option value="date_end">FINAL</option>
 {{-- filtro nome --}}
 
                         </x-layout.card.card-body-navigation-search-filter>
 
 {{-- filtro tipo--}}
-@if($filter == 'created_at')
+@if($filter == 'date_start' || $filter == 'date_end')
     <x-layout.card.card-body-navigation-search-type-date/>
 @else
     <x-layout.card.card-body-navigation-search-type-search/>
@@ -111,7 +108,7 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            {{ $item->pis }}
+            {{ $item->date_start }}<i class="bi-caret-right-fill text-muted"></i>{{ $item->date_end }}
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
@@ -120,20 +117,12 @@
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
-        {{ $item->name }}
-        @if(!empty(App\Models\Company::nicknameNoRepeatName($item->id)))
-            <br>
-            <span class="text-muted">
-                {{ App\Models\Company::nicknameNoRepeatName($item->id) }}
-            </span>
-        @endif
+        {{ $item->employee_name }}
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
-<x-layout.card.card-body-content-table-body-line-cell-action width="120">
+<x-layout.card.card-body-content-table-body-line-cell-action width="80">
     <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
-
-    <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
 
     <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
 </x-layout.card.card-body-content-table-body-line-cell-action>
