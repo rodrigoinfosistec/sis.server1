@@ -38,12 +38,7 @@ class Employeevacation extends Model
 
         // Verifica se final da jornada da semana é maior que o início.
         if($data['validatedData']['date_start'] >= $data['validatedData']['date_end']):
-            $message = 'Horário final da jornada da semana deve ser maior que o início da jornada';
-        endif;
-
-        // Verifica se final da jornada da semana é maior que o início.
-        if($data['validatedData']['journey_start_saturday'] >= $data['validatedData']['journey_end_saturday']):
-            $message = 'Horário final da jornada do sábado deve ser maior que o início da jornada';
+            $message = 'Finalinal das férias deve ser maior que o início da férias.';
         endif;
 
         // Desvio.
