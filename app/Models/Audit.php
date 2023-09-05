@@ -1475,7 +1475,7 @@ class Audit extends Model
 
         return true;
     }
-    
+
     /**
      * Auditoria Employee Vacation Add.
      * @var array $data
