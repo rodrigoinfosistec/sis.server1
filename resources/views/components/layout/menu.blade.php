@@ -65,6 +65,21 @@
                         <x-responsive-nav-link href="{{ route('employeevacation') }}" :active="request()->routeIs('employeevacation')" class="text-decoration-none">
                             <i class="{{ App\Models\Page::getIconByName('employeevacation') }}"></i> {{ App\Models\Page::getTitleByName('employeevacation') }}
                         </x-responsive-nav-link>
+                        
+                        {{-- Atestado --}}
+                        <x-responsive-nav-link href="{{ route('employeeattest') }}" :active="request()->routeIs('employeeattest')" class="text-decoration-none">
+                            <i class="{{ App\Models\Page::getIconByName('employeeattest') }}"></i> {{ App\Models\Page::getTitleByName('employeeattest') }}
+                        </x-responsive-nav-link>
+                        
+                        {{-- Declaração --}}
+                        <x-responsive-nav-link href="{{ route('employeedeclaration') }}" :active="request()->routeIs('employeedeclaration')" class="text-decoration-none">
+                            <i class="{{ App\Models\Page::getIconByName('employeedeclaration') }}"></i> {{ App\Models\Page::getTitleByName('employeedeclaration') }}
+                        </x-responsive-nav-link>
+                        
+                        {{-- Falta --}}
+                        <x-responsive-nav-link href="{{ route('employeeabsence') }}" :active="request()->routeIs('employeeabsence')" class="text-decoration-none">
+                            <i class="{{ App\Models\Page::getIconByName('employeeabsence') }}"></i> {{ App\Models\Page::getTitleByName('employeeabsence') }}
+                        </x-responsive-nav-link>
                     </div>
                 </li>
 
