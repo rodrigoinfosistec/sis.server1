@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductgroupController;
 use App\Http\Controllers\ProductController;
 
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployeevacationController;
 
 use App\Http\Controllers\HolidayController;
 
@@ -44,6 +45,7 @@ Route::middleware([
     Route::get('/price-zip/{invoice_id}/', [InvoiceController::class, 'priceZip'])->name('price-zip');
 
     Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
+    Route::get('/employeevacation', [EmployeevacationController::class, 'index'])->name('employeevacation');
 
     Route::get('/holiday', [HolidayController::class, 'index'])->name('holiday');
 
