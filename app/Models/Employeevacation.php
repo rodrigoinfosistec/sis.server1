@@ -46,7 +46,7 @@ class Employeevacation extends Model
         while($y <= $data['validatedData']['date_end']):
             // Verifica se alguma data da férias já consta em outra férias.
             if(Employeevacationday::where('date', $y)->exists()):
-                $message = 'O dia ' . App\Models\General::encodeDate($y) . ' já consta em outra férias do funcionário ' . $data['validatedData']['employee_name'] . '.';
+                $message = 'O dia ' . General::decodeDate($y) . ' já consta em outra férias do funcionário.';
             endif;
 
             $y = date('Y-m-d', strtotime('+1 days', strtotime($y)));
