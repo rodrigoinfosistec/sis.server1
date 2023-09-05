@@ -55,12 +55,14 @@
 {{-- JORNADA SEMANA --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     INÍCIO: {{ $item->journey_start_week }}
+    <br>
     FIM:    {{ $item->journey_end_week }}
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- JORNADA SÁBADO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     INÍCIO: {{ $item->journey_start_saturday }}
+    <br>
     FIM:    {{ $item->journey_end_saturday }}
 </x-layout.pdf.pdf-table-body-line-cell>
 {{-- conteúdo --}}
