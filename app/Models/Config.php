@@ -126,12 +126,6 @@ class Config extends Model
                 'test'  => true,
             ],
             [
-                'name'  => 'employeedeclaration',
-                'title' => 'Declaração',
-                'icon'  => 'bi-clipboard-check',
-                'test'  => true,
-            ],
-            [
                 'name'  => 'employeeabsence',
                 'title' => 'Falta',
                 'icon'  => 'bi-clipboard-x',

@@ -16,7 +16,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeevacationController;
 use App\Http\Controllers\EmployeeattestController;
-use App\Http\Controllers\EmployeedeclarationController;
 use App\Http\Controllers\EmployeeabsenceController;
 
 use App\Http\Controllers\HolidayController;
@@ -50,7 +49,6 @@ Route::middleware([
     Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
     Route::get('/employeevacation', [EmployeevacationController::class, 'index'])->name('employeevacation');
     Route::get('/employeeattest', [EmployeeattestController::class, 'index'])->name('employeeattest');
-    Route::get('/employeedeclaration', [EmployeedeclarationController::class, 'index'])->name('employeedeclaration');
     Route::get('/employeeabsence', [EmployeeabsenceController::class, 'index'])->name('employeeabsence');
 
     Route::get('/holiday', [HolidayController::class, 'index'])->name('holiday');
