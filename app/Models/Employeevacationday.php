@@ -22,4 +22,10 @@ class Employeevacationday extends Model
         'created_at',
         'updated_at',
     ];
+    
+    /**
+     * Relaciona Models.
+     */
+    public function employeevacation(){return $this->belongsTo(Employeevacation::class);}
+
 }

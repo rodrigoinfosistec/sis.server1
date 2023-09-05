@@ -26,7 +26,12 @@ class Employeevacation extends Model
         'created_at',
         'updated_at',
     ];
-    
+
+    /**
+     * Relaciona Models.
+     */
+    public function employee(){return $this->belongsTo(Employee::class);}
+
     /**
      * Valida cadastro.
      * @var array $data
