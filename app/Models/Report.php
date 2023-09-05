@@ -584,15 +584,21 @@ class Report extends Model
 
         // Verifica se é um txt de empregador.
         if($data[0][4] == 'I' && $data[0][5] == '['):
-            // Separa dados.
-            $l = explode('[', $data[0]);
+            // Percorre todas as linhas do arquivo txt.
+            foreach($data as $key => $line):
+                // Verifica se é uma linha com informação de funcionário.
+                if($line[4] == 'I' && $line[5] == '['):
+                    // Separa dados.
+                    $l = explode('[', $line);
 
-            // Monta o array.
-            $txtArray[0] = [
-                'pis'  => $l[1],
-                'name' => $l[2],
-                'path' => $path . $file_name,
-            ];
+                    // Monta o array.
+                    $txtArray[$key] = [
+                        'pis'  => $l[1],
+                        'name' => $l[2],
+                        'path' => $path . $file_name,
+                    ];
+                endif;
+            endforeach;
 
             // Atribui à variável.
             $txt = $txtArray;

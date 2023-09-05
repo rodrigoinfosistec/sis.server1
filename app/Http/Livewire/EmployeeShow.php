@@ -189,21 +189,23 @@ class EmployeeShow extends Component
 
             // Valida.
             if($valid):
-                // Estende $data['validatedData'].
-                $data['validatedData']['pis']                    = Employee::encodePis((string)$txtArray[0]['pis']);
-                $data['validatedData']['name']                   = (string)$txtArray[0]['name'];
-                $data['validatedData']['journey_start_week']     = '08:00';
-                $data['validatedData']['journey_end_week']       = '17:00';
-                $data['validatedData']['journey_start_saturday'] = '08:00';
-                $data['validatedData']['journey_end_saturday']   = '12:00';
+                foreach($txtArray as $key => $employee):
+                    // Estende $data['validatedData'].
+                    $data['validatedData']['pis']                    = Employee::encodePis((string)$employee['pis']);
+                    $data['validatedData']['name']                   = (string)$employee['name'];
+                    $data['validatedData']['journey_start_week']     = '08:00';
+                    $data['validatedData']['journey_end_week']       = '17:00';
+                    $data['validatedData']['journey_start_saturday'] = '08:00';
+                    $data['validatedData']['journey_end_saturday']   = '12:00';
 
-                if(Employee::where('pis', $data['validatedData']['pis'])->doesntExist()):
-                    // Cadastra.
-                    if ($valid) Employee::add($data);
+                    if(Employee::where('pis', $data['validatedData']['pis'])->doesntExist()):
+                        // Cadastra.
+                        if ($valid) Employee::add($data);
 
-                    // Executa dependências.
-                    if ($valid) Employee::dependencyAdd($data);
-                endif;
+                        // Executa dependências.
+                        if ($valid) Employee::dependencyAdd($data);
+                    endif;
+                endforeach;
             endif;
 
             // Fecha modal.
