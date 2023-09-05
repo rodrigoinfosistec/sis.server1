@@ -104,13 +104,13 @@ class Employeeabsence extends Model
      * @return bool true
      */
     public static function dependencyAdd(array $data) : bool {
-        // Férias de funcionário.
+        // Falta de funcionário.
         $employeeabsence = Employeeabsence::where(['date_start' => $data['validatedData']['date_start'], 'employee_id' => $data['validatedData']['employee_id']])->first();
 
-        // Percorre todas as datas da Férias.
+        // Percorre todas as datas da Falta.
         $y = $data['validatedData']['date_start'];
         while($y <= $data['validatedData']['date_end']):
-            // Cadastra dia de Férias.
+            // Cadastra dia de Falta.
             Employeeabsenceday::create([
                 'employeeabsence_id' => $employeeabsence->id,
                 'date'                => $y,

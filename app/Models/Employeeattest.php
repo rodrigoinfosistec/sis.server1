@@ -104,13 +104,13 @@ class Employeeattest extends Model
      * @return bool true
      */
     public static function dependencyAdd(array $data) : bool {
-        // Férias de funcionário.
+        // Atestado de funcionário.
         $employeeattest = Employeeattest::where(['date_start' => $data['validatedData']['date_start'], 'employee_id' => $data['validatedData']['employee_id']])->first();
 
-        // Percorre todas as datas da Férias.
+        // Percorre todas as datas da Atestado.
         $y = $data['validatedData']['date_start'];
         while($y <= $data['validatedData']['date_end']):
-            // Cadastra dia de Férias.
+            // Cadastra dia de Atestado.
             Employeeattestday::create([
                 'employeeattest_id' => $employeeattest->id,
                 'date'                => $y,
