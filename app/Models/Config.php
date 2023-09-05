@@ -113,6 +113,30 @@ class Config extends Model
                 'icon'  => 'bi-tree',
                 'test'  => true,
             ],
+            [
+                'name'  => 'employeevacation',
+                'title' => 'Férias',
+                'icon'  => 'bi-sun',
+                'test'  => true,
+            ],
+            [
+                'name'  => 'attest',
+                'title' => 'Atestado',
+                'icon'  => 'bi-clipboard-pulse',
+                'test'  => true,
+            ],
+            [
+                'name'  => 'declaration',
+                'title' => 'Declaração',
+                'icon'  => 'bi-clipboard-check',
+                'test'  => true,
+            ],
+            [
+                'name'  => 'absence',
+                'title' => 'Falta',
+                'icon'  => 'bi-clipboard-x',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
