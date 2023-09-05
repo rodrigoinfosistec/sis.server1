@@ -88,7 +88,7 @@ class Employeevacation extends Model
      * @return bool true
      */
     public static function dependencyAdd(array $data) : bool {
-        //...
+        // ...
 
         return true;
     }
