@@ -255,6 +255,7 @@ class InvoiceShow extends Component
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Invoice::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
+                                ['company_id', Auth()->user()->company_id],
                             ])->orderBy('id', 'DESC')->paginate(12),
         ]);
     }
