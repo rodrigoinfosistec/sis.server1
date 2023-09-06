@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('start');
             $table->string('end');
 
+            $table->boolean('merged');
+
             $table->timestamps();
 
             $table->foreign('employee_id')->references('id')->on('employees');
