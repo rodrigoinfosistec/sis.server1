@@ -61,6 +61,11 @@
                             <i class="{{ App\Models\Page::getIconByName('employee') }}"></i> {{ App\Models\Page::getTitleByName('employee') }}
                         </x-responsive-nav-link>
 
+                        {{-- Folga --}}
+                        <x-responsive-nav-link href="{{ route('employeeeasy') }}" :active="request()->routeIs('employeeeasy')" class="text-decoration-none">
+                            <i class="{{ App\Models\Page::getIconByName('employeeeasy') }}"></i> {{ App\Models\Page::getTitleByName('employeeeasy') }}
+                        </x-responsive-nav-link>
+
                         {{-- Férias --}}
                         <x-responsive-nav-link href="{{ route('employeevacation') }}" :active="request()->routeIs('employeevacation')" class="text-decoration-none">
                             <i class="{{ App\Models\Page::getIconByName('employeevacation') }}"></i> {{ App\Models\Page::getTitleByName('employeevacation') }}
