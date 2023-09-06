@@ -138,8 +138,10 @@ class EmployeeallowanceShow extends Component
                 'date'        => ['required'],
                 'start'       => ['required'],
                 'end'         => ['required'],
-                'merged'      => ['required'],
             ]);
+
+            // Estende $validatedData.
+            $this->merged ? $validatedData['merged'] = true : $validatedData['merged'] = false;
 
             // Define $data.
             $data['config']        = $this->config;
