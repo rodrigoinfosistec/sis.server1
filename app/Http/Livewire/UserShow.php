@@ -30,6 +30,8 @@ class UserShow extends Component
     public $comment;
 
     public $user_id;
+    public $company_id;
+    public $company_name;
     public $usergroup_id;
     public $usergroup_name;
     public $name;
@@ -58,6 +60,7 @@ class UserShow extends Component
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
 
+            'company_id'   => ['required'],
             'usergroup_id' => ['required'],
             'name'         => ['required', 'between:3,255'],
             'email'        => ['required', 'email', 'between:3,255', 'unique:users,email,'.$this->user_id.''],
@@ -93,6 +96,8 @@ class UserShow extends Component
         $this->comment   = '';
 
         $this->user_id        = '';
+        $this->company_id     = '';
+        $this->company_name   = '';
         $this->usergroup_id   = '';
         $this->usergroup_name = '';
         $this->name           = '';
@@ -141,6 +146,7 @@ class UserShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
+                'company_id'   => ['required'],
                 'usergroup_id' => ['required'],
                 'name'         => ['required', 'between:3,255'],
                 'email'        => ['required', 'email', 'between:3,255', 'unique:users'],
@@ -176,6 +182,8 @@ class UserShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->user_id        = $user->id;
+        $this->company_id     = $user->company_id;
+        $this->company_name   = $user->company_name;
         $this->usergroup_id   = $user->usergroup_id;
         $this->usergroup_name = $user->usergroup_name;
         $this->name           = $user->name;
@@ -195,6 +203,8 @@ class UserShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->user_id        = $user->id;
+        $this->company_id     = $user->company_id;
+        $this->company_name   = $user->company_name;
         $this->usergroup_id   = $user->usergroup_id;
         $this->usergroup_name = $user->usergroup_name;
         $this->name           = $user->name;
@@ -206,6 +216,7 @@ class UserShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
+                'company_id'   => ['required'],
                 'usergroup_id' => ['required'],
                 'name'         => ['required', 'between:3,255'],
                 'email'        => ['required', 'email', 'between:3,255', 'unique:users,email,'.$this->user_id.''],
@@ -244,6 +255,8 @@ class UserShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->user_id        = $user->id;
+        $this->company_id     = $user->company_id;
+        $this->company_name   = $user->company_name;
         $this->usergroup_id   = $user->usergroup_id;
         $this->usergroup_name = $user->usergroup_name;
         $this->name           = $user->name;
@@ -294,6 +307,8 @@ class UserShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->user_id        = $user->id;
+        $this->company_id     = $user->company_id;
+        $this->company_name   = $user->company_name;
         $this->usergroup_id   = $user->usergroup_id;
         $this->usergroup_name = $user->usergroup_name;
         $this->name           = $user->name;
@@ -305,6 +320,8 @@ class UserShow extends Component
         {
             // Define $validatedData
             $validatedData['user_id']        = $this->user_id;
+            $validatedData['company_id']     = $this->company_id;
+            $validatedData['company_name']   = $this->company_name;
             $validatedData['usergroup_id']   = $this->usergroup_id;
             $validatedData['usergroup_name'] = $this->usergroup_name;
             $validatedData['name']           = $this->name;

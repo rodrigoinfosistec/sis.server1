@@ -22,6 +22,10 @@
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
+    EMPRESA
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
     GRUPO DE USUÁRIO
 </x-layout.pdf.pdf-table-header-column>
 
@@ -50,6 +54,11 @@
 {{-- E-MAIL --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     {{ $item->email }}
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- EMPRESA --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    {{ $item->company_name }}
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- GRUPO DE USUÁRIO --}}

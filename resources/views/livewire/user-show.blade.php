@@ -68,6 +68,7 @@
 <option value="name">NOME</option>
 <option value="email">EMAIL</option>
 <option value="usergroup_name">GRUPO USUÁRIO</option>
+<option value="company_name">EMPRESA</option>
 <option value="status">STATUS</option>
 <option value="created_at">DATA CADASTRO</option>
 {{-- filtro nome --}}
@@ -142,6 +143,8 @@
             {{ $item->email }}
             <br>
             {{ $item->usergroup_name }}
+            <br>
+            {{ $item->company_name }}
         </span>
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>

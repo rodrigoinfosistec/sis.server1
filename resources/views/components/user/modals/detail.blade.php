@@ -21,6 +21,15 @@
 
 <x-layout.modal.modal-detail-body-line>
     <x-layout.modal.modal-detail-body-line-title>
+        EMPRESA
+    </x-layout.modal.modal-detail-body-line-title>
+    <x-layout.modal.modal-detail-body-line-content>
+        {{ $company_name }}
+    </x-layout.modal.modal-detail-body-line-content>
+</x-layout.modal.modal-detail-body-line>
+
+<x-layout.modal.modal-detail-body-line>
+    <x-layout.modal.modal-detail-body-line-title>
         GRUPO DE USUÁRIO
     </x-layout.modal.modal-detail-body-line-title>
     <x-layout.modal.modal-detail-body-line-content>

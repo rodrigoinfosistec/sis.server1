@@ -506,12 +506,12 @@ class Invoiceitem extends Model
         $card = Invoiceitem::roundUp($card_full, 2);
 
         // Cálculo Preço Varejo - Define a Percentagem sobre o cartão.
-        if($card_full <= 20)                            : $retail_aliquot = 70;
-            elseif($card_full > 20 && $card_full <= 30) : $retail_aliquot = 80;
-            else                                        : $retail_aliquot = 85;
+        if($card_full <= 20)                            : $retail_aliquot = 0.7;
+            elseif($card_full > 20 && $card_full <= 30) : $retail_aliquot = 0.8;
+            else                                        : $retail_aliquot = 0.85;
         endif;
         // Preço Varejo.
-        $retail_full = $card_full + (($card_full * $retail_aliquot) / 100);
+        $retail_full = $card_full / $retail_aliquot;
         $retail = Invoiceitem::roundUp($retail_full, 2);
 
         // Preço em caso de item ser Equipamento.
@@ -534,12 +534,12 @@ class Invoiceitem extends Model
         $card_csv      = Invoiceitem::roundUp($card_csv_full, 2);
 
         // Cálculo Preço CSV Varejo - Define a Percentagem sobre o cartão.
-        if($card_csv_full <= 20)                                 : $retail_csv_aliquot = 70;
-            elseif($card_csv_full > 20 && $card_csv_full <= 30)  : $retail_csv_aliquot = 80;
-            else                                                 : $retail_csv_aliquot = 85;
+        if($card_csv_full <= 20)                                 : $retail_csv_aliquot = 0.7;
+            elseif($card_csv_full > 20 && $card_csv_full <= 30)  : $retail_csv_aliquot = 0.8;
+            else                                                 : $retail_csv_aliquot = 0.85;
         endif;
         // Preço CSV Varejo.
-        $retail_csv_full = $card_csv_full + (($card_csv_full * $retail_csv_aliquot) / 100);
+        $retail_csv_full = $card_csv_full / $retail_csv_aliquot;
         $retail_csv = Invoiceitem::roundUp($retail_csv_full, 2);
 
         // Preço CSV em caso de item ser Equipamento.

@@ -11,7 +11,21 @@
 
 {{-- conteúdo --}}
 <x-layout.modal.modal-add-body-group>
-    <x-layout.modal.modal-add-body-group-item columms="12">
+    <x-layout.modal.modal-add-body-group-item columms="6">
+        <x-layout.modal.modal-add-body-group-item-label item="company_id" title="EMPRESA" plus="company"/>
+
+        <select wire:model="company_id" class="form-select form-select-sm text-uppercase" id="company_id">
+            <x-layout.modal.modal-add-body-group-item-option-muted/>
+
+            @foreach(App\Models\Company::get() as $key => $company)
+                <option value="{{ $company->id }}">{{ $company->name }}</option>
+            @endforeach
+        </select>
+
+        <x-layout.modal.modal-add-body-group-item-error item="company_id" message="$message"/>
+    </x-layout.modal.modal-add-body-group-item>
+
+    <x-layout.modal.modal-add-body-group-item columms="6">
         <x-layout.modal.modal-add-body-group-item-label item="usergroup_id" title="GRUPO DE USUÁRIO" plus="usergroup"/>
 
         <select wire:model="usergroup_id" class="form-select form-select-sm text-uppercase" id="usergroup_id">
