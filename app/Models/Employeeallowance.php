@@ -50,8 +50,8 @@ class Employeeallowance extends Model
             $message = 'Horário final do abono deve ser maior que o horário inicial do abono.';
         endif;
 
-        // Verifica se alguma data da férias já consta em outra férias.
-        if(Employeeallowanceday::where('date', $data['validatedData']['date'])->exists()):
+        // Verifica se a data do abono já consta em outro abono.
+        if(Employeeallowance::where('date', $data['validatedData']['date'])->exists()):
             $message = 'O dia ' . General::decodeDate($data['validatedData']['date']) . ' já consta em outro abono do funcionário.';
         endif;
 

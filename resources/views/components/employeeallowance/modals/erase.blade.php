@@ -22,7 +22,7 @@
         ID
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
-        {{ $employeeabsence_id }}
+        {{ $employeeallowance_id }}
     </x-layout.modal.modal-erase-body-line-content>
 </x-layout.modal.modal-erase-body-line>
 
