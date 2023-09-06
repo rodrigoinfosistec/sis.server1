@@ -52,20 +52,24 @@
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
 
-
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="12">
-        <x-layout.modal.modal-edit-body-group-item-status>
+        <x-layout.modal.modal-add-body-group-item-bool model="merged">
+
+            <div style="margin-top: 5px;">
+                <span class="" style="font-size: 9pt;">JUSTIFICADO?</span>
+            </div>
             <input wire:model="merged" class="form-check-input" type="checkbox" role="switch" id="merged">
 
             <x-slot:label>
                 @if($merged)
-                    <x-layout.modal.modal-edit-body-group-item-status-active/>
+                    <x-layout.modal.modal-add-body-group-item-bool-true title="SIM"/>
                 @else
-                    <x-layout.modal.modal-edit-body-group-item-status-inactive/>
+                    <x-layout.modal.modal-add-body-group-item-bool-false title="NÃO" />
                 @endif
             </x-slot>
-        </x-layout.modal.modal-edit-body-group-item-status>
+
+        </x-layout.modal.modal-add-body-group-item-bool>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
 {{-- conteúdo --}}
