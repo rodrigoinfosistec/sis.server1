@@ -57,7 +57,6 @@ class EmployeeeasyShow extends Component
 
             'employee_id' => ['required'],
             'date'        => ['required'],
-            'start'       => ['required'],
         ];
     }
 
