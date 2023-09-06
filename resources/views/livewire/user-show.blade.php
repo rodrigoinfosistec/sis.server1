@@ -124,7 +124,7 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
         
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            @if($item->status == true)
+            @if($item->status)
                 <span class="text-success">Ativo</span>
             @else
                 <span class="text-danger">Inativo</span>

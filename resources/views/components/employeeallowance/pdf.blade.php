@@ -68,7 +68,13 @@
 
 {{-- JUSTIFICADO? --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    {{ $item->merged }}
+    @if($item->merged)
+        SIM
+    @else
+        <span class="text-muted">
+            NÃO
+        </span>
+    @endif
 </x-layout.pdf.pdf-table-body-line-cell>
 {{-- conteúdo --}}
 

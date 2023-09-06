@@ -117,6 +117,13 @@
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
         {{ $item->employee_name }}
+        <br>
+        JUSTIFICADO? 
+        @if($item->merged)
+            <span class="text-success">SIM</span>
+        @else
+            <span class="text-danger">NÃO</span>
+        @endif
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 

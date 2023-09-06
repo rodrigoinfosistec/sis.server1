@@ -24,19 +24,6 @@
 
         <x-layout.modal.modal-add-body-group-item-error item="employee_id" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
-
-    <x-layout.modal.modal-add-body-group-item columms="4">
-        <x-layout.modal.modal-add-body-group-item-label item="merged" title="JUSTIFICADO?" plus="none"/>
-
-        <select wire:model="merged" class="form-select form-select-sm text-uppercase" id="merged">
-            <x-layout.modal.modal-add-body-group-item-option-muted/>
-
-            <option value="0">NÃO</option>
-            <option value="1">SIM</option>
-        </select>
-
-        <x-layout.modal.modal-add-body-group-item-error item="merged" message="$message"/>
-    </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
 
 <x-layout.modal.modal-add-body-group>
@@ -62,6 +49,23 @@
         <input type="time" wire:model="end" class="form-control form-control-sm" id="end">
 
         <x-layout.modal.modal-add-body-group-item-error item="end" message="$message"/>
+    </x-layout.modal.modal-add-body-group-item>
+</x-layout.modal.modal-add-body-group>
+
+
+<x-layout.modal.modal-add-body-group>
+    <x-layout.modal.modal-add-body-group-item columms="12">
+        <x-layout.modal.modal-edit-body-group-item-status>
+            <input wire:model="merged" class="form-check-input" type="checkbox" role="switch" id="merged">
+
+            <x-slot:label>
+                @if($merged)
+                    <x-layout.modal.modal-edit-body-group-item-status-active/>
+                @else
+                    <x-layout.modal.modal-edit-body-group-item-status-inactive/>
+                @endif
+            </x-slot>
+        </x-layout.modal.modal-edit-body-group-item-status>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
 {{-- conteúdo --}}
