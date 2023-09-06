@@ -131,6 +131,12 @@ class Config extends Model
                 'icon'  => 'bi-clipboard-x',
                 'test'  => true,
             ],
+            [
+                'name'  => 'employeeallowance',
+                'title' => 'Abono',
+                'icon'  => 'bi-clipboard-check',
+                'test'  => true,
+            ],
         ];
 
         return $pages;

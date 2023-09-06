@@ -65,10 +65,15 @@
                         <x-responsive-nav-link href="{{ route('employeevacation') }}" :active="request()->routeIs('employeevacation')" class="text-decoration-none">
                             <i class="{{ App\Models\Page::getIconByName('employeevacation') }}"></i> {{ App\Models\Page::getTitleByName('employeevacation') }}
                         </x-responsive-nav-link>
-                        
+
                         {{-- Atestado --}}
                         <x-responsive-nav-link href="{{ route('employeeattest') }}" :active="request()->routeIs('employeeattest')" class="text-decoration-none">
                             <i class="{{ App\Models\Page::getIconByName('employeeattest') }}"></i> {{ App\Models\Page::getTitleByName('employeeattest') }}
+                        </x-responsive-nav-link>
+
+                        {{-- Abono --}}
+                        <x-responsive-nav-link href="{{ route('employeeallowance') }}" :active="request()->routeIs('employeeallowance')" class="text-decoration-none">
+                            <i class="{{ App\Models\Page::getIconByName('employeeallowance') }}"></i> {{ App\Models\Page::getTitleByName('employeeallowance') }}
                         </x-responsive-nav-link>
 
                         {{-- Falta --}}
