@@ -63,7 +63,7 @@
         @if($merged)
             <span class="text-success">SIM</span>
         @else
-            <span class="text-danger">Inativo</span>
+            <span class="text-danger">NÃO</span>
         @endif
     </x-layout.modal.modal-detail-body-line-content>
 </x-layout.modal.modal-detail-body-line>

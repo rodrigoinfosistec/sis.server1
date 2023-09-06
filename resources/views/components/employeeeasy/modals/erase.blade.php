@@ -49,7 +49,11 @@
         DESCONTA DO BANCO DE HORAS?
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
-        {{ $discount }}
+        @if($discount)
+            <span class="text-success">SIM</span>
+        @else
+            <span class="text-danger">NÃO</span>
+        @endif
     </x-layout.modal.modal-erase-body-line-content>
 </x-layout.modal.modal-erase-body-line>
 

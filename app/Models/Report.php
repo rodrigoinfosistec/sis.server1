@@ -720,7 +720,7 @@ class Report extends Model
             'date'  => date('d/m/Y H:i:s'),
             'list'  => $list = Employeeallowance::where([
                             [$data['filter'], 'like', '%'. $data['search'] . '%'],
-                        ])->orderBy('date_start', 'DESC')->get(),
+                        ])->orderBy('date', 'DESC')->get(),
         ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
 
         // Salva o arquivo PDF.
@@ -751,7 +751,7 @@ class Report extends Model
             'date'  => date('d/m/Y H:i:s'),
             'list'  => $list = Employeeeasy::where([
                             [$data['filter'], 'like', '%'. $data['search'] . '%'],
-                        ])->orderBy('date_start', 'DESC')->get(),
+                        ])->orderBy('date', 'DESC')->get(),
         ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
 
         // Salva o arquivo PDF.
