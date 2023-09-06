@@ -137,6 +137,12 @@ class Config extends Model
                 'icon'  => 'bi-clipboard-check',
                 'test'  => true,
             ],
+            [
+                'name'  => 'employeeeasy',
+                'title' => 'Folga',
+                'icon'  => 'bi-emoji-sunglasses',
+                'test'  => true,
+            ],
         ];
 
         return $pages;

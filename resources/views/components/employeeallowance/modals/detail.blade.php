@@ -60,7 +60,11 @@
         JUSTIFICADO?
     </x-layout.modal.modal-detail-body-line-title>
     <x-layout.modal.modal-detail-body-line-content>
-        {{ $merged }}
+        @if($merged)
+            <span class="text-success">SIM</span>
+        @else
+            <span class="text-danger">Inativo</span>
+        @endif
     </x-layout.modal.modal-detail-body-line-content>
 </x-layout.modal.modal-detail-body-line>
 
