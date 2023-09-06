@@ -65,6 +65,7 @@
 {{-- filtro nome --}}
 <option value="employee_name">Funcionário</option>
 <option value="date">DATA</option>
+<option value="merged">JUSTIFICADO?</option>
 {{-- filtro nome --}}
 
                         </x-layout.card.card-body-navigation-search-filter>
@@ -72,6 +73,8 @@
 {{-- filtro tipo--}}
 @if($filter == 'date')
     <x-layout.card.card-body-navigation-search-type-date/>
+@elseif($filter == 'merged')
+    <x-layout.card.card-body-navigation-search-type-bool true="SIM" false="NÃO" />
 @else
     <x-layout.card.card-body-navigation-search-type-search/>
 @endif
