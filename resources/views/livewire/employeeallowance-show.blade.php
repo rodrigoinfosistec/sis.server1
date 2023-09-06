@@ -107,20 +107,16 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            {{-- ... --}}
+            {{ App\Models\General::decodeDate($item->date) }}
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            {{ App\Models\General::decodeDate($item->date) }}<i class="bi-caret-right-fill text-muted"></i>{{ App\Models\General::decodeDate($item->date_end) }}
+            {{ $item->start }}<i class="bi-caret-right-fill text-muted"></i>{{ $item->end }}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
         {{ $item->employee_name }}
-        <br>
-        {{ $item->start }}
-        <i class="bi-caret-right-fill text-muted"></i>
-        {{ $item->end }}
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
