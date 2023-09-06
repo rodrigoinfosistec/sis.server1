@@ -308,6 +308,11 @@ class Company extends Model
             'company_name' => Str::upper($data['validatedData']['name']),
         ]);
 
+        // Atualiza o nome da Empresa nos Usuários com ela relacionadas.
+        User::where(['company_id' => $data['validatedData']['company_id']])->update([
+            'company_name' => Str::upper($data['validatedData']['name']),
+        ]);
+
         return true;
     }
 

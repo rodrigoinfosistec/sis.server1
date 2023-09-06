@@ -28,6 +28,9 @@ class User extends Authenticatable
      * Campos manipuláveis.
      */
     protected $fillable = [
+        'company_id',
+        'company_name',
+
         'usergroup_id',
         'usergroup_name',
 
@@ -138,6 +141,8 @@ class User extends Authenticatable
     public static function add(array $data) : bool {
         // Cadastra.
         User::create([
+            'company_id'     => $data['validatedData']['company_id'],
+            'company_name'   => Usergroup::find($data['validatedData']['company_id'])->name,
             'usergroup_id'   => $data['validatedData']['usergroup_id'],
             'usergroup_name' => Usergroup::find($data['validatedData']['usergroup_id'])->name,
             'name'           => Str::upper($data['validatedData']['name']),
@@ -205,6 +210,8 @@ class User extends Authenticatable
 
         // Atualiza.
         User::find($data['validatedData']['user_id'])->update([
+            'company_id'     => $data['validatedData']['company_id'],
+            'company_name'   => Usergroup::find($data['validatedData']['company_id'])->name,
             'usergroup_id'   => $data['validatedData']['usergroup_id'],
             'usergroup_name' => Usergroup::find($data['validatedData']['usergroup_id'])->name,
             'name'           => Str::upper($data['validatedData']['name']),

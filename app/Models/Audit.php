@@ -388,6 +388,8 @@ class Audit extends Model
             'page_name' => $data['config']['name'],
             'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
                 'id='             . $after->id             . ',' .
+                'company_id='     . $after->company_id     . ',' .
+                'company_name='   . $after->company_name   . ',' .
                 'usergroup_id='   . $after->usergroup_id   . ',' .
                 'usergroup_name=' . $after->usergroup_name . ',' .
                 'name='           . $after->name           . ',' .
@@ -415,6 +417,8 @@ class Audit extends Model
             'page_name' => $data['config']['name'],
             'extensive' => '[atualizou]' . $data['config']['title'] . ' {' .
                 'id='             . $before->id             . '>' . $after->id             . ',' .
+                'company_id='     . $before->company_id     . '>' . $after->company_id     . ',' .
+                'company_name='   . $before->company_name   . '>' . $after->company_name   . ',' .
                 'usergroup_id='   . $before->usergroup_id   . '>' . $after->usergroup_id   . ',' .
                 'usergroup_name=' . $before->usergroup_name . '>' . $after->usergroup_name . ',' .
                 'name='           . $before->name           . '>' . $after->name           . ',' .
@@ -461,7 +465,9 @@ class Audit extends Model
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
             'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
-                'id='             . $data['validatedData']['user_id']        . ','  .
+                'id='             . $data['validatedData']['user_id']        . ',' .
+                'company_id='     . $data['validatedData']['company_id']     . ',' .
+                'company_name='   . $data['validatedData']['company_name']   . ',' .
                 'usergroup_id='   . $data['validatedData']['usergroup_id']   . ',' .
                 'usergroup_name=' . $data['validatedData']['usergroup_name'] . ',' .
                 'name='           . $data['validatedData']['name']           . ',' .
