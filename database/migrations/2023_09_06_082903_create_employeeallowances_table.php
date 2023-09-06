@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('employeeallowances', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('employee_id');
+            $table->string('employee_name');
+
+            $table->date('date');
+
+            $table->string('start');
+            $table->string('end');
+
             $table->timestamps();
+
+            $table->foreign('employee_id')->references('id')->on('employees');
         });
     }
 
