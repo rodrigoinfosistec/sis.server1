@@ -1671,7 +1671,7 @@ class Audit extends Model
 
         return true;
     }
-    
+
     /**
      * Auditoria Employee Absence Add.
      * @var array $data
@@ -1749,6 +1749,105 @@ class Audit extends Model
      * @return bool true
      */
     public static function employeeabsenceMail(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[enviou e-mail]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name']                    . ',' .
+                'report_id=' . $data['validatedData']['report_id']        . ',' .
+                'email='     . $data['validatedData']['mail']             . ',' .
+                'subject='   . 'Relatório de ' . $data['config']['title'] . ',' .
+                'title='     . $data['config']['title']                   . ',' .
+                'comment='   . $data['validatedData']['comment']          . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+    
+    /**
+     * Auditoria Employee Allowance Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function employeeallowanceAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='            . $after->id            . ',' .
+                'employee_id='   . $after->employee_id   . ',' .
+                'employee_name=' . $after->employee_name . ',' .
+                'date='          . $after->date          . ',' .
+                'start='         . $after->start         . ',' .
+                'end='           . $after->end           . ',' .
+                'merged='        . $after->merged        . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Employee Allowance Erase.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function employeeallowanceErase(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
+                'id='            . $data['validatedData']['employeeallowance_id'] . ',' .
+                'employee_id='   . $data['validatedData']['employee_id']          . ',' .
+                'employee_name=' . $data['validatedData']['employee_name']        . ',' .
+                'date='          . $data['validatedData']['date']                 . ',' .
+                'start='         . $data['validatedData']['start']                . ',' .
+                'end='           . $data['validatedData']['end']                  . ',' .
+                'merged='        . $data['validatedData']['merged']               . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Employee Allowance Generate.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function employeeallowanceGenerate(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[gerou relatório]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name'] . ',' .
+                'file_name=' . $data['file_name']      . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Employee Allowance Mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function employeeallowanceMail(array $data) : bool {
         Audit::create([
             'user_id'   => auth()->user()->id,
             'user_name' => Str::upper(auth()->user()->name),

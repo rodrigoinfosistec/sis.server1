@@ -43,7 +43,7 @@ class Employeeattest extends Model
 
         // Verifica se final da jornada da semana é maior que o início.
         if($data['validatedData']['date_start'] >= $data['validatedData']['date_end']):
-            $message = 'Final das férias deve ser maior que o início da férias.';
+            $message = 'Final do atestado deve ser maior que o início do atestado.';
         endif;
 
         // Percorre todos os dias da férias.
@@ -51,7 +51,7 @@ class Employeeattest extends Model
         while($y <= $data['validatedData']['date_end']):
             // Verifica se alguma data da férias já consta em outra férias.
             if(Employeeattestday::where('date', $y)->exists()):
-                $message = 'O dia ' . General::decodeDate($y) . ' já consta em outra férias do funcionário.';
+                $message = 'O dia ' . General::decodeDate($y) . ' já consta em outro atestado do funcionário.';
             endif;
 
             $y = date('Y-m-d', strtotime('+1 days', strtotime($y)));
