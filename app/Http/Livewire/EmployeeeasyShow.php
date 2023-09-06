@@ -121,7 +121,8 @@ class EmployeeeasyShow extends Component
      */
     public function add()
     {
-        //...
+        // Inicializa propriedades dinâmicas.
+        $this->discount = true;
     }
         public function register()
         {
