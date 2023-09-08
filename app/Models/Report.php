@@ -834,13 +834,34 @@ class Report extends Model
                     endif;
                 endforeach;
 
-                // Verifica se existem eventos no período de ponto escolhido.
+                // Verifica se existem eventos no período de ponto selecionado.
                 if(count($txtArrayCompact) > 0):
+                    // Percorre todos os eventos do array compacto.
                     foreach($txtArrayCompact as $key => $line):
-                        $employee_pis[Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33])] = Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]);
+                        // Resgata todos os funconátios com eventos no período selecionado.
+                        $pis_all[Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33])] = Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]);
+
+                        $event[] = [
+                            'pis'   => Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]),
+                            'event' => $line[0].$line[1].$line[2].$line[3].$line[4].$line[5].$line[6].$line[7].$line[8],
+                            'date'  => $line[14].$line[15].$line[16].$line[17].'-'.$line[12].$line[13].'-'.$line[10].$line[11],
+                            'time'  => $line[18].$line[19].':'.$line[20].$line[21],
+                            'code'  => $line[34].$line[35].$line[36].$line[37],
+                        ];
                     endforeach;
 
-                    dd($employee_pis);
+                    dd($event);
+
+                    // Organiza pis.
+                    foreach($pis_all as $key => $pis):
+                        $array_pis[] = $pis;
+                    endforeach;
+
+                    // Atribui pis.
+                    $txtArray['pis'] = $array_pis;
+
+                    dd($txtArray);
+
 
                     // Atribui à variável.
                     $txt = $txtArray;
