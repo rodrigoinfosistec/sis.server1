@@ -109,7 +109,7 @@ class Clock extends Model
         ]);
 
         // After.
-        $after = Clock::where(['start' => $data['validatedData']['start'], 'end' => $data['validatedData']['end'], 'company_id' => $data['validatedData']['company_id']])->first();
+        $after = Clock::where(['start' => $data['validatedData']['start'], 'end' => $data['validatedData']['end'], 'company_id' => $data['validatedData']['company_id']])->orderBy('id', 'DESC')->first();
 
         // Auditoria.
         Audit::clockAdd($data, $after);
@@ -129,7 +129,21 @@ class Clock extends Model
      * @return bool true
      */
     public static function dependencyAdd(array $data) : bool {
-        // ...
+        // Percorre todos os funcionários do txt.
+        foreach($data['txtArray']['pis'] as $key => $pis):
+            // Vincula Funcionários e eventos ao ponto.
+            $clock    = Clock::where(['start' => $data['validatedData']['start'], 'end' => $data['validatedData']['end'], 'company_id' => $data['validatedData']['company_id']])->orderBy('id', 'DESC')->first();
+            $employee = Employee::where('pis', $pis)->first();
+
+            Clockemployee::create([
+                'clock_id'               => $clock->id,
+                'employee_id'            => $employee->id,
+                'journey_start_week'     => $employee->journey_start_week,
+                'journey_end_week'       => $employee->journey_end_week,
+                'journey_start_saturday' => $employee->journey_start_saturday,
+                'journey_end_saturday'   => $employee->journey_end_saturday,
+            ]);
+        endforeach;
 
         return true;
     }
@@ -163,7 +177,8 @@ class Clock extends Model
      * @return bool true
      */
     public static function dependencyErase(array $data) : bool {
-        // ...
+        // Exclui os Funcionários vinculados ao ponto.
+        Clockemployee::where('clock_id', $data['validatedData']['clock_id'])->delete();
 
         return true;
     }
