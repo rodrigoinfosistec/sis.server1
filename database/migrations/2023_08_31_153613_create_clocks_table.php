@@ -14,15 +14,14 @@ return new class extends Migration
         Schema::create('clocks', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('company_id');
+            $table->string('company_name');
 
             $table->date('start');
             $table->date('end');
 
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('company_id')->references('id')->on('companies');
         });
     }

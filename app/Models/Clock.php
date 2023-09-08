@@ -15,8 +15,8 @@ class Clock extends Model
      * Campos manipuláveis.
      */
     protected $fillable = [
-        'user_id',
         'company_id',
+        'company_name',
 
         'start',
         'end',
@@ -28,7 +28,6 @@ class Clock extends Model
     /**
      * Relaciona Models.
      */
-    public function user(){return $this->belongsTo(User::class);}
     public function company(){return $this->belongsTo(Company::class);}
 
 }
