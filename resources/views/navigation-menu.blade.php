@@ -10,20 +10,24 @@
                     </a>
                 </div>
 
-                {{-- Navigation Links --}}
+                {{-- Nota Fiscal --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    {{-- Nota Fiscal --}}
                     <x-nav-link href="{{ route('invoice') }}" :active="request()->routeIs('invoice')" class="text-decoration-none">
                         <img src="/img/icon/nfe.png" alt=""/>
                     </x-nav-link>
                 </div>
 
-                
-                {{-- Navigation Links --}}
+                {{-- Ponto --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    {{-- Ponto --}}
                     <x-nav-link href="{{ route('clock') }}" :active="request()->routeIs('clock')" class="text-decoration-none">
                         <img src="/img/icon/ponto.png" alt=""/>
+                    </x-nav-link>
+                </div>
+                
+                {{-- Banco de Horas --}}
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link href="{{ route('clockbase') }}" :active="request()->routeIs('clockbase')" class="text-decoration-none">
+                        <img src="/img/icon/bancohora.png" alt=""/>
                     </x-nav-link>
                 </div>
             </div>

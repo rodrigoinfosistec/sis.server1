@@ -24,6 +24,7 @@ use App\Http\Controllers\HolidayController;
 
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ClockController;
+use App\Http\Controllers\ClockbaseController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -58,5 +59,6 @@ Route::middleware([
     Route::get('/holiday', [HolidayController::class, 'index'])->name('holiday');
 
     Route::get('/clock', [ClockController::class, 'index'])->name('clock');
+    Route::get('/clockbase', [ClockbaseController::class, 'index'])->name('clockbase');
 
 });
