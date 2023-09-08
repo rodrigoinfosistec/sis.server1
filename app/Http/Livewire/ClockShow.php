@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Report;
+use App\Models\General;
 
 use App\Models\Clock;
 
@@ -213,8 +214,8 @@ class ClockShow extends Component
         $this->clock_id     = $clock->id;
         $this->company_id   = $clock->company_id;
         $this->company_name = $clock->company_name;
-        $this->start        = $clock->start;
-        $this->end          = $clock->end;
+        $this->start        = General::decodeDate($clock->start);
+        $this->end          = General::decodeDate($clock->end);
         $this->created      = $clock->created_at->format('d/m/Y H:i:s');
     }
 
@@ -231,8 +232,8 @@ class ClockShow extends Component
         $this->clock_id     = $clock->id;
         $this->company_id   = $clock->company_id;
         $this->company_name = $clock->company_name;
-        $this->start        = $clock->start;
-        $this->end          = $clock->end;
+        $this->start        = General::decodeDate($clock->start);
+        $this->end          = General::decodeDate($clock->end);
         $this->created      = $clock->created_at->format('d/m/Y H:i:s');
     }
         public function modernize()
@@ -278,8 +279,8 @@ class ClockShow extends Component
         $this->clock_id     = $clock->id;
         $this->company_id   = $clock->company_id;
         $this->company_name = $clock->company_name;
-        $this->start        = $clock->start;
-        $this->end          = $clock->end;
+        $this->start        = General::decodeDate($clock->start);
+        $this->end          = General::decodeDate($clock->end);
         $this->created      = $clock->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()

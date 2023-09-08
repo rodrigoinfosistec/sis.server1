@@ -164,7 +164,7 @@ class HolidayShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->holiday_id = $holiday->id;
-        $this->date       = General::decodedate($holiday->date);
+        $this->date       = General::decodeDate($holiday->date);
         $this->week       = $holiday->week;
         $this->year       = $holiday->year;
         $this->name       = $holiday->name;
