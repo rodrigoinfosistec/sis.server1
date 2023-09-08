@@ -819,18 +819,36 @@ class Report extends Model
         if($file[0][0] == '0' && $file[0][1] == '0'):
             // Verifica se o ponto é da mesma empresa.
             if(Company::where('cnpj', Company::encodeCnpj($file[0][11].$file[0][12].$file[0][13].$file[0][14].$file[0][15].$file[0][16].$file[0][17].$file[0][18].$file[0][19].$file[0][20].$file[0][21].$file[0][22].$file[0][23].$file[0][24]))->exists()):
+                 // Inicializa array compacto.
+                 $txtArrayCompact = [];
+
                 // Percorre todas as linhas do arquivo.
                 foreach($file as $key => $line):
                     // Verifica se é uma linha de evento de ponto de funcionário.
                     if($line[9] == '3'):
-                        $txtArray['employee_pis'][$key] = Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]);
-
+                        // Resgata os eventos dentro do período.
+                        $date = $line[14].$line[15].$line[16].$line[17].'-'.$line[12].$line[13].'-'.$line[10].$line[11];
+                        if($date >= $data['validatedData']['start'] && $date <= $data['validatedData']['end']):
+                            $txtArrayCompact[] = $line;
+                        endif;
                     endif;
                 endforeach;
-                dd($txtArray);
 
-                // Atribui à variável.
-                $txt = $txtArray;
+                // Verifica se existem eventos no período de ponto escolhido.
+                if(count($txtArrayCompact) > 0):
+                    
+
+                    dd($txtArrayCompact);
+                    // Atribui à variável.
+
+                    $txt = $txtArray;
+                else:
+                    // Exclui o arquivo.
+                    unlink($path . $file_name);
+
+                    // Atribui à variável.
+                    $txt = null;
+                endif;
             else:
                 // Exclui o arquivo.
                 unlink($path . $file_name);
