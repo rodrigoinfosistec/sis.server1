@@ -52,7 +52,6 @@
 <x-layout.pdf.pdf-table-body-line-cell>
     {{ App\Models\General::decodeDate($item->end) }}
 </x-layout.pdf.pdf-table-body-line-cell>
-
 {{-- conteúdo --}}
 
                 </x-layout.pdf.pdf-table-body-line>
