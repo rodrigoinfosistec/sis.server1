@@ -144,7 +144,7 @@ class EmployeeShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'compnay_id'             => ['required'],
+                'company_id'             => ['required'],
                 'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees'],
                 'name'                   => ['required', 'between:3,60'],
                 'journey_start_week'     => ['required'],
