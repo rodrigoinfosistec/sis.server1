@@ -39,15 +39,7 @@ class Clock extends Model
     public static function validateAdd(array $data) : bool {
         $message = null;
 
-        // Verifica se final da jornada da semana é maior que o início.
-        if($data['validatedData']['journey_start_week'] >= $data['validatedData']['journey_end_week']):
-            $message = 'Horário final da jornada da semana deve ser maior que o início da jornada';
-        endif;
-
-        // Verifica se final da jornada da semana é maior que o início.
-        if($data['validatedData']['journey_start_saturday'] >= $data['validatedData']['journey_end_saturday']):
-            $message = 'Horário final da jornada do sábado deve ser maior que o início da jornada';
-        endif;
+        // ...
 
         // Desvio.
         if(!empty($message)):
@@ -68,22 +60,18 @@ class Clock extends Model
      */
     public static function add(array $data) : bool {
         // Cadastra.
-        Employee::create([
-            'company_id'             => $data['validatedData']['company_id'],
-            'company_name'           => Company::find($data['validatedData']['company_id'])->name,
-            'pis'                    => $data['validatedData']['pis'],
-            'name'                   => Str::upper($data['validatedData']['name']),
-            'journey_start_week'     => $data['validatedData']['journey_start_week'],
-            'journey_end_week'       => $data['validatedData']['journey_end_week'],
-            'journey_start_saturday' => $data['validatedData']['journey_start_saturday'],
-            'journey_end_saturday'   => $data['validatedData']['journey_end_saturday'],
+        Clock::create([
+            'company_id'   => $data['validatedData']['company_id'],
+            'company_name' => Company::find($data['validatedData']['company_id'])->name,
+            'start'        => $data['validatedData']['start'],
+            'end'          => $data['validatedData']['end'],
         ]);
 
         // After.
-        $after = Employee::where('pis', $data['validatedData']['pis'])->first();
+        $after = Clock::where('pis', $data['validatedData']['pis'])->first();
 
         // Auditoria.
-        Audit::employeeAdd($data, $after);
+        Audit::clockAdd($data, $after);
 
         // Mensagem.
         $message = $data['config']['title'] . ' ' . $after->name . ' cadastrado com sucesso.';
@@ -115,7 +103,7 @@ class Clock extends Model
         $message = null;
 
         // Salva arquivo, caso seja um txt.
-        $txtArray = Report::txtEmployee($data);
+        $txtArray = Report::txtClock($data);
 
         // Verifica se é um arquivo txt.
         if(empty($txtArray)):
@@ -143,7 +131,7 @@ class Clock extends Model
         $message = null;
 
         // Verifica se final da jornada da semana é maior que o início.
-        if($data['validatedData']['journey_start_week'] >= $data['validatedData']['journey_end_week']):
+        if($data['validatedData']['start'] >= $data['validatedData']['end']):
             $message = 'Horário final da jornada da semana deve ser maior que o início da jornada';
         endif;
 
@@ -171,25 +159,25 @@ class Clock extends Model
      */
     public static function edit(array $data) : bool {
         // Before.
-        $before = Employee::find($data['validatedData']['employee_id']);
+        $before = Clock::find($data['validatedData']['clock_id']);
 
         // Atualiza.
-        Employee::find($data['validatedData']['employee_id'])->update([
+        Clock::find($data['validatedData']['clock_id'])->update([
             'company_id'             => $data['validatedData']['company_id'],
             'company_name'           => Company::find($data['validatedData']['company_id'])->name,
             'pis'                    => $data['validatedData']['pis'],
             'name'                   => Str::upper($data['validatedData']['name']),
-            'journey_start_week'     => $data['validatedData']['journey_start_week'],
-            'journey_end_week'       => $data['validatedData']['journey_end_week'],
+            'start'     => $data['validatedData']['start'],
+            'end'       => $data['validatedData']['end'],
             'journey_start_saturday' => $data['validatedData']['journey_start_saturday'],
             'journey_end_saturday'   => $data['validatedData']['journey_end_saturday'],
         ]);
 
         // After.
-        $after = Employee::find($data['validatedData']['employee_id']);
+        $after = Clock::find($data['validatedData']['clock_id']);
 
         // Auditoria.
-        Audit::employeeEdit($data, $before, $after);
+        Audit::clockEdit($data, $before, $after);
 
         // Mensagem.
         $message = $data['config']['title'] . ' ' .  $after->name . ' atualizado com sucesso.';
@@ -253,10 +241,10 @@ class Clock extends Model
      */
     public static function erase(array $data) : bool {
         // Exclui.
-        Employee::find($data['validatedData']['employee_id'])->delete();
+        Clock::find($data['validatedData']['clock_id'])->delete();
 
         // Auditoria.
-        Audit::employeeErase($data);
+        Audit::clockErase($data);
 
         // Mensagem.
         $message = $data['config']['title'] . ' ' .  $data['validatedData']['name'] . ' excluído com sucesso.';
@@ -276,7 +264,7 @@ class Clock extends Model
         $message = null;
 
         // verifica se existe algum item retornado na pesquisa.
-        if($list = Employee::where([
+        if($list = Clock::where([
                 [$data['filter'], 'like', '%'. $data['search'] . '%'],
             ])->doesntExist()):
 
@@ -306,10 +294,10 @@ class Clock extends Model
         $data['file_name'] = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
 
         // Gera PDF.
-        Report::employeeGenerate($data);
+        Report::clockGenerate($data);
 
         // Auditoria.
-        Audit::employeeGenerate($data);
+        Audit::clockGenerate($data);
 
         // Mensagem.
         $message = 'Relatório PDF gerado com sucesso.';
@@ -364,10 +352,10 @@ class Clock extends Model
      */
     public static function mail(array $data) : bool {
         // Envia e-mail.
-        Email::employeeMail($data);
+        Email::clockMail($data);
 
         // Auditoria.
-        Audit::employeeMail($data);
+        Audit::clockMail($data);
 
         // Mensagem.
         $message = 'E-mail para ' . $data['validatedData']['mail'] . ' enviado com sucesso.';
