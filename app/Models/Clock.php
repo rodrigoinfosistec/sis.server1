@@ -129,12 +129,15 @@ class Clock extends Model
      * @return bool true
      */
     public static function dependencyAdd(array $data) : bool {
+        // Ponto.
+        $clock = Clock::where(['start' => $data['validatedData']['start'], 'end' => $data['validatedData']['end'], 'company_id' => $data['validatedData']['company_id']])->orderBy('id', 'DESC')->first();
+
         // Percorre todos os funcionários do txt.
         foreach($data['txtArray']['pis'] as $key => $pis):
-            // Vincula Funcionários e eventos ao ponto.
-            $clock    = Clock::where(['start' => $data['validatedData']['start'], 'end' => $data['validatedData']['end'], 'company_id' => $data['validatedData']['company_id']])->orderBy('id', 'DESC')->first();
+            // Funcionário.
             $employee = Employee::where('pis', $pis)->first();
 
+            // Vincula Funcionários e eventos ao ponto.
             Clockemployee::create([
                 'clock_id'               => $clock->id,
                 'employee_id'            => $employee->id,

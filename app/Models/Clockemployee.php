@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
-
 use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Support\Str;
 
 class Clockemployee extends Model
 {
@@ -42,5 +42,4 @@ class Clockemployee extends Model
      */
     public function clock(){return $this->belongsTo(Clock::class);}
     public function employee(){return $this->belongsTo(Employee::class);}
-
 }
