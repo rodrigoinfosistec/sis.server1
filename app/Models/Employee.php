@@ -33,6 +33,11 @@ class Employee extends Model
     ];
 
     /**
+     * Relaciona Models.
+     */
+    public function company(){return $this->belongsTo(Company::class);}
+
+    /**
      * Converte data.
      * @var string $pis_decode
      * 

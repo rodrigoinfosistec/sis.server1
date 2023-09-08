@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
 
+            $table->unsignedBigInteger('company_id');
+            $table->string('company_name');
+
             $table->string('pis')->unique();
             $table->string('name');
 
@@ -23,6 +26,8 @@ return new class extends Migration
             $table->string('journey_end_saturday')->default('12:00');
 
             $table->timestamps();
+
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 
