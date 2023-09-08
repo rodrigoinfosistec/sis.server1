@@ -767,4 +767,83 @@ class Report extends Model
 
         return true;
     }
+    
+    /**
+     * Clock Generate
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function clockGenerate(array $data) : bool {
+        // Gera o arquivo PDF.
+        $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf', [
+            'user'  => auth()->user()->name,
+            'title' => $data['config']['title'],
+            'date'  => date('d/m/Y H:i:s'),
+            'list'  => $list = Clock::where([
+                            [$data['filter'], 'like', '%'. $data['search'] . '%'],
+                        ])->orderBy('id', 'DESC')->get(), 
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
+
+        // Salva o arquivo PDF.
+        File::makeDirectory($data['path'], $mode = 0777, true, true);
+        $pdf->save($data['path'] . $data['file_name']);
+
+        // Registra os dados do arquivo PDF.
+        Report::create([
+            'user_id' => auth()->user()->id,
+            'folder'  => $data['config']['name'],
+            'file'    => $data['file_name']
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Clock Txt
+     * @var array $data
+     * 
+     * @return <object, null> $txt
+     */
+    public static function txtClock(array $data){
+        // Salva o arquivo txt.
+        $file_name = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.txt';
+        $path = public_path('/storage/txt/' . $data['config']['name'] . '/');
+        File::makeDirectory($path, $mode = 0777, true, true);
+        $data['validatedData']['txt']->storeAs('public/txt/' . $data['config']['name'] . '/', $file_name);
+
+        // Instancia dados do txt.
+        $data = file($path . $file_name);
+
+        // Verifica se é um txt de empregador.
+        if($data[0][4] == 'I' && $data[0][5] == '['):
+            // Percorre todas as linhas do arquivo txt.
+            foreach($data as $key => $line):
+                // Verifica se é uma linha com informação de funcionário.
+                if($line[4] == 'I' && $line[5] == '['):
+                    // Separa dados.
+                    $l = explode('[', $line);
+
+                    // Monta o array.
+                    $txtArray[$key] = [
+                        'pis'  => $l[1],
+                        'name' => $l[2],
+                        'path' => $path . $file_name,
+                    ];
+                endif;
+            endforeach;
+
+            // Atribui à variável.
+            $txt = $txtArray;
+        else:
+            // Exclui o arquivo.
+            unlink($path . $file_name);
+
+            // Atribui à variável.
+            $txt = null;
+        endif;
+
+        return  $txt;
+    }
+    
 }
