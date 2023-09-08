@@ -44,6 +44,14 @@ class Clock extends Model
         // Salva arquivo, caso seja um txt.
         $txtArray = Report::txtClock($data);
 
+        // Percorre todos os funcionários do ponto txt.
+        foreach($txtArray['pis'] as $key => $pis):
+            // Verifica se algum funcionário não está cadastrado.
+            if(Employee::where('pis', $pis)->doesntExist()):
+                $message = 'Funcionário com pis ' . $pis . ' não está cadastrado.';
+            endif;
+        endforeach;
+
         // Verifica se é um arquivo txt.
         if(empty($txtArray)):
             $message = 'Arquivo deve ser um txt de ponto.';
