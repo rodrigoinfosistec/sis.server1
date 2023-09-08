@@ -45,12 +45,12 @@
 
 {{-- INÍCIO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    INÍCIO: {{ $item->start}}
+    {{ App\Models\General::decodeDate($item->start) }}
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- FINAL --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    FINAL: {{ $item->end }}
+    {{ App\Models\General::decodeDate($item->end) }}
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- conteúdo --}}

@@ -110,13 +110,15 @@
             </x-layout.card.card-body-content-table-body-line-cell-id-badge>
     
             <x-layout.card.card-body-content-table-body-line-cell-id-start>
-                {{-- ... --}}
+                <span class="text-muted">
+                    {{ App\Models\General::decodeDate($item->start) }}
+                    <i class="bi-caret-right-fill text-muted"></i>
+                    {{ App\Models\General::decodeDate($item->end) }}
+                </span>
             </x-layout.card.card-body-content-table-body-line-cell-id-start>
     
             <x-layout.card.card-body-content-table-body-line-cell-id-end>
-                {{ App\Models\General::decodeDate($item->start) }}
-                <i class="bi-caret-right-fill text-muted"></i>
-                {{ App\Models\General::decodeDate($item->end) }}
+                {{-- ... --}}
             </x-layout.card.card-body-content-table-body-line-cell-id-end>
         </x-layout.card.card-body-content-table-body-line-cell-id>
     
