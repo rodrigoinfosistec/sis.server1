@@ -812,6 +812,8 @@ class Report extends Model
         File::makeDirectory($path, $mode = 0777, true, true);
         $data['validatedData']['txt']->storeAs('public/txt/' . $data['config']['name'] . '/', $file_name);
 
+        dd($data);
+
         // Instancia dados do txt.
         $data = file($path . $file_name);
 

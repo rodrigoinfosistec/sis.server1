@@ -33,6 +33,34 @@ class Clock extends Model
     public function company(){return $this->belongsTo(Company::class);}
 
     /**
+     * Valida cadastro TXT.
+     * @var array $data
+     * 
+     * @return <array, bool>
+     */
+    public static function validateAddTxt(array $data){
+        $message = null;
+
+        // Salva arquivo, caso seja um txt.
+        $txtArray = Report::txtClock($data);
+
+        // Verifica se é um arquivo txt.
+        if(empty($txtArray)):
+            $message = 'Arquivo deve ser um txt de ponto.';
+        endif;
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return $txtArray;
+    }
+
+    /**
      * Valida cadastro.
      * @var array $data
      * 
@@ -96,34 +124,6 @@ class Clock extends Model
         // ...
 
         return true;
-    }
-
-    /**
-     * Valida cadastro TXT.
-     * @var array $data
-     * 
-     * @return <array, bool>
-     */
-    public static function validateAddTxt(array $data){
-        $message = null;
-
-        // Salva arquivo, caso seja um txt.
-        $txtArray = Report::txtClock($data);
-
-        // Verifica se é um arquivo txt.
-        if(empty($txtArray)):
-            $message = 'Arquivo deve ser um txt de ponto.';
-        endif;
-
-        // Desvio.
-        if(!empty($message)):
-            session()->flash('message', $message );
-            session()->flash('color', 'danger');
-
-            return false;
-        endif;
-
-        return $txtArray;
     }
 
     /**
