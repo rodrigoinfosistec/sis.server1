@@ -137,7 +137,7 @@ class Clock extends Model
             // Funcionário.
             $employee = Employee::where('pis', $pis)->first();
 
-            // Vincula Funcionários e eventos ao ponto.
+            // Vincula Funcionários ao ponto.
             Clockemployee::create([
                 'clock_id'               => $clock->id,
                 'employee_id'            => $employee->id,
@@ -145,6 +145,19 @@ class Clock extends Model
                 'journey_end_week'       => $employee->journey_end_week,
                 'journey_start_saturday' => $employee->journey_start_saturday,
                 'journey_end_saturday'   => $employee->journey_end_saturday,
+            ]);
+        endforeach;
+
+        // Percorre todos os eventos.
+        foreach($data['txtArray']['event'] as $key => $event):
+            // Vincula Eventos ao ponto.
+            Clockevent::create([
+                'clock_id'    => $clock->id,
+                'employee_id' => Employee::where('pis', $event['pis'])->first()->id,
+                'event'       => $event['event'],
+                'date'        => $event['date'],
+                'time'        => $event['time'],
+                'code'        => $event['code'],
             ]);
         endforeach;
 
@@ -182,6 +195,9 @@ class Clock extends Model
     public static function dependencyErase(array $data) : bool {
         // Exclui os Funcionários vinculados ao ponto.
         Clockemployee::where('clock_id', $data['validatedData']['clock_id'])->delete();
+
+        // Exclui os Eventos vinculados ao ponto.
+        Clockevent::where('clock_id', $data['validatedData']['clock_id'])->delete();
 
         return true;
     }

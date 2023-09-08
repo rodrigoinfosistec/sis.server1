@@ -4,14 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use Illuminate\Support\Str;
-
-class Clockemployee extends Model
+class Clockevent extends Model
 {
-   /**
+    /**
      * Nome da tabela.
      */
-    protected $table = 'clockemployees';
+    protected $table = 'clockevents';
 
     /**
      * Campos manipuláveis.
@@ -20,18 +18,10 @@ class Clockemployee extends Model
         'clock_id',
         'employee_id',
 
-        'journey_start_week',
-        'journey_end_week',
-        'journey_start_saturday',
-        'journey_end_saturday',
-
-        'delay_total',
-        'extra_total',
-        'balance_total',
-
-        'note',
-
-        'authorized',
+        'event',
+        'date',
+        'time',
+        'code',
 
         'created_at',
         'updated_at',
