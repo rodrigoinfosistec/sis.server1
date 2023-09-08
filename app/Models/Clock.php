@@ -70,7 +70,7 @@ class Clock extends Model
         ]);
 
         // After.
-        $after = Clock::where('pis', $data['validatedData']['pis'])->first();
+        $after = Clock::where(['start' => $data['validatedData']['start'], 'end' => $data['validatedData']['end'], 'company_id' => $data['validatedData']['company_id']])->first();
 
         // Auditoria.
         Audit::clockAdd($data, $after);
