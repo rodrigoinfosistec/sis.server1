@@ -821,16 +821,13 @@ class Report extends Model
             if(Company::where('cnpj', Company::encodeCnpj($file[0][11].$file[0][12].$file[0][13].$file[0][14].$file[0][15].$file[0][16].$file[0][17].$file[0][18].$file[0][19].$file[0][20].$file[0][21].$file[0][22].$file[0][23].$file[0][24]))->exists()):
                 // Percorre todas as linhas do arquivo.
                 foreach($file as $key => $line):
-                    // Verifica se é uma linha de evento.
+                    // Verifica se é uma linha de evento de ponto de funcionário.
                     if($line[9] == '3'):
-                        $key = '';
-                        $txtArray['employee_pis']['pis'] = Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]);
+                        $txtArray['employee_pis'][$key] = Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]);
 
-                        dd($txtArray['employee']['pis']);
-
-                        $txtArray['employee']['pis'][$key] = '';
                     endif;
                 endforeach;
+                dd($txtArray);
 
                 // Atribui à variável.
                 $txt = $txtArray;
