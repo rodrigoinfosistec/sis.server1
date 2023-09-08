@@ -169,6 +169,8 @@ class ClockShow extends Component
             $validatedData = $this->validate([
                 'company_id' => ['required'],
                 'txt'        => ['file', 'required'],
+                'start'      => ['required'],
+                'end'        => ['required'],
             ]);
 
             // Define $data.
