@@ -41,7 +41,10 @@ class Clock extends Model
     public static function validateAdd(array $data) : bool {
         $message = null;
 
-        // ...
+        // Verifica se a data final é maior que a data inicial.
+        if($data['validatedData']['start'] >= $data['validatedData']['end']):
+            $message = 'Data final deve ser maior que a data inicial.';
+        endif;
 
         // Desvio.
         if(!empty($message)):
@@ -90,10 +93,7 @@ class Clock extends Model
      * @return bool true
      */
     public static function dependencyAdd(array $data) : bool {
-        // Verifica se a data final é maior que a data inicial.
-        if($data['validatedData']['start'] >= $data['validatedData']['end']):
-            $message = 'Data final deve ser maior que a data inicial.';
-        endif;
+        // ...
 
         return true;
     }
