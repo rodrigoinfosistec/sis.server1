@@ -823,7 +823,10 @@ class Report extends Model
                 foreach($file as $key => $line):
                     // Verifica se é uma linha de evento.
                     if($line[9] == '3'):
-                        $txtArray['employee']['pis'] = Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]);
+                        $key = '';
+                        $txtArray['employee_pis']['pis'] = Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]);
+
+                        dd($txtArray['employee']['pis']);
 
                         $txtArray['employee']['pis'][$key] = '';
                     endif;
