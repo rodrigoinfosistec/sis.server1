@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Str;
+
 class Clock extends Model
 {
     /**
@@ -74,7 +76,7 @@ class Clock extends Model
         Audit::clockAdd($data, $after);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' ' . $after->name . ' cadastrado com sucesso.';
+        $message = $data['config']['title'] . ' da empresa ' . $after->company_name . ' cadastrado com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -88,7 +90,10 @@ class Clock extends Model
      * @return bool true
      */
     public static function dependencyAdd(array $data) : bool {
-        //...
+        // Verifica se a data final é maior que a data inicial.
+        if($data['validatedData']['start'] >= $data['validatedData']['end']):
+            $message = 'Data final deve ser maior que a data inicial.';
+        endif;
 
         return true;
     }
@@ -107,7 +112,7 @@ class Clock extends Model
 
         // Verifica se é um arquivo txt.
         if(empty($txtArray)):
-            $message = 'Arquivo deve ser um txt de colaborador (registro de ponto).';
+            $message = 'Arquivo deve ser um txt de ponto.';
         endif;
 
         // Desvio.
@@ -119,84 +124,6 @@ class Clock extends Model
         endif;
 
         return $txtArray;
-    }
-
-    /**
-     * Valida atualização.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function validateEdit(array $data) : bool {
-        $message = null;
-
-        // Verifica se final da jornada da semana é maior que o início.
-        if($data['validatedData']['start'] >= $data['validatedData']['end']):
-            $message = 'Horário final da jornada da semana deve ser maior que o início da jornada';
-        endif;
-
-        // Verifica se final da jornada da semana é maior que o início.
-        if($data['validatedData']['journey_start_saturday'] >= $data['validatedData']['journey_end_saturday']):
-            $message = 'Horário final da jornada do sábado deve ser maior que o início da jornada';
-        endif;
-
-        // Desvio.
-        if(!empty($message)):
-            session()->flash('message', $message );
-            session()->flash('color', 'danger');
-
-            return false;
-        endif;
-
-        return true;
-    }
-
-    /**
-     * Atualiza.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function edit(array $data) : bool {
-        // Before.
-        $before = Clock::find($data['validatedData']['clock_id']);
-
-        // Atualiza.
-        Clock::find($data['validatedData']['clock_id'])->update([
-            'company_id'             => $data['validatedData']['company_id'],
-            'company_name'           => Company::find($data['validatedData']['company_id'])->name,
-            'pis'                    => $data['validatedData']['pis'],
-            'name'                   => Str::upper($data['validatedData']['name']),
-            'start'     => $data['validatedData']['start'],
-            'end'       => $data['validatedData']['end'],
-            'journey_start_saturday' => $data['validatedData']['journey_start_saturday'],
-            'journey_end_saturday'   => $data['validatedData']['journey_end_saturday'],
-        ]);
-
-        // After.
-        $after = Clock::find($data['validatedData']['clock_id']);
-
-        // Auditoria.
-        Audit::clockEdit($data, $before, $after);
-
-        // Mensagem.
-        $message = $data['config']['title'] . ' ' .  $after->name . ' atualizado com sucesso.';
-        session()->flash('message', $message);
-        session()->flash('color', 'success');
-
-        return true;
-    }
-
-    /**
-     * Executa dependências de atualização.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function dependencyEdit(array $data) : bool {
-        // ...
-
-        return true;
     }
 
     /**
@@ -247,7 +174,7 @@ class Clock extends Model
         Audit::clockErase($data);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' ' .  $data['validatedData']['name'] . ' excluído com sucesso.';
+        $message = $data['config']['title'] . ' da empresa ' .  $data['validatedData']['company_name'] . ' excluído com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
