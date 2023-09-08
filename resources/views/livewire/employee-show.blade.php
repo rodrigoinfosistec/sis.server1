@@ -68,6 +68,7 @@
 {{-- filtro nome --}}
 <option value="pis">PIS</option>
 <option value="name">NOME</option>
+<option value="company_name">EMPRESA</option>
 <option value="created_at">DATA CADASTRO</option>
 {{-- filtro nome --}}
 
@@ -127,6 +128,8 @@
                 {{ App\Models\Company::nicknameNoRepeatName($item->id) }}
             </span>
         @endif
+        <br>
+        {{ $item->company_name }}
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
