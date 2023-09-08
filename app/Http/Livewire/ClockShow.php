@@ -181,20 +181,14 @@ class ClockShow extends Component
             // Valida cadastro.
             $valid = $txtArray = Clock::validateAddTxt($data);
 
-            // Valida.
-            if($valid):
-                // Estende $data['validatedData'].
-                $data['validatedData']['start'] = $txtArray['start'];
-                $data['validatedData']['end']   = $txtArray['end'];
+            // Estende $data
+            if ($valid) $data['txtArray'] = $txtArray;
 
-                if(Clock::where(['start' => $data['validatedData']['start'], 'end' => $data['validatedData']['end'], 'company_id' => $data['validatedData']['company_id']])->doesntExist()):
-                    // Cadastra.
-                    if ($valid) Clock::add($data);
+            // Cadastra.
+            if ($valid) Clock::add($data);
 
-                    // Executa dependências.
-                    if ($valid) Clock::dependencyAdd($data);
-                endif;
-            endif;
+            // Executa dependências.
+            if ($valid) Clock::dependencyAdd($data);
 
             // Fecha modal.
             $this->closeModal();

@@ -812,31 +812,32 @@ class Report extends Model
         File::makeDirectory($path, $mode = 0777, true, true);
         $data['validatedData']['txt']->storeAs('public/txt/' . $data['config']['name'] . '/', $file_name);
 
-        dd($data);
-
         // Instancia dados do txt.
-        $data = file($path . $file_name);
+        $file = file($path . $file_name);
 
-        // Verifica se é um txt de empregador.
-        if($data[0][4] == 'I' && $data[0][5] == '['):
-            // Percorre todas as linhas do arquivo txt.
-            foreach($data as $key => $line):
-                // Verifica se é uma linha com informação de funcionário.
-                if($line[4] == 'I' && $line[5] == '['):
-                    // Separa dados.
-                    $l = explode('[', $line);
+        // Verifica se é um txt de ponto.
+        if($file[0][0] == '0' && $file[0][1] == '0'):
+            // Verifica se o ponto é da mesma empresa.
+            if(Company::where('cnpj', Company::encodeCnpj($file[0][11].$file[0][12].$file[0][13].$file[0][14].$file[0][15].$file[0][16].$file[0][17].$file[0][18].$file[0][19].$file[0][20].$file[0][21].$file[0][22].$file[0][23].$file[0][24]))->exists()):
+                // Percorre todas as linhas do arquivo.
+                foreach($file as $key => $line):
+                    // Verifica se é uma linha de evento.
+                    if($line[9] == '3'):
+                        $txtArray['employee']['pis'] = Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]);
 
-                    // Monta o array.
-                    $txtArray[$key] = [
-                        'pis'  => $l[1],
-                        'name' => $l[2],
-                        'path' => $path . $file_name,
-                    ];
-                endif;
-            endforeach;
+                        $txtArray['employee']['pis'][$key] = '';
+                    endif;
+                endforeach;
 
-            // Atribui à variável.
-            $txt = $txtArray;
+                // Atribui à variável.
+                $txt = $txtArray;
+            else:
+                // Exclui o arquivo.
+                unlink($path . $file_name);
+
+                // Atribui à variável.
+                $txt = null;
+            endif;
         else:
             // Exclui o arquivo.
             unlink($path . $file_name);
