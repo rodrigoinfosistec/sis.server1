@@ -68,6 +68,15 @@
 
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
+        EMPRESA
+    </x-layout.modal.modal-erase-body-line-title>
+    <x-layout.modal.modal-erase-body-line-content>
+        {{ $company_name }}
+    </x-layout.modal.modal-erase-body-line-content>
+</x-layout.modal.modal-erase-body-line>
+
+<x-layout.modal.modal-erase-body-line>
+    <x-layout.modal.modal-erase-body-line-title>
         CADASTRO
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>

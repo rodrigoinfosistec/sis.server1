@@ -13,6 +13,22 @@
 
 {{-- conteúdo --}}
 <x-layout.modal.modal-edit-body-group>
+    <x-layout.modal.modal-edit-body-group-item columms="12">
+        <x-layout.modal.modal-edit-body-group-item-label item="company_id" title="EMPRESA" plus="company"/>
+
+        <select wire:model="company_id" class="form-select form-select-sm text-uppercase" id="company_id">
+            <x-layout.modal.modal-edit-body-group-item-option-muted/>
+
+            @foreach(App\Models\Company::get() as $key => $company)
+                <option value="{{ $company->id }}">{{ $company->name }}</option>
+            @endforeach
+        </select>
+
+        <x-layout.modal.modal-edit-body-group-item-error item="company_id" message="$message"/>
+    </x-layout.modal.modal-edit-body-group-item>
+</x-layout.modal.modal-edit-body-group>
+
+<x-layout.modal.modal-edit-body-group>
     <x-layout.modal.modal-edit-body-group-item columms="4">
         <x-layout.modal.modal-edit-body-group-item-label item="pis" title="PIS" plus="none"/>
 
