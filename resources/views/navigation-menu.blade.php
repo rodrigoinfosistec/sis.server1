@@ -174,7 +174,7 @@
              <x-nav-link href="{{ route('clock') }}" :active="request()->routeIs('clock')" class="text-decoration-none" style="margin-right: 10px;">
                 <img src="/img/icon/ponto.png" alt=""/>
             </x-nav-link>
-            
+
              {{-- Banco de Horas --}}
              <x-nav-link href="{{ route('clockbase') }}" :active="request()->routeIs('clockbase')" class="text-decoration-none" style="margin-right: 10px;">
                 <img src="/img/icon/bancohora.png" alt=""/>
