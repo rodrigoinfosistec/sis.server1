@@ -30,6 +30,8 @@ class EmployeeShow extends Component
     public $comment;
 
     public $employee_id;
+    public $company_id;
+    public $company_name;
     public $pis;
     public $name;
     public $journey_start_week;
@@ -57,6 +59,7 @@ class EmployeeShow extends Component
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
 
+            'company_id'             => ['required'],
             'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees,pis,'.$this->employee_id.''],
             'name'                   => ['required', 'between:3,60'],
             'journey_start_week'     => ['required'],
@@ -93,6 +96,8 @@ class EmployeeShow extends Component
         $this->comment   = '';
 
         $this->employee_id            = '';
+        $this->company_id             = '';
+        $this->company_name           = '';
         $this->pis                    = '';
         $this->name                   = '';
         $this->journey_start_week     = '';
@@ -139,6 +144,7 @@ class EmployeeShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
+                'compnay_id'             => ['required'],
                 'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees'],
                 'name'                   => ['required', 'between:3,60'],
                 'journey_start_week'     => ['required'],
@@ -177,7 +183,8 @@ class EmployeeShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'txt' => ['file', 'required'],
+                'company_id' => ['required'],
+                'txt'        => ['file', 'required'],
             ]);
 
             // Define $data.
@@ -224,6 +231,8 @@ class EmployeeShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->employee_id            = $employee->id;
+        $this->company_id             = $employee->company_id;
+        $this->company_name           = $employee->company_name;
         $this->pis                    = $employee->pis;
         $this->name                   = $employee->name;
         $this->journey_start_week     = $employee->journey_start_week;
@@ -244,6 +253,8 @@ class EmployeeShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->employee_id            = $employee->id;
+        $this->company_id             = $employee->company_id;
+        $this->company_name           = $employee->company_name;
         $this->pis                    = $employee->pis;
         $this->name                   = $employee->name;
         $this->journey_start_week     = $employee->journey_start_week;
@@ -256,6 +267,7 @@ class EmployeeShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
+                'company_id'             => ['required'],
                 'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees,pis,'.$this->employee_id.''],
                 'name'                   => ['required', 'between:3,60'],
                 'journey_start_week'     => ['required'],
@@ -296,6 +308,8 @@ class EmployeeShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->employee_id            = $employee->id;
+        $this->company_id             = $employee->company_id;
+        $this->company_name           = $employee->company_name;
         $this->pis                    = $employee->pis;
         $this->name                   = $employee->name;
         $this->journey_start_week     = $employee->journey_start_week;
@@ -308,6 +322,8 @@ class EmployeeShow extends Component
         {
             // Define $validatedData
             $validatedData['employee_id']            = $this->employee_id;
+            $validatedData['company_id']             = $this->company_id;
+            $validatedData['company_name']           = $this->company_name;
             $validatedData['pis']                    = $this->pis;
             $validatedData['name']                   = $this->name;
             $validatedData['journey_start_week']     = $this->journey_start_week;
