@@ -13,7 +13,7 @@
 
 {{-- conteúdo --}}
 <x-layout.modal.modal-edit-body-group>
-    <x-layout.modal.modal-edit-body-group-item columms="8">
+    <x-layout.modal.modal-edit-body-group-item columms="4">
         <x-layout.modal.modal-edit-body-group-item-label item="pis" title="PIS" plus="none"/>
 
             <input type="text" wire:model="pis" class="form-control form-control-sm" id="pis" onKeyUp="maskPis(this, event)" disabled>
@@ -21,7 +21,7 @@
         <x-layout.modal.modal-edit-body-group-item-error item="pis" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>
 
-    <x-layout.modal.modal-edit-body-group-item columms="4">
+    <x-layout.modal.modal-edit-body-group-item columms="8">
         <x-layout.modal.modal-edit-body-group-item-label item="name" title="NOME" plus="none"/>
 
             <input type="text" wire:model="name" class="form-control form-control-sm" id="name">

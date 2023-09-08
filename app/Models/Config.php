@@ -108,6 +108,12 @@ class Config extends Model
                 'test'  => true,
             ],
             [
+                'name'  => 'clockbase',
+                'title' => 'Banco de Horas',
+                'icon'  => 'bi-database-check',
+                'test'  => true,
+            ],
+            [
                 'name'  => 'holiday',
                 'title' => 'Feriado',
                 'icon'  => 'bi-tree',
