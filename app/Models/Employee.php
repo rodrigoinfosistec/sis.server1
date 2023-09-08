@@ -17,6 +17,9 @@ class Employee extends Model
      * Campos manipuláveis.
      */
     protected $fillable = [
+        'company_id',
+        'company_name',
+
         'pis',
         'name',
 
@@ -88,6 +91,8 @@ class Employee extends Model
     public static function add(array $data) : bool {
         // Cadastra.
         Employee::create([
+            'company_id'             => $data['validatedData']['company_id'],
+            'company_name'           => Company::find($data['validatedData']['company_id'])->name,
             'pis'                    => $data['validatedData']['pis'],
             'name'                   => Str::upper($data['validatedData']['name']),
             'journey_start_week'     => $data['validatedData']['journey_start_week'],
@@ -192,6 +197,8 @@ class Employee extends Model
 
         // Atualiza.
         Employee::find($data['validatedData']['employee_id'])->update([
+            'company_id'             => $data['validatedData']['company_id'],
+            'company_name'           => Company::find($data['validatedData']['company_id'])->name,
             'pis'                    => $data['validatedData']['pis'],
             'name'                   => Str::upper($data['validatedData']['name']),
             'journey_start_week'     => $data['validatedData']['journey_start_week'],

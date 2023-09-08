@@ -1370,6 +1370,8 @@ class Audit extends Model
             'page_name' => $data['config']['name'],
             'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
                 'id='                     . $after->id                     . ',' .
+                'company_id='             . $after->company_id             . ',' .
+                'company_name='           . $after->company_name           . ',' .
                 'pis='                    . $after->pis                    . ',' .
                 'name='                   . $after->name                   . ',' .
                 'journey_start_week='     . $after->journey_start_week     . ',' .
@@ -1398,6 +1400,8 @@ class Audit extends Model
             'page_name' => $data['config']['name'],
             'extensive' => '[atualizou]' . $data['config']['title'] . ' {' .
                 'id='                     . $before->id                     . '>' . $after->id                     . ',' .
+                'company_id='             . $before->company_id             . '>' . $after->company_id             . ',' .
+                'company_name='           . $before->company_name           . '>' . $after->company_name           . ',' .
                 'pis='                    . $before->pis                    . '>' . $after->pis                    . ',' .
                 'name='                   . $before->name                   . '>' . $after->name                   . ',' .
                 'journey_start_week='     . $before->journey_start_week     . '>' . $after->journey_start_week     . ',' .
@@ -1424,6 +1428,8 @@ class Audit extends Model
             'page_name' => $data['config']['name'],
             'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
                 'id='                     . $data['validatedData']['employee_id']            . ',' .
+                'company_id='             . $data['validatedData']['company_id']             . ',' .
+                'company_name='           . $data['validatedData']['company_name']           . ',' .
                 'pis='                    . $data['validatedData']['pis']                    . ',' .
                 'name='                   . $data['validatedData']['name']                   . ',' .
                 'journey_start_week='     . $data['validatedData']['journey_start_week']     . ',' .
