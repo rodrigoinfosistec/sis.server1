@@ -18,7 +18,7 @@
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    DESCRIÇÃO
+    NOME
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
@@ -27,6 +27,10 @@
 
 <x-layout.pdf.pdf-table-header-column>
     JORNADA SÁBADO
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
+    EMPRESA
 </x-layout.pdf.pdf-table-header-column>
 {{-- conteúdo título --}}
 
@@ -47,7 +51,7 @@
     {{ $item->pis }}
 </x-layout.pdf.pdf-table-body-line-cell>
 
-{{-- DESCRIÇÃO --}}
+{{-- NOME --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     {{ $item->name }}
 </x-layout.pdf.pdf-table-body-line-cell>
@@ -65,6 +69,12 @@
     <br>
     FIM:    {{ $item->journey_end_saturday }}
 </x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- EMPRESA --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    {{ $item->company_name }}
+</x-layout.pdf.pdf-table-body-line-cell>
+
 {{-- conteúdo --}}
 
                 </x-layout.pdf.pdf-table-body-line>
