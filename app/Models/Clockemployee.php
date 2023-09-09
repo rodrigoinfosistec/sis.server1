@@ -72,22 +72,24 @@ class Clockemployee extends Model
      * @return bool true
      */
     public static function add(array $data) : bool {
+        // Funcionário.
+        $employee = Employee::find($data['validatedData']['employee_id']);
 
         // Cadastra.
         Clockemployee::create([
-            'clock_id '              => $data['validatedData']['company_id'],
-            'employee_id '           => Company::find($data['validatedData']['company_id'])->name,
-            'journey_start_week'     => $data['validatedData']['pis'],
-            'journey_end_week'       => Str::upper($data['validatedData']['name']),
-            'journey_start_saturday' => $data['validatedData']['journey_start_week'],
-            'journey_end_saturday'   => $data['validatedData']['journey_end_week'],
+            'clock_id'               => $data['validatedData']['clock_id'],
+            'employee_id'            => $employee->id,
+            'journey_start_week'     => $employee->journey_start_week,
+            'journey_end_week'       => $employee->journey_end_week,
+            'journey_start_saturday' => $employee->journey_start_saturday,
+            'journey_end_saturday'   => $employee->journey_end_saturday,
         ]);
 
         // After.
-        $after = Employee::where('pis', $data['validatedData']['pis'])->first();
+        $after = Clockmployee::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $employee->id])->first();
 
         // Auditoria.
-        Audit::employeeAdd($data, $after);
+        Audit::clockemployeeAdd($data, $after);
 
         // Mensagem.
         $message = $data['config']['title'] . ' ' . $after->name . ' cadastrado com sucesso.';
