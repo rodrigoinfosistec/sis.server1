@@ -2,10 +2,14 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Str;
+
 use App\Models\Report;
 use App\Models\General;
 
 use App\Models\Clock;
+use App\Models\Holiday;
+use App\Models\Employee;
 
 use Livewire\WithPagination;
 use Livewire\Component;
@@ -39,10 +43,8 @@ class ClockShow extends Component
 
     public $txt;
 
-    public $holiday_date;
-    public $holiday_week;
-    public $holiday_year;
-    public $holiday_name;
+    public $date;
+    public $name;
 
     /**
      * Construtor.
@@ -67,8 +69,8 @@ class ClockShow extends Component
 
             'txt' => ['file', 'required'],
 
-            'holiday_date' => ['required', 'unique:holidays,date,'.$this->holiday_date.''],
-            'holiday_name' => ['required', 'between:2,255'],
+            'date' => ['required', 'unique:holidays,date,'.$this->date.''],
+            'name' => ['required', 'between:2,255'],
         ];
     }
 
@@ -105,10 +107,8 @@ class ClockShow extends Component
 
         $this->txt = '';
 
-        $this->holiday_date = '';
-        $this->holiday_week = '';
-        $this->holiday_year = '';
-        $this->holiday_name = '';
+        $this->date = '';
+        $this->name = '';
     }
 
     /**
@@ -222,21 +222,26 @@ class ClockShow extends Component
         $this->clock_id     = $clock->id;
         $this->company_id   = $clock->company_id;
         $this->company_name = $clock->company_name;
-        $this->start        = General::decodeDate($clock->start);
-        $this->end          = General::decodeDate($clock->end);
+        $this->start        = $clock->start;
+        $this->end          = $clock->end;
         $this->created      = $clock->created_at->format('d/m/Y H:i:s');
     }
         public function registerHoliday()
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'holiday_date' => ['required', 'unique:holidays'],
-                'holiday_name' => ['required', 'between:2,255'],
+                'date' => ['required', 'unique:holidays'],
+                'name' => ['required', 'between:2,255'],
             ]);
 
+            // Etende $validatedData.
+            $validatedData['week'] = Str::upper(General::decodeWeek(date_format(date_create($validatedData['date']), 'l')));
+            $validatedData['year'] = date_format(date_create($validatedData['date']), 'Y');
+
             // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
+            $data['config']['title'] = 'Feriado';
+            $data['config']['name']  = $this->config['name'];
+            $data['validatedData']   = $validatedData;
 
             // Valida cadastro.
             $valid = Holiday::validateAdd($data);

@@ -14,21 +14,21 @@
 {{-- conteúdo plus --}}
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="8">
-        <x-layout.modal.modal-add-body-group-item-label item="holiday_date" title="DATA" plus="none"/>
+        <x-layout.modal.modal-add-body-group-item-label item="date" title="DATA" plus="none"/>
 
-        <input type="date" wire:model="holiday_date" min="{{ $start }}" max="{{ $end }}" class="form-control form-control-sm" id="holiday_date">
+        <input type="date" wire:model="date" min="{{ $start }}" max="{{ $end }}" class="form-control form-control-sm" id="date">
 
-        <x-layout.modal.modal-add-body-group-item-error item="holiday_date" message="$message"/>
+        <x-layout.modal.modal-add-body-group-item-error item="date" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
 
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="12">
-        <x-layout.modal.modal-add-body-group-item-label item="holiday_name" title="DESCRIÇÃO" plus="none"/>
+        <x-layout.modal.modal-add-body-group-item-label item="name" title="DESCRIÇÃO" plus="none"/>
 
-        <input type="text" wire:model="holiday_name" class="form-control form-control-sm" id="holiday_name">
+        <input type="text" wire:model="name" class="form-control form-control-sm" id="name">
 
-        <x-layout.modal.modal-add-body-group-item-error item="holiday_name" message="$message"/>
+        <x-layout.modal.modal-add-body-group-item-error item="name" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
 {{-- conteúdo plus --}}

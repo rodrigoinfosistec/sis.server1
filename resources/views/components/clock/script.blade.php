@@ -6,6 +6,7 @@
         $('#addTxtModal').modal('hide');
         $('#addModal').modal('hide');
 
+        $('#addHolidayModal').modal('hide');
         $('#detailModal').modal('hide');
         $('#eraseModal').modal('hide');
     })
