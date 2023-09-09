@@ -14,7 +14,7 @@
 {{-- conteúdo plus --}}
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="12">
-        <x-layout.modal.modal-add-body-group-item-label item="employee_id" title="FUNCIONÁRIO" plus="none"/>
+        <x-layout.modal.modal-add-body-group-item-label item="employee_id" title="FUNCIONÁRIO" plus="employee"/>
 
         <select wire:model="employee_id" class="form-select form-select-sm text-uppercase" id="employee_id">
             <x-layout.modal.modal-add-body-group-item-option-muted/>
