@@ -103,7 +103,7 @@
                             @foreach($list as $item)
                                 <x-layout.card.card-body-content-table-body-line>
 
-{{-- conteúdo --}}  
+{{-- conteúdo --}} 
 <x-layout.card.card-body-content-table-body-line-cell width="">
     <x-layout.card.card-body-content-table-body-line-cell-id>
         <x-layout.card.card-body-content-table-body-line-cell-id-badge>
