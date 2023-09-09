@@ -1,11 +1,11 @@
 <x-layout.modal.modal-add modal="addEmployee" method="registerEmployee" size="">
     <x-layout.modal.modal-add-header icon="bi-receipt" modal="addEmployee">
-        Feriado de {{ $config['title'] }}
+        Funcionário de {{ $config['title'] }}
 
         <x-slot:identifier>
             {{ $company_name }}
             <br>
-            {{ $start }}<i class="bi-caret-right-fill text-muted"></i>{{ $end }}
+            {{ $start_decode }}<i class="bi-caret-right-fill text-muted"></i>{{ $end_decode }}
         </x-slot>
     </x-layout.modal.modal-add-header>
 

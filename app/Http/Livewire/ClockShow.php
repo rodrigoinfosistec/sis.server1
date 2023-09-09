@@ -45,6 +45,8 @@ class ClockShow extends Component
 
     public $date;
     public $name;
+    public $start_decode;
+    public $end_decode;
 
     public $employee_id;
 
@@ -111,8 +113,10 @@ class ClockShow extends Component
 
         $this->txt = '';
 
-        $this->date = '';
-        $this->name = '';
+        $this->date         = '';
+        $this->name         = '';
+        $this->start_decode = '';
+        $this->end_decode   = '';
 
         $this->employee_id = '';
     }
@@ -230,6 +234,8 @@ class ClockShow extends Component
         $this->company_name = $clock->company_name;
         $this->start        = $clock->start;
         $this->end          = $clock->end;
+        $this->start_decode = General::decodeDate($clock->start);
+        $this->end_decode   = General::decodeDate($clock->end);
         $this->created      = $clock->created_at->format('d/m/Y H:i:s');
     }
         public function registerHoliday()
@@ -278,6 +284,8 @@ class ClockShow extends Component
         $this->company_name = $clock->company_name;
         $this->start        = $clock->start;
         $this->end          = $clock->end;
+        $this->start_decode = General::decodeDate($clock->start);
+        $this->end_decode   = General::decodeDate($clock->end);
         $this->created      = $clock->created_at->format('d/m/Y H:i:s');
     }
         public function registerEmployee()
