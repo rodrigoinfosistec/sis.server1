@@ -3,7 +3,7 @@
         Feriado de {{ $config['title'] }}
 
         <x-slot:identifier>
-            {{ $clock_id }}
+            {{ $company_name }}
             <br>
             {{ $start }}<i class="bi-caret-right-fill text-muted"></i>{{ $end }}
         </x-slot>

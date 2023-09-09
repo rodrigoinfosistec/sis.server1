@@ -39,6 +39,11 @@ class ClockShow extends Component
 
     public $txt;
 
+    public $holiday_date;
+    public $holiday_week;
+    public $holiday_year;
+    public $holiday_name;
+
     /**
      * Construtor.
      */
@@ -61,6 +66,9 @@ class ClockShow extends Component
             'end'        => ['required'],
 
             'txt' => ['file', 'required'],
+
+            'holiday_date' => ['required', 'unique:holidays,date,'.$this->holiday_date.''],
+            'holiday_name' => ['required', 'between:2,255'],
         ];
     }
 
@@ -96,6 +104,11 @@ class ClockShow extends Component
         $this->created      = '';
 
         $this->txt = '';
+
+        $this->holiday_date = '';
+        $this->holiday_week = '';
+        $this->holiday_year = '';
+        $this->holiday_name = '';
     }
 
     /**
@@ -194,6 +207,49 @@ class ClockShow extends Component
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
             return redirect()->to('/clock');
+        }
+
+    /**
+     * addHoliday()
+     *  registerHoliday()
+     */
+    public function addHoliday(int $clock_id)
+    {
+        // Funcionário.
+        $clock = Clock::find($clock_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->clock_id     = $clock->id;
+        $this->company_id   = $clock->company_id;
+        $this->company_name = $clock->company_name;
+        $this->start        = General::decodeDate($clock->start);
+        $this->end          = General::decodeDate($clock->end);
+        $this->created      = $clock->created_at->format('d/m/Y H:i:s');
+    }
+        public function registerHoliday()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'holiday_date' => ['required', 'unique:holidays'],
+                'holiday_name' => ['required', 'between:2,255'],
+            ]);
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = Holiday::validateAdd($data);
+
+            // Cadastra.
+            if ($valid) Holiday::add($data);
+
+            // Executa dependências.
+            if ($valid) Holiday::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
         }
 
     /** 
