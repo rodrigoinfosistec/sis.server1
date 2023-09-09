@@ -2063,7 +2063,7 @@ class Audit extends Model
     }
     
     /**
-     * Auditoria Clock Add.
+     * Auditoria Clock Employee Add.
      * @var array $data
      * @var object $after
      * 
