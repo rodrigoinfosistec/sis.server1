@@ -140,12 +140,14 @@
 {{-- conteúdo --}} 
 
                                 </x-layout.card.card-body-content-table-body-line>
-<table>
+<table style="margin-bottom: 30px;">
+    @foreach(App\Models\Clockemployee::where('clock_id', $item->id)->get() as $key => $employee)
     <tr>
-        @foreach(App\Models\Clockemloyee::where('clock_id', $item->id) as $key => $employee)
+       
             <td>oi</td>
-        @endforeach
+        
     </tr>
+    @endforeach
 </table>
 
                             @endforeach
