@@ -46,6 +46,8 @@ class ClockShow extends Component
     public $date;
     public $name;
 
+    public $employee_id;
+
     /**
      * Construtor.
      */
@@ -71,6 +73,8 @@ class ClockShow extends Component
 
             'date' => ['required', 'unique:holidays,date,'.$this->date.''],
             'name' => ['required', 'between:2,255'],
+
+            'employee_id' => ['required'],
         ];
     }
 
@@ -109,6 +113,8 @@ class ClockShow extends Component
 
         $this->date = '';
         $this->name = '';
+
+        $this->employee_id = '';
     }
 
     /**

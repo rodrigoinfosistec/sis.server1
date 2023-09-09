@@ -1,5 +1,5 @@
 <x-layout.modal.modal-add modal="addHoliday" method="registerHoliday" size="">
-    <x-layout.modal.modal-add-header icon="bi-receipt" modal="addEfisco">
+    <x-layout.modal.modal-add-header icon="bi-receipt" modal="addHoliday">
         Feriado de {{ $config['title'] }}
 
         <x-slot:identifier>

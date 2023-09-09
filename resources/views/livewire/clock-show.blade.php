@@ -10,9 +10,10 @@
 @include('components.' .  $config['name'] . '.modals.add')
 
 {{-- info --}}
-@include('components.' .  $config['name'] . '.modals.add-holiday')
 
 {{-- ações --}}
+@include('components.' .  $config['name'] . '.modals.add-employee')
+@include('components.' .  $config['name'] . '.modals.add-holiday')
 @include('components.' .  $config['name'] . '.modals.detail')
 @include('components.' .  $config['name'] . '.modals.erase')
 {{-- modal --}}
@@ -128,6 +129,8 @@
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="150">
+    <x-layout.card.card-body-content-table-body-line-cell-action-add-employee :id="$item->id"/>
+
     <x-layout.card.card-body-content-table-body-line-cell-action-add-holiday :id="$item->id"/>
 
     <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
