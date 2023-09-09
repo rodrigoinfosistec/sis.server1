@@ -2061,7 +2061,7 @@ class Audit extends Model
 
         return true;
     }
-    
+
     /**
      * Auditoria Clock Employee Add.
      * @var array $data
@@ -2088,5 +2088,4 @@ class Audit extends Model
 
         return true;
     }
-
 }
