@@ -86,7 +86,7 @@ class Clockemployee extends Model
         ]);
 
         // After.
-        $after = Clockmployee::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $employee->id])->first();
+        $after = Clockemployee::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $employee->id])->first();
 
         // Auditoria.
         Audit::clockemployeeAdd($data, $after);
