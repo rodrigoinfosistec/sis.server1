@@ -132,34 +132,50 @@ class Clock extends Model
         // Ponto.
         $clock = Clock::where(['start' => $data['validatedData']['start'], 'end' => $data['validatedData']['end'], 'company_id' => $data['validatedData']['company_id']])->orderBy('id', 'DESC')->first();
 
-        // Percorre todos os funcionários do txt.
-        foreach($data['txtArray']['pis'] as $key => $pis):
-            // Funcionário.
-            $employee = Employee::where('pis', $pis)->first();
+        // Verifica se existe o array $data['txtArray'].
+        if(!empty($data['txtArray'])):
+            // Percorre todos os funcionários do txt.
+            foreach($data['txtArray']['pis'] as $key => $pis):
+                // Funcionário.
+                $employee = Employee::where('pis', $pis)->first();
 
-            // Vincula Funcionários ao ponto.
-            Clockemployee::create([
-                'clock_id'               => $clock->id,
-                'employee_id'            => $employee->id,
-                'journey_start_week'     => $employee->journey_start_week,
-                'journey_end_week'       => $employee->journey_end_week,
-                'journey_start_saturday' => $employee->journey_start_saturday,
-                'journey_end_saturday'   => $employee->journey_end_saturday,
-            ]);
-        endforeach;
+                // Vincula Funcionários ao ponto.
+                Clockemployee::create([
+                    'clock_id'               => $clock->id,
+                    'employee_id'            => $employee->id,
+                    'journey_start_week'     => $employee->journey_start_week,
+                    'journey_end_week'       => $employee->journey_end_week,
+                    'journey_start_saturday' => $employee->journey_start_saturday,
+                    'journey_end_saturday'   => $employee->journey_end_saturday,
+                ]);
+            endforeach;
 
-        // Percorre todos os eventos.
-        foreach($data['txtArray']['event'] as $key => $event):
-            // Vincula Eventos ao ponto.
-            Clockevent::create([
-                'clock_id'    => $clock->id,
-                'employee_id' => Employee::where('pis', $event['pis'])->first()->id,
-                'event'       => $event['event'],
-                'date'        => $event['date'],
-                'time'        => $event['time'],
-                'code'        => $event['code'],
-            ]);
-        endforeach;
+            // Percorre todos os eventos.
+            foreach($data['txtArray']['event'] as $key => $event):
+                // Vincula Eventos ao ponto.
+                Clockevent::create([
+                    'clock_id'    => $clock->id,
+                    'employee_id' => Employee::where('pis', $event['pis'])->first()->id,
+                    'event'       => $event['event'],
+                    'date'        => $event['date'],
+                    'time'        => $event['time'],
+                    'code'        => $event['code'],
+                ]);
+            endforeach;
+        else:
+            // Percorre todos os funcionários da empresa.
+            foreach(Employee::where('company_id', $data['validatedData']['company_id'])->get() as $key => $employee):
+                // Vincula Funcionários ao ponto.
+                Clockemployee::create([
+                    'clock_id'               => $clock->id,
+                    'employee_id'            => $employee->id,
+                    'journey_start_week'     => $employee->journey_start_week,
+                    'journey_end_week'       => $employee->journey_end_week,
+                    'journey_start_saturday' => $employee->journey_start_saturday,
+                    'journey_end_saturday'   => $employee->journey_end_saturday,
+                ]);
+            endforeach;
+        endif;
 
         return true;
     }
