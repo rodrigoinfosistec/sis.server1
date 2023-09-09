@@ -16,11 +16,16 @@
     <x-layout.modal.modal-add-body-group-item columms="12">
         <x-layout.modal.modal-add-body-group-item-label item="employee_id" title="FUNCIONÁRIO" plus="employee"/>
 
+        @php
+            
+        @endphp
         <select wire:model="employee_id" class="form-select form-select-sm text-uppercase" id="employee_id">
             <x-layout.modal.modal-add-body-group-item-option-muted/>
 
             @foreach(App\Models\Employee::where('company_id', $company_id)->get() as $key => $employee)
-                <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                @if(App\Models\Clockemployee::where(['clock_id' => $clock_id, 'employee_id' => $employee->id])->doesntExist())
+                    <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+                @endif
             @endforeach
         </select>
 
