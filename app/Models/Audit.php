@@ -1966,7 +1966,7 @@ class Audit extends Model
 
         return true;
     }
-    
+
     /**
      * Auditoria Clock Add.
      * @var array $data
@@ -2061,4 +2061,32 @@ class Audit extends Model
 
         return true;
     }
+    
+    /**
+     * Auditoria Clock Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function clockemployeeAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='                     . $after->id                     . ',' .
+                'clock_id='               . $after->clock_id               . ',' .
+                'employee_id='            . $after->employee_id            . ',' .
+                'journey_start_week='     . $after->journey_start_week     . ',' .
+                'journey_end_week='       . $after->journey_end_week       . ',' .
+                'journey_start_saturday=' . $after->journey_start_saturday . ',' .
+                'journey_end_saturday='   . $after->journey_end_saturday   . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
 }
