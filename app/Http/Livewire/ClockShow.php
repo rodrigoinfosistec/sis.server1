@@ -8,6 +8,7 @@ use App\Models\Report;
 use App\Models\General;
 
 use App\Models\Clock;
+use App\Models\Clockemployee;
 use App\Models\Holiday;
 use App\Models\Employee;
 
@@ -290,13 +291,13 @@ class ClockShow extends Component
     }
         public function registerEmployee()
         {
-            // Funcionário.
-            $employee = Employee::where('')->first();
-
             // Valida campos.
             $validatedData = $this->validate([
                 'employee_id' => ['required'],
             ]);
+
+            // Estende $validatedData.
+            $validatedData['clock_id'] = $this->clock_id;
 
             // Define $data.
             $data['config']['title'] = 'Funcionário';
