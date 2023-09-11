@@ -144,17 +144,47 @@
                                 <x-layout.card.card-body-content-table>
                                     <x-layout.card.card-body-content-table-body>
                                         @php
-                                            $employees = App\Models\Clockemployee::where('clock_id', $item->id)->get();
+                                            $employees = App\Models\Clockemployee::where('clock_id', $item->id)->orderBy('name', 'ASC')->get();
                                         @endphp
                                         @if($employees->count() > 0)
-                                            @foreach(App\Models\Clockemployee::where('clock_id', $item->id)->get() as $key => $employee)
+                                            @foreach($employees as $key => $employee)
+                                            <x-layout.card.card-body-content-table-body-line>
 {{-- funcionários --}}
-<tr>
+<x-layout.card.card-body-content-table-body-line-cell width="">
+    <x-layout.card.card-body-content-table-body-line-cell-id>
+        <x-layout.card.card-body-content-table-body-line-cell-id-badge>
+            {{ str_pad($loop->iteration, Str::length($list->count()), '0', STR_PAD_LEFT); }}
+        </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
-<td>oi</td>
+        <x-layout.card.card-body-content-table-body-line-cell-id-start>
+            <span class="text-muted">
+                {{-- App\Models\General::decodeDate($item->start) --}}
+                <i class="bi-caret-right-fill text-muted"></i>
+                {{-- App\Models\General::decodeDate($item->end) --}}
+            </span>
+        </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
-</tr>
+        <x-layout.card.card-body-content-table-body-line-cell-id-end>
+            {{-- ... --}}
+        </x-layout.card.card-body-content-table-body-line-cell-id-end>
+    </x-layout.card.card-body-content-table-body-line-cell-id>
+
+    <x-layout.card.card-body-content-table-body-line-cell-content>
+        {{ $employee->employee->name }}
+    </x-layout.card.card-body-content-table-body-line-cell-content>
+</x-layout.card.card-body-content-table-body-line-cell>
+
+<x-layout.card.card-body-content-table-body-line-cell-action width="150">
+    <x-layout.card.card-body-content-table-body-line-cell-action-add-employee :id="$employee->id"/>
+
+    <x-layout.card.card-body-content-table-body-line-cell-action-add-holiday :id="$employee->id"/>
+
+    <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$employee->id"/>
+
+    <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$employee->id"/>
+</x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- funcionários --}}
+                                                </x-layout.card.card-body-content-table-body-line>
                                             @endforeach
                                         @else
 
