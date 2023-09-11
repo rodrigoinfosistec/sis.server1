@@ -272,54 +272,6 @@ class ClockShow extends Component
             $this->dispatchBrowserEvent('close-modal');
         }
 
-    /**
-     * addEmployee()
-     *  registerEmployee()
-     */
-    public function addEmployee(int $clock_id)
-    {
-        // Funcionário.
-        $clock = Clock::find($clock_id);
-
-        // Inicializa propriedades dinâmicas.
-        $this->clock_id     = $clock->id;
-        $this->company_id   = $clock->company_id;
-        $this->company_name = $clock->company_name;
-        $this->start        = $clock->start;
-        $this->end          = $clock->end;
-        $this->start_decode = General::decodeDate($clock->start);
-        $this->end_decode   = General::decodeDate($clock->end);
-        $this->created      = $clock->created_at->format('d/m/Y H:i:s');
-    }
-        public function registerEmployee()
-        {
-            // Valida campos.
-            $validatedData = $this->validate([
-                'employee_id' => ['required'],
-            ]);
-
-            // Estende $validatedData.
-            $validatedData['clock_id'] = $this->clock_id;
-
-            // Define $data.
-            $data['config']['title'] = 'Funcionário';
-            $data['config']['name']  = $this->config['name'];
-            $data['validatedData']   = $validatedData;
-
-            // Valida cadastro.
-            $valid = Clockemployee::validateAdd($data);
-
-            // Cadastra.
-            if ($valid) Clockemployee::add($data);
-
-            // Executa dependências.
-            if ($valid) Clockemployee::dependencyAdd($data);
-
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
-        }
-
     /** 
      * detail()
      */
@@ -491,4 +443,53 @@ class ClockShow extends Component
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
         }
+
+    /**
+     * addEmployee()
+     *  registerEmployee()
+     */
+    public function addEmployee(int $clock_id)
+    {
+        // Funcionário.
+        $clock = Clock::find($clock_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->clock_id     = $clock->id;
+        $this->company_id   = $clock->company_id;
+        $this->company_name = $clock->company_name;
+        $this->start        = $clock->start;
+        $this->end          = $clock->end;
+        $this->start_decode = General::decodeDate($clock->start);
+        $this->end_decode   = General::decodeDate($clock->end);
+        $this->created      = $clock->created_at->format('d/m/Y H:i:s');
+    }
+        public function registerEmployee()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'employee_id' => ['required'],
+            ]);
+
+            // Estende $validatedData.
+            $validatedData['clock_id'] = $this->clock_id;
+
+            // Define $data.
+            $data['config']['title'] = 'Funcionário';
+            $data['config']['name']  = $this->config['name'];
+            $data['validatedData']   = $validatedData;
+
+            // Valida cadastro.
+            $valid = Clockemployee::validateAdd($data);
+
+            // Cadastra.
+            if ($valid) Clockemployee::add($data);
+
+            // Executa dependências.
+            if ($valid) Clockemployee::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
 }
