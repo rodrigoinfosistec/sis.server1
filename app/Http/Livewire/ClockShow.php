@@ -177,6 +177,8 @@ class ClockShow extends Component
         $this->note       = '';
         $this->date_start = '';
         $this->date_end   = '';
+        $this->discount   = '';
+        $this->merged     = '';
     }
 
     /**
