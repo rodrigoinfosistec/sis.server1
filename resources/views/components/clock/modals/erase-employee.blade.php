@@ -19,46 +19,41 @@
 {{-- conteúdo --}}
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
-        ID
+        PIS
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
-        {{-- $clock_id --}}
+        {{ $clockemployee_employee_pis }}
     </x-layout.modal.modal-erase-body-line-content>
 </x-layout.modal.modal-erase-body-line>
 
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
-        EMPRESA
+        FUNCIONÁRIO
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
-        {{-- $company_name --}}
+        {{ $clockemployee_employee_name }}
     </x-layout.modal.modal-erase-body-line-content>
 </x-layout.modal.modal-erase-body-line>
 
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
-        INÍCIO
+        SEMANA
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
-        
+        INÍCIO<i class=""></i>{{ $clockemployee_journey_start_week }}
+        <br>
+        FINAL<i class=""></i>{{ $clockemployee_journey_start_week }}
     </x-layout.modal.modal-erase-body-line-content>
 </x-layout.modal.modal-erase-body-line>
 
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
-        FINAL
+        SÁBADO
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
-        {{-- $end --}}
-    </x-layout.modal.modal-erase-body-line-content>
-</x-layout.modal.modal-erase-body-line>
-
-<x-layout.modal.modal-erase-body-line>
-    <x-layout.modal.modal-erase-body-line-title>
-        CADASTRO
-    </x-layout.modal.modal-erase-body-line-title>
-    <x-layout.modal.modal-erase-body-line-content>
-        {{-- $created --}}
+        INÍCIO<i class=""></i>{{ $clockemployee_journey_start_saturday }}
+        <br>
+        FINAL<i class=""></i>{{ $clockemployee_journey_start_saturday }}
     </x-layout.modal.modal-erase-body-line-content>
 </x-layout.modal.modal-erase-body-line>
 {{-- conteúdo --}}

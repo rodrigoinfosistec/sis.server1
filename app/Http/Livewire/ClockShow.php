@@ -55,6 +55,8 @@ class ClockShow extends Component
     public $clockemployee_id;
     public $clockemployee_clock_id;
     public $clockemployee_employee_id;
+    public $clockemployee_employee_name;
+    public $clockemployee_employee_pis;
     public $clockemployee_journey_start_week;
     public $clockemployee_journey_end_week;
     public $clockemployee_journey_start_saturday;
@@ -139,6 +141,8 @@ class ClockShow extends Component
         $this->clockemployee_id                     = '';
         $this->clockemployee_clock_id               = '';
         $this->clockemployee_employee_id            = '';
+        $this->clockemployee_employee_name          = '';
+        $this->clockemployee_employee_pis           = '';
         $this->clockemployee_journey_start_week     = '';
         $this->clockemployee_journey_end_week       = '';
         $this->clockemployee_journey_start_saturday = '';
@@ -529,40 +533,40 @@ class ClockShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->clockemployee_id                     = $clockemployee->id;
-        $this->clockemployee_conck_id               = $clockemployee->clock_id ;
+        $this->clockemployee_clock_id               = $clockemployee->clock_id ;
         $this->clockemployee_employee_id            = $clockemployee->employee_id ;
         $this->clockemployee_employee_name          = $clockemployee->employee_name;
+        $this->clockemployee_employee_pis           = $clockemployee->employee->pis;
         $this->clockemployee_journey_start_week     = $clockemployee->journey_start_week;
         $this->clockemployee_journey_end_week       = $clockemployee->journey_end_week;
         $this->clockemployee_journey_start_saturday = $clockemployee->journey_start_saturday;
         $this->clockemployee_journey_end_saturday   = $clockemployee->journey_end_saturday;
-        $this->clockemployee_delay_total            = $clockemployee->delay_total;
-        $this->clockemployee_extra_total            = $clockemployee->extra_total;
-        $this->clockemployee_balance_total          = $clockemployee->balance_total;
-        $this->clockemployee_note                   = $clockemployee->note;
-        $this->clockemployee_authorized             = $clockemployee->authorized;
     }
         public function excludeEmployee()
         {
             // Define $validatedData
-            $validatedData['clock_id']     = $this->clock_id;
-            $validatedData['company_id']   = $this->company_id;
-            $validatedData['company_name'] = $this->company_name;
-            $validatedData['start']        = $this->start;
-            $validatedData['end']          = $this->end;
+            $validatedData['clockemployee_id']       = $this->clockemployee_id;
+            $validatedData['clock_id']               = $this->clockemployee_clock_id;
+            $validatedData['employee_id']            = $this->clockemployee_employee_id ;
+            $validatedData['employee_name']          = $this->clockemployee_employee_name;
+            $validatedData['journey_start_week']     = $this->clockemployee_journey_start_week;
+            $validatedData['journey_end_week']       = $this->clockemployee_journey_end_week;
+            $validatedData['journey_start_saturday'] = $this->clockemployee_journey_start_saturday;
+            $validatedData['journey_end_saturday']   = $this->clockemployee_journey_end_saturday;
+           
 
             // Define $data.
             $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;
 
             // Valida exclusão.
-            $valid = Clock::validateErase($data);
+            $valid = Clockemployee::validateErase($data);
 
             // Executa dependências.
-            if ($valid) Clock::dependencyErase($data);
+            if ($valid) Clockemployee::dependencyErase($data);
 
             // Exclui.
-            if ($valid) Clock::erase($data);
+            if ($valid) Clockemployee::erase($data);
 
             // Fecha modal.
             $this->closeModal();
