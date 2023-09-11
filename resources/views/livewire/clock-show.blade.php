@@ -140,7 +140,9 @@
 {{-- conteúdo --}} 
 
                                 </x-layout.card.card-body-content-table-body-line>
-<table style="margin-bottom: 30px;">
+
+                                <div style="margin-bottom: 30px;">
+<table>
     @foreach(App\Models\Clockemployee::where('clock_id', $item->id)->get() as $key => $employee)
     <tr>
        
@@ -149,7 +151,7 @@
     </tr>
     @endforeach
 </table>
-
+                                </div>
                             @endforeach
                         @else
                             <x-layout.card.card-body-content-table-body-item-none/>
