@@ -53,7 +53,16 @@ class ClockShow extends Component
     public $employee_name;
 
     public $clockemployee_id;
-    public $clockemployee_id;
+    public $clockemployee_employee_id;
+    public $clockemployee_journey_start_week;
+    public $clockemployee_journey_end_week;
+    public $clockemployee_journey_start_saturday;
+    public $clockemployee_journey_end_saturday;
+    public $clockemployee_delay_total;
+    public $clockemployee_extra_total;
+    public $clockemployee_balance_total;
+    public $clockemployee_note;
+    public $clockemployee_authorized;
 
     /**
      * Construtor.
