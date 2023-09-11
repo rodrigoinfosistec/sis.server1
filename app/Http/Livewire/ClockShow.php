@@ -70,6 +70,8 @@ class ClockShow extends Component
     public $clockemployee_start_decode;
     public $clockemployee_end_decode;
 
+    public $note;
+
     /**
      * Construtor.
      */
@@ -98,7 +100,7 @@ class ClockShow extends Component
 
             'employee_id' => ['required'],
 
-            'clockemployee_note' => ['nullable', 'between:2,255'],
+            'note' => ['nullable', 'between:2,255'],
         ];
     }
 
@@ -160,6 +162,7 @@ class ClockShow extends Component
         $this->clockemployee_company_name           = '';
         $this->clockemployee_start_decode           = '';
         $this->clockemployee_end_decode             = '';
+        $this->note                                 = '';
     }
 
     /**
