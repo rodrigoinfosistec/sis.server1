@@ -2075,7 +2075,7 @@ class Audit extends Model
             'user_name' => Str::upper(auth()->user()->name),
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
-            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+            'extensive' => '[cadastrou]' . 'Funcionário de ' . $data['config']['title'] . '{' .
                 'id='                     . $after->id                     . ',' .
                 'clock_id='               . $after->clock_id               . ',' .
                 'employee_id='            . $after->employee_id            . ',' .
@@ -2084,6 +2084,34 @@ class Audit extends Model
                 'journey_end_week='       . $after->journey_end_week       . ',' .
                 'journey_start_saturday=' . $after->journey_start_saturday . ',' .
                 'journey_end_saturday='   . $after->journey_end_saturday   . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+    
+    /**
+     * Auditoria Clock Employee Erase.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function clockemployeeErase(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[excluíu]' . 'Funcionário de ' . $data['config']['title'] . '{' .
+                'id='                     . $data['validatedData']['clockemployee_id']       . ',' .
+                'clock_id='               . $data['validatedData']['clock_id']               . ',' .
+                'employee_id='            . $data['validatedData']['employee_id']            . ',' .
+                'employee_name='          . $data['validatedData']['employee_name']          . ',' .
+                'journey_start_week='     . $data['validatedData']['journey_start_week']     . ',' .
+                'journey_end_week='       . $data['validatedData']['journey_end_week']       . ',' .
+                'journey_start_saturday=' . $data['validatedData']['journey_start_saturday'] . ',' .
+                'journey_end_saturday='   . $data['validatedData']['journey_end_saturday']   . ',' .
             '}',
         ]);
 
