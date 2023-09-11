@@ -94,7 +94,7 @@
             @foreach(App\Models\Invoiceitem::where('invoice_id', $invoice_id)->get() as $key => $invoiceitem)
                 <tr>
                     {{-- ITEM --}}
-                    <th rowspan="2" class="align-middle" style="line-height: 1; padding: 0;">
+                    <td rowspan="2" class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text-break text-center" style="width: 40px; font-size: 9pt;">
                             <span class="badge rounded-pill bg-secondary">
                                 {{ str_pad($invoiceitem->identifier, Str::length(App\Models\Invoiceitem::where('invoice_id', $invoice_id)->get()->count()), '0', STR_PAD_LEFT); }}

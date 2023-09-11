@@ -22,18 +22,46 @@
                     </div>
                 </div>
             </th>
+
+            <th class="" style="padding: 0;">
+                <div class="" style="width: 80px;">
+                    DIA
+                </div>
+            </th>
+
+            <th class="" style="padding: 0;">
+                <div class="text-center" style="width: 80px;">
+                    ENTRADA
+                </div>
+            </th>
         </thead>
 
         </tbody>
             @php $date = $this->clock_start; @endphp
             @while($date <= $this->clock_end)
-                <tr>
+                <tr style="border-bottom: 1px solid #ddd;">
                     {{-- CHECKBOX --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="" style="width: 22px;">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" style="width: 15px; height: 15px;" onchange="closest('tr').classList.toggle('row_selected')">
                             </div>
+                        </div>
+                    </td>
+
+                    {{-- DIA--}}
+                    <td class="align-middle" style="line-height: 1.2; padding: 0;">
+                        <div class="" style="width: 80px; font-size: 7pt;">
+                            {{ Illuminate\Support\Str::upper(App\Models\General::decodeWeek(date_format(date_create($date), 'l'))) }}
+                            <br>
+                            <span class="text-dark fw-bold" style="font-size: 8pt;">{{ date_format(date_create($date), 'd/m/y') }}</span>
+                        </div>
+                    </td>
+
+                    {{-- ENTRADA --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="" style="width: 80px;">
+                            <input type="time" wire:model="array_date_input.{{ $date }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_input_{{ $date }}">
                         </div>
                     </td>
                 </tr>

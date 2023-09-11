@@ -84,6 +84,8 @@ class ClockShow extends Component
     public $clock_start;
     public $clock_end;
 
+    public $array_date_input = [];
+
     /**
      * Construtor.
      */
@@ -185,6 +187,8 @@ class ClockShow extends Component
 
         $this->clock_start = '';
         $this->clock_end   = '';
+
+        $this->array_date_input = [];
     }
 
     /**
