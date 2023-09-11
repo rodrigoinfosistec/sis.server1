@@ -19,11 +19,11 @@
 @include('components.' .  $config['name'] . '.modals.erase')
 
 {{-- funmcionários --}}
+@include('components.' .  $config['name'] . '.modals.add-vacation-employee')
 @include('components.' .  $config['name'] . '.modals.add-attest-employee')
 @include('components.' .  $config['name'] . '.modals.add-absence-employee')
-@include('components.' .  $config['name'] . '.modals.add-vacation-employee')
-@include('components.' .  $config['name'] . '.modals.add-easy-employee')
 @include('components.' .  $config['name'] . '.modals.add-allowance-employee')
+@include('components.' .  $config['name'] . '.modals.add-easy-employee')
 @include('components.' .  $config['name'] . '.modals.edit-note-employee')
 @include('components.' .  $config['name'] . '.modals.erase-employee')
 
@@ -178,12 +178,13 @@
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
-<x-layout.card.card-body-content-table-body-line-cell-action width="150">
+<x-layout.card.card-body-content-table-body-line-cell-action width="180">
     <x-layout.card.card-body-content-table-body-line-cell-action-add-vacation-employee :id="$clockemployee->id"/>
     <x-layout.card.card-body-content-table-body-line-cell-action-add-attest-employee :id="$clockemployee->id"/>
     <x-layout.card.card-body-content-table-body-line-cell-action-add-absence-employee :id="$clockemployee->id"/>
-    <x-layout.card.card-body-content-table-body-line-cell-action-add-easy-employee :id="$clockemployee->id"/>
     <x-layout.card.card-body-content-table-body-line-cell-action-add-allowance-employee :id="$clockemployee->id"/>
+    <x-layout.card.card-body-content-table-body-line-cell-action-add-easy-employee :id="$clockemployee->id"/>
+    
 
     <x-layout.card.card-body-content-table-body-line-cell-action-edit-note-employee :id="$clockemployee->id"/>
 
