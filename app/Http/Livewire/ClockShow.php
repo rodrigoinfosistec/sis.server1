@@ -563,7 +563,6 @@ class ClockShow extends Component
             $validatedData['journey_end_week']       = $this->clockemployee_journey_end_week;
             $validatedData['journey_start_saturday'] = $this->clockemployee_journey_start_saturday;
             $validatedData['journey_end_saturday']   = $this->clockemployee_journey_end_saturday;
-           
 
             // Define $data.
             $data['config']        = $this->config;

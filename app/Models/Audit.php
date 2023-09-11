@@ -2093,11 +2093,10 @@ class Audit extends Model
     /**
      * Auditoria Clock Employee Erase.
      * @var array $data
-     * @var object $after
      * 
      * @return bool true
      */
-    public static function clockemployeeErase(array $data, object $after) : bool {
+    public static function clockemployeeErase(array $data) : bool {
         Audit::create([
             'user_id'   => auth()->user()->id,
             'user_name' => Str::upper(auth()->user()->name),
