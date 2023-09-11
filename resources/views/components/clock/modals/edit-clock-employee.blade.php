@@ -40,13 +40,13 @@
                     PAUSA (INÍCIO)
                 </div>
             </th>
-            
+
             <th class="" style="padding: 0;">
                 <div class="text-center" style="width: 80px;">
                     PAUSA (FINAL)
                 </div>
             </th>
-            
+
             <th class="" style="padding: 0;">
                 <div class="text-center" style="width: 80px;">
                     SAÍDA
