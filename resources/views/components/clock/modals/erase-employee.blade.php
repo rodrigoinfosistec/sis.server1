@@ -3,7 +3,9 @@
         Funcionário do {{ $config['title'] }}
         
         <x-slot:identifier>
-            {{-- ... --}}
+            {{ $clockemployee_company_name }}
+            <br>
+            {{ $clockemployee_start_decode }}<i class="bi-caret-right-fill text-muted"></i>{{ $clockemployee_end_decode }}
         </x-slot>
     </x-layout.modal.modal-erase-header>
 
@@ -40,9 +42,9 @@
         SEMANA
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
-        INÍCIO<i class=""></i>{{ $clockemployee_journey_start_week }}
+        INÍCIO<i class="bi-caret-right-fill text-muted"></i>{{ $clockemployee_journey_start_week }}
         <br>
-        FINAL<i class=""></i>{{ $clockemployee_journey_start_week }}
+        FINAL<i class="bi-caret-right-fill text-muted"></i>{{ $clockemployee_journey_end_week }}
     </x-layout.modal.modal-erase-body-line-content>
 </x-layout.modal.modal-erase-body-line>
 
@@ -51,9 +53,9 @@
         SÁBADO
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
-        INÍCIO<i class=""></i>{{ $clockemployee_journey_start_saturday }}
+        INÍCIO<i class="bi-caret-right-fill text-muted"></i>{{ $clockemployee_journey_start_saturday }}
         <br>
-        FINAL<i class=""></i>{{ $clockemployee_journey_start_saturday }}
+        FINAL<i class="bi-caret-right-fill text-muted"></i>{{ $clockemployee_journey_end_saturday }}
     </x-layout.modal.modal-erase-body-line-content>
 </x-layout.modal.modal-erase-body-line>
 {{-- conteúdo --}}

@@ -66,6 +66,9 @@ class ClockShow extends Component
     public $clockemployee_balance_total;
     public $clockemployee_note;
     public $clockemployee_authorized;
+    public $clockemployee_company_name;
+    public $clockemployee_start_decode;
+    public $clockemployee_end_decode;
 
     /**
      * Construtor.
@@ -152,6 +155,9 @@ class ClockShow extends Component
         $this->clockemployee_balance_total          = '';
         $this->clockemployee_note                   = '';
         $this->clockemployee_authorized             = '';
+        $this->clockemployee_company_name           = '';
+        $this->clockemployee_start_decode           = '';
+        $this->clockemployee_end_decode             = '';
     }
 
     /**
