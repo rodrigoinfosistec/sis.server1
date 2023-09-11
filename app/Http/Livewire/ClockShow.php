@@ -492,4 +492,47 @@ class ClockShow extends Component
             $this->dispatchBrowserEvent('close-modal');
         }
 
+    /**
+     * eraseEmployee()
+     *  excludeEmployee()
+     */
+    public function eraseEmployee(int $employee_id)
+    {
+        // Funcionário.
+        $employee = Employee::find($employee_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->employee_id  = $employee->employee->id;
+        $this->company_id   = $clock->company_id;
+        $this->company_name = $clock->company_name;
+        $this->start        = General::decodeDate($clock->start);
+        $this->end          = General::decodeDate($clock->end);
+        $this->created      = $clock->created_at->format('d/m/Y H:i:s');
+    }
+        public function excludeEmployee()
+        {
+            // Define $validatedData
+            $validatedData['clock_id']     = $this->clock_id;
+            $validatedData['company_id']   = $this->company_id;
+            $validatedData['company_name'] = $this->company_name;
+            $validatedData['start']        = $this->start;
+            $validatedData['end']          = $this->end;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida exclusão.
+            $valid = Clock::validateErase($data);
+
+            // Executa dependências.
+            if ($valid) Clock::dependencyErase($data);
+
+            // Exclui.
+            if ($valid) Clock::erase($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
 }
