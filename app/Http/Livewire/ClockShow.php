@@ -558,7 +558,7 @@ class ClockShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'clockemployee_note' => ['nullable', 'between:2,255'],
+                'clockemployee_note' => ['required', 'between:2,255'],
             ]);
 
             // Estende $validatedData
