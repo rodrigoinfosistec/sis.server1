@@ -141,17 +141,26 @@
 
                                 </x-layout.card.card-body-content-table-body-line>
 
-                                <div style="margin-bottom: 30px;">
-<table>
-    @foreach(App\Models\Clockemployee::where('clock_id', $item->id)->get() as $key => $employee)
-    <tr>
-       
-            <td>oi</td>
-        
-    </tr>
-    @endforeach
-</table>
-                                </div>
+                                <x-layout.card.card-body-content-table>
+                                    <x-layout.card.card-body-content-table-body>
+                                        @php
+                                            $employees = App\Models\Clockemployee::where('clock_id', $item->id)->get();
+                                        @endphp
+                                        @if($employees->count() > 0)
+                                            @foreach(App\Models\Clockemployee::where('clock_id', $item->id)->get() as $key => $employee)
+{{-- funcionários --}}
+<tr>
+
+<td>oi</td>
+
+</tr>
+{{-- funcionários --}}
+                                            @endforeach
+                                        @else
+
+                                        @endif
+                                    </x-layout.card.card-body-content-table-body>
+                                </x-layout.card.card-body-content-table>
                             @endforeach
                         @else
                             <x-layout.card.card-body-content-table-body-item-none/>
