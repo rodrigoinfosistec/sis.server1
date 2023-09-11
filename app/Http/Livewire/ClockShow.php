@@ -76,6 +76,8 @@ class ClockShow extends Component
     public $note;
     public $date_start;
     public $date_end;
+    public $discount;
+    public $merged;
 
     /**
      * Construtor.
@@ -702,6 +704,118 @@ class ClockShow extends Component
 
             // Executa dependências.
             if ($valid) Employeeabsence::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * addEasyEmployee()
+     *  registerEasyEmployee()
+     */
+    public function addEasyEmployee(int $clockemployee_id)
+    {
+        // Funcionário.
+        $clockemployee = Clockemployee::find($clockemployee_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->clockemployee_id                     = $clockemployee->id;
+        $this->clockemployee_clock_id               = $clockemployee->clock_id ;
+        $this->clockemployee_employee_id            = $clockemployee->employee_id ;
+        $this->clockemployee_employee_name          = $clockemployee->employee_name;
+        $this->clockemployee_employee_pis           = $clockemployee->employee->pis;
+        $this->clockemployee_journey_start_week     = $clockemployee->journey_start_week;
+        $this->clockemployee_journey_end_week       = $clockemployee->journey_end_week;
+        $this->clockemployee_journey_start_saturday = $clockemployee->journey_start_saturday;
+        $this->clockemployee_journey_end_saturday   = $clockemployee->journey_end_saturday;
+        $this->employee_id                          = $clockemployee->employee_id;
+
+        $this->clockemployee_company_name           = $clockemployee->clock->company_name;
+        $this->clockemployee_start_decode           = General::decodeDate($clockemployee->clock->start);
+        $this->clockemployee_end_decode             = General::decodeDate($clockemployee->clock->end);
+    }
+        public function registerEasyEmployee()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'date'  => ['required'],
+            ]);
+
+            // Estende $validatedData.
+            $validatedData['employee_id'] = $this->employee_id;
+            $this->discount ? $validatedData['discount'] = true : $validatedData['discount'] = false;
+
+            // Define $data.
+            $data['config']['title'] = 'Falta';
+            $data['config']['name']  = $this->config['name'];
+            $data['validatedData']   = $validatedData;
+
+            // Valida cadastro.
+            $valid = Employeeeasy::validateAdd($data);
+
+            // Cadastra.
+            if ($valid) Employeeeasy::add($data);
+
+            // Executa dependências.
+            if ($valid) Employeeeasy::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * addEasyEmployee()
+     *  registerEasyEmployee()
+     */
+    public function addAllowanceEmployee(int $clockemployee_id)
+    {
+        // Funcionário.
+        $clockemployee = Clockemployee::find($clockemployee_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->clockemployee_id                     = $clockemployee->id;
+        $this->clockemployee_clock_id               = $clockemployee->clock_id ;
+        $this->clockemployee_employee_id            = $clockemployee->employee_id ;
+        $this->clockemployee_employee_name          = $clockemployee->employee_name;
+        $this->clockemployee_employee_pis           = $clockemployee->employee->pis;
+        $this->clockemployee_journey_start_week     = $clockemployee->journey_start_week;
+        $this->clockemployee_journey_end_week       = $clockemployee->journey_end_week;
+        $this->clockemployee_journey_start_saturday = $clockemployee->journey_start_saturday;
+        $this->clockemployee_journey_end_saturday   = $clockemployee->journey_end_saturday;
+        $this->employee_id                          = $clockemployee->employee_id;
+
+        $this->clockemployee_company_name           = $clockemployee->clock->company_name;
+        $this->clockemployee_start_decode           = General::decodeDate($clockemployee->clock->start);
+        $this->clockemployee_end_decode             = General::decodeDate($clockemployee->clock->end);
+    }
+        public function registerAllowanceEmployee()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'date'        => ['required'],
+                'start'       => ['required'],
+                'end'         => ['required'],
+            ]);
+
+            // Estende $validatedData.
+            $validatedData['employee_id'] = $this->employee_id;
+            $this->merged ? $validatedData['merged'] = true : $validatedData['merged'] = false;
+
+            // Define $data.
+            $data['config']['title'] = 'Falta';
+            $data['config']['name']  = $this->config['name'];
+            $data['validatedData']   = $validatedData;
+
+            // Valida cadastro.
+            $valid = Employeeallowance::validateAdd($data);
+
+            // Cadastra.
+            if ($valid) Employeeallowance::add($data);
+
+            // Executa dependências.
+            if ($valid) Employeeallowance::dependencyAdd($data);
 
             // Fecha modal.
             $this->closeModal();

@@ -61,7 +61,6 @@ class EmployeeallowanceShow extends Component
             'date'        => ['required'],
             'start'       => ['required'],
             'end'         => ['required'],
-            'start'       => ['required'],
         ];
     }
 
