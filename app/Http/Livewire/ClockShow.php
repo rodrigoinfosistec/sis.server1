@@ -534,7 +534,7 @@ class ClockShow extends Component
      * editEmployeeNote()
      *  modernizeEmployeeNote()
      */
-    public function editEmployeeNote(int $clockemployee_id)
+    public function editNoteEmployee(int $clockemployee_id)
     {
         // Funcionário.
         $clockemployee = Clockemployee::find($clockemployee_id);
@@ -554,7 +554,7 @@ class ClockShow extends Component
         $this->clockemployee_start_decode           = General::decodeDate($clockemployee->clock->start);
         $this->clockemployee_end_decode             = General::decodeDate($clockemployee->clock->end);
     }
-        public function modernizeEmployeeNote()
+        public function modernizeNoteEmployee()
         {
             // Valida campos.
             $validatedData = $this->validate([

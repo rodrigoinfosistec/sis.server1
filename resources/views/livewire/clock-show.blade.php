@@ -18,6 +18,7 @@
 @include('components.' .  $config['name'] . '.modals.erase')
 
 {{-- funmcionários --}}
+@include('components.' .  $config['name'] . '.modals.edit-note-employee')
 @include('components.' .  $config['name'] . '.modals.erase-employee')
 
 {{-- modal --}}
@@ -172,6 +173,8 @@
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="150">
+    <x-layout.card.card-body-content-table-body-line-cell-action-edit-note-employee :id="$clockemployee->id"/>
+
     <x-layout.card.card-body-content-table-body-line-cell-action-erase-employee :id="$clockemployee->id"/>
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- funcionários --}}
