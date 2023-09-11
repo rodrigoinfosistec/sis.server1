@@ -1,6 +1,6 @@
-<x-layout.modal.modal-add modal="addVacationEmployee" method="registerVacationEmployee" size="">
-    <x-layout.modal.modal-add-header icon="bi-sun" modal="addVacationEmployee">
-        Férias do Funcionário
+<x-layout.modal.modal-add modal="addAbsenceEmployee" method="registerAbsenceEmployee" size="">
+    <x-layout.modal.modal-add-header icon="bi-clipboard-x" modal="addAbsenceEmployee">
+        Falta do Funcionário
 
         <x-slot:identifier>
             <span class="text-primary">{{ $clockemployee_employee_name }}</span>
@@ -9,7 +9,7 @@
         </x-slot>
     </x-layout.modal.modal-add-header>
 
-    <x-layout.modal.modal-add-body method="registerVacationEmployee">
+    <x-layout.modal.modal-add-body method="registerAbsenceEmployee">
 
 {{-- conteúdo --}}
 <x-layout.modal.modal-add-body-group>

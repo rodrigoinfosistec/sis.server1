@@ -11,6 +11,9 @@
         $('#detailModal').modal('hide');
         $('#eraseModal').modal('hide');
 
+        $('#addVacationEmployeeModal').modal('hide');
+        $('#addAttestEmployeeModal').modal('hide');
+        $('#addAbsenceEmployeeModal').modal('hide');
         $('#editNoteEmployeeModal').modal('hide');
         $('#eraseEmployeeModal').modal('hide');
     })
