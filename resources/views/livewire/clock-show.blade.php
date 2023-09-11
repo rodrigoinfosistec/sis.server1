@@ -16,6 +16,10 @@
 @include('components.' .  $config['name'] . '.modals.add-holiday')
 @include('components.' .  $config['name'] . '.modals.detail')
 @include('components.' .  $config['name'] . '.modals.erase')
+
+{{-- funmcionários --}}
+@include('components.' .  $config['name'] . '.modals.erase-employee')
+
 {{-- modal --}}
 
     <x-layout.alert/>
@@ -167,11 +171,7 @@
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="150">
-    <x-layout.card.card-body-content-table-body-line-cell-action-add-employee :id="$clockemployee->id"/>
-
-    <x-layout.card.card-body-content-table-body-line-cell-action-add-holiday :id="$clockemployee->id"/>
-
-    <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$clockemployee->id"/>
+    <x-layout.card.card-body-content-table-body-line-cell-action-erase-employee :id="$clockemployee->id"/>
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- funcionários --}}
 
