@@ -71,12 +71,11 @@
 {{-- FERIADO --}}
 @php
     $holiday = App\Models\Holiday::where('date', (string)$date)->get();
-    dd($holiday);
 @endphp
 @elseif(1 == 2)
     <td colspan="100%" class="align-middle" style="line-height: 1; padding: 0; background-color: #e9e9e9;">
         <div class="text-muted fw-bold text-center" style="font-size: 9pt; margin: 10px 0 10px 0;">
-            FERIADO "{{ $holiday->name || 'none' }}" ({{ date_format(date_create($date), 'd/m/y') }})
+            FERIADO ({{ date_format(date_create($date), 'd/m/y') }})
         </div>
     </td>
 
