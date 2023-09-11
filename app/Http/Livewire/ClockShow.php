@@ -53,6 +53,7 @@ class ClockShow extends Component
     public $employee_name;
 
     public $clockemployee_id;
+    public $clockemployee_clock_id;
     public $clockemployee_employee_id;
     public $clockemployee_journey_start_week;
     public $clockemployee_journey_end_week;
@@ -134,6 +135,19 @@ class ClockShow extends Component
 
         $this->employee_id = '';
         $this->employee_name = '';
+
+        $this->clockemployee_id                     = '';
+        $this->clockemployee_clock_id               = '';
+        $this->clockemployee_employee_id            = '';
+        $this->clockemployee_journey_start_week     = '';
+        $this->clockemployee_journey_end_week       = '';
+        $this->clockemployee_journey_start_saturday = '';
+        $this->clockemployee_journey_end_saturday   = '';
+        $this->clockemployee_delay_total            = '';
+        $this->clockemployee_extra_total            = '';
+        $this->clockemployee_balance_total          = '';
+        $this->clockemployee_note                   = '';
+        $this->clockemployee_authorized             = '';
     }
 
     /**
@@ -515,6 +529,7 @@ class ClockShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->clockemployee_id                     = $clockemployee->id;
+        $this->clockemployee_conck_id               = $clockemployee->clock_id ;
         $this->clockemployee_employee_id            = $clockemployee->employee_id ;
         $this->clockemployee_employee_name          = $clockemployee->employee_name;
         $this->clockemployee_journey_start_week     = $clockemployee->journey_start_week;
