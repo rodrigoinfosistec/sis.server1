@@ -2079,6 +2079,7 @@ class Audit extends Model
                 'id='                     . $after->id                     . ',' .
                 'clock_id='               . $after->clock_id               . ',' .
                 'employee_id='            . $after->employee_id            . ',' .
+                'employee_name='          . $after->employee_name          . ',' .
                 'journey_start_week='     . $after->journey_start_week     . ',' .
                 'journey_end_week='       . $after->journey_end_week       . ',' .
                 'journey_start_saturday=' . $after->journey_start_saturday . ',' .

@@ -128,12 +128,10 @@
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
-<x-layout.card.card-body-content-table-body-line-cell-action width="150">
+<x-layout.card.card-body-content-table-body-line-cell-action width="120">
     <x-layout.card.card-body-content-table-body-line-cell-action-add-employee :id="$item->id"/>
 
     <x-layout.card.card-body-content-table-body-line-cell-action-add-holiday :id="$item->id"/>
-
-    <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
 
     <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
 </x-layout.card.card-body-content-table-body-line-cell-action>
@@ -159,9 +157,9 @@
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
             <span class="text-muted">
-                {{-- App\Models\General::decodeDate($item->start) --}}
-                <i class="bi-caret-right-fill text-muted"></i>
-                {{-- App\Models\General::decodeDate($item->end) --}}
+                {{ $employee->journey_start_week }}<i class="bi-caret-right-fill text-muted"></i>{{ $employee->journey_end_week }}
+                |
+                {{ $employee->journey_start_saturday }}<i class="bi-caret-right-fill text-muted"></i>{{ $employee->journey_end_saturday }}
             </span>
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 

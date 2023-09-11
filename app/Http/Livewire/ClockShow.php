@@ -50,6 +50,7 @@ class ClockShow extends Component
     public $end_decode;
 
     public $employee_id;
+    public $employee_name;
 
     /**
      * Construtor.
@@ -120,6 +121,7 @@ class ClockShow extends Component
         $this->end_decode   = '';
 
         $this->employee_id = '';
+        $this->employee_name = '';
     }
 
     /**

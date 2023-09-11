@@ -143,6 +143,7 @@ class Clock extends Model
                 Clockemployee::create([
                     'clock_id'               => $clock->id,
                     'employee_id'            => $employee->id,
+                    'employee_name'          => Employee::find($employee->id)->name,
                     'journey_start_week'     => $employee->journey_start_week,
                     'journey_end_week'       => $employee->journey_end_week,
                     'journey_start_saturday' => $employee->journey_start_saturday,
@@ -169,6 +170,7 @@ class Clock extends Model
                 Clockemployee::create([
                     'clock_id'               => $clock->id,
                     'employee_id'            => $employee->id,
+                    'employee_name'          => Employee::find($employee->id)->name,
                     'journey_start_week'     => $employee->journey_start_week,
                     'journey_end_week'       => $employee->journey_end_week,
                     'journey_start_saturday' => $employee->journey_start_saturday,
