@@ -1,5 +1,5 @@
 <x-layout.modal.modal-edit modal="editNoteEmployee" size="">
-    <x-layout.modal.modal-edit-header icon="bi-pencil-square" modal="editNoteEmployee">
+    <x-layout.modal.modal-edit-header icon="bi-exclamation-circle" modal="editNoteEmployee">
        Obervação do Funcionário
 
         <x-slot:identifier>

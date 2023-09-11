@@ -1,5 +1,5 @@
 <x-layout.modal.modal-add modal="addEmployee" method="registerEmployee" size="">
-    <x-layout.modal.modal-add-header icon="bi-receipt" modal="addEmployee">
+    <x-layout.modal.modal-add-header icon="bi-person-plus-fill" modal="addEmployee">
         Funcionário do {{ $config['title'] }}
 
         <x-slot:identifier>

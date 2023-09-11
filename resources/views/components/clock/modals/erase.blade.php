@@ -1,5 +1,5 @@
 <x-layout.modal.modal-erase modal="erase" method="exclude" form="true" size="">
-    <x-layout.modal.modal-erase-header icon="bi-trash3" modal="erase">
+    <x-layout.modal.modal-erase-header icon="bi-trash3-fill" modal="erase">
         {{ $config['title'] }}
         
         <x-slot:identifier>
