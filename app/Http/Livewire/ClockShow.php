@@ -12,6 +12,8 @@ use App\Models\Clockemployee;
 use App\Models\Holiday;
 use App\Models\Employee;
 use App\Models\Employeevacation;
+use App\Models\Employeeattest;
+use App\Models\Employeeabsence;
 
 use Livewire\WithPagination;
 use Livewire\Component;
