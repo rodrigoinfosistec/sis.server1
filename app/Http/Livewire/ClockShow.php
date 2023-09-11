@@ -143,7 +143,7 @@ class ClockShow extends Component
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Clock::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
-                            ])->orderBy('company_name', 'ASC')->paginate(1),
+                            ])->orderBy('id', 'DESC')->paginate(1),
         ]);
     }
 

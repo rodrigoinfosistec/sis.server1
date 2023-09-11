@@ -153,11 +153,7 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            <span class="text-muted">
-                {{ $employee->journey_start_week }}<i class="bi-caret-right-fill text-muted"></i>{{ $employee->journey_end_week }}
-                |
-                {{ $employee->journey_start_saturday }}<i class="bi-caret-right-fill text-muted"></i>{{ $employee->journey_end_saturday }}
-            </span>
+            {{ $employee->employee_name }}
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
@@ -166,7 +162,7 @@
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
-        {{ $employee->employee_name }}
+        
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
