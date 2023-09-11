@@ -97,6 +97,8 @@ class ClockShow extends Component
             'name' => ['required', 'between:2,255'],
 
             'employee_id' => ['required'],
+
+            'clockemployee_note' => ['nullable', 'between:2,255'],
         ];
     }
 
@@ -522,6 +524,58 @@ class ClockShow extends Component
 
             // Executa dependências.
             if ($valid) Clockemployee::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * editEmployeeNote()
+     *  modernizeEmployeeNote()
+     */
+    public function editEmployeeNote(int $clockemployee_id)
+    {
+        // Funcionário.
+        $clockemployee = Clockemployee::find($clockemployee_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->clockemployee_id                     = $clockemployee->id;
+        $this->clockemployee_clock_id               = $clockemployee->clock_id ;
+        $this->clockemployee_employee_id            = $clockemployee->employee_id ;
+        $this->clockemployee_employee_name          = $clockemployee->employee_name;
+        $this->clockemployee_employee_pis           = $clockemployee->employee->pis;
+        $this->clockemployee_journey_start_week     = $clockemployee->journey_start_week;
+        $this->clockemployee_journey_end_week       = $clockemployee->journey_end_week;
+        $this->clockemployee_journey_start_saturday = $clockemployee->journey_start_saturday;
+        $this->clockemployee_journey_end_saturday   = $clockemployee->journey_end_saturday;
+
+        $this->clockemployee_company_name           = $clockemployee->clock->company_name;
+        $this->clockemployee_start_decode           = General::decodeDate($clockemployee->clock->start);
+        $this->clockemployee_end_decode             = General::decodeDate($clockemployee->clock->end);
+    }
+        public function modernizeEmployeeNote()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'clockemployee_note' => ['nullable', 'between:2,255'],
+            ]);
+
+            // Estende $validatedData
+            $validatedData['note'] = $$validatedData['clockemployee_note'];
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Clockemployee::validateEditNote($data);
+
+            // Atualiza.
+            if ($valid) Clockemployee::editNote($data);
+
+            // Executa dependências.
+            if ($valid) Clockemployee::dependencyEditNote($data);
 
             // Fecha modal.
             $this->closeModal();

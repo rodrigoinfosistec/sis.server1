@@ -113,7 +113,7 @@ class Clockemployee extends Model
 
         return true;
     }
-    
+
     /**
      * Valida exclusão.
      * @var array $data
