@@ -552,10 +552,12 @@ class ClockShow extends Component
         $this->clockemployee_journey_end_week       = $clockemployee->journey_end_week;
         $this->clockemployee_journey_start_saturday = $clockemployee->journey_start_saturday;
         $this->clockemployee_journey_end_saturday   = $clockemployee->journey_end_saturday;
+        $this->note                                 = $clockemployee->note;
 
         $this->clockemployee_company_name           = $clockemployee->clock->company_name;
         $this->clockemployee_start_decode           = General::decodeDate($clockemployee->clock->start);
         $this->clockemployee_end_decode             = General::decodeDate($clockemployee->clock->end);
+
     }
         public function modernizeNoteEmployee()
         {

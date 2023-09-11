@@ -115,6 +115,69 @@ class Clockemployee extends Model
     }
 
     /**
+     * Valida atualização de observação.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateEditNote(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Atualiza observação.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function editNote(array $data) : bool {
+        // Before.
+        $before = Clockemployee::find($data['validatedData']['clockemployee_id']);
+
+        // Atualiza.
+        Clockemployee::find($data['validatedData']['employee_id'])->update([
+            'note' => Str::uppser($data['validatedData']['note']),
+        ]);
+
+        // After.
+        $after = Clockemployee::find($data['validatedData']['clockemployee_id']);
+
+        // Auditoria.
+        Audit::clockemployeeEditNote($data, $before, $after);
+
+        // Mensagem.
+        $message = 'Observação do Funcionário ' .  $after->employee_name . ' atualizada com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de atualização de observação.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyEdit(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
      * Valida exclusão.
      * @var array $data
      * 

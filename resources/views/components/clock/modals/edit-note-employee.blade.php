@@ -16,7 +16,7 @@
     <x-layout.modal.modal-edit-body-group-item columms="12">
         <x-layout.modal.modal-edit-body-group-item-label item="note" title="OBSERAÇÃO" plus="none"/>
 
-            <input type="text" wire:model="note" class="form-control form-control-sm" id="note">
+            <textarea wire:model="note" class="form-control form-control-sm" rows="4" id="note"></textarea>
 
         <x-layout.modal.modal-edit-body-group-item-error item="note" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>
