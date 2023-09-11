@@ -514,12 +514,18 @@ class ClockShow extends Component
         $clockemployee = Clockemployee::find($clockemployee_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->clockemployee_id  = $clockemployee->employee->id;
-        $this->company_id   = $clock->company_id;
-        $this->company_name = $clock->company_name;
-        $this->start        = General::decodeDate($clock->start);
-        $this->end          = General::decodeDate($clock->end);
-        $this->created      = $clock->created_at->format('d/m/Y H:i:s');
+        $this->clockemployee_id                     = $clockemployee->id;
+        $this->clockemployee_employee_id            = $clockemployee->employee_id ;
+        $this->clockemployee_employee_name          = $clockemployee->employee_name;
+        $this->clockemployee_journey_start_week     = $clockemployee->journey_start_week;
+        $this->clockemployee_journey_end_week       = $clockemployee->journey_end_week;
+        $this->clockemployee_journey_start_saturday = $clockemployee->journey_start_saturday;
+        $this->clockemployee_journey_end_saturday   = $clockemployee->journey_end_saturday;
+        $this->clockemployee_delay_total            = $clockemployee->delay_total;
+        $this->clockemployee_extra_total            = $clockemployee->extra_total;
+        $this->clockemployee_balance_total          = $clockemployee->balance_total;
+        $this->clockemployee_note                   = $clockemployee->note;
+        $this->clockemployee_authorized             = $clockemployee->authorized;
     }
         public function excludeEmployee()
         {
