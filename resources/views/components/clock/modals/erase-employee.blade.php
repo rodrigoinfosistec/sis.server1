@@ -39,7 +39,7 @@
 
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
-        SEMANA
+        JORNADA SEMANA
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
         {{ $clockemployee_journey_start_week }}
@@ -50,7 +50,7 @@
 
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
-        SÁBADO
+        JORNADA SÁBADO
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
         {{ $clockemployee_journey_start_saturday }}

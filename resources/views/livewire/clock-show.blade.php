@@ -111,11 +111,7 @@
 <x-layout.card.card-body-content-table-body-line-cell width="">
     <x-layout.card.card-body-content-table-body-line-cell-id>
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            <span class="text-muted">
-                {{ App\Models\General::decodeDate($item->start) }}
-                <i class="bi-caret-right-fill text-muted"></i>
-                {{ App\Models\General::decodeDate($item->end) }}
-            </span>
+            <span class="text-primary fw-bold">{{ $item->company_name }}</span>
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
@@ -124,7 +120,12 @@
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
-        <span class="text-primary fw-bold">{{ $item->company_name }}</span>
+        <div class="text-muted" style="margin-left: 10px;">
+            PERÍODO: 
+            {{ App\Models\General::decodeDate($item->start) }}
+            <i class="bi-caret-right-fill text-muted"></i>
+            {{ App\Models\General::decodeDate($item->end) }}
+        </div>
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 

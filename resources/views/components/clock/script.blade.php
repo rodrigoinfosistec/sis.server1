@@ -10,5 +10,7 @@
         $('#addHolidayModal').modal('hide');
         $('#detailModal').modal('hide');
         $('#eraseModal').modal('hide');
+
+        $('#eraseEmployeeModal').modal('hide');
     })
 </script>
