@@ -90,7 +90,7 @@ class Employeeattest extends Model
         Audit::employeeattestAdd($data, $after);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' do funcionário ' . $after->employee_name . ' cadastrada com sucesso.';
+        $message = $data['config']['title'] . ' do funcionário ' . $after->employee_name . ' cadastrado com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 

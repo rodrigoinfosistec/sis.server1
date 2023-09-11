@@ -580,8 +580,9 @@ class ClockShow extends Component
             $validatedData['employee_id'] = $this->employee_id;
 
             // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
+            $data['config']['title'] = 'Férias';
+            $data['config']['name']  = $this->config['name'];
+            $data['validatedData']   = $validatedData;
 
             // Valida cadastro.
             $valid = Employeevacation::validateAdd($data);
@@ -634,8 +635,9 @@ class ClockShow extends Component
             $validatedData['employee_id'] = $this->employee_id;
 
             // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
+            $data['config']['title'] = 'Atestado';
+            $data['config']['name']  = $this->config['name'];
+            $data['validatedData']   = $validatedData;
 
             // Valida cadastro.
             $valid = Employeeattest::validateAdd($data);
@@ -688,8 +690,9 @@ class ClockShow extends Component
             $validatedData['employee_id'] = $this->employee_id;
 
             // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
+            $data['config']['title'] = 'Falta';
+            $data['config']['name']  = $this->config['name'];
+            $data['validatedData']   = $validatedData;
 
             // Valida cadastro.
             $valid = Employeeabsence::validateAdd($data);
