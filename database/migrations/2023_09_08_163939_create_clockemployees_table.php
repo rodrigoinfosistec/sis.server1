@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('clock_id');
+
             $table->unsignedBigInteger('employee_id');
+            $table->string('employee_name');
 
             $table->string('journey_start_week');
             $table->string('journey_end_week');

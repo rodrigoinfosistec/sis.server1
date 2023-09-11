@@ -18,7 +18,9 @@ class Clockemployee extends Model
      */
     protected $fillable = [
         'clock_id',
+
         'employee_id',
+        'employee_name',
 
         'journey_start_week',
         'journey_end_week',
@@ -79,6 +81,7 @@ class Clockemployee extends Model
         Clockemployee::create([
             'clock_id'               => $data['validatedData']['clock_id'],
             'employee_id'            => $employee->id,
+            'employee_name'          => $employee->name,
             'journey_start_week'     => $employee->journey_start_week,
             'journey_end_week'       => $employee->journey_end_week,
             'journey_start_saturday' => $employee->journey_start_saturday,
@@ -92,7 +95,7 @@ class Clockemployee extends Model
         Audit::clockemployeeAdd($data, $after);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' ' . $after->name . ' cadastrado com sucesso.';
+        $message = $data['config']['title'] . ' ' . $after->employee_name . ' cadastrado com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 

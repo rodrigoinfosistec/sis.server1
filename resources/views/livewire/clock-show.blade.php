@@ -141,10 +141,11 @@
 
                                 </x-layout.card.card-body-content-table-body-line>
 
+                                {{-- nova entidade --}}
                                 <x-layout.card.card-body-content-table>
                                     <x-layout.card.card-body-content-table-body>
                                         @php
-                                            $employees = App\Models\Clockemployee::where('clock_id', $item->id)->orderBy('name', 'ASC')->get();
+                                            $employees = App\Models\Clockemployee::where('clock_id', $item->id)->orderBy('employee_name', 'ASC')->get();
                                         @endphp
                                         @if($employees->count() > 0)
                                             @foreach($employees as $key => $employee)
@@ -170,7 +171,7 @@
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
-        {{ $employee->employee->name }}
+        {{ $employee->employee_name }}
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
@@ -191,6 +192,7 @@
                                         @endif
                                     </x-layout.card.card-body-content-table-body>
                                 </x-layout.card.card-body-content-table>
+                                 {{-- nova entidade --}}
                             @endforeach
                         @else
                             <x-layout.card.card-body-content-table-body-item-none/>
