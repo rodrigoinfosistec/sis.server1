@@ -14,11 +14,11 @@
 {{-- conteúdo --}}
 <x-layout.modal.modal-edit-body-group>
     <x-layout.modal.modal-edit-body-group-item columms="12">
-        <x-layout.modal.modal-edit-body-group-item-label item="clockemployee_note" title="OBSERAÇÃO" plus="none"/>
+        <x-layout.modal.modal-edit-body-group-item-label item="note" title="OBSERAÇÃO" plus="none"/>
 
-            <input type="text" wire:model="clockemployee_note" class="form-control form-control-sm" id="clockemployee_note">
+            <input type="text" wire:model="note" class="form-control form-control-sm" id="note">
 
-        <x-layout.modal.modal-edit-body-group-item-error item="clockemployee_note" message="$message"/>
+        <x-layout.modal.modal-edit-body-group-item-error item="note" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
 {{-- conteúdo --}}
