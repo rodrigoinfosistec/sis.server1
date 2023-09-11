@@ -52,6 +52,9 @@ class ClockShow extends Component
     public $employee_id;
     public $employee_name;
 
+    public $clockemployee_id;
+    public $clockemployee_id;
+
     /**
      * Construtor.
      */
@@ -496,13 +499,13 @@ class ClockShow extends Component
      * eraseEmployee()
      *  excludeEmployee()
      */
-    public function eraseEmployee(int $employee_id)
+    public function eraseEmployee(int $clockemployee_id)
     {
         // Funcionário.
-        $employee = Employee::find($employee_id);
+        $clockemployee = Clockemployee::find($clockemployee_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->employee_id  = $employee->employee->id;
+        $this->clockemployee_id  = $clockemployee->employee->id;
         $this->company_id   = $clock->company_id;
         $this->company_name = $clock->company_name;
         $this->start        = General::decodeDate($clock->start);
