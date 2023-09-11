@@ -3,9 +3,9 @@
        Obervação do Funcionário
 
         <x-slot:identifier>
-            <span class="text-primary">{{ $clockemployee_company_name }}</span>
+            <span class="text-primary">{{ $clockemployee_employee_name }}</span>
             <br>
-            {{ $clockemployee_start_decode }}<i class="bi-caret-right-fill text-muted"></i>{{ $clockemployee_end_decode }}
+            {{ $clockemployee_employee_pis }}
         </x-slot>
     </x-layout.modal.modal-edit-header>
 

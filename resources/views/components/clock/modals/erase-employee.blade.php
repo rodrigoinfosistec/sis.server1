@@ -3,9 +3,7 @@
         Funcionário do {{ $config['title'] }}
         
         <x-slot:identifier>
-            <span class="text-primary">{{ $clockemployee_company_name }}</span>
-            <br>
-            {{ $clockemployee_start_decode }}<i class="bi-caret-right-fill text-muted"></i>{{ $clockemployee_end_decode }}
+            {{--  --}}
         </x-slot>
     </x-layout.modal.modal-erase-header>
 
@@ -21,19 +19,19 @@
 {{-- conteúdo --}}
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
-        PIS
+        FUNCIONÁRIO
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
-        {{ $clockemployee_employee_pis }}
+        <span class="text-primary">{{ $clockemployee_employee_name }}</span>
     </x-layout.modal.modal-erase-body-line-content>
 </x-layout.modal.modal-erase-body-line>
 
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
-        FUNCIONÁRIO
+        PIS
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
-        <span class="text-primary">{{ $clockemployee_employee_name }}</span>
+        {{ $clockemployee_employee_pis }}
     </x-layout.modal.modal-erase-body-line-content>
 </x-layout.modal.modal-erase-body-line>
 
