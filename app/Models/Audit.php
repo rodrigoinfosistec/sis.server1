@@ -2093,23 +2093,23 @@ class Audit extends Model
     /**
      * Auditoria Clock Employee Edit Note.
      * @var array $data
-     * @var object $after
      * @var object $before
+     * @var object $after
      * 
      * @return bool true
      */
-    public static function clockemployeeEditNote(array $data, object $after, object $before) : bool {
+    public static function clockemployeeEditNote(array $data, object $before, object $after) : bool {
         Audit::create([
             'user_id'   => auth()->user()->id,
             'user_name' => Str::upper(auth()->user()->name),
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
             'extensive' => '[editou]' . 'Observação do Funcionário de ' . $data['config']['title'] . '{' .
-                'id='            . $after->clockemployee_id . '>' . $before->id            . ',' .
-                'clock_id='      . $after->clock_id         . '>' . $before->clock_id      . ',' .
-                'employee_id='   . $after->employee_id      . '>' . $before->employee_id   . ',' .
-                'employee_name=' . $after->employee_name    . '>' . $before->employee_name . ',' .
-                'note='          . $after->note             . '>' . $before->note          . ',' .
+                'id='            . $before->clockemployee_id . '>' . $after->id            . ',' .
+                'clock_id='      . $before->clock_id         . '>' . $after->clock_id      . ',' .
+                'employee_id='   . $before->employee_id      . '>' . $after->employee_id   . ',' .
+                'employee_name=' . $before->employee_name    . '>' . $after->employee_name . ',' .
+                'note='          . $before->note             . '>' . $after->note          . ',' .
             '}',
         ]);
 
