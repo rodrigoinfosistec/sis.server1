@@ -1,6 +1,6 @@
-<x-layout.modal.modal-edit modal="editEmployee" size="">
-    <x-layout.modal.modal-edit-header icon="bi-fingerprint" modal="editEmployee">
-       Obervação do Funcionário
+<x-layout.modal.modal-edit modal="editClockEmployee" size="">
+    <x-layout.modal.modal-edit-header icon="bi-fingerprint" modal="editClockEmployee">
+       Horas do Funcionário
 
         <x-slot:identifier>
             <span class="text-primary">{{ $clockemployee_employee_name }}</span>
@@ -9,7 +9,7 @@
         </x-slot>
     </x-layout.modal.modal-edit-header>
 
-    <x-layout.modal.modal-edit-body method="modernizeEmployee">
+    <x-layout.modal.modal-edit-body method="modernizeClockEmployee">
 
 {{-- conteúdo --}}
 <x-layout.modal.modal-edit-body-group>

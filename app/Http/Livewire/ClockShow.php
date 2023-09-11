@@ -827,7 +827,61 @@ class ClockShow extends Component
         }
 
     /**
-     * editEmployeeNote()
+     * editClockEmployee()
+     *  modernizeClockEmployee()
+     */
+    public function editClockEmployee(int $clockemployee_id)
+    {
+        // Funcionário.
+        $clockemployee = Clockemployee::find($clockemployee_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->clockemployee_id                     = $clockemployee->id;
+        $this->clockemployee_clock_id               = $clockemployee->clock_id ;
+        $this->clockemployee_employee_id            = $clockemployee->employee_id ;
+        $this->clockemployee_employee_name          = $clockemployee->employee_name;
+        $this->clockemployee_employee_pis           = $clockemployee->employee->pis;
+        $this->clockemployee_journey_start_week     = $clockemployee->journey_start_week;
+        $this->clockemployee_journey_end_week       = $clockemployee->journey_end_week;
+        $this->clockemployee_journey_start_saturday = $clockemployee->journey_start_saturday;
+        $this->clockemployee_journey_end_saturday   = $clockemployee->journey_end_saturday;
+        $this->note                                 = $clockemployee->note;
+
+        $this->clockemployee_company_name           = $clockemployee->clock->company_name;
+        $this->clockemployee_start_decode           = General::decodeDate($clockemployee->clock->start);
+        $this->clockemployee_end_decode             = General::decodeDate($clockemployee->clock->end);
+
+    }
+        public function modernizeClockEmployee()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'note' => ['nullable', 'between:2,255'],
+            ]);
+
+            // Estende $validatedData.
+            $validatedData['clockemployee_id'] = $this->clockemployee_id;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Clockemployee::validateEditNote($data);
+
+            // Atualiza.
+            if ($valid) Clockemployee::editNote($data);
+
+            // Executa dependências.
+            if ($valid) Clockemployee::dependencyEditNote($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * editNoteEmployeeNote()
      *  modernizeEmployeeNote()
      */
     public function editNoteEmployee(int $clockemployee_id)
