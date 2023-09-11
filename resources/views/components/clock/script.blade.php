@@ -11,6 +11,7 @@
         $('#detailModal').modal('hide');
         $('#eraseModal').modal('hide');
 
+        $('#editNoteEmployeeModal').modal('hide');
         $('#eraseEmployeeModal').modal('hide');
     })
 </script>

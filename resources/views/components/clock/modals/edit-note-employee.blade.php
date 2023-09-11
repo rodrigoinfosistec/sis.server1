@@ -16,7 +16,7 @@
     <x-layout.modal.modal-edit-body-group-item columms="12">
         <x-layout.modal.modal-edit-body-group-item-label item="note" title="OBSERAÇÃO" plus="none"/>
 
-            <textarea wire:model="note" class="form-control form-control-sm" rows="4" id="note"></textarea>
+            <textarea wire:model="note" class="form-control form-control-sm" maxlength="255" rows="4" id="note"></textarea>
 
         <x-layout.modal.modal-edit-body-group-item-error item="note" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>

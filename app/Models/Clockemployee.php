@@ -147,8 +147,8 @@ class Clockemployee extends Model
         $before = Clockemployee::find($data['validatedData']['clockemployee_id']);
 
         // Atualiza.
-        Clockemployee::find($data['validatedData']['employee_id'])->update([
-            'note' => Str::uppser($data['validatedData']['note']),
+        Clockemployee::find($data['validatedData']['clockemployee_id'])->update([
+            'note' => Str::upper($data['validatedData']['note']),
         ]);
 
         // After.
@@ -171,7 +171,7 @@ class Clockemployee extends Model
      * 
      * @return bool true
      */
-    public static function dependencyEdit(array $data) : bool {
+    public static function dependencyEditNote(array $data) : bool {
         // ...
 
         return true;
