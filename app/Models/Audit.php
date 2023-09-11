@@ -2104,12 +2104,12 @@ class Audit extends Model
             'user_name' => Str::upper(auth()->user()->name),
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
-            'extensive' => '[excluíu]' . 'Funcionário de ' . $data['config']['title'] . '{' .
-                'id='                     . $after->clockemployee_id       . '>' . $before->id                     . ',' .
-                'clock_id='               . $after->clock_id               . '>' . $before->clock_id               . ',' .
-                'employee_id='            . $after->employee_id            . '>' . $before->employee_id            . ',' .
-                'employee_name='          . $after->employee_name          . '>' . $before->employee_name          . ',' .
-                'note='                   . $after->note                   . '>' . $before->note                   . ',' .
+            'extensive' => '[editou]' . 'Observação do Funcionário de ' . $data['config']['title'] . '{' .
+                'id='            . $after->clockemployee_id . '>' . $before->id            . ',' .
+                'clock_id='      . $after->clock_id         . '>' . $before->clock_id      . ',' .
+                'employee_id='   . $after->employee_id      . '>' . $before->employee_id   . ',' .
+                'employee_name=' . $after->employee_name    . '>' . $before->employee_name . ',' .
+                'note='          . $after->note             . '>' . $before->note          . ',' .
             '}',
         ]);
 
