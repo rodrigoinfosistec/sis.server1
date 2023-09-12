@@ -88,6 +88,8 @@ class Clockday extends Model
             'journey_break' => $data['journey_break'],
         ]);
 
+        
+
         // After.
         $after = Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first();
 
