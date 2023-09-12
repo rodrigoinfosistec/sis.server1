@@ -218,9 +218,6 @@ class Clock extends Model
                         $break_start   = null;
                         $break_end     = null;
                         $output        = null;
-                        $journey_start = null;
-                        $journey_end   = null;
-                        $journey_break = null;
                     endif;
 
                     // Cadastra Clockday.
@@ -307,9 +304,6 @@ class Clock extends Model
                         $break_start   = null;
                         $break_end     = null;
                         $output        = null;
-                        $journey_start = null;
-                        $journey_end   = null;
-                        $journey_break = null;
                     endif;
 
                     // Cadastra Clockday.
