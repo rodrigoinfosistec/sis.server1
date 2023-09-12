@@ -170,7 +170,7 @@
             @endif
         </div>
     </td>
-    
+
     {{-- SAÍDA --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="" style="width: 80px;">

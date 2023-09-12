@@ -77,7 +77,11 @@ class Clockday extends Model
      * @return bool true
      */
     public static function edit(array $data) : bool {
-        // Atualiza..
+        // Allowance.
+        $allowance = Employeeallowance::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first();
+        $allowance ? $interval = Clock::intervalMinuts($allowance->start, $allowance->end) : $interval = '0:0';
+
+        // Atualiza.
         Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->update([
             'input'         => $data['input'],
             'break_start'   => $data['break_start'],
@@ -86,9 +90,15 @@ class Clockday extends Model
             'journey_start' => $data['journey_start'],
             'journey_end'   => $data['journey_end'],
             'journey_break' => $data['journey_break'],
+            'allowance'     => $interval,
         ]);
 
-        
+        // Sábado.
+        if():
+
+        else:
+
+        endif;
 
         // After.
         $after = Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first();
