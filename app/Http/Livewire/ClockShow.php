@@ -909,17 +909,33 @@ class ClockShow extends Component
                 $this->array_date_input[$date] = $events[0]->time;
 
                  // Break Start.
-                if(!empty($events[1])) $this->array_date_break_start[$date] = $events[1]->time;
+                if(!empty($events[1])):
+                    $this->array_date_break_start[$date] = $events[1]->time;
+                else:
+                    $this->array_date_break_start[$date] = null;
+                endif;
 
                 // Break End.
-                if(!empty($events[2])) $this->array_date_break_end[$date] = $events[2]->time;
+                if(!empty($events[2])):
+                    $this->array_date_break_end[$date] = $events[2]->time;
+                else:
+                    $this->array_date_break_end[$date] = null;
+                endif;
 
                 // Output.
-                if(!empty($events[3])) $this->array_date_output[$date] = $events[3]->time;
-
+                if(!empty($events[3])):
+                    $this->array_date_output[$date] = $events[3]->time;
+                else:
+                    $this->array_date_output[$date] = null;
+                endif;
+            else:
+                $this->array_date_input[$date]       = null;
+                $this->array_date_break_start[$date] = null;
+                $this->array_date_break_end[$date]   = null;
+                $this->array_date_output[$date]      = null;
             endif;
 
-            $date = $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
+            $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
         endwhile;
     }
         public function modernizeClockEmployee()
@@ -933,14 +949,28 @@ class ClockShow extends Component
             $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;
 
-            // Valida atualização.
-            $valid = Clockregistry::validateEditClock($data);
+            $date = $this->clock_start;
+            while($date <= $this->clock_end):
+                // Estende $data.
+                $data['input']         =  $this->array_date_input[$date];
+                $data['output']        =  $this->array_date_break_start[$date];
+                $data['break_start']   =  $this->array_date_break_end[$date];
+                $data['break_end']     =  $this->array_date_output[$date];
+                $data['journey_start'] =  $this->array_date_journey_start[$date];
+                $data['journey_end']   =  $this->array_date_journey_end[$date];
+                $data['break']         =  $this->array_date_break[$date];
 
-            // Atualiza.
-            if ($valid) Clockregistry::editClock($data);
+                // Valida atualização.
+                $valid = Clockday::validateEditClock($data);
 
-            // Executa dependências.
-            if ($valid) Clockregistry::dependencyEditClock($data);
+                // Atualiza.
+                if ($valid) Clockday::editClock($data);
+
+                // Executa dependências.
+                if ($valid) Clockday::dependencyEditClock($data);
+
+                $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
+            endwhile;
 
             // Fecha modal.
             $this->closeModal();
