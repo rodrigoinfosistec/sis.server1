@@ -208,9 +208,24 @@
                 $events = App\Models\Clockevent::where(['clock_id' => $clockemployee_clock_id, 'employee_id' => $clockemployee_employee_id, 'date' => $date])->get();
             @endphp
             @if($events->count() > 0)
-                @foreach($events as $key => $event)
-                    {{ $event->time }}
-                @endforeach
+                <div class="dropdown float-start">
+                    <a type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi-eye text-dark" style="font-size: 20px;  padding: 0px 5px 0px 20px;" title="Eventos"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach($events as $key => $event)
+                            <li>
+                                <span class="text-uppercase text-muted fw-bold" style="font-size: 8.5pt;">
+                                    <span class="fst-italic">
+                                        <i class="bi-exclamation-circle text-danger" style="font-size: 11px;  padding: 0px 5px 0px 5px;"></i>
+                                        <span style="font-size: 8pt;">EVENTO {{ str_pad($loop->iteration , 2 , '0' , STR_PAD_LEFT)}}:</span>
+                                        <span class="text-dark">{{ $event->time }}</span>
+                                    </span>
+                                </span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             @else
                 <i class="bi-eye text-muted" style="font-size: 20px;  padding: 0px 5px 0px 20px;"></i>
             @endif
