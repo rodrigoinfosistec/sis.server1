@@ -33,7 +33,7 @@ class Clock extends Model
     public function company(){return $this->belongsTo(Company::class);}
 
     /**
-     * Calcula minutos em um intervalo.
+     * Intervalo entre dois horários.
      * 
      * @var string $start
      * @var string $end
@@ -47,6 +47,29 @@ class Clock extends Model
         if($minuts < 0) $minuts += 24 * 60;
 
         return sprintf( '%d:%d', $minuts / 60, $minuts % 60 );
+    }
+
+    /**
+     * Soma dois horários.
+     * 
+     * @var string $firstHour
+     * @var string $secondHour
+     * 
+     * @return string 
+     */
+    public static function sumHours($firstHour, $secondHour) {
+        $firstHour  = $firstHour  . ':00';
+        $secondHour = $secondHour . ':00';
+
+        $baseDate = date('Y-m-d');
+        $baseTime = strtotime($baseDate . ' 00:00:00');
+    
+        $firstTime = strtotime($baseDate . ' ' . $firstHour) - $baseTime;
+        $secondTime = strtotime($baseDate . ' ' . $secondHour) - $baseTime;
+    
+        $resultTime = $firstTime + $secondTime;
+
+        return date('h:i', $baseTime + $resultTime);
     }
 
     /**
