@@ -924,11 +924,6 @@ class ClockShow extends Component
     }
         public function modernizeClockEmployee()
         {
-            // Valida campos.
-            $validatedData = $this->validate([
-                'note' => ['nullable', 'between:2,255'],
-            ]);
-
             // Estende $validatedData.
             $validatedData['clockemployee_id'] = $this->clockemployee_id;
 
@@ -937,13 +932,13 @@ class ClockShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida atualização.
-            $valid = Clockemployee::validateEditNote($data);
+            $valid = Clockemployee::validateEditClock($data);
 
             // Atualiza.
-            if ($valid) Clockemployee::editNote($data);
+            if ($valid) Clockemployee::editClock($data);
 
             // Executa dependências.
-            if ($valid) Clockemployee::dependencyEditNote($data);
+            if ($valid) Clockemployee::dependencyEditClock($data);
 
             // Fecha modal.
             $this->closeModal();
