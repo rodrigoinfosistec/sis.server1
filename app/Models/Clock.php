@@ -187,7 +187,7 @@ class Clock extends Model
                     endif;
 
                     // Hidrata eventos.
-                    $events = Clockevent::where(['clock_id' => $clock->id, 'employee_id' => $clockemployee->id, 'date' => $date])->get();
+                    $events = Clockevent::where(['clock_id' => $clock->id, 'employee_id' => $clockemployee->employee->id, 'date' => $date])->get();
 
                     if($events->count() > 0):
                         // Input.
@@ -276,7 +276,7 @@ class Clock extends Model
                     endif;
 
                     // Hidrata eventos.
-                    $events = Clockevent::where(['clock_id' => $clock->id, 'employee_id' => $employee->id, 'date' => $date])->get();
+                    $events = Clockevent::where(['employee_id' => $employee->id, 'date' => $date])->get();
 
                     if($events->count() > 0):
                         // Input.
@@ -324,7 +324,6 @@ class Clock extends Model
                         'journey_start' => $journey_start,
                         'journey_end'   => $journey_end,
                         'journey_break' => $journey_break,
-
                     ]);
 
                     $date = $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));  
