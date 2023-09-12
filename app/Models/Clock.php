@@ -276,7 +276,7 @@ class Clock extends Model
                     endif;
 
                     // Hidrata eventos.
-                    $events = Clockevent::where(['clock_id' => $clock->id, 'employee_id' => $employee->id, 'date' => $date])->orderBy('id', 'DESC')->first();
+                    $events = Clockevent::where(['clock_id' => $clock->id, 'employee_id' => $employee->id, 'date' => $date])->get();
 
                     if($events->count() > 0):
                         // Input.
