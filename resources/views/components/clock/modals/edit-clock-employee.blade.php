@@ -52,6 +52,54 @@
                     SAÍDA
                 </div>
             </th>
+            
+            <th class="" style="padding: 0;">
+                <div class="text-center" style="width: 80px;">
+                    TURNO (INÍCIO)
+                </div>
+            </th>
+            
+            <th class="" style="padding: 0;">
+                <div class="text-center" style="width: 80px;">
+                    TURNO (FINAL)
+                </div>
+            </th>
+            
+            <th class="" style="padding: 0;">
+                <div class="text-center" style="width: 80px;">
+                    INTERVALO
+                </div>
+            </th>
+            
+            <th class="" style="padding: 0;">
+                <div class="text-center" style="width: 80px;">
+                    ABONO
+                </div>
+            </th>
+            
+            <th class="" style="padding: 0;">
+                <div class="text-center" style="width: 80px;">
+                    ATRASO
+                </div>
+            </th>
+            
+            <th class="" style="padding: 0;">
+                <div class="text-center" style="width: 80px;">
+                    EXTRA
+                </div>
+            </th>
+            
+            <th class="" style="padding: 0;">
+                <div class="text-center" style="width: 80px;">
+                    SALDO
+                </div>
+            </th>
+            
+            <th class="" style="padding: 0;">
+                <div class="text-center" style="width: 80px;">
+                    EVENTOS
+                </div>
+            </th>
         </thead>
 
         </tbody>
@@ -90,7 +138,7 @@
     </td>
 
     {{-- DIA--}}
-    <td class="align-middle" style="line-height: 1.2; padding: 0;">
+    <td class="align-middle" style="line-height: 1; padding: 0;">
         <div class="" style="width: 80px; font-size: 7pt;">
             {{ Illuminate\Support\Str::upper(App\Models\General::decodeWeek(date_format(date_create($date), 'l'))) }}
             <br>
@@ -129,6 +177,65 @@
             <input type="time" wire:model="array_date_output.{{ $date }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_output_{{ $date }}">
         </div>
     </td>
+
+    {{-- TURNO (INÍCIO) --}}
+    <td class="align-middle" style="line-height: 1;">
+        <div class="" style="width: 80px;">
+            <input type="time" wire:model="array_date_journey_start.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_journey_start_{{ $date }}">
+        </div>
+    </td>
+
+    {{-- TURNO (FINAL) --}}
+    <td class="align-middle" style="line-height: 1;">
+        <div class="" style="width: 80px;">
+            <input type="time" wire:model="array_date_journey_end.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_journey_end_{{ $date }}">
+        </div>
+    </td>
+
+    {{-- INTERVALO --}}
+    <td class="align-middle" style="line-height: 1;">
+        <div class="" style="width: 80px;">
+            @if(date_format(date_create($date), 'l') != 'Saturday')
+                <input type="time" wire:model="array_date_journey_break.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_journey_break_{{ $date }}">
+            @endif
+        </div>
+    </td>
+    
+    {{-- ABONO --}}
+    <td class="align-middle" style="line-height: 1;">
+        <div class="" style="width: 80px;">
+            
+        </div>
+    </td>
+
+    {{-- ATRASO --}}
+    <td class="align-middle" style="line-height: 1;">
+        <div class="" style="width: 80px;">
+            
+        </div>
+    </td>
+
+    {{-- EXTRA --}}
+    <td class="align-middle" style="line-height: 1;">
+        <div class="" style="width: 80px;">
+            
+        </div>
+    </td>
+
+    {{-- SALDO --}}
+    <td class="align-middle" style="line-height: 1;">
+        <div class="" style="width: 80px;">
+            
+        </div>
+    </td>
+
+    {{-- EVENTOS --}}
+    <td class="align-middle" style="line-height: 1;">
+        <div class="" style="width: 80px;">
+            
+        </div>
+    </td>
+
 @endif
 </tr>
 {{-- dia --}}
