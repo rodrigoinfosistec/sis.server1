@@ -146,9 +146,16 @@ class Clockday extends Model
         // Sábado.
         if($authorized && !empty($time_day)):
             $time_day = $time_day;
+
         // Não Sábado.
         elseif($authorized):
-            
+            $m = explode(':', $time_morning); 
+            $mh = $m[0]; $mh = $mh / 60;
+            $mm = $m[1];
+
+            $tarde = explode(':', $time_afternoon);
+            $th = $m[0]; $th = $th / 60;
+            $tm = $m[1];
         endif;
 
         // After.
