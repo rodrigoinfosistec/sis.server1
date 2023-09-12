@@ -204,7 +204,16 @@
     {{-- EVENTOS --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="" style="width: 80px;">
-            
+            @php
+                $events = App\Models\Clockevent::where(['clock_id' => $clockemployee_clock_id, 'employee_id' => $clockemployee_employee_id, 'date' => $date])->get();
+            @endphp
+            @if($events->count() > 0)
+                @foreach($events as $key => $event)
+                    {{ $event->time }}
+                @endforeach
+            @else
+                <i class="bi-eye text-muted" style="font-size: 20px;  padding: 0px 5px 0px 20px;"></i>
+            @endif
         </div>
     </td>
 

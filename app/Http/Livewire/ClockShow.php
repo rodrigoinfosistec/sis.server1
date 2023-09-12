@@ -899,6 +899,7 @@ class ClockShow extends Component
             $this->array_date_journey_end[$date]   = $clockday->journey_end;
             $this->array_date_journey_break[$date] = $clockday->journey_break;
 
+            // Incrementa $date.
             $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));  
         endwhile;   
     }
