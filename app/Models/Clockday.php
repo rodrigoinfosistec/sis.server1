@@ -103,6 +103,7 @@ class Clockday extends Model
                 // Evita saída menor que entrada.
                 if($data['output'] >= $data['input']):
                     // Dia.
+                    $time_default = '4:0';
                     $time_day = Clock::intervalMinuts($data['input'], $data['output']);
                 else:
                     $authorized = false;
@@ -145,17 +146,13 @@ class Clockday extends Model
 
         // Sábado.
         if($authorized && !empty($time_day)):
+            // Tempo do dia.
             $time_day = $time_day;
 
         // Não Sábado.
         elseif($authorized):
-            $m = explode(':', $time_morning); 
-            $mh = $m[0]; $mh = $mh / 60;
-            $mm = $m[1];
+            
 
-            $tarde = explode(':', $time_afternoon);
-            $th = $m[0]; $th = $th / 60;
-            $tm = $m[1];
         endif;
 
         // After.
