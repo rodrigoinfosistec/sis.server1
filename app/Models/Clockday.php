@@ -94,8 +94,11 @@ class Clockday extends Model
         ]);
 
         // Sábado.
-        if():
-
+        if(date_format(date_create($data['date']), 'l') == 'Saturday'):
+            // Evita saída menor que entrada.
+            if($data['input'] >= $data['output']):
+                
+            endif;
         else:
 
         endif;
