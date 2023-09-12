@@ -57,7 +57,7 @@
         </tbody>
             @php $date = $this->clock_start; @endphp
             @while($date <= $this->clock_end)
-{{-- conteúdo --}}
+{{-- dia --}}
 <tr style="border-bottom: 1px solid #ddd; margin: 5px 0 5px 0;">
 
 {{-- DOMINGO --}}
@@ -69,13 +69,12 @@
     </td>
 
 {{-- FERIADO --}}
-@php
-    $holiday = App\Models\Holiday::where('date', (string)$date)->get();
-@endphp
-@elseif(1 == 2)
+@elseif(App\Models\Holiday::where('date', $date)->orderBy('id', 'DESC')->first())
     <td colspan="100%" class="align-middle" style="line-height: 1; padding: 0; background-color: #e9e9e9;">
         <div class="text-muted fw-bold text-center" style="font-size: 9pt; margin: 10px 0 10px 0;">
             FERIADO ({{ date_format(date_create($date), 'd/m/y') }})
+            <i class="bi-caret-right-fill text-muted"></i>
+            {{ App\Models\Holiday::where('date', $date)->orderBy('id', 'DESC')->first()->name }}
         </div>
     </td>
 
@@ -132,7 +131,8 @@
     </td>
 @endif
 </tr>
-{{-- conteúdo --}}
+{{-- dia --}}
+
                 @php $date = date('Y-m-d', strtotime('+1 days', strtotime($date))); @endphp
             @endwhile
         </tbody>
