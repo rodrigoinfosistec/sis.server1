@@ -78,25 +78,25 @@
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 80px;">
+                <div class="" style="width: 80px;">
                     ABONO
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 80px;">
+                <div class="" style="width: 80px;">
                     ATRASO
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 80px;">
+                <div class="" style="width: 80px;">
                     EXTRA
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 80px;">
+                <div class="" style="width: 80px;">
                     SALDO
                 </div>
             </th>
@@ -235,7 +235,18 @@
     {{-- ABONO --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="" style="width: 80px;">
-            
+            @php
+                $allowance = App\Models\Employeeallowance::where(['employee_id' => $clockemployee_employee_id, 'date' => $date])->first();
+            @endphp
+            <span class="text-muted" style="font-size: 9pt">
+                @if($allowance)
+                    {{ $allowance->start }}
+                    <br>
+                    {{ $allowance->end }}
+                @else
+                    0:00
+                @endif
+            </span>
         </div>
     </td>
 
