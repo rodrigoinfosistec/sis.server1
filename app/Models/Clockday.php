@@ -93,20 +93,62 @@ class Clockday extends Model
             'allowance'     => $interval,
         ]);
 
+        // Inicializa $authorized.
         $authorized = true;
 
         // Sábado.
         if(date_format(date_create($data['date']), 'l') == 'Saturday'):
-            // Evita saída menor que entrada.
-            if($data['output'] >= $data['input']):
-                $time_day = Clock::intervalMinuts($data['input'], $data['output']);
+            // Evita horários vazios.
+            if($data['input'] && $data['output']):
+                // Evita saída menor que entrada.
+                if($data['output'] >= $data['input']):
+                    // Dia.
+                    $time_day = Clock::intervalMinuts($data['input'], $data['output']);
+                else:
+                    $authorized = false;
+                endif;
             else:
                 $authorized = false;
             endif;
 
         // Não Sábado.
         else:
+            // Evita horários vazios.
+            if($data['input'] && $data['break_start'] && $data['break_end'] && $data['output']):
+                // Evita pausa inicial menor que entrada.
+                if($data['break_start'] >= $data['input']):
+                    // Manhã
+                    $time_morning = Clock::intervalMinuts($data['input'], $data['break_start']);
+                else:
+                    $authorized = false;
+                endif;
 
+                // Evita pausa final menor que pausa inicial.
+                if($data['break_end'] >= $data['break_start']):
+                    // Intervalo
+                    $time_interval = Clock::intervalMinuts($data['break_start'], $data['break_end']);
+                else:
+                    $authorized = false;
+                endif;
+
+                // Evita saída menor que pausa final.
+                if($data['output'] >= $data['break_end']):
+                    // Tarde.
+                    $time_afternoon = Clock::intervalMinuts($data['break_end'], $data['output']);
+                else:
+                    $authorized = false;
+                endif;
+            else:
+                $authorized = false;
+            endif;
+        endif;
+
+        // Sábado.
+        if($authorized && !empty($time_day)):
+            $time_day = $time_day;
+        // Não Sábado.
+        elseif($authorized):
+            
         endif;
 
         // After.
