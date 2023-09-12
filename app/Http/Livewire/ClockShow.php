@@ -932,13 +932,13 @@ class ClockShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida atualização.
-            $valid = Clockemployee::validateEditClock($data);
+            $valid = Clockregistry::validateEditClock($data);
 
             // Atualiza.
-            if ($valid) Clockemployee::editClock($data);
+            if ($valid) Clockregistry::editClock($data);
 
             // Executa dependências.
-            if ($valid) Clockemployee::dependencyEditClock($data);
+            if ($valid) Clockregistry::dependencyEditClock($data);
 
             // Fecha modal.
             $this->closeModal();
