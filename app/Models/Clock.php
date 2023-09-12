@@ -168,7 +168,6 @@ class Clock extends Model
             foreach(Clockemployee::where(['clock_id' => $clock->id])->orderBy('employee_id')->get() as $key => $clockemployee):
                 // Cadastra Clockday.
                 $date = $data['validatedData']['start'];
-                $count = 0;
                 while($date <= $data['validatedData']['end']):
                     // Define a Jornada.
                     if(date_format(date_create($date), 'l') != 'Sunday'):
@@ -235,7 +234,7 @@ class Clock extends Model
                         'journey_break' => $journey_break,
                     ]);
 
-                    $date = $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));  
+                    $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));  
                 endwhile;
             endforeach;
         else:
@@ -252,7 +251,76 @@ class Clock extends Model
                     'journey_end_saturday'   => $employee->journey_end_saturday,
                 ]);
 
-                // ...
+                // Cadastra Clockday.
+                $date = $data['validatedData']['start'];
+                while($date <= $data['validatedData']['end']):
+                    // Define a Jornada.
+                    if(date_format(date_create($date), 'l') != 'Sunday'):
+                        if(date_format(date_create($date), 'l') != 'Saturday'):
+                            $journey_start = $employee->journey_start_week;
+                            $journey_end   = $employee->journey_end_week;
+                            $journey_break = '01:00';
+                        else:
+                            $journey_start = $employee->journey_start_saturday;
+                            $journey_end   = $employee->journey_end_saturday;
+                            $journey_break = null;
+                        endif;
+                    else:
+                        $journey_start = null;
+                        $journey_end   = null;
+                        $journey_break = null;
+                    endif;
+
+                    // Hidrata eventos.
+                    $events = Clockevent::where(['clock_id' => $clock->id, 'employee_id' => $employee->id, 'date' => $date])->get();
+
+                    if($events->count() > 0):
+                        // Input.
+                        $input = $events[0]->time;
+
+                        // Break Start.
+                        if(!empty($events[1])):
+                            $break_start = $events[1]->time;
+                        else:
+                            $break_start = null;
+                        endif;
+
+                        // Break End.
+                        if(!empty($events[2])):
+                            $break_end = $events[2]->time;
+                        else:
+                            $break_end = null;
+                        endif;
+
+                        // Output.
+                        if(!empty($events[3])):
+                            $output = $events[3]->time;
+                        else:
+                            $output = null;
+                        endif;
+                    else:
+                        $input         = null;
+                        $break_start   = null;
+                        $break_end     = null;
+                        $output        = null;
+                    endif;
+
+                    // Cadastra Clockday.
+                    Clockday::create([
+                        'clock_id'      => $clock->id,
+                        'employee_id'   => $employee->id,
+                        'date'          => $date,
+                        'input'         => $input,
+                        'break_start'   => $break_start,
+                        'break_end'     => $break_end,
+                        'output'        => $output,
+                        'journey_start' => $journey_start,
+                        'journey_end'   => $journey_end,
+                        'journey_break' => $journey_break,
+                    ]);
+
+                    $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));  
+                endwhile;
             endforeach;
         endif;
 
