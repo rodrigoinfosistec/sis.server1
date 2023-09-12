@@ -18,20 +18,23 @@ class Clockday extends Model
      */
     protected $fillable = [
         'clock_id',
-
         'employee_id',
-        'employee_name',
 
-        'journey_start_week',
-        'journey_end_week',
-        'journey_start_saturday',
-        'journey_end_saturday',
+        'date',
 
-        'delay_total',
-        'extra_total',
-        'balance_total',
+        'input',
+        'break_start',
+        'break_end',
+        'output',
 
-        'note',
+        'journey_start',
+        'journey_end',
+        'journey_break',
+
+        'allowance',
+        'delay',
+        'extra',
+        'balance',
 
         'authorized',
 
