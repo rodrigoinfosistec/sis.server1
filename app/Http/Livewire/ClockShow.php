@@ -885,7 +885,6 @@ class ClockShow extends Component
         $this->clockemployee_start_decode           = General::decodeDate($clockemployee->clock->start);
         $this->clockemployee_end_decode             = General::decodeDate($clockemployee->clock->end);
 
-
         $date = $clockemployee->clock->start;
         while($date <= $clockemployee->clock->end):
             // Define a jornada.
