@@ -886,59 +886,13 @@ class ClockShow extends Component
         $this->clockemployee_start_decode           = General::decodeDate($clockemployee->clock->start);
         $this->clockemployee_end_decode             = General::decodeDate($clockemployee->clock->end);
 
-        $date = $clockemployee->clock->start;
-        while($date <= $clockemployee->clock->end):
-            // Define a jornada.
-            if(date_format(date_create($date), 'l') == 'Saturday' && date_format(date_create($date), 'l') != 'Sunday'):
-                $this->array_date_journey_start[$date] = $clockemployee->journey_start_saturday;
-                $this->array_date_journey_end[$date]   = $clockemployee->journey_end_saturday;
-                $this->array_date_journey_break[$date] = null;
-            else:
-                $this->array_date_journey_start[$date] = $clockemployee->journey_start_week;
-                $this->array_date_journey_end[$date]   = $clockemployee->journey_end_week;
-                $this->array_date_journey_break[$date] = '01:00';
-            endif;
+        dd($this->clockemployee_employee_id);
+        $date = $this->clock_start;
+        while($date <=  $this->clock_end):
+            $clockday = Clockday::where(['clock_id' => $this->clockemployee_clock_id, 'employee_id' => $this->clockemployee_employee_id, 'date' => $date])->first();
 
-            // Hidrata os eventos.
-            $this->array_date_events[$date] = Clockevent::where(['employee_id' => $clockemployee->employee_id, 'date' => $date])->get();
-
-            // Trata eventos individualmente.
-            if($this->array_date_events[$date]->count() > 0):
-                // Eventos.
-                $events = $this->array_date_events[$date];
-
-                // Input.
-                $this->array_date_input[$date] = $events[0]->time;
-
-                 // Break Start.
-                if(!empty($events[1])):
-                    $this->array_date_break_start[$date] = $events[1]->time;
-                else:
-                    $this->array_date_break_start[$date] = null;
-                endif;
-
-                // Break End.
-                if(!empty($events[2])):
-                    $this->array_date_break_end[$date] = $events[2]->time;
-                else:
-                    $this->array_date_break_end[$date] = null;
-                endif;
-
-                // Output.
-                if(!empty($events[3])):
-                    $this->array_date_output[$date] = $events[3]->time;
-                else:
-                    $this->array_date_output[$date] = null;
-                endif;
-            else:
-                $this->array_date_input[$date]       = null;
-                $this->array_date_break_start[$date] = null;
-                $this->array_date_break_end[$date]   = null;
-                $this->array_date_output[$date]      = null;
-            endif;
-
-            $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
-        endwhile;
+            $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));  
+        endwhile;   
     }
         public function modernizeClockEmployee()
         {
@@ -951,42 +905,26 @@ class ClockShow extends Component
             $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;
 
-            $date = $this->clock_start;
-            while($date <= $this->clock_end):
-                $clockday = Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $date])->orderBy('id', 'DESC')->first();
-                if($clockday):
-                    // Estende $data.
-                    $data['date']          =  $date;
-                    $data['input']         =  $clockday->input;
-                    $data['output']        =  $clockday->break_start;
-                    $data['break_start']   =  $clockday->break_end;
-                    $data['break_end']     =  $clockday->output;
-                    $data['journey_start'] =  $clockday->journey_start;
-                    $data['journey_end']   =  $clockday->journey_end;
-                    $data['journey_break'] =  $clockday->journey_break;
-                else:
-                    // Estende $data.
-                    $data['date']          =  $date;
-                    $data['input']         =  $this->array_date_input[$date];
-                    $data['output']        =  $this->array_date_break_start[$date];
-                    $data['break_start']   =  $this->array_date_break_end[$date];
-                    $data['break_end']     =  $this->array_date_output[$date];
-                    $data['journey_start'] =  $this->array_date_journey_start[$date];
-                    $data['journey_end']   =  $this->array_date_journey_end[$date];
-                    $data['journey_break'] =  $this->array_date_journey_break[$date];
-                endif;
+            // Estende $data.
+            $data['date']          =  $date;
+            $data['input']         =  $this->array_date_input[$date];
+            $data['output']        =  $this->array_date_break_start[$date];
+            $data['break_start']   =  $this->array_date_break_end[$date];
+            $data['break_end']     =  $this->array_date_output[$date];
+            $data['journey_start'] =  $this->array_date_journey_start[$date];
+            $data['journey_end']   =  $this->array_date_journey_end[$date];
+            $data['journey_break'] =  $this->array_date_journey_break[$date];
 
-                // Valida atualização.
-                $valid = Clockday::validateAdd($data);
+            // Valida atualização.
+            $valid = Clockday::validateEdit($data);
 
-                // Atualiza.
-                if ($valid) Clockday::add($data);
+            // Atualiza.
+            if ($valid) Clockday::edit($data);
 
-                // Executa dependências.
-                if ($valid) Clockday::dependencyAdd($data);
+            // Executa dependências.
+            if ($valid) Clockday::dependencyEdit($data);
 
-                $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
-            endwhile;
+            $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
 
             // Fecha modal.
             $this->closeModal();

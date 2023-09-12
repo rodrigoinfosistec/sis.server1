@@ -54,7 +54,7 @@ class Clockday extends Model
      * 
      * @return bool true
      */
-    public static function validateAdd(array $data) : bool {
+    public static function validateEdit(array $data) : bool {
         $message = null;
 
         // ...
@@ -76,7 +76,7 @@ class Clockday extends Model
      * 
      * @return bool true
      */
-    public static function add(array $data) : bool {
+    public static function edit(array $data) : bool {
         // Cadastra.
         Clockday::create([
             'clock_id'      => $data['validatedData']['clock_id'],
@@ -108,7 +108,7 @@ class Clockday extends Model
      * 
      * @return bool true
      */
-    public static function dependencyAdd(array $data) : bool {
+    public static function dependencyEdit(array $data) : bool {
         //...
 
         return true;
