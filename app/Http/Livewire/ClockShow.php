@@ -84,10 +84,18 @@ class ClockShow extends Component
     public $clock_start;
     public $clock_end;
 
-    public $array_date_input       = [];
-    public $array_date_break_start = [];
-    public $array_date_break_end   = [];
-    public $array_date_output      = [];
+    public $array_date_input         = [];
+    public $array_date_break_start   = [];
+    public $array_date_break_end     = [];
+    public $array_date_output        = [];
+    public $array_date_journey_start = [];
+    public $array_date_journey_end   = [];
+    public $array_date_journey_break = [];
+    public $array_date_allowance     = [];
+    public $array_date_delay         = [];
+    public $array_date_extra         = [];
+    public $array_date_balance       = [];
+    public $array_date_events        = [];
 
     /**
      * Construtor.
@@ -191,10 +199,18 @@ class ClockShow extends Component
         $this->clock_start = '';
         $this->clock_end   = '';
 
-        $this->array_date_input       = [];
-        $this->array_date_break_start = [];
-        $this->array_date_break_end   = [];
-        $this->array_date_output      = [];
+        $this->array_date_input         = [];
+        $this->array_date_break_start   = [];
+        $this->array_date_break_end     = [];
+        $this->array_date_output        = [];
+        $this->array_date_journey_start = [];
+        $this->array_date_journey_end   = [];
+        $this->array_date_journey_break = [];
+        $this->array_date_allowance     = [];
+        $this->array_date_delay         = [];
+        $this->array_date_extra         = [];
+        $this->array_date_balance       = [];
+        $this->array_date_events        = [];
     }
 
     /**
