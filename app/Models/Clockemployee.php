@@ -207,7 +207,7 @@ class Clockemployee extends Model
      */
     public static function dependencyErase(array $data) : bool {
         // Exclui os registros diários de funcionários vinculados ao ponto.
-        Clockday::where('clock_id', $data['validatedData']['clock_id'])->delete();
+        Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id']])->delete();
 
         return true;
     }
