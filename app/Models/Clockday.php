@@ -49,7 +49,7 @@ class Clockday extends Model
     public function employee(){return $this->belongsTo(Employee::class);}
     
     /**
-     * Valida cadastro.
+     * Valida atualização.
      * @var array $data
      * 
      * @return bool true
@@ -71,17 +71,14 @@ class Clockday extends Model
     }
 
     /**
-     * Cadastra.
+     * Atualiza.
      * @var array $data
      * 
      * @return bool true
      */
     public static function edit(array $data) : bool {
-        // Cadastra.
-        Clockday::create([
-            'clock_id'      => $data['validatedData']['clock_id'],
-            'employee_id'   => $data['validatedData']['employee_id'],
-            'date'          => $data['date'],
+        // Atualiza..
+        Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->update([
             'input'         => $data['input'],
             'break_start'   => $data['break_start'],
             'break_end'     => $data['break_end'],
@@ -95,7 +92,7 @@ class Clockday extends Model
         $after = Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first();
 
         // Mensagem.
-        $message = 'Horas do funcionário ' . $after->employee->name . ' cadastradas com sucesso.';
+        $message = 'Horas do funcionário ' . $after->employee->name . ' atualizadas com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -103,7 +100,7 @@ class Clockday extends Model
     }
 
     /**
-     * Executa dependências de cadastro.
+     * Executa dependências de atualização.
      * @var array $data
      * 
      * @return bool true
