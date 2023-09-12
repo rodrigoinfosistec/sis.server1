@@ -126,6 +126,16 @@
         </div>
     </td>
 
+{{-- FÉRIAS --}}
+@elseif(App\Models\Employeevacation::where(['employee_id' => $clockemployee_employee_id,'date' => $date])->orderBy('id', 'DESC')->first())
+    <td colspan="100%" class="align-middle" style="line-height: 1; padding: 0; background-color: #e9e9e9;">
+        <div class="text-muted fw-bold text-center" style="font-size: 9pt; margin: 10px 0 10px 0;">
+            FERIADO ({{ date_format(date_create($date), 'd/m/y') }})
+            <i class="bi-caret-right-fill text-muted"></i>
+            {{ App\Models\Holiday::where('date', $date)->orderBy('id', 'DESC')->first()->name }}
+        </div>
+    </td>
+
 {{-- DIAS SEM EXCEÇÕES --}}
 @else
     {{-- CHECKBOX --}}
