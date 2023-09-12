@@ -918,6 +918,7 @@ class ClockShow extends Component
             $date = $this->clock_start;
             while($date <= $this->clock_end):
                 // Estende $data.
+                $data['date']          =  $date;
                 $data['input']         =  $this->array_date_input[$date];
                 $data['break_start']   =  $this->array_date_break_start[$date];
                 $data['break_end']     =  $this->array_date_break_end[$date];
