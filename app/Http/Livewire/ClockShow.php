@@ -886,10 +886,18 @@ class ClockShow extends Component
         $this->clockemployee_start_decode           = General::decodeDate($clockemployee->clock->start);
         $this->clockemployee_end_decode             = General::decodeDate($clockemployee->clock->end);
 
-        dd($this->clockemployee_employee_id);
         $date = $this->clock_start;
         while($date <=  $this->clock_end):
             $clockday = Clockday::where(['clock_id' => $this->clockemployee_clock_id, 'employee_id' => $this->clockemployee_employee_id, 'date' => $date])->first();
+
+            $this->array_date_input[$date]       = $clockday->input;
+            $this->array_date_break_start[$date] = $clockday->break_start;
+            $this->array_date_break_end[$date]   = $clockday->break_end;
+            $this->array_date_output[$date]      = $clockday->output;
+
+            $this->array_date_journey_start[$date] = $clockday->journey_start;
+            $this->array_date_journey_end[$date]   = $clockday->journey_end;
+            $this->array_date_journey_break[$date] = $clockday->journey_break;
 
             $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));  
         endwhile;   
