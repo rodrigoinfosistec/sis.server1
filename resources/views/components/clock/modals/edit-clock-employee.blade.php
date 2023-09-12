@@ -234,19 +234,15 @@
 
     {{-- ABONO --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="" style="width: 80px;">
+        <div class="fw-bold" style="width: 80px; font-size: 9pt">
             @php
                 $allowance = App\Models\Employeeallowance::where(['employee_id' => $clockemployee_employee_id, 'date' => $date])->first();
             @endphp
-            <span class="text-muted" style="font-size: 9pt">
-                @if($allowance)
-                    {{ $allowance->start }}
-                    <br>
-                    {{ $allowance->end }}
-                @else
-                    0:00
-                @endif
-            </span>
+            @if($allowance)
+                {{ App\Models\Clock::intervalMinuts($allowance->start, $allowance->end) }}
+            @else
+                <span class="text-muted">0:0</span>
+            @endif
         </div>
     </td>
 

@@ -33,6 +33,23 @@ class Clock extends Model
     public function company(){return $this->belongsTo(Company::class);}
 
     /**
+     * Calcula minutos em um intervalo.
+     * 
+     * @var string $start
+     * @var string $end
+     * 
+     * @return string 
+     */
+    public static function intervalMinuts(string $start, string $end) {
+        $start  = explode( ':', $start );
+        $end    = explode( ':', $end );
+        $minuts = ($end[0] - $start[0] ) * 60 + $end[1] - $start[1];
+        if($minuts < 0) $minuts += 24 * 60;
+
+        return sprintf( '%d:%d', $minuts / 60, $minuts % 60 );
+    }
+
+    /**
      * Valida cadastro TXT.
      * @var array $data
      * 
