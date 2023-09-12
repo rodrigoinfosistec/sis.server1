@@ -9,6 +9,7 @@ use App\Models\General;
 
 use App\Models\Clock;
 use App\Models\Clockemployee;
+use App\Models\Clockevent;
 use App\Models\Holiday;
 use App\Models\Employee;
 use App\Models\Employeevacation;
@@ -870,7 +871,7 @@ class ClockShow extends Component
         // Inicializa propriedades dinâmicas.
         $this->clockemployee_id                     = $clockemployee->id;
         $this->clockemployee_clock_id               = $clockemployee->clock_id ;
-        $this->clockemployee_employee_id            = $clockemployee->employee_id ;
+        $this->clockemployee_employee_id            = $clockemployee->employee_id;
         $this->clockemployee_employee_name          = $clockemployee->employee_name;
         $this->clockemployee_employee_pis           = $clockemployee->employee->pis;
         $this->clockemployee_journey_start_week     = $clockemployee->journey_start_week;
@@ -880,10 +881,47 @@ class ClockShow extends Component
         $this->note                                 = $clockemployee->note;
         $this->clock_start                          = $clockemployee->clock->start;
         $this->clock_end                            = $clockemployee->clock->end;
-
         $this->clockemployee_company_name           = $clockemployee->clock->company_name;
         $this->clockemployee_start_decode           = General::decodeDate($clockemployee->clock->start);
         $this->clockemployee_end_decode             = General::decodeDate($clockemployee->clock->end);
+
+
+        $date = $clockemployee->clock->start;
+        while($date <= $clockemployee->clock->end):
+            // Define a jornada.
+            if(date_format(date_create($date), 'l') == 'Saturday' && date_format(date_create($date), 'l') != 'Sunday'):
+                $this->array_date_journey_start[$date] = $clockemployee->journey_start_saturday;
+                $this->array_date_journey_end[$date]   = $clockemployee->journey_end_saturday;
+            else:
+                $this->array_date_journey_start[$date] = $clockemployee->journey_start_week;
+                $this->array_date_journey_end[$date]   = $clockemployee->journey_end_week;
+                $this->array_date_journey_break[$date] = '01:00';
+            endif;
+
+            // Hidrata os eventos.
+            $this->array_date_events[$date] = Clockevent::where(['employee_id' => $clockemployee->employee_id, 'date' => $date])->get();
+
+            // Trata eventos individualmente.
+            if($this->array_date_events[$date]->count() > 0):
+                // Eventos.
+                $events = $this->array_date_events[$date];
+
+                // Input.
+                $this->array_date_input[$date] = $events[0]->time;
+
+                 // Break Start.
+                if(!empty($events[1])) $this->array_date_break_start[$date] = $events[1]->time;
+
+                // Break End.
+                if(!empty($events[2])) $this->array_date_break_end[$date] = $events[2]->time;
+
+                // Output.
+                if(!empty($events[3])) $this->array_date_output[$date] = $events[3]->time;
+
+            endif;
+
+            $date = $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
+        endwhile;
     }
         public function modernizeClockEmployee()
         {
