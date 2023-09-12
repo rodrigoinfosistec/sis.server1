@@ -93,12 +93,18 @@ class Clockday extends Model
             'allowance'     => $interval,
         ]);
 
+        $authorized = true;
+
         // Sábado.
         if(date_format(date_create($data['date']), 'l') == 'Saturday'):
             // Evita saída menor que entrada.
-            if($data['input'] >= $data['output']):
-                
+            if($data['output'] >= $data['input']):
+                $time_day = Clock::intervalMinuts($data['input'], $data['output']);
+            else:
+                $authorized = false;
             endif;
+
+        // Não Sábado.
         else:
 
         endif;
