@@ -52,52 +52,52 @@
                     SAÍDA
                 </div>
             </th>
-            
+
             <th class="" style="padding: 0;">
                 <div class="text-center" style="width: 80px;">
                     TURNO (INÍCIO)
                 </div>
             </th>
-            
+
             <th class="" style="padding: 0;">
                 <div class="text-center" style="width: 80px;">
                     TURNO (FINAL)
                 </div>
             </th>
-            
+
             <th class="" style="padding: 0;">
                 <div class="text-center" style="width: 80px;">
                     INTERVALO
                 </div>
             </th>
-            
+
+            <th class="" style="padding: 0;">
+                <div class="text-center" style="width: 80px;">
+                    EVENTOS
+                </div>
+            </th>
+
             <th class="" style="padding: 0;">
                 <div class="text-center" style="width: 80px;">
                     ABONO
                 </div>
             </th>
-            
+
             <th class="" style="padding: 0;">
                 <div class="text-center" style="width: 80px;">
                     ATRASO
                 </div>
             </th>
-            
+
             <th class="" style="padding: 0;">
                 <div class="text-center" style="width: 80px;">
                     EXTRA
                 </div>
             </th>
-            
+
             <th class="" style="padding: 0;">
                 <div class="text-center" style="width: 80px;">
                     SALDO
-                </div>
-            </th>
-            
-            <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 80px;">
-                    EVENTOS
                 </div>
             </th>
         </thead>
@@ -200,7 +200,14 @@
             @endif
         </div>
     </td>
-    
+
+    {{-- EVENTOS --}}
+    <td class="align-middle" style="line-height: 1;">
+        <div class="" style="width: 80px;">
+            
+        </div>
+    </td>
+
     {{-- ABONO --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="" style="width: 80px;">
@@ -228,14 +235,6 @@
             
         </div>
     </td>
-
-    {{-- EVENTOS --}}
-    <td class="align-middle" style="line-height: 1;">
-        <div class="" style="width: 80px;">
-            
-        </div>
-    </td>
-
 @endif
 </tr>
 {{-- dia --}}
