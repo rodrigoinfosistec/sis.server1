@@ -217,6 +217,9 @@ class Clock extends Model
         // Exclui os Eventos vinculados ao ponto.
         Clockevent::where('clock_id', $data['validatedData']['clock_id'])->delete();
 
+        // Exclui os registros diários de funcionários vinculados ao ponto.
+        Clockday::where('clock_id', $data['validatedData']['clock_id'])->delete();
+
         return true;
     }
 

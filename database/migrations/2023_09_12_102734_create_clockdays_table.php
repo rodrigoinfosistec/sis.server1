@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clockemployeedays', function (Blueprint $table) {
+        Schema::create('clockdays', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('clockemployee_id');
+            $table->unsignedBigInteger('clock_id');
+            $table->unsignedBigInteger('employee_id');
+
+            $table->date('date');
 
             $table->string('input')->nullable()->default(null);
-            $table->string('break-start')->nullable()->default(null);
+            $table->string('break_start')->nullable()->default(null);
             $table->string('break_end')->nullable()->default(null);
             $table->string('output')->nullable()->default(null);
 
@@ -25,16 +28,17 @@ return new class extends Migration
             $table->string('journey_end')->nullable()->default(null);
             $table->string('journey_break')->nullable()->default(null);
 
-            $table->string('delay_total')->nullable()->default(null);
-            $table->string('delay_total')->nullable()->default(null);
-            $table->string('extra_total')->nullable()->default(null);
-            $table->string('balance_total')->nullable()->default(null);
+            $table->string('allowance')->nullable()->default(null);
+            $table->string('delay')->nullable()->default(null);
+            $table->string('extra')->nullable()->default(null);
+            $table->string('balance')->nullable()->default(null);
 
             $table->boolean('authorized')->default(false);
 
             $table->timestamps();
 
-            $table->foreign('clockemployee_id')->references('id')->on('clockemployees');
+            $table->foreign('clock_id')->references('id')->on('clocks');
+            $table->foreign('employee_id')->references('id')->on('employees');
         });
     }
 
@@ -43,6 +47,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('clockemployeedays');
+        Schema::dropIfExists('clockdays');
     }
 };
