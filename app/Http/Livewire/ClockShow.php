@@ -926,6 +926,8 @@ class ClockShow extends Component
         {
             // Estende $validatedData.
             $validatedData['clockemployee_id'] = $this->clockemployee_id;
+            $validatedData['clock_id']         = $this->clockemployee_clock_id;
+            $validatedData['employee_id']      = $this->clockemployee_employee_id;
 
             // Define $data.
             $data['config']        = $this->config;
