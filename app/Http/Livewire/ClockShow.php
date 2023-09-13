@@ -76,6 +76,8 @@ class ClockShow extends Component
     public $clockemployee_company_name;
     public $clockemployee_start_decode;
     public $clockemployee_end_decode;
+    public $clockemployee_clock_start;
+    public $clockemployee_clock_end;
 
     public $note;
     public $date_start;
@@ -191,6 +193,8 @@ class ClockShow extends Component
         $this->clockemployee_company_name           = '';
         $this->clockemployee_start_decode           = '';
         $this->clockemployee_end_decode             = '';
+        $this->clockemployee_clock_start            = '';
+        $this->clockemployee_clock_end              = '';
 
         $this->note       = '';
         $this->date_start = '';
@@ -769,6 +773,9 @@ class ClockShow extends Component
         $this->clockemployee_journey_end_saturday   = $clockemployee->journey_end_saturday;
         $this->employee_id                          = $clockemployee->employee_id;
 
+        $this->clockemployee_clock_start            = $clockemployee->clock->start;
+        $this->clockemployee_clock_end              = $clockemployee->clock->end;
+
         $this->clockemployee_company_name           = $clockemployee->clock->company_name;
         $this->clockemployee_start_decode           = General::decodeDate($clockemployee->clock->start);
         $this->clockemployee_end_decode             = General::decodeDate($clockemployee->clock->end);
@@ -825,6 +832,9 @@ class ClockShow extends Component
         $this->clockemployee_journey_start_saturday = $clockemployee->journey_start_saturday;
         $this->clockemployee_journey_end_saturday   = $clockemployee->journey_end_saturday;
         $this->employee_id                          = $clockemployee->employee_id;
+
+        $this->clockemployee_clock_start            = $clockemployee->clock->start;
+        $this->clockemployee_clock_end              = $clockemployee->clock->end;
 
         $this->clockemployee_company_name           = $clockemployee->clock->company_name;
         $this->clockemployee_start_decode           = General::decodeDate($clockemployee->clock->start);
