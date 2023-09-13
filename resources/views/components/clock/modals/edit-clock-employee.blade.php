@@ -262,28 +262,48 @@
     {{-- ABONO --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="fw-bold" style="width: 80px; font-size: 9pt">
-            {{ $clockday->allowance ?? '' }}
+            @if(!empty($clock_day->authorized))
+                {{ $clock_day->allowance }}
+            @endif
         </div>
     </td>
 
     {{-- ATRASO --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="" style="width: 80px;">
-            {{ $clockday->delay ?? '' }}
+        <div class="fw-bold" style="width: 80px; font-size: 9pt">
+            @if(!empty($clock_day->authorized))
+                {{ $clock_day->delay }}
+            @endif
         </div>
     </td>
 
     {{-- EXTRA --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="" style="width: 80px;">
-            {{ $clockday->extra ?? '' }}
+        <div class="fw-bold" style="width: 80px; font-size: 9pt">
+            @if(!empty($clock_day->authorized))
+                {{ $clock_day->extra }}
+            @endif
         </div>
     </td>
 
     {{-- SALDO --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="" style="width: 80px;">
-            {{ $clockday->balance ?? '' }}
+        <div class="fw-bold" style="width: 80px; font-size: 9pt">
+            @php
+                $color = 'dark';
+                if(!empty($clock_day->authorized)):
+                    if((string)$clock_day->balance[0] == '+' ):
+                        $color = 'primary';
+                    elseif((string)$clock_day->balance[0] == '-' ):
+                        $color = 'danger';
+                    endif;
+                endif;
+            @endphp
+            <span class="text-{{ $color }}">
+            @if(!empty($clock_day->authorized))
+                {{ $clock_day->balance }}
+            @endif
+            </span>
         </div>
     </td>
 @endif
