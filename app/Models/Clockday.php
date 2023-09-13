@@ -97,7 +97,7 @@ class Clockday extends Model
         $authorized = true;
 
         // Sábado.
-        elseif(date_format(date_create($data['date']), 'l') == 'Saturday'):
+        if(date_format(date_create($data['date']), 'l') == 'Saturday'):
             // Evita horários vazios.
             if($data['input'] && $data['output']):
                 // Evita saída menor que entrada.
