@@ -189,14 +189,14 @@
     {{-- TURNO (INÍCIO) --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="" style="width: 80px;">
-            <input type="time" wire:model="array_date_journey_start.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_journey_start_{{ $date }}">
+            <input type="time" wire:model="array_date_journey_start.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_journey_start_{{ $date }}" disabled>
         </div>
     </td>
 
     {{-- TURNO (FINAL) --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="" style="width: 80px;">
-            <input type="time" wire:model="array_date_journey_end.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_journey_end_{{ $date }}">
+            <input type="time" wire:model="array_date_journey_end.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_journey_end_{{ $date }}" disabled>
         </div>
     </td>
 
@@ -204,7 +204,7 @@
     <td class="align-middle" style="line-height: 1;">
         <div class="" style="width: 80px;">
             @if(date_format(date_create($date), 'l') != 'Saturday')
-                <input type="time" wire:model="array_date_journey_break.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_journey_break_{{ $date }}">
+                <input type="time" wire:model="array_date_journey_break.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_journey_break_{{ $date }}" disabled>
             @endif
         </div>
     </td>
