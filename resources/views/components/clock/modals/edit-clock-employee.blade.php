@@ -24,6 +24,12 @@
             </th>
 
             <th class="" style="padding: 0;">
+                <div class="" style="width: 15px;">
+                    {{--  --}}
+                </div>
+            </th>
+
+            <th class="" style="padding: 0;">
                 <div class="" style="width: 80px;">
                     DIA
                 </div>
@@ -146,6 +152,15 @@
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" style="width: 15px; height: 15px;" onchange="closest('tr').classList.toggle('row_selected')">
             </div>
+        </div>
+    </td>
+
+    {{-- ALERTA--}}
+    <td class="align-middle" style="line-height: 1; padding: 0;">
+        <div class="" style="width: 15px; font-size: 12pt;">
+            @if(empty($clock_day->authorized))
+                <i class="bi-caret-right-fill text-danger"></i>
+            @endif
         </div>
     </td>
 
