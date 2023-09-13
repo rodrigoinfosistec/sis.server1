@@ -243,7 +243,7 @@ class Clockday extends Model
             endif;
         endif;
 
-        if($authorized):
+        if($authorized && date_format(date_create($data['date']), 'l') == 'Sunday'):
             // Balance.
             if($minuts_extra > $minuts_delay):
                 // Minuts.
@@ -267,12 +267,17 @@ class Clockday extends Model
 
             // Atualiza.
             Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->update([
-                'allowance' => $time_allowance,
-                'delay'     => $time_delay,
-                'extra'     => $time_extra,
-                'balance'   => $time_balance,
+                'allowance'  => $time_allowance,
+                'delay'      => $time_delay,
+                'extra'      => $time_extra,
+                'balance'    => $time_balance,
             ]);
         endif;
+
+        // Atualiza.
+        Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->update([
+            'authorized' => $authorized,
+        ]);
 
         // After.
         $after = Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first();
