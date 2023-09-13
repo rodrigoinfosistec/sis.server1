@@ -152,7 +152,7 @@ class Clockday extends Model
 
         // Não Sábado.
         elseif($authorized):
-            
+            $delay = '1:0'
 
         endif;
 
