@@ -154,9 +154,10 @@
 
 {{-- FALTA --}}
 @elseif(App\Models\Employeeabsenceday::where(['employee_id' => $clockemployee_employee_id, 'date' => $date])->orderBy('id', 'DESC')->first())
-    <td colspan="100%" class="align-middle" style="line-height: 1; padding: 0; background-color: #e9e9e9;">
-        <div class="text-muted fw-bold text-center" style="font-size: 9pt; margin: 10px 0 10px 0;">
-            ATESTADO ({{ date_format(date_create($date), 'd/m/y') }})
+    <td colspan="100%" class="align-middle" style="line-height: 1; padding: 0; background-color: #FFA07A;">
+        <div class="text-dark fw-bold text-center" style="font-size: 9pt; margin: 10px 0 10px 0;">
+
+            FALTA ({{ date_format(date_create($date), 'd/m/y') }})
         </div>
     </td>
 
