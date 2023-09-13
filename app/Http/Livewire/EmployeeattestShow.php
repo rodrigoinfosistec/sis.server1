@@ -195,12 +195,12 @@ class EmployeeattestShow extends Component
         {
             // Define $validatedData.
             $validatedData['employeeattest_id'] = $this->employeeattest_id;
-            $validatedData['employee_id']         = $this->employee_id;
-            $validatedData['employee_name']       = $this->employee_name;
-            $validatedData['date_start']          = $this->date_start;
-            $validatedData['date_end']            = $this->date_end;
-            $validatedData['date_start_encode']   = $this->date_start_encode;
-            $validatedData['date_end_encode']     = $this->date_end_encode;
+            $validatedData['employee_id']        = $this->employee_id;
+            $validatedData['employee_name']      = $this->employee_name;
+            $validatedData['date_start']         = $this->date_start;
+            $validatedData['date_end']           = $this->date_end;
+            $validatedData['date_start_encode']  = $this->date_start_encode;
+            $validatedData['date_end_encode']    = $this->date_end_encode;
 
             // Define $data.
             $data['config']        = $this->config;
