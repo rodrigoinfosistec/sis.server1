@@ -277,6 +277,11 @@ class Clockday extends Model
         endif;
 
         if(date_format(date_create($data['date']), 'l') == 'Sunday') $authorized = true;
+        if(Holiday::where(['date' => $data['date']])->first()) $authorized = true;
+        if(Employeeeasy::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first()) $authorized = true;
+        if(Employeevacationday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first()) $authorized = true;
+        if(Employeeattestday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first()) $authorized = true;
+        if(Employeeabsenceday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first()) $authorized = true;
 
         // Atualiza.
         Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->update([
@@ -284,7 +289,7 @@ class Clockday extends Model
         ]);
 
         // Atualiza Clockemployee
-        
+
 
         // After.
         $after = Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first();
