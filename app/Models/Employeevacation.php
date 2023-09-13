@@ -156,6 +156,17 @@ class Employeevacation extends Model
         // Exclui dias das férias.
         Employeevacationday::where('employeevacation_id', $data['validatedData']['employeevacation_id'])->delete();
 
+        // Percorre todas as datas da Falta.
+        $y = $data['validatedData']['date_start_encode'];
+        while($y <= $data['validatedData']['date_end_encode']):
+            // Desfaz autorização na data.
+            Clockday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $y])->update([
+                'authorized' => false,
+            ]);
+
+            $y = date('Y-m-d', strtotime('+1 days', strtotime($y)));
+        endwhile;
+
         return true;
     }
 

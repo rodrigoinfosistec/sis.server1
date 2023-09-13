@@ -159,7 +159,7 @@ class Employeeabsence extends Model
         $y = $data['validatedData']['date_start_encode'];
         while($y <= $data['validatedData']['date_end_encode']):
             // Desfaz autorização na data.
-            Clockday::where(['employee_id' => $data['validatedData']['employee_id'],'date' => $y])->update([
+            Clockday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $y])->update([
                 'authorized' => false,
             ]);
 

@@ -155,6 +155,17 @@ class Employeeattest extends Model
         // Exclui dias das férias.
         Employeeattestday::where('employeeattest_id', $data['validatedData']['employeeattest_id'])->delete();
 
+        // Percorre todas as datas da Falta.
+        $y = $data['validatedData']['date_start_encode'];
+        while($y <= $data['validatedData']['date_end_encode']):
+            // Desfaz autorização na data.
+            Clockday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $y])->update([
+                'authorized' => false,
+            ]);
+
+            $y = date('Y-m-d', strtotime('+1 days', strtotime($y)));
+        endwhile;
+
         return true;
     }
 
