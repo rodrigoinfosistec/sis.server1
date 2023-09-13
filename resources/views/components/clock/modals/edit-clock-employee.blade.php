@@ -121,7 +121,7 @@
 {{-- DOMINGO --}}
 @if(date_format(date_create($date), 'l') == 'Sunday')
     <td colspan="100%" class="align-middle" style="line-height: 1; padding: 0; background-color: #e9e9e9;">
-        <div class="text-muted fw-bold" style="font-size: 9pt; margin: 10px 0 10px 0;">
+        <div class="text-muted fw-bold" style="font-size: 9pt; margin: 10px 0 10px 220px;">
             DOMINGO ({{ date_format(date_create($date), 'd/m/y') }})
         </div>
     </td>
@@ -129,9 +129,9 @@
 {{-- FERIADO --}}
 @elseif(App\Models\Holiday::where('date', $date)->orderBy('id', 'DESC')->first())
     <td colspan="100%" class="align-middle" style="line-height: 1; padding: 0; background-color: #e9e9e9;">
-        <div class="text-muted fw-bold" style="font-size: 9pt; margin: 10px 0 10px 100px;">
+        <div class="text-muted fw-bold" style="font-size: 8pt; margin: 5px 0 5px 220px;">
             FERIADO ({{ date_format(date_create($date), 'd/m/y') }})
-            <i class="bi-caret-right-fill text-muted"></i>
+            <br>
             {{ App\Models\Holiday::where('date', $date)->orderBy('id', 'DESC')->first()->name }}
         </div>
     </td>
@@ -139,7 +139,7 @@
 {{-- FÉRIAS --}}
 @elseif(App\Models\Employeevacationday::where(['employee_id' => $clockemployee_employee_id, 'date' => $date])->orderBy('id', 'DESC')->first())
     <td colspan="100%" class="align-middle" style="line-height: 1; padding: 0; background-color: #e9e9e9;">
-        <div class="text-muted fw-bold" style="font-size: 9pt; margin: 10px 0 10px 0;">
+        <div class="text-muted fw-bold" style="font-size: 9pt; margin: 10px 0 10px 220px;">
             FÉRIAS ({{ date_format(date_create($date), 'd/m/y') }})
         </div>
     </td>
@@ -147,7 +147,7 @@
 {{-- ATESTADO --}}
 @elseif(App\Models\Employeeattestday::where(['employee_id' => $clockemployee_employee_id, 'date' => $date])->orderBy('id', 'DESC')->first())
     <td colspan="100%" class="align-middle" style="line-height: 1; padding: 0; background-color: #e9e9e9;">
-        <div class="text-muted fw-bold" style="font-size: 9pt; margin: 10px 0 10px 0;">
+        <div class="text-muted fw-bold" style="font-size: 9pt; margin: 10px 0 10px 220px;">
             ATESTADO ({{ date_format(date_create($date), 'd/m/y') }})
         </div>
     </td>
@@ -155,7 +155,7 @@
 {{-- FALTA --}}
 @elseif(App\Models\Employeeabsenceday::where(['employee_id' => $clockemployee_employee_id, 'date' => $date])->orderBy('id', 'DESC')->first())
     <td colspan="100%" class="align-middle" style="line-height: 1; padding: 0; background-color: #FFA07A;">
-        <div class="text-dark fw-bold" style="font-size: 9pt; margin: 10px 0 10px 0;">
+        <div class="text-dark fw-bold" style="font-size: 9pt; margin: 10px 0 10px 220px;">
 
             FALTA ({{ date_format(date_create($date), 'd/m/y') }})
         </div>
