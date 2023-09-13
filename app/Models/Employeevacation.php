@@ -113,6 +113,7 @@ class Employeevacation extends Model
             // Cadastra dia de Férias.
             Employeevacationday::create([
                 'employeevacation_id' => $employeevacation->id,
+                'employee_id'         => $employeevacation->employee_id,
                 'date'                => $y,
             ]);
 

@@ -113,7 +113,8 @@ class Employeeabsence extends Model
             // Cadastra dia de Falta.
             Employeeabsenceday::create([
                 'employeeabsence_id' => $employeeabsence->id,
-                'date'                => $y,
+                'employee_id'        => $employeeabsence->employee_id,
+                'date'               => $y,
             ]);
 
             $y = date('Y-m-d', strtotime('+1 days', strtotime($y)));

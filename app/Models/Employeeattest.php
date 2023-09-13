@@ -113,7 +113,8 @@ class Employeeattest extends Model
             // Cadastra dia de Atestado.
             Employeeattestday::create([
                 'employeeattest_id' => $employeeattest->id,
-                'date'                => $y,
+                'employee_id'       => $employeeattest->employee_id,
+                'date'              => $y,
             ]);
 
             $y = date('Y-m-d', strtotime('+1 days', strtotime($y)));
