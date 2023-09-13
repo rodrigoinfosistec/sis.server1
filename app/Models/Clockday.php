@@ -102,9 +102,11 @@ class Clockday extends Model
             if($data['input'] && $data['output']):
                 // Evita saída menor que entrada.
                 if($data['output'] >= $data['input']):
-                    // Dia.
-                    $time_default = '4:0';
+                    // Minutos trabalhados.
                     $time_day = Clock::intervalMinuts($data['input'], $data['output']);
+                    $t = explode(':', $time_day);
+                    $minuts_work = (($t[0] * 60) + $t[1]);
+
                 else:
                     $authorized = false;
                 endif;
@@ -117,48 +119,25 @@ class Clockday extends Model
             // Evita horários vazios.
             if($data['input'] && $data['break_start'] && $data['break_end'] && $data['output']):
                 // Evita pausa inicial menor que entrada.
-                if($data['break_start'] >= $data['input']):
-                    // Manhã
-                    $time_morning = Clock::intervalMinuts($data['input'], $data['break_start']);
-                else:
-                    $authorized = false;
-                endif;
-
-                // Evita pausa final menor que pausa inicial.
-                if($data['break_end'] >= $data['break_start']):
-                    // Intervalo
-                    $time_interval = Clock::intervalMinuts($data['break_start'], $data['break_end']);
-                else:
-                    $authorized = false;
-                endif;
-
-                // Evita saída menor que pausa final.
-                if($data['output'] >= $data['break_end']):
-                    // Tarde.
+                if($data['break_start'] >= $data['input'] && $data['break_end'] >= $data['break_start'] && $data['output'] >= $data['break_end']):
+                    
+                    $time_morning   = Clock::intervalMinuts($data['input'], $data['break_start']);
+                    $time_interval  = Clock::intervalMinuts($data['break_start'], $data['break_end']);
                     $time_afternoon = Clock::intervalMinuts($data['break_end'], $data['output']);
+
+                    // Minutos trabalhados.
+                    $m = explode(':', $time_morning);
+                    $t = explode(':', $time_afternoon);
+                    $i = explode(':', $time_interval);
+                    $minuts_work = ((((($m[0] * 60) + $m[1]) + (($t[0] * 60) + $t[1])) + 60) - (($i[0] * 60) + $i[1]));
+
+                    dd($minuts_work);
                 else:
                     $authorized = false;
                 endif;
             else:
                 $authorized = false;
             endif;
-        endif;
-
-        // Sábado.
-        if($authorized && !empty($time_day)):
-            // Tempo do dia.
-            $time_day = $time_day;
-
-
-        // Não Sábado.
-        elseif($authorized):
-            // Separa pelo ':'.
-            $m = explode(':', $time_morning);
-            $mh = $m[0]; 
-            $mhm = $mh /60;
-            $mm = $m[1];
-
-            dd($mhm);
         endif;
 
         // After.
