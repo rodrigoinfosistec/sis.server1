@@ -16,6 +16,7 @@ class Employeevacationday extends Model
      */
     protected $fillable = [
         'employeevacation_id',
+        'employee_id',
 
         'date',
 
@@ -27,5 +28,6 @@ class Employeevacationday extends Model
      * Relaciona Models.
      */
     public function employeevacation(){return $this->belongsTo(Employeevacation::class);}
+    public function employee(){return $this->belongsTo(Employee::class);}
 
 }

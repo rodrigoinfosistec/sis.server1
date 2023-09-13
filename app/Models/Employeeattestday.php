@@ -16,6 +16,7 @@ class Employeeattestday extends Model
      */
     protected $fillable = [
         'employeeattest_id',
+        'employee_id',
 
         'date',
 
@@ -27,5 +28,6 @@ class Employeeattestday extends Model
      * Relaciona Models.
      */
     public function employeeattest(){return $this->belongsTo(Employeeattest::class);}
+    public function employee(){return $this->belongsTo(Employee::class);}
 
 }
