@@ -288,9 +288,6 @@ class Clockday extends Model
             'authorized' => $authorized,
         ]);
 
-        // Atualiza Clockemployee
-
-
         // After.
         $after = Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first();
 
