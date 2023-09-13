@@ -36,6 +36,8 @@ class EmployeeabsenceShow extends Component
     public $employee_name;
     public $date_start;
     public $date_end;
+    public $date_start_encode;
+    public $date_end_encode;
     public $created;
 
     /**
@@ -86,11 +88,13 @@ class EmployeeabsenceShow extends Component
         $this->comment   = '';
 
         $this->employeeabsence_id = '';
-        $this->employee_id         = '';
-        $this->employee_name       = '';
-        $this->date_start          = '';
-        $this->date_end            = '';
-        $this->created             = '';
+        $this->employee_id        = '';
+        $this->employee_name      = '';
+        $this->date_start         = '';
+        $this->date_end           = '';
+        $this->date_start_encode  = '';
+        $this->date_end_encode    = '';
+        $this->created            = '';
     }
 
     /**
@@ -181,8 +185,10 @@ class EmployeeabsenceShow extends Component
         $this->employeeabsence_id = $employeeabsence->id;
         $this->employee_id         = $employeeabsence->employee_id;
         $this->employee_name       = $employeeabsence->employee_name;
-        $this->date_start          = General::decodedate($employeeabsence->date_start);
-        $this->date_end            = General::decodedate($employeeabsence->date_end);
+        $this->date_start          = General::decodeDate($employeeabsence->date_start);
+        $this->date_end            = General::decodeDate($employeeabsence->date_end);
+        $this->date_start_encode   = $employeeabsence->date_start_encode;
+        $this->date_end_encode     = $employeeabsence->date_end_encode;
         $this->created             = $employeeabsence->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
@@ -193,6 +199,8 @@ class EmployeeabsenceShow extends Component
             $validatedData['employee_name']       = $this->employee_name;
             $validatedData['date_start']          = $this->date_start;
             $validatedData['date_end']            = $this->date_end;
+            $validatedData['date_start_encode']   = $this->date_start_encode;
+            $validatedData['date_end_encode']     = $this->date_end_encode;
 
             // Define $data.
             $data['config']        = $this->config;

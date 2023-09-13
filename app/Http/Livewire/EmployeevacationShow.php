@@ -36,6 +36,8 @@ class EmployeevacationShow extends Component
     public $employee_name;
     public $date_start;
     public $date_end;
+    public $date_start_encode;
+    public $date_end_encode;
     public $created;
 
     /**
@@ -90,6 +92,8 @@ class EmployeevacationShow extends Component
         $this->employee_name       = '';
         $this->date_start          = '';
         $this->date_end            = '';
+        $this->date_start_encode   = '';
+        $this->date_end_encode     = '';
         $this->created             = '';
     }
 
@@ -181,8 +185,10 @@ class EmployeevacationShow extends Component
         $this->employeevacation_id = $employeevacation->id;
         $this->employee_id         = $employeevacation->employee_id;
         $this->employee_name       = $employeevacation->employee_name;
-        $this->date_start          = General::decodedate($employeevacation->date_start);
-        $this->date_end            = General::decodedate($employeevacation->date_end);
+        $this->date_start          = General::decodeDate($employeeabsence->date_start);
+        $this->date_end            = General::decodeDate($employeeabsence->date_end);
+        $this->date_start_encode   = $employeeabsence->date_start_encode;
+        $this->date_end_encode     = $employeeabsence->date_end_encode;
         $this->created             = $employeevacation->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
@@ -193,6 +199,8 @@ class EmployeevacationShow extends Component
             $validatedData['employee_name']       = $this->employee_name;
             $validatedData['date_start']          = $this->date_start;
             $validatedData['date_end']            = $this->date_end;
+            $validatedData['date_start_encode']   = $this->date_start_encode;
+            $validatedData['date_end_encode']     = $this->date_end_encode;
 
             // Define $data.
             $data['config']        = $this->config;
