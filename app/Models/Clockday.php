@@ -244,13 +244,33 @@ class Clockday extends Model
         endif;
 
         if($authorized):
-            // Trata times.
+            // Balance.
+            if($minuts_extra > $minuts_delay):
+                // Minuts.
+                $minuts_balance = $minuts_extra - $minuts_delay;
+
+                // Time.
+                $ba_hour  = $minuts_balance / 60;
+                $ba_hour  = (int)$ba_hour;
+                $ba_minut = $minuts_balance % 60;
+                $time_balance = '+' . str_pad($ba_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($ba_minut, 2 ,'0' , STR_PAD_LEFT);
+            elseif($minuts_delay > $minuts_extra):
+                // Minuts.
+                $minuts_balance = $minuts_delay - $minuts_extra;
+
+                // Time.
+                $ba_hour  = $minuts_balance / 60;
+                $ba_hour  = (int)$ba_hour;
+                $ba_minut = $minuts_balance % 60;
+                $time_balance = '-' . str_pad($ba_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($ba_minut, 2 ,'0' , STR_PAD_LEFT);
+            endif;
 
             // Atualiza.
             Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->update([
                 'allowance' => $time_allowance,
                 'delay'     => $time_delay,
                 'extra'     => $time_extra,
+                'balance'   => $time_balance,
             ]);
         endif;
 

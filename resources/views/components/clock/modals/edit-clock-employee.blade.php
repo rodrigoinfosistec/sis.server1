@@ -105,6 +105,10 @@
         </tbody>
             @php $date = $this->clock_start; @endphp
             @while($date <= $this->clock_end)
+@php
+    $clock_day = App\Models\Clockday::where(['clock_id' => $this->clockemployee_clock_id, 'employee_id' => $this->clockemployee_employee_id, 'date' => $date])->first();
+@endphp
+
 {{-- dia --}}
 <tr style="border-bottom: 1px solid #ddd; margin: 5px 0 5px 0;">
 
@@ -243,35 +247,28 @@
     {{-- ABONO --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="fw-bold" style="width: 80px; font-size: 9pt">
-            @php
-                $allowance = App\Models\Employeeallowance::where(['employee_id' => $clockemployee_employee_id, 'date' => $date])->first();
-            @endphp
-            @if($allowance)
-                {{ App\Models\Clock::intervalMinuts($allowance->start, $allowance->end) }}
-            @else
-                <span class="text-muted">0:0</span>
-            @endif
+            {{ $clockday->allowance ?? '' }}
         </div>
     </td>
 
     {{-- ATRASO --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="" style="width: 80px;">
-            
+            {{ $clockday->delay ?? '' }}
         </div>
     </td>
 
     {{-- EXTRA --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="" style="width: 80px;">
-            
+            {{ $clockday->extra ?? '' }}
         </div>
     </td>
 
     {{-- SALDO --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="" style="width: 80px;">
-            
+            {{ $clockday->balance ?? '' }}
         </div>
     </td>
 @endif
