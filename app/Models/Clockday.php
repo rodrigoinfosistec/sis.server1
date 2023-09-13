@@ -79,7 +79,18 @@ class Clockday extends Model
     public static function edit(array $data) : bool {
         // Allowance.
         $allowance = Employeeallowance::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first();
-        $allowance ? $interval_allowance = Clock::intervalMinuts($allowance->start, $allowance->end) : $interval_allowance = '00:00';
+        if($allowance):
+            $time_allowance = Clock::intervalMinuts($allowance->start, $allowance->end);
+            $a = explode(':', $time_allowance);
+            $minut_allowance = (($a[0] * 60) + $a[1]);
+            if($allowance->merged):
+                $minut_allowance=+ 240;
+                
+            endif;
+        else:
+            $minut_allowance = 0;
+            $time_allowance  = '00:00';
+        endif;
 
         // Atualiza.
         Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->update([
@@ -101,10 +112,6 @@ class Clockday extends Model
             if($data['input'] && $data['output']):
                 // Evita saída menor que entrada.
                 if($data['output'] >= $data['input']):
-                    // Define Abono.
-                    $a = explode(':', $interval_allowance);
-                    $minuts_allowance = (($a[0] * 60) + $a[1]);
-
                     // Define Jornada.
                     $time_journey   = Clock::intervalMinuts($data['journey_start'], $data['journey_end']);
                     $j = explode(':', $time_journey);
@@ -134,10 +141,6 @@ class Clockday extends Model
             if($data['input'] && $data['break_start'] && $data['break_end'] && $data['output']):
                 // Evita pausa inicial menor que entrada.
                 if($data['break_start'] >= $data['input'] && $data['break_end'] >= $data['break_start'] && $data['output'] >= $data['break_end']):
-                    // Define Abono.
-                    $a = explode(':', $interval_allowance);
-                    $minuts_allowance = (($a[0] * 60) + $a[1]);
-
                     // Define Jornada.
                     $time_journey   = Clock::intervalMinuts($data['journey_start'], $data['journey_end']);
                     $j = explode(':', $time_journey);
