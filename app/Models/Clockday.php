@@ -79,7 +79,7 @@ class Clockday extends Model
     public static function edit(array $data) : bool {
         // Allowance.
         $allowance = Employeeallowance::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first();
-        $allowance ? $interval = Clock::intervalMinuts($allowance->start, $allowance->end) : $interval = '0:0';
+        $allowance ? $interval_allowance = Clock::intervalMinuts($allowance->start, $allowance->end) : $interval_allowance = '00:00';
 
         // Atualiza.
         Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->update([
@@ -90,7 +90,6 @@ class Clockday extends Model
             'journey_start' => $data['journey_start'],
             'journey_end'   => $data['journey_end'],
             'journey_break' => $data['journey_break'],
-            'allowance'     => $interval,
         ]);
 
         // Inicializa $authorized.
@@ -102,6 +101,10 @@ class Clockday extends Model
             if($data['input'] && $data['output']):
                 // Evita saída menor que entrada.
                 if($data['output'] >= $data['input']):
+                    // Define Abono.
+                    $a = explode(':', $interval_allowance);
+                    $minuts_allowance = (($a[0] * 60) + $a[1]);
+
                     // Define Jornada.
                     $time_journey   = Clock::intervalMinuts($data['journey_start'], $data['journey_end']);
                     $j = explode(':', $time_journey);
@@ -131,6 +134,10 @@ class Clockday extends Model
             if($data['input'] && $data['break_start'] && $data['break_end'] && $data['output']):
                 // Evita pausa inicial menor que entrada.
                 if($data['break_start'] >= $data['input'] && $data['break_end'] >= $data['break_start'] && $data['output'] >= $data['break_end']):
+                    // Define Abono.
+                    $a = explode(':', $interval_allowance);
+                    $minuts_allowance = (($a[0] * 60) + $a[1]);
+
                     // Define Jornada.
                     $time_journey   = Clock::intervalMinuts($data['journey_start'], $data['journey_end']);
                     $j = explode(':', $time_journey);
@@ -158,20 +165,32 @@ class Clockday extends Model
                     $time_work = $hour . ':' . $minut;
 
                     // Define os Horários.
-                    $minuts_delay = 0;
-                    $minuts_extra = 0;
+                    $minuts_delay   = 0;
+                    $minuts_extra   = 0;
+                    $minuts_balance = 0;
+                    $time_delay     = '00:00';
+                    $time_extra     = '00:00';
+                    $time_balance   = '00:00';
                     if($minuts_journey > $minuts_work):
                         // Atraso.
-                        $d_hour  = ($minuts_journey - $minuts_work) / 60;
+                        $minuts_delay = $minuts_journey - $minuts_work;
+                        if($minuts_allowance >= $minuts_delay):
+                            $minuts_delay = 0;
+                        else:
+                            $minuts_delay = $minuts_delay - $minuts_allowance;
+                        endif;                   
+
+                        $d_hour  = $minuts_delay / 60;
                         $d_hour  = (int)$e_hour;
-                        $d_minut = ($minuts_journey - $minuts_work) % 60;
-                        $minuts_delay = $d_hour . ':' . $d_minut;
+                        $d_minut = $minuts_delay % 60;
+                        $time_delay = $d_hour . ':' . $d_minut;
                     elseif($minuts_work > $minuts_journey):
                         // Extras.
-                        $e_hour  = ($minuts_work - $minuts_journey) / 60;
+                        $minuts_extra = $minuts_work - $minuts_journey;
+                        $e_hour  = $minuts_extra / 60;
                         $e_hour  = (int)$e_hour;
-                        $e_minut = ($minuts_work - $minuts_journey) % 60;
-                        $minuts_extra = $e_hour . ':' . $e_minut;
+                        $e_minut = $minuts_extra % 60;
+                        $time_extra = $e_hour . ':' . $e_minut;
                     endif;
                 else:
                     $authorized = false;
