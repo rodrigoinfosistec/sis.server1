@@ -128,7 +128,10 @@ class Employeeeasy extends Model
      * @return bool true
      */
     public static function dependencyErase(array $data) : bool {
-        // ...
+        // Desfaz autorização na data.
+        Clockday::where(['employee_id' => $data['validatedData']['employee_id'],'date' => $data['validatedData']['date_encode']])->update([
+            'authorized' => false,
+        ]);
 
         return true;
     }

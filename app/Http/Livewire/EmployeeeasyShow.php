@@ -35,6 +35,7 @@ class EmployeeeasyShow extends Component
     public $employee_id;
     public $employee_name;
     public $date;
+    public $date_encode;
     public $discount;
     public $created;
 
@@ -184,6 +185,7 @@ class EmployeeeasyShow extends Component
         $this->employee_id     = $employeeeasy->employee_id;
         $this->employee_name   = $employeeeasy->employee_name;
         $this->date            = General::decodedate($employeeeasy->date);
+        $this->date_encode     = $employeeeasy->date;
         $this->discount        = $employeeeasy->discount;
         $this->created         = $employeeeasy->created_at->format('d/m/Y H:i:s');
     }
@@ -194,6 +196,7 @@ class EmployeeeasyShow extends Component
             $validatedData['employee_id']     = $this->employee_id;
             $validatedData['employee_name']   = $this->employee_name;
             $validatedData['date']            = $this->date;
+            $validatedData['date_encode']     = $this->date_encode;
             $validatedData['discount']        = $this->discount;
 
             // Define $data.

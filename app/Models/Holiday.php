@@ -84,7 +84,7 @@ class Holiday extends Model
      * @return bool true
      */
     public static function dependencyAdd(array $data) : bool {
-        //...
+        // ...
 
         return true;
     }
@@ -118,7 +118,10 @@ class Holiday extends Model
      * @return bool true
      */
     public static function dependencyErase(array $data) : bool {
-        // ...
+        // Desfaz autorização na data.
+        Clockday::where(['date' => $data['validatedData']['date_encode']])->update([
+            'authorized' => false,
+        ]);
 
         return true;
     }

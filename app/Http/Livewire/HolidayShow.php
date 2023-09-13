@@ -34,6 +34,7 @@ class HolidayShow extends Component
 
     public $holiday_id;
     public $date;
+    public $date_encode;
     public $week;
     public $year;
     public $name;
@@ -85,12 +86,13 @@ class HolidayShow extends Component
         $this->mail      = '';
         $this->comment   = '';
 
-        $this->holiday_id = '';
-        $this->date       = '';
-        $this->week       = '';
-        $this->year       = '';
-        $this->name       = '';
-        $this->created    = '';
+        $this->holiday_id  = '';
+        $this->date_encode = '';
+        $this->date        = '';
+        $this->week        = '';
+        $this->year        = '';
+        $this->name        = '';
+        $this->created     = '';
     }
 
     /**
@@ -181,21 +183,23 @@ class HolidayShow extends Component
         $holiday = Holiday::find($holiday_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->holiday_id = $holiday->id;
-        $this->date       = General::decodedate($holiday->date);
-        $this->week       = $holiday->week;
-        $this->year       = $holiday->year;
-        $this->name       = $holiday->name;
-        $this->created    = $holiday->created_at->format('d/m/Y H:i:s');
+        $this->holiday_id  = $holiday->id;
+        $this->date        = General::decodedate($holiday->date);
+        $this->date_encode = $holiday->date;
+        $this->week        = $holiday->week;
+        $this->year        = $holiday->year;
+        $this->name        = $holiday->name;
+        $this->created     = $holiday->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
         {
             // Define $validatedData
-            $validatedData['holiday_id'] = $this->holiday_id;
-            $validatedData['date']       = $this->date;
-            $validatedData['week']       = $this->week;
-            $validatedData['year']       = $this->year;
-            $validatedData['name']       = $this->name;
+            $validatedData['holiday_id']  = $this->holiday_id;
+            $validatedData['date']        = $this->date;
+            $validatedData['date_encode'] = $this->date_encode;
+            $validatedData['week']        = $this->week;
+            $validatedData['year']        = $this->year;
+            $validatedData['name']        = $this->name;
 
             // Define $data.
             $data['config']        = $this->config;
