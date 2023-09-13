@@ -152,8 +152,13 @@ class Clockday extends Model
 
         // Não Sábado.
         elseif($authorized):
-            $delay = '1:0'
+            // Separa pelo ':'.
+            $m = explode(':', $time_morning);
+            $mh = $m[0]; 
+            $mhm = $mh /60;
+            $mm = $m[1];
 
+            dd($mhm);
         endif;
 
         // After.
