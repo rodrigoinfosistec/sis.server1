@@ -83,9 +83,10 @@ class Clockday extends Model
             $time_allowance = Clock::intervalMinuts($allowance->start, $allowance->end);
             $a = explode(':', $time_allowance);
             $minut_allowance = (($a[0] * 60) + $a[1]);
+
             if($allowance->merged):
                 $minut_allowance=+ 240;
-                
+
             endif;
         else:
             $minut_allowance = 0;
