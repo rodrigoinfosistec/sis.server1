@@ -15,12 +15,14 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('employeevacation_id');
+            $table->unsignedBigInteger('employee_id');
 
             $table->date('date');
 
             $table->timestamps();
 
             $table->foreign('employeevacation_id')->references('id')->on('employeevacations');
+            $table->foreign('employee_id')->references('id')->on('employees');
         });
     }
 
