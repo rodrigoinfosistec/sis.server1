@@ -185,10 +185,10 @@ class EmployeevacationShow extends Component
         $this->employeevacation_id = $employeevacation->id;
         $this->employee_id         = $employeevacation->employee_id;
         $this->employee_name       = $employeevacation->employee_name;
-        $this->date_start          = General::decodeDate($employeeabsence->date_start);
-        $this->date_end            = General::decodeDate($employeeabsence->date_end);
-        $this->date_start_encode   = $employeeabsence->date_start;
-        $this->date_end_encode     = $employeeabsence->date_end;
+        $this->date_start          = General::decodeDate($employeevacation->date_start);
+        $this->date_end            = General::decodeDate($employeevacation->date_end);
+        $this->date_start_encode   = $employeevacation->date_start;
+        $this->date_end_encode     = $employeevacation->date_end;
         $this->created             = $employeevacation->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()

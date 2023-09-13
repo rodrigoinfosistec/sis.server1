@@ -185,10 +185,10 @@ class EmployeeattestShow extends Component
         $this->employeeattest_id = $employeeattest->id;
         $this->employee_id       = $employeeattest->employee_id;
         $this->employee_name     = $employeeattest->employee_name;
-        $this->date_start        = General::decodeDate($employeeabsence->date_start);
-        $this->date_end          = General::decodeDate($employeeabsence->date_end);
-        $this->date_start_encode   = $employeeabsence->date_start;
-        $this->date_end_encode     = $employeeabsence->date_end;
+        $this->date_start        = General::decodeDate($employeeattest->date_start);
+        $this->date_end          = General::decodeDate($employeeattest->date_end);
+        $this->date_start_encode = $employeeattest->date_start;
+        $this->date_end_encode   = $employeeattest->date_end;
         $this->created           = $employeeattest->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
