@@ -102,6 +102,11 @@ class Clockday extends Model
             if($data['input'] && $data['output']):
                 // Evita saída menor que entrada.
                 if($data['output'] >= $data['input']):
+                    // Define Jornada.
+                    $time_journey   = Clock::intervalMinuts($data['journey_start'], $data['journey_end']);
+                    $j = explode(':', $time_journey);
+                    $minuts_journey = (($j[0] * 60) + $j[1]);
+
                     // Minutos trabalhados.
                     $time_day = Clock::intervalMinuts($data['input'], $data['output']);
                     $t = explode(':', $time_day);
@@ -120,7 +125,16 @@ class Clockday extends Model
             if($data['input'] && $data['break_start'] && $data['break_end'] && $data['output']):
                 // Evita pausa inicial menor que entrada.
                 if($data['break_start'] >= $data['input'] && $data['break_end'] >= $data['break_start'] && $data['output'] >= $data['break_end']):
-                    
+                    // Define Jornada.
+                    $time_journey   = Clock::intervalMinuts($data['journey_start'], $data['journey_end']);
+                    $j = explode(':', $time_journey);
+                    $minuts_journey = (($j[0] * 60) + $j[1]);
+
+                    // Define Intervalo.
+                    $b = explode(':', $data['journey_end']);
+                    $minuts_interval = (($b[0] * 60) + $b[1]);
+
+                    // Define Períodos.
                     $time_morning   = Clock::intervalMinuts($data['input'], $data['break_start']);
                     $time_interval  = Clock::intervalMinuts($data['break_start'], $data['break_end']);
                     $time_afternoon = Clock::intervalMinuts($data['break_end'], $data['output']);
