@@ -112,6 +112,12 @@ class Clockday extends Model
                     $t = explode(':', $time_day);
                     $minuts_work = (($t[0] * 60) + $t[1]);
 
+                    // Tempo trabalhado.
+                    $hour  = $minuts_work / 60;
+                    $hour  = (int)$hour;
+                    $minut = $minuts_work % 60;
+                    $time_work = $hour . ':' . $minut;
+
                 else:
                     $authorized = false;
                 endif;
@@ -131,7 +137,7 @@ class Clockday extends Model
                     $minuts_journey = (($j[0] * 60) + $j[1]);
 
                     // Define Intervalo.
-                    $b = explode(':', $data['journey_end']);
+                    $b = explode(':', $data['journey_break']);
                     $minuts_interval = (($b[0] * 60) + $b[1]);
 
                     // Define Períodos.
@@ -143,15 +149,43 @@ class Clockday extends Model
                     $m = explode(':', $time_morning);
                     $t = explode(':', $time_afternoon);
                     $i = explode(':', $time_interval);
-                    $minuts_work = ((((($m[0] * 60) + $m[1]) + (($t[0] * 60) + $t[1])) + 60) - (($i[0] * 60) + $i[1]));
+                    $minuts_work = ((((($m[0] * 60) + $m[1]) + (($t[0] * 60) + $t[1])) + $minuts_interval) - (($i[0] * 60) + $i[1]));
 
-                    dd($minuts_work);
+                    // Tempo trabalhado.
+                    $hour  = $minuts_work / 60;
+                    $hour  = (int)$hour;
+                    $minut = $minuts_work % 60;
+                    $time_work = $hour . ':' . $minut;
+
+                    // Define os Horários.
+                    $minuts_delay = 0;
+                    $minuts_extra = 0;
+                    if($minuts_journey > $minuts_work):
+                        // Atraso.
+                        $d_hour  = ($minuts_journey - $minuts_work) / 60;
+                        $d_hour  = (int)$e_hour;
+                        $d_minut = ($minuts_journey - $minuts_work) % 60;
+                        $minuts_delay = $d_hour . ':' . $d_minut;
+                    elseif($minuts_work > $minuts_journey):
+                        // Extras.
+                        $e_hour  = ($minuts_work - $minuts_journey) / 60;
+                        $e_hour  = (int)$e_hour;
+                        $e_minut = ($minuts_work - $minuts_journey) % 60;
+                        $minuts_extra = $e_hour . ':' . $e_minut;
+                    endif;
                 else:
                     $authorized = false;
                 endif;
             else:
                 $authorized = false;
             endif;
+        endif;
+
+        if($authorized):
+            // Atualiza.
+            Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->update([
+                'delay' => $time_work,
+            ]);
         endif;
 
         // After.
