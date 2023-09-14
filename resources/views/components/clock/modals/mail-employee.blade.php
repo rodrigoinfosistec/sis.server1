@@ -3,9 +3,9 @@
         {{ $config['title'] }} de Funcionário
 
         <x-slot:identifier>
-            {{ $clockemployee_employee_pis }}
-            <br>
             <span class="text-primary">{{ $clockemployee_employee_name }}</span>
+            <br>
+            {{ $clockemployee_employee_pis }}
         </x-slot>
     </x-layout.modal.modal-mail-header>
 
