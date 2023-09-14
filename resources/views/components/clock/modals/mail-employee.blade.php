@@ -3,7 +3,9 @@
         {{ $config['title'] }} de Ponto de Funcionário
 
         <x-slot:identifier>
-           
+            {{ $clockemployee_employee_pis }}
+            <br>
+            <span class="text-primary">{{ $clockemployee_employee_name }}</span>
         </x-slot>
     </x-layout.modal.modal-mail-header>
 
@@ -17,7 +19,7 @@
         <select wire:model="report_id" class="form-select form-select-sm text-uppercase" id="report_id">
             <x-layout.modal.modal-mail-body-group-item-option-muted/>
 
-            @foreach(App\Models\Report::where(['folder' => 'clockemployee', 'reference_1' => $clock_id, 'reference_2' => $employee_id])->orderBy('id', 'DESC')->limit(20)->get() as $key =>$report)
+            @foreach(App\Models\Report::where(['folder' => 'clockemployee', 'reference_1' => $clockemployee_clock_id, 'reference_2' => $clockemployee_employee_id])->orderBy('id', 'DESC')->limit(20)->get() as $key =>$report)
                 <option value="{{ $report->id }}">
                     <span class="text-uppercase text-muted fw-bold" style="font-size: 8pt;">
                         &#10003;

@@ -2170,7 +2170,7 @@ class Audit extends Model
      * 
      * @return bool true
      */
-    public static function clockemployeeMailEmployee(array $data) : bool {
+    public static function clockemployeeMail(array $data) : bool {
         Audit::create([
             'user_id'   => auth()->user()->id,
             'user_name' => Str::upper(auth()->user()->name),
@@ -2185,5 +2185,7 @@ class Audit extends Model
                 'comment='   . $data['validatedData']['comment']   . ',' .
             '}',
         ]);
+
+        return true;
     }
 }
