@@ -180,7 +180,11 @@
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="180">
-    <x-layout.card.card-body-content-table-body-line-cell-action-edit-clock-employee :id="$clockemployee->id"/>
+    @if(App\Models\Clockday::where(['clock_id' => $clockemployee->clock_id, 'employee_id' => $clockemployee->employee_id, 'authorized' => false])->exists())
+        <x-layout.card.card-body-content-table-body-line-cell-action-edit-clock-employee :id="$clockemployee->id"/>
+    @else
+        <x-layout.card.card-body-content-table-body-line-cell-action-edit-clock-employee-check :id="$clockemployee->id"/>
+    @endif
 
     <x-layout.card.card-body-content-table-body-line-cell-action-add-vacation-employee :id="$clockemployee->id"/>
     <x-layout.card.card-body-content-table-body-line-cell-action-add-attest-employee :id="$clockemployee->id"/>
