@@ -176,7 +176,40 @@
 </x-layout.pdf.pdf-table-body-line-cell>
 @endif
                 </x-layout.pdf.pdf-table-body-line>
+
             @endforeach
+
+            <x-layout.pdf.pdf-table-body-line>
+
+                <td colspan="4"></td>
+
+{{-- TOTAIS --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div class="text-center fw-bold text-dark" style="font-size: 12pt; width: 50px; line-height: 1; border: solid 0.5px #ddd;">
+        {{ $clockemployee->allowance_total }}
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div class="text-center fw-bold text-dark" style="font-size: 12pt; width: 50px; line-height: 1; border: solid 0.5px #ddd;">
+        {{ $clockemployee->delay_total }}
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div class="text-center fw-bold text-dark" style="font-size: 12pt; width: 50px; line-height: 1; border: solid 0.5px #ddd;">
+        {{ $clockemployee->extra_total }}
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div class="text-center fw-bold text-dark" style="font-size: 12pt; width: 50px; line-height: 1; border: solid 0.5px #ddd;">
+        {{ $clockemployee->balance_total }}
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+{{-- TOTAIS --}}
+
+            </x-layout.pdf.pdf-table-body-line>
 
         </x-layout.pdf.pdf-table-body>
     </x-layout.pdf.pdf-table>

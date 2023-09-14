@@ -27,6 +27,7 @@ class Clockemployee extends Model
         'journey_start_saturday',
         'journey_end_saturday',
 
+        'allowance_total',
         'delay_total',
         'extra_total',
         'balance_total',

@@ -24,9 +24,10 @@ return new class extends Migration
             $table->string('journey_start_saturday');
             $table->string('journey_end_saturday');
 
-            $table->string('delay_total')->default('');
-            $table->string('extra_total')->default('');
-            $table->string('balance_total')->default('');
+            $table->string('allowance_total')->nullable()->default(null);
+            $table->string('delay_total')->nullable()->default(null);
+            $table->string('extra_total')->nullable()->default(null);
+            $table->string('balance_total')->nullable()->default(null);
 
             $table->string('note')->default('');
 
