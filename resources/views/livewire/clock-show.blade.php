@@ -192,7 +192,7 @@
     <x-layout.card.card-body-content-table-body-line-cell-action-add-vacation-employee :id="$clockemployee->id"/>
 
     <x-layout.card.card-body-content-table-body-line-cell-action-edit-note-employee :id="$clockemployee->id"/>
-    <x-layout.card.card-body-content-table-body-line-cell-action-mail-employee :id="$clockemployee->id"/>
+    <x-layout.card.card-body-content-table-body-line-cell-action-mail-muted/>
     <x-layout.card.card-body-content-table-body-line-cell-action-add-allowance-employee :id="$clockemployee->id"/>
     <x-layout.card.card-body-content-table-body-line-cell-action-add-easy-employee :id="$clockemployee->id"/>
     <x-layout.card.card-body-content-table-body-line-cell-action-erase-employee :id="$clockemployee->id"/>
