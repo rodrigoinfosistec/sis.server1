@@ -32,35 +32,35 @@
 
 {{-- conteúdo título --}}
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 60px; border: solid 0.5px #ddd;">DATA</div>
+    <div class="text-center" style="width: 60px; border: solid 0.5px #fff;">DATA</div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 25px; border: solid 0.5px #ddd;">DIA</div>
+    <div class="text-center" style="width: 25px; border: solid 0.5px #fff;">DIA</div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 100px; border: solid 0.5px #ddd;">JORNADA</div>
+    <div class="text-center" style="width: 100px; border: solid 0.5px #fff;">JORNADA</div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 140px; border: solid 0.5px #ddd;">REGISTROS</div>
+    <div class="text-center" style="width: 140px; border: solid 0.5px #fff;">REGISTROS</div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 50px; border: solid 0.5px #ddd;">ABONO</div>
+    <div class="text-center" style="width: 50px; border: solid 0.5px #fff;">ABONO</div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 50px; border: solid 0.5px #ddd;">ATRASO</div>
+    <div class="text-center" style="width: 50px; border: solid 0.5px #fff;">ATRASO</div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 50px; border: solid 0.5px #ddd;">EXTRA</div>
+    <div class="text-center" style="width: 50px; border: solid 0.5px #fff;">EXTRA</div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 50px; border: solid 0.5px #ddd;">SALDO</div>
+    <div class="text-center" style="width: 50px; border: solid 0.5px #fff;">SALDO</div>
 </x-layout.pdf.pdf-table-header-column>
 {{-- conteúdo título --}}
 
@@ -117,28 +117,28 @@
 @else
 {{-- DATA --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="fw-bold" style="padding: 3px 0 3px 0; width: 60px; line-height: 1; border: solid 0.5px #ddd;">
+    <div class="fw-bold" style="padding: 3px 0 3px 0; width: 60px; line-height: 1; border: solid 0.5px #fff;">
         {{ App\Models\General::decodeDate($item->date) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- DIA --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 25px; line-height: 1; border: solid 0.5px #ddd;">
+    <div class="" style="width: 25px; line-height: 1; border: solid 0.5px #fff;">
         {{ App\Models\General::decodeWeekAbreviate(date_format(date_create($item->date), 'l')) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- JORNADA --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 100px; line-height: 1; border: solid 0.5px #ddd;">
+    <div class="" style="width: 100px; line-height: 1; border: solid 0.5px #fff;">
         {{ $item->journey_start }}&nbsp;&nbsp;{{ $item->journey_end }}&nbsp;&nbsp;&nbsp;<span class="text-muted">{{ $item->journey_break }}</span>  
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- REGISTROS --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="fw-bold" style="width: 140px; line-height: 1; border: solid 0.5px #ddd;">
+    <div class="fw-bold" style="width: 140px; line-height: 1; border: solid 0.5px #fff;">
         @if(date_format(date_create($item->date), 'l') != 'Saturday')
             {{ $item->input }}&nbsp;&nbsp;&nbsp;<span class="text-muted">{{ $item->break_start }}&nbsp;&nbsp;&nbsp;{{ $item->break_end }}</span>&nbsp;&nbsp;&nbsp;{{ $item->output }}
         @else
@@ -149,46 +149,35 @@
 
 {{-- ABONO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-center" style="width: 50px; line-height: 1; border: solid 0.5px #ddd;">
+    <div class="text-center" style="width: 50px; line-height: 1; border: solid 0.5px #fff;">
         {{ $item->allowance }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- ATRASO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-center" style="width: 50px; line-height: 1; border: solid 0.5px #ddd;">
+    <div class="text-center" style="width: 50px; line-height: 1; border: solid 0.5px #fff;">
         {{ $item->delay }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- EXTRA --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-center" style="width: 50px; line-height: 1; border: solid 0.5px #ddd;">
+    <div class="text-center" style="width: 50px; line-height: 1; border: solid 0.5px #fff;">
         {{ $item->extra }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- SALDO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-center" style="width: 50px; line-height: 1; border: solid 0.5px #ddd;">
-        @php
-            $color = 'dark';
-            $bold  = 'normal';
-            if(!empty($item->balance)):
-                if((string)$item->balance[0] == '+' ):
-                    $color = 'dark';
-                    $bold  = 'bold'
-                elseif((string)$item->balance[0] == '-' ):
-                    $color = 'muted';
-                    $bold = 'normal';
-                endif;
-            endif;
-        @endphp
-        <span class="text-{{ $color }}">
-            @if(!empty($clock_day->authorized))
-                {{ $clock_day->balance }}
-            @endif
-        </span>
+    <div class="text-center" style="width: 50px; line-height: 1; border: solid 0.5px #fff;">
+        @if(!empty($item->balance))
+            @if((string)$item->balance[0] == '+') <span class="text-dark fw-bold">
+            @elseif((string)$item->balance[0] == '-') <span class="text-muted fw-bold">
+            @else <span class="text-dark fw-normal"> @endif
+                {{ $item->balance }}
+            </span>
+        @endif
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 @endif
