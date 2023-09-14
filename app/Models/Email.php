@@ -298,4 +298,23 @@ class Email extends Model
 
         return true;
     }
+
+    /**
+     * E-mail Clockemployee Mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function clockemployeeMail(array $data) : bool {
+        // Envia e-mail.
+        Mail::to($data['validatedData']['mail'])->send(new ReportMail([
+            'pathToReport' => storage_path('app/public/pdf/clockemployee/' . Report::find($data['validatedData']['report_id'])->file),
+            'subject'      => 'Relatório de Ponto de Funcionário',
+            'title'        => $data['config']['title'],
+            'comment'      => $data['validatedData']['comment'],
+        ]));
+
+        return true;
+    }
+
 }

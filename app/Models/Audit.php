@@ -2164,4 +2164,26 @@ class Audit extends Model
         return true;
     }
 
+    /**
+     * Auditoria Clock Mail Employee.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function clockemployeeMailEmployee(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[enviou e-mail]' . 'Ponto de Funcionário' . '{' .
+                'folder='    . 'price'                             . ',' .
+                'report_id=' . $data['validatedData']['report_id'] . ',' .
+                'email='     . $data['validatedData']['mail']      . ',' .
+                'subject='   . 'Relatório de Ponto de Funcionário' . ',' .
+                'title='     . $data['config']['title']            . ',' .
+                'comment='   . $data['validatedData']['comment']   . ',' .
+            '}',
+        ]);
+    }
 }

@@ -604,7 +604,7 @@ class Invoice extends Model
 
         return true;
     }
-    
+
     /**
      * Valida envio de e-mail.
      * @var array $data

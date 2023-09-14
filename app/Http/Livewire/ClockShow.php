@@ -1138,4 +1138,55 @@ class ClockShow extends Component
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
         }
+    
+    /**
+     * mailEmployee()
+     *  sendEmployee()
+     */
+    public function mailEmployee(int $clockemployee_id)
+    {
+        // Funcionário.
+        $clockemployee = Clockemployee::find($clockemployee_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->clockemployee_id                     = $clockemployee->id;
+        $this->clockemployee_clock_id               = $clockemployee->clock_id ;
+        $this->clockemployee_employee_id            = $clockemployee->employee_id ;
+        $this->clockemployee_employee_name          = $clockemployee->employee_name;
+        $this->clockemployee_employee_pis           = $clockemployee->employee->pis;
+        $this->clockemployee_journey_start_week     = $clockemployee->journey_start_week;
+        $this->clockemployee_journey_end_week       = $clockemployee->journey_end_week;
+        $this->clockemployee_journey_start_saturday = $clockemployee->journey_start_saturday;
+        $this->clockemployee_journey_end_saturday   = $clockemployee->journey_end_saturday;
+
+        $this->clockemployee_company_name           = $clockemployee->clock->company_name;
+        $this->clockemployee_start_decode           = General::decodeDate($clockemployee->clock->start);
+        $this->clockemployee_end_decode             = General::decodeDate($clockemployee->clock->end);
+    }
+        public function sendEmployee()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'report_id' => ['required'],
+                'mail'      => ['required', 'email', 'between:2,255'],
+                'comment'   => ['nullable', 'between:2,255'],
+            ]);
+
+            // Define $data
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida envio do e-mail.
+            $valid = Clockemployee::validateMailEmployee($data);
+
+            // Envia e-mail.
+            if ($valid) Clockemployee::mailEmployee($data);
+
+            // Executa dependências.
+            if ($valid) Clockemployee::dependencyMailEmployee($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
 }
