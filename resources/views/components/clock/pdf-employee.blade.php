@@ -171,7 +171,24 @@
 {{-- SALDO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="text-center" style="width: 50px; line-height: 1; border: solid 0.5px #ddd;">
-        {{ $item->balance }}
+        @php
+            $color = 'dark';
+            $bold  = 'normal';
+            if(!empty($item->balance)):
+                if((string)$item->balance[0] == '+' ):
+                    $color = 'dark';
+                    $bold  = 'bold'
+                elseif((string)$item->balance[0] == '-' ):
+                    $color = 'muted';
+                    $bold = 'normal';
+                endif;
+            endif;
+        @endphp
+        <span class="text-{{ $color }}">
+            @if(!empty($clock_day->authorized))
+                {{ $clock_day->balance }}
+            @endif
+        </span>
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 @endif
@@ -186,25 +203,25 @@
 {{-- TOTAIS --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="text-center fw-bold text-dark" style="font-size: 12pt; width: 50px; line-height: 1; border: solid 0.5px #ddd;">
-        {{ $clockemployee->allowance_total }}
+        {{ $clockemployee->allowance_total ?? '' }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="text-center fw-bold text-dark" style="font-size: 12pt; width: 50px; line-height: 1; border: solid 0.5px #ddd;">
-        {{ $clockemployee->delay_total }}
+        {{ $clockemployee->delay_total ?? '' }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="text-center fw-bold text-dark" style="font-size: 12pt; width: 50px; line-height: 1; border: solid 0.5px #ddd;">
-        {{ $clockemployee->extra_total }}
+        {{ $clockemployee->extra_total ?? '' }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="text-center fw-bold text-dark" style="font-size: 12pt; width: 50px; line-height: 1; border: solid 0.5px #ddd;">
-        {{ $clockemployee->balance_total }}
+        {{ $clockemployee->balance_total ?? '' }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 {{-- TOTAIS --}}

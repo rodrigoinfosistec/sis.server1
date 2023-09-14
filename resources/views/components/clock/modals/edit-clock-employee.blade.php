@@ -325,9 +325,9 @@
                 endif;
             @endphp
             <span class="text-{{ $color }}">
-            @if(!empty($clock_day->authorized))
-                {{ $clock_day->balance }}
-            @endif
+                @if(!empty($clock_day->authorized))
+                    {{ $clock_day->balance }}
+                @endif
             </span>
         </div>
     </td>
