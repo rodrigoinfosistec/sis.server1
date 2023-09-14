@@ -1,6 +1,6 @@
-<div class="dropdown float-end" style="width: 40px; padding-top: 6px; padding-left: 5px;">
+<div class="dropdown float-end" style="width: 48px; padding-top: 2px;">
     <a type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="bi-printer text-dark" style="font-size: 20px;" title="Imprimir relatório"></i>
+        <i class="bi-printer text-primary" style="font-size: 22px;" title="Imprimir relatório"></i>
     </a>
     <ul class="dropdown-menu">
         @php
@@ -9,7 +9,7 @@
         @foreach($reports as $key => $report)
     <li>
         <a class="dropdown-item" href="{{ asset('storage/pdf/clockemployee/' . $report->file) }}" target="_blank">
-            <span class="text-uppercase text-dark fw-bold" style="font-size: 8pt;">
+            <span class="text-uppercase text-muted fw-bold" style="font-size: 8pt;">
                 <i class="bi-file-pdf text-danger" style="font-size: 15px;"></i>
 
                 <span class="fst-italic">
