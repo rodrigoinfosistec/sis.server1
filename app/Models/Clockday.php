@@ -288,16 +288,6 @@ class Clockday extends Model
             'authorized' => $authorized,
         ]);
 
-        if(Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'authorized' => false])->doesntExist()):
-            // Estende $data.
-            $data['clock_id']         = $data['validatedData']['clock_id'];
-            $data['employee_id']      = $data['validatedData']['employee_id'];
-            $data['clockemployee_id'] = $data['validatedData']['clockemployee_id'];
-
-            // Gera o PDF.
-            Clockemployee::generatePdf($data);
-        endif;
-
         // After.
         $after = Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first();
 

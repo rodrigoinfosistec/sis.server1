@@ -893,15 +893,14 @@ class Report extends Model
      * @return bool true
      */
     public static function clockemployeeGenerate(array $data) : bool {
-        dd($data);
         // Gera o arquivo PDF.
         $pdf = PDF::loadView('components.clock.pdf-employee', [
-            'user'  => auth()->user()->name,
-            'title' => 'Ponto Individual',
-            'date'  => date('d/m/Y H:i:s'),
-            'data'  => $data,
-            'list'  => $list = Clockday::where(['clock_id' => $data['clock_id'], 'employee_id' => $data['employee_id']])->orderBy('id', 'DESC')->get(), 
-        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
+            'user'          => auth()->user()->name,
+            'title'         => 'Ponto',
+            'date'          => date('d/m/Y H:i:s'),
+            'clockemployee' => Clockemployee::find($data['clockemployee_id']),
+            'list'          => $list = Clockday::where(['clock_id' => $data['clock_id'], 'employee_id' => $data['employee_id']])->orderBy('date')->get(), 
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
 
         // Salva o arquivo PDF.
         File::makeDirectory($data['path'], $mode = 0777, true, true);

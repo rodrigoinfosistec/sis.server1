@@ -911,7 +911,7 @@ class ClockShow extends Component
 
             // Incrementa $date.
             $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));  
-        endwhile;   
+        endwhile;
     }
         public function modernizeClockEmployee()
         {
@@ -949,6 +949,17 @@ class ClockShow extends Component
                 // Incrementa $date.
                 $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
             endwhile;
+
+            // Gera Pdf
+            if(Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'authorized' => false])->doesntExist()):
+                // Estende $data.
+                $data['clock_id']         = $data['validatedData']['clock_id'];
+                $data['employee_id']      = $data['validatedData']['employee_id'];
+                $data['clockemployee_id'] = $data['validatedData']['clockemployee_id'];
+
+                // Gera o PDF.
+                Clockemployee::generatePdf($data);
+            endif;
 
             // Fecha modal.
             $this->closeModal();
