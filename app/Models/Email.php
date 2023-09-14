@@ -282,7 +282,7 @@ class Email extends Model
     }
     
     /**
-     * E-mail Clock Mail.
+     * E-mail Clock.
      * @var array $data
      * 
      * @return bool true
@@ -300,7 +300,7 @@ class Email extends Model
     }
 
     /**
-     * E-mail Clockemployee Mail.
+     * E-mail Clockemployee.
      * @var array $data
      * 
      * @return bool true

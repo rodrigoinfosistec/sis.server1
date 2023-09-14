@@ -1177,13 +1177,13 @@ class ClockShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida envio do e-mail.
-            $valid = Clockemployee::validateMailEmployee($data);
+            $valid = Clockemployee::validateMail($data);
 
             // Envia e-mail.
-            if ($valid) Clockemployee::mailEmployee($data);
+            if ($valid) Clockemployee::mail($data);
 
             // Executa dependências.
-            if ($valid) Clockemployee::dependencyMailEmployee($data);
+            if ($valid) Clockemployee::dependencyMail($data);
 
             // Fecha modal.
             $this->closeModal();
