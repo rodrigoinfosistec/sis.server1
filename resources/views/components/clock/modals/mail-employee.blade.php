@@ -1,6 +1,6 @@
 <x-layout.modal.modal-mail size="" modal="mailEmployee" method="sendEmployee">
     <x-layout.modal.modal-mail-header modal="mailEmployee">
-        {{ $config['title'] }} de Ponto de Funcionário
+        {{ $config['title'] }} de Funcionário
 
         <x-slot:identifier>
             {{ $clockemployee_employee_pis }}
