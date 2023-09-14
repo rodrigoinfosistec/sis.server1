@@ -191,25 +191,25 @@
 
 {{-- TOTAIS --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-center fw-bold text-dark" style="font-size: 12pt; width: 50px; line-height: 1; border: solid 0.5px #ddd;">
+    <div class="text-center fw-bold text-dark" style="font-size: 10pt; width: 50px; line-height: 1; border: solid 0.5px #fff;">
         {{ $clockemployee->allowance_total ?? '' }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-center fw-bold text-dark" style="font-size: 12pt; width: 50px; line-height: 1; border: solid 0.5px #ddd;">
+    <div class="text-center fw-bold text-dark" style="font-size: 10pt; width: 50px; line-height: 1; border: solid 0.5px #fff;">
         {{ $clockemployee->delay_total ?? '' }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-center fw-bold text-dark" style="font-size: 12pt; width: 50px; line-height: 1; border: solid 0.5px #ddd;">
+    <div class="text-center fw-bold text-dark" style="font-size: 10pt; width: 50px; line-height: 1; border: solid 0.5px #fff;">
         {{ $clockemployee->extra_total ?? '' }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-center fw-bold text-dark" style="font-size: 12pt; width: 50px; line-height: 1; border: solid 0.5px #ddd;">
+    <div class="text-center fw-bold text-dark" style="font-size: 10pt; width: 50px; line-height: 1; border: solid 0.5px #fff;">
         {{ $clockemployee->balance_total ?? '' }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
