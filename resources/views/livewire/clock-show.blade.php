@@ -190,13 +190,22 @@
     <x-layout.card.card-body-content-table-body-line-cell-action-add-attest-employee :id="$clockemployee->id"/>
     <x-layout.card.card-body-content-table-body-line-cell-action-add-absence-employee :id="$clockemployee->id"/>
     <x-layout.card.card-body-content-table-body-line-cell-action-add-vacation-employee :id="$clockemployee->id"/>
-    <x-layout.card.card-body-content-table-body-line-cell-action-mail-employee :id="$clockemployee->id"/>
+    
+    @if(App\Models\Report::where(['folder' => 'clockemployee', 'reference_1' => $clockemployee->clock_id, 'reference_2' => $clockemployee->employee_id])->exists())
+        <x-layout.card.card-body-content-table-body-line-cell-action-mail-employee :id="$clockemployee->id"/>
+    @else
+        <x-layout.card.card-body-content-table-body-line-cell-action-mail-muted-slim/>
+    @endif
 
     <x-layout.card.card-body-content-table-body-line-cell-action-edit-note-employee :id="$clockemployee->id"/>
     <x-layout.card.card-body-content-table-body-line-cell-action-add-allowance-employee :id="$clockemployee->id"/>
     <x-layout.card.card-body-content-table-body-line-cell-action-add-easy-employee :id="$clockemployee->id"/>
     <x-layout.card.card-body-content-table-body-line-cell-action-erase-employee :id="$clockemployee->id"/>
-    <x-layout.card.card-body-content-table-body-line-cell-action-print-employee :id="$clockemployee"/>
+    @if(App\Models\Report::where(['folder' => 'clockemployee', 'reference_1' => $clockemployee->clock_id, 'reference_2' => $clockemployee->employee_id])->exists())
+        <x-layout.card.card-body-content-table-body-line-cell-action-print-employee :id="$clockemployee" :reference="$clockemployee->clock_id" :referenca="$clockemployee->employee_id"/>
+    @else
+        <x-layout.card.card-body-content-table-body-line-cell-action-print-muted-slim/>
+    @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- funcionários --}}
 
