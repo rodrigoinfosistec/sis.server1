@@ -36,43 +36,43 @@
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 65px;">
+                <div class="text-center" style="width: 80px;">
                     ENTRADA
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 65px;">
+                <div class="text-center" style="width: 80px;">
                     PAUSA (INÍCIO)
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 65px;">
+                <div class="text-center" style="width: 80px;">
                     PAUSA (FINAL)
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 65px;">
+                <div class="text-center" style="width: 80px;">
                     SAÍDA
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 70px;">
+                <div class="text-center" style="width: 80px;">
                     TURNO (INÍCIO)
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 70px;">
+                <div class="text-center" style="width: 80px;">
                     TURNO (FINAL)
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 70px;">
+                <div class="text-center" style="width: 80px;">
                     INTERVALO
                 </div>
             </th>
@@ -200,55 +200,55 @@
 
     {{-- ENTRADA --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="" style="width: 65px;">
-            <input type="time" wire:model="array_date_input.{{ $date }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 60px;" id="array_date_input_{{ $date }}">
+        <div class="" style="width: 80px;">
+            <input type="time" wire:model="array_date_input.{{ $date }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_input_{{ $date }}">
         </div>
     </td>
 
     {{-- PAUSA (INÍCIO) --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="" style="width: 65px;">
+        <div class="" style="width: 80px;">
             @if(date_format(date_create($date), 'l') != 'Saturday')
-                <input type="time" wire:model="array_date_break_start.{{ $date }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 60px;" id="array_date_break_start_{{ $date }}">
+                <input type="time" wire:model="array_date_break_start.{{ $date }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_break_start_{{ $date }}">
             @endif
         </div>
     </td>
 
     {{-- PAUSA (FINAL) --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="" style="width: 65px;">
+        <div class="" style="width: 80px;">
             @if(date_format(date_create($date), 'l') != 'Saturday')
-                <input type="time" wire:model="array_date_break_end.{{ $date }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 60px;" id="array_date_break_end_{{ $date }}">
+                <input type="time" wire:model="array_date_break_end.{{ $date }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_break_end_{{ $date }}">
             @endif
         </div>
     </td>
 
     {{-- SAÍDA --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="" style="width: 65px;">
-            <input type="time" wire:model="array_date_output.{{ $date }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 60px;" id="array_date_output_{{ $date }}">
+        <div class="" style="width: 80px;">
+            <input type="time" wire:model="array_date_output.{{ $date }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_output_{{ $date }}">
         </div>
     </td>
 
     {{-- TURNO (INÍCIO) --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="" style="width: 70px;">
-            <input type="time" wire:model="array_date_journey_start.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 65px;" id="array_date_journey_start_{{ $date }}" disabled>
+        <div class="" style="width: 80px;">
+            <input type="time" wire:model="array_date_journey_start.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_journey_start_{{ $date }}">
         </div>
     </td>
 
     {{-- TURNO (FINAL) --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="" style="width: 70px;">
-            <input type="time" wire:model="array_date_journey_end.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 65px;" id="array_date_journey_end_{{ $date }}" disabled>
+        <div class="" style="width: 80px;">
+            <input type="time" wire:model="array_date_journey_end.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_journey_end_{{ $date }}">
         </div>
     </td>
 
     {{-- INTERVALO --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="" style="width: 70px;">
+        <div class="" style="width: 80px;">
             @if(date_format(date_create($date), 'l') != 'Saturday')
-                <input type="time" wire:model="array_date_journey_break.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 65px;" id="array_date_journey_break_{{ $date }}" disabled>
+                <input type="time" wire:model="array_date_journey_break.{{ $date }}" class="form-control form-control-sm text-danger" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_journey_break_{{ $date }}">
             @endif
         </div>
     </td>
