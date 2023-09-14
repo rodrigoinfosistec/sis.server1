@@ -20,5 +20,6 @@
         $('#addEasyEmployeeModal').modal('hide');
         $('#editNoteEmployeeModal').modal('hide');
         $('#eraseEmployeeModal').modal('hide');
+        $('#mailEmployeeModal').modal('hide');
     })
 </script>
