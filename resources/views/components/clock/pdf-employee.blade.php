@@ -177,6 +177,21 @@
 @endif
                 </x-layout.pdf.pdf-table-body-line>
             @endforeach
+            <tr>
+                <td colspan="4"></td>
+                <td>&nbsp;<span class="fw-bold" style="font-size: 10pt;">{{-- $delay_total --}}</span></td>
+                    <td><span class="fw-bold" style="font-size: 10pt;">{{-- $extra_total --}}</span></td>
+                    <td>
+                    @if ($balance_total != '')
+                        @if ($balance_total[0] == '-')
+                            <span class="fw-bold" style="font-size: 10pt;">{{-- $balance_total --}}</span> <span class="text-muted">(NEG)</span>
+                        @else
+                            <span class="fw-bold" style="font-size: 10pt;">{{-- $balance_total --}}</span>
+                        @endif
+                    @endif
+                </td>
+            </tr>
+
         </x-layout.pdf.pdf-table-body>
     </x-layout.pdf.pdf-table>
 
