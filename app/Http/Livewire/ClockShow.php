@@ -950,7 +950,7 @@ class ClockShow extends Component
                 $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
             endwhile;
 
-            // Gera Pdf
+            // Percorre todos os dias do Ponto do Funcionário.
             if(Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'authorized' => false])->doesntExist()):
                 // Estende $data.
                 $data['clock_id']         = $data['validatedData']['clock_id'];
@@ -959,6 +959,71 @@ class ClockShow extends Component
 
                 // Gera o PDF.
                 Clockemployee::generatePdf($data);
+
+                // Inicializa variáveis.
+                $allowance_minuts = 0;
+                $delay_minuts     = 0;
+                $extra_minuts     = 0;
+                $balance_minuts   = 0;
+
+                // Percorre todas as datas do Funcionário.
+                foreach(Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id']])->get() as $key => $clockday):
+                    // Abono.
+                    if(!empty($clockday->allowance)):
+                        $al = explode(':', $clockday->allowance);
+                        $allowance_minuts += (($al[0] * 60) + $al[1]);
+                    endif;
+
+                    // Atraso.
+                    if(!empty($clockday->delay)):
+                        $de = explode(':', $clockday->delay);
+                        $delay_minuts += (($de[0] * 60) + $de[1]);
+                    endif;
+
+                    // Extra.
+                    if(!empty($clockday->extra)):
+                        $ex = explode(':', $clockday->extra);
+                        $extra_minuts += (($ex[0] * 60) + $ex[1]);
+                    endif;
+
+                    // Saldo.
+                    if(!empty($clockday->balance)):
+                        $ba = explode(':', $clockday->balance);
+                        $balance_minuts += (($ba[0] * 60) + $ba[1]);
+                    endif;
+                endforeach;
+
+                // Abono.
+                $al_hour  = $allowance_minuts / 60;
+                $al_hour  = (int)$al_hour;
+                $al_minut = $allowance_minuts % 60;
+                $allowance_total = str_pad($al_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($al_minut, 2 ,'0' , STR_PAD_LEFT);
+
+                // Atraso.
+                $de_hour  = $delay_minuts / 60;
+                $de_hour  = (int)$de_hour;
+                $de_minut = $delay_minuts % 60;
+                $delay_total = str_pad($de_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($de_minut, 2 ,'0' , STR_PAD_LEFT);
+
+                // Extra.
+                $ex_hour  = $extra_minuts / 60;
+                $ex_hour  = (int)$ex_hour;
+                $ex_minut = $extra_minuts % 60;
+                $extra_total = str_pad($ex_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($ex_minut, 2 ,'0' , STR_PAD_LEFT);
+
+                // Saldo.
+                $ba_hour  = $balance_minuts / 60;
+                $ba_hour  = (int)$ba_hour;
+                $ba_minut = $balance_minuts % 60;
+                $balance_total = str_pad($ba_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($ba_minut, 2 ,'0' , STR_PAD_LEFT);
+
+                // Atualiza Funcionário de Ponto.
+                Clockemployee::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id']])->update([
+                    'allowance_total' => $allowance_total,
+                    'delay_total'     => $delay_total,
+                    'extra_total'     => $extra_total,
+                    'balance_total'   => $balance_total,
+                ]);
             endif;
 
             // Fecha modal.
