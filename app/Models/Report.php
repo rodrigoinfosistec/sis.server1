@@ -503,7 +503,7 @@ class Report extends Model
 
         return true;
     }
-    
+
     /**
      * Holiday Generate
      * @var array $data
@@ -884,6 +884,39 @@ class Report extends Model
         endif;
 
         return  $txt;
+    }
+    
+    /**
+     * Clock Employee Generate
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function clockemployeeGenerate(array $data) : bool {
+        dd($data);
+        // Gera o arquivo PDF.
+        $pdf = PDF::loadView('components.clock.pdf-employee', [
+            'user'  => auth()->user()->name,
+            'title' => 'Ponto Individual',
+            'date'  => date('d/m/Y H:i:s'),
+            'data'  => $data,
+            'list'  => $list = Clockday::where(['clock_id' => $data['clock_id'], 'employee_id' => $data['employee_id']])->orderBy('id', 'DESC')->get(), 
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
+
+        // Salva o arquivo PDF.
+        File::makeDirectory($data['path'], $mode = 0777, true, true);
+        $pdf->save($data['path'] . $data['file_name']);
+
+        // Registra os dados do arquivo PDF.
+        Report::create([
+            'user_id'     => auth()->user()->id,
+            'folder'      => 'clockemployee',
+            'file'        => $data['file_name'],
+            'reference_1' => $data['clock_id'],
+            'reference_2' => $data['employee_id'],
+        ]);
+
+        return true;
     }
     
 }

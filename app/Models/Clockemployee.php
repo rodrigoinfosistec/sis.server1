@@ -305,4 +305,24 @@ class Clockemployee extends Model
         return true;
     }
 
+    /**
+     * Gera relatório.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function generatePdf(array $data) : bool {
+        // Estende $data.
+        $data['path']       = public_path('/storage/pdf/clockemployee/');
+        $data['file_name']  = 'clockemployee_' . auth()->user()->id . '_' . $data['clock_id'] . '_' . $data['employee_id'] . '_' . Str::random(10) . '.pdf';
+
+        // Gera PDF.
+        Report::clockemployeeGenerate($data);
+
+        // Auditoria
+        Audit::clockemployeeGenerate($data);
+
+        return true;
+    }
+
 }
