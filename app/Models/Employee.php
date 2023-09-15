@@ -28,6 +28,10 @@ class Employee extends Model
         'journey_start_saturday',
         'journey_end_saturday',
 
+        'clock_type', // (event/registry)
+
+        'datatime',
+
         'created_at',
         'updated_at',
     ];

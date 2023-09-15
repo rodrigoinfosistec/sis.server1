@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('journey_start_saturday')->default('08:00');
             $table->string('journey_end_saturday')->default('12:00');
 
+            $table->string('clock_type')->default('EVENT');
+
             $table->unsignedBigInteger('datatime')->default(0);
 
             $table->timestamps();

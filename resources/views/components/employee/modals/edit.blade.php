@@ -13,7 +13,7 @@
 
 {{-- conteúdo --}}
 <x-layout.modal.modal-edit-body-group>
-    <x-layout.modal.modal-edit-body-group-item columms="12">
+    <x-layout.modal.modal-edit-body-group-item columms="8">
         <x-layout.modal.modal-edit-body-group-item-label item="company_id" title="EMPRESA" plus="company"/>
 
         <select wire:model="company_id" class="form-select form-select-sm text-uppercase" id="company_id">
@@ -25,6 +25,20 @@
         </select>
 
         <x-layout.modal.modal-edit-body-group-item-error item="company_id" message="$message"/>
+    </x-layout.modal.modal-edit-body-group-item>
+
+    
+    <x-layout.modal.modal-edit-body-group-item columms="4">
+        <x-layout.modal.modal-edit-body-group-item-label item="clock_type" title="TIPO PONTO" plus="none"/>
+
+        <select wire:model="clock_type" class="form-select form-select-sm text-uppercase" id="clock_type">
+            <x-layout.modal.modal-edit-body-group-item-option-muted/>
+
+            <option value="EVENT">LOCAL</option>
+            <option value="REGISTRY">ALTERNATIVO</option>
+        </select>
+
+        <x-layout.modal.modal-edit-body-group-item-error item="clock_type" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
 
