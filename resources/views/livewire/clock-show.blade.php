@@ -139,11 +139,19 @@
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="120">
-    <x-layout.card.card-body-content-table-body-line-cell-action-add-employee :id="$item->id"/>
+    @if(App\Models\Clockfunded::where('clock_id', $item->id)->exists())
+        <x-layout.card.card-body-content-table-body-line-cell-action-add-employee :id="$item->id"/>
 
-    <x-layout.card.card-body-content-table-body-line-cell-action-add-holiday :id="$item->id"/>
+        <x-layout.card.card-body-content-table-body-line-cell-action-add-holiday :id="$item->id"/>
 
-    <x-layout.card.card-body-content-table-body-line-cell-action-erase-fill :id="$item->id"/>
+        <x-layout.card.card-body-content-table-body-line-cell-action-erase-fill :id="$item->id"/>
+    @else
+        <x-layout.card.card-body-content-table-body-line-cell-action-add-employee-muted/>
+
+        <x-layout.card.card-body-content-table-body-line-cell-action-add-holiday-muted/>
+
+        <x-layout.card.card-body-content-table-body-line-cell-action-erase-fill-muted/>
+    @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
 
