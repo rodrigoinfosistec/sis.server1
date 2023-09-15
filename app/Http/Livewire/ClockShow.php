@@ -547,7 +547,8 @@ class ClockShow extends Component
         public function registerFunded()
         {
             // Estende $validatedData.
-            $validatedData['clock_id'] = $this->clock_id;
+            $validatedData['clock_id']   = $this->clock_id;
+            $validatedData['company_id'] = $this->company_id;
 
             // Define $data.
             $data['config']        = $this->config;

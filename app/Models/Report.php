@@ -927,11 +927,12 @@ class Report extends Model
     public static function clockfundedGenerate(array $data) : bool {
         // Gera o arquivo PDF.
         $pdf = PDF::loadView('components.clock.pdf-funded', [
-            'user'          => auth()->user()->name,
-            'title'         => 'Ponto Consolidado',
-            'date'          => date('d/m/Y H:i:s'),
-            'list'          => $list = Clockemployee::where('clock_id', $data['validatedData']['clock_id'])->orderBy('employee_name')->get(), 
-        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
+            'user'    => auth()->user()->name,
+            'title'   => 'Ponto Consolidado',
+            'date'    => date('d/m/Y H:i:s'),
+            'company' => Company::find($data['validatedData']['company_id']),
+            'list'    => $list = Clockemployee::where('clock_id', $data['validatedData']['clock_id'])->orderBy('employee_name')->get(), 
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landascape');
 
         // Salva o arquivo PDF.
         File::makeDirectory($data['path'], $mode = 0777, true, true);
