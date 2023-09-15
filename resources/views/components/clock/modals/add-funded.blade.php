@@ -3,9 +3,9 @@
         Banco de Horas
 
         <x-slot:identifier>
-            {{ $company_name }}
+            <span class="text-primary fw-bold">{{ $company_name }}
             <br>
-            {{ $start_decode }}<i class="bi-caret-right-fill text-muted"></i>{{ $end_decode }}
+            {{ $start_decode }}<i class="bi-caret-right-fill text-muted"></i>{{ $end_decode }}</span>
             <br><br>
             <span class="text-danger fw-bold" style="font-size: 13pt">
                 Consolidar em Banco de Horas?

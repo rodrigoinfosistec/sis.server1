@@ -10,6 +10,7 @@
         $('#addHolidayModal').modal('hide');
         $('#detailModal').modal('hide');
         $('#eraseModal').modal('hide');
+        $('#addFundedModal').modal('hide');
 
         $('#editClockEmployeeModal').modal('hide');
 
