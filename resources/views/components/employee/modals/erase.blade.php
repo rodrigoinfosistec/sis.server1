@@ -77,6 +77,15 @@
 
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
+        TIPO PONTO
+    </x-layout.modal.modal-erase-body-line-title>
+    <x-layout.modal.modal-erase-body-line-content>
+        {{ $clock_type }}
+    </x-layout.modal.modal-erase-body-line-content>
+</x-layout.modal.modal-erase-body-line>
+
+<x-layout.modal.modal-erase-body-line>
+    <x-layout.modal.modal-erase-body-line-title>
         CADASTRO
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>

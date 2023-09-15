@@ -214,6 +214,7 @@ class Employee extends Model
             'journey_end_week'       => $data['validatedData']['journey_end_week'],
             'journey_start_saturday' => $data['validatedData']['journey_start_saturday'],
             'journey_end_saturday'   => $data['validatedData']['journey_end_saturday'],
+            'clock_type'             => $data['validatedData']['clock_type'],
         ]);
 
         // After.

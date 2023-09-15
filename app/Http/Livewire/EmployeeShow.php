@@ -38,6 +38,7 @@ class EmployeeShow extends Component
     public $journey_end_week;
     public $journey_start_saturday;
     public $journey_end_saturday;
+    public $clock_type;
     public $created;
 
     public $txt;
@@ -66,6 +67,7 @@ class EmployeeShow extends Component
             'journey_end_week'       => ['required'],
             'journey_start_saturday' => ['required'],
             'journey_end_saturday'   => ['required'],
+            'clock_type'             => ['required'],
 
             'txt' => ['file', 'required'],
         ];
@@ -104,6 +106,7 @@ class EmployeeShow extends Component
         $this->journey_end_week       = '';
         $this->journey_start_saturday = '';
         $this->journey_end_saturday   = '';
+        $this->clock_type             = '';
         $this->created                = '';
 
         $this->txt = '';
@@ -239,6 +242,7 @@ class EmployeeShow extends Component
         $this->journey_end_week       = $employee->journey_end_week;
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->clock_type             = $employee->clock_type;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
 
@@ -261,6 +265,8 @@ class EmployeeShow extends Component
         $this->journey_end_week       = $employee->journey_end_week;
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->journey_end_saturday   = $employee->clock_type;
+        $this->clock_type             = $employee->clock_type;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
         public function modernize()
@@ -274,6 +280,7 @@ class EmployeeShow extends Component
                 'journey_end_week'       => ['required'],
                 'journey_start_saturday' => ['required'],
                 'journey_end_saturday'   => ['required'],
+                'clock_type'             => ['required'],
             ]);
 
             // Estende $validatedData
@@ -316,6 +323,7 @@ class EmployeeShow extends Component
         $this->journey_end_week       = $employee->journey_end_week;
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->clock_type             = $employee->clock_type;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
