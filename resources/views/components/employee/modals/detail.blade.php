@@ -73,7 +73,11 @@
         TIPO PONTO
     </x-layout.modal.modal-detail-body-line-title>
     <x-layout.modal.modal-detail-body-line-content>
-        {{ $clock_type }}
+        @if($clock_type == 'EVENT')
+            LOCAL
+        @else
+            ALTERNATIVO
+        @endif
     </x-layout.modal.modal-detail-body-line-content>
 </x-layout.modal.modal-detail-body-line>
 
