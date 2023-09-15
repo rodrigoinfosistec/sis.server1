@@ -145,17 +145,18 @@
 
         <x-layout.card.card-body-content-table-body-line-cell-action-add-holiday :id="$item->id"/>
 
-        <x-layout.card.card-body-content-table-body-line-cell-action-add-funded :id="$item->id"/>
-
         <x-layout.card.card-body-content-table-body-line-cell-action-erase-fill :id="$item->id"/>
+            
+        <x-layout.card.card-body-content-table-body-line-cell-action-add-funded :id="$item->id"/>
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-add-employee-muted :id="$item->id"/>
 
         <x-layout.card.card-body-content-table-body-line-cell-action-add-holiday-muted :id="$item->id"/>
 
+        <x-layout.card.card-body-content-table-body-line-cell-action-erase-fill-muted :id="$item->id"/>
+            
         <x-layout.card.card-body-content-table-body-line-cell-action-add-funded-muted :id="$item->id"/>
 
-        <x-layout.card.card-body-content-table-body-line-cell-action-erase-fill-muted :id="$item->id"/>
     @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
