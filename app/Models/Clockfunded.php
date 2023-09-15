@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Str;
+
 class Clockfunded extends Model
 {
     /**
@@ -120,9 +122,32 @@ class Clockfunded extends Model
                 'datatime' => $clockemployee->employee->datatime =+ ($balance_minuts),
             ]);
 
-        endforeach;
+            // Gera PDF.
+            Clockfunded::generate($data);
 
+        endforeach;
 
         return true;
     }
+    
+    /**
+     * Gera relatório.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function generate(array $data) : bool {
+        // Estende $data.
+        $data['path']       = public_path('/storage/pdf/clockfunded/');
+        $data['file_name']  = 'clockfunded_' . auth()->user()->id . '_' . $data['validatedData']['clock_id'] . '_' . Str::random(10) . '.pdf';
+
+        // Gera PDF.
+        Report::clockfundedGenerate($data);
+
+        // Auditoria
+        Audit::clockfundedGenerate($data);
+
+        return true;
+    }
+
 }

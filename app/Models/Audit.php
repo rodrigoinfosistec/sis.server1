@@ -2145,7 +2145,7 @@ class Audit extends Model
 
         return true;
     }
-    
+
     /**
      * Auditoria Clockmployee Generate.
      * @var array $data
@@ -2208,6 +2208,27 @@ class Audit extends Model
             'extensive' => '[cadastrou]' . 'Consolidação de Ponto' . '{' .
                 'id='       . $after->id       . ',' .
                 'clock_id=' . $after->clock_id . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+    
+    /**
+     * Auditoria Clockmployee Generate.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function clockfundedGenerate(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[gerou relatório]' . $data['config']['title'] . ' de Ponto Consolidado' . '{' .
+                'folder='    . $data['config']['name'] . ',' .
+                'file_name=' . $data['file_name']      . ',' .
             '}',
         ]);
 

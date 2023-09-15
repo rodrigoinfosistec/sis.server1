@@ -885,7 +885,7 @@ class Report extends Model
 
         return  $txt;
     }
-    
+
     /**
      * Clock Employee Generate
      * @var array $data
@@ -917,5 +917,34 @@ class Report extends Model
 
         return true;
     }
-    
+
+    /**
+     * Clock Employee Generate
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function clockfundedGenerate(array $data) : bool {
+        // Gera o arquivo PDF.
+        $pdf = PDF::loadView('components.clock.pdf-funded', [
+            'user'          => auth()->user()->name,
+            'title'         => 'Ponto Consolidado',
+            'date'          => date('d/m/Y H:i:s'),
+            'list'          => $list = Clockemployee::where('clock_id', $data['validatedData']['clock_id'])->orderBy('employee_name')->get(), 
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
+
+        // Salva o arquivo PDF.
+        File::makeDirectory($data['path'], $mode = 0777, true, true);
+        $pdf->save($data['path'] . $data['file_name']);
+
+        // Registra os dados do arquivo PDF.
+        Report::create([
+            'user_id'     => auth()->user()->id,
+            'folder'      => 'clockfunded',
+            'file'        => $data['file_name'],
+            'reference_1' => $data['validatedData']['clock_id'],
+        ]);
+
+        return true;
+    }
 }
