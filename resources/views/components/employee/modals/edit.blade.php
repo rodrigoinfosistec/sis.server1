@@ -27,7 +27,6 @@
         <x-layout.modal.modal-edit-body-group-item-error item="company_id" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>
 
-    
     <x-layout.modal.modal-edit-body-group-item columms="4">
         <x-layout.modal.modal-edit-body-group-item-label item="clock_type" title="TIPO PONTO" plus="none"/>
 
