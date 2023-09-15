@@ -27,7 +27,7 @@ return new class extends Migration
 
             $table->string('clock_type')->default('EVENT');
 
-            $table->unsignedBigInteger('datatime')->default(0);
+            $table->integer('datatime')->default(0);
 
             $table->timestamps();
 
