@@ -16,6 +16,7 @@
 @include('components.' .  $config['name'] . '.modals.add-employee')
 @include('components.' .  $config['name'] . '.modals.add-holiday')
 @include('components.' .  $config['name'] . '.modals.detail')
+@include('components.' .  $config['name'] . '.modals.add-funded')
 @include('components.' .  $config['name'] . '.modals.erase')
 
 {{-- funcionários --}}
@@ -144,11 +145,15 @@
 
         <x-layout.card.card-body-content-table-body-line-cell-action-add-holiday :id="$item->id"/>
 
+        <x-layout.card.card-body-content-table-body-line-cell-action-add-funded :id="$item->id"/>
+
         <x-layout.card.card-body-content-table-body-line-cell-action-erase-fill :id="$item->id"/>
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-add-employee-muted :id="$item->id"/>
 
         <x-layout.card.card-body-content-table-body-line-cell-action-add-holiday-muted :id="$item->id"/>
+
+        <x-layout.card.card-body-content-table-body-line-cell-action-add-funded-muted :id="$item->id"/>
 
         <x-layout.card.card-body-content-table-body-line-cell-action-erase-fill-muted :id="$item->id"/>
     @endif
