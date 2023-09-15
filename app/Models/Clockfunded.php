@@ -121,11 +121,11 @@ class Clockfunded extends Model
             Employee::find($clockemployee->employee->id)->update([
                 'datatime' => $clockemployee->employee->datatime =+ ($balance_minuts),
             ]);
-
-            // Gera PDF.
-            Clockfunded::generate($data);
-
         endforeach;
+
+        // Gera PDF.
+        Clockfunded::generate($data);
+
 
         return true;
     }
