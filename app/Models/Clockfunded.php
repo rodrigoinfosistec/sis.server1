@@ -105,12 +105,12 @@ class Clockfunded extends Model
             if($clockemployee->balance_total[0] == '+'):
                 $explode = explode('+', $clockemployee->balance_total);
                 $b = explode(':', $explode[1]);
-                $balance_minuts = (($b[0] /60) + $b[1]);
+                $balance_minuts = (($b[0] * 60) + $b[1]);
 
             elseif($clockemployee->balance_total[0] == '-'):
                 $explode = explode('-', $clockemployee->balance_total);
                 $b = explode(':', $explode[1]);
-                $balance_minuts = ((($b[0] /60) + $b[1]) * -1);
+                $balance_minuts = ((($b[0] * 60) + $b[1]) * -1);
             else:
                 $balance_minuts = 0;
             endif;
