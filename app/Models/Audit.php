@@ -1378,6 +1378,7 @@ class Audit extends Model
                 'journey_end_week='       . $after->journey_end_week       . ',' .
                 'journey_start_saturday=' . $after->journey_start_saturday . ',' .
                 'journey_end_saturday='   . $after->journey_end_saturday   . ',' .
+                'clock_id='               . $after->clock_id               . ',' .
             '}',
         ]);
 
