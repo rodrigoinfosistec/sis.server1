@@ -1001,9 +1001,6 @@ class ClockShow extends Component
                 $data['employee_id']      = $data['validatedData']['employee_id'];
                 $data['clockemployee_id'] = $data['validatedData']['clockemployee_id'];
 
-                // Gera o PDF.
-                Clockemployee::generatePdf($data);
-
                 // Inicializa variáveis.
                 $allowance_minuts = 0;
                 $delay_minuts     = 0;
@@ -1091,6 +1088,9 @@ class ClockShow extends Component
                     'extra_total'     => $extra_total,
                     'balance_total'   => $balance_total,
                 ]);
+
+                // Gera o PDF.
+                Clockemployee::generatePdf($data);
             endif;
 
             // Fecha modal.
