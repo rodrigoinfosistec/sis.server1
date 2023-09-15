@@ -39,7 +39,7 @@ class Clockfunded extends Model
         $message = null;
 
         // Verifica se Ponto já não foi consolidado.
-        if(Clockfunded::where('clock_id', )->doesntExist($data['validatedData']['clock_id'])):
+        if(Clockfunded::where('clock_id', $data['validatedData']['clock_id'])->exists()):
             $message = 'Ponto já foi consolidado';
         endif;
 

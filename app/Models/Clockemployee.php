@@ -56,7 +56,7 @@ class Clockemployee extends Model
         $message = null;
 
         // Evita Adicionar FGu8ncionário com banco consolidado.
-        if(Clockemployeefunded::where(['clock_id', $data['clock_id'], 'employee_id' => $data['employee_id']])->exists()):
+        if(Clockemployeefunded::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id']])->exists()):
             $message = 'Ponto já consolidado, não é possível adicionar funcionários.';
         endif;
 

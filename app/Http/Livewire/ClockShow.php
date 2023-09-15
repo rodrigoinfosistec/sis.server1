@@ -11,6 +11,8 @@ use App\Models\Clock;
 use App\Models\Clockemployee;
 use App\Models\Clockevent;
 use App\Models\Clockday;
+use App\Models\Clockfunded;
+use App\Models\Clockemployeefunded;
 use App\Models\Holiday;
 use App\Models\Employee;
 use App\Models\Employeevacation;
@@ -548,7 +550,7 @@ class ClockShow extends Component
             $validatedData['clock_id'] = $this->clock_id;
 
             // Define $data.
-            $data['config']        = $this->config['name'];
+            $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;
 
             // Valida cadastro.
