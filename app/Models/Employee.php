@@ -247,7 +247,27 @@ class Employee extends Model
     public static function validateErase(array $data) : bool {
         $message = null;
 
-        // ...
+        $employee = Employee::find($data['employee_id']);
+
+        // Verifica se Funcionário possui Saldo (+/-) no banco de Horas.
+        if($employee->datatime != 0):
+            if($employee->datatime > 0):
+                $hour  = $employee->datatime / 60;
+                $hour  = (int)$hour;
+                $minut = $employee->datatime % 60;
+    
+                $time = '+' . str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
+            else:
+                $employee->datatime = abs($employee->datatime);
+                $hour  = $employee->datatime / 60;
+                $hour  = (int)$hour;
+                $minut = $employee->datatime % 60;
+    
+                $time = '-' . str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
+            endif;
+
+            $message = 'Funcionário ' . $employee->name . ' possui ' . $time . 'H no Banco de Horas.';
+        endif;
 
         // Desvio.
         if(!empty($message)):

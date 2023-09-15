@@ -396,7 +396,10 @@ class Clock extends Model
     public static function validateErase(array $data) : bool {
         $message = null;
 
-        // ...
+        // Evita Excluir com banco consolidado.
+        if(Clockfunded::where('clock_id', $data['clock_id'])->exists()):
+            $message = 'Ponto já consolidado, não é possível excluir.';
+        endif;
 
         // Desvio.
         if(!empty($message)):

@@ -55,7 +55,10 @@ class Clockemployee extends Model
     public static function validateAdd(array $data) : bool {
         $message = null;
 
-        // ...
+        // Evita Adicionar FGu8ncionário com banco consolidado.
+        if(Clockemployeefunded::where(['clock_id', $data['clock_id'], 'employee_id' => $data['employee_id']])->exists()):
+            $message = 'Ponto já consolidado, não é possível adicionar funcionários.';
+        endif;
 
         // Desvio.
         if(!empty($message)):
@@ -259,7 +262,10 @@ class Clockemployee extends Model
     public static function validateErase(array $data) : bool {
         $message = null;
 
-        // ...
+        // Evita Excluir com banco consolidado.
+        if(Clockemployeefunded::where(['clock_id', $data['clock_id'], 'employee_id' => $data['employee_id']])->exists()):
+            $message = 'Funcionário com Ponto já consolidado, não é possível excluir.';
+        endif;
 
         // Desvio.
         if(!empty($message)):
