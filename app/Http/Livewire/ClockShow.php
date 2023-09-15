@@ -1030,8 +1030,15 @@ class ClockShow extends Component
 
                     // Saldo.
                     if(!empty($clockday->balance)):
-                        $ba = explode(':', $clockday->balance);
-                        $balance_minuts += (($ba[0] * 60) + $ba[1]);
+                        if($clockday->balance[0] == '+'):
+                            $explode = explode('+', $clockday->balance);
+                            $ba = explode(':', $explode[1]);
+                            $balance_minuts += (($ba[0] * 60) + $ba[1]);
+                        elseif($clockday->balance[0] == '-'):
+                            $explode = explode('-', $clockday->balance);
+                            $ba = explode(':', $explode[1]);
+                            $balance_minuts += ((($ba[0] * 60) + $ba[1]) * -1);
+                        endif;
                     endif;
                 endforeach;
 
@@ -1054,10 +1061,26 @@ class ClockShow extends Component
                 $extra_total = str_pad($ex_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($ex_minut, 2 ,'0' , STR_PAD_LEFT);
 
                 // Saldo.
-                $ba_hour  = $balance_minuts / 60;
-                $ba_hour  = (int)$ba_hour;
-                $ba_minut = $balance_minuts % 60;
-                $balance_total = str_pad($ba_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($ba_minut, 2 ,'0' , STR_PAD_LEFT);
+                if($balance_minuts > 0):
+                    $ba_hour  = $balance_minuts / 60;
+                    $ba_hour  = (int)$ba_hour;
+                    $ba_minut = $balance_minuts % 60;
+
+                    $signal = '+';
+                elseif($balance_minuts < 0):
+                    $balance_minuts = abs($balance_minuts);
+                    $ba_hour  = $balance_minuts / 60;
+                    $ba_hour  = (int)$ba_hour;
+                    $ba_minut = $balance_minuts % 60;
+
+                    $signal = '-';
+                else:
+                    $ba_hour  = 0;
+                    $ba_minut = 0;
+
+                    $signal = '';
+                endif;
+                $balance_total = $signal . str_pad($ba_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($ba_minut, 2 ,'0' , STR_PAD_LEFT);
 
                 // Atualiza Funcionário de Ponto.
                 Clockemployee::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id']])->update([

@@ -115,8 +115,12 @@
 
     {{-- SALDO --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="fw-bold" style="width: 80px; font-size: 9pt">
-            <span class="text-primary">{{ $clockemployee->balance_total }}</span>
+        <div class="fw-bold" style="width: 80px; font-size: 10pt">
+            @if($clockemployee->balance_total[0] == '+') <span class="text-primary">
+            @elseif($clockemployee->balance_total[0] == '-') <span class="text-danger">
+            @else <span class="text-muted"> @endif
+                {{ $clockemployee->balance_total }}
+            </span>
         </div>
     </td>
 </tr>
