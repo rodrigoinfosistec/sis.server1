@@ -65,7 +65,7 @@
 {{-- conteúdo --}}
 {{-- FUNCIONÁRIO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 270px; line-height: 1; border: solid 0.5px #ddd;">
+    <div class="" style="width: 270px; line-height: 1;">
         <span class="text-muted">{{ $item->employee->pis }}</span>
         <br>
         <span class="fw-bold">{{ $item->employee->name }}</span>
