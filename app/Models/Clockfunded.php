@@ -28,4 +28,6 @@ class Clockfunded extends Model
      * Relaciona Models.
      */
     public function clock(){return $this->belongsTo(Clock::class);}
+
+    
 }
