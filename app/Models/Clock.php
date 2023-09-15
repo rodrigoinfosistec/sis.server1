@@ -397,7 +397,7 @@ class Clock extends Model
         $message = null;
 
         // Evita Excluir com banco consolidado.
-        if(Clockfunded::where('clock_id', $data['clock_id'])->exists()):
+        if(Clockfunded::where('clock_id', $data['validatedData']['clock_id'])->exists()):
             $message = 'Ponto já consolidado, não é possível excluir.';
         endif;
 

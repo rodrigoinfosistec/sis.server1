@@ -147,7 +147,7 @@
 
         <x-layout.card.card-body-content-table-body-line-cell-action-erase-fill :id="$item->id"/>
 
-        @if(App\Models\Clockday::where('clock_id', $item->id)->doesntExist())
+        @if(App\Models\Clockday::where(['clock_id' => $item->id, 'authorized' => false])->doesntExist())
             <x-layout.card.card-body-content-table-body-line-cell-action-add-funded :id="$item->id"/>
         @else
             <x-layout.card.card-body-content-table-body-line-cell-action-add-funded-banned :id="$item->id"/>

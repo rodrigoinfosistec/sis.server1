@@ -263,7 +263,7 @@ class Clockemployee extends Model
         $message = null;
 
         // Evita Excluir com banco consolidado.
-        if(Clockemployeefunded::where(['clock_id', $data['clock_id'], 'employee_id' => $data['employee_id']])->exists()):
+        if(Clockemployeefunded::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id']])->exists()):
             $message = 'Funcionário com Ponto já consolidado, não é possível excluir.';
         endif;
 
