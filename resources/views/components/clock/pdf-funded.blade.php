@@ -105,8 +105,24 @@
 
 {{-- FALTAS --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-center" style="width: 160px; line-height: 1;">
-       
+    <div class="text-center" style="width: 160px; line-height: 1.2;">
+        @php
+            $test = false;
+        @endphp
+       @foreach(App\Models\Clockday::where(['clock_id' => $item->clock->id, 'employee_id' => $item->employee->id])->orderBy('date')->get() as $key => $clockday)
+            @if(App\Models\Employeeabsenceday::where(['employee_id' => $item->employee->id, 'date' => $clockday->date])->exists())
+                @if($test)
+                    <span class="text-muted">|</span>
+                @endif
+                
+                <span class="fw-bold">
+                    {{ date_format(date_create($clockday->date), 'd') }}/{{ date_format(date_create($clockday->date), 'm') }}
+                </span>
+                @php
+                    $test = true;
+                @endphp
+            @endif
+       @endforeach
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
