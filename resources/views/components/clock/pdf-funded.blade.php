@@ -6,13 +6,18 @@
             <img src="{{ asset('img/internal/sis/logo.png?' . Illuminate\Support\Str::random(10)) }}" width="40" height="40">
         </div>
 
-        <div class="float-start" style="width: 200px; height: 30px; margin-right: 10px; margin-top: 7px;">
-            <h2 class="text-uppercase fw-bold" style="font-size: 12pt;">
+        <div class="float-start" style="width: 220px; height: 30px; margin-right: 10px; margin-top: 2px;">
+            <h2 class="text-uppercase fw-bold" style="font-size: 12pt; line-height: 1.1">
                 {{ $title }}
+                <br>
+                <span class="text-muted fw-normal" style="font-size: 8pt">
+                    PERÍODO: {{date_format(date_create($clock->start), 'd/m/Y') }} a {{ date_format(date_create($clock->end), 'd/m/Y') }}
+
+                </span>
             </h2>
         </div>
 
-        <div class="float-start fw-bold" style="width: 500px; height: 35px; margin-right: 10px; margin-top: 5px; font-size: 9pt;">
+        <div class="float-start fw-bold" style="width: 500px; height: 35px; margin-right: 10px; font-size: 9pt;">
             {{ $company->name }}
             <br>
             <span class="fw-normal text-muted">{{ $company->cnpj }}</span>
@@ -65,7 +70,7 @@
 {{-- conteúdo --}}
 {{-- FUNCIONÁRIO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 270px; line-height: 1;">
+    <div class="" style="width: 270px; line-height: 1; padding: 2px 0 2px 0;">
         <span class="text-muted">{{ $item->employee->pis }}</span>
         <br>
         <span class="fw-bold">{{ $item->employee->name }}</span>
@@ -105,7 +110,7 @@
 
 {{-- FALTAS --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-center" style="width: 160px; line-height: 1.2;">
+    <div class="" style="width: 160px; line-height: 1.2;">
         @php
             $test = false;
         @endphp
@@ -114,7 +119,7 @@
                 @if($test)
                     <span class="text-muted">|</span>
                 @endif
-                
+
                 <span class="fw-bold">
                     {{ date_format(date_create($clockday->date), 'd') }}/{{ date_format(date_create($clockday->date), 'm') }}
                 </span>

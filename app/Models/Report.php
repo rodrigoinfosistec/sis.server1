@@ -931,6 +931,7 @@ class Report extends Model
             'title'   => 'Ponto Consolidado',
             'date'    => date('d/m/Y H:i:s'),
             'company' => Company::find($data['validatedData']['company_id']),
+            'clock'   => Clock::find($data['validatedData']['clock_id']),
             'list'    => $list = Clockemployee::where('clock_id', $data['validatedData']['clock_id'])->orderBy('employee_name')->get(), 
         ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landascape');
 
