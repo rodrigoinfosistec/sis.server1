@@ -43,6 +43,9 @@ class ClockbaseShow extends Component
     public $clock_type;
     public $created;
 
+    public $date;
+    public $discount;
+
     /**
      * Construtor.
      */
@@ -68,6 +71,7 @@ class ClockbaseShow extends Component
             'journey_start_saturday' => ['required'],
             'journey_end_saturday'   => ['required'],
             'clock_type'             => ['required'],
+            'date'                   => ['required'],
         ];
     }
 
@@ -106,6 +110,9 @@ class ClockbaseShow extends Component
         $this->journey_end_saturday   = '';
         $this->clock_type             = '';
         $this->created                = '';
+
+        $this->date     = '';
+        $this->discount = '';
     }
 
     /**
@@ -131,6 +138,59 @@ class ClockbaseShow extends Component
                             ])->orderBy('name', 'ASC')->paginate(10),
         ]);
     }
+    
+    /**
+     * addEasy()
+     *  registerEasy()
+     */
+    public function addEasy(int $employee_id)
+    {
+        // Funcionário.
+        $employee = Employee::find($employee_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->employee_id            = $employee->id;
+        $this->company_id             = $employee->company_id;
+        $this->company_name           = $employee->company_name;
+        $this->pis                    = $employee->pis;
+        $this->name                   = $employee->name;
+        $this->journey_start_week     = $employee->journey_start_week;
+        $this->journey_end_week       = $employee->journey_end_week;
+        $this->journey_start_saturday = $employee->journey_start_saturday;
+        $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->clock_type             = $employee->clock_type;
+        $this->created                = $employee->created_at->format('d/m/Y H:i:s');
+        $this->discount               = true;
+    }
+        public function registerEasy()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'date'  => ['required'],
+            ]);
+
+            // Estende $validatedData.
+            $validatedData['employee_id'] = $this->employee_id;
+            $this->discount ? $validatedData['discount'] = true : $validatedData['discount'] = false;
+
+            // Define $data.
+            $data['config']['title'] = 'Folga';
+            $data['config']['name']  = $this->config['name'];
+            $data['validatedData']   = $validatedData;
+
+            // Valida cadastro.
+            $valid = Employeeeasy::validateAdd($data);
+
+            // Cadastra.
+            if ($valid) Employeeeasy::add($data);
+
+            // Executa dependências.
+            if ($valid) Employeeeasy::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
 
     /** 
      * detail()

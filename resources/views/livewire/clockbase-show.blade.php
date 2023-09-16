@@ -9,6 +9,7 @@
     
     
     {{-- ações --}}
+    @include('components.' .  $config['name'] . '.modals.add-easy')
     @include('components.' .  $config['name'] . '.modals.detail')
 
     {{-- modal --}}
@@ -119,6 +120,8 @@
     </x-layout.card.card-body-content-table-body-line-cell>
     
     <x-layout.card.card-body-content-table-body-line-cell-action width="120">
+        <x-layout.card.card-body-content-table-body-line-cell-action-add-easy :id="$item->id"/>
+
         <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
     </x-layout.card.card-body-content-table-body-line-cell-action>
     {{-- conteúdo --}} 

@@ -922,6 +922,7 @@ class ClockShow extends Component
         $this->clockemployee_journey_start_saturday = $clockemployee->journey_start_saturday;
         $this->clockemployee_journey_end_saturday   = $clockemployee->journey_end_saturday;
         $this->employee_id                          = $clockemployee->employee_id;
+        $this->discount                             = true;
 
         $this->clockemployee_clock_start            = $clockemployee->clock->start;
         $this->clockemployee_clock_end              = $clockemployee->clock->end;
