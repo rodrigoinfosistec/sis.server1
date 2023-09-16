@@ -50,7 +50,7 @@ class Employeeabsence extends Model
         $y = $data['validatedData']['date_start'];
         while($y <= $data['validatedData']['date_end']):
             // Verifica se alguma data da férias já consta em outra férias.
-            if(Employeeabsenceday::where('date', $y)->exists()):
+            if(Employeeabsenceday::where(['employee_id' => $data['validatedData']['employee_id'],'date' => $y])->exists()):
                 $message = 'O dia ' . General::decodeDate($y) . ' já consta em outra falta do funcionário.';
             endif;
 
