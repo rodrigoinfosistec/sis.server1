@@ -11,7 +11,7 @@ class Clockbase extends Model
     /**
      * Nome da tabela.
      */
-    protected $table = 'clockdays';
+    protected $table = 'clockbases';
 
     /**
      * Campos manipuláveis.
