@@ -16,8 +16,9 @@
 @include('components.' .  $config['name'] . '.modals.add-employee')
 @include('components.' .  $config['name'] . '.modals.add-holiday')
 @include('components.' .  $config['name'] . '.modals.detail')
-@include('components.' .  $config['name'] . '.modals.add-funded')
 @include('components.' .  $config['name'] . '.modals.erase')
+@include('components.' .  $config['name'] . '.modals.add-funded')
+@include('components.' .  $config['name'] . '.modals.mail-funded')
 
 {{-- funcionários --}}
 @include('components.' .  $config['name'] . '.modals.edit-clock-employee')
@@ -153,7 +154,7 @@
             <x-layout.card.card-body-content-table-body-line-cell-action-add-funded-banned :id="$item->id"/>
         @endif
 
-        <x-layout.card.card-body-content-table-body-line-cell-action-mail-funded :id="$item->id"/>
+        <x-layout.card.card-body-content-table-body-line-cell-action-mail-funded-muted :id="$item->id"/>
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-add-employee-muted :id="$item->id"/>
 
@@ -163,7 +164,7 @@
 
         <x-layout.card.card-body-content-table-body-line-cell-action-add-funded-muted :id="$item->id"/>
 
-        <x-layout.card.card-body-content-table-body-line-cell-action-mail-funded-muted :id="$item->id"/>
+        <x-layout.card.card-body-content-table-body-line-cell-action-mail-funded :id="$item->id"/>
     @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 

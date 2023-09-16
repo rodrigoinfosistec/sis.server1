@@ -316,5 +316,22 @@ class Email extends Model
 
         return true;
     }
+    
+    /**
+     * E-mail Clockemployee.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function clockfundedMail(array $data) : bool {
+        // Envia e-mail.
+        Mail::to($data['validatedData']['mail'])->send(new ReportMail([
+            'pathToReport' => storage_path('app/public/pdf/clockfunded/' . Report::find($data['validatedData']['report_id'])->file),
+            'subject'      => 'Relatório de Ponto Consolidado',
+            'title'        => $data['config']['title'],
+            'comment'      => $data['validatedData']['comment'],
+        ]));
 
+        return true;
+    }
 }

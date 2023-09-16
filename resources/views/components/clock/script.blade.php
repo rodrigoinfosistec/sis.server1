@@ -11,6 +11,7 @@
         $('#detailModal').modal('hide');
         $('#eraseModal').modal('hide');
         $('#addFundedModal').modal('hide');
+        $('#mailFundedModal').modal('hide');
 
         $('#editClockEmployeeModal').modal('hide');
 

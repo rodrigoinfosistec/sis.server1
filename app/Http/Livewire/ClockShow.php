@@ -569,6 +569,51 @@ class ClockShow extends Component
         }
 
     /**
+     * mailFunded()
+     *  sendFunded()
+     */
+    public function mailFunded(int $clock_id)
+    {
+        // Funcionário.
+        $clock = Clock::find($clock_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->clock_id     = $clock->id;
+        $this->company_id   = $clock->company_id;
+        $this->company_name = $clock->company_name;
+        $this->start        = $clock->start;
+        $this->end          = $clock->end;
+        $this->start_decode = General::decodeDate($clock->start);
+        $this->end_decode   = General::decodeDate($clock->end);
+        $this->created      = $clock->created_at->format('d/m/Y H:i:s');
+    }
+        public function sendFunded()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'report_id' => ['required'],
+                'mail'      => ['required', 'email', 'between:2,255'],
+                'comment'   => ['nullable', 'between:2,255'],
+            ]);
+
+            // Define $data
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida envio do e-mail.
+            $valid = Clockfunded::validateMail($data);
+
+            // Envia e-mail.
+            if ($valid) Clockfunded::mail($data);
+
+            // Executa dependências.
+            if ($valid) Clockfunded::dependencyMail($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+    /**
      * generate()
      *  sire()
      */
@@ -1206,7 +1251,7 @@ class ClockShow extends Component
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
         }
-    
+
     /**
      * mailEmployee()
      *  sendEmployee()
