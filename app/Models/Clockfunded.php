@@ -121,11 +121,19 @@ class Clockfunded extends Model
             Employee::find($clockemployee->employee->id)->update([
                 'datatime' => $clockemployee->employee->datatime =+ ($balance_minuts),
             ]);
+
+            // Registra Movimento do Banco de Horas.
+            Clockbase::create([
+                'employee_id' => $clockemployee->employee->id,
+                'start'       => $clockemployee->clock->start,
+                'end'         => $clockemployee->clock->end,
+                'time'        => $balance_minuts,
+                'description' => 'Consolidação Banco de Horas',
+            ]);
         endforeach;
 
         // Gera PDF.
         Clockfunded::generate($data);
-
 
         return true;
     }

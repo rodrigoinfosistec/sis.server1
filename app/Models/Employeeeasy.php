@@ -133,6 +133,27 @@ class Employeeeasy extends Model
             'authorized' => false,
         ]);
 
+        // Subtrai Banco de Horas.
+        if($data['validatedData']['discount']):
+            // Define as Horas a serem descontadas.
+            (date_format(date_create($data['validatedData']['date']), 'l') == 'Saturday') ? $minuts = 240 : $minuts = 480;
+
+            // Atualiza Banco de Horas.
+            $employee = Employee::find($data['validatedData']['employee_id']);
+            Employee::find($data['validatedData']['employee_id'])->update([
+                'datatime' => $employee->timebase =- $minuts,
+            ]);
+
+            // Registra Movimento do Banco de Horas.
+            Clockbase::create([
+                'employee_id' => $data['validatedData']['employee_id'],
+                'start'       => $data['validatedData']['date'],
+                'end'         => $data['validatedData']['date'],
+                'time'        => $minuts,
+                'description' => 'Folga',
+            ]);
+        endif;
+
         return true;
     }
 
