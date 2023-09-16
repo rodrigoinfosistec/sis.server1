@@ -155,6 +155,8 @@
         @endif
 
         <x-layout.card.card-body-content-table-body-line-cell-action-mail-funded-muted :id="$item->id"/>
+
+        <x-layout.card.card-body-content-table-body-line-cell-action-print-funded-muted :id="$clockemployee" :reference="$clock_id"/>
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-add-employee-muted :id="$item->id"/>
 
@@ -165,6 +167,8 @@
         <x-layout.card.card-body-content-table-body-line-cell-action-add-funded-muted :id="$item->id"/>
 
         <x-layout.card.card-body-content-table-body-line-cell-action-mail-funded :id="$item->id"/>
+
+        <x-layout.card.card-body-content-table-body-line-cell-action-print-funded :id="$item->id"/>
     @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
