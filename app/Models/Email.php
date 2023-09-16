@@ -318,7 +318,7 @@ class Email extends Model
     }
     
     /**
-     * E-mail Clockemployee.
+     * E-mail Clockfunded.
      * @var array $data
      * 
      * @return bool true

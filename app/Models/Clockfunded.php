@@ -191,7 +191,7 @@ class Clockfunded extends Model
      */
     public static function mail(array $data) : bool {
         // Envia e-mail.
-        Email::clockefundedMail($data);
+        Email::clockfundedMail($data);
 
         // Auditoria.
         Audit::clockfundedMail($data);
