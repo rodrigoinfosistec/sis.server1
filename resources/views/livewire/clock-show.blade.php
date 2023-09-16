@@ -156,7 +156,7 @@
 
         <x-layout.card.card-body-content-table-body-line-cell-action-mail-funded-muted :id="$item->id"/>
 
-        <x-layout.card.card-body-content-table-body-line-cell-action-print-funded-muted :id="$clockemployee" :reference="$clock_id"/>
+        <x-layout.card.card-body-content-table-body-line-cell-action-print-funded-muted :id="$item"/>
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-add-employee-muted :id="$item->id"/>
 

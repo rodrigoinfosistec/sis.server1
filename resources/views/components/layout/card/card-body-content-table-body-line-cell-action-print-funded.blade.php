@@ -1,4 +1,4 @@
-<div class="dropdown float-end" style="width: 48px; padding-top: 2px;">
+<div class="dropdown float-end" style="width: 48px; padding-top: 5px; padding-left: 5px;">
     <a type="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="bi-printer-fill text-primary" style="font-size: 22px;" title="Imprimir relatório"></i>
     </a>
