@@ -119,7 +119,7 @@ class Clockfunded extends Model
 
             // Atualiza banvo de Horas do Funcionário.
             Employee::find($clockemployee->employee->id)->update([
-                'datatime' => $clockemployee->employee->datatime =+ ($balance_minuts),
+                'datatime' => $clockemployee->employee->datatime + ($balance_minuts),
             ]);
 
             // Registra Movimento do Banco de Horas.

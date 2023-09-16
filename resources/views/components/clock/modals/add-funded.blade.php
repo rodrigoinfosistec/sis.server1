@@ -65,7 +65,7 @@
         </thead>
 
         </tbody>
-            @foreach(App\Models\Clockemployee::where('clock_id', $clock_id)->get() as $key => $clockemployee)
+            @foreach(App\Models\Clockemployee::where('clock_id', $clock_id)->orderBy('employee_name')->get() as $key => $clockemployee)
 
 {{-- dia --}}
 <tr style="border-bottom: 1px solid #ddd; margin: 5px 0 5px 0;">
