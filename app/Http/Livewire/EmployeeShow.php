@@ -338,6 +338,7 @@ class EmployeeShow extends Component
             $validatedData['journey_end_week']       = $this->journey_end_week;
             $validatedData['journey_start_saturday'] = $this->journey_start_saturday;
             $validatedData['journey_end_saturday']   = $this->journey_end_saturday;
+            $validatedData['clock_type']             = $this->clock_type;
 
             // Define $data.
             $data['config']        = $this->config;
