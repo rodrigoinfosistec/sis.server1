@@ -124,6 +124,7 @@ class Clockfunded extends Model
 
             // Registra Movimento do Banco de Horas.
             Clockbase::create([
+                'user_id'     => Auth()->user()->id,
                 'employee_id' => $clockemployee->employee->id,
                 'start'       => $clockemployee->clock->start,
                 'end'         => $clockemployee->clock->end,

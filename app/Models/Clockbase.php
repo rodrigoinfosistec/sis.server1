@@ -17,6 +17,7 @@ class Clockbase extends Model
      * Campos manipuláveis.
      */
     protected $fillable = [
+        'user_id',
         'employee_id',
 
         'start',
@@ -33,5 +34,6 @@ class Clockbase extends Model
     /**
      * Relaciona Models.
      */
+    public function user(){return $this->belongsTo(User::class);}
     public function employee(){return $this->belongsTo(Employee::class);}
 }

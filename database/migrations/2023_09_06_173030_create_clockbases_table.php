@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('clockbases', function (Blueprint $table) {
             $table->id();
 
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('employee_id');
 
             $table->date('start');
@@ -25,6 +26,7 @@ return new class extends Migration
 
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('employee_id')->references('id')->on('employees');
         });
     }

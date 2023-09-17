@@ -108,6 +108,7 @@ class Employeeeasy extends Model
 
             // Registra Movimento do Banco de Horas.
             Clockbase::create([
+                'user_id'     => Auth()->user()->id,
                 'employee_id' => $data['validatedData']['employee_id'],
                 'start'       => $data['validatedData']['date'],
                 'end'         => $data['validatedData']['date'],
@@ -167,6 +168,7 @@ class Employeeeasy extends Model
 
             // Registra Movimento do Banco de Horas.
             Clockbase::create([
+                'user_id'     => Auth()->user()->id,
                 'employee_id' => $data['validatedData']['employee_id'],
                 'start'       => $data['validatedData']['date_encode'],
                 'end'         => $data['validatedData']['date_encode'],
