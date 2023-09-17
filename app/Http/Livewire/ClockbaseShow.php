@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Report;
 
 use App\Models\Employee;
+use App\Models\Employeeeasy;
 use App\Models\Clockbase;
 
 use Livewire\WithPagination;
@@ -43,6 +44,8 @@ class ClockbaseShow extends Component
     public $datatime;
     public $created;
 
+    public $date;
+
     public $discount;
 
     /**
@@ -70,6 +73,8 @@ class ClockbaseShow extends Component
             'journey_start_saturday' => ['required'],
             'journey_end_saturday'   => ['required'],
             'clock_type'             => ['required'],
+
+            'date' => ['required'],
 
         ];
     }
@@ -112,6 +117,8 @@ class ClockbaseShow extends Component
         $this->created                = '';
 
         $this->discount = true;
+
+        $this->date = '';
     }
 
     /**
@@ -157,6 +164,7 @@ class ClockbaseShow extends Component
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
         $this->clock_type             = $employee->clock_type;
+        $this->datatime               = $employee->datatime;
         $this->discount               = true;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
@@ -209,6 +217,7 @@ class ClockbaseShow extends Component
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
         $this->clock_type             = $employee->clock_type;
+        $this->datatime               = $employee->datatime;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
 

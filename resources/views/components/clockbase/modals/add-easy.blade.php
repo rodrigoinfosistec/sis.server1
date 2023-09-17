@@ -6,10 +6,14 @@
             <span class="text-primary">{{ $name }}</span>
             <br>
             {{ $pis }}
+            <br><br>
+            <span class="text-danger fw-bold" style="font-size: 13pt">
+                {{ App\Models\Clock::minutsToTimeSignal((int)$datatime) }}
+            </span>
         </x-slot>
     </x-layout.modal.modal-add-header>
 
-    <x-layout.modal.modal-add-body method="registerEasyEmployee">
+    <x-layout.modal.modal-add-body method="registerEasy">
 
 {{-- conteúdo --}}
 <x-layout.modal.modal-add-body-group>

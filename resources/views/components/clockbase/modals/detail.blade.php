@@ -3,7 +3,13 @@
         {{ $config['title'] }}
 
         <x-slot:identifier>
-            {{-- ... --}}
+            <span class="text-primary">{{ $name }}</span>
+            <br>
+            {{ $pis }}
+            <br><br>
+            <span class="text-danger fw-bold" style="font-size: 13pt">
+                {{ App\Models\Clock::minutsToTimeSignal((int)$datatime) }}
+            </span>
         </x-slot>
     </x-layout.modal.modal-detail-header>
 
