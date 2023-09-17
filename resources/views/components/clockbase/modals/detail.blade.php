@@ -30,26 +30,26 @@
                     </th>
         
                     <th class="" style="padding: 0;">
-                        <div class="" style="width: 15px;">
+                        <div class="" style="width: 10px;">
                             {{--  --}}
                         </div>
                     </th>
         
                     <th class="" style="padding: 0;">
-                        <div class="" style="min-width: 200px;">
+                        <div class="" style="margin-right: 5px; min-width: 100px;">
                             DESCRIÇÃO
                         </div>
                     </th>
         
                     <th class="" style="padding: 0;">
-                        <div class="" style="width: 80px;">
+                        <div class="" style="width: 70px;">
                             PERÍODO
                         </div>
                     </th>
         
                     <th class="" style="padding: 0;">
-                        <div class="" style="width: 100px;">
-                            BANCO DE HORAS
+                        <div class="" style="width: 60px;">
+                            HORAS
                         </div>
                     </th>
         
@@ -76,30 +76,30 @@
 
 {{-- ... --}}
 <td class="align-middle" style="line-height: 1; padding: 0;">
-    <div class="" style="width: 15px; font-size: 12pt;">
+    <div class="" style="width: 10px; font-size: 12pt;">
         {{-- ... --}}
     </div>
 </td>
 
 {{-- DESCRIÇÃO --}}
 <td class="align-middle" style="line-height: 1; padding: 0;">
-    <div class="fw-bold" style="min-width: 200px; font-size: 9pt;">
+    <div class="fw-bold" style="margin-right: 5px; min-width: 100px; font-size: 9pt;">
         {{ $clockbase->description }}
     </div>
 </td>
 
 {{-- PERÍODO --}}
-<td class="align-middle" style="line-height: 1;">
-    <div class="fw-bold" style="width: 80px; font-size: 9pt">
+<td class="align-middle" style="line-height: 1; padding: 0;">
+    <div class="text-muted" style="width: 70px; font-size: 8pt;">
         {{ date_format(date_create($clockbase->start), 'd/m/Y') }}
-        <i class="bi-caret-right-fill text-muted"></i>
+        <br>
         {{ date_format(date_create($clockbase->end), 'd/m/Y') }}
     </div>
 </td>
 
 {{-- BANCO DE HORAS --}}
-<td class="align-middle" style="line-height: 1;">
-    <div class="fw-bold" style="width: 80px; font-size: 10pt">
+<td class="align-middle" style="line-height: 1; padding: 0;">
+    <div class="fw-bold" style="width: 60px; font-size: 10pt;">
         @if($clockbase->time > 0) <span class="text-primary">
         @elseif($clockbase->time < 0) <span class="text-danger">
         @else <span class="text-muted"> @endif
@@ -109,10 +109,10 @@
 </td>
 
 {{-- CADASTRO --}}
-<td class="align-middle" style="line-height: 1;">
-    <div class="fw-bold text-muted" style="width: 80px; font-size: 8pt">
+<td class="align-middle" style="line-height: 1; padding: 0;">
+    <div class="text-muted" style="width: 80px; font-size: 7.5pt;">
         {{ $clockbase->user->name }} 
-        <i class="bi-caret-right-fill text-muted"></i>
+        <br>
         {{ $clockbase->created_at->format('d/m/Y') }} 
     </div>
 </td>
