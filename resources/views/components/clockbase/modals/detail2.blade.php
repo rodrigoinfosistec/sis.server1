@@ -1,19 +1,23 @@
-<x-layout.modal.modal-add modal="addFunded" method="registerFunded" size="modal-fullscreen">
-    <x-layout.modal.modal-add-header icon="bi-database-fill-check" modal="addFunded">
-        Banco de Horas
+<x-layout.modal.modal-detail modal="detail" size="modal-fullscreen">
+    <x-layout.modal.modal-detail-header icon="bi-eye" modal="detail">
+        {{ $config['title'] }}
 
         <x-slot:identifier>
-            <span class="text-primary fw-bold">{{ $company_name }}
+            <span class="text-primary">{{ $name }}</span>
             <br>
-            {{ $start_decode }}<i class="bi-caret-right-fill text-muted"></i>{{ $end_decode }}</span>
+            {{ $pis }}
             <br><br>
-            <span class="text-danger fw-bold" style="font-size: 13pt">
-                Consolidar em Banco de Horas?
+            <span class="fw-bold" style="font-size: 12pt">
+                @if($datatime > 0) <span class="text-primary">
+                @elseif($datatime < 0) <span class="text-danger">
+                @else <span class="text-dark"> @endif
+                    {{ App\Models\Clock::minutsToTimeSignal((int)$datatime) }}
+                </span>
             </span>
         </x-slot>
-    </x-layout.modal.modal-add-header>
+    </x-layout.modal.modal-detail-header>
 
-    <x-layout.modal.modal-add-body method="registerFunded">
+    <x-layout.modal.modal-detail-body>
 
 {{-- conteúdo --}}
 <div class="table-responsive">
@@ -35,39 +39,33 @@
 
             <th class="" style="padding: 0;">
                 <div class="" style="min-width: 200px;">
-                    FUNCIONÁRIO
+                    DESCRIÇÃO
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
                 <div class="" style="width: 80px;">
-                    ABONO
+                    PERÍODO
+                </div>
+            </th>
+
+            <th class="" style="padding: 0;">
+                <div class="" style="width: 100px;">
+                    BANCO DE HORAS
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
                 <div class="" style="width: 80px;">
-                    ATRASO
-                </div>
-            </th>
-
-            <th class="" style="padding: 0;">
-                <div class="" style="width: 80px;">
-                    EXTRA
-                </div>
-            </th>
-
-            <th class="" style="padding: 0;">
-                <div class="" style="width: 80px;">
-                    SALDO
+                    CADASTRO
                 </div>
             </th>
         </thead>
 
         <tbody>
-            @foreach(App\Models\Clockemployee::where('clock_id', $clock_id)->orderBy('employee_name')->get() as $key => $clockemployee)
+            @foreach(App\Models\Clockbase::where('employee_id', $employee_id)->orderBy('id', 'DESC')->get() as $key => $clockbase)
 
-{{-- dia --}}
+{{-- conteúdo --}}
 <tr style="border-bottom: 1px solid #ddd; margin: 5px 0 5px 0;">
     {{-- CHECKBOX --}}
     <td class="align-middle" style="line-height: 1; padding: 0;">
@@ -85,55 +83,48 @@
         </div>
     </td>
 
-    {{-- FUNCIONÁRIO --}}
+    {{-- DESCRIÇÃO --}}
     <td class="align-middle" style="line-height: 1; padding: 0;">
         <div class="fw-bold" style="min-width: 200px; font-size: 9pt;">
-            {{ $clockemployee->employee_name }}
+            {{ $clockbase->description }}
         </div>
     </td>
 
-    {{-- ABONO --}}
+    {{-- PERÍODO --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="fw-bold" style="width: 80px; font-size: 9pt">
-            {{ $clockemployee->allowance_total }}
+            {{ date_create(date_format($clockbase->start, 'd/m/Y')) }}
+            <i class="bi-caret-right-fill text-muted"></i>
+            {{ date_create(date_format($clockbase->end, 'd/m/Y')) }}
         </div>
     </td>
 
-    {{-- ATRASO --}}
-    <td class="align-middle" style="line-height: 1;">
-        <div class="fw-bold" style="width: 80px; font-size: 9pt">
-            {{ $clockemployee->delay_total }}
-        </div>
-    </td>
-
-    {{-- EXTRA --}}
-    <td class="align-middle" style="line-height: 1;">
-        <div class="fw-bold" style="width: 80px; font-size: 9pt">
-            {{ $clockemployee->extra_total }}
-        </div>
-    </td>
-
-    {{-- SALDO --}}
+    {{-- BANCO DE HORAS --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="fw-bold" style="width: 80px; font-size: 10pt">
-            @if(!empty($clockemployee->balance_total))
-                @if($clockemployee->balance_total[0] == '+') <span class="text-primary">
-                @elseif($clockemployee->balance_total[0] == '-') <span class="text-danger">
-                @else <span class="text-muted"> @endif
-                    {{ $clockemployee->balance_total }}
-                </span>
-            @endif
+            @if($clockbase->time > 0) <span class="text-primary">
+            @elseif($clockbase->time < 0) <span class="text-danger">
+            @else <span class="text-muted"> @endif
+                {{ App\Models\Clock::minutsToTimeSignal((int)$clockbase->time) }}
+            </span>
+        </div>
+    </td>
+
+    {{-- CADASTRO --}}
+    <td class="align-middle" style="line-height: 1;">
+        <div class="fw-bold text-muted" style="width: 80px; font-size: 8pt">
+            {{ $clockbase->user->name }} 
+            <i class="bi-caret-right-fill text-muted"></i>
+            {{ $clockbase->created }} 
         </div>
     </td>
 </tr>
-{{-- dia --}}
+{{-- conteúdo --}}
+
             @endforeach
         </tbody>
     </table>
 </div>
-{{-- conteúdo --}}
 
-    </x-layout.modal.modal-add-body>
-
-    <x-layout.modal.modal-add-footer/>
-</x-layout.modal.modal-add>
+    </x-layout.modal.modal-detail-body>
+</x-layout.modal.modal-detail>
