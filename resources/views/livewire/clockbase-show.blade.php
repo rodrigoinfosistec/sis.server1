@@ -2,16 +2,17 @@
 
     {{-- modal --}}
     {{-- botões --}}
+    @include('components.' .  $config['name'] . '.modals.generate')
+    @include('components.' .  $config['name'] . '.modals.mail')
     
     {{-- plus --}}
+    @include('components.' .  $config['name'] . '.modals.add-easy')
     
     {{-- info --}}
     
     
     {{-- ações --}}
-    @include('components.' .  $config['name'] . '.modals.add-easy')
     @include('components.' .  $config['name'] . '.modals.detail')
-
     {{-- modal --}}
     
         <x-layout.alert/>
@@ -24,13 +25,13 @@
     
     {{-- botão relatório --}}
     @if($existsItem)
-        <x-layout.card.card-header-button-action-generate-muted/>
+        <x-layout.card.card-header-button-action-generate/>
     @else
         <x-layout.card.card-header-button-action-generate-muted/>
     @endif
     
     @if($existsReport)
-        <x-layout.card.card-header-button-action-mail-muted/>
+        <x-layout.card.card-header-button-action-mail/>
     @else
         <x-layout.card.card-header-button-action-mail-muted/>
     @endif
@@ -48,7 +49,8 @@
                     <x-layout.card.card-header-button-more>
     
     {{-- botão add --}}
-    <x-layout.card.card-header-button-more-plus-muted/>
+    <x-layout.card.card-header-button-more-plus/>
+    <x-layout.card.card-header-button-more-plus-txt/>
     {{-- botão add --}}
     
                     </x-layout.card.card-header-button-more>
@@ -63,6 +65,7 @@
     {{-- filtro nome --}}
     <option value="pis">PIS</option>
     <option value="name">NOME</option>
+    <option value="company_name">EMPRESA</option>
     <option value="created_at">DATA CADASTRO</option>
     {{-- filtro nome --}}
     
@@ -86,52 +89,54 @@
     {{-- info action --}}
     
                         </x-layout.card.card-body-navigation-info-action>
-
+    
                         <x-layout.card.card-body-navigation-info-count :count="$list->total()"/>
                     </x-layout.card.card-body-navigation-info>
                 </x-layout.card.card-body-navigation>
-
+    
                 <x-layout.card.card-body-content>
                     <x-layout.card.card-body-content-table>
                         <x-layout.card.card-body-content-table-body>
                             @if($list->count() > 0)
                                 @foreach($list as $item)
                                     <x-layout.card.card-body-content-table-body-line>
-
+    
     {{-- conteúdo --}}  
     <x-layout.card.card-body-content-table-body-line-cell width="">
         <x-layout.card.card-body-content-table-body-line-cell-id>
             <x-layout.card.card-body-content-table-body-line-cell-id-badge>
                 {{ str_pad($loop->iteration, Str::length($list->count()), '0', STR_PAD_LEFT); }}
             </x-layout.card.card-body-content-table-body-line-cell-id-badge>
-
+    
             <x-layout.card.card-body-content-table-body-line-cell-id-start>
-                <span class="text-muted">{{ $item->pis }}</span>
+                {{ $item->pis }}
             </x-layout.card.card-body-content-table-body-line-cell-id-start>
-
+    
             <x-layout.card.card-body-content-table-body-line-cell-id-end>
-                <span style="font-size: 9pt">
-                    @if($item->datatime > 0) <span class="text-primary fw-bold">
-                    @elseif($item->datatime < 0) <span class="text-danger fw-bold">
-                    @else <span class="text-muted">  @endif
-                        {{ App\Models\Clock::minutsToTimeSignal($item->datatime) }}
-                    </span>
-                </span>
+                {{ $item->created_at->format('d/m/y') }}
             </x-layout.card.card-body-content-table-body-line-cell-id-end>
         </x-layout.card.card-body-content-table-body-line-cell-id>
-
+    
         <x-layout.card.card-body-content-table-body-line-cell-content>
             {{ $item->name }}
+            @if(!empty(App\Models\Company::nicknameNoRepeatName($item->id)))
+                <br>
+                <span class="text-muted">
+                    {{ App\Models\Company::nicknameNoRepeatName($item->id) }}
+                </span>
+            @endif
+            <br>
+            {{ $item->company_name }}
         </x-layout.card.card-body-content-table-body-line-cell-content>
     </x-layout.card.card-body-content-table-body-line-cell>
-
+    
     <x-layout.card.card-body-content-table-body-line-cell-action width="120">
-        <x-layout.card.card-body-content-table-body-line-cell-action-add-easy :id="$item->id"/>
-
         <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
+    
+        <x-layout.card.card-body-content-table-body-line-cell-action-add-easy :id="$item->id"/>
     </x-layout.card.card-body-content-table-body-line-cell-action>
     {{-- conteúdo --}} 
-
+    
                                     </x-layout.card.card-body-content-table-body-line>
                                 @endforeach
                             @else
@@ -139,7 +144,7 @@
                             @endif
                         </x-layout.card.card-body-content-table-body>
                     </x-layout.card.card-body-content-table>
-
+    
                     <x-layout.card.card-body-content-pagination :list="$list"/>
                 </x-layout.card.card-body-content>
             </x-layout.card.card-body>

@@ -5,7 +5,6 @@ namespace App\Http\Livewire;
 use App\Models\Report;
 
 use App\Models\Employee;
-use App\Models\Employeeeasy;
 use App\Models\Clockbase;
 
 use Livewire\WithPagination;
@@ -44,7 +43,6 @@ class ClockbaseShow extends Component
     public $datatime;
     public $created;
 
-    public $date;
     public $discount;
 
     /**
@@ -72,7 +70,7 @@ class ClockbaseShow extends Component
             'journey_start_saturday' => ['required'],
             'journey_end_saturday'   => ['required'],
             'clock_type'             => ['required'],
-            'date'                   => ['required'],
+
         ];
     }
 
@@ -113,8 +111,7 @@ class ClockbaseShow extends Component
         $this->datatime               = '';
         $this->created                = '';
 
-        $this->date     = '';
-        $this->discount = '';
+        $this->discount = true;
     }
 
     /**
@@ -132,62 +129,47 @@ class ClockbaseShow extends Component
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
             'existsItem'   => Employee::exists(),
-            'existsReport' => Report::where('folder', 'clockbase')->exists(),
-            'reports'      => Report::where('folder', 'clockbase')->orderBy('id', 'DESC')->limit(12)->get(),
+            'existsReport' => Report::where('folder', $this->config['name'])->exists(),
+            'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Employee::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
-                                ['company_id', Auth()->user()->company_id],
-                            ])->orderBy('name', 'ASC')->paginate(10),
+                            ])->orderBy('name', 'ASC')->paginate(12),
         ]);
     }
 
     /**
      * addEasy()
-     *  registerEasy()
+     *  register()
      */
     public function addEasy(int $employee_id)
     {
-        // Funcionário.
-        $employee = Employee::find($employee_id);
-
-        // Inicializa propriedades dinâmicas.
-        $this->employee_id            = $employee->id;
-        $this->company_id             = $employee->company_id;
-        $this->company_name           = $employee->company_name;
-        $this->pis                    = $employee->pis;
-        $this->name                   = $employee->name;
-        $this->journey_start_week     = $employee->journey_start_week;
-        $this->journey_end_week       = $employee->journey_end_week;
-        $this->journey_start_saturday = $employee->journey_start_saturday;
-        $this->journey_end_saturday   = $employee->journey_end_saturday;
-        $this->clock_type             = $employee->clock_type;
-        $this->created                = $employee->created_at->format('d/m/Y H:i:s');
-        $this->discount               = true;
+        //$this->discount = false;
     }
         public function registerEasy()
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'date'  => ['required'],
+                'company_id'             => ['required'],
+                'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees'],
+                'name'                   => ['required', 'between:3,60'],
+                'journey_start_week'     => ['required'],
+                'journey_end_week'       => ['required'],
+                'journey_start_saturday' => ['required'],
+                'journey_end_saturday'   => ['required'],
             ]);
 
-            // Estende $validatedData.
-            $validatedData['employee_id'] = $this->employee_id;
-            $this->discount ? $validatedData['discount'] = true : $validatedData['discount'] = false;
-
             // Define $data.
-            $data['config']['title'] = 'Folga';
-            $data['config']['name']  = $this->config['name'];
-            $data['validatedData']   = $validatedData;
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
 
             // Valida cadastro.
-            $valid = Employeeeasy::validateAdd($data);
+            $valid = Employee::validateAdd($data);
 
             // Cadastra.
-            if ($valid) Employeeeasy::add($data);
+            if ($valid) Employee::add($data);
 
             // Executa dependências.
-            if ($valid) Employeeeasy::dependencyAdd($data);
+            if ($valid) Employee::dependencyAdd($data);
 
             // Fecha modal.
             $this->closeModal();
@@ -207,15 +189,125 @@ class ClockbaseShow extends Component
         $this->company_id             = $employee->company_id;
         $this->company_name           = $employee->company_name;
         $this->pis                    = $employee->pis;
-        $this->name                   = $employee->pis;
+        $this->name                   = $employee->name;
         $this->journey_start_week     = $employee->journey_start_week;
         $this->journey_end_week       = $employee->journey_end_week;
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
         $this->clock_type             = $employee->clock_type;
-        $this->datatime               = $employee->datatime;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
+
+    /**
+     * edit()
+     *  modernize()
+     */
+    public function edit(int $employee_id)
+    {
+        // Funcionário.
+        $employee = Employee::find($employee_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->employee_id            = $employee->id;
+        $this->company_id             = $employee->company_id;
+        $this->company_name           = $employee->company_name;
+        $this->pis                    = $employee->pis;
+        $this->name                   = $employee->name;
+        $this->journey_start_week     = $employee->journey_start_week;
+        $this->journey_end_week       = $employee->journey_end_week;
+        $this->journey_start_saturday = $employee->journey_start_saturday;
+        $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->clock_type             = $employee->clock_type;
+        $this->created                = $employee->created_at->format('d/m/Y H:i:s');
+    }
+        public function modernize()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'company_id'             => ['required'],
+                'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees,pis,'.$this->employee_id.''],
+                'name'                   => ['required', 'between:3,60'],
+                'journey_start_week'     => ['required'],
+                'journey_end_week'       => ['required'],
+                'journey_start_saturday' => ['required'],
+                'journey_end_saturday'   => ['required'],
+                'clock_type'             => ['required'],
+            ]);
+
+            // Estende $validatedData
+            $validatedData['employee_id'] = $this->employee_id;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Employee::validateEdit($data);
+
+            // Atualiza.
+            if ($valid) Employee::edit($data);
+
+            // Executa dependências.
+            if ($valid) Employee::dependencyEdit($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * erase()
+     *  exclude()
+     */
+    public function erase(int $employee_id)
+    {
+        // Funcionário.
+        $employee = Employee::find($employee_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->employee_id            = $employee->id;
+        $this->company_id             = $employee->company_id;
+        $this->company_name           = $employee->company_name;
+        $this->pis                    = $employee->pis;
+        $this->name                   = $employee->name;
+        $this->journey_start_week     = $employee->journey_start_week;
+        $this->journey_end_week       = $employee->journey_end_week;
+        $this->journey_start_saturday = $employee->journey_start_saturday;
+        $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->clock_type             = $employee->clock_type;
+        $this->created                = $employee->created_at->format('d/m/Y H:i:s');
+    }
+        public function exclude()
+        {
+            // Define $validatedData
+            $validatedData['employee_id']            = $this->employee_id;
+            $validatedData['company_id']             = $this->company_id;
+            $validatedData['company_name']           = $this->company_name;
+            $validatedData['pis']                    = $this->pis;
+            $validatedData['name']                   = $this->name;
+            $validatedData['journey_start_week']     = $this->journey_start_week;
+            $validatedData['journey_end_week']       = $this->journey_end_week;
+            $validatedData['journey_start_saturday'] = $this->journey_start_saturday;
+            $validatedData['journey_end_saturday']   = $this->journey_end_saturday;
+            $validatedData['clock_type']             = $this->clock_type;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida exclusão.
+            $valid = Employee::validateErase($data);
+
+            // Executa dependências.
+            if ($valid) Employee::dependencyErase($data);
+
+            // Exclui.
+            if ($valid) Employee::erase($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
 
     /**
      * generate()

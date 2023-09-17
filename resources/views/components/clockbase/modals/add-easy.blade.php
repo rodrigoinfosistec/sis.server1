@@ -1,5 +1,5 @@
-<x-layout.modal.modal-add modal="addEasy" method="registerEasy" size="">
-    <x-layout.modal.modal-add-header icon="bi-emoji-sunglasses" modal="addEasy">
+<x-layout.modal.modal-add modal="addEasyEmployee" method="registerEasyEmployee" size="">
+    <x-layout.modal.modal-add-header icon="bi-emoji-sunglasses" modal="addEasyEmployee">
         Folga do Funcionário
 
         <x-slot:identifier>
@@ -9,7 +9,7 @@
         </x-slot>
     </x-layout.modal.modal-add-header>
 
-    <x-layout.modal.modal-add-body method="registerEasy">
+    <x-layout.modal.modal-add-body method="registerEasyEmployee">
 
 {{-- conteúdo --}}
 <x-layout.modal.modal-add-body-group>
