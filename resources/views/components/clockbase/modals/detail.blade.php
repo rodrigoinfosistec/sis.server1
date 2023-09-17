@@ -17,9 +17,52 @@
         </x-slot>
     </x-layout.modal.modal-detail-header>
 
-    <x-layout.modal.modal-detail-body>
-        @foreach(App\Models\Clockbase::where('employee_id', $employee_id)->get() as $key => $clockbase)
-            <x-layout.modal.modal-detail-body-line>
+    <div class="modal-body">
+        <div class="table-responsive">
+            <table class="table table-sm table-borderless table-hover" wire:loading.class.deley="opacity-50">
+                <thead class="fw-bolder" style="border-bottom: #808080 1px solid; font-size: 7.5pt;">
+                    <th class="" style="padding: 0;">
+                        <div class="text-center" style="width: 22px;">
+                            <div class="form-check" style="margin-bottom: -6px; margin-left: 2px;">
+                                <input type="checkbox" class="form-check-input" style="width: 12px; height: 12px;" disabled>
+                            </div>
+                        </div>
+                    </th>
+        
+                    <th class="" style="padding: 0;">
+                        <div class="" style="width: 15px;">
+                            {{--  --}}
+                        </div>
+                    </th>
+        
+                    <th class="" style="padding: 0;">
+                        <div class="" style="min-width: 200px;">
+                            DESCRIÇÃO
+                        </div>
+                    </th>
+        
+                    <th class="" style="padding: 0;">
+                        <div class="" style="width: 80px;">
+                            PERÍODO
+                        </div>
+                    </th>
+        
+                    <th class="" style="padding: 0;">
+                        <div class="" style="width: 100px;">
+                            BANCO DE HORAS
+                        </div>
+                    </th>
+        
+                    <th class="" style="padding: 0;">
+                        <div class="" style="width: 80px;">
+                            CADASTRO
+                        </div>
+                    </th>
+                </thead>
+
+                <tbody>
+                    @foreach(App\Models\Clockbase::where('employee_id', $employee_id)->get() as $key => $clockbase)
+                        <tr>
 
 {{-- conteúdo --}}
 {{-- CHECKBOX --}}
@@ -73,11 +116,12 @@
         {{ $clockbase->created_at->format('d/m/Y') }} 
     </div>
 </td>
-    
-
 {{-- conteúdo --}}
-                
-            </x-layout.modal.modal-detail-body-line>
-        @endforeach
-    </x-layout.modal.modal-detail-body>
+  
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 </x-layout.modal.modal-detail>
