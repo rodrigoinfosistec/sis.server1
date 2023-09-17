@@ -49,8 +49,7 @@
                     <x-layout.card.card-header-button-more>
     
     {{-- botão add --}}
-    <x-layout.card.card-header-button-more-plus/>
-    <x-layout.card.card-header-button-more-plus-txt/>
+    <x-layout.card.card-header-button-more-plus-muted/>
     {{-- botão add --}}
     
                     </x-layout.card.card-header-button-more>
