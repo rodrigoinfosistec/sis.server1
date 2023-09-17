@@ -265,7 +265,6 @@ class EmployeeShow extends Component
         $this->journey_end_week       = $employee->journey_end_week;
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
-        $this->journey_end_saturday   = $employee->clock_type;
         $this->clock_type             = $employee->clock_type;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
