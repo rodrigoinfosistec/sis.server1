@@ -140,7 +140,7 @@ class ClockbaseShow extends Component
                             ])->orderBy('name', 'ASC')->paginate(10),
         ]);
     }
-    
+
     /**
      * addEasy()
      *  registerEasy()
