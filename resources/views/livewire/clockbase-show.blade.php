@@ -110,7 +110,13 @@
             </x-layout.card.card-body-content-table-body-line-cell-id-start>
     
             <x-layout.card.card-body-content-table-body-line-cell-id-end>
-                {{ $item->created_at->format('d/m/y') }}
+                <span style="font-size: 9pt">
+                    @if($item->datatime > 0) <span class="text-primary fw-bold">
+                    @elseif($item->datatime < 0) <span class="text-danger fw-bold">
+                    @else <span class="text-muted">  @endif
+                        {{ App\Models\Clock::minutsToTimeSignal($item->datatime) }}
+                    </span>
+                </span>
             </x-layout.card.card-body-content-table-body-line-cell-id-end>
         </x-layout.card.card-body-content-table-body-line-cell-id>
     

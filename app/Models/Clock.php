@@ -73,6 +73,36 @@ class Clock extends Model
     }
 
     /**
+     * Converte minutos em Time.
+     * 
+     * @var int $minuts
+     * 
+     * @return string $time
+     */
+    public static function minutsToTimeSignal(int $minuts) : string {
+        if($minuts > 0):
+            $hour   = $minuts / 60;
+            $hour   = (int)$hour;
+            $minut  = $minuts % 60;
+            $signal = '+';
+        elseif($minuts < 0):
+            $minuts = abs($minuts);
+            $hour   = $minuts / 60;
+            $hour   = (int)$hour;
+            $minut  = $minuts % 60;
+            $signal = '-';
+        else:
+            $hour   = 0;
+            $minut  = 0;
+            $signal = '';
+        endif;
+
+        $time = $signal . str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
+
+        return $time;
+    }
+
+    /**
      * Valida cadastro TXT.
      * @var array $data
      * 
