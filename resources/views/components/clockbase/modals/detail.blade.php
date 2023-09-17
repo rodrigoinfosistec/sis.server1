@@ -1,14 +1,14 @@
-<x-layout.modal.modal-detail modal="detail" size="">
+<x-layout.modal.modal-detail modal="detail" size="modal-fullscreen">
     <x-layout.modal.modal-detail-header icon="bi-eye" modal="detail">
         Banco de Horas Funcionário
-
+        
         <x-slot:identifier>
             <span class="text-primary">{{ $name }}</span>
             <br>
             {{ $pis }}
             <br><br>
             <span class="text-danger fw-bold" style="font-size: 13pt">
-                {{ App\Models\Clock::minutsToTimeSignal($timebase) }}
+                {{ App\Models\Clock::minutsToTimeSignal((int)$datatime) }}
             </span>
         </x-slot>
     </x-layout.modal.modal-detail-header>

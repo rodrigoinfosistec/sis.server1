@@ -41,6 +41,7 @@ class ClockbaseShow extends Component
     public $journey_start_saturday;
     public $journey_end_saturday;
     public $clock_type;
+    public $datatime;
     public $created;
 
     public $date;
@@ -109,6 +110,7 @@ class ClockbaseShow extends Component
         $this->journey_start_saturday = '';
         $this->journey_end_saturday   = '';
         $this->clock_type             = '';
+        $this->datatime               = '';
         $this->created                = '';
 
         $this->date     = '';
@@ -205,12 +207,13 @@ class ClockbaseShow extends Component
         $this->company_id             = $employee->company_id;
         $this->company_name           = $employee->company_name;
         $this->pis                    = $employee->pis;
-        $this->name                   = $employee->name;
+        $this->name                   = 'olá';
         $this->journey_start_week     = $employee->journey_start_week;
         $this->journey_end_week       = $employee->journey_end_week;
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
         $this->clock_type             = $employee->clock_type;
+        $this->datatime               = $employee->datatime;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
 
