@@ -1,5 +1,5 @@
-<x-layout.modal.modal-add modal="addEasyEmployee" method="registerEasyEmployee" size="">
-    <x-layout.modal.modal-add-header icon="bi-emoji-sunglasses" modal="addEasyEmployee">
+<x-layout.modal.modal-add modal="addEasy" method="registerEasy" size="">
+    <x-layout.modal.modal-add-header icon="bi-emoji-sunglasses" modal="addEasy">
         Folga do Funcionário
 
         <x-slot:identifier>

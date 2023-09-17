@@ -143,33 +143,47 @@ class ClockbaseShow extends Component
      */
     public function addEasy(int $employee_id)
     {
-        //$this->discount = false;
+        // Funcionário.
+        $employee = Employee::find($employee_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->employee_id            = $employee->id;
+        $this->company_id             = $employee->company_id;
+        $this->company_name           = $employee->company_name;
+        $this->pis                    = $employee->pis;
+        $this->name                   = $employee->name;
+        $this->journey_start_week     = $employee->journey_start_week;
+        $this->journey_end_week       = $employee->journey_end_week;
+        $this->journey_start_saturday = $employee->journey_start_saturday;
+        $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->clock_type             = $employee->clock_type;
+        $this->discount               = true;
+        $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
         public function registerEasy()
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'company_id'             => ['required'],
-                'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees'],
-                'name'                   => ['required', 'between:3,60'],
-                'journey_start_week'     => ['required'],
-                'journey_end_week'       => ['required'],
-                'journey_start_saturday' => ['required'],
-                'journey_end_saturday'   => ['required'],
+                'date'  => ['required'],
             ]);
 
+            // Estende $validatedData.
+            $validatedData['employee_id'] = $this->employee_id;
+            $this->discount ? $validatedData['discount'] = true : $validatedData['discount'] = false;
+
             // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
+            $data['config']['title'] = 'Folga';
+            $data['config']['name']  = $this->config['name'];
+            $data['validatedData']   = $validatedData;
 
             // Valida cadastro.
-            $valid = Employee::validateAdd($data);
+            $valid = Employeeeasy::validateAdd($data);
 
             // Cadastra.
-            if ($valid) Employee::add($data);
+            if ($valid) Employeeeasy::add($data);
 
             // Executa dependências.
-            if ($valid) Employee::dependencyAdd($data);
+            if ($valid) Employeeeasy::dependencyAdd($data);
 
             // Fecha modal.
             $this->closeModal();
