@@ -207,7 +207,7 @@ class ClockbaseShow extends Component
         $this->company_id             = $employee->company_id;
         $this->company_name           = $employee->company_name;
         $this->pis                    = $employee->pis;
-        $this->name                   = 'olá';
+        $this->name                   = $employee->pis;
         $this->journey_start_week     = $employee->journey_start_week;
         $this->journey_end_week       = $employee->journey_end_week;
         $this->journey_start_saturday = $employee->journey_start_saturday;

@@ -86,18 +86,18 @@
     {{-- info action --}}
     
                         </x-layout.card.card-body-navigation-info-action>
-    
+
                         <x-layout.card.card-body-navigation-info-count :count="$list->total()"/>
                     </x-layout.card.card-body-navigation-info>
                 </x-layout.card.card-body-navigation>
-    
+
                 <x-layout.card.card-body-content>
                     <x-layout.card.card-body-content-table>
                         <x-layout.card.card-body-content-table-body>
                             @if($list->count() > 0)
                                 @foreach($list as $item)
                                     <x-layout.card.card-body-content-table-body-line>
-    
+
     {{-- conteúdo --}}  
     <x-layout.card.card-body-content-table-body-line-cell width="">
         <x-layout.card.card-body-content-table-body-line-cell-id>
@@ -108,7 +108,7 @@
             <x-layout.card.card-body-content-table-body-line-cell-id-start>
                 <span class="text-muted">{{ $item->pis }}</span>
             </x-layout.card.card-body-content-table-body-line-cell-id-start>
-    
+
             <x-layout.card.card-body-content-table-body-line-cell-id-end>
                 <span style="font-size: 9pt">
                     @if($item->datatime > 0) <span class="text-primary fw-bold">
@@ -119,19 +119,19 @@
                 </span>
             </x-layout.card.card-body-content-table-body-line-cell-id-end>
         </x-layout.card.card-body-content-table-body-line-cell-id>
-    
+
         <x-layout.card.card-body-content-table-body-line-cell-content>
             {{ $item->name }}
         </x-layout.card.card-body-content-table-body-line-cell-content>
     </x-layout.card.card-body-content-table-body-line-cell>
-    
+
     <x-layout.card.card-body-content-table-body-line-cell-action width="120">
         <x-layout.card.card-body-content-table-body-line-cell-action-add-easy :id="$item->id"/>
 
         <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
     </x-layout.card.card-body-content-table-body-line-cell-action>
     {{-- conteúdo --}} 
-    
+
                                     </x-layout.card.card-body-content-table-body-line>
                                 @endforeach
                             @else
@@ -139,7 +139,7 @@
                             @endif
                         </x-layout.card.card-body-content-table-body>
                     </x-layout.card.card-body-content-table>
-    
+
                     <x-layout.card.card-body-content-pagination :list="$list"/>
                 </x-layout.card.card-body-content>
             </x-layout.card.card-body>

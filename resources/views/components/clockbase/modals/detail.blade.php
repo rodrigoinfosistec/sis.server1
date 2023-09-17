@@ -46,7 +46,7 @@
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="" style="width: 80px;">
+                <div class="" style="width: 100px;">
                     BANCO DE HORAS
                 </div>
             </th>
@@ -88,7 +88,7 @@
 
     {{-- PERÍODO --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="fw-bold" style="width: 80px; font-size: 9pt">
+        <div class="fw-bold" style="width: 100px; font-size: 9pt">
             {{ date_create(date_format($clockbase->start, 'd/m/Y')) }}
             <i class="bi-caret-right-fill text-muted"></i>
             {{ date_create(date_format($clockbase->start, 'd/m/Y')) }}
