@@ -7,8 +7,12 @@
             <br>
             {{ $pis }}
             <br><br>
-            <span class="text-danger fw-bold" style="font-size: 13pt">
-                {{ App\Models\Clock::minutsToTimeSignal((int)$datatime) }}
+            <span class="fw-bold" style="font-size: 12pt">
+                @if($datatime > 0) <span class="text-primary">
+                @elseif($datatime < 0) <span class="text-danger">
+                @else <span class="text-dark"> @endif
+                    {{ App\Models\Clock::minutsToTimeSignal((int)$datatime) }}
+                </span>
             </span>
         </x-slot>
     </x-layout.modal.modal-add-header>
