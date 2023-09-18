@@ -329,7 +329,7 @@ class Clock extends Model
             endforeach;
         else:
             // Percorre todos os funcionários da empresa.
-            foreach(Employee::where('company_id', $data['validatedData']['company_id'])->get() as $key => $employee):
+            foreach(Employee::where(['company_id' => $data['validatedData']['company_id'], 'clock_type' => 'LOCAL'])->get() as $key => $employee):
                 // Vincula Funcionários ao ponto.
                 Clockemployee::create([
                     'clock_id'               => $clock->id,
