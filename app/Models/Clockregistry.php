@@ -39,10 +39,8 @@ class Clockregistry extends Model
     public static function validateAdd(array $data) : bool {
         $message = null;
 
-        $employee = Employee::where('code', $data['validatedData']['code'])->first();
-
         // Verifica se existe algum Funcionário com o código.
-        if(!$employee):
+        if(Employee::where('code', $data['validatedData']['code'])->doesntExist()):
             $message = 'Código inválido';
         endif;
 
