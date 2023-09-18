@@ -2,7 +2,16 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Str;
+
+use App\Models\Report;
+use App\Models\General;
+
+use App\Models\Clock;
+
+use Livewire\WithPagination;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class ClockregistryShow extends Component
 {

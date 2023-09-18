@@ -51,14 +51,14 @@
                     </div>
 
                     <div class="pt-2 pb-0 border-t border-gray-200">
-                        {{-- Feriado --}}
-                        <x-responsive-nav-link href="{{ route('holiday') }}" :active="request()->routeIs('holiday')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('holiday') }}"></i> {{ App\Models\Page::getTitleByName('holiday') }}
-                        </x-responsive-nav-link>
-
                         {{-- Funcionário --}}
                         <x-responsive-nav-link href="{{ route('employee') }}" :active="request()->routeIs('employee')" class="text-decoration-none">
                             <i class="{{ App\Models\Page::getIconByName('employee') }}"></i> {{ App\Models\Page::getTitleByName('employee') }}
+                        </x-responsive-nav-link>
+
+                        {{-- Feriado --}}
+                        <x-responsive-nav-link href="{{ route('holiday') }}" :active="request()->routeIs('holiday')" class="text-decoration-none">
+                            <i class="{{ App\Models\Page::getIconByName('holiday') }}"></i> {{ App\Models\Page::getTitleByName('holiday') }}
                         </x-responsive-nav-link>
 
                         {{-- Folga --}}

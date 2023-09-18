@@ -152,7 +152,7 @@ class Config extends Model
             [
                 'name'  => 'clockregistry',
                 'title' => 'Registro de Ponto',
-                'icon'  => 'bi-card-ckecklist',
+                'icon'  => 'bi-card-checklist',
                 'test'  => true,
             ],
         ];
