@@ -32,6 +32,8 @@ class Employee extends Model
 
         'datatime',
 
+        'code',
+
         'created_at',
         'updated_at',
     ];
@@ -59,6 +61,22 @@ class Employee extends Model
         ;
 
         return (string)$pis_encode;
+    }
+
+    /**
+     * Verifica se Código está vazio.
+     * @var <null, int> $code
+     * 
+     * @return <string, null> $cd
+     */
+    public static function codeValidateNull($code){
+        // Inicializa variável.
+        $cd = null;
+    
+        // Verifica se Código está vazio.
+        if (!empty($code)) $cd = Str::upper($code);
+
+        return $cd;
     }
 
     /**
@@ -215,6 +233,7 @@ class Employee extends Model
             'journey_start_saturday' => $data['validatedData']['journey_start_saturday'],
             'journey_end_saturday'   => $data['validatedData']['journey_end_saturday'],
             'clock_type'             => $data['validatedData']['clock_type'],
+            'code'                   => Employee::codeValidateNull($data['validatedData']['code']),
         ]);
 
         // After.

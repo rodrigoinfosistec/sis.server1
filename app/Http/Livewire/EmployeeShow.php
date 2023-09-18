@@ -39,6 +39,7 @@ class EmployeeShow extends Component
     public $journey_start_saturday;
     public $journey_end_saturday;
     public $clock_type;
+    public $code;
     public $created;
 
     public $txt;
@@ -68,6 +69,7 @@ class EmployeeShow extends Component
             'journey_start_saturday' => ['required'],
             'journey_end_saturday'   => ['required'],
             'clock_type'             => ['required'],
+            'code'                   => ['nullable', 'between:4,10', 'unique:employees,code'],
 
             'txt' => ['file', 'required'],
         ];
@@ -107,6 +109,7 @@ class EmployeeShow extends Component
         $this->journey_start_saturday = '';
         $this->journey_end_saturday   = '';
         $this->clock_type             = '';
+        $this->code                   = '';
         $this->created                = '';
 
         $this->txt = '';
@@ -243,6 +246,7 @@ class EmployeeShow extends Component
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
         $this->clock_type             = $employee->clock_type;
+        $this->code                   = $employee->code;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
 
@@ -266,6 +270,7 @@ class EmployeeShow extends Component
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
         $this->clock_type             = $employee->clock_type;
+        $this->code                   = $employee->code;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
         public function modernize()
@@ -280,6 +285,7 @@ class EmployeeShow extends Component
                 'journey_start_saturday' => ['required'],
                 'journey_end_saturday'   => ['required'],
                 'clock_type'             => ['required'],
+                'code'                   => ['nullable', 'between:4,10', 'unique:employees,code'],
             ]);
 
             // Estende $validatedData
@@ -323,6 +329,7 @@ class EmployeeShow extends Component
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
         $this->clock_type             = $employee->clock_type;
+        $this->code                   = $employee->code;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()

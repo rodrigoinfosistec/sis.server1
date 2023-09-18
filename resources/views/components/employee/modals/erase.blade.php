@@ -90,6 +90,15 @@
 
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
+        CÓDIGO
+    </x-layout.modal.modal-erase-body-line-title>
+    <x-layout.modal.modal-erase-body-line-content>
+       {{ $code }}
+    </x-layout.modal.modal-erase-body-line-content>
+</x-layout.modal.modal-erase-body-line>
+
+<x-layout.modal.modal-erase-body-line>
+    <x-layout.modal.modal-erase-body-line-title>
         CADASTRO
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>

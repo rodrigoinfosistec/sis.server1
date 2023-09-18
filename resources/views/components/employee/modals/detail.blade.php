@@ -83,6 +83,15 @@
 
 <x-layout.modal.modal-detail-body-line>
     <x-layout.modal.modal-detail-body-line-title>
+        CÓDIGO
+    </x-layout.modal.modal-detail-body-line-title>
+    <x-layout.modal.modal-detail-body-line-content>
+       {{ $code }}
+    </x-layout.modal.modal-detail-body-line-content>
+</x-layout.modal.modal-detail-body-line>
+
+<x-layout.modal.modal-detail-body-line>
+    <x-layout.modal.modal-detail-body-line-title>
         CADASTRO
     </x-layout.modal.modal-detail-body-line-title>
     <x-layout.modal.modal-detail-body-line-content>
