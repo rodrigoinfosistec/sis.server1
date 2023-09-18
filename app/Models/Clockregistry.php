@@ -39,9 +39,14 @@ class Clockregistry extends Model
     public static function validateAdd(array $data) : bool {
         $message = null;
 
-        // Verifica se existe algum Funcionário com o código.
+        // Verifica se este Registro já foi efetuado.
+        if(Clockregistry::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date'], 'time' => $data['validatedData']['time']])->exists()):
+            $message = 'Registro já efetuado.';
+        endif;
+
+        // Verifica se o código não existe.
         if(Employee::where('code', $data['validatedData']['code'])->doesntExist()):
-            $message = 'Código inválido';
+            $message = 'Código inválido.';
         endif;
 
         // Desvio.
@@ -62,20 +67,15 @@ class Clockregistry extends Model
      * @return bool true
      */
     public static function add(array $data) : bool {
-        // Inicializa vaeiáveis.
-        $employee_id = Employee::where('code', $data['validatedData']['code'])->first()->id;
-        $date = date('Y-m-d');
-        $time = date('H:i');
-
         // Cadastra.
         Clockregistry::create([
-            'employee_id' => $employee_id,
-            'date'        => $date,
-            'time'        => $time,
+            'employee_id' => $data['validatedData']['employee_id'],
+            'date'        => $data['validatedData']['date'],
+            'time'        => $data['validatedData']['time'],
         ]);
 
         // After.
-        $after = Clockregistry::where(['employee_id' => $employee_id, 'date' => $date, 'time' => $time])->first();
+        $after = Clockregistry::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date'], 'time' => $data['validatedData']['time']])->first();
 
         // Auditoria.
         Audit::clockregistryAdd($data, $after);
