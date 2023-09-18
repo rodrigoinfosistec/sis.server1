@@ -24,7 +24,7 @@ class ClockregistryShow extends Component
     public $config;
 
     public $search = '';
-    public $filter = 'code';
+    public $filter = 'date';
 
     public $report_id;
     public $mail;
@@ -105,9 +105,9 @@ class ClockregistryShow extends Component
             'existsItem'   => Employee::exists(),
             'existsReport' => Report::where('folder', $this->config['name'])->exists(),
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
-            'list'         => Employee::where([
+            'list'         => Clockregistry::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
-                            ])->orderBy('name', 'ASC')->paginate(12),
+                            ])->orderBy('date', 'DESC')->paginate(12),
         ]);
     }
 
