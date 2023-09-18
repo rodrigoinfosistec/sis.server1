@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\Report;
 use App\Models\General;
 
-use App\Models\Clock;
+use App\Models\Clockregistry;
 
 use Livewire\WithPagination;
 use Livewire\Component;
