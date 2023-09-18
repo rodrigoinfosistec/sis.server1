@@ -39,14 +39,16 @@ class Clockregistry extends Model
     public static function validateAdd(array $data) : bool {
         $message = null;
 
-        // Verifica se este Registro já foi efetuado.
-        if(Clockregistry::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date'], 'time' => $data['validatedData']['time']])->exists()):
-            $message = 'Registro já efetuado.';
+        // Verifica se o código não existe.
+        if(!$data['validatedData']['valid']):
+            $message = 'Código inválido.';
         endif;
 
-        // Verifica se o código não existe.
-        if(Employee::where('code', $data['validatedData']['code'])->doesntExist()):
-            $message = 'Código inválido.';
+        // Verifica se este Registro já foi efetuado.
+        if($data['validatedData']['valid']):
+            if(Clockregistry::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date'], 'time' => $data['validatedData']['time']])->exists()):
+                $message = 'Registro já efetuado.';
+            endif;
         endif;
 
         // Desvio.
