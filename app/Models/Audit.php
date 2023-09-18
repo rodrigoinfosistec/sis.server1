@@ -2192,7 +2192,7 @@ class Audit extends Model
 
         return true;
     }
-    
+
     /**
      * Auditoria Clockfunded Add.
      * @var array $data
@@ -2214,7 +2214,7 @@ class Audit extends Model
 
         return true;
     }
-    
+
     /**
      * Auditoria Clockmployee Generate.
      * @var array $data
@@ -2261,4 +2261,28 @@ class Audit extends Model
         return true;
     }
     
+    /**
+     * Auditoria Clockfunded Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function clockregistryAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='          . $after->id          . ',' .
+                'employee_id=' . $after->employee_id . ',' .
+                'date='        . $after->date        . ',' .
+                'time='        . $after->time        . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
 }
