@@ -362,31 +362,51 @@ class Clock extends Model
                     endif;
 
                     // Hidrata eventos.
-                    $events = Clockevent::where(['clock_id' => $clock->id, 'employee_id' => $employee->id, 'date' => $date])->get();
+                    $events = Clockregistry::where(['employee_id' => $employee->id, 'date' => $date])->get();
 
+                    // Verifica se existem eventos.
                     if($events->count() > 0):
-                        // Input.
-                        $input = $events[0]->time;
+                        // Dias não Sábado.
+                        if(date_format(date_create($date), 'l') != 'Saturday'):
+                            // Input.
+                            $input = $events[0]->time;
 
-                        // Break Start.
-                        if(!empty($events[1])):
-                            $break_start = $events[1]->time;
+                            // Break Start.
+                            if(!empty($events[1])):
+                                $break_start = $events[1]->time;
+                            else:
+                                $break_start = null;
+                            endif;
+
+                            // Break End.
+                            if(!empty($events[2])):
+                                $break_end = $events[2]->time;
+                            else:
+                                $break_end = null;
+                            endif;
+
+                            // Output.
+                            if(!empty($events[3])):
+                                $output = $events[3]->time;
+                            else:
+                                $output = null;
+                            endif;
+
+                        // Sábados.
                         else:
+                            // Input.
+                            $input = $events[0]->time;
+
+                            // Output.
+                            if(!empty($events[1])):
+                                $output = $events[1]->time;
+                            else:
+                                $output = null;
+                            endif;
+
+                            // Intervalo nullo.
                             $break_start = null;
-                        endif;
-
-                        // Break End.
-                        if(!empty($events[2])):
-                            $break_end = $events[2]->time;
-                        else:
-                            $break_end = null;
-                        endif;
-
-                        // Output.
-                        if(!empty($events[3])):
-                            $output = $events[3]->time;
-                        else:
-                            $output = null;
+                            $break_end   = null;
                         endif;
                     else:
                         $input         = null;
