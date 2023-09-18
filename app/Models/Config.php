@@ -149,6 +149,12 @@ class Config extends Model
                 'icon'  => 'bi-emoji-sunglasses',
                 'test'  => true,
             ],
+            [
+                'name'  => 'clockregistry',
+                'title' => 'Registro de Ponto',
+                'icon'  => 'bi-card-ckecklist',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
