@@ -61,7 +61,7 @@
                 </thead>
 
                 <tbody>
-                    @foreach(App\Models\Clockbase::where('employee_id', $employee_id)->get() as $key => $clockbase)
+                    @foreach(App\Models\Clockbase::where('employee_id', $employee_id)->orderBy('id', 'DESC')->get() as $key => $clockbase)
                         <tr>
 
 {{-- conteúdo --}}
