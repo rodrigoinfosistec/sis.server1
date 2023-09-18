@@ -83,7 +83,7 @@
 </x-layout.modal.modal-edit-body-group>
 
 <x-layout.modal.modal-edit-body-group>
-    <x-layout.modal.modal-edit-body-group-item columms="8">
+    <x-layout.modal.modal-edit-body-group-item columms="6">
         <x-layout.modal.modal-edit-body-group-item-label item="clock_type" title="TIPO PONTO" plus="none"/>
 
         <select wire:model="clock_type" class="form-select form-select-sm text-uppercase" id="clock_type">
@@ -94,6 +94,14 @@
         </select>
 
         <x-layout.modal.modal-edit-body-group-item-error item="clock_type" message="$message"/>
+    </x-layout.modal.modal-edit-body-group-item>
+
+    <x-layout.modal.modal-edit-body-group-item columms="6">
+        <x-layout.modal.modal-edit-body-group-item-label item="code" title="CÓDIGO" plus="none"/>
+
+        <input type="text" wire:model="code" class="form-control form-control-sm" id="code">
+
+        <x-layout.modal.modal-edit-body-group-item-error item="code" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
 {{-- conteúdo --}}
