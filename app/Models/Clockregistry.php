@@ -31,7 +31,6 @@ class Clockregistry extends Model
      */
     public function employee(){return $this->belongsTo(Employee::class);}
 
-    
     /**
      * Valida cadastro.
      * @var array $data
