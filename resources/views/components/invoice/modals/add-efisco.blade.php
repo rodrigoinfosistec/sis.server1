@@ -68,7 +68,7 @@
         <select wire:model="efisco_productgroup_id" class="form-select form-select-sm text-uppercase" id="efisco_productgroup_id">
             <x-layout.modal.modal-add-body-group-item-option-muted/>
 
-            @foreach(App\Models\Productgroup::get() as $key => $productgroup)
+            @foreach(App\Models\Productgroup::orderBy('code')->get() as $key => $productgroup)
                 <option value="{{ $productgroup->id }}">{{ $productgroup->code }} &#187; {{ $productgroup->origin }}</option>
             @endforeach
         </select>
