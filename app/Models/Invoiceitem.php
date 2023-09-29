@@ -515,12 +515,12 @@ class Invoiceitem extends Model
         $retail = Invoiceitem::roundUp($retail_full, 2);
 
         // Preço em caso de item ser Equipamento.
-        if($item->equipament):
+        if($item->equipment):
             // Preço Final em caso de item ser Equipamento.
-            $price = $card;
+            $price = $price / 0.9 ;
 
             // Preço Cartão em caso de item ser Equipamento.
-            $card = Invoiceitem::roundUp($price / 0.9, 2);
+            $card = $price;
 
             // Preço Varejo em caso de item ser Equipamento.
             $retail = 0.00;
@@ -543,12 +543,12 @@ class Invoiceitem extends Model
         $retail_csv = Invoiceitem::roundUp($retail_csv_full, 2);
 
         // Preço CSV em caso de item ser Equipamento.
-        if($item->equipament):
+        if($item->equipment):
             // Preço CSV Cartão em caso de item ser Equipamento.
-            $price_csv = $card_csv;
+            $price_csv = $price_csv;
 
             // Preço CSV Cartão em caso de item ser Equipamento.
-            $card_csv = Invoiceitem::roundUp($price_csv / 0.9, 2);
+            $card_csv = $price_csv;
 
             // Preço CSV Varejo em caso de item ser Equipamento.
             $retail_csv = 0.00;
