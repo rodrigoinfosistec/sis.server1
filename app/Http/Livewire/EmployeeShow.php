@@ -145,7 +145,8 @@ class EmployeeShow extends Component
      */
     public function add()
     {
-        //...
+        // Empresa.
+        $this->company_id = Auth()->user()->company_id;
     }
         public function register()
         {
