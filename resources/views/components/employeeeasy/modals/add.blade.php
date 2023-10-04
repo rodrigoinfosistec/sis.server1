@@ -17,7 +17,7 @@
         <select wire:model="employee_id" class="form-select form-select-sm text-uppercase" id="employee_id">
             <x-layout.modal.modal-add-body-group-item-option-muted/>
 
-            @foreach(App\Models\Employee::where('company_id', Auth()->user()->company_id)->orderBy('name')->get() as $key => $employee)
+            @foreach(App\Models\Employee::where(['company_id' => Auth()->user()->company_id, 'status' => true])->orderBy('name')->get() as $key => $employee)
                 <option value="{{ $employee->id }}">{{ $employee->name }}</option>
             @endforeach
         </select>
