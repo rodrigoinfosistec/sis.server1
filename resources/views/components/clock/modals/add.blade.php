@@ -14,8 +14,8 @@
     <x-layout.modal.modal-add-body-group-item columms="12">
         <x-layout.modal.modal-add-body-group-item-label item="company_id" title="EMPRESA" plus="company"/>
 
-        <select wire:model="company_id" class="form-select form-select-sm text-uppercase" id="company_id" disabled>
-            @foreach(App\Models\Company::where('id', Auth()->user()->company_id)->get() as $key => $company)
+        <select wire:model="company_id" class="form-select form-select-sm text-uppercase" id="company_id">
+            @foreach(App\Models\Company::get() as $key => $company)
                 <option value="{{ $company->id }}" selected>{{ $company->name }}</option>
             @endforeach
         </select>
