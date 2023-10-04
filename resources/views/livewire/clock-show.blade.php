@@ -216,7 +216,7 @@
         <x-layout.card.card-body-content-table-body-line-cell-action-add-attest-employee :id="$clockemployee->id"/>
         <x-layout.card.card-body-content-table-body-line-cell-action-add-absence-employee :id="$clockemployee->id"/>
         <x-layout.card.card-body-content-table-body-line-cell-action-add-vacation-employee :id="$clockemployee->id"/>
-        
+
         @if(App\Models\Report::where(['folder' => 'clockemployee', 'reference_1' => $clockemployee->clock_id, 'reference_2' => $clockemployee->employee_id])->exists())
             <x-layout.card.card-body-content-table-body-line-cell-action-mail-employee :id="$clockemployee->id"/>
         @else
