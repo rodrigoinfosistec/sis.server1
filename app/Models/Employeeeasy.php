@@ -157,7 +157,7 @@ class Employeeeasy extends Model
         // Subtrai Banco de Horas.
         if($data['validatedData']['discount']):
             // Define as Horas a serem descontadas.
-            (date_format(date_create($data['validatedData']['date_encode']), 'l') == 'Saturday') ? $minuts = -480 : $minuts = 480;
+            (date_format(date_create($data['validatedData']['date_encode']), 'l') == 'Saturday') ? $minuts = 480 : $minuts = 480;
 
             // Atualiza Banco de Horas.
             $employee = Employee::find($data['validatedData']['employee_id']);
