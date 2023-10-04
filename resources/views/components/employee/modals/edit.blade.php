@@ -104,6 +104,22 @@
         <x-layout.modal.modal-edit-body-group-item-error item="code" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
+
+<x-layout.modal.modal-edit-body-group>
+    <x-layout.modal.modal-edit-body-group-item columms="12">
+        <x-layout.modal.modal-edit-body-group-item-status>
+            <input wire:model="status" class="form-check-input" type="checkbox" role="switch" id="status">
+
+            <x-slot:label>
+                @if($status)
+                    <x-layout.modal.modal-edit-body-group-item-status-active/>
+                @else
+                    <x-layout.modal.modal-edit-body-group-item-status-inactive/>
+                @endif
+            </x-slot>
+        </x-layout.modal.modal-edit-body-group-item-status>
+    </x-layout.modal.modal-edit-body-group-item>
+</x-layout.modal.modal-edit-body-group>
 {{-- conteúdo --}}
 
     </x-layout.modal.modal-edit-body>
