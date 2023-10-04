@@ -19,7 +19,7 @@
         <select wire:model="employee_id" class="form-select form-select-sm text-uppercase" id="employee_id">
             <x-layout.modal.modal-add-body-group-item-option-muted/>
 
-            @foreach(App\Models\Employee::where('company_id', $company_id)->orderBy('name')->get() as $key => $employee)
+            @foreach(App\Models\Employee::where(['company_id' => $company_id, 'status' => true])->orderBy('name')->get() as $key => $employee)
                 @if(App\Models\Clockemployee::where(['clock_id' => $clock_id, 'employee_id' => $employee->id])->doesntExist())
                     <option value="{{ $employee->id }}">{{ $employee->name }}</option>
                 @endif
