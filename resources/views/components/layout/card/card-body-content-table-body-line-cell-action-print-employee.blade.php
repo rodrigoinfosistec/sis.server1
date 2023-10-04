@@ -3,7 +3,7 @@
         <i class="bi-printer text-primary" style="font-size: 22px;" title="Imprimir relatório"></i>
     </a>
     <ul class="dropdown-menu">
-        @foreach(App\Models\Report::where(['folder' => 'clockemployee', 'reference_1' => $reference, 'reference_2' => $referenca])->orderBy('id', 'DESC')->limit(20)->get() as $key => $report)
+        @foreach(App\Models\Report::where(['folder' => 'clockemployee', 'reference_1' => $reference, 'reference_2' => $referenca])->orderBy('id', 'DESC')->limit(1)->get() as $key => $report)
     <li>
         <a class="dropdown-item" href="{{ asset('storage/pdf/clockemployee/' . $report->file) }}" target="_blank">
             <span class="text-uppercase text-muted fw-bold" style="font-size: 8pt;">
