@@ -1411,6 +1411,7 @@ class Audit extends Model
                 'journey_end_saturday='   . $before->journey_end_saturday   . '>' . $after->journey_end_saturday   . ',' .
                 'clock_type='             . $before->clock_type             . '>' . $after->clock_type             . ',' .
                 'code='                   . $before->code                   . '>' . $after->code                   . ',' .
+                'status='                 . $before->status                 . '>' . $after->status                 . ',' .
             '}',
         ]);
 
@@ -1440,6 +1441,7 @@ class Audit extends Model
                 'journey_start_saturday=' . $data['validatedData']['journey_start_saturday'] . ',' .
                 'journey_end_saturday='   . $data['validatedData']['journey_end_saturday']   . ',' .
                 'clock_type='             . $data['validatedData']['clock_type']             . ',' .
+                'status='                 . $data['validatedData']['status']                 . ',' .
             '}',
         ]);
 
