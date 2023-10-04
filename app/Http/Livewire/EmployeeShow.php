@@ -40,6 +40,7 @@ class EmployeeShow extends Component
     public $journey_end_saturday;
     public $clock_type;
     public $code;
+    public $status;
     public $created;
 
     public $txt;
@@ -110,6 +111,7 @@ class EmployeeShow extends Component
         $this->journey_end_saturday   = '';
         $this->clock_type             = '';
         $this->code                   = '';
+        $this->status                 = '';
         $this->created                = '';
 
         $this->txt = '';
@@ -249,6 +251,7 @@ class EmployeeShow extends Component
         $this->journey_end_saturday   = $employee->journey_end_saturday;
         $this->clock_type             = $employee->clock_type;
         $this->code                   = $employee->code;
+        $this->status                 = $employee->status;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
 
@@ -273,6 +276,7 @@ class EmployeeShow extends Component
         $this->journey_end_saturday   = $employee->journey_end_saturday;
         $this->clock_type             = $employee->clock_type;
         $this->code                   = $employee->code;
+        $this->status                 = $employee->status;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
         public function modernize()
@@ -291,7 +295,8 @@ class EmployeeShow extends Component
             ]);
 
             // Estende $validatedData
-            $validatedData['employee_id'] = $this->employee_id;
+            $validatedData['employee_id']            = $this->employee_id;
+            $this->status ? $validatedData['status'] = true : $validatedData['status'] = false;
 
             // Define $data.
             $data['config']        = $this->config;
@@ -332,6 +337,7 @@ class EmployeeShow extends Component
         $this->journey_end_saturday   = $employee->journey_end_saturday;
         $this->clock_type             = $employee->clock_type;
         $this->code                   = $employee->code;
+        $this->status                 = $employee->status;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
