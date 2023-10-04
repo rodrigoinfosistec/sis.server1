@@ -140,6 +140,7 @@ class ClockbaseShow extends Component
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Employee::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
+                                ['company_id', Auth()->user()->company_id],
                             ])->orderBy('name', 'ASC')->paginate(12),
         ]);
     }
