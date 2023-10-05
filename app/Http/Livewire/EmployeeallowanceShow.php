@@ -110,6 +110,14 @@ class EmployeeallowanceShow extends Component
      * Renderiza página.
      */
     public function render(){
+        // Inicializa variável.
+        $array = [];
+
+        // Monta o array.
+        foreach(Employee::where('company_id', Auth()->user()->company_id)->get() as $key => $employee):
+            $array[] =  $employee->id;
+        endforeach;
+
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
             'existsItem'   => Employeeallowance::exists(),
@@ -117,7 +125,7 @@ class EmployeeallowanceShow extends Component
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Employeeallowance::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
-                            ])->orderBy('date', 'DESC')->paginate(12),
+                            ])->whereIn('employee_id', $array)->orderBy('date', 'DESC')->paginate(12),
         ]);
     }
 
