@@ -385,13 +385,13 @@ class ClockbaseShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida envio do e-mail.
-            $valid = Employee::validateMail($data);
+            $valid = Clockbase::validateMail($data);
 
             // Envia e-mail.
-            if ($valid) Employee::mail($data);
+            if ($valid) Clockbase::mail($data);
 
             // Executa dependências.
-            if ($valid) Employee::dependencyMail($data);
+            if ($valid) Clockbase::dependencyMail($data);
 
             // Fecha modal.
             $this->closeModal();
