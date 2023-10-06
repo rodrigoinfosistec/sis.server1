@@ -975,9 +975,10 @@ class Report extends Model
 
         // Registra os dados do arquivo PDF.
         Report::create([
-            'user_id' => auth()->user()->id,
-            'folder'  => $data['config']['name'],
-            'file'    => $data['file_name']
+            'user_id'     => auth()->user()->id,
+            'folder'      => $data['config']['name'],
+            'reference_1' => Auth()->user()->company_id,
+            'file'        => $data['file_name'],
         ]);
 
         return true;
