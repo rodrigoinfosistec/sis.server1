@@ -614,6 +614,7 @@ class ClockShow extends Component
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
         }
+
     /**
      * generate()
      *  sire()
