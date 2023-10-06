@@ -350,13 +350,13 @@ class ClockbaseShow extends Component
             $data['search'] = $this->search;
 
             // Valida geração de relatório.
-            $valid = Employee::validateGenerate($data);
+            $valid = Clockbase::validateGenerate($data);
 
             // Gera relatório.
-            if ($valid) Employee::generate($data);
+            if ($valid) Clockbase::generate($data);
 
             // Executa dependências.
-            if ($valid) Employee::dependencyGenerate($data);
+            if ($valid) Clockbase::dependencyGenerate($data);
 
             // Fecha modal.
             $this->closeModal();
