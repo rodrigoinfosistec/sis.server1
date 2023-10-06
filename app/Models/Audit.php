@@ -2287,4 +2287,49 @@ class Audit extends Model
         return true;
     }
 
+    /**
+     * Auditoria Clockbase Generate.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function clockbaseGenerate(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[gerou relatório]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name'] . ',' .
+                'file_name=' . $data['file_name']      . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Clockbase Mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function clockbaseMail(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[enviou e-mail]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name']                    . ',' .
+                'report_id=' . $data['validatedData']['report_id']        . ',' .
+                'email='     . $data['validatedData']['mail']             . ',' .
+                'subject='   . 'Relatório de ' . $data['config']['title'] . ',' .
+                'title='     . $data['config']['title']                   . ',' .
+                'comment='   . $data['validatedData']['comment']          . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }
