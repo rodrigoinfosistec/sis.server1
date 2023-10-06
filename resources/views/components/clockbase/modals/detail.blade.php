@@ -109,7 +109,8 @@
 {{-- HORAS --}}
 <td class="align-middle" style="line-height: 1; padding: 0;">
     <div class="fw-bold" style="width: 60px; font-size: 10pt;">
-        @if($clockbase->time > 0) <span class="text-primary">
+        @if($clockbase->description == 'SALDO INICIAL') <span class="text-dark">
+        @elseif($clockbase->time > 0) <span class="text-primary">
         @elseif($clockbase->time < 0) <span class="text-danger">
         @else <span class="text-muted"> @endif
             {{ App\Models\Clock::minutsToTimeSignal((int)$clockbase->time) }}
