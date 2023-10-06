@@ -959,10 +959,11 @@ class Report extends Model
     public static function clockbaseGenerate(array $data) : bool {
         // Gera o arquivo PDF.
         $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf', [
-            'user'  => auth()->user()->name,
-            'title' => $data['config']['title'],
-            'date'  => date('d/m/Y H:i:s'),
-            'list'  => $list = Employee::where([
+            'user'    => auth()->user()->name,
+            'title'   => $data['config']['title'],
+            'date'    => date('d/m/Y H:i:s'),
+            'company' => Company::find(Auth()->user()->company_id),
+            'list'    => $list = Employee::where([
                             [$data['filter'], 'like', '%'. $data['search'] . '%'],
                             ['company_id', Auth()->user()->company_id],
                             ['status', true],

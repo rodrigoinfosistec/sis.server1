@@ -1,9 +1,31 @@
 <x-layout.pdf.pdf>
     @section('browser', $title)
 
-    <x-layout.pdf.pdf-header :title="$title"/>
+    <div style="width: 100%; height: 40px; margin-bottom: 20px;">
+        <div class="float-start" style="width: 40px; height: 40px; margin-right: 10px;">
+            <img src="{{ asset('img/internal/sis/logo.png?' . Illuminate\Support\Str::random(10)) }}" width="40" height="40">
+        </div>
 
-    <x-layout.pdf.pdf-signature :user="$user" :date="$date"/>
+        <div class="float-start" style="width: 120px; height: 30px; margin-right: 10px; margin-top: 2px;">
+            <h2 class="text-uppercase fw-bold" style="font-size: 12pt;">
+                {{ $title }}
+            </h2>
+        </div>
+
+        <div class="float-start fw-bold" style="width: 600px; height: 35px; margin-right: 10px; margin-top: 5px; font-size: 9pt;">
+            {{ $company->name }}
+            <br>
+            <span class="fw-normal text-muted">{{ $company->cnpj }}</span>
+        </div>
+
+        <div class="float-end" style="width: 100px; height: 40px;">
+            <p class="text-muted text-uppercase fw-semibold" style="font-size: 7.5pt;">
+                {{ $user }}
+                <br>
+                <span style="font-size: 7pt;">{{ $date }}</span>
+            </p>
+        </div>
+    </div>
 
     <x-layout.pdf.pdf-table>
         <x-layout.pdf.pdf-table-header>
