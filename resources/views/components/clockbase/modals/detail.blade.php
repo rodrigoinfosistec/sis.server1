@@ -92,7 +92,7 @@
 <td class="align-middle" style="line-height: 1; padding: 0;">
     @if($clockbase->description == 'SALDO INICIAL')
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <i class="bi-clock-fill text-danger" style="font-size: 12pt;"></i>
+        <i class="bi-clock-fill text-dark" style="font-size: 12pt;"></i>
     @elseif($clockbase->description == 'Folga')
         <div class="text-muted" style="width: 70px; font-size: 8pt;">
             {{ date_format(date_create($clockbase->start), 'd/m/Y') }}
