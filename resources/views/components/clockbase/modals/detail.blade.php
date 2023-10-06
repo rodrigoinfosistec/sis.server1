@@ -61,7 +61,7 @@
                 </thead>
 
                 <tbody>
-                    @foreach(App\Models\Clockbase::where('employee_id', $employee_id)->orderBy('id', 'DESC')->get() as $key => $clockbase)
+                    @foreach(App\Models\Clockbase::where('employee_id', $employee_id)->orderBy('created_at', 'DESC')->get() as $key => $clockbase)
                         <tr>
 
 {{-- conteúdo --}}
@@ -90,14 +90,23 @@
 
 {{-- PERÍODO --}}
 <td class="align-middle" style="line-height: 1; padding: 0;">
-    <div class="text-muted" style="width: 70px; font-size: 8pt;">
-        {{ date_format(date_create($clockbase->start), 'd/m/Y') }}
-        <br>
-        {{ date_format(date_create($clockbase->end), 'd/m/Y') }}
-    </div>
+    @if($clockbase->description == 'SALDO INICIAL')
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <i class="bi-clock-fill text-danger" style="font-size: 12pt;"></i>
+    @elseif($clockbase->description == 'Folga')
+        <div class="text-muted" style="width: 70px; font-size: 8pt;">
+            {{ date_format(date_create($clockbase->start), 'd/m/Y') }}
+        </div>
+    @else
+        <div class="text-muted" style="width: 70px; font-size: 8pt;">
+            {{ date_format(date_create($clockbase->start), 'd/m/Y') }}
+            <br>
+            {{ date_format(date_create($clockbase->end), 'd/m/Y') }}
+        </div>
+    @endif
 </td>
 
-{{-- BANCO DE HORAS --}}
+{{-- HORAS --}}
 <td class="align-middle" style="line-height: 1; padding: 0;">
     <div class="fw-bold" style="width: 60px; font-size: 10pt;">
         @if($clockbase->time > 0) <span class="text-primary">
@@ -110,10 +119,10 @@
 
 {{-- CADASTRO --}}
 <td class="align-middle" style="line-height: 1; padding: 0;">
-    <div class="text-muted" style="width: 80px; font-size: 7.5pt;">
-        {{ $clockbase->user->name }} 
+    <div class="text-muted" style="width: 150px; font-size: 7.5pt;">
+        {{ $clockbase->user->name }}
         <br>
-        {{ $clockbase->created_at->format('d/m/Y') }} 
+        {{ $clockbase->created_at->format('d/m/y') }} 
     </div>
 </td>
 {{-- conteúdo --}}
