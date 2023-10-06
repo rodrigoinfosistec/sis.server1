@@ -126,7 +126,7 @@
     </div>
 </td>
 {{-- conteúdo --}}
-  
+
                         </tr>
                     @endforeach
                 </tbody>
