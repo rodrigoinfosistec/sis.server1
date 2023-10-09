@@ -6,12 +6,12 @@ use Illuminate\Support\Str;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Employeeattest extends Model
+class Employeelicense extends Model
 {
     /**
      * Nome da tabela.
      */
-    protected $table = 'employeeattests';
+    protected $table = 'employeelicenses';
 
     /**
      * Campos manipuláveis.
@@ -43,15 +43,15 @@ class Employeeattest extends Model
 
         // Verifica se final da jornada da semana é maior que o início.
         if($data['validatedData']['date_start'] > $data['validatedData']['date_end']):
-            $message = 'Final do atestado deve ser maior que o início do atestado.';
+            $message = 'Final da licença deve ser maior que o início da licença.';
         endif;
 
         // Percorre todos os dias da férias.
         $y = $data['validatedData']['date_start'];
         while($y <= $data['validatedData']['date_end']):
             // Verifica se alguma data da férias já consta em outra férias.
-            if(Employeeattestday::where(['employee_id' => $data['validatedData']['employee_id'],'date' => $y])->exists()):
-                $message = 'O dia ' . General::decodeDate($y) . ' já consta em outro atestado do funcionário.';
+            if(Employeelicenseday::where(['employee_id' => $data['validatedData']['employee_id'],'date' => $y])->exists()):
+                $message = 'O dia ' . General::decodeDate($y) . ' já consta em outra licença do funcionário.';
             endif;
 
             $y = date('Y-m-d', strtotime('+1 days', strtotime($y)));
@@ -76,7 +76,7 @@ class Employeeattest extends Model
      */
     public static function add(array $data) : bool {
         // Cadastra.
-        Employeeattest::create([
+        Employeelicense::create([
             'employee_id'   => $data['validatedData']['employee_id'],
             'employee_name' => Employee::find($data['validatedData']['employee_id'])->name,
             'date_start'    => $data['validatedData']['date_start'],
@@ -84,13 +84,13 @@ class Employeeattest extends Model
         ]);
 
         // After.
-        $after = Employeeattest::where(['date_start' => $data['validatedData']['date_start'], 'employee_id' => $data['validatedData']['employee_id']])->first();
+        $after = Employeelicense::where(['date_start' => $data['validatedData']['date_start'], 'employee_id' => $data['validatedData']['employee_id']])->first();
 
         // Auditoria.
-        Audit::employeeattestAdd($data, $after);
+        Audit::employeelicenseAdd($data, $after);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' do funcionário ' . $after->employee_name . ' cadastrado com sucesso.';
+        $message = $data['config']['title'] . ' do funcionário ' . $after->employee_name . ' cadastrada com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -104,16 +104,16 @@ class Employeeattest extends Model
      * @return bool true
      */
     public static function dependencyAdd(array $data) : bool {
-        // Atestado de funcionário.
-        $employeeattest = Employeeattest::where(['date_start' => $data['validatedData']['date_start'], 'employee_id' => $data['validatedData']['employee_id']])->first();
+        // Licença de funcionário.
+        $employeelicense = Employeelicense::where(['date_start' => $data['validatedData']['date_start'], 'employee_id' => $data['validatedData']['employee_id']])->first();
 
-        // Percorre todas as datas da Atestado.
+        // Percorre todas as datas da Licença.
         $y = $data['validatedData']['date_start'];
         while($y <= $data['validatedData']['date_end']):
-            // Cadastra dia de Atestado.
-            Employeeattestday::create([
-                'employeeattest_id' => $employeeattest->id,
-                'employee_id'       => $employeeattest->employee_id,
+            // Cadastra dia de Licença.
+            Employeelicenseday::create([
+                'employeelicense_id' => $employeelicense->id,
+                'employee_id'       => $employeelicense->employee_id,
                 'date'              => $y,
             ]);
 
@@ -153,7 +153,7 @@ class Employeeattest extends Model
      */
     public static function dependencyErase(array $data) : bool {
         // Exclui dias das férias.
-        Employeeattestday::where('employeeattest_id', $data['validatedData']['employeeattest_id'])->delete();
+        Employeelicenseday::where('employeelicense_id', $data['validatedData']['employeelicense_id'])->delete();
 
         // Percorre todas as datas da Falta.
         $y = $data['validatedData']['date_start_encode'];
@@ -177,13 +177,13 @@ class Employeeattest extends Model
      */
     public static function erase(array $data) : bool {
         // Exclui.
-        Employeeattest::find($data['validatedData']['employeeattest_id'])->delete();
+        Employeelicense::find($data['validatedData']['employeelicense_id'])->delete();
 
         // Auditoria.
-        Audit::employeeattestErase($data);
+        Audit::employeelicenseErase($data);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' do funcionário ' .  $data['validatedData']['employee_name'] . ' excluído com sucesso.';
+        $message = $data['config']['title'] . ' do funcionário ' .  $data['validatedData']['employee_name'] . ' excluída com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -200,7 +200,7 @@ class Employeeattest extends Model
         $message = null;
 
         // verifica se existe algum item retornado na pesquisa.
-        if($list = Employeeattest::where([
+        if($list = Employeelicense::where([
                 [$data['filter'], 'like', '%'. $data['search'] . '%'],
             ])->doesntExist()):
 
@@ -230,10 +230,10 @@ class Employeeattest extends Model
         $data['file_name'] = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
 
         // Gera PDF.
-        Report::employeeattestGenerate($data);
+        Report::employeelicenseGenerate($data);
 
         // Auditoria.
-        Audit::employeeattestGenerate($data);
+        Audit::employeelicenseGenerate($data);
 
         // Mensagem.
         $message = 'Relatório PDF gerado com sucesso.';
@@ -288,10 +288,10 @@ class Employeeattest extends Model
      */
     public static function mail(array $data) : bool {
         // Envia e-mail.
-        Email::employeeattestMail($data);
+        Email::employeelicenseMail($data);
 
         // Auditoria.
-        Audit::employeeattestMail($data);
+        Audit::employeelicenseMail($data);
 
         // Mensagem.
         $message = 'E-mail para ' . $data['validatedData']['mail'] . ' enviado com sucesso.';
