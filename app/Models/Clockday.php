@@ -281,6 +281,7 @@ class Clockday extends Model
         if(Employeeeasy::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first()) $authorized = true;
         if(Employeevacationday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first()) $authorized = true;
         if(Employeeattestday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first()) $authorized = true;
+        if(Employeelicenseday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first()) $authorized = true;
         if(Employeeabsenceday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first()) $authorized = true;
 
         // Atualiza.
