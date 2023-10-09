@@ -17,6 +17,7 @@ use App\Http\Controllers\ClockregistryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeevacationController;
 use App\Http\Controllers\EmployeeattestController;
+use App\Http\Controllers\EmployeelicenseController;
 use App\Http\Controllers\EmployeeabsenceController;
 use App\Http\Controllers\EmployeeallowanceController;
 use App\Http\Controllers\EmployeeeasyController;
@@ -54,6 +55,7 @@ Route::middleware([
     Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
     Route::get('/employeevacation', [EmployeevacationController::class, 'index'])->name('employeevacation');
     Route::get('/employeeattest', [EmployeeattestController::class, 'index'])->name('employeeattest');
+    Route::get('/employeelicense', [EmployeelicenseController::class, 'index'])->name('employeelicense');
     Route::get('/employeeabsence', [EmployeeabsenceController::class, 'index'])->name('employeeabsence');
     Route::get('/employeeallowance', [EmployeeallowanceController::class, 'index'])->name('employeeallowance');
     Route::get('/employeeeasy', [EmployeeeasyController::class, 'index'])->name('employeeeasy');
