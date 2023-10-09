@@ -81,6 +81,11 @@
                             <i class="{{ App\Models\Page::getIconByName('employeeattest') }}"></i> {{ App\Models\Page::getTitleByName('employeeattest') }}
                         </x-responsive-nav-link>
 
+                        {{-- Licença --}}
+                        <x-responsive-nav-link href="{{ route('employeelicense') }}" :active="request()->routeIs('employeelicense')" class="text-decoration-none">
+                            <i class="{{ App\Models\Page::getIconByName('employeelicense') }}"></i> {{ App\Models\Page::getTitleByName('employeelicense') }}
+                        </x-responsive-nav-link>
+
                         {{-- Abono --}}
                         <x-responsive-nav-link href="{{ route('employeeallowance') }}" :active="request()->routeIs('employeeallowance')" class="text-decoration-none">
                             <i class="{{ App\Models\Page::getIconByName('employeeallowance') }}"></i> {{ App\Models\Page::getTitleByName('employeeallowance') }}
