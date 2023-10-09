@@ -784,7 +784,9 @@ class Report extends Model
             'date'  => date('d/m/Y H:i:s'),
             'list'  => $list = Clock::where([
                             [$data['filter'], 'like', '%'. $data['search'] . '%'],
-                        ])->orderBy('id', 'DESC')->get(), 
+                            ['company_id', Auth()->user()->company_id],
+                        ])->orderBy('id', 'DESC')->get(),
+
         ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
 
         // Salva o arquivo PDF.
@@ -793,9 +795,11 @@ class Report extends Model
 
         // Registra os dados do arquivo PDF.
         Report::create([
-            'user_id' => auth()->user()->id,
-            'folder'  => $data['config']['name'],
-            'file'    => $data['file_name']
+            'user_id'     => auth()->user()->id,
+            'folder'      => $data['config']['name'],
+            'file'        => $data['file_name'],
+            'reference_3' => Auth()->user()->company_id,
+
         ]);
 
         return true;
