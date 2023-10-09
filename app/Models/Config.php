@@ -132,6 +132,12 @@ class Config extends Model
                 'test'  => true,
             ],
             [
+                'name'  => 'employeelicense',
+                'title' => 'Licença',
+                'icon'  => 'bi-clipboard-heart',
+                'test'  => true,
+            ],
+            [
                 'name'  => 'employeeabsence',
                 'title' => 'Falta',
                 'icon'  => 'bi-clipboard-x',
