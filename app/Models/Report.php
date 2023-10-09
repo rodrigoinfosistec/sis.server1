@@ -449,6 +449,7 @@ class Report extends Model
             'date'  => date('d/m/Y H:i:s'),
             'list'  => $list = Invoice::where([
                             [$data['filter'], 'like', '%'. $data['search'] . '%'],
+                            ['company_id', Auth()->user()->company_id],
                         ])->orderBy('id', 'DESC')->get(), 
         ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
 
