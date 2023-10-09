@@ -122,8 +122,10 @@
 <td class="align-middle" style="line-height: 1; padding: 0;">
     <div class="text-muted" style="width: 150px; font-size: 7.5pt;">
         {{ $clockbase->user->name }}
-        <br>
-        {{ $clockbase->created_at->format('d/m/y') }} 
+        @if($clockbase->description != 'SALDO INICIAL')
+            <br>
+            {{ $clockbase->created_at->format('d/m/y') }}
+        @endif
     </div>
 </td>
 {{-- conteúdo --}}
