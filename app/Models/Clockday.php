@@ -188,16 +188,23 @@ class Clockday extends Model
                     // Minutos Jornada.
                     $minuts_journey = (($j[0] * 60) + $j[1]) - $minuts_interval;
 
-                    // Define Períodos.
-                    $time_morning   = Clock::intervalMinuts($data['input'], $data['break_start']);
-                    $time_interval  = Clock::intervalMinuts($data['break_start'], $data['break_end']);
-                    $time_afternoon = Clock::intervalMinuts($data['break_end'], $data['output']);
+                    // Manhã trabalhada.
+                    $time_morning = Clock::intervalMinuts($data['input'], $data['break_start']);
+                    $m            = explode(':', $time_morning);
+                    $min_morning  = ($m[0] * 60) + $m[1];
 
+                    // Intervalo / almoço.
+                    $time_interval = Clock::intervalMinuts($data['break_start'], $data['break_end']);
+                    $i             = explode(':', $time_interval);
+                    $min_interval  = ($i[0] * 60) + $i[1];
+
+                    // Tarde trabalhada.
+                    $time_afternoon = Clock::intervalMinuts($data['break_end'], $data['output']);
+                    $t              = explode(':', $time_afternoon);
+                    $min_afternoon  = ($t[0] * 60) + $t[1];
+ 
                     // Minutos trabalhados.
-                    $m = explode(':', $time_morning);
-                    $t = explode(':', $time_afternoon);
-                    $i = explode(':', $time_interval);
-                    $minuts_work = ((((($m[0] * 60) + $m[1]) + (($t[0] * 60) + $t[1])) + $minuts_interval) - (($i[0] * 60) + $i[1]));
+                    $minuts_work = ($min_morning + $min_afternoon) + ($minuts_interval - $min_interval);
 
                     // Tempo trabalhado.
                     $hour  = $minuts_work / 60;
