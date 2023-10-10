@@ -177,34 +177,27 @@ class Clockday extends Model
             if($data['input'] && $data['break_start'] && $data['break_end'] && $data['output']):
                 // Evita pausa inicial menor que entrada.
                 if($data['break_start'] >= $data['input'] && $data['break_end'] >= $data['break_start'] && $data['output'] >= $data['break_end']):
-                    // Define Intervalo.
-                    $b = explode(':', $data['journey_break']);
-                    $minuts_interval = (($b[0] * 60) + $b[1]);
-
                     // Define Jornada.
                     $time_journey   = Clock::intervalMinuts($data['journey_start'], $data['journey_end']);
                     $j = explode(':', $time_journey);
 
+                    // Define Intervalo.
+                    $b = explode(':', $data['journey_break']);
+                    $minuts_interval = (($b[0] * 60) + $b[1]);
+
                     // Minutos Jornada.
                     $minuts_journey = (($j[0] * 60) + $j[1]) - $minuts_interval;
 
-                    // Manhã trabalhada.
-                    $time_morning = Clock::intervalMinuts($data['input'], $data['break_start']);
-                    $m            = explode(':', $time_morning);
-                    $min_morning  = ($m[0] * 60) + $m[1];
-
-                    // Intervalo / almoço.
-                    $time_interval = Clock::intervalMinuts($data['break_start'], $data['break_end']);
-                    $i             = explode(':', $time_interval);
-                    $min_interval  = ($i[0] * 60) + $i[1];
-
-                    // Tarde trabalhada.
+                    // Define Períodos.
+                    $time_morning   = Clock::intervalMinuts($data['input'], $data['break_start']);
+                    $time_interval  = Clock::intervalMinuts($data['break_start'], $data['break_end']);
                     $time_afternoon = Clock::intervalMinuts($data['break_end'], $data['output']);
-                    $t              = explode(':', $time_afternoon);
-                    $min_afternoon  = ($t[0] * 60) + $t[1];
- 
+
                     // Minutos trabalhados.
-                    $minuts_work = ($min_morning + $min_afternoon) + ($minuts_interval - $min_interval);
+                    $m = explode(':', $time_morning);
+                    $t = explode(':', $time_afternoon);
+                    $i = explode(':', $time_interval);
+                    $minuts_work = ((((($m[0] * 60) + $m[1]) + (($t[0] * 60) + $t[1])) + $minuts_interval) - (($i[0] * 60) + $i[1]));
 
                     // Tempo trabalhado.
                     $hour  = $minuts_work / 60;
@@ -220,25 +213,29 @@ class Clockday extends Model
                     $time_extra     = '00:00';
                     $time_balance   = '00:00';
                     if($minuts_journey > ($minuts_work + 10)):
+                        $minuts_work += 10;
+
                         // Atraso.
-                        $minuts_delay = $minuts_journey - ($minuts_work + 10);
+                        $minuts_delay = $minuts_journey - $minuts_work;
                         if($minuts_allowance >= $minuts_delay):
                             $minuts_delay = 0;
                         else:
                             $minuts_delay = $minuts_delay - $minuts_allowance;
                         endif;               
 
-                        $d_hour     = $minuts_delay / 60;
-                        $d_hour     = (int)$d_hour;
-                        $d_minut    = $minuts_delay % 60;
+                        $d_hour  = $minuts_delay / 60;
+                        $d_hour  = (int)$d_hour;
+                        $d_minut = $minuts_delay % 60;
                         $time_delay = str_pad($d_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($d_minut, 2 ,'0' , STR_PAD_LEFT);
                     elseif($minuts_work > ($minuts_journey + 10)):
+                        $minuts_journey += 10;
+
                         // Extras.
-                        $minuts_extra = $minuts_work - ($minuts_journey + 10);
-                        $e_hour       = $minuts_extra / 60;
-                        $e_hour       = (int)$e_hour;
-                        $e_minut      = $minuts_extra % 60;
-                        $time_extra   = str_pad($e_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($e_minut, 2 ,'0' , STR_PAD_LEFT);
+                        $minuts_extra = $minuts_work - $minuts_journey;
+                        $e_hour  = $minuts_extra / 60;
+                        $e_hour  = (int)$e_hour;
+                        $e_minut = $minuts_extra % 60;
+                        $time_extra = str_pad($e_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($e_minut, 2 ,'0' , STR_PAD_LEFT);
                     endif;
                 else:
                     $authorized = false;
