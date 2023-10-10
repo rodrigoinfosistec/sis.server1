@@ -148,7 +148,7 @@ class Clock extends Model
         $message = null;
 
         // Verifica se a data final é maior que a data inicial.
-        if($data['validatedData']['start'] >= $data['validatedData']['end']):
+        if($data['validatedData']['start'] > $data['validatedData']['end']):
             $message = 'Data final deve ser maior que a data inicial.';
         endif;
 
