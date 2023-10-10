@@ -197,7 +197,7 @@ class Clockday extends Model
                     $m = explode(':', $time_morning);
                     $t = explode(':', $time_afternoon);
                     $i = explode(':', $time_interval);
-                    $minuts_work = ((((($m[0] * 60) + $m[1]) + (($t[0] * 60) + $t[1])) + $minuts_interval) - (($i[0] * 60) + $i[1]));
+                    $minuts_work = (($m[0] * 60) + $m[1]) + (($t[0] * 60) + $t[1]) + ( $minuts_interval - ( ($i[0] * 60) + $i[1] ) );
 
                     // Tempo trabalhado.
                     $hour  = $minuts_work / 60;
