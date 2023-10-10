@@ -220,29 +220,25 @@ class Clockday extends Model
                     $time_extra     = '00:00';
                     $time_balance   = '00:00';
                     if($minuts_journey > ($minuts_work + 10)):
-                        $minuts_work += 10;
-
                         // Atraso.
-                        $minuts_delay = $minuts_journey - $minuts_work;
+                        $minuts_delay = $minuts_journey - ($minuts_work + 10);
                         if($minuts_allowance >= $minuts_delay):
                             $minuts_delay = 0;
                         else:
                             $minuts_delay = $minuts_delay - $minuts_allowance;
                         endif;               
 
-                        $d_hour  = $minuts_delay / 60;
-                        $d_hour  = (int)$d_hour;
-                        $d_minut = $minuts_delay % 60;
+                        $d_hour     = $minuts_delay / 60;
+                        $d_hour     = (int)$d_hour;
+                        $d_minut    = $minuts_delay % 60;
                         $time_delay = str_pad($d_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($d_minut, 2 ,'0' , STR_PAD_LEFT);
                     elseif($minuts_work > ($minuts_journey + 10)):
-                        $minuts_journey += 10;
-
                         // Extras.
-                        $minuts_extra = $minuts_work - $minuts_journey;
-                        $e_hour  = $minuts_extra / 60;
-                        $e_hour  = (int)$e_hour;
-                        $e_minut = $minuts_extra % 60;
-                        $time_extra = str_pad($e_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($e_minut, 2 ,'0' , STR_PAD_LEFT);
+                        $minuts_extra = $minuts_work - ($minuts_journey + 10);
+                        $e_hour       = $minuts_extra / 60;
+                        $e_hour       = (int)$e_hour;
+                        $e_minut      = $minuts_extra % 60;
+                        $time_extra   = str_pad($e_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($e_minut, 2 ,'0' , STR_PAD_LEFT);
                     endif;
                 else:
                     $authorized = false;
