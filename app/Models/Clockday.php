@@ -181,12 +181,12 @@ class Clockday extends Model
                     $time_journey   = Clock::intervalMinuts($data['journey_start'], $data['journey_end']);
                     $j = explode(':', $time_journey);
 
+                    // Minutos Jornada.
+                    $minuts_journey = (($j[0] * 60) + $j[1]) - $minuts_interval;
+
                     // Define Intervalo.
                     $b = explode(':', $data['journey_break']);
                     $minuts_interval = (($b[0] * 60) + $b[1]);
-
-                    // Minutos Jornada.
-                    $minuts_journey = (($j[0] * 60) + $j[1]) - $minuts_interval;
 
                     // Define Períodos.
                     $time_morning   = Clock::intervalMinuts($data['input'], $data['break_start']);
