@@ -105,6 +105,22 @@
         </div>
     </td>
 
+{{-- LICENÇA --}}
+@elseif(App\Models\Employeelicenseday::where(['employee_id' => $item->employee_id,'date' => $item->date])->orderBy('id', 'DESC')->first())
+    <td colspan="100%">
+        <div class="fw-bold text-center text-muted" style="padding: 3px 0 3px 0; font-size: 7.5pt; line-height: 1; border: solid 0.5px #fff;">
+            LICENÇA ({{ date_format(date_create($item->date), 'd/m/y') }})
+        </div>
+    </td>
+
+{{-- FOLGA --}}
+@elseif(App\Models\Employeeeasy::where(['employee_id' => $item->employee_id,'date' => $item->date])->orderBy('id', 'DESC')->first())
+    <td colspan="100%">
+        <div class="fw-bold text-center text-muted" style="padding: 3px 0 3px 0; font-size: 7.5pt; line-height: 1; border: solid 0.5px #fff;">
+            FOLGA ({{ date_format(date_create($item->date), 'd/m/y') }})
+        </div>
+    </td>
+
 {{-- FALTA --}}
 @elseif(App\Models\Employeeabsenceday::where(['employee_id' => $item->employee_id,'date' => $item->date])->orderBy('id', 'DESC')->first())
     <td colspan="100%">
