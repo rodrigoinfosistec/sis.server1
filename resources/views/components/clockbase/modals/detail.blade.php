@@ -93,7 +93,7 @@
     @if($clockbase->description == 'SALDO INICIAL')
         &nbsp;&nbsp;&nbsp;&nbsp;
         <i class="bi-clock-fill text-dark" style="font-size: 12pt;"></i>
-    @elseif($clockbase->description == 'Folga')
+    @elseif($clockbase->description == 'Folga' || $clockbase->description == 'Folga Excluída')
         <div class="text-muted" style="width: 70px; font-size: 8pt;">
             {{ date_format(date_create($clockbase->start), 'd/m/Y') }}
         </div>
