@@ -144,7 +144,8 @@ class EmployeeeasyShow extends Component
             ]);
 
             // Estende $validatedData.
-            $validatedData['journey']                    = Employee::find($validatedData['employee_id'])->journey;
+            $j = explode(':', Employee::find($validatedData['employee_id'])->journey);
+            $validatedData['journey']                    = ($j[0] * 60) + $j[1];
             $this->discount ? $validatedData['discount'] = true : $validatedData['discount'] = false;
 
             // Define $data.
