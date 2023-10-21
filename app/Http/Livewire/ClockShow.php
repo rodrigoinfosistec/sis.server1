@@ -944,8 +944,9 @@ class ClockShow extends Component
             ]);
 
             // Estende $validatedData.
-            $validatedData['employee_id'] = $this->employee_id;
-            $validatedData['journey']     = $this->clockemployee_journey;
+            $validatedData['employee_id']                = $this->employee_id;
+            $j                                           = explode(':', $this->clockemployee_journey);
+            $validatedData['journey']                    = ($j[0] * 60) + $j[1];
             $this->discount ? $validatedData['discount'] = true : $validatedData['discount'] = false;
 
             // Define $data.
