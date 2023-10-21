@@ -38,6 +38,7 @@ class EmployeeShow extends Component
     public $journey_end_week;
     public $journey_start_saturday;
     public $journey_end_saturday;
+    public $journey;
     public $clock_type;
     public $code;
     public $status;
@@ -69,6 +70,7 @@ class EmployeeShow extends Component
             'journey_end_week'       => ['required'],
             'journey_start_saturday' => ['required'],
             'journey_end_saturday'   => ['required'],
+            'journey'                => ['required'],
             'clock_type'             => ['required'],
             'code'                   => ['nullable', 'between:4,10', 'unique:employees,code'],
 
@@ -109,6 +111,7 @@ class EmployeeShow extends Component
         $this->journey_end_week       = '';
         $this->journey_start_saturday = '';
         $this->journey_end_saturday   = '';
+        $this->journey                = '';
         $this->clock_type             = '';
         $this->code                   = '';
         $this->status                 = '';
@@ -249,6 +252,7 @@ class EmployeeShow extends Component
         $this->journey_end_week       = $employee->journey_end_week;
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->journey                = $employee->journey;
         $this->clock_type             = $employee->clock_type;
         $this->code                   = $employee->code;
         $this->status                 = $employee->status;
@@ -274,6 +278,7 @@ class EmployeeShow extends Component
         $this->journey_end_week       = $employee->journey_end_week;
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->journey                = $employee->journey;
         $this->clock_type             = $employee->clock_type;
         $this->code                   = $employee->code;
         $this->status                 = $employee->status;
@@ -290,6 +295,7 @@ class EmployeeShow extends Component
                 'journey_end_week'       => ['required'],
                 'journey_start_saturday' => ['required'],
                 'journey_end_saturday'   => ['required'],
+                'journey'                => ['required'],
                 'clock_type'             => ['required'],
                 'code'                   => ['nullable', 'between:4,10', 'unique:employees,code'],
             ]);
@@ -335,6 +341,7 @@ class EmployeeShow extends Component
         $this->journey_end_week       = $employee->journey_end_week;
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->journey                = $employee->journey;
         $this->clock_type             = $employee->clock_type;
         $this->code                   = $employee->code;
         $this->status                 = $employee->status;
