@@ -1409,6 +1409,7 @@ class Audit extends Model
                 'journey_end_week='       . $before->journey_end_week       . '>' . $after->journey_end_week       . ',' .
                 'journey_start_saturday=' . $before->journey_start_saturday . '>' . $after->journey_start_saturday . ',' .
                 'journey_end_saturday='   . $before->journey_end_saturday   . '>' . $after->journey_end_saturday   . ',' .
+                'journey='                . $before->journey                . '>' . $after->journey                . ',' .
                 'clock_type='             . $before->clock_type             . '>' . $after->clock_type             . ',' .
                 'code='                   . $before->code                   . '>' . $after->code                   . ',' .
                 'status='                 . $before->status                 . '>' . $after->status                 . ',' .
