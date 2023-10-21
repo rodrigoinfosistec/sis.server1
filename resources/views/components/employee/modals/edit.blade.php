@@ -83,6 +83,16 @@
 </x-layout.modal.modal-edit-body-group>
 
 <x-layout.modal.modal-edit-body-group>
+    <x-layout.modal.modal-edit-body-group-item columms="8">
+        <x-layout.modal.modal-edit-body-group-item-label item="journey" title="JORNADA (HORAS)" plus="none"/>
+
+        <input type="time" wire:model="journey" class="form-control form-control-sm" id="journey">
+
+        <x-layout.modal.modal-edit-body-group-item-error item="journey" message="$message"/>
+    </x-layout.modal.modal-edit-body-group-item>
+</x-layout.modal.modal-edit-body-group>
+
+<x-layout.modal.modal-edit-body-group>
     <x-layout.modal.modal-edit-body-group-item columms="6">
         <x-layout.modal.modal-edit-body-group-item-label item="clock_type" title="TIPO PONTO" plus="none"/>
 
