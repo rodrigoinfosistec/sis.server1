@@ -51,7 +51,7 @@ class Employeeallowance extends Model
         endif;
 
         // Verifica se a data do abono já consta em outro abono.
-        if(Employeeallowance::where('date', $data['validatedData']['date'])->exists()):
+        if(Employeeallowance::where(['date' => $data['validatedData']['date'], 'employee_id' => $data['validatedData']['employee_id']])->exists()):
             $message = 'O dia ' . General::decodeDate($data['validatedData']['date']) . ' já consta em outro abono do funcionário.';
         endif;
 
