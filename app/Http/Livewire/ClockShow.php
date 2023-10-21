@@ -70,6 +70,7 @@ class ClockShow extends Component
     public $clockemployee_journey_end_week;
     public $clockemployee_journey_start_saturday;
     public $clockemployee_journey_end_saturday;
+    public $clockemployee_journey;
     public $clockemployee_delay_total;
     public $clockemployee_extra_total;
     public $clockemployee_balance_total;
@@ -187,6 +188,7 @@ class ClockShow extends Component
         $this->clockemployee_journey_end_week       = '';
         $this->clockemployee_journey_start_saturday = '';
         $this->clockemployee_journey_end_saturday   = '';
+        $this->clockemployee_journey                = '';
         $this->clockemployee_delay_total            = '';
         $this->clockemployee_extra_total            = '';
         $this->clockemployee_balance_total          = '';
@@ -923,6 +925,7 @@ class ClockShow extends Component
         $this->clockemployee_journey_end_week       = $clockemployee->journey_end_week;
         $this->clockemployee_journey_start_saturday = $clockemployee->journey_start_saturday;
         $this->clockemployee_journey_end_saturday   = $clockemployee->journey_end_saturday;
+        $this->clockemployee_journey                = $clockemployee->employee->journey;
         $this->employee_id                          = $clockemployee->employee_id;
         $this->discount                             = true;
 
@@ -942,6 +945,7 @@ class ClockShow extends Component
 
             // Estende $validatedData.
             $validatedData['employee_id'] = $this->employee_id;
+            $validatedData['journey']     = $this->clockemployee_journey;
             $this->discount ? $validatedData['discount'] = true : $validatedData['discount'] = false;
 
             // Define $data.
