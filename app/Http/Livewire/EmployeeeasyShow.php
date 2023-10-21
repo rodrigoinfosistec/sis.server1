@@ -34,6 +34,7 @@ class EmployeeeasyShow extends Component
     public $employeeeasy_id;
     public $employee_id;
     public $employee_name;
+    public $employee_journey;
     public $date;
     public $date_encode;
     public $discount;
@@ -85,12 +86,13 @@ class EmployeeeasyShow extends Component
         $this->mail      = '';
         $this->comment   = '';
 
-        $this->employeeeasy_id = '';
-        $this->employee_id     = '';
-        $this->employee_name   = '';
-        $this->date            = '';
-        $this->discount        = '';
-        $this->created         = '';
+        $this->employeeeasy_id  = '';
+        $this->employee_id      = '';
+        $this->employee_name    = '';
+        $this->employee_journey = '';
+        $this->date             = '';
+        $this->discount         = '';
+        $this->created          = '';
     }
 
     /**
@@ -142,6 +144,7 @@ class EmployeeeasyShow extends Component
             ]);
 
             // Estende $validatedData.
+            $validatedData['journey']                    = Employee::find($validatedData['employee_id'])->journey;
             $this->discount ? $validatedData['discount'] = true : $validatedData['discount'] = false;
 
             // Define $data.
