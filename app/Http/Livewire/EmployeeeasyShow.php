@@ -34,7 +34,7 @@ class EmployeeeasyShow extends Component
     public $employeeeasy_id;
     public $employee_id;
     public $employee_name;
-    public $employee_journey;
+    public $journey;
     public $date;
     public $date_encode;
     public $discount;
@@ -86,13 +86,13 @@ class EmployeeeasyShow extends Component
         $this->mail      = '';
         $this->comment   = '';
 
-        $this->employeeeasy_id  = '';
-        $this->employee_id      = '';
-        $this->employee_name    = '';
-        $this->employee_journey = '';
-        $this->date             = '';
-        $this->discount         = '';
-        $this->created          = '';
+        $this->employeeeasy_id = '';
+        $this->employee_id     = '';
+        $this->employee_name   = '';
+        $this->journey         = '';
+        $this->date            = '';
+        $this->discount        = '';
+        $this->created         = '';
     }
 
     /**
@@ -199,6 +199,8 @@ class EmployeeeasyShow extends Component
         $this->date_encode     = $employeeeasy->date;
         $this->discount        = $employeeeasy->discount;
         $this->created         = $employeeeasy->created_at->format('d/m/Y H:i:s');
+
+        $this->journey         = $employeeeasy->employee->journey;
     }
         public function exclude()
         {
@@ -209,6 +211,7 @@ class EmployeeeasyShow extends Component
             $validatedData['date']            = $this->date;
             $validatedData['date_encode']     = $this->date_encode;
             $validatedData['discount']        = $this->discount;
+            $validatedData['journey']         = $this->journey;
 
             // Define $data.
             $data['config']        = $this->config;
