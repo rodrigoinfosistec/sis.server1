@@ -157,7 +157,7 @@ class Config extends Model
             ],
             [
                 'name'  => 'employeeevent',
-                'title' => 'Eventos',
+                'title' => 'Evento',
                 'icon'  => 'bi-fingerprint',
                 'test'  => true,
             ],
