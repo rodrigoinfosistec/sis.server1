@@ -156,6 +156,12 @@ class Config extends Model
                 'test'  => true,
             ],
             [
+                'name'  => 'employeeevent',
+                'title' => 'Eventos',
+                'icon'  => 'bi-fingerprint',
+                'test'  => true,
+            ],
+            [
                 'name'  => 'clockregistry',
                 'title' => 'Registro de Ponto',
                 'icon'  => 'bi-card-checklist',
