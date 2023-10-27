@@ -51,12 +51,6 @@
                     </div>
 
                     <div class="pt-2 pb-0 border-t border-gray-200">
-
-                        {{-- Evento --}}
-                        <x-responsive-nav-link href="{{ route('employeeevent') }}" :active="request()->routeIs('employeeevent')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('employeeevent') }}"></i> {{ App\Models\Page::getTitleByName('employeeevent') }}
-                        </x-responsive-nav-link>
-
                         {{-- Registro de Ponto --}}
                         <x-responsive-nav-link href="{{ route('clockregistry') }}" :active="request()->routeIs('clockregistry')" class="text-decoration-none">
                             <i class="{{ App\Models\Page::getIconByName('clockregistry') }}"></i> {{ App\Models\Page::getTitleByName('clockregistry') }}
