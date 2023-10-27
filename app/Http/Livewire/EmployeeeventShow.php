@@ -37,6 +37,7 @@ class EmployeeeventShow extends Component
     public $date;
     public $time;
     public $code;
+    public $type;
     public $created;
 
     /**
@@ -91,6 +92,7 @@ class EmployeeeventShow extends Component
         $this->date             = '';
         $this->time             = '';
         $this->code             = '';
+        $this->type             = '';
         $this->created          = '';
     }
 
