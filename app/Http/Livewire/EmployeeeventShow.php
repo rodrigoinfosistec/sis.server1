@@ -123,8 +123,9 @@ class EmployeeeventShow extends Component
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Employee::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
+                                ['company_id', Auth()->user()->company_id],
                                 ['status', 1],
-                                ])->whereIn('id', $array)->orderBy('name', 'ASC')->paginate(12),
+                                ])->orderBy('name', 'ASC')->paginate(100),
         ]);
     }
 
