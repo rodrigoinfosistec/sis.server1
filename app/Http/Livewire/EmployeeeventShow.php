@@ -25,7 +25,7 @@ class EmployeeeventShow extends Component
     public $config;
 
     public $search = '';
-    public $filter = 'employee_id';
+    public $filter = 'name';
 
     public $report_id;
     public $mail;

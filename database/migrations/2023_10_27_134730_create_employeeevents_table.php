@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('time');
             $table->string('code');
 
+            $table->enum('type', ['txt', 'manual']);
+
             $table->timestamps();
 
             $table->foreign('employee_id')->references('id')->on('employees');
