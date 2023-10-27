@@ -133,32 +133,10 @@ class EmployeeeventShow extends Component
      */
     public function add()
     {
-        // Inicializa propriedades dinâmicas.
-        $this->discount = true;
+        // ...
     }
         public function register()
         {
-            // Valida campos.
-            $validatedData = $this->validate([
-                'date' => ['required'],
-                'time' => ['required'],
-            ]);
-
-            // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
-
-            // Valida cadastro.
-            $valid = Employeeevent::validateAdd($data);
-
-            // Cadastra.
-            if ($valid) Employeeevent::add($data);
-
-            // Executa dependências.
-            if ($valid) Employeeevent::dependencyAdd($data);
-
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
+            // ...
         }
 }
