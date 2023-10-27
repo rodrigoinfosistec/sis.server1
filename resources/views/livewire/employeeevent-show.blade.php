@@ -63,21 +63,13 @@
                     <x-layout.card.card-body-navigation-search-filter>
 
 {{-- filtro nome --}}
-<option value="employee_name">FUNCIONÁRIO</option>
-<option value="date">DATA</option>
-<option value="discount">DESCONTA HORAS?</option>
+<option value="name">FUNCIONÁRIO</option>
 {{-- filtro nome --}}
 
                         </x-layout.card.card-body-navigation-search-filter>
 
 {{-- filtro tipo--}}
-@if($filter == 'date')
-    <x-layout.card.card-body-navigation-search-type-date/>
-@elseif($filter == 'discount')
-    <x-layout.card.card-body-navigation-search-type-bool true="SIM" false="NÃO" />
-@else
-    <x-layout.card.card-body-navigation-search-type-search/>
-@endif
+<x-layout.card.card-body-navigation-search-type-search/>
 {{-- filtro tipo--}}
 
                 </x-layout.card.card-body-navigation-search>
@@ -114,19 +106,12 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            {{ App\Models\General::decodeDate($item->date) }}
+            {{ $item->date }}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
-        {{ $item->employee_name }}
-        <br>
-        <span class="text-muted">DESCONTAR DO BANCO DE HORAS?</span>
-        @if($item->discount)
-            <span class="text-success">SIM</span>
-        @else
-            <span class="text-danger">NÃO</span>
-        @endif
+        {{ $item->name }}
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
