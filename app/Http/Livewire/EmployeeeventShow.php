@@ -116,12 +116,12 @@ class EmployeeeventShow extends Component
 
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
-            'existsItem'   => Employeeeasy::exists(),
+            'existsItem'   => Employeeevent::exists(),
             'existsReport' => Report::where('folder', $this->config['name'])->exists(),
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
-            'list'         => Employeeeasy::where([
+            'list'         => Employee::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
-                                ])->whereIn('employee_id', $array)->orderBy('date', 'DESC')->paginate(12),
+                                ])->whereIn('id', $array)->orderBy('name', 'ASC')->paginate(12),
         ]);
     }
 
@@ -138,8 +138,8 @@ class EmployeeeventShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'employee_id' => ['required'],
-                'date'        => ['required'],
+                'date' => ['required'],
+                'time' => ['required'],
             ]);
 
             // Estende $validatedData.
