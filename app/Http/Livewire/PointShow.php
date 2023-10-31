@@ -8,7 +8,7 @@ use App\Models\Report;
 use App\Models\General;
 
 use App\Models\Point;
-use App\Models\Employee;
+use App\Models\Pointevent;
 
 use Livewire\WithPagination;
 use Livewire\Component;
@@ -33,13 +33,6 @@ class PointShow extends Component
     public $mail;
     public $comment;
 
-    public $point_id;
-    public $company_id;
-    public $company_name;
-    public $start;
-    public $end;
-    public $created;
-
     public $txt;
 
     /**
@@ -58,10 +51,6 @@ class PointShow extends Component
             'report_id' => ['required'],
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
-
-            'company_id' => ['required'],
-            'start'      => ['required'],
-            'end'        => ['required'],
 
             'txt' => ['file', 'required'],
         ];
@@ -90,13 +79,6 @@ class PointShow extends Component
         $this->report_id = '';
         $this->mail      = '';
         $this->comment   = '';
-
-        $this->point_id     = '';
-        $this->company_id   = '';
-        $this->company_name = '';
-        $this->start        = '';
-        $this->end          = '';
-        $this->created      = '';
 
         $this->txt = '';
     }
@@ -172,10 +154,7 @@ class PointShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'company_id' => ['required'],
                 'txt'        => ['file', 'required'],
-                'start'      => ['required'],
-                'end'        => ['required'],
             ]);
 
             // Define $data.
