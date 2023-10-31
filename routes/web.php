@@ -28,6 +28,8 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ClockController;
 use App\Http\Controllers\ClockbaseController;
 
+use App\Http\Controllers\PointController;
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -65,4 +67,5 @@ Route::middleware([
     Route::get('/clock', [ClockController::class, 'index'])->name('clock');
     Route::get('/clockbase', [ClockbaseController::class, 'index'])->name('clockbase');
 
+    Route::get('/point', [PointController::class, 'index'])->name('point');
 });
