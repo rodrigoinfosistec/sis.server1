@@ -11,7 +11,7 @@ class Point extends Model
     /**
      * Nome da tabela.
      */
-    protected $table = 'point';
+    protected $table = 'points';
 
     /**
      * Campos manipuláveis.
@@ -32,7 +32,6 @@ class Point extends Model
      */
     public function company(){return $this->belongsTo(Company::class);}
 
-    
     /**
      * Valida cadastro TXT.
      * @var array $data
@@ -72,4 +71,80 @@ class Point extends Model
         return true;
     }
 
+    
+    /**
+     * Valida geração de relatório.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateGenerate(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        return true;
+    }
+
+    /**
+     * Gera relatório.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function generate(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de geração de relatório.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyGenerate(array $data) : bool {
+        //...
+
+        return true;
+    }
+
+    /**
+     * Valida envio de e-mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateMail(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        return true;
+    }
+
+    /**
+     * Envia e-mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function mail(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de envio de e-mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyMail(array $data) : bool {
+        //...
+
+        return true;
+    }
 }
