@@ -38,61 +38,9 @@ class PointShow extends Component
     public $company_name;
     public $start;
     public $end;
-    public $type;
     public $created;
 
     public $txt;
-
-    public $date;
-    public $name;
-    public $start_decode;
-    public $end_decode;
-
-    public $employee_id;
-    public $employee_name;
-
-    public $clockemployee_id;
-    public $clockemployee_clock_id;
-    public $clockemployee_employee_id;
-    public $clockemployee_employee_name;
-    public $clockemployee_employee_pis;
-    public $clockemployee_journey_start_week;
-    public $clockemployee_journey_end_week;
-    public $clockemployee_journey_start_saturday;
-    public $clockemployee_journey_end_saturday;
-    public $clockemployee_journey;
-    public $clockemployee_delay_total;
-    public $clockemployee_extra_total;
-    public $clockemployee_balance_total;
-    public $clockemployee_note;
-    public $clockemployee_authorized;
-    public $clockemployee_company_name;
-    public $clockemployee_start_decode;
-    public $clockemployee_end_decode;
-    public $clockemployee_clock_start;
-    public $clockemployee_clock_end;
-
-    public $note;
-    public $date_start;
-    public $date_end;
-    public $discount;
-    public $merged;
-
-    public $clock_start;
-    public $clock_end;
-
-    public $array_date_input         = [];
-    public $array_date_break_start   = [];
-    public $array_date_break_end     = [];
-    public $array_date_output        = [];
-    public $array_date_journey_start = [];
-    public $array_date_journey_end   = [];
-    public $array_date_journey_break = [];
-    public $array_date_allowance     = [];
-    public $array_date_delay         = [];
-    public $array_date_extra         = [];
-    public $array_date_balance       = [];
-    public $array_date_events        = [];
 
     /**
      * Construtor.
@@ -116,15 +64,6 @@ class PointShow extends Component
             'end'        => ['required'],
 
             'txt' => ['file', 'required'],
-
-            'date' => ['required', 'unique:holidays,date,'.$this->date.''],
-            'name' => ['required', 'between:2,255'],
-
-            'employee_id' => ['required'],
-
-            'note'       => ['nullable', 'between:2,255'],
-            'date_start' => ['required'],
-            'date_end'   => ['required'],
         ];
     }
 
