@@ -1043,7 +1043,8 @@ class Report extends Model
             // Inicializa array compacto.
             $txtArrayCompact = [];
 
-
+            // Atribui à variável.
+            $txt = $txtArray;
         else:
             // Exclui o arquivo.
             unlink($path . $file_name);
