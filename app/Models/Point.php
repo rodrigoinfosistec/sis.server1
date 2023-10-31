@@ -41,9 +41,31 @@ class Point extends Model
     public static function validateAddTxt(array $data){
         $message = null;
 
-        // ...
+        // Salva arquivo, caso seja um txt.
+        $txtArray = Report::txtPoint($data);
 
-        return $txtArray = [];
+        // Percorre todos os funcionários do ponto txt.
+        foreach($txtArray['pis'] as $key => $pis):
+            // Verifica se algum funcionário não está cadastrado.
+            if(Employee::where('pis', $pis)->doesntExist()):
+                $message = 'Funcionário com pis ' . $pis . ' não está cadastrado.';
+            endif;
+        endforeach;
+
+        // Verifica se é um arquivo txt.
+        if(empty($txtArray)):
+            $message = 'Arquivo deve ser um txt de ponto.';
+        endif;
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return $txtArray;
     }
 
     

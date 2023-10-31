@@ -1021,4 +1021,37 @@ class Report extends Model
 
         return true;
     }
+
+    /**
+     * Point Txt
+     * @var array $data
+     * 
+     * @return <object, null> $txt
+     */
+    public static function txtPoint(array $data){
+        // Salva o arquivo txt.
+        $file_name = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.txt';
+        $path = public_path('/storage/txt/' . $data['config']['name'] . '/');
+        File::makeDirectory($path, $mode = 0777, true, true);
+        $data['validatedData']['txt']->storeAs('public/txt/' . $data['config']['name'] . '/', $file_name);
+
+        // Instancia dados do txt.
+        $file = file($path . $file_name);
+
+        // Verifica se é um txt de ponto.
+        if($file[0][0] == '0' && $file[0][1] == '0'):
+            // Inicializa array compacto.
+            $txtArrayCompact = [];
+
+            
+        else:
+            // Exclui o arquivo.
+            unlink($path . $file_name);
+
+            // Atribui à variável.
+            $txt = null;
+        endif;
+
+        return  $txt;
+    }
 }
