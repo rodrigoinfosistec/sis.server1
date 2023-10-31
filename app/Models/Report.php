@@ -1023,7 +1023,7 @@ class Report extends Model
     }
 
     /**
-     * Point Txt
+     * Ponto Txt
      * @var array $data
      * 
      * @return <object, null> $txt
@@ -1043,7 +1043,7 @@ class Report extends Model
             // Inicializa array compacto.
             $txtArrayCompact = [];
 
-            
+
         else:
             // Exclui o arquivo.
             unlink($path . $file_name);
@@ -1054,4 +1054,5 @@ class Report extends Model
 
         return  $txt;
     }
+
 }
