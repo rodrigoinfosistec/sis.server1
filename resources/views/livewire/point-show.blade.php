@@ -7,30 +7,16 @@
 
 {{-- plus --}}
 @include('components.' .  $config['name'] . '.modals.add-txt')
-@include('components.' .  $config['name'] . '.modals.add')
 
 {{-- info --}}
 
 
 {{-- ações --}}
-@include('components.' .  $config['name'] . '.modals.add-employee')
-@include('components.' .  $config['name'] . '.modals.add-holiday')
-@include('components.' .  $config['name'] . '.modals.detail')
-@include('components.' .  $config['name'] . '.modals.erase')
-@include('components.' .  $config['name'] . '.modals.add-funded')
-@include('components.' .  $config['name'] . '.modals.mail-funded')
+
 
 {{-- funcionários --}}
-@include('components.' .  $config['name'] . '.modals.edit-clock-employee')
 
-@include('components.' .  $config['name'] . '.modals.add-vacation-employee')
-@include('components.' .  $config['name'] . '.modals.add-attest-employee')
-@include('components.' .  $config['name'] . '.modals.add-absence-employee')
-@include('components.' .  $config['name'] . '.modals.add-allowance-employee')
-@include('components.' .  $config['name'] . '.modals.add-easy-employee')
-@include('components.' .  $config['name'] . '.modals.edit-note-employee')
-@include('components.' .  $config['name'] . '.modals.erase-employee')
-@include('components.' .  $config['name'] . '.modals.mail-employee')
+
 {{-- modal --}}
 
     <x-layout.alert/>
