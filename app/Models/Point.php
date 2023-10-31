@@ -71,7 +71,6 @@ class Point extends Model
         return true;
     }
 
-    
     /**
      * Valida geração de relatório.
      * @var array $data
