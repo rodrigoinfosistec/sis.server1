@@ -161,6 +161,12 @@ class Config extends Model
                 'icon'  => 'bi-card-checklist',
                 'test'  => true,
             ],
+            [
+                'name'  => 'point',
+                'title' => 'Ponto',
+                'icon'  => 'bi-fingerprint',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
