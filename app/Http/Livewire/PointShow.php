@@ -7,25 +7,14 @@ use Illuminate\Support\Str;
 use App\Models\Report;
 use App\Models\General;
 
-use App\Models\Clock;
-use App\Models\Clockemployee;
-use App\Models\Clockevent;
-use App\Models\Clockday;
-use App\Models\Clockfunded;
-use App\Models\Clockemployeefunded;
-use App\Models\Holiday;
+use App\Models\Point;
 use App\Models\Employee;
-use App\Models\Employeevacation;
-use App\Models\Employeeattest;
-use App\Models\Employeeabsence;
-use App\Models\Employeeallowance;
-use App\Models\Employeeeasy;
 
 use Livewire\WithPagination;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class ClockShow extends Component
+class PointShow extends Component
 {
     use WithFileUploads;
     use WithPagination;
@@ -44,11 +33,12 @@ class ClockShow extends Component
     public $mail;
     public $comment;
 
-    public $clock_id;
+    public $point_id;
     public $company_id;
     public $company_name;
     public $start;
     public $end;
+    public $type;
     public $created;
 
     public $txt;
