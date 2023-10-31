@@ -1029,9 +1029,6 @@ class Report extends Model
      * @return <object, null> $txt
      */
     public static function txtPoint(array $data){
-        // Inicializa $txt.
-        $txt = null;
-
         // Salva o arquivo txt.
         $file_name = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.txt';
         $path = public_path('/storage/txt/' . $data['config']['name'] . '/');
@@ -1084,10 +1081,16 @@ class Report extends Model
             else:
                 // Exclui o arquivo.
                 unlink($path . $file_name);
+
+                // Atribui à variável.
+                $txt = null;
             endif;
         else:
             // Exclui o arquivo.
             unlink($path . $file_name);
+
+            // Atribui à variável.
+            $txt = null;
         endif;
 
         return  $txt;
