@@ -1,3 +1,8 @@
-<div>
-    <!-- When there is no desire, all things are at peace. - Laozi -->
-</div>
+<script>
+    window.addEventListener('close-modal', event => {
+        $('#generateModal').modal('hide');
+        $('#mailModal').modal('hide');
+
+        $('#addTxtModal').modal('hide');
+    })
+</script>
