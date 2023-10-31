@@ -44,8 +44,6 @@ class Point extends Model
         // Salva arquivo, caso seja um txt.
         $txtArray = Report::txtPoint($data);
 
-        dd($txtArray);
-
         // Percorre todos os funcionários do ponto txt.
         foreach($txtArray['pis'] as $key => $pis):
             // Verifica se algum funcionário não está cadastrado.
