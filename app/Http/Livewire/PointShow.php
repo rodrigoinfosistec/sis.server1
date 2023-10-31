@@ -133,10 +133,10 @@ class PointShow extends Component
             if ($valid) $data['txtArray'] = $txtArray;
 
             // Cadastra.
-            if ($valid) Point::add($data);
+            if ($valid) Point::addTxt($data);
 
             // Executa dependências.
-            if ($valid) Point::dependencyAdd($data);
+            if ($valid) Point::dependencyAddTxt($data);
 
             // Fecha modal.
             $this->closeModal();
