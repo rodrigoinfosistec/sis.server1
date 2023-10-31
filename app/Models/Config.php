@@ -163,7 +163,7 @@ class Config extends Model
             ],
             [
                 'name'  => 'point',
-                'title' => 'Ponto',
+                'title' => 'Registro',
                 'icon'  => 'bi-fingerprint',
                 'test'  => true,
             ],
