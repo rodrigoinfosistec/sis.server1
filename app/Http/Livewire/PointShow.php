@@ -91,7 +91,7 @@ class PointShow extends Component
         $this->mail      = '';
         $this->comment   = '';
 
-        $this->clock_id     = '';
+        $this->point_id     = '';
         $this->company_id   = '';
         $this->company_name = '';
         $this->start        = '';
@@ -99,57 +99,6 @@ class PointShow extends Component
         $this->created      = '';
 
         $this->txt = '';
-
-        $this->date         = '';
-        $this->name         = '';
-        $this->start_decode = '';
-        $this->end_decode   = '';
-
-        $this->employee_id = '';
-        $this->employee_name = '';
-
-        $this->clockemployee_id                     = '';
-        $this->clockemployee_clock_id               = '';
-        $this->clockemployee_employee_id            = '';
-        $this->clockemployee_employee_name          = '';
-        $this->clockemployee_employee_pis           = '';
-        $this->clockemployee_journey_start_week     = '';
-        $this->clockemployee_journey_end_week       = '';
-        $this->clockemployee_journey_start_saturday = '';
-        $this->clockemployee_journey_end_saturday   = '';
-        $this->clockemployee_journey                = '';
-        $this->clockemployee_delay_total            = '';
-        $this->clockemployee_extra_total            = '';
-        $this->clockemployee_balance_total          = '';
-        $this->clockemployee_note                   = '';
-        $this->clockemployee_authorized             = '';
-        $this->clockemployee_company_name           = '';
-        $this->clockemployee_start_decode           = '';
-        $this->clockemployee_end_decode             = '';
-        $this->clockemployee_clock_start            = '';
-        $this->clockemployee_clock_end              = '';
-
-        $this->note       = '';
-        $this->date_start = '';
-        $this->date_end   = '';
-        $this->discount   = '';
-        $this->merged     = '';
-
-        $this->clock_start = '';
-        $this->clock_end   = '';
-
-        $this->array_date_input         = [];
-        $this->array_date_break_start   = [];
-        $this->array_date_break_end     = [];
-        $this->array_date_output        = [];
-        $this->array_date_journey_start = [];
-        $this->array_date_journey_end   = [];
-        $this->array_date_journey_break = [];
-        $this->array_date_allowance     = [];
-        $this->array_date_delay         = [];
-        $this->array_date_extra         = [];
-        $this->array_date_balance       = [];
-        $this->array_date_events        = [];
     }
 
     /**
