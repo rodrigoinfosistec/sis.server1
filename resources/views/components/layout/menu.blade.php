@@ -135,6 +135,11 @@
                                 <i class="{{ App\Models\Page::getIconByName('audit') }}"></i> {{ App\Models\Page::getTitleByName('audit') }}
                             </x-responsive-nav-link>
 
+                            {{-- Ponto --}}
+                            <x-responsive-nav-link href="{{ route('point') }}" :active="request()->routeIs('point')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('point') }}"></i> {{ App\Models\Page::getTitleByName('point') }}
+                            </x-responsive-nav-link>
+
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')" class="text-decoration-none">
                                     {{ __('API Tokens') }}
