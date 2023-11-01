@@ -100,9 +100,9 @@ class PointShow extends Component
             'existsItem'   => Point::exists(),
             'existsReport' => Report::where(['folder' => $this->config['name'], 'reference_3' => Auth()->user()->company_id])->exists(),
             'reports'      => Report::where(['folder' => $this->config['name'], 'reference_3' => Auth()->user()->company_id])->orderBy('id', 'DESC')->limit(12)->get(),
-            'list'         => Point::where([
-                                [$this->filter, 'like', '%'. $this->search . '%'],
+            'list'         => Employee::where([
                                 ['company_id', Auth()->user()->company_id],
+                                ['status', 1],
                             ])->orderBy('id', 'DESC')->paginate(1),
         ]);
     }
