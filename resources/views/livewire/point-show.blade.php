@@ -106,27 +106,34 @@
 {{-- conteúdo --}}
 <x-layout.card.card-body-content-table-body-line-cell width="">
     <x-layout.card.card-body-content-table-body-line-cell-id>
+        <x-layout.card.card-body-content-table-body-line-cell-id-badge>
+            {{ str_pad($loop->iteration, Str::length($list->count()), '0', STR_PAD_LEFT); }}
+        </x-layout.card.card-body-content-table-body-line-cell-id-badge>
+
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            <span class="text-primary fw-bold">{{ $item->company_name }}</span>
+            {{ $item->pis }}
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            {{-- ... --}}
+            <div class="fw-bold" style="font-size: 10pt;">
+                @if($item->datatime > 0) <span class="text-primary">
+                    @elseif($item->datatime < 0) <span class="text-danger">
+                    @else <span class="text-muted"> @endif
+                    {{ App\Models\Clock::minutsToTimeSignal((int)$item->datatime) }}
+                </span>
+            </div>
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
-        <div class="text-muted" style="margin-left: 10px;">
-            PERÍODO: 
-            {{ App\Models\General::decodeDate($item->start) }}
-            <i class="bi-caret-right-fill text-muted"></i>
-            {{ App\Models\General::decodeDate($item->end) }}
-        </div>
+        {{ $item->name }}
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="120">
-    
+    {{-- <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/> --}}
+
+    {{-- <x-layout.card.card-body-content-table-body-line-cell-action-add-easy :id="$item->id"/> --}}
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
 

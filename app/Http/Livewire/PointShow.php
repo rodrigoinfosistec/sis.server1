@@ -9,6 +9,7 @@ use App\Models\General;
 
 use App\Models\Point;
 use App\Models\Pointevent;
+use App\Models\Employee;
 
 use Livewire\WithPagination;
 use Livewire\Component;
@@ -103,7 +104,7 @@ class PointShow extends Component
             'list'         => Employee::where([
                                 ['company_id', Auth()->user()->company_id],
                                 ['status', 1],
-                            ])->orderBy('id', 'DESC')->paginate(1),
+                            ])->orderBy('id', 'DESC')->paginate(100),
         ]);
     }
 
@@ -154,23 +155,7 @@ class PointShow extends Component
     }
         public function sire()
         {
-            // Define $data.
-            $data['config'] = $this->config;
-            $data['filter'] = $this->filter;
-            $data['search'] = $this->search;
-
-            // Valida geração de relatório.
-            $valid = Point::validateGenerate($data);
-
-            // Gera relatório.
-            if ($valid) Point::generate($data);
-
-            // Executa dependências.
-            if ($valid) Point::dependencyGenerate($data);
-
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
+            // ...
         }
 
     /**
@@ -183,28 +168,6 @@ class PointShow extends Component
     }
         public function send()
         {
-            // Valida campos.
-            $validatedData = $this->validate([
-                'report_id' => ['required'],
-                'mail'      => ['required', 'email', 'between:2,255'],
-                'comment'   => ['nullable', 'between:2,255'],
-            ]);
-
-            // Define $data
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
-
-            // Valida envio do e-mail.
-            $valid = Point::validateMail($data);
-
-            // Envia e-mail.
-            if ($valid) Point::mail($data);
-
-            // Executa dependências.
-            if ($valid) Point::dependencyMail($data);
-
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
+            // ...
         }
 }
