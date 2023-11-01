@@ -1047,11 +1047,13 @@ class Report extends Model
             foreach($file as $key => $line):
                 // Verifica se é uma linha de evento de ponto de funcionário.
                 if($line[9] == '3'):
-                    // Verifica se o evento não está cadastrado.
+                    // Define as variáveis.
                     $event = $line[0].$line[1].$line[2].$line[3].$line[4].$line[5].$line[6].$line[7].$line[8];
                     $code  = $line[34].$line[35].$line[36].$line[37];
                     $date  = $line[14].$line[15].$line[16].$line[17].'-'.$line[12].$line[13].'-'.$line[10].$line[11];
                     $time  = $line[18].$line[19].':'.$line[20].$line[21];
+
+                    // Verifica se o evento não está cadastrado.
                     if(Pointevent::where(['event' => $event, 'code' => $code, 'date' => $date,])->doesntExist()):
                         // Popula array compacto.
                         $txtArrayCompact[] = $line;
