@@ -1052,7 +1052,7 @@ class Report extends Model
                     $code  = $line[34].$line[35].$line[36].$line[37];
                     $date  = $line[14].$line[15].$line[16].$line[17].'-'.$line[12].$line[13].'-'.$line[10].$line[11];
                     $time  = $line[18].$line[19].':'.$line[20].$line[21];
-                    if(Pointevent::where(['event' => $event, 'code' => $code, 'date' => $date, 'time' => $time])->doesntExist()):
+                    if(Pointevent::where(['event' => $event, 'code' => $code, 'date' => $date,])->doesntExist()):
                         // Popula array compacto.
                         $txtArrayCompact[] = $line;
                     endif;
