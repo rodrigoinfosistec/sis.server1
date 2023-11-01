@@ -44,17 +44,24 @@ class Point extends Model
         // Salva arquivo, caso seja um txt.
         $txtArray = Report::txtPoint($data);
 
-        // Percorre todos os funcionários do ponto txt.
-        foreach($txtArray['pis'] as $key => $pis):
-            // Verifica se algum funcionário não está cadastrado.
-            if(Employee::where('pis', $pis)->doesntExist()):
-                $message = 'Funcionário com pis ' . $pis . ' não está cadastrado.';
-            endif;
-        endforeach;
-
         // Verifica se é um arquivo txt.
         if(empty($txtArray)):
             $message = 'Arquivo deve ser um txt de ponto.';
+        endif;
+
+        // Verifica se é um arquivo txt.
+        if(!isset($txtArray)):
+            $message = 'Nenhum evento encontrado ou todos já estavam cadastrados.';
+        endif;
+
+        if(!empty($txtArray) && isset($txtArray)):
+            // Percorre todos os funcionários do ponto txt.
+            foreach($txtArray['pis'] as $key => $pis):
+                // Verifica se algum funcionário não está cadastrado.
+                if(Employee::where('pis', $pis)->doesntExist()):
+                    $message = 'Funcionário com pis ' . $pis . ' não está cadastrado.';
+                endif;
+            endforeach;
         endif;
 
         // Desvio.
@@ -68,7 +75,6 @@ class Point extends Model
         return $txtArray;
     }
 
-    
     /**
      * Cadastra TXT.
      * @var array $data
@@ -77,7 +83,7 @@ class Point extends Model
      */
     public static function addTxt(array $data) : bool {
         // Cadastra.
-        Clock::create([
+        Pointevent::create([
             'company_id'   => $data['validatedData']['company_id'],
             'company_name' => Company::find($data['validatedData']['company_id'])->name,
             'start'        => $data['validatedData']['start'],

@@ -1050,7 +1050,9 @@ class Report extends Model
                     // Verifica se o evento não está cadastrado.
                     $event = $line[0].$line[1].$line[2].$line[3].$line[4].$line[5].$line[6].$line[7].$line[8];
                     $code  = $line[34].$line[35].$line[36].$line[37];
-                    if(Pointevent::where(['event' => $event, 'code' => $code])->doesntExist()):
+                    $date  = $line[14].$line[15].$line[16].$line[17].'-'.$line[12].$line[13].'-'.$line[10].$line[11];
+                    $time  = $line[18].$line[19].':'.$line[20].$line[21];
+                    if(Pointevent::where(['event' => $event, 'code' => $code, 'date' => $date, 'time' => $time])->doesntExist()):
                         // Popula array compacto.
                         $txtArrayCompact[] = $line;
                     endif;
