@@ -28,7 +28,7 @@ class PointShow extends Component
     public $config;
 
     public $search = '';
-    public $filter = 'company_name';
+    public $filter = 'name';
 
     public $report_id;
     public $mail;
@@ -104,7 +104,7 @@ class PointShow extends Component
             'list'         => Employee::where([
                                 ['company_id', Auth()->user()->company_id],
                                 ['status', 1],
-                            ])->orderBy('id', 'DESC')->paginate(100),
+                            ])->orderBy('name', 'ASC')->paginate(100),
         ]);
     }
 
