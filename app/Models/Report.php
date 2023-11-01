@@ -1047,7 +1047,13 @@ class Report extends Model
             foreach($file as $key => $line):
                 // Verifica se é uma linha de evento de ponto de funcionário.
                 if($line[9] == '3'):
-                    $txtArrayCompact[] = $line;
+                    // Verifica se o evento não está cadastrado.
+                    $event = $line[0].$line[1].$line[2].$line[3].$line[4].$line[5].$line[6].$line[7].$line[8];
+                    $code  = $line[34].$line[35].$line[36].$line[37];
+                    if(Pointevent::where(['event' => $event, 'code' => $code])->doesntExist()):
+                        // Popula array compacto.
+                        $txtArrayCompact[] = $line;
+                    endif;
                 endif;
             endforeach;
 
@@ -1058,6 +1064,7 @@ class Report extends Model
                     // Resgata todos os funcinários.
                     $pis_all[Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33])] = Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]);
 
+                    // Popula o array de eventos.
                     $array_event[] = [
                         'pis'   => Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]),
                         'event' => $line[0].$line[1].$line[2].$line[3].$line[4].$line[5].$line[6].$line[7].$line[8],

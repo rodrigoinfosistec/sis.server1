@@ -76,7 +76,18 @@ class Point extends Model
      * @return bool true
      */
     public static function addTxt(array $data) : bool {
-        // ...
+        // Cadastra.
+        Clock::create([
+            'company_id'   => $data['validatedData']['company_id'],
+            'company_name' => Company::find($data['validatedData']['company_id'])->name,
+            'start'        => $data['validatedData']['start'],
+            'end'          => $data['validatedData']['end'],
+        ]);
+
+        // Mensagem.
+        $message = 'Eventos cadastrados com sucesso cadastrado com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
 
         return true;
     }
