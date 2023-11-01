@@ -115,13 +115,7 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            <div class="fw-bold" style="font-size: 10pt;">
-                @if($item->datatime > 0) <span class="text-primary">
-                    @elseif($item->datatime < 0) <span class="text-danger">
-                    @else <span class="text-muted"> @endif
-                    {{ App\Models\Clock::minutsToTimeSignal((int)$item->datatime) }}
-                </span>
-            </div>
+            {{-- ... --}}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
