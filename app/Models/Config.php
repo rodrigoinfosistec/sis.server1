@@ -162,8 +162,8 @@ class Config extends Model
                 'test'  => true,
             ],
             [
-                'name'  => 'point',
-                'title' => 'Registro',
+                'name'  => 'pointevent',
+                'title' => 'Eventos',
                 'icon'  => 'bi-fingerprint',
                 'test'  => true,
             ],

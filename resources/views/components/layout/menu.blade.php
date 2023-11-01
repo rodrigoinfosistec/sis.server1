@@ -135,9 +135,9 @@
                                 <i class="{{ App\Models\Page::getIconByName('audit') }}"></i> {{ App\Models\Page::getTitleByName('audit') }}
                             </x-responsive-nav-link>
 
-                            {{-- Ponto --}}
-                            <x-responsive-nav-link href="{{ route('point') }}" :active="request()->routeIs('point')" class="text-decoration-none">
-                                <i class="{{ App\Models\Page::getIconByName('point') }}"></i> {{ App\Models\Page::getTitleByName('point') }}
+                            {{-- Eventos --}}
+                            <x-responsive-nav-link href="{{ route('pointevent') }}" :active="request()->routeIs('pointevent')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('pointevent') }}"></i> {{ App\Models\Page::getTitleByName('pointevent') }}
                             </x-responsive-nav-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
