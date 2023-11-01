@@ -66,9 +66,7 @@
                     <x-layout.card.card-body-navigation-search-filter>
 
 {{-- filtro nome --}}
-<option value="company_name">EMPRESA</option>
-<option value="start">INÍCIO</option>
-<option value="end">FINAL</option>
+<option value="name">FUNCIONÁRIO</option>
 {{-- filtro nome --}}
 
                         </x-layout.card.card-body-navigation-search-filter>
