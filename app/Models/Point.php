@@ -51,7 +51,7 @@ class Point extends Model
 
         // Verifica se é um arquivo txt.
         if(!isset($txtArray)):
-            $message = 'Nenhum evento encontrado ou todos já estavam cadastrados.';
+            $message = 'Eventos já cadastrados ou inexistentes.';
         endif;
 
         if(!empty($txtArray) && isset($txtArray)):
@@ -82,16 +82,21 @@ class Point extends Model
      * @return bool true
      */
     public static function addTxt(array $data) : bool {
-        // Cadastra.
-        Pointevent::create([
-            'company_id'   => $data['validatedData']['company_id'],
-            'company_name' => Company::find($data['validatedData']['company_id'])->name,
-            'start'        => $data['validatedData']['start'],
-            'end'          => $data['validatedData']['end'],
-        ]);
+        // Percorre todos os eventos.
+        foreach($data['txtArray']['event'] as $key => $event):
+            // Cadastra.
+            Pointevent::create([
+                'employee_id' => Employee::where('pis', $event['pis'])->first()->id,
+                'event'       => $event['event'],
+                'date'        => $event['date'],
+                'time'        => $event['time'],
+                'code'        => $event['code'],
+                'type'        => 'clock',
+            ]);
+        endforeach;
 
         // Mensagem.
-        $message = 'Eventos cadastrados com sucesso cadastrado com sucesso.';
+        $message = 'Eventos cadastrados com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 

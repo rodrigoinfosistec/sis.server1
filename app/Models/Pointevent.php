@@ -9,7 +9,7 @@ class Pointevent extends Model
     /**
      * Nome da tabela.
      */
-    protected $table = 'clockevents';
+    protected $table = 'pointevents';
 
     /**
      * Campos manipuláveis.
