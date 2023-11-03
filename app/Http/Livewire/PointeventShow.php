@@ -33,6 +33,7 @@ class PointeventShow extends Component
     public $mail;
     public $comment;
 
+    public $month;
     public $txt;
 
     /**

@@ -98,6 +98,12 @@
                 <x-layout.card.card-body-content-table>
                     <x-layout.card.card-body-content-table-body>
                         @if($list->count() > 0)
+                            <x-layout.card.card-body-content-table-body-line>
+{{-- filtro mês --}}
+<label for="month" class="text-primary" style="font-size: 9pt">Mês</label>
+<input type="month" wire:model="month" class="form-control form-control-sm" id="month" max="{{ date('M') }}">
+{{-- filtro mês --}}
+                            </x-layout.card.card-body-content-table-body-line>
                             @foreach($list as $item)
                                 <x-layout.card.card-body-content-table-body-line>
 
