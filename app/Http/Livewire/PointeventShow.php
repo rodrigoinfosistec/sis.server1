@@ -170,18 +170,23 @@ class PointeventShow extends Component
         $this->pis  = $Employee->pis;
         $this->name = $Employee->name;
 
-        date('t');
+        // Variáveis úteis.
+        $x = explode('-', $this->month); 
+        $month = $x[1]; 
+        $year  = $x[0];
+
+        // Dias do mês.
+        $days_in_month = dd(cal_days_in_month(CAL_GREGORIAN, $month, $year));
 
         // Eventos.
-        $events = Pointevent::where(['employee_id' => $id])->orderBy('date', 'ASC')->get();
+        $events = Pointevent::where(['employee_id' => $id])->whereMonth('date', $month)->whereYear('date', $year)->orderBy('date', 'ASC')->get();
+
+        dd($events);
 
         //while():
 
             //$date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
         //endwhile;
-
-        dd($events);
-
     }
         public function modernizeMonth()
         {
