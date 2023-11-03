@@ -33,7 +33,7 @@ class PointeventShow extends Component
     public $mail;
     public $comment;
 
-    public $month = '2023-11';
+    public $month;
     public $txt;
 
     /**
@@ -41,6 +41,7 @@ class PointeventShow extends Component
      */
     public function mount($config){
         $this->config = $config;
+        $this->month = date('Y-m');
     }
 
     /**
