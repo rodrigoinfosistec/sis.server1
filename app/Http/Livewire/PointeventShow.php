@@ -205,8 +205,6 @@ class PointeventShow extends Component
             // Incrementa $date.
             $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
         endwhile;
-
-        dd(end($this->array_events));
     }
         public function modernizeMonth()
         {
