@@ -181,7 +181,7 @@ class PointeventShow extends Component
         $end   = $this->month . '-' . $days;
 
         $this->times_more = 0;
-        $date             = $start;
+        $date = $start;
         // Percorre todas as dias do mês.
         while($date <= $end):
             // Eventos do Funcionário na data.
