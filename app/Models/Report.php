@@ -1028,7 +1028,7 @@ class Report extends Model
      * 
      * @return <object, null> $txt
      */
-    public static function txtPoint(array $data){
+    public static function txtPointevent(array $data){
         // Salva o arquivo txt.
         $file_name = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.txt';
         $path = public_path('/storage/txt/' . $data['config']['name'] . '/');
