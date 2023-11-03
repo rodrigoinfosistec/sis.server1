@@ -178,7 +178,6 @@ class PointeventShow extends Component
         $start = $this->month . '-01';
         $end   = $this->month . '-' . $days;
 
-        $qtd  = 0;
         $more = 0;
         $date = $start;
         // Percorre todas as dias do mês.
@@ -188,28 +187,19 @@ class PointeventShow extends Component
 
             // Verifica se extistem eventos do Funcionário na data.
             if($events->count() > 0):
-                $qtd = 0;
                 // Percorre todos os eventos do Funcionário na data.
                 foreach($events as $key => $event):
-                    $array[$date][] = [
-                        'event' => $event->event,
-                        'time'  => $event->time,
-                        'code'  => $event->code,
-                    ];
-
-                    // Incrementa $qtd.
-                    $qtd++;
+                    // Ordena eventos por data.
+                    $array[$date][] = $event;
                 endforeach;
             endif;
 
             // Define a maior quantidade de eventos em um dia.
-            if ($qtd > $more) $more = $qtd;
+            if ($events->count() > $more) $more = $events->count();
 
             // Incrementa $date.
             $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
         endwhile;
-
-        dd($array);
     }
         public function modernizeMonth()
         {
