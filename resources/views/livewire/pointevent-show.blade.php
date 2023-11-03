@@ -131,7 +131,7 @@
 <x-layout.card.card-body-content-table-body-line-cell-action width="80">
     <x-layout.card.card-body-content-table-body-line-cell-action-edit-month :id="$item->id"/>
 </x-layout.card.card-body-content-table-body-line-cell-action>
-{{-- conteúdo --}} 
+{{-- conteúdo --}}
 
                                 </x-layout.card.card-body-content-table-body-line>
                             @endforeach
