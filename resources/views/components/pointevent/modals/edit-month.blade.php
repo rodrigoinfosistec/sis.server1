@@ -34,21 +34,6 @@
                     ENTRADA
                 </div>
             </th>
-            <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 80px;">
-                    INTERVALO (INÍCIO)
-                </div>
-            </th>
-            <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 80px;">
-                    INTERVALO (FINAL)
-                </div>
-            </th>
-            <th class="" style="padding: 0;">
-                <div class="text-center" style="width: 80px;">
-                    SAÍDA
-                </div>
-            </th>
         </thead>
 
         </tbody>
