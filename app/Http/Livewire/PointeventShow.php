@@ -148,6 +148,19 @@ class PointeventShow extends Component
         }
 
     /**
+     * editMonth()
+     *  modernizeMonth()
+     */
+    public function editMonth(int $id)
+    {
+        dd('oi');
+    }
+        public function modernizeMonth()
+        {
+            // ...
+        }
+
+    /**
      * generate()
      *  sire()
      */
