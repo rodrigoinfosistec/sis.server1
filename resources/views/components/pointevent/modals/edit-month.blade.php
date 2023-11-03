@@ -31,7 +31,22 @@
 
             <th class="" style="padding: 0;">
                 <div class="text-center" style="width: 80px;">
-                    EVENTO 1
+                    ENTRADA
+                </div>
+            </th>
+            <th class="" style="padding: 0;">
+                <div class="text-center" style="width: 80px;">
+                    INTERVALO (INÍCIO)
+                </div>
+            </th>
+            <th class="" style="padding: 0;">
+                <div class="text-center" style="width: 80px;">
+                    INTERVALO (FINAL)
+                </div>
+            </th>
+            <th class="" style="padding: 0;">
+                <div class="text-center" style="width: 80px;">
+                    SAÍDA
                 </div>
             </th>
         </thead>
@@ -58,7 +73,7 @@
         </div>
     </td>
 
-    {{-- EVENTO 1 --}}
+    {{--  --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="" style="width: 80px;">
             <input type="time" wire:model="array_date_input.{{-- $date --}}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 75px;" id="array_date_input_{{-- $date --}}">
