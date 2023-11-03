@@ -100,7 +100,7 @@
                         @if($list->count() > 0)
                             <x-layout.card.card-body-content-table-body-line>
 {{-- filtro mês --}}
-<label for="month" class="text-primary" style="font-size: 9pt">Mês</label>
+<label for="month" class="text-primary fw-bold" style="font-size: 8pt; margin-left: 10px;">Mês</label>
 <input type="month" wire:model="month" class="form-control form-control-sm" id="month" max="{{ date('M') }}">
 {{-- filtro mês --}}
                             </x-layout.card.card-body-content-table-body-line>
