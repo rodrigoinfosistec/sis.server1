@@ -126,4 +126,40 @@ class General extends Model
         return (string)$date_decode;
     }
 
+    /**
+     * Descreve mês e ano (Em português).
+     * 
+     * @var string $month
+     * 
+     * @return string $mes
+     */
+    public static function describeMonth(string $month) : string {
+        // Divide a string.
+        $x = explode('-', $month);
+
+        // Define o ano.
+        $year = $x[0];
+
+        // Define o mês.
+        switch($x[1]):
+            case '01': $describe = 'Jan'; break;
+            case '02': $describe = 'Fev'; break;
+            case '03': $describe = 'Mar'; break;
+            case '04': $describe = 'Abr'; break;
+            case '05': $describe = 'Mai'; break;
+            case '06': $describe = 'Jun'; break;
+            case '07': $describe = 'Jul'; break;
+            case '08': $describe = 'Ago'; break;
+            case '09': $describe = 'Set'; break;
+            case '10': $describe = 'Out'; break;
+            case '11': $describe = 'Nov'; break;
+            case '12': $describe = 'Dez'; break;
+        endswitch;
+
+        // Formata a string.
+        (string)$mes = (string)$describe . '/' . (string)$year;
+
+        return $mes;
+    }
+
 }

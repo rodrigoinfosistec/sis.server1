@@ -4,6 +4,7 @@
 {{-- botões --}}
 @include('components.' .  $config['name'] . '.modals.generate')
 @include('components.' .  $config['name'] . '.modals.mail')
+@include('components.' .  $config['name'] . '.modals.edit-month')
 
 {{-- plus --}}
 @include('components.' .  $config['name'] . '.modals.add-txt')
