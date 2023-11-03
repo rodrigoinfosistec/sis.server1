@@ -111,7 +111,7 @@ class Pointevent extends Model
      * @return bool true
      */
     public static function dependencyAddTxt(array $data) : bool {
-        // ...
+        // Resgata primeira e ultima data dos eventos de ponto
 
         return true;
     }
