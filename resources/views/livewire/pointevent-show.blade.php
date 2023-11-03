@@ -100,8 +100,8 @@
                         @if($list->count() > 0)
                             <x-layout.card.card-body-content-table-body-line>
 {{-- filtro mês --}}
-<label for="month" class="text-primary fw-bold" style="font-size: 8pt; margin-left: 10px;">Mês</label>
-<input type="month" wire:model="month" class="form-control form-control-sm" style="width: 200px; " id="month" max="{{ date('M') }}">
+<label for="month" class="text-primary fw-bold" style="font-size: 9pt; margin-left: 5px;">Mês</label>
+<input type="month" wire:model="month" class="form-control form-control-sm" style="width: 200px; margin-bottom: 3px;" id="month" min="2023-09" max="{{ date('Y-m') }}">
 {{-- filtro mês --}}
                             </x-layout.card.card-body-content-table-body-line>
                             @foreach($list as $item)
