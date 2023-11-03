@@ -184,11 +184,11 @@ class PointeventShow extends Component
         $date             = $start;
         // Percorre todas as dias do mês.
         while($date <= $end):
-            // Eventos do Funcionário na data.
-            $events = Pointevent::where(['employee_id' => $id, 'date' => $date])->orderBy('time', 'ASC')->get();
-
             // Verifica se extistem eventos do Funcionário na data.
-            if($events->count() > 0):
+            if(Pointevent::where(['employee_id' => $id, 'date' => $date])->orderBy('time', 'ASC')->exists()):
+                // Eventos do Funcionário na data.
+                $events = Pointevent::where(['employee_id' => $id, 'date' => $date])->orderBy('time', 'ASC')->get();
+
                 // Percorre todos os eventos do Funcionário na data.
                 foreach($events as $key => $event):
                     // Ordena eventos por data.
@@ -202,8 +202,6 @@ class PointeventShow extends Component
             // Incrementa $date.
             $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
         endwhile;
-
-        dd($this->times_more);
     }
         public function modernizeMonth()
         {
