@@ -36,6 +36,9 @@ class PointeventShow extends Component
     public $month;
     public $txt;
 
+    public $pis;
+    public $name;
+
     /**
      * Construtor.
      */
@@ -83,6 +86,9 @@ class PointeventShow extends Component
         $this->comment   = '';
 
         $this->txt = '';
+
+        $this->pis  = '';
+        $this->name = '';
     }
 
     /**
@@ -153,7 +159,13 @@ class PointeventShow extends Component
      */
     public function editMonth(int $id)
     {
-        dd('oi');
+        // Funcionário.
+        $Employee = Employee::find($id);
+
+        // Define propriedades dinâmicas.
+        $this->pis  = $Employee->pis;
+        $this->name = $Employee->name;
+
     }
         public function modernizeMonth()
         {
