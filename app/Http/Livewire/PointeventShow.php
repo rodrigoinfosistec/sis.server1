@@ -171,22 +171,45 @@ class PointeventShow extends Component
         $this->name = $Employee->name;
 
         // Variáveis úteis.
-        $x = explode('-', $this->month); 
+        $x     = explode('-', $this->month); 
         $month = $x[1]; 
         $year  = $x[0];
+        $days  = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+        $start = $this->month . '-01';
+        $end   = $this->month . '-' . $days;
 
-        // Dias do mês.
-        $days_in_month = dd(cal_days_in_month(CAL_GREGORIAN, $month, $year));
+        $qtd  = 0;
+        $more = 0;
+        $date = $start;
+        // Percorre todas as dias do mês.
+        while($date <= $end):
+            // Eventos do Funcionário na data.
+            $events = Pointevent::where(['employee_id' => $id, 'date' => $date])->orderBy('time', 'ASC')->get();
 
-        // Eventos.
-        $events = Pointevent::where(['employee_id' => $id])->whereMonth('date', $month)->whereYear('date', $year)->orderBy('date', 'ASC')->get();
+            // Verifica se extistem eventos do Funcionário na data.
+            if($events->count() > 0):
+                $qtd = 0;
+                // Percorre todos os eventos do Funcionário na data.
+                foreach($events as $key => $event):
+                    $array[$date][] = [
+                        'event' => $event->event,
+                        'time'  => $event->time,
+                        'code'  => $event->code,
+                    ];
 
-        dd($events);
+                    // Incrementa $qtd.
+                    $qtd++;
+                endforeach;
+            endif;
 
-        //while():
+            // Define a maior quantidade de eventos em um dia.
+            if ($qtd > $more) $more = $qtd;
 
-            //$date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
-        //endwhile;
+            // Incrementa $date.
+            $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
+        endwhile;
+
+        dd($array);
     }
         public function modernizeMonth()
         {
