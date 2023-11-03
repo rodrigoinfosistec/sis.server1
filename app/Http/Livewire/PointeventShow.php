@@ -94,7 +94,7 @@ class PointeventShow extends Component
         $this->name = '';
 
         $this->array_events = [];
-        $this->times_more = '';
+        $this->times_more   = '';
     }
 
     /**
@@ -180,8 +180,8 @@ class PointeventShow extends Component
         $start = $this->month . '-01';
         $end   = $this->month . '-' . $days;
 
-        $more = 0;
-        $date = $start;
+        $this->times_more = 0;
+        $date             = $start;
         // Percorre todas as dias do mês.
         while($date <= $end):
             // Eventos do Funcionário na data.
@@ -197,13 +197,13 @@ class PointeventShow extends Component
             endif;
 
             // Define a maior quantidade de eventos em um dia.
-            if ($events->count() > $more) $this->times_more = $events->count();
+            if ($events->count() > $this->times_more) $this->times_more = $events->count();
 
             // Incrementa $date.
             $date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
         endwhile;
 
-        dd($this->array_events);
+        dd($this->times_more);
     }
         public function modernizeMonth()
         {
