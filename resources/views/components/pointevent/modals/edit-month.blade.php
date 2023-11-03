@@ -37,6 +37,7 @@
         </thead>
 
         </tbody>
+            @foreach()
            
 {{-- dia --}}
 <tr style="border-bottom: 1px solid #ddd; margin: 5px 0 5px 0;">
@@ -66,6 +67,7 @@
     </td>
 </tr>
 {{-- dia --}}
+            @endforeach
         </tbody>
     </table>
 </div>

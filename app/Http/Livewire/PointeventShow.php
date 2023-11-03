@@ -39,6 +39,8 @@ class PointeventShow extends Component
     public $pis;
     public $name;
 
+    public $array_events = [];
+
     /**
      * Construtor.
      */
@@ -89,6 +91,8 @@ class PointeventShow extends Component
 
         $this->pis  = '';
         $this->name = '';
+
+        $this->array_events = [];
     }
 
     /**
@@ -165,6 +169,18 @@ class PointeventShow extends Component
         // Define propriedades dinâmicas.
         $this->pis  = $Employee->pis;
         $this->name = $Employee->name;
+
+        date('t');
+
+        // Eventos.
+        $events = Pointevent::where(['employee_id' => $id])->orderBy('date', 'ASC')->get();
+
+        //while():
+
+            //$date = date('Y-m-d', strtotime('+1 days', strtotime($date)));
+        //endwhile;
+
+        dd($events);
 
     }
         public function modernizeMonth()
