@@ -1043,6 +1043,24 @@ class Report extends Model
             // Inicializa array compacto.
             $txtArrayCompact = [];
 
+//----------------------------------------------------------------------------
+            // Inicializa arrays.
+            $array_pis = [];
+
+            // Percorre todas as linhas do arquivo.
+            foreach($file as $key => $line):
+                // Verifica se é uma linha de evento de ponto de funcionário.
+                if($line[9] == '3'):
+                    // Verifica se pis já foi salvo.
+                    if(!in_array(Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]), $array_pis)):
+                         $array_pis[] = Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]);
+                    endif;
+                endif;
+            endforeach;
+
+            dd($array_pis);
+//----------------------------------------------------------------------------
+
             // Percorre todas as linhas do arquivo.
             foreach($file as $key => $line):
                 // Verifica se é uma linha de evento de ponto de funcionário.
