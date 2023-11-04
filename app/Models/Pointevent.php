@@ -50,17 +50,17 @@ class Pointevent extends Model
             $message = 'Arquivo deve ser um txt de ponto.';
         endif;
 
-        // Verifica se é um arquivo txt.
+        // Verifica se existem dados a serem cadastrados.
         if(!isset($txtArray)):
             $message = 'Eventos já cadastrados ou inexistentes.';
         endif;
 
         if(!empty($txtArray) && isset($txtArray)):
             // Percorre todos os funcionários do ponto txt.
-            foreach($txtArray['pis'] as $key => $pis):
+            foreach($txtArray as $key => $employee):
                 // Verifica se algum funcionário não está cadastrado.
-                if(Employee::where('pis', $pis)->doesntExist()):
-                    $message = 'Funcionário com pis ' . $pis . ' não está cadastrado.';
+                if(Employee::where('pis', $key)->doesntExist()):
+                    $message = 'Funcionário com pis ' . $key . ' não está cadastrado.';
                 endif;
             endforeach;
         endif;
@@ -83,17 +83,23 @@ class Pointevent extends Model
      * @return bool true
      */
     public static function addTxt(array $data) : bool {
-        // Percorre todos os eventos.
-        foreach($data['txtArray']['event'] as $key => $event):
-            // Cadastra.
-            Pointevent::create([
-                'employee_id' => Employee::where('pis', $event['pis'])->first()->id,
-                'event'       => $event['event'],
-                'date'        => $event['date'],
-                'time'        => $event['time'],
-                'code'        => $event['code'],
-                'type'        => 'clock',
-            ]);
+        // Percorre todos os funcionários..
+        foreach($data['txtArray'] as $key => $pis):
+            // Percorre todas as datas do funcionário.
+            foreach($pis as $key_date => $date):
+                // Percorre todos os eventos do funcionário na data.
+                foreach($date as $key_event => $event):
+                    // Cadastra.
+                    Pointevent::create([
+                        'employee_id' => Employee::where('pis', $event['pis'])->first()->id,
+                        'event'       => $event['event'],
+                        'date'        => $event['date'],
+                        'time'        => $event['time'],
+                        'code'        => $event['code'],
+                        'type'        => $event['type'],
+                    ]);
+                endforeach;
+            endforeach;
         endforeach;
 
         // Mensagem.
