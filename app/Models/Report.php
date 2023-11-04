@@ -1096,9 +1096,6 @@ class Report extends Model
                 foreach($array_pis as $key_pis => $pis):
                     // Percorre todas as dastas do funcionário.
                     foreach($array_date[$pis] as $key_date => $date):
-                        // Completa os dias com os horários zerados.
-                        
-
                         // Inicializa array $array_date.
                         $array_evento[$pis][$date] = [];
                         // Percorre todas as linhas do arquivo.
@@ -1116,6 +1113,8 @@ class Report extends Model
                                 ];
                             endif;
                         endforeach;
+
+                        dd($array_evento[$pis][$date]);
                     endforeach;
                 endforeach;
 
