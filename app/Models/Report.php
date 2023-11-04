@@ -1040,8 +1040,6 @@ class Report extends Model
 
         // Verifica se é um txt de ponto.
         if($file[0][0] == '0' && $file[0][1] == '0'):
-
-//----------------------------------------------------------------------------
             // Inicializa array compacto.
             $txtArrayCompact = [];
             // Percorre todas as linhas do arquivo.
@@ -1103,66 +1101,20 @@ class Report extends Model
                         // Percorre todas as linhas do arquivo.
                         foreach($txtArrayCompact as $key => $line):
                             // Verifica se é o funcionário e a data.
-                            if($line['pis'] == $pis):
+                            if($line['pis'] == $pis && $line['date'] == $date):
                                 // Salva os eventos do funcionário na data.
                                 $array_evento[$pis][$date][] = [
+                                    'pis'   => $line['pis'],
                                     'event' => $line['event'],
                                     'date'  => $line['date'],
                                     'time'  => $line['time'],
                                     'code'  => $line['code'],
+                                    'type'  => 'clock',
                                 ];
                             endif;
                         endforeach;
                     endforeach;
                 endforeach;
-            endif;
-
-            dd($array_evento);
-//----------------------------------------------------------------------------
-
-            // Percorre todas as linhas do arquivo.
-            foreach($file as $key => $line):
-                // Verifica se é uma linha de evento de ponto de funcionário.
-                if($line[9] == '3'):
-                    // Define as variáveis.
-                    $event = $line[0].$line[1].$line[2].$line[3].$line[4].$line[5].$line[6].$line[7].$line[8];
-                    $code  = $line[34].$line[35].$line[36].$line[37];
-                    $date  = $line[14].$line[15].$line[16].$line[17].'-'.$line[12].$line[13].'-'.$line[10].$line[11];
-                    $time  = $line[18].$line[19].':'.$line[20].$line[21];
-
-                    // Verifica se o evento não está cadastrado.
-                    if(Pointevent::where(['event' => $event, 'code' => $code, 'date' => $date,])->doesntExist()):
-                        // Popula array compacto.
-                        $txtArrayCompact[] = $line;
-                    endif;
-                endif;
-            endforeach;
-
-            // Verifica se existem eventos.
-            if(count($txtArrayCompact) > 0):
-                // Percorre todos os eventos do array compacto.
-                foreach($txtArrayCompact as $key => $line):
-                    // Resgata todos os funcinários.
-                    $pis_all[Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33])] = Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]);
-
-                    // Popula o array de eventos.
-                    $array_event[] = [
-                        'pis'   => Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]),
-                        'event' => $line[0].$line[1].$line[2].$line[3].$line[4].$line[5].$line[6].$line[7].$line[8],
-                        'date'  => $line[14].$line[15].$line[16].$line[17].'-'.$line[12].$line[13].'-'.$line[10].$line[11],
-                        'time'  => $line[18].$line[19].':'.$line[20].$line[21],
-                        'code'  => $line[34].$line[35].$line[36].$line[37],
-                    ];
-                endforeach;
-
-                // Organiza pis.
-                foreach($pis_all as $key => $pis):
-                    $array_pis[] = $pis;
-                endforeach;
-
-                // Atribui pis.
-                $txtArray['pis']   = $array_pis;
-                $txtArray['event'] = $array_event;
 
                 // Atribui à variável.
                 $txt = $txtArray;
@@ -1180,6 +1132,8 @@ class Report extends Model
             // Atribui à variável.
             $txt = null;
         endif;
+
+        dd($txt);
 
         return  $txt;
     }
