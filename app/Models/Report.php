@@ -1117,7 +1117,7 @@ class Report extends Model
                 endforeach;
 
                 // Atribui à variável.
-                $txt = $txtArray;
+                $txt = $array_evento;
             else:
                 // Exclui o arquivo.
                 unlink($path . $file_name);
