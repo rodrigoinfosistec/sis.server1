@@ -1040,25 +1040,84 @@ class Report extends Model
 
         // Verifica se é um txt de ponto.
         if($file[0][0] == '0' && $file[0][1] == '0'):
-            // Inicializa array compacto.
-            $txtArrayCompact = [];
 
 //----------------------------------------------------------------------------
-            // Inicializa arrays.
-            $array_pis = [];
-
+            // Inicializa array compacto.
+            $txtArrayCompact = [];
             // Percorre todas as linhas do arquivo.
             foreach($file as $key => $line):
                 // Verifica se é uma linha de evento de ponto de funcionário.
                 if($line[9] == '3'):
-                    // Verifica se pis já foi salvo.
-                    if(!in_array(Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]), $array_pis)):
-                         $array_pis[] = Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]);
+                    // Define parâmetros.
+                    $event = $line[0].$line[1].$line[2].$line[3].$line[4].$line[5].$line[6].$line[7].$line[8];
+                    $date  = $line[14].$line[15].$line[16].$line[17].'-'.$line[12].$line[13].'-'.$line[10].$line[11];
+                    $code  = $line[34].$line[35].$line[36].$line[37];
+                    // Verifica se eventos já não está cadastrado.
+                    if(Pointevent::where(['event' => $event, 'date' => $date, 'code' => $code])->doesntExist()):
+                        $txtArrayCompact[] = [
+                            'pis'   => Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]),
+                            'event' => $event,
+                            'date'  => $date,
+                            'time'  => $line[18].$line[19].':'.$line[20].$line[21],
+                            'code'  => $code,
+                        ];
                     endif;
                 endif;
             endforeach;
 
-            dd($array_pis);
+            // Verifica se existe existe dados no $txtArrayCompact.
+            if(count($txtArrayCompact) > 0):
+                // Inicializa array $array_pis.
+                $array_pis = [];
+                // Percorre todas as linhas do arquivo.
+                foreach($txtArrayCompact as $key => $line):
+                    // Verifica se pis já foi salvo.
+                    if(!in_array($line['pis'], $array_pis)):
+                        // Salva pis existentes no arquivo, de forma única.
+                        $array_pis[] = $line['pis'];
+                    endif;
+                endforeach;
+
+                // Percorre todos os funcionários.
+                foreach($array_pis as $key => $pis):
+                    // Inicializa array $array_date.
+                    $array_date[$pis] = [];
+                    // Percorre todas as linhas do arquivo.
+                    foreach($txtArrayCompact as $key => $line):
+                        // Verifica se é o funcionário.
+                        if($line['pis'] == $pis):
+                            // Salva todas datas do pis existentes no arquivo, de forma única.
+                            if(!in_array($line['date'], $array_date[$pis])):
+                                $array_date[$pis][] = $line['date'];
+                            endif;
+                        endif;
+                    endforeach;
+                endforeach;
+
+                // Percorre todos os funcionários.
+                foreach($array_pis as $key_pis => $pis):
+                    // Percorre todas as dastas do funcionário.
+                    foreach($array_date[$pis] as $key_date => $date):
+                        // Inicializa array $array_date.
+                        $array_evento[$pis][$date] = [];
+                        // Percorre todas as linhas do arquivo.
+                        foreach($txtArrayCompact as $key => $line):
+                            // Verifica se é o funcionário e a data.
+                            if($line['pis'] == $pis):
+                                // Salva os eventos do funcionário na data.
+                                $array_evento[$pis][$date][] = [
+                                    'event' => $line['event'],
+                                    'date'  => $line['date'],
+                                    'time'  => $line['time'],
+                                    'code'  => $line['code'],
+                                ];
+                            endif;
+                        endforeach;
+                    endforeach;
+                endforeach;
+            endif;
+
+            dd($array_evento);
 //----------------------------------------------------------------------------
 
             // Percorre todas as linhas do arquivo.
