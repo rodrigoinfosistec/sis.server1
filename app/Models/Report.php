@@ -1114,7 +1114,17 @@ class Report extends Model
                             endif;
                         endforeach;
 
-                        dd($array_evento[$pis][$date]);
+                        // Verifica se tem menos de 4 Registros.
+                        if(count($array_evento[$pis][$date]) < 4):
+                            // Define eventos necessários na data.
+                            date_format(date_create($date), 'l') == 'Saturday' ? $qtd = 2 : $qtd = 4;
+                            
+                            // Completa horários nna data.
+                            for ($i = count($array_evento[$pis][$date]); $i < $qtd; $i++) {
+                                echo $i;
+                            }
+                        endif;
+
                     endforeach;
                 endforeach;
 
