@@ -1133,8 +1133,6 @@ class Report extends Model
             $txt = null;
         endif;
 
-        dd($txt);
-
         return  $txt;
     }
 
