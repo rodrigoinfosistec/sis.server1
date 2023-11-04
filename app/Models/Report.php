@@ -1084,7 +1084,7 @@ class Report extends Model
                     foreach($txtArrayCompact as $key => $line):
                         // Verifica se é o funcionário.
                         if($line['pis'] == $pis):
-                            // Salva todas datas do pis existentes no arquivo, de forma única.
+                            // Salva todas as datas do pis existentes no arquivo, de forma única.
                             if(!in_array($line['date'], $array_date[$pis])):
                                 $array_date[$pis][] = $line['date'];
                             endif;
