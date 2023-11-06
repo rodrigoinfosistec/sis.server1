@@ -16,7 +16,7 @@
 
 
 {{-- funcionários --}}
-@include('components.' .  $config['name'] . '.modals.add-employeee-date')
+@include('components.' .  $config['name'] . '.modals.add-employee-date')
 
 {{-- modal --}}
 
@@ -130,7 +130,7 @@
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="80">
-    <x-layout.card.card-body-content-table-body-line-cell-action-add-employee-date :id="$item->id" :date="$date"/>
+    <x-layout.card.card-body-content-table-body-line-cell-action-add-employee-date :id="$item->id"/>
 
     <x-layout.card.card-body-content-table-body-line-cell-action-edit-month :id="$item->id"/>
 </x-layout.card.card-body-content-table-body-line-cell-action>
