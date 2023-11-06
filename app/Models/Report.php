@@ -1119,7 +1119,7 @@ class Report extends Model
 
                         // Inicializa variável.
                         $code  = '';
-                        for($i = 0 ; $i < 4 ; $i++):
+                        for($i = 0 ; $i < 3 ; $i++):
                             // Constrói o código hexadecimal.
                             $code = $code . dechex(random_int(0, 15));
                         endfor;
@@ -1133,17 +1133,15 @@ class Report extends Model
                             // Salva os eventos do funcionário na data.
                             $array_evento[$pis][$date][] = [
                                 'pis'   => $pis,
-                                'event' => $event,
+                                'event' => $i . $event,
                                 'date'  => $date,
                                 'time'  => '00:00',
-                                'code'  => $code,
+                                'code'  => $i . $code,
                                 'type'  => 'clock',
                             ];
                         endfor;
                     endforeach;
                 endforeach;
-
-                dd($array_evento);
 
                 // Atribui à variável.
                 $txt = $array_evento;
