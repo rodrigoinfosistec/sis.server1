@@ -36,17 +36,18 @@ class PointeventShow extends Component
     public $month;
     public $txt;
 
+    public $employee_id;
     public $pis;
     public $name;
 
     public $array_events = [];
     public $times_more;
 
-    public $array_date        = [];
-    public $array_input       = [];
-    public $array_break_start = [];
-    public $array_break_end   = [];
-    public $array_ouput       = [];
+    public $date;
+    public $input;
+    public $break_start;
+    public $break_end;
+    public $output;
 
     /**
      * Construtor.
@@ -67,6 +68,12 @@ class PointeventShow extends Component
             'comment'   => ['nullable', 'between:2,255'],
 
             'txt' => ['file', 'required'],
+
+            'date'        => ['date', 'required'],
+            'input'       => ['required'],
+            'break_start' => ['required'],
+            'break_end'   => ['required'],
+            'output'      => ['required'],
         ];
     }
 
@@ -96,17 +103,18 @@ class PointeventShow extends Component
 
         $this->txt = '';
 
-        $this->pis  = '';
-        $this->name = '';
+        $this->employee_id  = '';
+        $this->pis          = '';
+        $this->name         = '';
 
         $this->array_events = [];
         $this->times_more   = '';
     
-        $this->array_date        = [];
-        $this->array_input       = [];
-        $this->array_break_start = [];
-        $this->array_break_end   = [];
-        $this->array_ouput       = [];
+        $this->date        = '';
+        $this->input       = '';
+        $this->break_start = '';
+        $this->break_end   = '';
+        $this->output      = '';
     }
 
     /**
@@ -169,6 +177,46 @@ class PointeventShow extends Component
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
             return redirect()->to('/pointevent');
+        }
+
+    /**
+     * addEmployeeDate()
+     *  registerEmployeeDate()
+     */
+    public function addEmployeeDate(int $id)
+    {
+        // Funcionário.
+        $Employee = Employee::find($id);
+
+        // Define propriedades dinâmicas.
+        $this->employee_id = $Employee->id;
+        $this->pis         = $Employee->pis;
+        $this->name        = $Employee->name;
+    }
+        public function registerEmployeeDate()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'date'        => ['date', 'required'],
+                'input'       => ['required'],
+                'break_start' => ['required'],
+                'break_end'   => ['required'],
+                'output'      => ['required'],
+            ]);
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Cadastra.
+            if ($valid) Pointevent::addTxt($data);
+
+            // Executa dependências.
+            if ($valid) Pointevent::dependencyAddTxt($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
         }
 
     /**
