@@ -13,7 +13,7 @@
 
 {{-- conteúdo --}}
 <x-layout.modal.modal-add-body-group>
-    <x-layout.modal.modal-add-body-group-item columms="12">
+    <x-layout.modal.modal-add-body-group-item columms="8">
         <x-layout.modal.modal-add-body-group-item-label item="date" title="DATA" plus="none"/>
 
         <input type="date" wire:model="date" class="form-control form-control-sm" id="date">
