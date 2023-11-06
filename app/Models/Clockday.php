@@ -148,7 +148,7 @@ class Clockday extends Model
                             $minuts_delay = 0;
                         else:
                             $minuts_delay = $minuts_delay - $minuts_allowance;
-                        endif;               
+                        endif;
 
                         $d_hour  = $minuts_delay / 60;
                         $d_hour  = (int)$d_hour;
