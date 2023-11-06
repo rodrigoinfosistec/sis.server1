@@ -42,6 +42,12 @@ class PointeventShow extends Component
     public $array_events = [];
     public $times_more;
 
+    public $array_date        = [];
+    public $array_input       = [];
+    public $array_break_start = [];
+    public $array_break_end   = [];
+    public $array_ouput       = [];
+
     /**
      * Construtor.
      */
@@ -95,6 +101,12 @@ class PointeventShow extends Component
 
         $this->array_events = [];
         $this->times_more   = '';
+    
+        $this->array_date        = [];
+        $this->array_input       = [];
+        $this->array_break_start = [];
+        $this->array_break_end   = [];
+        $this->array_ouput       = [];
     }
 
     /**
