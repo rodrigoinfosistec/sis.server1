@@ -1114,19 +1114,36 @@ class Report extends Model
                             endif;
                         endforeach;
 
-                        // Verifica se tem menos de 4 Registros.
-                        if(count($array_evento[$pis][$date]) < 4):
-                            // Define eventos necessários na data.
-                            date_format(date_create($date), 'l') == 'Saturday' ? $qtd = 2 : $qtd = 4;
+                        // Define eventos necessários na data.
+                        date_format(date_create($date), 'l') == 'Saturday' ? $qtd = 2 : $qtd = 4;
 
-                            // Completa horários nna data.
-                            for ($i = count($array_evento[$pis][$date]); $i < $qtd; $i++) {
-                                echo $i;
-                            }
-                        endif;
+                        // Inicializa variável.
+                        $code  = '';
+                        for($i = 0 ; $i < 4 ; $i++):
+                            // Constrói o código hexadecimal.
+                            $code = $code . dechex(random_int(0, 15));
+                        endfor;
+                        $code = Str::upper($code);
 
+                        // Define o evento.
+                        $event = $code . random_int(10000, 99999);
+
+                        // Percorre eventos não registrados no dia.
+                        for($i = count($array_evento[$pis][$date]); $i < $qtd; $i++):
+                            // Salva os eventos do funcionário na data.
+                            $array_evento[$pis][$date][] = [
+                                'pis'   => $pis,
+                                'event' => $event,
+                                'date'  => $date,
+                                'time'  => '00:00',
+                                'code'  => $code,
+                                'type'  => 'clock',
+                            ];
+                        endfor;
                     endforeach;
                 endforeach;
+
+                dd($array_evento);
 
                 // Atribui à variável.
                 $txt = $array_evento;
