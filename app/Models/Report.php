@@ -1118,7 +1118,7 @@ class Report extends Model
                         if(count($array_evento[$pis][$date]) < 4):
                             // Define eventos necessários na data.
                             date_format(date_create($date), 'l') == 'Saturday' ? $qtd = 2 : $qtd = 4;
-                            
+
                             // Completa horários nna data.
                             for ($i = count($array_evento[$pis][$date]); $i < $qtd; $i++) {
                                 echo $i;
