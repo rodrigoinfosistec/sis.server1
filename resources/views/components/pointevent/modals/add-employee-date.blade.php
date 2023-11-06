@@ -31,7 +31,7 @@
     </x-layout.modal.modal-add-body-group-item>
 
     <x-layout.modal.modal-add-body-group-item columms="3">
-        <x-layout.modal.modal-add-body-group-item-label item="break_start" title="INTERVALO (INÍCIO)" plus="none"/>
+        <x-layout.modal.modal-add-body-group-item-label item="break_start" title="PAUSA (INÍCIO)" plus="none"/>
 
         <input type="time" wire:model="break_start" class="form-control form-control-sm" id="break_start">
 
@@ -39,7 +39,7 @@
     </x-layout.modal.modal-add-body-group-item>
 
     <x-layout.modal.modal-add-body-group-item columms="3">
-        <x-layout.modal.modal-add-body-group-item-label item="break_end" title="INTERVALO (FINAL)" plus="none"/>
+        <x-layout.modal.modal-add-body-group-item-label item="break_end" title="PAUSA (FINAL)" plus="none"/>
 
         <input type="time" wire:model="break_end" class="form-control form-control-sm" id="break_end">
 
