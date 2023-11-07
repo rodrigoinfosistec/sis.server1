@@ -14,10 +14,6 @@
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    PIS
-</x-layout.pdf.pdf-table-header-column>
-
-<x-layout.pdf.pdf-table-header-column>
     NOME
 </x-layout.pdf.pdf-table-header-column>
 
@@ -43,16 +39,15 @@
 {{-- conteúdo --}}
 {{-- # --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    {{ str_pad($loop->iteration , Str::length($list->count()), '0', STR_PAD_LEFT) }}
-</x-layout.pdf.pdf-table-body-line-cell>
-
-{{-- PIS --}}
-<x-layout.pdf.pdf-table-body-line-cell>
-    {{ $item->pis }}
+    <div class="fw-bold" style="width: 20px;">
+        {{ str_pad($loop->iteration , Str::length($list->count()), '0', STR_PAD_LEFT) }}
+    </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- NOME --}}
 <x-layout.pdf.pdf-table-body-line-cell>
+    <span class="text-muted">{{ $item->pis }}</span>
+    <br>
     {{ $item->name }}
 </x-layout.pdf.pdf-table-body-line-cell>
 

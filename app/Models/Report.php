@@ -531,7 +531,7 @@ class Report extends Model
         Report::create([
             'user_id' => auth()->user()->id,
             'folder'  => $data['config']['name'],
-            'file'    => $data['file_name']
+            'file'    => $data['file_name'],
         ]);
 
         return true;
@@ -551,6 +551,8 @@ class Report extends Model
             'date'  => date('d/m/Y H:i:s'),
             'list'  => $list = Employee::where([
                             [$data['filter'], 'like', '%'. $data['search'] . '%'],
+                            ['company_id', Auth()->user()->company_id],
+                            ['status', 1]
                         ])->orderBy('name', 'ASC')->get(), 
         ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
 
