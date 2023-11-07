@@ -30,21 +30,25 @@
         <x-layout.modal.modal-add-body-group-item-error item="input" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
 
-    <x-layout.modal.modal-add-body-group-item columms="3">
-        <x-layout.modal.modal-add-body-group-item-label item="break_start" title="PAUSA (INÍCIO)" plus="none"/>
+    @if(!empty($date))
+        @if(date_format(date_create($date), 'l') != 'Saturday')
+            <x-layout.modal.modal-add-body-group-item columms="3">
+                <x-layout.modal.modal-add-body-group-item-label item="break_start" title="PAUSA (INÍCIO)" plus="none"/>
 
-        <input type="time" wire:model="break_start" class="form-control form-control-sm" id="break_start">
+                <input type="time" wire:model="break_start" class="form-control form-control-sm" id="break_start">
 
-        <x-layout.modal.modal-add-body-group-item-error item="break_start" message="$message"/>
-    </x-layout.modal.modal-add-body-group-item>
+                <x-layout.modal.modal-add-body-group-item-error item="break_start" message="$message"/>
+            </x-layout.modal.modal-add-body-group-item>
 
-    <x-layout.modal.modal-add-body-group-item columms="3">
-        <x-layout.modal.modal-add-body-group-item-label item="break_end" title="PAUSA (FINAL)" plus="none"/>
+            <x-layout.modal.modal-add-body-group-item columms="3">
+                <x-layout.modal.modal-add-body-group-item-label item="break_end" title="PAUSA (FINAL)" plus="none"/>
 
-        <input type="time" wire:model="break_end" class="form-control form-control-sm" id="break_end">
+                <input type="time" wire:model="break_end" class="form-control form-control-sm" id="break_end">
 
-        <x-layout.modal.modal-add-body-group-item-error item="break_end" message="$message"/>
-    </x-layout.modal.modal-add-body-group-item>
+                <x-layout.modal.modal-add-body-group-item-error item="break_end" message="$message"/>
+            </x-layout.modal.modal-add-body-group-item>
+        @endif
+    @endif
 
     <x-layout.modal.modal-add-body-group-item columms="3">
         <x-layout.modal.modal-add-body-group-item-label item="output" title="SAÍDA" plus="none"/>
