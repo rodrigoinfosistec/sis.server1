@@ -230,9 +230,9 @@ class Pointevent extends Model
 
         // Define o evento.
         $event = $code . random_int(10000, 99999);
-    
-        date_format(date_create($data['validatedData']['date']), 'l') != 'Saturday' ? $n = '4' : $n = '2';
+
         // Saída.
+        date_format(date_create($data['validatedData']['date']), 'l') != 'Saturday' ? $n = '4' : $n = '2';
         Pointevent::create([
             'employee_id' => $data['validatedData']['employee_id'],
             'event'       => $n . $event,
