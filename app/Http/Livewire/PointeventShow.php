@@ -208,11 +208,14 @@ class PointeventShow extends Component
             $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;
 
+            // Valida cadastro.
+            $valid = Pointevent::validateAddEmployeeDate($data);
+
             // Cadastra.
-            if ($valid) Pointevent::addTxt($data);
+            if ($valid) Pointevent::addEmployeeDate($data);
 
             // Executa dependências.
-            if ($valid) Pointevent::dependencyAddTxt($data);
+            if ($valid) Pointevent::dependencyAddEmployeeDate($data);
 
             // Fecha modal.
             $this->closeModal();
