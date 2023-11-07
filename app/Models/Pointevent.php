@@ -156,12 +156,12 @@ class Pointevent extends Model
             $message = 'O Funcionário ' . Employee::find($data['validatedData']['employee_id'])->name . ' está de Atestado nesta data.';
         endif;
 
-        // Verifica se Funcioário está de Folga na data.
+        // Verifica se Funcionário está de Folga na data.
         if(Employeeeasy::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
             $message = 'O Funcionário ' . Employee::find($data['validatedData']['employee_id'])->name . ' está de Folga nesta data.';
         endif;
 
-        // Verifica se Funcioário Faltou na data.
+        // Verifica se Funcionário Faltou na data.
         if(Employeeabsenceday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
             $message = 'O Funcionário ' . Employee::find($data['validatedData']['employee_id'])->name . ' Faltou nesta data.';
         endif;
