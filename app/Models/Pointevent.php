@@ -165,13 +165,76 @@ class Pointevent extends Model
         // Define o evento.
         $event = $code . random_int(10000, 99999);
     
-        // Input.
+        // Entrada.
         Pointevent::create([
             'employee_id' => $data['validatedData']['employee_id'],
-            'event'       => $event,
+            'event'       => '1' . $event,
             'date'        => $data['validatedData']['date'],
             'time'        => $data['validatedData']['input'],
-            'code'        => $code,
+            'code'        => '1' . $code,
+            'type'        => $data['validatedData']['type'],
+        ]);
+
+        // Inicializa variável.
+        $code  = '';
+        for($i = 0 ; $i < 3 ; $i++):
+            // Constrói o código hexadecimal.
+            $code = $code . dechex(random_int(0, 15));
+        endfor;
+        $code = Str::upper($code);
+
+        // Define o evento.
+        $event = $code . random_int(10000, 99999);
+    
+        // Intervalo Início.
+        Pointevent::create([
+            'employee_id' => $data['validatedData']['employee_id'],
+            'event'       => '2' . $event,
+            'date'        => $data['validatedData']['date'],
+            'time'        => $data['validatedData']['break_start'],
+            'code'        => '2' . $code,
+            'type'        => $data['validatedData']['type'],
+        ]);
+
+        // Inicializa variável.
+        $code  = '';
+        for($i = 0 ; $i < 3 ; $i++):
+            // Constrói o código hexadecimal.
+            $code = $code . dechex(random_int(0, 15));
+        endfor;
+        $code = Str::upper($code);
+
+        // Define o evento.
+        $event = $code . random_int(10000, 99999);
+    
+        // Intervalo Fim.
+        Pointevent::create([
+            'employee_id' => $data['validatedData']['employee_id'],
+            'event'       => '3' . $event,
+            'date'        => $data['validatedData']['date'],
+            'time'        => $data['validatedData']['break_end'],
+            'code'        => '3' . $code,
+            'type'        => $data['validatedData']['type'],
+        ]);
+
+        // Inicializa variável.
+        $code  = '';
+        for($i = 0 ; $i < 3 ; $i++):
+            // Constrói o código hexadecimal.
+            $code = $code . dechex(random_int(0, 15));
+        endfor;
+        $code = Str::upper($code);
+
+        // Define o evento.
+        $event = $code . random_int(10000, 99999);
+    
+        // Saída.
+        Pointevent::create([
+            'employee_id' => $data['validatedData']['employee_id'],
+            'event'       => '4' . $event,
+            'date'        => $data['validatedData']['date'],
+            'time'        => $data['validatedData']['output'],
+            'code'        => '4' . $code,
             'type'        => $data['validatedData']['type'],
         ]);
 
