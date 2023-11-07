@@ -126,9 +126,9 @@ class Pointevent extends Model
      * Valida cadastro de Evento de Funcionário.
      * @var array $data
      * 
-     * @return <array, bool>
+     * @return bool
      */
-    public static function validateAddEmployeeDate(array $data){
+    public static function validateAddEmployeeDate(array $data) : bool {
         $message = null;
 
         // Verifica se data de evento do funcionário já existe.
@@ -174,7 +174,7 @@ class Pointevent extends Model
             return false;
         endif;
 
-        return $txtArray;
+        return true;
     }
 
     /**
