@@ -206,6 +206,7 @@ class PointeventShow extends Component
 
             // Estende validatedData.
             $data['validatedData']['employee_id'] = $this->employee_id;
+            $data['validatedData']['type']        = 'alternative';
 
             // Define $data.
             $data['config']        = $this->config;

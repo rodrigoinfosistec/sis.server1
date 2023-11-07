@@ -154,24 +154,26 @@ class Pointevent extends Model
      * @return bool true
      */
     public static function addEmployeeDate(array $data) : bool {
-        // Percorre todos os funcionários..
-        foreach($data['txtArray'] as $key => $pis):
-            // Percorre todas as datas do funcionário.
-            foreach($pis as $key_date => $date):
-                // Percorre todos os eventos do funcionário na data.
-                foreach($date as $key_event => $event):
-                    // Cadastra.
-                    Pointevent::create([
-                        'employee_id' => Employee::where('pis', $event['pis'])->first()->id,
-                        'event'       => $event['event'],
-                        'date'        => $event['date'],
-                        'time'        => $event['time'],
-                        'code'        => $event['code'],
-                        'type'        => $event['type'],
-                    ]);
-                endforeach;
-            endforeach;
-        endforeach;
+        // Inicializa variável.
+        $code  = '';
+        for($i = 0 ; $i < 3 ; $i++):
+            // Constrói o código hexadecimal.
+            $code = $code . dechex(random_int(0, 15));
+        endfor;
+        $code = Str::upper($code);
+
+        // Define o evento.
+        $event = $code . random_int(10000, 99999);
+    
+        // Input.
+        Pointevent::create([
+            'employee_id' => $data['validatedData']['employee_id'],
+            'event'       => $event,
+            'date'        => $data['validatedData']['date'],
+            'time'        => $data['validatedData']['input'],
+            'code'        => $code,
+            'type'        => $data['validatedData']['type'],
+        ]);
 
         // Mensagem.
         $message = 'Eventos cadastrados com sucesso.';
