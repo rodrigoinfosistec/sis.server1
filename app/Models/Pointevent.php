@@ -137,7 +137,7 @@ class Pointevent extends Model
         endif;
 
         // Verifica se data é um Feriado.
-        
+
 
         // Verifica se Funcionário está de Férias na data.
 
@@ -155,7 +155,7 @@ class Pointevent extends Model
 
 
         // Verifica se data é um sábado.
-
+        
 
         // Desvio.
         if(!empty($message)):
