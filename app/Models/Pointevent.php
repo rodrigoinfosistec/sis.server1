@@ -123,6 +123,77 @@ class Pointevent extends Model
     }
 
     /**
+     * Valida cadastro de Evento de Funcionário.
+     * @var array $data
+     * 
+     * @return <array, bool>
+     */
+    public static function validateAddEmployeeDatet(array $data){
+        $message = null;
+
+        // Verifica se data de evento do funcionário já existe.
+        if(Pointevent::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
+            $message = 'Eventos desta data já existem.';
+        endif;
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return $txtArray;
+    }
+
+    /**
+     * Cadastra Evento de Funcionário.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function addEmployeeDate(array $data) : bool {
+        // Percorre todos os funcionários..
+        foreach($data['txtArray'] as $key => $pis):
+            // Percorre todas as datas do funcionário.
+            foreach($pis as $key_date => $date):
+                // Percorre todos os eventos do funcionário na data.
+                foreach($date as $key_event => $event):
+                    // Cadastra.
+                    Pointevent::create([
+                        'employee_id' => Employee::where('pis', $event['pis'])->first()->id,
+                        'event'       => $event['event'],
+                        'date'        => $event['date'],
+                        'time'        => $event['time'],
+                        'code'        => $event['code'],
+                        'type'        => $event['type'],
+                    ]);
+                endforeach;
+            endforeach;
+        endforeach;
+
+        // Mensagem.
+        $message = 'Eventos cadastrados com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de cadastro Evento de Funcionário.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyAddEmployeeDate(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
      * Valida geração de relatório.
      * @var array $data
      * 

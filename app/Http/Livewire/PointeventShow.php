@@ -204,6 +204,9 @@ class PointeventShow extends Component
                 'output'      => ['required'],
             ]);
 
+            // Estende validatedData.
+            
+
             // Define $data.
             $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;
