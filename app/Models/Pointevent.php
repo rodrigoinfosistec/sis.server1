@@ -136,6 +136,27 @@ class Pointevent extends Model
             $message = 'Eventos desta data já existem.';
         endif;
 
+        // Verifica se data é um Feriado.
+
+
+        // Verifica se Funcionário está de Férias na data.
+
+
+        // Verifica se data é um Domingo.
+
+
+        // Verifica se Funcionário tem Atestado na data.
+
+
+        // Verifica se Funcioário está de Folga na data.
+
+
+        // Verifica se Funcioário Faltou na data.
+
+
+        // Verifica se data é um sábado.
+        
+
         // Desvio.
         if(!empty($message)):
             session()->flash('message', $message );
