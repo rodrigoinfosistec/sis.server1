@@ -239,7 +239,7 @@ class Pointevent extends Model
         ]);
 
         // Mensagem.
-        $message = 'Eventos cadastrados com sucesso.';
+        $message = 'Eventos do Funcionário ' . Employee::find($data['validatedData']['employee_id'])->name . ' cadastrados com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
