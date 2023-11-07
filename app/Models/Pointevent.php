@@ -128,7 +128,7 @@ class Pointevent extends Model
      * 
      * @return <array, bool>
      */
-    public static function validateAddEmployeeDatet(array $data){
+    public static function validateAddEmployeeDate(array $data){
         $message = null;
 
         // Verifica se data de evento do funcionário já existe.
@@ -175,47 +175,50 @@ class Pointevent extends Model
             'type'        => $data['validatedData']['type'],
         ]);
 
-        // Inicializa variável.
-        $code  = '';
-        for($i = 0 ; $i < 3 ; $i++):
-            // Constrói o código hexadecimal.
-            $code = $code . dechex(random_int(0, 15));
-        endfor;
-        $code = Str::upper($code);
+        // Verifica se não é sábado.
+        if(date_format(date_create($date), 'l') != 'Saturday'):
+            // Inicializa variável.
+            $code  = '';
+            for($i = 0 ; $i < 3 ; $i++):
+                // Constrói o código hexadecimal.
+                $code = $code . dechex(random_int(0, 15));
+            endfor;
+            $code = Str::upper($code);
 
-        // Define o evento.
-        $event = $code . random_int(10000, 99999);
-    
-        // Intervalo Início.
-        Pointevent::create([
-            'employee_id' => $data['validatedData']['employee_id'],
-            'event'       => '2' . $event,
-            'date'        => $data['validatedData']['date'],
-            'time'        => $data['validatedData']['break_start'],
-            'code'        => '2' . $code,
-            'type'        => $data['validatedData']['type'],
-        ]);
+            // Define o evento.
+            $event = $code . random_int(10000, 99999);
+        
+            // Intervalo Início.
+            Pointevent::create([
+                'employee_id' => $data['validatedData']['employee_id'],
+                'event'       => '2' . $event,
+                'date'        => $data['validatedData']['date'],
+                'time'        => $data['validatedData']['break_start'],
+                'code'        => '2' . $code,
+                'type'        => $data['validatedData']['type'],
+            ]);
 
-        // Inicializa variável.
-        $code  = '';
-        for($i = 0 ; $i < 3 ; $i++):
-            // Constrói o código hexadecimal.
-            $code = $code . dechex(random_int(0, 15));
-        endfor;
-        $code = Str::upper($code);
+            // Inicializa variável.
+            $code  = '';
+            for($i = 0 ; $i < 3 ; $i++):
+                // Constrói o código hexadecimal.
+                $code = $code . dechex(random_int(0, 15));
+            endfor;
+            $code = Str::upper($code);
 
-        // Define o evento.
-        $event = $code . random_int(10000, 99999);
-    
-        // Intervalo Fim.
-        Pointevent::create([
-            'employee_id' => $data['validatedData']['employee_id'],
-            'event'       => '3' . $event,
-            'date'        => $data['validatedData']['date'],
-            'time'        => $data['validatedData']['break_end'],
-            'code'        => '3' . $code,
-            'type'        => $data['validatedData']['type'],
-        ]);
+            // Define o evento.
+            $event = $code . random_int(10000, 99999);
+        
+            // Intervalo Fim.
+            Pointevent::create([
+                'employee_id' => $data['validatedData']['employee_id'],
+                'event'       => '3' . $event,
+                'date'        => $data['validatedData']['date'],
+                'time'        => $data['validatedData']['break_end'],
+                'code'        => '3' . $code,
+                'type'        => $data['validatedData']['type'],
+            ]);
+        endif;
 
         // Inicializa variável.
         $code  = '';
