@@ -137,25 +137,34 @@ class Pointevent extends Model
         endif;
 
         // Verifica se data é um Feriado.
-
+        if(Holiday::where(['date' => $data['validatedData']['date']])->exists()):
+            $message = 'Esta data é Feriado - ' . Holiday::where(['date' => $data['validatedData']['date']])->name . '.';
+        endif;
 
         // Verifica se Funcionário está de Férias na data.
-
+        if(Employeevacationday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
+            $message = 'O Funcionário ' . Employee::find($data['validatedData']['employee_id'])->name . ' está de Férias nesta data.';
+        endif;
 
         // Verifica se data é um Domingo.
-
+        if(date_format(date_create($date), 'l') == 'Sunday'):
+            $message = 'Esta data é Domingo.';
+        endif;
 
         // Verifica se Funcionário tem Atestado na data.
-
+        if(Employeeattestday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
+            $message = 'O Funcionário ' . Employee::find($data['validatedData']['employee_id'])->name . ' está de Atestado nesta data.';
+        endif;
 
         // Verifica se Funcioário está de Folga na data.
-
+        if(Employeeeasy::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
+            $message = 'O Funcionário ' . Employee::find($data['validatedData']['employee_id'])->name . ' está de Folga nesta data.';
+        endif;
 
         // Verifica se Funcioário Faltou na data.
-
-
-        // Verifica se data é um sábado.
-        
+        if(Employeeabsenceday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
+            $message = 'O Funcionário ' . Employee::find($data['validatedData']['employee_id'])->name . ' Faltou nesta data.';
+        endif;
 
         // Desvio.
         if(!empty($message)):
