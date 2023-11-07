@@ -16,7 +16,7 @@
     <x-layout.modal.modal-add-body-group-item columms="8">
         <x-layout.modal.modal-add-body-group-item-label item="date" title="DATA" plus="none"/>
 
-        <input type="date" wire:model="date" class="form-control form-control-sm" id="date">
+        <input type="date" wire:model="date" class="form-control form-control-sm" id="date" min="{{ $month }}-01" max="{{ $month }}-{{ $month_end }}">
 
         <x-layout.modal.modal-add-body-group-item-error item="date" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>

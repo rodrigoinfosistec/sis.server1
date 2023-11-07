@@ -34,6 +34,7 @@ class PointeventShow extends Component
     public $comment;
 
     public $month;
+    public $month_end;
     public $txt;
 
     public $employee_id;
@@ -54,7 +55,7 @@ class PointeventShow extends Component
      */
     public function mount($config){
         $this->config = $config;
-        $this->month = date('Y-m');
+        $this->month  = date('Y-m');
     }
 
     /**
@@ -109,7 +110,9 @@ class PointeventShow extends Component
 
         $this->array_events = [];
         $this->times_more   = '';
-    
+
+        $this->month_end   = '';
+
         $this->date        = '';
         $this->input       = '';
         $this->break_start = '';
@@ -192,6 +195,10 @@ class PointeventShow extends Component
         $this->employee_id = $Employee->id;
         $this->pis         = $Employee->pis;
         $this->name        = $Employee->name;
+
+        // Ultimo dia do mês.
+        $x = explode('-', $this->month);
+        $this->month_end = cal_days_in_month(CAL_GREGORIAN, $x[1], $x[0]);
     }
         public function registerEmployeeDate()
         {
