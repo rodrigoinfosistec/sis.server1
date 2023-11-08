@@ -40,6 +40,7 @@ class ClockbaseShow extends Component
     public $journey_end_week;
     public $journey_start_saturday;
     public $journey_end_saturday;
+    public $journey;
     public $clock_type;
     public $datatime;
     public $created;
@@ -112,6 +113,7 @@ class ClockbaseShow extends Component
         $this->journey_end_week       = '';
         $this->journey_start_saturday = '';
         $this->journey_end_saturday   = '';
+        $this->journey                = '';
         $this->clock_type             = '';
         $this->datatime               = '';
         $this->created                = '';
@@ -165,6 +167,7 @@ class ClockbaseShow extends Component
         $this->journey_end_week       = $employee->journey_end_week;
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->journey                = $employee->journey;
         $this->clock_type             = $employee->clock_type;
         $this->datatime               = $employee->datatime;
         $this->discount               = true;
@@ -179,6 +182,8 @@ class ClockbaseShow extends Component
 
             // Estende $validatedData.
             $validatedData['employee_id'] = $this->employee_id;
+            $j                                           = explode(':', $this->journey);
+            $validatedData['journey']                    = ($j[0] * 60) + $j[1];
             $this->discount ? $validatedData['discount'] = true : $validatedData['discount'] = false;
 
             // Define $data.
