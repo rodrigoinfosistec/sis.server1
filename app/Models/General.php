@@ -162,4 +162,19 @@ class General extends Model
         return $mes;
     }
 
+    /**
+     * Converte Time(01:05) em minutos(65)
+     * @var string $time
+     * 
+     * @return string $minuts
+     */
+    public static function timeToMinuts(string $time) : int {
+        // Separa as horas dos minutos.
+        $x = explode(':', $time);
+
+        // Converte em minutos.
+        $minuts = ((int)$x[0]* 60) + (int)$x[1];
+
+        return (int)$minuts;
+    }
 }

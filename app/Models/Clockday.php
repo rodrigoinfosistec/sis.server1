@@ -85,8 +85,8 @@ class Clockday extends Model
             $minuts_allowance = (($a[0] * 60) + $a[1]);
 
             // Justificado acresce 2h.
-            if($allowance->merged) $minuts_allowance=+ 240;
-    
+            if($allowance->merged) $minuts_allowance += 120;
+
             $a_hour  = $minuts_allowance / 60;
             $a_hour  = (int)$a_hour;
             $a_minut = $minuts_allowance % 60;
@@ -177,6 +177,33 @@ class Clockday extends Model
             if($data['input'] && $data['break_start'] && $data['break_end'] && $data['output']):
                 // Evita pausa inicial menor que entrada.
                 if($data['break_start'] >= $data['input'] && $data['break_end'] >= $data['break_start'] && $data['output'] >= $data['break_end']):
+// --------------------------------------------------------------------------------
+                    // Inicializa variáveis.
+                    $minuts_extra = 0;
+                    $minuts_delay = 0;
+
+                    // Converte jornada para minutos.
+                    $minuts_js = General::timeToMinuts($data['journey_start']);
+                    $minuts_je = General::timeToMinuts($data['journey_end']);
+                    $minuts_jb = General::timeToMinuts($data['journey_break']);
+
+                    // Converte Registros em minutos.
+                    $minuts_r_in =General::timeToMinuts($data['input']);
+                    $minuts_r_bs =General::timeToMinuts($data['break_start']);
+                    $minuts_r_be =General::timeToMinuts($data['break_end']);
+                    $minuts_r_ou =General::timeToMinuts($data['output']);
+
+                    // Analisa Entrada.
+                    if(($minuts_r_in - 5) > $minuts_js):
+                        $minuts_delay += ($minuts_r_in - 5) - $minuts_js;
+                    elseif(($minuts_r_in + 5) < $minuts_js):
+                        $minuts_extra += $minuts_js - ($minuts_r_in + 5);
+                    endif;
+
+                    
+                    dd($minuts_extra);
+
+// --------------------------------------------------------------------------------
                     // Define Jornada.
                     $time_journey   = Clock::intervalMinuts($data['journey_start'], $data['journey_end']);
                     $j = explode(':', $time_journey);
