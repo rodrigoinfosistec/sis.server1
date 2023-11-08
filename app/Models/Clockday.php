@@ -189,8 +189,9 @@ class Clockday extends Model
                 if($data['break_start'] >= $data['input'] && $data['break_end'] >= $data['break_start'] && $data['output'] >= $data['break_end']):
 // --------------------------------------------------------------------------------
                     // Inicializa variáveis.
-                    $minuts_delay = 0;
-                    $minuts_extra = 0;
+                    $allowance_real = 0;
+                    $minuts_delay   = 0;
+                    $minuts_extra   = 0;
 
                     // Converte jornada para minutos.
                     $minuts_js = General::timeToMinuts($data['journey_start']);
@@ -207,14 +208,18 @@ class Clockday extends Model
                     // verifica se existe abono.
                     if($minuts_al > 0):
                         // Verifica se período do abono está fora do expediente.
-                        if($minuts_as < $minuts_js):
+                        if(($minuts_as < $minuts_js) && ($minuts_ae >= $minuts_js)):
                             $minuts_as = $minuts_js;
-                        elseif($minuts_ae > $minuts_je):
+                        elseif(($minuts_ae > $minuts_je) && ($minuts_as <= $minuts_je)):
                             $minuts_ae = $minuts_je;
+                        else:
+                            $minuts_as = 0;
+                            $minuts_ae = 0;
                         endif;
 
                         // Abono válido para fins de cálculo.
-                        $minuts_al = $minuts_ae - $minuts_as;
+                        $minuts_al      = $minuts_ae - $minuts_as;
+                        $allowance_real = $minuts_al;
                     endif;
 
                     // Analisa Entrada.
@@ -298,9 +303,9 @@ class Clockday extends Model
 
         if($authorized):
             // Time Abono.
-            $hour  = $minuts_al / 60;
+            $hour  = $allowance_real / 60;
             $hour  = (int)$hour;
-            $minut = $minuts_al % 60;
+            $minut = $allowance_real % 60;
             $time_al = str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
 
             // Time Atraso.
@@ -319,9 +324,7 @@ class Clockday extends Model
             $hour  = $minuts_ba / 60;
             $hour  = (int)$hour;
             $minut = $minuts_ba % 60;
-            $time_ba = $signal . str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
-
-            dd($time_al . ' | ' . $time_delay . ' | ' .$time_extra . ' | ' .$time_ba);
+            $time_ba = $signal . str_pad(abs($hour), 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad(abs($minut), 2 ,'0' , STR_PAD_LEFT);
 
             // Atualiza.
             Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->update([
