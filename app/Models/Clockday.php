@@ -200,8 +200,7 @@ class Clockday extends Model
                         $minuts_extra += ($minuts_js - ($minuts_r_in + 5));
                     endif;
 
-
-                    dd($minuts_extra);
+                    dd($minuts_delay . ' - ' . $minuts_extra);
 
 // --------------------------------------------------------------------------------
                     // Define Jornada.
