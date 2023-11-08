@@ -80,20 +80,30 @@ class Clockday extends Model
         // Allowance.
         $allowance = Employeeallowance::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first();
         if($allowance):
-            $time_allowance_simple = Clock::intervalMinuts($allowance->start, $allowance->end);
-            $a = explode(':', $time_allowance_simple);
-            $minuts_allowance = (($a[0] * 60) + $a[1]);
+            // Converte o abono em minutos.
+            $minuts_as = General::timeToMinuts($allowance->start);
+            $minuts_ae = General::timeToMinuts($allowance->end);
 
-            // Justificado acresce 2h.
-            if($allowance->merged) $minuts_allowance += 120;
+            // Justificado.
+            if($allowance->merged):
+                $minuts_as -= 60;
+                $minuts_ae += 60;
+            endif;
+            $minuts_al = $minuts_ae - $minuts_as;
 
-            $a_hour  = $minuts_allowance / 60;
-            $a_hour  = (int)$a_hour;
-            $a_minut = $minuts_allowance % 60;
-            $time_allowance = str_pad($a_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($a_minut, 2 ,'0' , STR_PAD_LEFT);
+            //$time_allowance_simple = Clock::intervalMinuts($allowance->start, $allowance->end);
+            //$a = explode(':', $time_allowance_simple);
+            //$minuts_allowance = (($a[0] * 60) + $a[1]);
+
+            // Justificado.
+            //if($allowance->merged) $minuts_allowance += 120;
+
+            //$a_hour  = $minuts_allowance / 60;
+            //$a_hour  = (int)$a_hour;
+            //$a_minut = $minuts_allowance % 60;
+            //$time_allowance = str_pad($a_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($a_minut, 2 ,'0' , STR_PAD_LEFT);
         else:
-            $minuts_allowance = 0;
-            $time_allowance  = '00:00';
+            $minuts_al = 0;
         endif;
 
         // Atualiza.
@@ -194,19 +204,32 @@ class Clockday extends Model
                     $minuts_r_br = $minuts_r_be - $minuts_r_bs;
                     $minuts_r_ou = General::timeToMinuts($data['output']);
 
+                    // verifica se existe abono.
+                    if($minuts_al > 0):
+                        // Verifica se período do abono está fora do expediente.
+                        if($minuts_as < $minuts_js):
+                            $minuts_as = $minutsjs;
+                        elseif($minuts_ae > $minuts_je):
+                            $minuts_ae = $minuts_je;
+                        endif;
+
+                        // Abono válido para fins de cálculo.
+                        $minuts_al = $minuts_ae - $minuts_as;
+                    endif;
+
                     // Analisa Entrada.
                     if(($minuts_r_in - 5) > $minuts_js):
                         // Incrementa atraso, caso exista.
                         $minuts_delay += (($minuts_r_in - 5) - $minuts_js);
 
                         // Decrementa atraso, no caso abono.
-                        if($minuts_allowance > 0):
-                            if($minuts_allowance >= $minuts_delay):
-                                $minuts_allowance -= $minuts_delay;
+                        if($minuts_al > 0):
+                            if($minuts_al >= $minuts_delay):
+                                $minuts_al -= $minuts_delay;
                                 $minuts_delay = 0;
                             else:
-                                $minuts_delay -= $minuts_allowance;
-                                $minuts_allowance = 0;
+                                $minuts_delay -= $minuts_al;
+                                $minuts_al = 0;
                             endif;
                         endif;
                     elseif(($minuts_r_in + 5) < $minuts_js):
@@ -220,13 +243,13 @@ class Clockday extends Model
                         $minuts_delay += ($minuts_r_br - $minuts_jb);
 
                         // Decrementa atraso, no caso abono.
-                        if($minuts_allowance > 0):
-                            if($minuts_allowance >= $minuts_delay):
-                                $minuts_allowance -= $minuts_delay;
+                        if($minuts_al > 0):
+                            if($minuts_al >= $minuts_delay):
+                                $minuts_al -= $minuts_delay;
                                 $minuts_delay = 0;
                             else:
-                                $minuts_delay -= $minuts_allowance;
-                                $minuts_allowance = 0;
+                                $minuts_delay -= $minuts_al;
+                                $minuts_al = 0;
                             endif;
                         endif;
                     elseif($minuts_r_br < $minuts_jb):
@@ -240,12 +263,12 @@ class Clockday extends Model
                         $minuts_delay += ($minuts_je - ($minuts_r_ou + 5));
 
                         // Decrementa atraso, no caso abono.
-                        if($minuts_allowance > 0):
-                            if($minuts_allowance >= $minuts_delay):
-                                $minuts_allowance -= $minuts_delay;
+                        if($minuts_al > 0):
+                            if($minuts_al >= $minuts_delay):
+                                $minuts_al -= $minuts_delay;
                                 $minuts_delay = 0;
                             else:
-                                $minuts_delay -= $minuts_allowance;
+                                $minuts_delay -= $minuts_al;
                                 $minuts_allowance = 0;
                             endif;
                         endif;
@@ -255,7 +278,7 @@ class Clockday extends Model
                     endif;
 
                     // Saldo.
-                    $minuts_balance = $minuts_extra - $minuts_delay;
+                    $minuts_ba = $minuts_extra - $minuts_delay;
 
                     // Converte em Time.
                     $d_hour  = $minuts_delay / 60;
@@ -263,7 +286,7 @@ class Clockday extends Model
                     $d_minut = $minuts_delay % 60;
                     $time_delay = str_pad($d_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($d_minut, 2 ,'0' , STR_PAD_LEFT);
 
-                    dd('atraso:' . $minuts_delay . ', extra:' . $minuts_extra . ', abono:' . $minuts_allowance . ', saldo:' . $minuts_balance);
+                    dd('atraso:' . $minuts_delay . ', extra:' . $minuts_extra . ', abono:' . $minuts_al . ', saldo:' . $minuts_ba);
 
 // --------------------------------------------------------------------------------
                     // Define Jornada.
