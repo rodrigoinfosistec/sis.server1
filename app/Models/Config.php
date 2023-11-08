@@ -167,6 +167,12 @@ class Config extends Model
                 'icon'  => 'bi-fingerprint',
                 'test'  => true,
             ],
+            [
+                'name'  => 'employeebase',
+                'title' => 'Detalhes Funcionário',
+                'icon'  => 'bi-person-fill',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
