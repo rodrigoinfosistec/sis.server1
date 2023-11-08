@@ -204,7 +204,7 @@ class Clockday extends Model
                                 $minuts_delay = 0;
                                 $minuts_allowance -= $minuts_delay;
                             else:
-
+                                
                             endif;
                         endif;
                     elseif(($minuts_r_in + 5) < $minuts_js):
