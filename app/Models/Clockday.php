@@ -195,12 +195,12 @@ class Clockday extends Model
 
                     // Analisa Entrada.
                     if(($minuts_r_in - 5) > $minuts_js):
-                        $minuts_delay += ($minuts_r_in - 5) - $minuts_js;
+                        $minuts_delay += (($minuts_r_in - 5) - $minuts_js);
                     elseif(($minuts_r_in + 5) < $minuts_js):
-                        $minuts_extra += $minuts_js - ($minuts_r_in + 5);
+                        $minuts_extra += ($minuts_js - ($minuts_r_in + 5));
                     endif;
 
-                    
+
                     dd($minuts_extra);
 
 // --------------------------------------------------------------------------------
