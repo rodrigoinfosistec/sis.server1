@@ -300,7 +300,7 @@ class Clockday extends Model
             // Time Abono.
             $hour  = $minuts_al / 60;
             $hour  = (int)$hour;
-            $minut = $minuts_ba % 60;
+            $minut = $minuts_al % 60;
             $time_al = str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
 
             // Time Atraso.
@@ -320,6 +320,8 @@ class Clockday extends Model
             $hour  = (int)$hour;
             $minut = $minuts_ba % 60;
             $time_ba = $signal . str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
+
+            dd($time_al . ' | ' . $time_delay . ' | ' .$time_extra . ' | ' .$time_ba);
 
             // Atualiza.
             Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->update([
