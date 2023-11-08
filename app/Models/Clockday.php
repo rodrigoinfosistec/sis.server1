@@ -188,10 +188,11 @@ class Clockday extends Model
                     $minuts_jb = General::timeToMinuts($data['journey_break']);
 
                     // Converte Registros em minutos.
-                    $minuts_r_in =General::timeToMinuts($data['input']);
-                    $minuts_r_bs =General::timeToMinuts($data['break_start']);
-                    $minuts_r_be =General::timeToMinuts($data['break_end']);
-                    $minuts_r_ou =General::timeToMinuts($data['output']);
+                    $minuts_r_in = General::timeToMinuts($data['input']);
+                    $minuts_r_bs = General::timeToMinuts($data['break_start']);
+                    $minuts_r_be = General::timeToMinuts($data['break_end']);
+                    $minuts_r_br = $minuts_r_be - $minuts_r_bs;
+                    $minuts_r_ou = General::timeToMinuts($data['output']);
 
                     // Analisa Entrada.
                     if(($minuts_r_in - 5) > $minuts_js):
@@ -209,10 +210,31 @@ class Clockday extends Model
                             endif;
                         endif;
                     elseif(($minuts_r_in + 5) < $minuts_js):
+                        // Incrementa extra.
                         $minuts_extra += ($minuts_js - ($minuts_r_in + 5));
                     endif;
 
-                    dd($minuts_delay . ' - ' . $minuts_extra);
+                    // Analisa Intervalo.
+                    if($minuts_r_br > $minuts_jb):
+                        // Incrementa atraso.
+                        $minuts_delay += ($minuts_r_br - $minuts_jb);
+
+                        // Decrementa atraso, no caso abono.
+                        if($minuts_allowance > 0):
+                            if($minuts_allowance >= $minuts_delay):
+                                $minuts_delay = 0;
+                                $minuts_allowance -= $minuts_delay;
+                            else:
+                                $minuts_delay -= $minuts_allowance;
+                                $minuts_allowance = 0;
+                            endif;
+                        endif;
+                    elseif($minuts_r_br < $minuts_jb):
+                        // Incrementa extra.
+                        $minuts_extra += ($minuts_jb - $minuts_r_br);
+                    endif;
+
+                    dd('atraso:' . $minuts_delay . ', extra:' . $minuts_extra . ', abono:' . $minuts_allowance);
 
 // --------------------------------------------------------------------------------
                     // Define Jornada.
