@@ -208,7 +208,7 @@ class Clockday extends Model
                     if($minuts_al > 0):
                         // Verifica se período do abono está fora do expediente.
                         if($minuts_as < $minuts_js):
-                            $minuts_as = $minutsjs;
+                            $minuts_as = $minuts_js;
                         elseif($minuts_ae > $minuts_je):
                             $minuts_ae = $minuts_je;
                         endif;
@@ -280,75 +280,13 @@ class Clockday extends Model
                     // Saldo.
                     $minuts_ba = $minuts_extra - $minuts_delay;
 
-                    // Converte em Time.
-                    $d_hour  = $minuts_delay / 60;
-                    $d_hour  = (int)$d_hour;
-                    $d_minut = $minuts_delay % 60;
-                    $time_delay = str_pad($d_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($d_minut, 2 ,'0' , STR_PAD_LEFT);
+                    // Sinal.
+                    if($minuts_ba > 0):     $signal = '+';
+                    elseif($minuts_ba < 0): $signal = '-';
+                    else:                   $signal = ''; endif;
 
-                    dd('atraso:' . $minuts_delay . ', extra:' . $minuts_extra . ', abono:' . $minuts_al . ', saldo:' . $minuts_ba);
-
-// --------------------------------------------------------------------------------
-                    // Define Jornada.
-                    //$time_journey   = Clock::intervalMinuts($data['journey_start'], $data['journey_end']);
-                    //$j = explode(':', $time_journey);
-
-                    // Define Intervalo.
-                    //$b = explode(':', $data['journey_break']);
-                    //$minuts_interval = (($b[0] * 60) + $b[1]);
-
-                    // Minutos Jornada.
-                    //$minuts_journey = (($j[0] * 60) + $j[1]) - $minuts_interval;
-
-                    // Define Períodos.
-                    //$time_morning   = Clock::intervalMinuts($data['input'], $data['break_start']);
-                    //$time_interval  = Clock::intervalMinuts($data['break_start'], $data['break_end']);
-                    //$time_afternoon = Clock::intervalMinuts($data['break_end'], $data['output']);
-
-                    // Minutos trabalhados.
-                    //$m = explode(':', $time_morning);
-                    //$t = explode(':', $time_afternoon);
-                    //$i = explode(':', $time_interval);
-                    //$minuts_work = (($m[0] * 60) + $m[1]) + (($t[0] * 60) + $t[1]);
-
-                    // Tempo trabalhado.
-                    //$hour  = $minuts_work / 60;
-                    //$hour  = (int)$hour;
-                    //$minut = $minuts_work % 60;
-                    //$time_work = str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
-
-                    // Define os Horários.
-                    //$minuts_delay   = 0;
-                    //$minuts_extra   = 0;
-                    //$minuts_balance = 0;
-                    //$time_delay     = '00:00';
-                    //$time_extra     = '00:00';
-                    //$time_balance   = '00:00';
-                    //if($minuts_journey > ($minuts_work + 10)):
-                        //$minuts_work += 10;
-
-                        // Atraso.
-                        //$minuts_delay = $minuts_journey - $minuts_work;
-                        //if($minuts_allowance >= $minuts_delay):
-                            //$minuts_delay = 0;
-                        //else:
-                            //$minuts_delay = $minuts_delay - $minuts_allowance;
-                        //endif;               
-
-                        //$d_hour  = $minuts_delay / 60;
-                        //$d_hour  = (int)$d_hour;
-                        //$d_minut = $minuts_delay % 60;
-                        //$time_delay = str_pad($d_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($d_minut, 2 ,'0' , STR_PAD_LEFT);
-                    //elseif($minuts_work > ($minuts_journey + 10)):
-                        //$minuts_journey += 10;
-
-                        // Extras.
-                        //$minuts_extra = $minuts_work - $minuts_journey;
-                        //$e_hour  = $minuts_extra / 60;
-                        //$e_hour  = (int)$e_hour;
-                        //$e_minut = $minuts_extra % 60;
-                        //$time_extra = str_pad($e_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($e_minut, 2 ,'0' , STR_PAD_LEFT);
-                    //endif;
+                    dd($signal);
+                    //dd('atraso:' . $minuts_delay . ', extra:' . $minuts_extra . ', abono:' . $minuts_al . ', saldo:' . $minuts_ba);
                 else:
                     $authorized = false;
                 endif;
@@ -358,33 +296,36 @@ class Clockday extends Model
         endif;
 
         if($authorized):
-            // Balance.
-            if($minuts_extra > $minuts_delay):
-                // Minuts.
-                $minuts_balance = $minuts_extra - $minuts_delay;
+            // Time Abono.
+            $hour  = $minuts_al / 60;
+            $hour  = (int)$hour;
+            $minut = $minuts_ba % 60;
+            $time_al = str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
 
-                // Time.
-                $ba_hour  = $minuts_balance / 60;
-                $ba_hour  = (int)$ba_hour;
-                $ba_minut = $minuts_balance % 60;
-                $time_balance = '+' . str_pad($ba_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($ba_minut, 2 ,'0' , STR_PAD_LEFT);
-            elseif($minuts_delay > $minuts_extra):
-                // Minuts.
-                $minuts_balance = $minuts_delay - $minuts_extra;
+            // Time Atraso.
+            $hour  = $minuts_delay / 60;
+            $hour  = (int)$hour;
+            $minut = $minuts_delay % 60;
+            $time_delay = str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
 
-                // Time.
-                $ba_hour  = $minuts_balance / 60;
-                $ba_hour  = (int)$ba_hour;
-                $ba_minut = $minuts_balance % 60;
-                $time_balance = '-' . str_pad($ba_hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($ba_minut, 2 ,'0' , STR_PAD_LEFT);
-            endif;
+            // Time Extra.
+            $hour  = $minuts_extra / 60;
+            $hour  = (int)$hour;
+            $minut = $minuts_extra % 60;
+            $time_extra = str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
+
+            // Time Saldo.
+            $hour  = $minuts_ba / 60;
+            $hour  = (int)$hour;
+            $minut = $minuts_ba % 60;
+            $time_ba = $signal . str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
 
             // Atualiza.
             Clockday::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->update([
-                'allowance'  => $time_allowance,
+                'allowance'  => $time_al,
                 'delay'      => $time_delay,
                 'extra'      => $time_extra,
-                'balance'    => $time_balance,
+                'balance'    => $time_ba,
             ]);
         endif;
 
