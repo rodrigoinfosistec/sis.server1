@@ -195,7 +195,18 @@ class Clockday extends Model
 
                     // Analisa Entrada.
                     if(($minuts_r_in - 5) > $minuts_js):
+                        // Incrementa atrso, caso exista.
                         $minuts_delay += (($minuts_r_in - 5) - $minuts_js);
+
+                        // Decrementa atraso, no caso abono.
+                        if($minuts_allowance > 0):
+                            if($minuts_allowance >= $minuts_delay):
+                                $minuts_delay = 0;
+                                $minuts_allowance -= $minuts_delay;
+                            else:
+
+                            endif;
+                        endif;
                     elseif(($minuts_r_in + 5) < $minuts_js):
                         $minuts_extra += ($minuts_js - ($minuts_r_in + 5));
                     endif;
