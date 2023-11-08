@@ -281,12 +281,13 @@ class Clockday extends Model
                     $minuts_ba = $minuts_extra - $minuts_delay;
 
                     // Sinal.
-                    if($minuts_ba > 0):     $signal = '+';
-                    elseif($minuts_ba < 0): $signal = '-';
-                    else:                   $signal = ''; endif;
-
-                    dd($signal);
-                    //dd('atraso:' . $minuts_delay . ', extra:' . $minuts_extra . ', abono:' . $minuts_al . ', saldo:' . $minuts_ba);
+                    if($minuts_ba > 0):     
+                        $signal = '+';
+                    elseif($minuts_ba < 0): 
+                        $signal = '-';
+                    else:                  
+                         $signal = ''; 
+                    endif;
                 else:
                     $authorized = false;
                 endif;
