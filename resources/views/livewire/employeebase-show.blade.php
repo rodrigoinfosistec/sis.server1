@@ -28,4 +28,15 @@
 			<span class="visually-hidden">Next</span>
 		</button>
 	</div>
+
+	<div class="container" style="margin:20px 0 50px 0;">
+		@if(empty(Auth()->User()->employee_id))
+			não vazio.
+		@else
+			<div style="font-size: 15pt;">
+				<i class="bi-archive text-muted"></i>
+				<span class="text-muted">Usuário não está vinculado e nenhum Funcionário.</span>
+			</div>
+		@endif
+	</div>
 </div>
