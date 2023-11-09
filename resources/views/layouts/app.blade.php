@@ -61,8 +61,10 @@
                         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                             {{ $slot }}
 
-                            {{-- Footer --}}
-                            <x-layout.footer/>
+                            @if(Auth()->User()->usergroup_id != App\Models\Usergroup::where('name', 'FUNCIONARIO')->first()->id)
+                                {{-- Footer --}}
+                                <x-layout.footer/>
+                            @endif
                         </div>
                     </div>
                 </div>
