@@ -34,6 +34,8 @@ class User extends Authenticatable
         'usergroup_id',
         'usergroup_name',
 
+        'employee_id',
+
         'name',
         'email',
 
@@ -79,6 +81,7 @@ class User extends Authenticatable
      * Relaciona Models.
      */
     public function usergroup(){return $this->belongsTo(Usergroup::class);}
+    public function employee(){return $this->belongsTo(Employee::class);}
 
     /**
      * Força o cadastro do Usuário "MASTER" com Grupo de Usuário "DEVELOPMENT".
@@ -214,6 +217,7 @@ class User extends Authenticatable
             'company_name'   => Company::find($data['validatedData']['company_id'])->name,
             'usergroup_id'   => $data['validatedData']['usergroup_id'],
             'usergroup_name' => Usergroup::find($data['validatedData']['usergroup_id'])->name,
+            'employee_id'    => $data['validatedData']['employee_id'],
             'name'           => Str::upper($data['validatedData']['name']),
             'email'          => $data['validatedData']['email'],
             'status'         => $data['validatedData']['status'],

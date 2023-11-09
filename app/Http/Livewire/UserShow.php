@@ -34,6 +34,7 @@ class UserShow extends Component
     public $company_name;
     public $usergroup_id;
     public $usergroup_name;
+    public $employee_id;
     public $name;
     public $email;
     public $password;
@@ -62,6 +63,7 @@ class UserShow extends Component
 
             'company_id'   => ['required'],
             'usergroup_id' => ['required'],
+            'employee_id'  => ['required'],
             'name'         => ['required', 'between:3,255'],
             'email'        => ['required', 'email', 'between:3,255', 'unique:users,email,'.$this->user_id.''],
             'password'     => ['required', 'between:3,255'],
@@ -100,6 +102,7 @@ class UserShow extends Component
         $this->company_name   = '';
         $this->usergroup_id   = '';
         $this->usergroup_name = '';
+        $this->employee_id    = '';
         $this->name           = '';
         $this->email          = '';
         $this->password       = '';
@@ -207,6 +210,7 @@ class UserShow extends Component
         $this->company_name   = $user->company_name;
         $this->usergroup_id   = $user->usergroup_id;
         $this->usergroup_name = $user->usergroup_name;
+        $this->employee_id    = $user->employee_id;
         $this->name           = $user->name;
         $this->email          = $user->email;
         $this->status         = $user->status;
@@ -218,6 +222,7 @@ class UserShow extends Component
             $validatedData = $this->validate([
                 'company_id'   => ['required'],
                 'usergroup_id' => ['required'],
+                'employee_id'  => ['nullable'],
                 'name'         => ['required', 'between:3,255'],
                 'email'        => ['required', 'email', 'between:3,255', 'unique:users,email,'.$this->user_id.''],
             ]);
