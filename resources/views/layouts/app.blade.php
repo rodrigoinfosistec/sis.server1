@@ -37,8 +37,10 @@
         <x-banner />
 
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            {{-- Menu Navegação--}}
-            @livewire('navigation-menu')
+            @if(Auth()->User()->usergroup_id != App\Models\Usergroup::where('name', 'FUNCIONARIO')->first()->id)
+                {{-- Menu Navegação--}}
+                @livewire('navigation-menu')
+            @endif
 
             {{-- Cabeçalho --}}
             @if (isset($header))
