@@ -63,6 +63,22 @@
 </x-layout.modal.modal-edit-body-group>
 
 <x-layout.modal.modal-edit-body-group>
+    <x-layout.modal.modal-edit-body-group-item columms="6">
+        <x-layout.modal.modal-edit-body-group-item-label item="employee_id" title="FUNCIONÁRIO" plus="none"/>
+
+        <select wire:model="employee_id" class="form-select form-select-sm text-uppercase" id="employee_id">
+            <x-layout.modal.modal-edit-body-group-item-option-muted/>
+
+            @foreach(App\Models\Employee::where('status', 1)->orderBy('name', 'ASC')->get() as $key => $employee)
+                <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+            @endforeach
+        </select>
+
+        <x-layout.modal.modal-edit-body-group-item-error item="employee_id" message="$message"/>
+    </x-layout.modal.modal-edit-body-group-item>
+</x-layout.modal.modal-edit-body-group>
+
+<x-layout.modal.modal-edit-body-group>
     <x-layout.modal.modal-edit-body-group-item columms="12">
         <x-layout.modal.modal-edit-body-group-item-status>
             <input wire:model="status" class="form-check-input" type="checkbox" role="switch" id="status">
