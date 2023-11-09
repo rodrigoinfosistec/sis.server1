@@ -60,6 +60,23 @@ class Usergroup extends Model
     }
 
     /**
+     * Força o cadastro do Grupo de Usuário "FUNCIONARIO".
+     * 
+     * @return bool true
+     */
+    public static function insertEmployee() : bool {
+        // Verifica se o Grupo de Usuário "FUNCIONARIO" não está cadastrado.
+        if(Usergroup::where('name', 'FUNCIONARIO')->doesntExist()):
+            // Cadastra o Grupo de Usuário "FUNCIONARIO".
+            Usergroup::create([
+                'name' => 'FUNCIONARIO',
+            ]);
+        endif;
+
+        return true;
+    }
+
+    /**
      * Valida cadastro.
      * @var array $data
      * 

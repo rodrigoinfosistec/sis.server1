@@ -61,6 +61,16 @@ class Begin extends Model
             Usergrouppage::relatesAdministratorPages();
 
             /**
+             * Insere o Grupo de Usuário 'FUNCIONARIO'.
+             */
+            Usergroup::insertEmployee();
+
+            /**
+             * Relaciona o Grupo de Usuário 'FUNCIONARIO' com a Página 'Detalhes Funcionário'.
+             */
+            Usergrouppage::relatesEmployeePage();
+
+            /**
              * Insere o usuário "MASTER".
              */
             User::insertMaster();

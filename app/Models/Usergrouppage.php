@@ -83,6 +83,33 @@ class Usergrouppage extends Model
     }
 
     /**
+     * Relaciona o Grupo de Usuário "FUNCIONARIO" com a página "Detaçhes Funcionário".
+     * 
+     * @return bool true
+     */
+    public static function relatesEmployeePage() : bool {
+        // Verifica se o Grupo de Usuário "FUNCIONARIO" não está cadastrado.
+        if(Usergroup::where('name', 'FUNCIONARIO')->doesntExist()):
+            // Cadastra o Grupo de Usuário "FUNCIONARIO".
+            Usergroup::insertEmployee();
+        endif;
+
+        // Página "Detalhes Funcionário".
+        $page = Page::where('name', 'employeebase')->first();
+
+        // Verifica se a Página já não está vinculada ao Grupo de Usuário "FUNCIONARIO".
+        if(Usergrouppage::where(['usergroup_id' => Usergroup::where('name', 'FUNCIONARIO')->first()->id, 'page_id' => $page->id])->doesntExist()):
+            // Cadastra Página para o Grupo de Usuário "FUNCIONARIO".
+            Usergrouppage::create([
+                'usergroup_id' => Usergroup::where('name', 'FUNCIONARIO')->first()->id, 
+                'page_id'      => $page->id
+            ]);
+        endif;
+
+        return true;
+    }
+
+    /**
      * Cadastra.
      * @var array $data
      * 
