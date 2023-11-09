@@ -1,3 +1,8 @@
+@if(Auth()->User()->usergroup_id == App\Models\Usergroup::where('name', 'FUNCIONARIO')->first()->id)
+    <script>
+        window.location.href = "/employeebase";
+    </script>
+@endif
 <x-app-layout>
     @section('browser', $config['title'])
 
