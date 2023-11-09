@@ -87,7 +87,7 @@ class EmployeebaseShow extends Component
     public function render(){
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'   => $this->config,
-            'employee' => Employee::where(['id' => Auth()->User()->employee_id, 'status' => 1]) ?? null,
+            'employee' => Employee::where(['id' => Auth()->User()->employee_id, 'status' => 1])->first() ?? null,
         ]);
     }
 
