@@ -25,7 +25,7 @@ class EmployeebaseController extends Controller
         /**
          * View.
          */
-        return view('index', [
+        return view('employee', [
             'config' => [
                 'name'  => $this->pageName,
                 'title' => Page::getTitleByName($this->pageName), 
