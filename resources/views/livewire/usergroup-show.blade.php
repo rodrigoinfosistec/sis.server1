@@ -128,7 +128,9 @@
         {{ $item->name }}
         <br>
         @if($item->name == 'ADMINISTRADOR')
-                <span class="text-muted">PERMISSÃO TOTAL</span>
+            <span class="text-muted">PERMISSÃO TOTAL</span>
+        @elseif($item->name == 'FUNCIONARIO')
+            <span class="text-muted">DETALHES FUNCIONÁRIO</span>
         @endif
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
@@ -136,7 +138,7 @@
 <x-layout.card.card-body-content-table-body-line-cell-action width="150">
     <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
 
-    @if($item->name == 'ADMINISTRADOR')
+    @if($item->name == 'ADMINISTRADOR' || $item->name == 'FUNCIONARIO')
         <x-layout.card.card-body-content-table-body-line-cell-action-edit-muted/>
 
         <x-layout.card.card-body-content-table-body-line-cell-action-edit-permission-muted/>
