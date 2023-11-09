@@ -19,84 +19,86 @@
 
         <div class="offcanvas-body" style="margin-top: -20px;">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li class="nav-item">
-                    <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="text-decoration-none">
-                        <i class="{{ App\Models\Page::getIconByName('home') }}"></i> {{ App\Models\Page::getTitleByName('home') }}
-                    </x-responsive-nav-link>
-                </li>
-
-                <li class="nav-item">
-                    <div class="pt-2 pb-0 border-t border-gray-200">
-                        {{-- Empresa --}}
-                        <x-responsive-nav-link href="{{ route('company') }}" :active="request()->routeIs('company')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('company') }}"></i> {{ App\Models\Page::getTitleByName('company') }}
+                @if(Auth()->User()->usergroup_id != App\Models\Usergroup::where('name', 'FUNCIONARIO')->first()->id)
+                    <li class="nav-item">
+                        <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="text-decoration-none">
+                            <i class="{{ App\Models\Page::getIconByName('home') }}"></i> {{ App\Models\Page::getTitleByName('home') }}
                         </x-responsive-nav-link>
+                    </li>
 
-                        {{-- Fornecedor --}}
-                        <x-responsive-nav-link href="{{ route('provider') }}" :active="request()->routeIs('provider')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('provider') }}"></i> {{ App\Models\Page::getTitleByName('provider') }}
-                        </x-responsive-nav-link>
-                    </div>
+                    <li class="nav-item">
+                        <div class="pt-2 pb-0 border-t border-gray-200">
+                            {{-- Empresa --}}
+                            <x-responsive-nav-link href="{{ route('company') }}" :active="request()->routeIs('company')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('company') }}"></i> {{ App\Models\Page::getTitleByName('company') }}
+                            </x-responsive-nav-link>
 
-                    <div class="pt-2 pb-0 border-t border-gray-200">
-                        {{-- Grupo de Produto --}}
-                        <x-responsive-nav-link href="{{ route('productgroup') }}" :active="request()->routeIs('productgroup')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('productgroup') }}"></i> {{ App\Models\Page::getTitleByName('productgroup') }}
-                        </x-responsive-nav-link>
+                            {{-- Fornecedor --}}
+                            <x-responsive-nav-link href="{{ route('provider') }}" :active="request()->routeIs('provider')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('provider') }}"></i> {{ App\Models\Page::getTitleByName('provider') }}
+                            </x-responsive-nav-link>
+                        </div>
 
-                        {{-- Produto --}}
-                        <x-responsive-nav-link href="{{ route('product') }}" :active="request()->routeIs('product')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('product') }}"></i> {{ App\Models\Page::getTitleByName('product') }}
-                        </x-responsive-nav-link>
-                    </div>
+                        <div class="pt-2 pb-0 border-t border-gray-200">
+                            {{-- Grupo de Produto --}}
+                            <x-responsive-nav-link href="{{ route('productgroup') }}" :active="request()->routeIs('productgroup')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('productgroup') }}"></i> {{ App\Models\Page::getTitleByName('productgroup') }}
+                            </x-responsive-nav-link>
 
-                    <div class="pt-2 pb-0 border-t border-gray-200">
-                        {{-- Registro de Ponto --}}
-                        <x-responsive-nav-link href="{{ route('clockregistry') }}" :active="request()->routeIs('clockregistry')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('clockregistry') }}"></i> {{ App\Models\Page::getTitleByName('clockregistry') }}
-                        </x-responsive-nav-link>
+                            {{-- Produto --}}
+                            <x-responsive-nav-link href="{{ route('product') }}" :active="request()->routeIs('product')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('product') }}"></i> {{ App\Models\Page::getTitleByName('product') }}
+                            </x-responsive-nav-link>
+                        </div>
 
-                        {{-- Funcionário --}}
-                        <x-responsive-nav-link href="{{ route('employee') }}" :active="request()->routeIs('employee')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('employee') }}"></i> {{ App\Models\Page::getTitleByName('employee') }}
-                        </x-responsive-nav-link>
+                        <div class="pt-2 pb-0 border-t border-gray-200">
+                            {{-- Registro de Ponto --}}
+                            <x-responsive-nav-link href="{{ route('clockregistry') }}" :active="request()->routeIs('clockregistry')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('clockregistry') }}"></i> {{ App\Models\Page::getTitleByName('clockregistry') }}
+                            </x-responsive-nav-link>
 
-                        {{-- Feriado --}}
-                        <x-responsive-nav-link href="{{ route('holiday') }}" :active="request()->routeIs('holiday')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('holiday') }}"></i> {{ App\Models\Page::getTitleByName('holiday') }}
-                        </x-responsive-nav-link>
+                            {{-- Funcionário --}}
+                            <x-responsive-nav-link href="{{ route('employee') }}" :active="request()->routeIs('employee')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('employee') }}"></i> {{ App\Models\Page::getTitleByName('employee') }}
+                            </x-responsive-nav-link>
 
-                        {{-- Folga --}}
-                        <x-responsive-nav-link href="{{ route('employeeeasy') }}" :active="request()->routeIs('employeeeasy')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('employeeeasy') }}"></i> {{ App\Models\Page::getTitleByName('employeeeasy') }}
-                        </x-responsive-nav-link>
+                            {{-- Feriado --}}
+                            <x-responsive-nav-link href="{{ route('holiday') }}" :active="request()->routeIs('holiday')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('holiday') }}"></i> {{ App\Models\Page::getTitleByName('holiday') }}
+                            </x-responsive-nav-link>
 
-                        {{-- Férias --}}
-                        <x-responsive-nav-link href="{{ route('employeevacation') }}" :active="request()->routeIs('employeevacation')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('employeevacation') }}"></i> {{ App\Models\Page::getTitleByName('employeevacation') }}
-                        </x-responsive-nav-link>
+                            {{-- Folga --}}
+                            <x-responsive-nav-link href="{{ route('employeeeasy') }}" :active="request()->routeIs('employeeeasy')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('employeeeasy') }}"></i> {{ App\Models\Page::getTitleByName('employeeeasy') }}
+                            </x-responsive-nav-link>
 
-                        {{-- Atestado --}}
-                        <x-responsive-nav-link href="{{ route('employeeattest') }}" :active="request()->routeIs('employeeattest')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('employeeattest') }}"></i> {{ App\Models\Page::getTitleByName('employeeattest') }}
-                        </x-responsive-nav-link>
+                            {{-- Férias --}}
+                            <x-responsive-nav-link href="{{ route('employeevacation') }}" :active="request()->routeIs('employeevacation')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('employeevacation') }}"></i> {{ App\Models\Page::getTitleByName('employeevacation') }}
+                            </x-responsive-nav-link>
 
-                        {{-- Licença --}}
-                        <x-responsive-nav-link href="{{ route('employeelicense') }}" :active="request()->routeIs('employeelicense')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('employeelicense') }}"></i> {{ App\Models\Page::getTitleByName('employeelicense') }}
-                        </x-responsive-nav-link>
+                            {{-- Atestado --}}
+                            <x-responsive-nav-link href="{{ route('employeeattest') }}" :active="request()->routeIs('employeeattest')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('employeeattest') }}"></i> {{ App\Models\Page::getTitleByName('employeeattest') }}
+                            </x-responsive-nav-link>
 
-                        {{-- Abono --}}
-                        <x-responsive-nav-link href="{{ route('employeeallowance') }}" :active="request()->routeIs('employeeallowance')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('employeeallowance') }}"></i> {{ App\Models\Page::getTitleByName('employeeallowance') }}
-                        </x-responsive-nav-link>
+                            {{-- Licença --}}
+                            <x-responsive-nav-link href="{{ route('employeelicense') }}" :active="request()->routeIs('employeelicense')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('employeelicense') }}"></i> {{ App\Models\Page::getTitleByName('employeelicense') }}
+                            </x-responsive-nav-link>
 
-                        {{-- Falta --}}
-                        <x-responsive-nav-link href="{{ route('employeeabsence') }}" :active="request()->routeIs('employeeabsence')" class="text-decoration-none">
-                            <i class="{{ App\Models\Page::getIconByName('employeeabsence') }}"></i> {{ App\Models\Page::getTitleByName('employeeabsence') }}
-                        </x-responsive-nav-link>
-                    </div>
-                </li>
+                            {{-- Abono --}}
+                            <x-responsive-nav-link href="{{ route('employeeallowance') }}" :active="request()->routeIs('employeeallowance')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('employeeallowance') }}"></i> {{ App\Models\Page::getTitleByName('employeeallowance') }}
+                            </x-responsive-nav-link>
+
+                            {{-- Falta --}}
+                            <x-responsive-nav-link href="{{ route('employeeabsence') }}" :active="request()->routeIs('employeeabsence')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('employeeabsence') }}"></i> {{ App\Models\Page::getTitleByName('employeeabsence') }}
+                            </x-responsive-nav-link>
+                        </div>
+                    </li>
+                @endif
 
                 <li style="margin-top: 10px;" class="nav-item dropdown">
                     {{-- Responsive Settings Options --}}
@@ -115,30 +117,32 @@
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            {{-- Profile --}}
-                            <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')" class="text-decoration-none">
-                                <i class="bi-gear"></i> {{ __('Profile') }}
-                            </x-responsive-nav-link>
+                            @if(Auth()->User()->usergroup_id != App\Models\Usergroup::where('name', 'FUNCIONARIO')->first()->id)
+                                {{-- Profile --}}
+                                <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')" class="text-decoration-none">
+                                    <i class="bi-gear"></i> {{ __('Profile') }}
+                                </x-responsive-nav-link>
 
-                            {{-- Grupo de Usuário --}}
-                            <x-responsive-nav-link href="{{ route('usergroup') }}" :active="request()->routeIs('usergroup')" class="text-decoration-none">
-                                <i class="{{ App\Models\Page::getIconByName('usergroup') }}"></i> {{ App\Models\Page::getTitleByName('usergroup') }}
-                            </x-responsive-nav-link>
+                                {{-- Grupo de Usuário --}}
+                                <x-responsive-nav-link href="{{ route('usergroup') }}" :active="request()->routeIs('usergroup')" class="text-decoration-none">
+                                    <i class="{{ App\Models\Page::getIconByName('usergroup') }}"></i> {{ App\Models\Page::getTitleByName('usergroup') }}
+                                </x-responsive-nav-link>
 
-                            {{-- Usuário --}}
-                            <x-responsive-nav-link href="{{ route('user') }}" :active="request()->routeIs('user')" class="text-decoration-none">
-                                <i class="{{ App\Models\Page::getIconByName('user') }}"></i> {{ App\Models\Page::getTitleByName('user') }}
-                            </x-responsive-nav-link>
+                                {{-- Usuário --}}
+                                <x-responsive-nav-link href="{{ route('user') }}" :active="request()->routeIs('user')" class="text-decoration-none">
+                                    <i class="{{ App\Models\Page::getIconByName('user') }}"></i> {{ App\Models\Page::getTitleByName('user') }}
+                                </x-responsive-nav-link>
 
-                            {{-- Auditoria --}}
-                            <x-responsive-nav-link href="{{ route('audit') }}" :active="request()->routeIs('audit')" class="text-decoration-none">
-                                <i class="{{ App\Models\Page::getIconByName('audit') }}"></i> {{ App\Models\Page::getTitleByName('audit') }}
-                            </x-responsive-nav-link>
+                                {{-- Auditoria --}}
+                                <x-responsive-nav-link href="{{ route('audit') }}" :active="request()->routeIs('audit')" class="text-decoration-none">
+                                    <i class="{{ App\Models\Page::getIconByName('audit') }}"></i> {{ App\Models\Page::getTitleByName('audit') }}
+                                </x-responsive-nav-link>
 
-                            {{-- Eventos --}}
-                            <x-responsive-nav-link href="{{ route('pointevent') }}" :active="request()->routeIs('pointevent')" class="text-decoration-none">
-                                <i class="{{ App\Models\Page::getIconByName('pointevent') }}"></i> {{ App\Models\Page::getTitleByName('pointevent') }}
-                            </x-responsive-nav-link>
+                                {{-- Eventos --}}
+                                <x-responsive-nav-link href="{{ route('pointevent') }}" :active="request()->routeIs('pointevent')" class="text-decoration-none">
+                                    <i class="{{ App\Models\Page::getIconByName('pointevent') }}"></i> {{ App\Models\Page::getTitleByName('pointevent') }}
+                                </x-responsive-nav-link>
+                            @endif
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')" class="text-decoration-none">
