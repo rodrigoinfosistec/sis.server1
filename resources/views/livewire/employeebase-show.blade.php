@@ -2,7 +2,7 @@
 	<x-layout.alert/>
 
 	<div class="container" style="margin:10px 0 50px 0;">
-		@if(!empty(Auth()->User()->employee_id) && App\Models\Employee::find(Auth()->User()->employee_id)->status == true)
+		@if(!empty($employee) && App\Models\Employee::find(Auth()->User()->employee_id)->status == true)
 			<span class="fw-bold">{{ App\Models\Employee::find(Auth()->User()->employee_id)->name }}</span>
 			<br>
 			<div style="font-size: 12pt;">
@@ -16,8 +16,8 @@
 				</span>
 				<br>
 				<span class="text-muted fw-normal" style="font-size: 8pt;">
-					ÚLTIMA VISUALIZAÇÃO EM
-					{{ date('d/m/Y H:i') }}
+					ÚLTIMO PRÍODO ATUALIZADO
+					
 				</span>
 			</div>
 			<hr>
