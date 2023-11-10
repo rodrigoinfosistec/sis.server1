@@ -10,7 +10,7 @@
 
 	<body>
 		<p>
-			SUGESTÃO ANÔNIMA
+			SUGESTÃO ESPAÇO DO COLABORADOR
 
             @if($mailData['identify'])
                 <br>{{ $mailData['employee_name'] }}
