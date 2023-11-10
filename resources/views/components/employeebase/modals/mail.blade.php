@@ -34,7 +34,6 @@
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="12">
         <x-layout.modal.modal-add-body-group-item-bool model="identify">
-
             <div style="margin-top: 5px;">
                 <span class="text-danger fw-bold" style="font-size: 9pt;">DESEJA SE IDENTIFICAR?</span>
             </div>
