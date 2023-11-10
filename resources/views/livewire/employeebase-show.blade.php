@@ -1,6 +1,8 @@
 <div class="container">
 	<x-layout.alert/>
 
+	@include('components.' .  $config['name'] . '.modals.mail')
+
 	<div class="container" style="margin:10px 0 50px 0;">
 		@if(!empty($employee))
 			<span class="fw-bold">{{ $employee->name }}</span>
@@ -47,7 +49,7 @@
 			<i class="bi-envelope text-muted"></i>
 			Deixe-nos sua sugestão anônima
 			<br>
-			
+
 		</div>
 	</div>
 </div>
