@@ -171,7 +171,7 @@ class EmployeebaseShow extends Component
             // Estende.
             $validatedData['mail']          = $this->mail;
             $validatedData['company']       = $this->company;
-            $validatedData['employee_name'] = Employee::find(Auth()->User()->employee_id)->first()->name;
+            $validatedData['employee_name'] = Employee::find(Auth()->User()->employee_id)->name;
             $this->identify ? $validatedData['identify'] = true : $validatedData['identify'] = false;
 
             // Define $data
