@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Report;
 
 use App\Models\Employee;
+use App\Models\Clockbase;
 
 use Livewire\WithPagination;
 use Livewire\Component;
@@ -86,8 +87,9 @@ class EmployeebaseShow extends Component
      */
     public function render(){
         return view('livewire.' . $this->config['name'] . '-show', [
-            'config'   => $this->config,
-            'employee' => Employee::where(['id' => Auth()->User()->employee_id, 'status' => 1])->first() ?? null,
+            'config'    => $this->config,
+            'employee'  => Employee::where(['id' => Auth()->User()->employee_id, 'status' => 1])->first() ?? null,
+            'clockbase' => Clockbase::where(['employee_id' => Auth()->User()->employee_id, 'description' => 'Consolidação Banco de Horas'])->orderBy('id', 'DESC')->first() ?? null,
         ]);
     }
 
