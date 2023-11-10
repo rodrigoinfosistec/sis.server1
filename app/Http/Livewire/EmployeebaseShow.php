@@ -29,6 +29,8 @@ class EmployeebaseShow extends Component
 
     public $company;
 
+    public $identify = false;
+
     /**
      * Construtor.
      */
@@ -68,7 +70,8 @@ class EmployeebaseShow extends Component
      */
     public function resetInput()
     {
-        $this->comment = '';
+        $this->comment  = '';
+        $this->identify = false;
     }
 
     /**
@@ -166,8 +169,10 @@ class EmployeebaseShow extends Component
             ]);
 
             // Estende.
-            $validatedData['mail']    = $this->mail;
-            $validatedData['company'] = $this->company;
+            $validatedData['mail']          = $this->mail;
+            $validatedData['company']       = $this->company;
+            $validatedData['employee_name'] = Employee::find(Auth()->User()->employee_id)->first()->name;
+            $this->identify ? $validatedData['identify'] = true : $validatedData['identify'] = false;
 
             // Define $data
             $data['config']        = $this->config;
