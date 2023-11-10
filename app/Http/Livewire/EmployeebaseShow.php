@@ -27,12 +27,15 @@ class EmployeebaseShow extends Component
     public $mail;
     public $comment;
 
+    public $company;
+
     /**
      * Construtor.
      */
     public function mount($config){
-        $this->config = $config;
-        $this->mail   = 'dpgrupoamm23@gmail.com';
+        $this->config  = $config;
+        $this->mail    = 'dpgrupoamm23@gmail.com';
+        $this->company = Employee::find(Auth()->User()->employee_id)->company_name;
     }
 
     /**
@@ -163,7 +166,8 @@ class EmployeebaseShow extends Component
             ]);
 
             // Estende.
-            $validatedData['mail'] = $this->mail;
+            $validatedData['mail']    = $this->mail;
+            $validatedData['company'] = $this->company;
 
             // Define $data
             $data['config']        = $this->config;

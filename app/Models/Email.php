@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 
 use Mail;
 use App\Mail\ReportMail;
+use App\Mail\SuggestionMail;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -172,7 +173,7 @@ class Email extends Model
 
         return true;
     }
-    
+
     /**
      * E-mail Employee Mail.
      * @var array $data
@@ -366,8 +367,28 @@ class Email extends Model
             'subject'      => 'Relatório de ' . $data['config']['title'],
             'title'        => $data['config']['title'],
             'comment'      => $data['validatedData']['comment'],
+            'company'      => $data['company'],
         ]));
 
         return true;
     }
+
+    /**
+     * E-mail Employee Base Mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function employeebaseMail(array $data) : bool {
+        // Envia e-mail.
+        Mail::to($data['validatedData']['mail'])->send(new SuggestionMail([
+            'subject' => 'Sugestão anônima',
+            'title'   => 'Sugestão anônima',
+            'comment' => $data['validatedData']['comment'],
+            'company' => $data['validatedData']['company'],
+        ]));
+
+        return true;
+    }
+
 }

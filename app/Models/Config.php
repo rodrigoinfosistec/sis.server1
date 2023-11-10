@@ -169,7 +169,7 @@ class Config extends Model
             ],
             [
                 'name'  => 'employeebase',
-                'title' => 'Detalhes Funcionário',
+                'title' => 'Espaço do Colaborador',
                 'icon'  => 'bi-person-fill',
                 'test'  => true,
             ],
