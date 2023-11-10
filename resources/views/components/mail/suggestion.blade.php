@@ -10,7 +10,11 @@
 
 	<body>
 		<p>
-			SUGESTÃO ANÔNIMA<br>{{ $mailData['company'] }}
+			SUGESTÃO ANÔNIMA
+            @if($mailData['identify'])
+                <br>{{ $mailData['employee_name'] }}
+            @endif
+            <br>{{ $mailData['company'] }}
 		</p>
 
 		@if(!empty($mailData['comment']))
