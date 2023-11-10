@@ -317,7 +317,7 @@ class Employee extends Model
         $after = Employee::find($data['validatedData']['employee_id']);
 
         // Mensagem.
-        $message = 'Documentos do' . $data['config']['title'] . ' ' .  $after->name . ' atualizado com sucesso.';
+        $message = 'Documentos do ' . $data['config']['title'] . ' ' .  $after->name . ' atualizado com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
