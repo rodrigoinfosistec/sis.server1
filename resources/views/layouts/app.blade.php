@@ -98,6 +98,7 @@
         {{-- Copyright --}}
         <div class="text-center p-3 text-dark" style="background-color: #d3d3d3;">
             © Copyright {{ date('Y'); }} Desenvolvido por
+            <br>
             <a class="text-primary fw-bold text-decoration-none" href="#">
                 SIS SISTEMA INFORMÁTICA
             </a>
