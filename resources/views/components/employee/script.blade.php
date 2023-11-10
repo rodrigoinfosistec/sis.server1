@@ -8,6 +8,7 @@
 
         $('#detailModal').modal('hide');
         $('#editModal').modal('hide');
+        $('#editDocModal').modal('hide');
         $('#eraseModal').modal('hide');
     })
 </script>
