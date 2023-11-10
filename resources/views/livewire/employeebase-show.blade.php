@@ -6,6 +6,7 @@
 			<span class="fw-bold">{{ $employee->name }}</span>
 			<br>
 			<div style="font-size: 12pt;">
+				<i class="bi-clock-fill text-muted"></i>
 				<span class="text-dark">BANCO DE HORAS</span><i class="bi-caret-right-fill text-muted"></i>
 				<span class="fw-bold">
 					@if($employee->datatime > 0) <span class="text-primary">
@@ -28,6 +29,7 @@
 				</div>
 			</div>
 			<hr>
+			<i class="bi-emoji-sunglasses text-muted"></i>
 			<span class="fw-bold">Folgas</span>
 			<br>
 			@foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'ASC')->get() as $key => $employeeeasy)
