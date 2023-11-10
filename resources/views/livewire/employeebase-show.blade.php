@@ -17,7 +17,7 @@
 				<br>
 				<span class="text-muted fw-normal" style="font-size: 8pt;">
 					ÚLTIMO PRÍODO ATUALIZADO
-
+					
 				</span>
 			</div>
 			<hr>
