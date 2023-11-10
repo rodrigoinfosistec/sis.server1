@@ -42,5 +42,9 @@
 				<span class="text-muted">Usuário não está vinculado e nenhum Funcionário.</span>
 			</div>
 		@endif
+		<hr>
+
+		Deixe sua sugestão anônima
+		
 	</div>
 </div>
