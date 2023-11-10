@@ -79,6 +79,11 @@ class EmployeeShow extends Component
             'code'                   => ['nullable', 'between:4,10', 'unique:employees,code'],
 
             'txt' => ['file', 'required'],
+
+            'cpf'  => ['nullable', 'min:14', 'max:14', 'unique:employees,cpf,'.$this->employee_id.''],
+            'rg'   => ['nullable'],
+            'cnh'  => ['nullable'],
+            'ctps' => ['nullable'],
         ];
     }
 
@@ -353,6 +358,14 @@ class EmployeeShow extends Component
     }
         public function modernizeDoc()
         {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'cpf'  => ['nullable', 'min:14', 'max:14', 'unique:employees,cpf,'.$this->employee_id.''],
+                'rg'   => ['nullable'],
+                'cnh'  => ['nullable'],
+                'ctps' => ['nullable'],
+            ]);
+
             // Define $data.
             $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;

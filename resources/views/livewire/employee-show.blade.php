@@ -139,6 +139,8 @@
 
     <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
 
+    <x-layout.card.card-body-content-table-body-line-cell-action-edit-doc :id="$item->id"/>
+
     <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
