@@ -23,6 +23,11 @@ class Employee extends Model
         'pis',
         'name',
 
+        'cpf',
+        'rg',
+        'cnh',
+        'ctps',
+
         'journey_start_week',
         'journey_end_week',
         'journey_start_saturday',
@@ -263,6 +268,69 @@ class Employee extends Model
      * @return bool true
      */
     public static function dependencyEdit(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
+     * Valida atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateEditDoc(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Atualiza.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function editDoc(array $data) : bool {
+        // Before.
+        $before = Employee::find($data['validatedData']['employee_id']);
+
+        // Atualiza.
+        Employee::find($data['validatedData']['employee_id'])->update([
+            'cpf'  => $data['validatedData']['cpf'],
+            'rg'   => $data['validatedData']['rg'],
+            'cnh'  => $data['validatedData']['cpf'],
+            'ctps' => $data['validatedData']['cpf'],
+        ]);
+
+        // After.
+        $after = Employee::find($data['validatedData']['employee_id']);
+
+        // Mensagem.
+        $message = 'Documentos do' . $data['config']['title'] . ' ' .  $after->name . ' atualizado com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyEditDoc(array $data) : bool {
         // ...
 
         return true;
