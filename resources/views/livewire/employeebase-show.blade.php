@@ -6,7 +6,7 @@
 			<span class="fw-bold">{{ $employee->name }}</span>
 			<br>
 			<div style="font-size: 12pt;">
-				<span class="text-dark">HORAS EXTRAS</span><i class="bi-caret-right-fill text-muted"></i>
+				<span class="text-dark">BANCO DE HORAS</span><i class="bi-caret-right-fill text-muted"></i>
 				<span class="fw-bold">
 					@if($employee->datatime > 0) <span class="text-primary">
 						@elseif($employee->datatime < 0) <span class="text-danger">
@@ -14,11 +14,18 @@
 						{{ App\Models\Clock::minutsToTimeSignal((int)$employee->datatime) }}
 					</span>
 				</span>
-				<br>
-				<span class="text-muted fw-normal" style="font-size: 8pt;">
-					ÚLTIMO PRÍODO ATUALIZADO
-					
-				</span>
+				<br><br>
+				<div class="text-muted fw-normal" style="font-size: 8pt; line-height: 1.2">
+					@if(!empty($clockbase))
+						ÚLTIMO PERÍODO ATUALIZADO
+						<br>
+						{{ date_format(date_create($clockbase->start), 'd/m/Y') }}
+						a
+						{{ date_format(date_create($clockbase->end), 'd/m/Y') }}
+					@else
+						NÃO EXISTEM PERÍODOS CONSOLIDADOS.
+					@endif
+				</div>
 			</div>
 			<hr>
 			<span class="fw-bold">Folgas</span>
