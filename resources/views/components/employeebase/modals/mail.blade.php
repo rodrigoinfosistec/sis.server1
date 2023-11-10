@@ -31,21 +31,25 @@
     </div>
 </div>
 
-<div class="row g-3" style="margin-bottom: 10px;">
-    <div class="col-sm-12">
-        <x-layout.modal.modal-edit-body-group-item-status>
-            <input wire:model="status" class="form-check-input" type="checkbox" role="switch" id="status">
+<x-layout.modal.modal-add-body-group>
+    <x-layout.modal.modal-add-body-group-item columms="12">
+        <x-layout.modal.modal-add-body-group-item-bool model="identify">
+
+            <div style="margin-top: 5px;">
+                <span class="text-danger fw-bold" style="font-size: 9pt;">DESEJA SE IDENTIFICAR?</span>
+            </div>
+            <input wire:model="identify" class="form-check-input" type="checkbox" role="switch" id="identify">
 
             <x-slot:label>
-                @if($status)
-                    <x-layout.modal.modal-edit-body-group-item-status-active/>
+                @if($identify)
+                    <x-layout.modal.modal-add-body-group-item-bool-true title="SIM"/>
                 @else
-                    <x-layout.modal.modal-edit-body-group-item-status-inactive/>
+                    <x-layout.modal.modal-add-body-group-item-bool-false title="NÃO" />
                 @endif
             </x-slot>
-        </x-layout.modal.modal-edit-body-group-item-status>
-    </div>
-</div>
+        </x-layout.modal.modal-add-body-group-item-bool>
+    </x-layout.modal.modal-add-body-group-item>
+</x-layout.modal.modal-add-body-group>
 {{-- conteúdo --}}
                 </div>
 
