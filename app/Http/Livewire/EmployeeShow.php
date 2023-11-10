@@ -34,6 +34,10 @@ class EmployeeShow extends Component
     public $company_name;
     public $pis;
     public $name;
+    public $cpf;
+    public $rg;
+    public $cnh;
+    public $ctps;
     public $journey_start_week;
     public $journey_end_week;
     public $journey_start_saturday;
@@ -107,6 +111,10 @@ class EmployeeShow extends Component
         $this->company_name           = '';
         $this->pis                    = '';
         $this->name                   = '';
+        $this->cpf                    = '';
+        $this->rg                     = '';
+        $this->cnh                    = '';
+        $this->ctps                   = '';
         $this->journey_start_week     = '';
         $this->journey_end_week       = '';
         $this->journey_start_saturday = '';
@@ -316,6 +324,47 @@ class EmployeeShow extends Component
 
             // Executa dependências.
             if ($valid) Employee::dependencyEdit($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * editDoc()
+     *  modernizeDoc()
+     */
+    public function editDoc(int $employee_id)
+    {
+        // Funcionário.
+        $employee = Employee::find($employee_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->employee_id  = $employee->id;
+        $this->company_id   = $employee->company_id;
+        $this->company_name = $employee->company_name;
+        $this->pis          = $employee->pis;
+        $this->name         = $employee->name;
+        $this->cpf          = $employee->cpf;
+        $this->rg           = $employee->rg;
+        $this->cnh          = $employee->cnh;
+        $this->ctps         = $employee->ctps;
+
+    }
+        public function modernizeDoc()
+        {
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Employee::validateEditDoc($data);
+
+            // Atualiza.
+            if ($valid) Employee::editDoc($data);
+
+            // Executa dependências.
+            if ($valid) Employee::dependencyEditDoc($data);
 
             // Fecha modal.
             $this->closeModal();
