@@ -43,8 +43,11 @@
 			</div>
 		@endif
 		<hr>
-
-		Deixe sua sugestão anônima
-		
+		<div style="line-height: 1.3">
+			<i class="bi-envelope text-muted"></i>
+			Deixe-nos sua sugestão anônima
+			<br>
+			
+		</div>
 	</div>
 </div>
