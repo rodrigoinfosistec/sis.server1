@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Report;
 
 use App\Models\Employee;
+use App\Models\Employeebase;
 use App\Models\Clockbase;
 
 use Livewire\WithPagination;
@@ -23,10 +24,6 @@ class EmployeebaseShow extends Component
 
     public $config;
 
-    public $search = '';
-    public $filter = 'name';
-
-    public $report_id;
     public $mail;
     public $comment;
 
@@ -35,6 +32,7 @@ class EmployeebaseShow extends Component
      */
     public function mount($config){
         $this->config = $config;
+        $this->mail   = 'dpgrupoamm23@gmail.com';
     }
 
     /**
@@ -43,9 +41,7 @@ class EmployeebaseShow extends Component
     protected function rules()
     {
         return [
-            'report_id' => ['required'],
-            'mail'      => ['required', 'email', 'between:2,255'],
-            'comment'   => ['nullable', 'between:2,255'],
+            'comment'=> ['required', 'between:2,255'],
         ];
     }
 
@@ -69,9 +65,7 @@ class EmployeebaseShow extends Component
      */
     public function resetInput()
     {
-        $this->report_id = '';
-        $this->mail      = '';
-        $this->comment   = '';
+        $this->comment = '';
     }
 
     /**
@@ -163,6 +157,29 @@ class EmployeebaseShow extends Component
     }
         public function send()
         {
-            // ...
+            // Valida campos.
+            $validatedData = $this->validate([
+                'comment' => ['required', 'between:2,255'],
+            ]);
+
+            // Estende.
+            $validatedData['mail'] = $this->mail;
+
+            // Define $data
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida envio do e-mail.
+            $valid = Employeebase::validateMail($data);
+
+            // Envia e-mail.
+            if ($valid) Employeebase::mail($data);
+
+            // Executa dependências.
+            if ($valid) Employeebase::dependencyMail($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
         }
 }
