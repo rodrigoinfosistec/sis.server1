@@ -30,6 +30,22 @@
         <x-layout.modal.modal-mail-body-group-item-error item="comment" message="$message"/>
     </div>
 </div>
+
+<div class="row g-3" style="margin-bottom: 10px;">
+    <div class="col-sm-12">
+        <x-layout.modal.modal-edit-body-group-item-status>
+            <input wire:model="status" class="form-check-input" type="checkbox" role="switch" id="status">
+
+            <x-slot:label>
+                @if($status)
+                    <x-layout.modal.modal-edit-body-group-item-status-active/>
+                @else
+                    <x-layout.modal.modal-edit-body-group-item-status-inactive/>
+                @endif
+            </x-slot>
+        </x-layout.modal.modal-edit-body-group-item-status>
+    </div>
+</div>
 {{-- conteúdo --}}
                 </div>
 
