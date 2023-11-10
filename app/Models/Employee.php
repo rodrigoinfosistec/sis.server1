@@ -309,8 +309,8 @@ class Employee extends Model
         Employee::find($data['validatedData']['employee_id'])->update([
             'cpf'  => $data['validatedData']['cpf'],
             'rg'   => $data['validatedData']['rg'],
-            'cnh'  => $data['validatedData']['cpf'],
-            'ctps' => $data['validatedData']['cpf'],
+            'cnh'  => $data['validatedData']['cnh'],
+            'ctps' => $data['validatedData']['ctps'],
         ]);
 
         // After.
