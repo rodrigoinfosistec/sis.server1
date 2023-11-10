@@ -49,7 +49,7 @@
 			<i class="bi-envelope text-muted"></i>
 			Deixe-nos sua sugestão anônima
 			<br>
-
+			<x-layout.card.card-header-button-action-mail-suggestion/>
 		</div>
 	</div>
 </div>
