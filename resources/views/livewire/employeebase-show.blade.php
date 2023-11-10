@@ -2,6 +2,7 @@
 	<x-layout.alert/>
 
 	@include('components.' .  $config['name'] . '.modals.mail')
+	@include('components.' .  $config['name'] . '.modals.detail')
 
 	<div class="container" style="margin:10px 0 50px 0;">
 		@if(!empty($employee))
@@ -47,9 +48,14 @@
 		<hr>
 		<div style="line-height: 1.3">
 			<i class="bi-envelope text-muted"></i>
-			Deixe-nos sua sugestão anônima
-			<br>
+			Deixe-nos sua sugestão
 			<x-layout.card.card-header-button-action-mail-suggestion/>
+		</div>
+		<br>
+		<div style="line-height: 1.3">
+			<i class="bi-archive text-muted"></i>
+			Meus Documentos
+			<x-layout.card.card-header-button-action-detail-docs/>
 		</div>
 	</div>
 </div>

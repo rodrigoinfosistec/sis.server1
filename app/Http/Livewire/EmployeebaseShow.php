@@ -31,6 +31,8 @@ class EmployeebaseShow extends Component
 
     public $identify = false;
 
+    public $employee_pis;
+
     /**
      * Construtor.
      */
@@ -72,6 +74,8 @@ class EmployeebaseShow extends Component
     {
         $this->comment  = '';
         $this->identify = false;
+
+        $this->employee_pis = '';
     }
 
     /**
@@ -111,7 +115,11 @@ class EmployeebaseShow extends Component
      */
     public function detail(int $employee_id)
     {
-        // ...
+        // Funcionário
+        $employee = Employee::find($employee_id);
+
+        // Inicializa variáveis dinâmicas.
+        $this->employee_pis = $employee->pis;
     }
 
     /**

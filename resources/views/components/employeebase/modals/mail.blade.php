@@ -6,7 +6,7 @@
                     <div class="modal-title" id="mailModalLabel" style="line-height: 1.1; margin-right: 10px;">
                         <h6>
                             <i class="bi-send-fill text-secondary" style="font-size: 20px;"></i>
-                            SUGESTÃO ANÔNIMA
+                            SUGESTÃO
                         </h6>
 
                         <div class="text-muted" style="font-size: 8pt;">
@@ -35,7 +35,7 @@
     <x-layout.modal.modal-add-body-group-item columms="12">
         <x-layout.modal.modal-add-body-group-item-bool model="identify">
             <div style="margin-top: 5px;">
-                <span class="text-danger fw-bold" style="font-size: 9pt;">DESEJA SE IDENTIFICAR?</span>
+                <span class="text-danger fw-bold" style="font-size: 9pt;">DESEJA IDENTIFICAR-SE?</span>
             </div>
             <input wire:model="identify" class="form-check-input" type="checkbox" role="switch" id="identify">
 
