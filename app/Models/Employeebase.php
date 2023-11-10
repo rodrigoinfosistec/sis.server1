@@ -42,7 +42,7 @@ class Employeebase extends Model
      */
     public static function mail(array $data) : bool {
         // Envia e-mail.
-        //Email::employeebaseMail($data);
+        Email::employeebaseMail($data);
 
         // Mensagem.
         $message = 'Sugestão anônima enviada com sucesso.';

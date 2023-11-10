@@ -382,10 +382,12 @@ class Email extends Model
     public static function employeebaseMail(array $data) : bool {
         // Envia e-mail.
         Mail::to($data['validatedData']['mail'])->send(new SuggestionMail([
-            'subject' => 'Sugestão anônima',
-            'title'   => 'Sugestão anônima',
-            'comment' => $data['validatedData']['comment'],
-            'company' => $data['validatedData']['company'],
+            'subject'       => 'Sugestão anônima',
+            'title'         => 'Sugestão anônima',
+            'comment'       => $data['validatedData']['comment'],
+            'company'       => $data['validatedData']['company'],
+            'identify'      => $data['validatedData']['identify'],
+            'employee_name' => $data['validatedData']['employee_name'],
         ]));
 
         return true;

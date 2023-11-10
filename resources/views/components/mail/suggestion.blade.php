@@ -11,9 +11,11 @@
 	<body>
 		<p>
 			SUGESTÃO ANÔNIMA
+
             @if($mailData['identify'])
                 <br>{{ $mailData['employee_name'] }}
             @endif
+
             <br>{{ $mailData['company'] }}
 		</p>
 
