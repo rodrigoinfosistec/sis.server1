@@ -354,7 +354,6 @@ class EmployeeShow extends Component
         $this->rg           = $employee->rg;
         $this->cnh          = $employee->cnh;
         $this->ctps         = $employee->ctps;
-
     }
         public function modernizeDoc()
         {
@@ -365,6 +364,9 @@ class EmployeeShow extends Component
                 'cnh'  => ['nullable'],
                 'ctps' => ['nullable'],
             ]);
+
+            // Estende $validatedData
+            $validatedData['employee_id'] = $this->employee_id;
 
             // Define $data.
             $data['config']        = $this->config;
