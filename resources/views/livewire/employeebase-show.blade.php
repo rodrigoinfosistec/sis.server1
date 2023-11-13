@@ -19,6 +19,7 @@
 					</span>
 				</span>
 				<br><br>
+
 				<div class="text-muted fw-normal" style="font-size: 8pt; line-height: 1.2">
 					@if(!empty($clockbase))
 						ÚLTIMO PERÍODO ATUALIZADO
@@ -32,8 +33,10 @@
 				</div>
 			</div>
 			<hr>
+
 			<i class="bi-emoji-sunglasses text-muted"></i>
 			<span class="fw-bold">Folgas</span>
+
 			<br>
 			@foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'ASC')->get() as $key => $employeeeasy)
 				{{ date_format(date_create($employeeeasy->date), 'd/m/Y') }} <span class="text-muted">{{ App\Models\General::decodeWeek(date_format(date_create($employeeeasy->date), 'l')) }}</span>
@@ -46,6 +49,7 @@
 			</div>
 		@endif
 		<hr>
+
 		<div style="line-height: 1.3;">
 			<i class="bi-envelope text-muted"></i>
 			<a type="button" wire:click="mail" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#mailModal" title="Sugest達o">
@@ -54,6 +58,7 @@
 			<x-layout.card.card-header-button-action-mail-suggestion/>
 		</div>
 		<br>
+
 		<div style="line-height: 1.3">
 			<i class="bi-archive text-muted"></i>
 			<a type="button" wire:click="detail({{ (int)Auth()->User()->employee_id }})" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#detailModal" title="Documentos">
