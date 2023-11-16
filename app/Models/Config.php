@@ -175,7 +175,7 @@ class Config extends Model
             ],
             [
                 'name'  => 'employeepay',
-                'title' => 'Pagar Horas',
+                'title' => 'Pagamento de Horas',
                 'icon'  => 'bi-cash',
                 'test'  => true,
             ],
