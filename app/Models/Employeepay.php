@@ -112,7 +112,7 @@ class Employeepay extends Model
             'start'       => $data['validatedData']['date'],
             'end'         => $data['validatedData']['date'],
             'time'        => $minuts,
-            'description' => 'Horas Pagas (R$)',
+            'description' => 'Pagamento de Horas (R$)',
         ]);
 
         return true;
