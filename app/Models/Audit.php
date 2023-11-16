@@ -2070,6 +2070,101 @@ class Audit extends Model
     }
 
     /**
+     * Auditoria Employee Pay Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function employeepayAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='            . $after->id            . ',' .
+                'employee_id='   . $after->employee_id   . ',' .
+                'employee_name=' . $after->employee_name . ',' .
+                'date='          . $after->date          . ',' .
+                'time='          . $after->time          . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Employee Pay Erase.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function employeepayErase(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
+                'id='            . $data['validatedData']['employeepay_id'] . ',' .
+                'employee_id='   . $data['validatedData']['employee_id']    . ',' .
+                'employee_name=' . $data['validatedData']['employee_name']  . ',' .
+                'date='          . $data['validatedData']['date']           . ',' .
+                'time='          . $data['validatedData']['time']           . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Employee Pay Generate.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function employeepayGenerate(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[gerou relatório]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name'] . ',' .
+                'file_name=' . $data['file_name']      . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Employee Pay Mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function employeepayMail(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[enviou e-mail]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name']                    . ',' .
+                'report_id=' . $data['validatedData']['report_id']        . ',' .
+                'email='     . $data['validatedData']['mail']             . ',' .
+                'subject='   . 'Relatório de ' . $data['config']['title'] . ',' .
+                'title='     . $data['config']['title']                   . ',' .
+                'comment='   . $data['validatedData']['comment']          . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
      * Auditoria Clock Add.
      * @var array $data
      * @var object $after
