@@ -173,6 +173,12 @@ class Config extends Model
                 'icon'  => 'bi-person-fill',
                 'test'  => true,
             ],
+            [
+                'name'  => 'employeepay',
+                'title' => 'Pagar Horas',
+                'icon'  => 'bi-cash',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
