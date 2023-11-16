@@ -65,7 +65,6 @@
 {{-- filtro nome --}}
 <option value="employee_name">FUNCIONÁRIO</option>
 <option value="date">DATA</option>
-<option value="discount">DESCONTA HORAS?</option>
 {{-- filtro nome --}}
 
                         </x-layout.card.card-body-navigation-search-filter>
