@@ -42,7 +42,7 @@ class Employeeeasy extends Model
     public static function validateAdd(array $data) : bool {
         $message = null;
 
-        // Verifica se a data do abono já consta em outro abono.
+        // Verifica se a data da folga já consta em outra folga.
         if(Employeeeasy::where(['date' => $data['validatedData']['date'], 'employee_id' => $data['validatedData']['employee_id']])->exists()):
             $message = 'O dia ' . General::decodeDate($data['validatedData']['date']) . ' já consta em outra folga do funcionário.';
         endif;

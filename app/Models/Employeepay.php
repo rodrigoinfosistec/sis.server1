@@ -42,9 +42,9 @@ class Employeepay extends Model
     public static function validateAdd(array $data) : bool {
         $message = null;
 
-        // Verifica se a data do abono já consta em outro abono.
+        // Verifica se a data do pagamento já consta em outro pagamento.
         if(Employeepay::where(['date' => $data['validatedData']['date'], 'employee_id' => $data['validatedData']['employee_id']])->exists()):
-            $message = 'O dia ' . General::decodeDate($data['validatedData']['date']) . ' já consta em outra folga do funcionário.';
+            $message = 'O dia ' . General::decodeDate($data['validatedData']['date']) . ' já consta em outro pagamento para o  funcionário.';
         endif;
 
         // Desvio.
@@ -80,7 +80,7 @@ class Employeepay extends Model
         Audit::employeepayAdd($data, $after);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' do funcionário ' . $after->employee_name . ' cadastrada com sucesso.';
+        $message = $data['config']['title'] . ' do funcionário ' . $after->employee_name . ' cadastrado com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -94,28 +94,26 @@ class Employeepay extends Model
      * @return bool true
      */
     public static function dependencyAdd(array $data) : bool {
-        // Subtrai Banco de Horas.
-        if($data['validatedData']['time']):
-            // Define as Horas a serem descontadas.
-            (date_format(date_create($data['validatedData']['date']), 'l') == 'Saturday') ? $minuts = 0 - (int)$data['validatedData']['journey'] : $minuts = 0 - (int)$data['validatedData']['journey'];
+        // Define as Horas a serem descontadas.
+        $m      = explode(':', $data['validatedData']['time']);
+        $minuts = 0 - (($m[0] * 60) + $m[1]);
 
-            // Atualiza Banco de Horas.
-            $employee = Employee::find($data['validatedData']['employee_id']);
+        // Atualiza Banco de Horas.
+        $employee = Employee::find($data['validatedData']['employee_id']);
 
-            Employee::find($data['validatedData']['employee_id'])->update([
-                'datatime' => ($employee->datatime + ($minuts)),
-            ]);
+        Employee::find($data['validatedData']['employee_id'])->update([
+            'datatime' => ($employee->datatime + ($minuts)),
+        ]);
 
-            // Registra Movimento do Banco de Horas.
-            Clockbase::create([
-                'user_id'     => Auth()->user()->id,
-                'employee_id' => $data['validatedData']['employee_id'],
-                'start'       => $data['validatedData']['date'],
-                'end'         => $data['validatedData']['date'],
-                'time'        => $minuts,
-                'description' => 'Folga',
-            ]);
-        endif;
+        // Registra Movimento do Banco de Horas.
+        Clockbase::create([
+            'user_id'     => Auth()->user()->id,
+            'employee_id' => $data['validatedData']['employee_id'],
+            'start'       => $data['validatedData']['date'],
+            'end'         => $data['validatedData']['date'],
+            'time'        => $minuts,
+            'description' => 'Horas Pagas (R$)',
+        ]);
 
         return true;
     }
@@ -149,15 +147,11 @@ class Employeepay extends Model
      * @return bool true
      */
     public static function dependencyErase(array $data) : bool {
-        // Desfaz autorização na data.
-        Clockday::where(['employee_id' => $data['validatedData']['employee_id'],'date' => $data['validatedData']['date_encode']])->update([
-            'authorized' => false,
-        ]);
-
         // Subtrai Banco de Horas.
         if($data['validatedData']['time']):
             // Define as Horas a serem descontadas.
-            (date_format(date_create($data['validatedData']['date_encode']), 'l') == 'Saturday') ? $minuts = (int)$data['validatedData']['journey'] : $minuts = (int)$data['validatedData']['journey'];
+            $m = explode(':', $data['validatedData']['time']);
+            $minuts = ($m[0] * 60) + $m[1];
 
             // Atualiza Banco de Horas.
             $employee = Employee::find($data['validatedData']['employee_id']);
