@@ -167,7 +167,7 @@ class Employeepay extends Model
                 'start'       => $data['validatedData']['date_encode'],
                 'end'         => $data['validatedData']['date_encode'],
                 'time'        => $minuts,
-                'description' => 'Folga Excluída',
+                'description' => 'Pagamento de Horas (R$) Excluído',
             ]);
         endif;
 
@@ -188,7 +188,7 @@ class Employeepay extends Model
         Audit::employeepayErase($data);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' do funcionário ' .  $data['validatedData']['employee_name'] . ' excluída com sucesso.';
+        $message = $data['config']['title'] . ' do funcionário ' .  $data['validatedData']['employee_name'] . ' excluído com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
