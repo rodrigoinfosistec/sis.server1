@@ -1,5 +1,5 @@
 <x-layout.modal.modal-add modal="addRegistry" method="registerRegistry" size="">
-    <x-layout.modal.modal-add-header icon="bi-clock-history" modal="addRegistry">
+    <x-layout.modal.modal-add-header icon="bi-fingerprint" modal="addRegistry">
         Ponto
 
         <x-slot:identifier>
@@ -12,7 +12,7 @@
 {{-- conteúdo --}}
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="12">
-        oi
+        <span class="text-danger fw-bold">{{ date('d/m/Y H:i') }}</span>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
 {{-- conteúdo --}}
