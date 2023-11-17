@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('employeeseparates', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('employee_id');
+            $table->string('employee_name');
+
+            $table->date('date');
+
+            $table->string('time');;
+
             $table->timestamps();
+
+            $table->foreign('employee_id')->references('id')->on('employees');
         });
     }
 
