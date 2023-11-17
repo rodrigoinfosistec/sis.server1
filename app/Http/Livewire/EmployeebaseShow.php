@@ -7,6 +7,7 @@ use App\Models\Report;
 use App\Models\Employee;
 use App\Models\Employeebase;
 use App\Models\Clockbase;
+use App\Models\Clockregistry;
 
 use Livewire\WithPagination;
 use Livewire\Component;
@@ -121,7 +122,27 @@ class EmployeebaseShow extends Component
     }
         public function registerRegistry()
         {
-            // ...
+            // Estende $validatedData.
+            $validatedData['employee_id'] = Auth()->User()->employee_id;
+            $validatedData['date']        = date('Y-m-d');
+            $validatedData['time']        = date('H:i');
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = Clockregistry::validateAdd($data);
+
+            // Cadastra.
+            if ($valid) Clockregistry::add($data);
+
+            // Executa dependências.
+            if ($valid) Clockregistry::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
         }
 
     /** 

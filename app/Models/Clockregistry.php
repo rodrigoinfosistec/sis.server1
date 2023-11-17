@@ -40,16 +40,9 @@ class Clockregistry extends Model
     public static function validateAdd(array $data) : bool {
         $message = null;
 
-        // Verifica se o código não existe.
-        if(!$data['validatedData']['valid']):
-            $message = 'Código inválido.';
-        endif;
-
         // Verifica se este Registro já foi efetuado.
-        if($data['validatedData']['valid']):
-            if(Clockregistry::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date'], 'time' => $data['validatedData']['time']])->exists()):
-                $message = 'Registro já efetuado.';
-            endif;
+        if(Clockregistry::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date'], 'time' => $data['validatedData']['time']])->exists()):
+            $message = 'Registro já efetuado em ' . date_format(date_create($data['validatedData']['date']), 'd/m/Y') . ' ' . $data['validatedData']['time'] . '.';
         endif;
 
         // Desvio.
@@ -84,7 +77,7 @@ class Clockregistry extends Model
         Audit::clockregistryAdd($data, $after);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' do Funcionário ' . $after->employee->name . ' cadastrado com sucesso.';
+        $message = 'Registro de ponto em ' . date_format(date_create($data['validatedData']['date']), 'd/m/Y') . ' ' . $data['validatedData']['time'] . ' cadastrado com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
