@@ -53,16 +53,16 @@
 		@if($employee->clock_type == 'REGISTRY')
 			<div style="line-height: 1.3;">
 				<i class="bi-envelope text-muted"></i>
-				<a type="button" wire:click="mail" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#mailModal" title="Sugest達o">
-					Deixe-nos sua sugestão
+				<a type="button" wire:click="addRegistry" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#addRegistryModal" title="Registrar Ponto">
+					Registro de Ponto
 				</a>
-				<x-layout.card.card-header-button-action-mail-suggestion/>
+				<x-layout.card.card-header-button-action-add-registry/>
 			</div>
 			<br>
 		@endif
 
 		<div style="line-height: 1.3;">
-			<i class="bi-envelope text-muted"></i>
+			<i class="bi-clock-history text-muted"></i>
 			<a type="button" wire:click="mail" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#mailModal" title="Sugest達o">
 				Deixe-nos sua sugestão
 			</a>
