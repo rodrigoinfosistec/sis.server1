@@ -637,7 +637,6 @@ class Invoiceitem extends Model
                 'value_final'       => (((float)$invoiceitem->prod->vUnCom / (float)$providerbusiness->multiplier_value) * 100),
 
                 'ipi'               => !empty($invoiceitem->imposto->IPI->IPITrib->vIPI) ? $invoiceitem->imposto->IPI->IPITrib->vIPI : 0.00,
-
                 'ipi_final'         => !empty($invoiceitem->imposto->IPI->IPITrib->vIPI) ? ((float)$providerbusiness->multiplier_ipi > 0  ? (((float)$invoiceitem->imposto->IPI->IPITrib->vIPI / (float)$providerbusiness->multiplier_ipi) * 100) : 0.00) : 0.00,
 
                 'ipi_aliquot'       => !empty($invoiceitem->imposto->IPI->IPITrib->pIPI) ? $invoiceitem->imposto->IPI->IPITrib->pIPI : 0.00,
