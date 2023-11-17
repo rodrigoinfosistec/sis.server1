@@ -72,9 +72,14 @@
                                 <i class="{{ App\Models\Page::getIconByName('employeeeasy') }}"></i> {{ App\Models\Page::getTitleByName('employeeeasy') }}
                             </x-responsive-nav-link>
 
-                            {{-- Receber Horas --}}
+                            {{-- Recebimento Horas --}}
                             <x-responsive-nav-link href="{{ route('employeepay') }}" :active="request()->routeIs('employeepay')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('employeepay') }}"></i> {{ App\Models\Page::getTitleByName('employeepay') }}
+                            </x-responsive-nav-link>
+
+                            {{-- Horas Avulsas --}}
+                            <x-responsive-nav-link href="{{ route('employeeseparate') }}" :active="request()->routeIs('employeeseparate')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('employeeseparate') }}"></i> {{ App\Models\Page::getTitleByName('employeeseparate') }}
                             </x-responsive-nav-link>
 
                             {{-- Férias --}}
