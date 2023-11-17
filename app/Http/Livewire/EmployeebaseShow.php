@@ -106,14 +106,14 @@ class EmployeebaseShow extends Component
     }
 
     /**
-     * add()
-     *  register()
+     * addRegistry()
+     *  registerRegistry()
      */
-    public function add()
+    public function addRegistry()
     {
         // ...
     }
-        public function register()
+        public function registerRegistry()
         {
             // ...
         }
