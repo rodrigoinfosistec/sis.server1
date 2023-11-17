@@ -32,8 +32,8 @@
 					@endif
 				</div>
 			</div>
-			<hr>
 
+			<hr>
 			<i class="bi-emoji-sunglasses text-muted"></i>
 			<span class="fw-bold">Folgas</span>
 
@@ -49,6 +49,17 @@
 			</div>
 		@endif
 		<hr>
+
+		@if($employee->clock_type == 'REGISTRY')
+			<div style="line-height: 1.3;">
+				<i class="bi-envelope text-muted"></i>
+				<a type="button" wire:click="mail" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#mailModal" title="Sugest達o">
+					Deixe-nos sua sugestão
+				</a>
+				<x-layout.card.card-header-button-action-mail-suggestion/>
+			</div>
+			<br>
+		@endif
 
 		<div style="line-height: 1.3;">
 			<i class="bi-envelope text-muted"></i>
