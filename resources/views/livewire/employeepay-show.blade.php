@@ -72,8 +72,6 @@
 {{-- filtro tipo--}}
 @if($filter == 'date')
     <x-layout.card.card-body-navigation-search-type-date/>
-@elseif($filter == 'discount')
-    <x-layout.card.card-body-navigation-search-type-bool true="SIM" false="NÃO" />
 @else
     <x-layout.card.card-body-navigation-search-type-search/>
 @endif
