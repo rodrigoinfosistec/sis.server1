@@ -179,6 +179,12 @@ class Config extends Model
                 'icon'  => 'bi-cash',
                 'test'  => true,
             ],
+            [
+                'name'  => 'employeeseparate',
+                'title' => 'Horas Avulsas',
+                'icon'  => 'bi-clock-history',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
