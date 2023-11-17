@@ -55,7 +55,7 @@ class Clockemployee extends Model
     public static function validateAdd(array $data) : bool {
         $message = null;
 
-        // Evita Adicionar FGu8ncionário com banco consolidado.
+        // Evita Adicionar Funcionário com banco consolidado.
         if(Clockemployeefunded::where(['clock_id' => $data['validatedData']['clock_id'], 'employee_id' => $data['validatedData']['employee_id']])->exists()):
             $message = 'Ponto já consolidado, não é possível adicionar funcionários.';
         endif;
@@ -137,7 +137,11 @@ class Clockemployee extends Model
             endif;
 
             // Hidrata eventos.
-            $events = Clockevent::where(['clock_id' => $clockemployee->clock->id, 'employee_id' => $clockemployee->employee->id, 'date' => $date])->get();
+            if($clockemployee->employee->clock_type == 'EVENT'):
+                $events = Clockevent::where(['clock_id' => $clockemployee->clock->id, 'employee_id' => $clockemployee->employee->id, 'date' => $date])->get();
+            else:
+                $events = Clockregistry::where(['employee_id' => $clockemployee->employee->id, 'date' => $date])->get();
+            endif;
 
             if($events->count() > 0):
                 // Input.
