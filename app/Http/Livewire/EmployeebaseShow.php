@@ -31,7 +31,6 @@ class EmployeebaseShow extends Component
 
     public $identify = false;
 
-    public $employee_id;
     public $employee_pis;
     public $employee_cpf;
     public $employee_rg;
@@ -83,7 +82,6 @@ class EmployeebaseShow extends Component
         $this->comment  = '';
         $this->identify = false;
 
-        $this->employee_id   = '';
         $this->employee_pis  = '';
         $this->employee_cpf  = '';
         $this->employee_rg   = '';
@@ -119,11 +117,7 @@ class EmployeebaseShow extends Component
      */
     public function addRegistry(int $employee_id)
     {
-        // Funcionário
-        //$employee = Employee::find($employee_id);
-
-        // Inicializa variáveis dinâmicas.
-        //$this->employee_id  = $employee_id;
+        
     }
         public function registerRegistry()
         {
