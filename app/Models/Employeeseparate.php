@@ -151,7 +151,7 @@ class Employeeseparate extends Model
         if($data['validatedData']['time']):
             // Define as Horas a serem descontadas.
             $m = explode(':', $data['validatedData']['time']);
-            $minuts = 0 - ($m[0] * 60) + $m[1];
+            $minuts = 0 - (($m[0] * 60) + $m[1]);
 
             // Atualiza Banco de Horas.
             $employee = Employee::find($data['validatedData']['employee_id']);
