@@ -367,7 +367,7 @@ class Invoiceitem extends Model
         $cost_full = ($cost_plus_shipping / $item->quantity_final) / $item->amount;
         $cost      = Invoiceitem::roundUp($cost_full, 2);
 
-        // Custo Total di item.
+        // Custo Total do item.
         if($item->signal == '/'):
             $cost_total = ($cost * $item->amount) * $item->quantity_final;
         else:
