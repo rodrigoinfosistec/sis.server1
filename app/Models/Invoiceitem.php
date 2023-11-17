@@ -363,18 +363,15 @@ class Invoiceitem extends Model
         $cost_plus_index    = ($cost_begin / $item->index) * 100;
         $cost_plus_ipi      = $cost_plus_index + (($cost_plus_index * $item->ipi_aliquot_final) / 100);
         $cost_plus_shipping = $cost_plus_ipi + (($cost_plus_ipi * $item->shipping) / 100);
-        // Custo.
-        if($item->signal == '/'):
-            $cost_full = ($cost_plus_shipping / $item->quantity_final) / $item->amount;
-        else:
-            $cost_full = ($cost_plus_shipping / $item->quantity_final) * $item->amount;
-        endif;
-        $cost = Invoiceitem::roundUp($cost_full, 2);
 
-        // Custo Total do item.
+        // Custos.
         if($item->signal == '/'):
+            $cost_full  = ($cost_plus_shipping / $item->quantity_final) / $item->amount;
+            $cost       = Invoiceitem::roundUp($cost_full, 2);
             $cost_total = ($cost * $item->amount) * $item->quantity_final;
         else:
+            $cost_full  = ($cost_plus_shipping / $item->quantity_final) * $item->amount;
+            $cost       = Invoiceitem::roundUp($cost_full, 2);
             $cost_total = ($cost / $item->amount) * $item->quantity_final;
         endif;
 
@@ -492,16 +489,12 @@ class Invoiceitem extends Model
 
         // Custo.
         if($item->signal == '/'):
-            $cost_full = ($cost_plus_shipping / $item->quantity_final) / $item->amount;
-        else:
-            $cost_full = ($cost_plus_shipping / $item->quantity_final) * $item->amount;
-        endif;
-        $cost      = Invoiceitem::roundUp($cost_full, 2);
-
-        // Custo Total di item.
-        if($item->signal == '/'):
+            $cost_full  = ($cost_plus_shipping / $item->quantity_final) / $item->amount;
+            $cost       = Invoiceitem::roundUp($cost_full, 2);
             $cost_total = ($cost * $item->amount) * $item->quantity_final;
         else:
+            $cost_full  = ($cost_plus_shipping / $item->quantity_final) * $item->amount;
+            $cost       = Invoiceitem::roundUp($cost_full, 2);
             $cost_total = ($cost / $item->amount) * $item->quantity_final;
         endif;
 
