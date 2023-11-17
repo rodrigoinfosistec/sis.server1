@@ -1,6 +1,6 @@
 <x-layout.modal.modal-add modal="addRegistry" method="registerRegistry" size="">
     <x-layout.modal.modal-add-header icon="bi-clock-history" modal="addRegistry">
-        Registro de Ponto
+        Ponto
 
         <x-slot:identifier>
             {{-- ... --}}
@@ -19,5 +19,10 @@
 
     </x-layout.modal.modal-add-body>
 
-    <x-layout.modal.modal-add-footer/>
+    <div class="modal-footer">
+        <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-success">
+            <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
+            Salvar
+        </button>
+    </div>
 </x-layout.modal.modal-add>

@@ -2,6 +2,7 @@
 	<x-layout.alert/>
 
 	@include('components.' .  $config['name'] . '.modals.mail')
+	@include('components.' .  $config['name'] . '.modals.add-registry')
 	@include('components.' .  $config['name'] . '.modals.detail')
 
 	<div class="container" style="margin:10px 0 50px 0;">
