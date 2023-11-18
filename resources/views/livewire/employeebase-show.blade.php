@@ -34,12 +34,22 @@
 				</div>
 			</div>
 
+			@if($employee->clock_type == 'REGISTRY')
+				<br>
+				<div style="line-height: 1.3;">
+					<a type="button" wire:click="addRegistry({{ (int)Auth()->User()->employee_id }})" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#addRegistryModal" title="Registrar Ponto">
+						Registrar Ponto
+					</a>
+					<x-layout.card.card-header-button-action-add-registry/>
+				</div>
+			@endif
+
 			<hr>
 			<i class="bi-emoji-sunglasses text-muted"></i>
 			<span class="fw-bold">Folgas</span>
 
 			<br>
-			@foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'ASC')->get() as $key => $employeeeasy)
+			@foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'ASC')->limit(10)->get() as $key => $employeeeasy)
 				{{ date_format(date_create($employeeeasy->date), 'd/m/Y') }} <span class="text-muted">{{ App\Models\General::decodeWeek(date_format(date_create($employeeeasy->date), 'l')) }}</span>
 				<br>
 			@endforeach
@@ -50,17 +60,6 @@
 			</div>
 		@endif
 		<hr>
-
-		@if($employee->clock_type == 'REGISTRY')
-			<div style="line-height: 1.3;">
-				<i class="bi-envelope text-muted"></i>
-				<a type="button" wire:click="addRegistry({{ (int)Auth()->User()->employee_id }})" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#addRegistryModal" title="Registrar Ponto">
-					Registrar Ponto
-				</a>
-				<x-layout.card.card-header-button-action-add-registry/>
-			</div>
-			<br>
-		@endif
 
 		<div style="line-height: 1.3;">
 			<i class="bi-clock-history text-muted"></i>
