@@ -21,7 +21,7 @@
 				</span>
 				<br><br>
 
-				<div class="text-muted fw-normal" style="font-size: 8pt; line-height: 1.2">
+				<div class="text-muted fw-normal" style="font-size: 8pt; line-height: 1.2;">
 					@if(!empty($clockbase))
 						ÚLTIMO PERÍODO ATUALIZADO
 						<br>
