@@ -34,7 +34,12 @@
 				</div>
 			</div>
 
-			@if($employee->clock_type == 'REGISTRY')
+			@if(
+				($employee->clock_type == 'REGISTRY')
+				&& (date('l') != 'Sunday')
+				&& (App\Models\Holiday::where('date', date('Y-m-d'))->doesntExist())
+				&& (App\Models\Employeeeasy::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
+			)
 				<br>
 				<div style="line-height: 1.3;">
 					<a type="button" wire:click="addRegistry({{ (int)Auth()->User()->employee_id }})" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#addRegistryModal" title="Registrar Ponto">
