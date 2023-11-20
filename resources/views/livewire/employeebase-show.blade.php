@@ -41,6 +41,34 @@
 						Registrar Ponto
 					</a>
 					<x-layout.card.card-header-button-action-add-registry/>
+
+					@if(App\Models\Clockregistry::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->exists())
+						<br>
+						<div style="line-height: 1.3;">
+							<span class="text-muted" style="font-size: 8pt;">REGISTROS DE HOJE - {{ date('d/m/Y') }}</span>
+							<br>
+							@foreach(App\Models\Clockregistry::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->get() as $key => $clockregistry)
+								@if(!$loop->first)
+									<i class="bi-caret-right-fill text-muted" style="font-size: 9pt;"></i>
+								@endif
+
+								<span class="fw-bold text-danger" style="font-size: 10pt;">{{ $clockregistry->time }}</span>
+							@endforeach
+						</div>
+					@else
+						<br>
+						<div style="line-height: 1.3;">
+							<span class="text-muted" style="font-size: 8pt;">REGISTROS DE HOJE - {{ date('d/m/Y') }}</span>
+							<br>
+							@foreach(App\Models\Clockregistry::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->get() as $key => $clockregistry)
+								@if(!$loop->first)
+									<i class="bi-caret-right-fill text-muted" style="font-size: 9pt;"></i>
+								@endif
+
+								<span class="fw-bold text-danger" style="font-size: 10pt;">{{ $clockregistry->time }}</span>
+							@endforeach
+						</div>
+					@endif
 				</div>
 			@endif
 
@@ -62,7 +90,8 @@
 		<hr>
 
 		<div style="line-height: 1.3;">
-			<i class="bi-clock-history text-muted"></i>			<a type="button" wire:click="mail" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#mailModal" title="Sugest/1達o">
+			<i class="bi-clock-history text-muted"></i>			
+			<a type="button" wire:click="mail" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#mailModal" title="Sugest/1達o">
 				Deixe-nos sua sugestão
 			</a>
 			<x-layout.card.card-header-button-action-mail-suggestion/>
