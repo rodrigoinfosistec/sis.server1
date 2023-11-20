@@ -54,17 +54,17 @@ class Clockregistry extends Model
         endif;
 
         // Verifica se data é domingo.
-        if(date_format(date_create($data['validatedData']['date']),'l') == 'Sunday'):
+        if(date_format(date_create($data['validatedData']['date']), 'l') == 'Sunday'):
             $message = 'Domingo: Dia não autorizado para registrar ponto, será reportado à Gerência.';
         endif;
 
         // Verifica se data é Feriado.
-        if($employee->clock_type == 'REGISTRY'):
+        if(Holiday::where(['date' => $data['validatedData']['date']])->exists()):
             $message = 'Feriado: Dia não autorizado para registrar ponto, será reportado à Gerência.';
         endif;
 
         // Verifica se Funcionário está de Férias na data.
-        if($employee->clock_type == 'REGISTRY'):
+        if(Employeevacationday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
             $message = 'Fárias: Dia não autorizado para registrar ponto, será reportado à Gerência.';
         endif;
 
