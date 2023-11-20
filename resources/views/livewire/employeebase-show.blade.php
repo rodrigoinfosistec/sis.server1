@@ -58,15 +58,7 @@
 					@else
 						<br>
 						<div style="line-height: 1.3;">
-							<span class="text-muted" style="font-size: 8pt;">REGISTROS DE HOJE - {{ date('d/m/Y') }}</span>
-							<br>
-							@foreach(App\Models\Clockregistry::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->get() as $key => $clockregistry)
-								@if(!$loop->first)
-									<i class="bi-caret-right-fill text-muted" style="font-size: 9pt;"></i>
-								@endif
-
-								<span class="fw-bold text-danger" style="font-size: 10pt;">{{ $clockregistry->time }}</span>
-							@endforeach
+							<span class="text-muted" style="font-size: 8pt;">NENHUM REGISTRO DE HOJE - {{ date('d/m/Y') }}</span>
 						</div>
 					@endif
 				</div>
