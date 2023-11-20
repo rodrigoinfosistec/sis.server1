@@ -118,7 +118,7 @@ class EmployeebaseShow extends Component
      */
     public function addRegistry(int $employee_id)
     {
-        
+        // ...
     }
         public function registerRegistry()
         {
