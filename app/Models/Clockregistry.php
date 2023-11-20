@@ -49,7 +49,7 @@ class Clockregistry extends Model
         endif;
 
         // Verifica se o tipo de registro do Funcionário é 'ALTERNATIVO'.
-        if($employee->clock_type == 'REGISTRY'):
+        if($employee->clock_type != 'REGISTRY'):
             $message = 'Sem permissão para utilizar esta função.';
         endif;
 
