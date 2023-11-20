@@ -54,7 +54,7 @@ class Clockregistry extends Model
         endif;
 
         // Verifica se data é domingo.
-        if($employee->clock_type == 'REGISTRY'):
+        if(date_format(date_create($data['validatedData']['date']),'l') == 'Sunday'):
             $message = 'Domingo: Dia não autorizado para registrar ponto, será reportado à Gerência.';
         endif;
 
@@ -65,22 +65,22 @@ class Clockregistry extends Model
 
         // Verifica se Funcionário está de Férias na data.
         if($employee->clock_type == 'REGISTRY'):
-            $message = 'Feriado: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+            $message = 'Fárias: Dia não autorizado para registrar ponto, será reportado à Gerência.';
         endif;
 
         // Verifica se Funcionário está de Licença na data.
         if($employee->clock_type == 'REGISTRY'):
-            $message = 'Feriado: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+            $message = 'Licença médica: Dia não autorizado para registrar ponto, será reportado à Gerência.';
         endif;
 
         // Verifica se Funcionário está de Atestado na data.
         if($employee->clock_type == 'REGISTRY'):
-            $message = 'Feriado: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+            $message = 'Atestado médico: Dia não autorizado para registrar ponto, será reportado à Gerência.';
         endif;
 
         // Verifica se Funcionário Faltou na data.
         if($employee->clock_type == 'REGISTRY'):
-            $message = 'Feriado: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+            $message = 'Falta computada: Dia não autorizado para registrar ponto, será reportado à Gerência.';
         endif;
 
         // Desvio.
