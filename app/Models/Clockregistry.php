@@ -65,22 +65,37 @@ class Clockregistry extends Model
 
         // Verifica se Funcionário está de Férias na data.
         if(Employeevacationday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
-            $message = 'Fárias: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+            $message = 'Férias: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+        endif;
+
+        // Verifica se Funcionário está de Folga na data.
+        if(Employeeeasyday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
+            $message = 'Falta computada: Dia não autorizado para registrar ponto, será reportado à Gerência.';
         endif;
 
         // Verifica se Funcionário está de Licença na data.
-        if($employee->clock_type == 'REGISTRY'):
+        if(Employeelicenseday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
             $message = 'Licença médica: Dia não autorizado para registrar ponto, será reportado à Gerência.';
         endif;
 
         // Verifica se Funcionário está de Atestado na data.
-        if($employee->clock_type == 'REGISTRY'):
+        if(Employeeattestday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
             $message = 'Atestado médico: Dia não autorizado para registrar ponto, será reportado à Gerência.';
         endif;
 
         // Verifica se Funcionário Faltou na data.
-        if($employee->clock_type == 'REGISTRY'):
+        if(Employeeabsenceday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
             $message = 'Falta computada: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+        endif;
+
+        // Verifica se horário está entre o horário autorizado.
+        $t = explode(':', $data['validatedData']['time']);
+        $time = ($t[0] * 60) + $t[1];
+
+        $min = 450;  // 07:30.
+        $max = 1200; // 20:00.
+        if(($time >= $min) || ($time <= $max)):
+            $message = 'Registro de Ponto fora do horário autorizado., falar com sua Gerência';
         endif;
 
         // Desvio.
