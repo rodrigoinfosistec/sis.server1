@@ -69,7 +69,7 @@ class Clockregistry extends Model
         endif;
 
         // Verifica se Funcionário está de Folga na data.
-        if(Employeeeasyday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
+        if(Employeeeasy::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
             $message = 'Falta computada: Dia não autorizado para registrar ponto, será reportado à Gerência.';
         endif;
 
