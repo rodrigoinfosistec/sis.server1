@@ -36,7 +36,7 @@
     </x-layout.modal.modal-add-body-group-item>
 
     <x-layout.modal.modal-add-body-group-item columms="6">
-        <x-layout.modal.modal-add-body-group-item-label item="time" title="HORAS A DESCONTAR" plus="none"/>
+        <x-layout.modal.modal-add-body-group-item-label item="time" title="HORÁRIO" plus="none"/>
 
         <input type="time" wire:model="time" class="form-control form-control-sm" id="time">
 

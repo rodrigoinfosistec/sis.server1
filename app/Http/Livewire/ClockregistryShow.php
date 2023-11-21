@@ -30,9 +30,11 @@ class ClockregistryShow extends Component
     public $mail;
     public $comment;
 
+    public $clockregistry_id;
     public $employee_id;
     public $employee_name;
     public $date;
+    public $date_encode;
     public $time;
     public $created;
 
@@ -52,6 +54,10 @@ class ClockregistryShow extends Component
             'report_id' => ['required'],
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
+
+            'employee_id' => ['required'],
+            'date'        => ['required'],
+            'time'        => ['required'],
         ];
     }
 
@@ -79,11 +85,13 @@ class ClockregistryShow extends Component
         $this->mail      = '';
         $this->comment   = '';
 
-        $this->employee_id   = '';
-        $this->employee_name = '';
-        $this->date          = '';
-        $this->time          = '';
-        $this->created       = '';
+        $this->clockregistry_id = '';
+        $this->employee_id      = '';
+        $this->employee_name    = '';
+        $this->date             = '';
+        $this->date_encode      = '';
+        $this->time             = '';
+        $this->created          = '';
     }
 
     /**
@@ -165,13 +173,13 @@ class ClockregistryShow extends Component
         $clockregistry = Clockregistry::find($clockregistry_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->employeepay_id = $employeepay->id;
-        $this->employee_id     = $employeepay->employee_id;
-        $this->employee_name   = $employeepay->employee_name;
-        $this->date            = General::decodedate($employeepay->date);
-        $this->date_encode     = $employeepay->date;
-        $this->time            = $employeepay->time;
-        $this->created         = $employeepay->created_at->format('d/m/Y H:i:s');
+        $this->employeepay_id = $clockregistry->id;
+        $this->employee_id    = $clockregistry->employee_id;
+        $this->employee_name  = $clockregistry->employee_name;
+        $this->date           = General::decodedate($clockregistry->date);
+        $this->date_encode    = $clockregistry->date;
+        $this->time           = $clockregistry->time;
+        $this->created        = $clockregistry->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
         {
