@@ -3,6 +3,6 @@
         $('#generateModal').modal('hide');
         $('#mailModal').modal('hide');
 
-        $('#addEasyModal').modal('hide');
+        $('#addModal').modal('hide');
     })
 </script>
