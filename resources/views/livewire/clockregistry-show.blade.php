@@ -6,17 +6,14 @@
 @include('components.' .  $config['name'] . '.modals.mail')
 
 {{-- plus --}}
-@include('components.' .  $config['name'] . '.modals.add-txt')
-@include('components.' .  $config['name'] . '.modals.add-xml')
-@include('components.' .  $config['name'] . '.modals.add')
+@include('components.' .  $config['name'] . '.modals.add-registry')
 
 {{-- info --}}
 
 
 {{-- ações --}}
-@include('components.' .  $config['name'] . '.modals.detail')
-@include('components.' .  $config['name'] . '.modals.edit')
-@include('components.' .  $config['name'] . '.modals.erase')
+
+
 {{-- modal --}}
 
     <x-layout.alert/>
@@ -53,9 +50,7 @@
                 <x-layout.card.card-header-button-more>
 
 {{-- botão add --}}
-<x-layout.card.card-header-button-more-plus/>
-<x-layout.card.card-header-button-more-plus-xml/>
-<x-layout.card.card-header-button-more-plus-txt/>
+<x-layout.card.card-header-button-more-plus-muted/>
 {{-- botão add --}}
 
                 </x-layout.card.card-header-button-more>
