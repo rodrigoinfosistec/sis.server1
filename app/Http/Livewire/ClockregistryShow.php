@@ -24,7 +24,7 @@ class ClockregistryShow extends Component
     public $config;
 
     public $search = '';
-    public $filter = 'date';
+    public $filter = 'employee_id';
 
     public $report_id;
     public $mail;
@@ -33,7 +33,6 @@ class ClockregistryShow extends Component
     public $employee_id;
     public $date;
     public $time;
-    public $code;
     public $created;
 
     /**
@@ -52,8 +51,6 @@ class ClockregistryShow extends Component
             'report_id' => ['required'],
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
-
-            'code' => ['required', 'between:4,10'],
         ];
     }
 
@@ -84,7 +81,6 @@ class ClockregistryShow extends Component
         $this->employee_id = '';
         $this->date        = '';
         $this->time        = '';
-        $this->code        = '';
         $this->created     = '';
     }
 
@@ -100,6 +96,14 @@ class ClockregistryShow extends Component
      * Renderiza página.
      */
     public function render(){
+        // Inicializa variável.
+        $array = [];
+
+        // Monta o array.
+        foreach(Employee::where('company_id', Auth()->user()->company_id)->get() as $key => $employee):
+            $array[] =  $employee->id;
+        endforeach;
+
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
             'existsItem'   => Employee::exists(),
@@ -107,34 +111,29 @@ class ClockregistryShow extends Component
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Clockregistry::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
-                            ])->orderBy('date', 'DESC')->paginate(12),
+                                ])->whereIn('employee_id', $array)->orderBy('date', 'DESC')->orderBy('time', 'ASC')->paginate(100),
         ]);
     }
 
     /**
-     * add()
-     *  register()
+     * addRegistry()
+     *  registerRegistry()
      */
-    public function add()
+    public function addRegistry(int $employee_id)
     {
-        //...
+        // Employee id.
+        $this->employee_id = $employee_id;
     }
-        public function register()
+        public function registerRegistry()
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'code' => ['required', 'between:4,10'],
+                'date' => ['required'],
+                'time' => ['required'],
             ]);
 
             // Estende $validatedData.
-            if(Employee::where('code', $validatedData['code'])->exists()):
-                $validatedData['employee_id'] = Employee::where('code', $validatedData['code'])->first()->id;
-                $validatedData['date']        = date('Y-m-d');
-                $validatedData['time']        = date('H:i');
-                $validatedData['valid']       = true;
-            else:
-                $validatedData['valid'] = false;
-            endif;
+            $validatedData['employee_id'] = $this->employee_id;
 
             // Define $data.
             $data['config']        = $this->config;
@@ -164,23 +163,7 @@ class ClockregistryShow extends Component
     }
         public function sire()
         {
-            // Define $data.
-            $data['config'] = $this->config;
-            $data['filter'] = $this->filter;
-            $data['search'] = $this->search;
-
-            // Valida geração de relatório.
-            $valid = Employee::validateGenerate($data);
-
-            // Gera relatório.
-            if ($valid) Employee::generate($data);
-
-            // Executa dependências.
-            if ($valid) Employee::dependencyGenerate($data);
-
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
+            // ...
         }
 
     /**
@@ -193,28 +176,6 @@ class ClockregistryShow extends Component
     }
         public function send()
         {
-            // Valida campos.
-            $validatedData = $this->validate([
-                'report_id' => ['required'],
-                'mail'      => ['required', 'email', 'between:2,255'],
-                'comment'   => ['nullable', 'between:2,255'],
-            ]);
-
-            // Define $data
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
-
-            // Valida envio do e-mail.
-            $valid = Employee::validateMail($data);
-
-            // Envia e-mail.
-            if ($valid) Employee::mail($data);
-
-            // Executa dependências.
-            if ($valid) Employee::dependencyMail($data);
-
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
+            // ...
         }
 }
