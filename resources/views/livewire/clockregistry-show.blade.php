@@ -42,7 +42,7 @@
                 <x-layout.card.card-header-button-more>
 
 {{-- botão add --}}
-<x-layout.card.card-header-button-more-plus-muted/>
+<x-layout.card.card-header-button-more-plus/>
 {{-- botão add --}}
 
                 </x-layout.card.card-header-button-more>
@@ -97,7 +97,7 @@
         <x-layout.card.card-body-content-table-body-line-cell-id-badge>
             {{ $item->time }}
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
-        
+
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
             {{ $item->created_at->format('d/m/y') }}
         </x-layout.card.card-body-content-table-body-line-cell-id-start>

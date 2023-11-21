@@ -113,7 +113,7 @@ class ClockregistryShow extends Component
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Clockregistry::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
-                                ])->whereIn('employee_id', $array)->orderBy('date', 'DESC')->orderBy('time', 'ASC')->paginate(100),
+                                ])->whereIn('employee_id', $array)->orderBy('employee_name', 'ASC')->orderBy('date', 'DESC')->orderBy('time', 'DESC')->paginate(100),
         ]);
     }
 
