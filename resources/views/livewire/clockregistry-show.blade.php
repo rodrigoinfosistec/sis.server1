@@ -6,12 +6,17 @@
 @include('components.' .  $config['name'] . '.modals.mail')
 
 {{-- plus --}}
-@include('components.' .  $config['name'] . '.modals.add-registry')
+@include('components.' .  $config['name'] . '.modals.add-txt')
+@include('components.' .  $config['name'] . '.modals.add-xml')
+@include('components.' .  $config['name'] . '.modals.add')
 
 {{-- info --}}
 
-{{-- ações --}}
 
+{{-- ações --}}
+@include('components.' .  $config['name'] . '.modals.detail')
+@include('components.' .  $config['name'] . '.modals.edit')
+@include('components.' .  $config['name'] . '.modals.erase')
 {{-- modal --}}
 
     <x-layout.alert/>
@@ -23,9 +28,17 @@
                     <x-layout.card.card-header-button-action-refresh href="{{ $config['name'] }}"/>
 
 {{-- botão relatório --}}
-<x-layout.card.card-header-button-action-generate-muted/>
+@if($existsItem)
+    <x-layout.card.card-header-button-action-generate/>
+@else
+    <x-layout.card.card-header-button-action-generate-muted/>
+@endif
 
-<x-layout.card.card-header-button-action-mail-muted/>
+@if($existsReport)
+    <x-layout.card.card-header-button-action-mail/>
+@else
+    <x-layout.card.card-header-button-action-mail-muted/>
+@endif
 {{-- botão relatório --}}
 
                     @if($existsReport)
@@ -40,7 +53,9 @@
                 <x-layout.card.card-header-button-more>
 
 {{-- botão add --}}
-<x-layout.card.card-header-button-more-plus-muted/>
+<x-layout.card.card-header-button-more-plus/>
+<x-layout.card.card-header-button-more-plus-xml/>
+<x-layout.card.card-header-button-more-plus-txt/>
 {{-- botão add --}}
 
                 </x-layout.card.card-header-button-more>
@@ -53,13 +68,21 @@
                     <x-layout.card.card-body-navigation-search-filter>
 
 {{-- filtro nome --}}
-<option value="code">CÓDIGO</option>
+<option value="cnpj">CNPJ</option>
+<option value="name">RAZÃO SOCIAL</option>
+<option value="nickname">NOME FANTASIA</option>
+<option value="price">TIPO PREÇO</option>
+<option value="created_at">DATA CADASTRO</option>
 {{-- filtro nome --}}
 
                         </x-layout.card.card-body-navigation-search-filter>
 
 {{-- filtro tipo--}}
-<x-layout.card.card-body-navigation-search-type-search/>
+@if($filter == 'created_at')
+    <x-layout.card.card-body-navigation-search-type-date/>
+@else
+    <x-layout.card.card-body-navigation-search-type-search/>
+@endif
 {{-- filtro tipo--}}
 
                 </x-layout.card.card-body-navigation-search>
@@ -80,7 +103,41 @@
             <x-layout.card.card-body-content>
                 <x-layout.card.card-body-content-table>
                     <x-layout.card.card-body-content-table-body>
-                        <x-layout.card.card-body-content-table-body-item-none/>
+                        @if($list->count() > 0)
+                            @foreach($list as $item)
+                                <x-layout.card.card-body-content-table-body-line>
+
+{{-- conteúdo --}}  
+<x-layout.card.card-body-content-table-body-line-cell width="">
+    <x-layout.card.card-body-content-table-body-line-cell-id>
+        <x-layout.card.card-body-content-table-body-line-cell-id-badge>
+            {{ str_pad($item->id, Str::length($list->count()), '0', STR_PAD_LEFT); }}
+        </x-layout.card.card-body-content-table-body-line-cell-id-badge>
+        
+        <x-layout.card.card-body-content-table-body-line-cell-id-start>
+            {{-- --}}
+        </x-layout.card.card-body-content-table-body-line-cell-id-start>
+
+        <x-layout.card.card-body-content-table-body-line-cell-id-end>
+            {{ $item->created_at->format('d/m/y') }}
+        </x-layout.card.card-body-content-table-body-line-cell-id-end>
+    </x-layout.card.card-body-content-table-body-line-cell-id>
+
+    <x-layout.card.card-body-content-table-body-line-cell-content>
+        {{ $item->name }}
+    </x-layout.card.card-body-content-table-body-line-cell-content>
+</x-layout.card.card-body-content-table-body-line-cell>
+
+<x-layout.card.card-body-content-table-body-line-cell-action width="80">
+    <x-layout.card.card-body-content-table-body-line-cell-action-add-registry :id="$item->id"/>
+</x-layout.card.card-body-content-table-body-line-cell-action>
+{{-- conteúdo --}} 
+
+                                </x-layout.card.card-body-content-table-body-line>
+                            @endforeach
+                        @else
+                            <x-layout.card.card-body-content-table-body-item-none/>
+                        @endif
                     </x-layout.card.card-body-content-table-body>
                 </x-layout.card.card-body-content-table>
 
