@@ -6,7 +6,7 @@
 @include('components.' .  $config['name'] . '.modals.mail')
 
 {{-- plus --}}
-@include('components.' .  $config['name'] . '.modals.add')
+@include('components.' .  $config['name'] . '.modals.add-registry')
 
 {{-- info --}}
 
