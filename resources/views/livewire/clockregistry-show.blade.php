@@ -95,7 +95,7 @@
 <x-layout.card.card-body-content-table-body-line-cell width="">
     <x-layout.card.card-body-content-table-body-line-cell-id>
         <x-layout.card.card-body-content-table-body-line-cell-id-badge>
-            {{ $item->time }}
+            <span style="font-size: 7pt;">{{ $item->time }}</span>
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
