@@ -151,4 +151,58 @@ class Clockregistry extends Model
         return true;
     }
 
+    /**
+     * Valida exclusão.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateErase(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de exclusão.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyErase(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
+     * Exclui.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function erase(array $data) : bool {
+        // Exclui.
+        Clockregistry::find($data['validatedData']['clockregistry_id'])->delete();
+
+        // Auditoria.
+        Audit::clockregistryErase($data);
+
+        // Mensagem.
+        $message = $data['config']['title'] . ' do funcionário ' .  $data['validatedData']['employee_name'] . ' excluído com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
 }
