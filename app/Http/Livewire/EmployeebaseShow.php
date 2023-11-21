@@ -123,9 +123,10 @@ class EmployeebaseShow extends Component
         public function registerRegistry()
         {
             // Estende $validatedData.
-            $validatedData['employee_id'] = Auth()->User()->employee_id;
-            $validatedData['date']        = date('Y-m-d');
-            $validatedData['time']        = date('H:i');
+            $validatedData['employee_id']   = Auth()->User()->employee_id;
+            $validatedData['employee_name'] = Employee::find(Auth()->User()->employee_id)->name;
+            $validatedData['date']          = date('Y-m-d');
+            $validatedData['time']          = date('H:i');
 
             // Define $data.
             $data['config']        = $this->config;

@@ -18,6 +18,7 @@ class Clockregistry extends Model
      */
     protected $fillable = [
         'employee_id',
+        'employee_name',
 
         'date',
         'time',
@@ -95,7 +96,7 @@ class Clockregistry extends Model
         $min = 450;  // 07:30.
         $max = 1200; // 20:00.
         if(($time < $min) || ($time > $max)):
-            $message = 'Registro de Ponto fora do horário autorizado., falar com sua Gerência';
+            $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
         endif;
 
         // Desvio.
@@ -118,9 +119,10 @@ class Clockregistry extends Model
     public static function add(array $data) : bool {
         // Cadastra.
         Clockregistry::create([
-            'employee_id' => $data['validatedData']['employee_id'],
-            'date'        => $data['validatedData']['date'],
-            'time'        => $data['validatedData']['time'],
+            'employee_id'   => $data['validatedData']['employee_id'],
+            'employee_name' => $data['validatedData']['employee_name'],
+            'date'          => $data['validatedData']['date'],
+            'time'          => $data['validatedData']['time'],
         ]);
 
         // After.
