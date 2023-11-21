@@ -2550,7 +2550,7 @@ class Audit extends Model
     }
     
     /**
-     * Auditoria Clockfunded Add.
+     * Auditoria Clock Registry Add.
      * @var array $data
      * @var object $after
      * 
@@ -2567,6 +2567,29 @@ class Audit extends Model
                 'employee_id=' . $after->employee_id . ',' .
                 'date='        . $after->date        . ',' .
                 'time='        . $after->time        . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Clock Registry Erase.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function clockregistryErase(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
+                'id='            . $data['validatedData']['clockregistry_id'] . ',' .
+                'employee_id='   . $data['validatedData']['employee_id']      . ',' .
+                'date='          . $data['validatedData']['date']             . ',' .
+                'time='          . $data['validatedData']['time']             . ',' .
             '}',
         ]);
 
