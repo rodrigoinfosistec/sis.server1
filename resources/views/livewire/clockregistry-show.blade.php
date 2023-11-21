@@ -25,17 +25,9 @@
                     <x-layout.card.card-header-button-action-refresh href="{{ $config['name'] }}"/>
 
 {{-- botão relatório --}}
-@if($existsItem)
-    <x-layout.card.card-header-button-action-generate/>
-@else
-    <x-layout.card.card-header-button-action-generate-muted/>
-@endif
+<x-layout.card.card-header-button-action-generate-muted/>
 
-@if($existsReport)
-    <x-layout.card.card-header-button-action-mail/>
-@else
-    <x-layout.card.card-header-button-action-mail-muted/>
-@endif
+<x-layout.card.card-header-button-action-mail-muted/>
 {{-- botão relatório --}}
 
                     @if($existsReport)
@@ -103,20 +95,20 @@
 <x-layout.card.card-body-content-table-body-line-cell width="">
     <x-layout.card.card-body-content-table-body-line-cell-id>
         <x-layout.card.card-body-content-table-body-line-cell-id-badge>
-            {{ str_pad($item->id, Str::length($list->count()), '0', STR_PAD_LEFT); }}
+            {{ $item->time }}
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
         
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            {{-- --}}
+            {{ $item->created_at->format('d/m/y') }}
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            {{ $item->created_at->format('d/m/y') }}
+            {{-- --}}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
-        {{ $item->name }}
+        {{ $item->employee_name }}
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
