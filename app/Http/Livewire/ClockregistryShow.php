@@ -156,6 +156,52 @@ class ClockregistryShow extends Component
         }
 
     /**
+     * erase()
+     *  exclude()
+     */
+    public function erase(int $clockregistry_id)
+    {
+        // Pagamento de Horas.
+        $clockregistry = Clockregistry::find($clockregistry_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->employeepay_id = $employeepay->id;
+        $this->employee_id     = $employeepay->employee_id;
+        $this->employee_name   = $employeepay->employee_name;
+        $this->date            = General::decodedate($employeepay->date);
+        $this->date_encode     = $employeepay->date;
+        $this->time            = $employeepay->time;
+        $this->created         = $employeepay->created_at->format('d/m/Y H:i:s');
+    }
+        public function exclude()
+        {
+            // Define $validatedData.
+            $validatedData['employeepay_id'] = $this->employeepay_id;
+            $validatedData['employee_id']     = $this->employee_id;
+            $validatedData['employee_name']   = $this->employee_name;
+            $validatedData['date']            = $this->date;
+            $validatedData['date_encode']     = $this->date_encode;
+            $validatedData['time']            = $this->time;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida exclusão.
+            $valid = Employeepay::validateErase($data);
+
+            // Executa dependências.
+            if ($valid) Employeepay::dependencyErase($data);
+
+            // Exclui.
+            if ($valid) Employeepay::erase($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
      * generate()
      *  sire()
      */
