@@ -113,34 +113,29 @@ class ClockregistryShow extends Component
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Clockregistry::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
-                                ])->whereIn('employee_id', $array)->orderBy('employee_name', 'ASC')->orderBy('date', 'DESC')->orderBy('time', 'DESC')->paginate(100),
+                                ])->whereIn('employee_id', $array)->orderBy('date', 'DESC')->orderBy('employee_name', 'ASC')->orderBy('time', 'DESC')->paginate(100),
         ]);
     }
 
     /**
-     * addRegistry()
-     *  registerRegistry()
+     * add()
+     *  register()
      */
-    public function addRegistry(int $employee_id)
+    public function add()
     {
-        // Employee id.
-        $employee = Employee::find($employee_id);
-
-        // Inicializa variáveis dinâmicas.
-        $this->employee_id   = $employee_id;
-        $this->employee_name = $employee_name;
+        // ...
     }
-        public function registerRegistry()
+        public function register()
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'date' => ['required'],
-                'time' => ['required'],
+                'employee_id' => ['required'],
+                'date'        => ['required'],
+                'time'        => ['required'],
             ]);
 
             // Estende $validatedData.
-            $validatedData['employee_id']   = $this->employee_id;
-            $validatedData['employee_name'] = $this->employee_name;
+            $validatedData['employee_name'] = Employee::find($validatedData['employee_id'])->name;
 
             // Define $data.
             $data['config']        = $this->config;
