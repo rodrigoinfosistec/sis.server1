@@ -68,17 +68,14 @@
                     <x-layout.card.card-body-navigation-search-filter>
 
 {{-- filtro nome --}}
-<option value="cnpj">CNPJ</option>
-<option value="name">RAZÃO SOCIAL</option>
-<option value="nickname">NOME FANTASIA</option>
-<option value="price">TIPO PREÇO</option>
-<option value="created_at">DATA CADASTRO</option>
+<option value="employee_name">FUNCIONÁRIO</option>
+<option value="date">DATA</option>
 {{-- filtro nome --}}
 
                         </x-layout.card.card-body-navigation-search-filter>
 
 {{-- filtro tipo--}}
-@if($filter == 'created_at')
+@if($filter == 'date')
     <x-layout.card.card-body-navigation-search-type-date/>
 @else
     <x-layout.card.card-body-navigation-search-type-search/>
