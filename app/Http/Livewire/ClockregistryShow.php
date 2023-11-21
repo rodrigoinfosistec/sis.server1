@@ -31,6 +31,7 @@ class ClockregistryShow extends Component
     public $comment;
 
     public $employee_id;
+    public $employee_name;
     public $date;
     public $time;
     public $created;
@@ -78,10 +79,11 @@ class ClockregistryShow extends Component
         $this->mail      = '';
         $this->comment   = '';
 
-        $this->employee_id = '';
-        $this->date        = '';
-        $this->time        = '';
-        $this->created     = '';
+        $this->employee_id   = '';
+        $this->employee_name = '';
+        $this->date          = '';
+        $this->time          = '';
+        $this->created       = '';
     }
 
     /**
@@ -122,7 +124,11 @@ class ClockregistryShow extends Component
     public function addRegistry(int $employee_id)
     {
         // Employee id.
-        $this->employee_id = $employee_id;
+        $employee = Employee::find($employee_id);
+
+        // Inicializa variáveis dinâmicas.
+        $this->employee_id   = $employee_id;
+        $this->employee_name = $employee_name;
     }
         public function registerRegistry()
         {
@@ -133,7 +139,8 @@ class ClockregistryShow extends Component
             ]);
 
             // Estende $validatedData.
-            $validatedData['employee_id'] = $this->employee_id;
+            $validatedData['employee_id']   = $this->employee_id;
+            $validatedData['employee_name'] = $this->employee_name;
 
             // Define $data.
             $data['config']        = $this->config;
