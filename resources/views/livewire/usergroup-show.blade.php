@@ -130,7 +130,7 @@
         @if($item->name == 'ADMINISTRADOR')
             <span class="text-muted">PERMISSÃO TOTAL</span>
         @elseif($item->name == 'FUNCIONARIO')
-            <span class="text-muted">DETALHES FUNCIONÁRIO</span>
+            <span class="text-muted">ESPAÇO DO COLABORADOR</span>
         @endif
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
