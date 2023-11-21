@@ -1,7 +1,4 @@
-<div wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-
+<x-layout.modal.modal-add modal="add" method="register" size="">
     <x-layout.modal.modal-add-header icon="bi-plus-circle-fill" modal="add">
         {{ $config['title'] }}
 
@@ -15,19 +12,41 @@
 {{-- conteúdo --}}
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="12">
-        <x-layout.modal.modal-add-body-group-item-label item="code" title="CÓDIGO" plus="none"/>
+        <x-layout.modal.modal-add-body-group-item-label item="employee_id" title="FUNCIONÁRIO" plus="employee"/>
 
-        <input type="password" wire:model="code" class="form-control form-control-sm" id="code">
+        <select wire:model="employee_id" class="form-select form-select-sm text-uppercase" id="employee_id">
+            <x-layout.modal.modal-add-body-group-item-option-muted/>
 
-        <x-layout.modal.modal-add-body-group-item-error item="code" message="$message"/>
+            @foreach(App\Models\Employee::where(['company_id' => Auth()->user()->company_id, 'status' => true])->orderBy('name')->get() as $key => $employee)
+                <option value="{{ $employee->id }}">{{ $employee->name }}</option>
+            @endforeach
+        </select>
+
+        <x-layout.modal.modal-add-body-group-item-error item="employee_id" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
+
+<x-layout.modal.modal-add-body-group>
+    <x-layout.modal.modal-add-body-group-item columms="6">
+        <x-layout.modal.modal-add-body-group-item-label item="date" title="DATA" plus="none"/>
+
+        <input type="date" wire:model="date" class="form-control form-control-sm" id="date">
+
+        <x-layout.modal.modal-add-body-group-item-error item="date" message="$message"/>
+    </x-layout.modal.modal-add-body-group-item>
+
+    <x-layout.modal.modal-add-body-group-item columms="6">
+        <x-layout.modal.modal-add-body-group-item-label item="time" title="HORAS A DESCONTAR" plus="none"/>
+
+        <input type="time" wire:model="time" class="form-control form-control-sm" id="time">
+
+        <x-layout.modal.modal-add-body-group-item-error item="time" message="$message"/>
+    </x-layout.modal.modal-add-body-group-item>
+</x-layout.modal.modal-add-body-group>
+
 {{-- conteúdo --}}
 
     </x-layout.modal.modal-add-body>
 
     <x-layout.modal.modal-add-footer/>
-            </form>
-        </div>
-    </div>
-</div>
+</x-layout.modal.modal-add>
