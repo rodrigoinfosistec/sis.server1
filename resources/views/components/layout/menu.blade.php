@@ -57,6 +57,11 @@
                                 <i class="{{ App\Models\Page::getIconByName('employee') }}"></i> {{ App\Models\Page::getTitleByName('employee') }}
                             </x-responsive-nav-link>
 
+                            {{-- Registro de ponto --}}
+                            <x-responsive-nav-link href="{{ route('clockregistry') }}" :active="request()->routeIs('clockregistry')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('clockregistry') }}"></i> {{ App\Models\Page::getTitleByName('clockregistry') }}
+                            </x-responsive-nav-link>
+
                             {{-- Feriado --}}
                             <x-responsive-nav-link href="{{ route('holiday') }}" :active="request()->routeIs('holiday')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('holiday') }}"></i> {{ App\Models\Page::getTitleByName('holiday') }}
