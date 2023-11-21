@@ -4,5 +4,6 @@
         $('#mailModal').modal('hide');
 
         $('#addModal').modal('hide');
+        $('#eraseModal').modal('hide');
     })
 </script>

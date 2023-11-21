@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Report;
+use App\Models\General;
 
 use App\Models\Employee;
 use App\Models\Clockregistry;
@@ -173,13 +174,13 @@ class ClockregistryShow extends Component
         $clockregistry = Clockregistry::find($clockregistry_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->employeepay_id = $clockregistry->id;
-        $this->employee_id    = $clockregistry->employee_id;
-        $this->employee_name  = $clockregistry->employee_name;
-        $this->date           = General::decodedate($clockregistry->date);
-        $this->date_encode    = $clockregistry->date;
-        $this->time           = $clockregistry->time;
-        $this->created        = $clockregistry->created_at->format('d/m/Y H:i:s');
+        $this->clockregistry_id = $clockregistry->id;
+        $this->employee_id      = $clockregistry->employee_id;
+        $this->employee_name    = $clockregistry->employee_name;
+        $this->date             = General::decodedate($clockregistry->date);
+        $this->date_encode      = $clockregistry->date;
+        $this->time             = $clockregistry->time;
+        $this->created          = $clockregistry->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
         {
