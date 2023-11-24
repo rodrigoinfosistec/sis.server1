@@ -114,7 +114,7 @@
                             </div>
 
                             <x-dropdown-link href="{{ route('profile.show') }}" class="text-decoration-none">
-                                <i class="bi-gear"></i> {{ __('Profile') }}
+                                <i class="bi-gear-fill"></i> {{ __('Profile') }}
                             </x-dropdown-link>
 
                             <x-dropdown-link href="{{ route('usergroup') }}" class="text-decoration-none">
@@ -200,7 +200,7 @@
             <div class="mt-3 space-y-1">
                 {{-- Account Management --}}
                 <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')" class="text-decoration-none">
-                    <i class="bi-gear"></i> {{ __('Profile') }}
+                    <i class="bi-gear-fill"></i> {{ __('Profile') }}
                 </x-responsive-nav-link>
 
                 <x-responsive-nav-link href="{{ route('usergroup') }}" :active="request()->routeIs('usergroup')" class="text-decoration-none">

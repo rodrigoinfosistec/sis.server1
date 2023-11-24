@@ -130,7 +130,7 @@
                             @if(Auth()->User()->usergroup_id != App\Models\Usergroup::where('name', 'FUNCIONARIO')->first()->id)
                                 {{-- Profile --}}
                                 <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')" class="text-decoration-none">
-                                    <i class="bi-gear"></i> {{ __('Profile') }}
+                                    <i class="bi-gear-fill"></i> {{ __('Profile') }}
                                 </x-responsive-nav-link>
 
                                 {{-- Grupo de Usuário --}}
