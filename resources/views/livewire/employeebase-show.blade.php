@@ -78,7 +78,7 @@
 			<span class="fw-bold">Folgas</span>
 
 			<br>
-			@foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'ASC')->limit(10)->get() as $key => $employeeeasy)
+			@foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'DESC')->limit(10)->get() as $key => $employeeeasy)
 				{{ date_format(date_create($employeeeasy->date), 'd/m/Y') }} <span class="text-muted">{{ App\Models\General::decodeWeek(date_format(date_create($employeeeasy->date), 'l')) }}</span>
 				<br>
 			@endforeach
