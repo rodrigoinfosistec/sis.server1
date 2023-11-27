@@ -85,7 +85,7 @@
 		@else
 			<div style="font-size: 15pt;">
 				<i class="bi-archive text-muted"></i>
-				<span class="text-muted">Usuário não está vinculado e nenhum Funcionário.</span>
+				<span class="text-muted">Usuário não está vinculado a nenhum Funcionário.</span>
 			</div>
 		@endif
 		<hr>
