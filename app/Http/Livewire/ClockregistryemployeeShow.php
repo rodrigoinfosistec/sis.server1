@@ -229,6 +229,54 @@ class ClockregistryemployeeShow extends Component
         }
 
     /**
+     * addEmployee()
+     *  registerEmployee()
+     */
+    public function addEmployee(int $id)
+    {
+        // Funcionário.
+        $Employee = Employee::find($id);
+
+        // Define propriedades dinâmicas.
+        $this->employee_id = $Employee->id;
+        $this->pis         = $Employee->pis;
+        $this->name        = $Employee->name;
+
+        // Ultimo dia do mês.
+        $x = explode('-', $this->month);
+        $this->month_end = cal_days_in_month(CAL_GREGORIAN, $x[1], $x[0]);
+    }
+        public function registerEmployee()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'date' => ['required'],
+                'time' => ['required'],
+            ]);
+
+            // Estende $validatedData.
+            $validatedData['employee_id']   = $this->employee_id;
+            $validatedData['employee_name'] = Employee::find($this->employee_id)->name;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = Clockregistry::validateAdd($data);
+
+            // Cadastra.
+            if ($valid) Clockregistry::add($data);
+
+            // Executa dependências.
+            if ($valid) Clockregistry::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
      * editDate()
      *  modernizeDate()
      */
