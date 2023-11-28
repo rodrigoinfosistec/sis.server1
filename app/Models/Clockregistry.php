@@ -246,6 +246,70 @@ class Clockregistry extends Model
     }
 
     /**
+     * Valida edição de data.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateEditDate(array $data) : bool {
+        $message = null;
+
+        // Funcionário.
+        $employee = Employee::find($data['validatedData']['employee_id']);
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Edita Data.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function editDate(array $data) : bool {
+        // Cadastra.
+        Clockregistry::create([
+            'employee_id'   => $data['validatedData']['employee_id'],
+            'employee_name' => $data['validatedData']['employee_name'],
+            'date'          => $data['validatedData']['date'],
+            'time'          => $data['validatedData']['time'],
+        ]);
+
+        // After.
+        $after = Clockregistry::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date'], 'time' => $data['validatedData']['time']])->first();
+
+        // Auditoria.
+        Audit::clockregistryEditDate($data, $after);
+
+        // Mensagem.
+        $message = 'Registro de ponto em ' . date_format(date_create($data['validatedData']['date']), 'd/m/Y') . ' ' . $data['validatedData']['time'] . ' cadastrado com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de edição de data.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyEditDate(array $data) : bool {
+        //...
+
+        return true;
+    }
+
+    /**
      * Valida exclusão.
      * @var array $data
      * 
