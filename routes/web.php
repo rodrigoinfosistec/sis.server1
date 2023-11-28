@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductgroupController;
 use App\Http\Controllers\ProductController;
 
 use App\Http\Controllers\ClockregistryController;
+use App\Http\Controllers\ClockregistryemployeeController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeebaseController;
 use App\Http\Controllers\EmployeevacationController;
@@ -57,6 +58,7 @@ Route::middleware([
     Route::get('/price-zip/{invoice_id}/', [InvoiceController::class, 'priceZip'])->name('price-zip');
 
     Route::get('/clockregistry', [ClockregistryController::class, 'index'])->name('clockregistry');
+    Route::get('/clockregistryemployee', [ClockregistryemployeeController::class, 'index'])->name('clockregistryemployee');
     Route::get('/employee', [EmployeeController::class, 'index'])->name('employee');
     Route::get('/employeebase', [EmployeebaseController::class, 'index'])->name('employeebase');
     Route::get('/employeevacation', [EmployeevacationController::class, 'index'])->name('employeevacation');
