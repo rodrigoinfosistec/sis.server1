@@ -20,8 +20,10 @@ class Clockregistry extends Model
         'employee_id',
         'employee_name',
 
+        'event',
         'date',
         'time',
+        'code',
 
         'created_at',
         'updated_at',
