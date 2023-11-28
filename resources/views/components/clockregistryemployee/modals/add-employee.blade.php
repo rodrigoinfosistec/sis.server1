@@ -1,6 +1,6 @@
 <x-layout.modal.modal-add modal="addEmployee" method="registerEmployee" size="">
     <x-layout.modal.modal-add-header icon="bi-plus-circle-fill" modal="addEmployee">
-        {{ $config['title'] }}
+        Registro de Ponto
 
         <x-slot:identifier>
             <span class="text-primary">{{ $name }}</span>
