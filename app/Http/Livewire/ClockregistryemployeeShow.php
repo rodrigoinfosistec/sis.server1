@@ -41,6 +41,7 @@ class ClockregistryemployeeShow extends Component
     public $employee_id;
     public $pis;
     public $name;
+    public $time;
 
     public $array_events = [];
     public $times_more;
@@ -111,6 +112,7 @@ class ClockregistryemployeeShow extends Component
         $this->employee_id  = '';
         $this->pis          = '';
         $this->name         = '';
+        $this->time         = '';
 
         $this->array_events = [];
         $this->times_more   = '';
