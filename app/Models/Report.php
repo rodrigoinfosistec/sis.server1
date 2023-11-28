@@ -1092,6 +1092,145 @@ class Report extends Model
      * 
      * @return <object, null> $txt
      */
+    public static function txtClockregistry(array $data){
+        // Salva o arquivo txt.
+        $file_name = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.txt';
+        $path = public_path('/storage/txt/' . $data['config']['name'] . '/');
+        File::makeDirectory($path, $mode = 0777, true, true);
+        $data['validatedData']['txt']->storeAs('public/txt/' . $data['config']['name'] . '/', $file_name);
+
+        // Instancia dados do txt.
+        $file = file($path . $file_name);
+
+        // Verifica se é um txt de ponto.
+        if($file[0][0] == '0' && $file[0][1] == '0'):
+            // Inicializa array compacto.
+            $txtArrayCompact = [];
+            // Percorre todas as linhas do arquivo.
+            foreach($file as $key => $line):
+                // Verifica se é uma linha de evento de ponto de funcionário.
+                if($line[9] == '3'):
+                    // Define parâmetros.
+                    $event = $line[0].$line[1].$line[2].$line[3].$line[4].$line[5].$line[6].$line[7].$line[8];
+                    $date  = $line[14].$line[15].$line[16].$line[17].'-'.$line[12].$line[13].'-'.$line[10].$line[11];
+                    $code  = $line[34].$line[35].$line[36].$line[37];
+                    // Verifica se eventos já não está cadastrado.
+                    if(Clockregistry::where(['event' => $event, 'date' => $date, 'code' => $code])->doesntExist()):
+                        $txtArrayCompact[] = [
+                            'pis'   => Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]),
+                            'event' => $event,
+                            'date'  => $date,
+                            'time'  => $line[18].$line[19].':'.$line[20].$line[21],
+                            'code'  => $code,
+                        ];
+                    endif;
+                endif;
+            endforeach;
+
+            // Verifica se existe existe dados no $txtArrayCompact.
+            if(count($txtArrayCompact) > 0):
+                // Inicializa array $array_pis.
+                $array_pis = [];
+                // Percorre todas as linhas do arquivo.
+                foreach($txtArrayCompact as $key => $line):
+                    // Verifica se pis já foi salvo.
+                    if(!in_array($line['pis'], $array_pis)):
+                        // Salva pis existentes no arquivo, de forma única.
+                        $array_pis[] = $line['pis'];
+                    endif;
+                endforeach;
+
+                // Percorre todos os funcionários.
+                foreach($array_pis as $key => $pis):
+                    // Inicializa array $array_date.
+                    $array_date[$pis] = [];
+                    // Percorre todas as linhas do arquivo.
+                    foreach($txtArrayCompact as $key => $line):
+                        // Verifica se é o funcionário.
+                        if($line['pis'] == $pis):
+                            // Salva todas as datas do pis existentes no arquivo, de forma única.
+                            if(!in_array($line['date'], $array_date[$pis])):
+                                $array_date[$pis][] = $line['date'];
+                            endif;
+                        endif;
+                    endforeach;
+                endforeach;
+
+                // Percorre todos os funcionários.
+                foreach($array_pis as $key_pis => $pis):
+                    // Percorre todas as dastas do funcionário.
+                    foreach($array_date[$pis] as $key_date => $date):
+                        // Inicializa array $array_date.
+                        $array_evento[$pis][$date] = [];
+                        // Percorre todas as linhas do arquivo.
+                        foreach($txtArrayCompact as $key => $line):
+                            // Verifica se é o funcionário e a data.
+                            if($line['pis'] == $pis && $line['date'] == $date):
+                                // Salva os eventos do funcionário na data.
+                                $array_evento[$pis][$date][] = [
+                                    'pis'   => $line['pis'],
+                                    'event' => $line['event'],
+                                    'date'  => $line['date'],
+                                    'time'  => $line['time'],
+                                    'code'  => $line['code'],
+                                ];
+                            endif;
+                        endforeach;
+
+                        // Define eventos necessários na data.
+                        date_format(date_create($date), 'l') == 'Saturday' ? $qtd = 2 : $qtd = 4;
+
+                        // Inicializa variável.
+                        $code  = '';
+                        for($i = 0 ; $i < 3 ; $i++):
+                            // Constrói o código hexadecimal.
+                            $code = $code . dechex(random_int(0, 15));
+                        endfor;
+                        $code = Str::upper($code);
+
+                        // Define o evento.
+                        $event = $code . random_int(10000, 99999);
+
+                        // Percorre eventos não registrados no dia.
+                        for($i = count($array_evento[$pis][$date]); $i < $qtd; $i++):
+                            // Salva os eventos do funcionário na data.
+                            $array_evento[$pis][$date][] = [
+                                'pis'   => $pis,
+                                'event' => $i . $event,
+                                'date'  => $date,
+                                'time'  => '00:00',
+                                'code'  => $i . $code,
+                            ];
+                        endfor;
+                    endforeach;
+                endforeach;
+
+                // Atribui à variável.
+                $txt = $array_evento;
+            else:
+                // Exclui o arquivo.
+                unlink($path . $file_name);
+
+                // Atribui à variável.
+                $txt = null;
+            endif;
+        else:
+            // Exclui o arquivo.
+            unlink($path . $file_name);
+
+            // Atribui à variável.
+            $txt = 'none';
+        endif;
+
+        return  $txt;
+    }
+
+    /**
+     * Ponto Txt
+     * @var array $data
+     * 
+     * @return <object, null> $txt
+     */
     public static function txtPointevent(array $data){
         // Salva o arquivo txt.
         $file_name = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.txt';
@@ -1226,5 +1365,4 @@ class Report extends Model
 
         return  $txt;
     }
-
 }

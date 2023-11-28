@@ -154,6 +154,98 @@ class Clockregistry extends Model
     }
 
     /**
+     * Valida cadastro TXT.
+     * @var array $data
+     * 
+     * @return <array, bool>
+     */
+    public static function validateAddTxt(array $data){
+        $message = null;
+
+        // Salva arquivo, caso seja um txt.
+        $txtArray = Report::txtClockregistry($data);
+
+        // Verifica se existem dados a serem cadastrados.
+        if(!isset($txtArray)):
+            $message = 'Registros de Ponto já cadastrados ou inexistentes.';
+        endif;
+
+        // Verifica se é um arquivo txt.
+        if($txtArray == 'none'):
+            $message = 'Arquivo deve ser um txt de ponto.';
+
+            // Reseta variável.
+            $txtArray = null;
+        endif;
+
+        if(!empty($txtArray) && isset($txtArray)):
+            // Percorre todos os funcionários do ponto txt.
+            foreach($txtArray as $key => $employee):
+                // Verifica se algum funcionário não está cadastrado.
+                if(Employee::where('pis', $key)->doesntExist()):
+                    $message = 'Funcionário com pis ' . $key . ' não está cadastrado.';
+                endif;
+            endforeach;
+        endif;
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return $txtArray;
+    }
+
+    /**
+     * Cadastra TXT.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function addTxt(array $data) : bool {
+        // Percorre todos os funcionários.
+        foreach($data['txtArray'] as $key => $pis):
+            // Percorre todas as datas do funcionário.
+            foreach($pis as $key_date => $date):
+                // Percorre todos os eventos do funcionário na data.
+                foreach($date as $key_event => $event):
+                    // Cadastra.
+                    Clockregistry::create([
+                        'employee_id'   => Employee::where('pis', $event['pis'])->first()->id,
+                        'employee_name' => Employee::where('pis', $event['pis'])->first()->name,
+                        'event'         => $event['event'],
+                        'date'          => $event['date'],
+                        'time'          => $event['time'],
+                        'code'          => $event['code'],
+                    ]);
+                endforeach;
+            endforeach;
+        endforeach;
+
+        // Mensagem.
+        $message = 'Registros cadastrados com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de cadastro TXT.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyAddTxt(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
      * Valida exclusão.
      * @var array $data
      * 
