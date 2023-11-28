@@ -1,5 +1,5 @@
 <x-layout.modal.modal-edit modal="editDate" size="">
-    <x-layout.modal.modal-edit-header icon="bi-exclamation-circle" modal="editDate">
+    <x-layout.modal.modal-edit-header icon="bi-calendar-check" modal="editDate">
         Data de Ponto
 
         <x-slot:identifier>
