@@ -318,7 +318,7 @@ class ClockregistryemployeeShow extends Component
             endif;
 
             // Estende validatedData.
-            $data['validatedData']['employee_id'] = $this->employee_id;
+            $validatedData['employee_id'] = $this->employee_id;
 
             // Define $data.
             $data['config']        = $this->config;
