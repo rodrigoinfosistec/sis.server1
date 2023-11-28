@@ -119,7 +119,7 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            {{ $item->pis }}
+            <span class="text-muted">{{ $item->pis }}</span>
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
