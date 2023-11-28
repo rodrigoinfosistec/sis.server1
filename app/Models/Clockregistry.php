@@ -254,9 +254,6 @@ class Clockregistry extends Model
     public static function validateEditDate(array $data) : bool {
         $message = null;
 
-        // Funcionário.
-        $employee = Employee::find($data['validatedData']['employee_id']);
-
         // Desvio.
         if(!empty($message)):
             session()->flash('message', $message );
