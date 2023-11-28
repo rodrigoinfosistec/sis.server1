@@ -152,6 +152,46 @@ class ClockregistryemployeeShow extends Component
     }
 
     /**
+     * add()
+     *  register()
+     */
+    public function add()
+    {
+        // Ultimo dia do mês.
+        $x = explode('-', $this->month);
+        $this->month_end = cal_days_in_month(CAL_GREGORIAN, $x[1], $x[0]);
+    }
+        public function register()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'employee_id' => ['required'],
+                'date'        => ['required'],
+                'time'        => ['required'],
+            ]);
+
+            // Estende $validatedData.
+            $validatedData['employee_name'] = Employee::find($validatedData['employee_id'])->name;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = Clockregistry::validateAdd($data);
+
+            // Cadastra.
+            if ($valid) Clockregistry::add($data);
+
+            // Executa dependências.
+            if ($valid) Clockregistry::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
      * addTxt()
      *  registerTxt()
      */
@@ -171,21 +211,21 @@ class ClockregistryemployeeShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida cadastro.
-            $valid = $txtArray = Pointevent::validateAddTxt($data);
+            $valid = $txtArray = Clockregistry::validateAddTxt($data);
 
             // Estende $data
             if ($valid) $data['txtArray'] = $txtArray;
 
             // Cadastra.
-            if ($valid) Pointevent::addTxt($data);
+            if ($valid) Clockregistry::addTxt($data);
 
             // Executa dependências.
-            if ($valid) Pointevent::dependencyAddTxt($data);
+            if ($valid) Clockregistry::dependencyAddTxt($data);
 
             // Fecha modal.
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
-            return redirect()->to('/pointevent');
+            return redirect()->to('/clockregistryemployee');
         }
 
     /**
