@@ -229,10 +229,10 @@ class ClockregistryemployeeShow extends Component
         }
 
     /**
-     * addEmployeeDate()
-     *  registerEmployeeDate()
+     * editDate()
+     *  modernizeDate()
      */
-    public function addEmployeeDate(int $id)
+    public function editDate(int $id)
     {
         // Funcionário.
         $Employee = Employee::find($id);
@@ -246,7 +246,7 @@ class ClockregistryemployeeShow extends Component
         $x = explode('-', $this->month);
         $this->month_end = cal_days_in_month(CAL_GREGORIAN, $x[1], $x[0]);
     }
-        public function registerEmployeeDate()
+        public function modernizeDate()
         {
             // Valida campos.
             $validatedData = $this->validate([
@@ -266,13 +266,13 @@ class ClockregistryemployeeShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida cadastro.
-            $valid = Pointevent::validateAddEmployeeDate($data);
+            $valid = Pointevent::validateAddDate($data);
 
             // Cadastra.
-            if ($valid) Pointevent::addEmployeeDate($data);
+            if ($valid) Pointevent::addDate($data);
 
             // Executa dependências.
-            if ($valid) Pointevent::dependencyAddEmployeeDate($data);
+            if ($valid) Pointevent::dependencyAddDate($data);
 
             // Fecha modal.
             $this->closeModal();
