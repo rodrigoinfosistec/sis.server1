@@ -254,6 +254,8 @@ class Clockregistry extends Model
     public static function validateEditDate(array $data) : bool {
         $message = null;
 
+        dd($data);
+
         // Desvio.
         if(!empty($message)):
             session()->flash('message', $message );
