@@ -138,7 +138,7 @@ class ClockregistryemployeeShow extends Component
     public function render(){
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
-            'existsItem'   => Pointevent::exists(),
+            'existsItem'   => Clockregistry::exists(),
             'existsReport' => Report::where(['folder' => $this->config['name'], 'reference_3' => Auth()->user()->company_id])->exists(),
             'reports'      => Report::where(['folder' => $this->config['name'], 'reference_3' => Auth()->user()->company_id])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Employee::where([
