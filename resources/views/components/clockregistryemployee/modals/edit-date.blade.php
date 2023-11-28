@@ -25,7 +25,7 @@
     <x-layout.modal.modal-add-body-group-item columms="3">
         <x-layout.modal.modal-add-body-group-item-label item="input" title="ENTRADA" plus="none"/>
 
-        <input type="time" wire:model="input" class="form-control form-control-sm" id="input">
+        <input type="time" wire:model="input" class="form-control form-control-sm" id="input" @if(empty($date)) disabled @endif>
 
         <x-layout.modal.modal-add-body-group-item-error item="input" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
@@ -35,7 +35,7 @@
             <x-layout.modal.modal-add-body-group-item columms="3">
                 <x-layout.modal.modal-add-body-group-item-label item="break_start" title="PAUSA (INÍCIO)" plus="none"/>
 
-                <input type="time" wire:model="break_start" class="form-control form-control-sm" id="break_start">
+                <input type="time" wire:model="break_start" class="form-control form-control-sm" id="break_start" @if(empty($date)) disabled @endif>
 
                 <x-layout.modal.modal-add-body-group-item-error item="break_start" message="$message"/>
             </x-layout.modal.modal-add-body-group-item>
@@ -43,7 +43,7 @@
             <x-layout.modal.modal-add-body-group-item columms="3">
                 <x-layout.modal.modal-add-body-group-item-label item="break_end" title="PAUSA (FINAL)" plus="none"/>
 
-                <input type="time" wire:model="break_end" class="form-control form-control-sm" id="break_end">
+                <input type="time" wire:model="break_end" class="form-control form-control-sm" id="break_end" @if(empty($date)) disabled @endif>
 
                 <x-layout.modal.modal-add-body-group-item-error item="break_end" message="$message"/>
             </x-layout.modal.modal-add-body-group-item>
@@ -53,7 +53,7 @@
     <x-layout.modal.modal-add-body-group-item columms="3">
         <x-layout.modal.modal-add-body-group-item-label item="output" title="SAÍDA" plus="none"/>
 
-        <input type="time" wire:model="output" class="form-control form-control-sm" id="output">
+        <input type="time" wire:model="output" class="form-control form-control-sm" id="output" @if(empty($date)) disabled @endif>
 
         <x-layout.modal.modal-add-body-group-item-error item="output" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
