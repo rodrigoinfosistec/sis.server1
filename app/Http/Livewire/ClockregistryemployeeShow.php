@@ -299,11 +299,23 @@ class ClockregistryemployeeShow extends Component
             // Valida campos.
             $validatedData = $this->validate([
                 'date'        => ['date', 'required'],
-                'input'       => ['required'],
-                'break_start' => ['required'],
-                'break_end'   => ['required'],
-                'output'      => ['required'],
             ]);
+
+            if(date_format(date_create($this->date), 'l') == 'Saturday'):
+                // Valida campos.
+                $validatedData = $this->validate([
+                    'input'       => ['required'],
+                    'output'      => ['required'],
+                ]);
+            else:
+                // Valida campos.
+                $validatedData = $this->validate([
+                    'input'       => ['required'],
+                    'break_start' => ['required'],
+                    'break_end'   => ['required'],
+                    'output'      => ['required'],
+                ]);
+            endif;
 
             // Estende validatedData.
             $data['validatedData']['employee_id'] = $this->employee_id;
