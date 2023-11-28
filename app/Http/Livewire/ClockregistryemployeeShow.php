@@ -242,7 +242,7 @@ class ClockregistryemployeeShow extends Component
         $this->pis         = $Employee->pis;
         $this->name        = $Employee->name;
 
-        // Ultimo dia do mês.
+        // Último dia do mês.
         $x = explode('-', $this->month);
         $this->month_end = cal_days_in_month(CAL_GREGORIAN, $x[1], $x[0]);
     }
