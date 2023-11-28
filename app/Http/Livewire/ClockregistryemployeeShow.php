@@ -298,7 +298,7 @@ class ClockregistryemployeeShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'date'        => ['date', 'required'],
+                'date' => ['date', 'required'],
             ]);
 
             if(date_format(date_create($this->date), 'l') == 'Saturday'):
