@@ -162,6 +162,12 @@ class Config extends Model
                 'test'  => true,
             ],
             [
+                'name'  => 'clockregistryemployee',
+                'title' => 'Tratamento de Ponto',
+                'icon'  => 'bi-fingerprint',
+                'test'  => true,
+            ],
+            [
                 'name'  => 'pointevent',
                 'title' => 'Eventos',
                 'icon'  => 'bi-fingerprint',
