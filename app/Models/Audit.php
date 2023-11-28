@@ -1723,11 +1723,11 @@ class Audit extends Model
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
             'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
-                'id='            . $data['validatedData']['employeeattest_id'] . ',' .
-                'employee_id='   . $data['validatedData']['employee_id']         . ',' .
-                'employee_name=' . $data['validatedData']['employee_name']       . ',' .
-                'date_start='    . $data['validatedData']['date_start']          . ',' .
-                'date_end='      . $data['validatedData']['date_end']            . ',' .
+                'id='            . $data['validatedData']['employeelicense_id'] . ',' .
+                'employee_id='   . $data['validatedData']['employee_id']        . ',' .
+                'employee_name=' . $data['validatedData']['employee_name']      . ',' .
+                'date_start='    . $data['validatedData']['date_start']         . ',' .
+                'date_end='      . $data['validatedData']['date_end']           . ',' .
             '}',
         ]);
 

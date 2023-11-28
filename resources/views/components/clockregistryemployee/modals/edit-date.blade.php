@@ -21,7 +21,62 @@
         <x-layout.modal.modal-add-body-group-item-error item="date" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
+
 <x-layout.modal.modal-add-body-group>
+@if(date_format(date_create($date), 'l') == 'Sunday')
+    <x-layout.modal.modal-add-body-group-item columms="12">
+        <span class="text-danger">
+            Esta data é um Domingo.
+        </span>
+    </x-layout.modal.modal-add-body-group-item>
+
+@elseif(App\Models\Holiday::where('date', $date)->exists())
+    <x-layout.modal.modal-add-body-group-item columms="12">
+        <span class="text-danger">
+            Esta data é um Feriado.
+            <br>
+            <span class="text-muted" style="font-size: 9pt;">
+                {{ App\Models\Holiday::where('date', $date)->first()->name ?? 'none' }}
+            </span>
+        </span>
+    </x-layout.modal.modal-add-body-group-item>
+
+@elseif(App\Models\Employeevacationday::where(['date' => $date, 'employee_id' => $employee_id])->exists())
+    <x-layout.modal.modal-add-body-group-item columms="12">
+        <span class="text-danger">
+            Funcionário de Férias nesta data.
+        </span>
+    </x-layout.modal.modal-add-body-group-item>
+
+@elseif(App\Models\Employeeeasy::where(['date' => $date, 'employee_id' => $employee_id])->exists())
+    <x-layout.modal.modal-add-body-group-item columms="12">
+        <span class="text-danger">
+            Funcionário de Folga nesta data.
+        </span>
+    </x-layout.modal.modal-add-body-group-item>
+
+@elseif(App\Models\Employeeattestday::where(['date' => $date, 'employee_id' => $employee_id])->exists())
+    <x-layout.modal.modal-add-body-group-item columms="12">
+        <span class="text-danger">
+            Funcionário com Atestado nesta data.
+        </span>
+    </x-layout.modal.modal-add-body-group-item>
+
+@elseif(App\Models\Employeelicenseday::where(['date' => $date, 'employee_id' => $employee_id])->exists())
+    <x-layout.modal.modal-add-body-group-item columms="12">
+        <span class="text-danger">
+            Funcionário de Licença nesta data.
+        </span>
+    </x-layout.modal.modal-add-body-group-item>
+
+@elseif(App\Models\Employeeabsenceday::where(['date' => $date, 'employee_id' => $employee_id])->exists())
+    <x-layout.modal.modal-add-body-group-item columms="12">
+        <span class="text-danger">
+            Funcionário Faltou nesta data.
+        </span>
+    </x-layout.modal.modal-add-body-group-item>
+
+@else
     <x-layout.modal.modal-add-body-group-item columms="3">
         <x-layout.modal.modal-add-body-group-item-label item="input" title="ENTRADA" plus="none"/>
 
@@ -57,6 +112,7 @@
 
         <x-layout.modal.modal-add-body-group-item-error item="output" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
+@endif
 </x-layout.modal.modal-add-body-group>
 {{-- conteúdo --}}
 
