@@ -307,20 +307,19 @@ class ClockregistryemployeeShow extends Component
 
             // Estende validatedData.
             $data['validatedData']['employee_id'] = $this->employee_id;
-            $data['validatedData']['type']        = 'alternative';
 
             // Define $data.
             $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;
 
             // Valida cadastro.
-            $valid = Pointevent::validateAddDate($data);
+            $valid = Clockregistry::validateEditDate($data);
 
             // Cadastra.
-            if ($valid) Pointevent::addDate($data);
+            if ($valid) Clockregistry::EditDate($data);
 
             // Executa dependências.
-            if ($valid) Pointevent::dependencyAddDate($data);
+            if ($valid) Clockregistry::dependencyEditDate($data);
 
             // Fecha modal.
             $this->closeModal();

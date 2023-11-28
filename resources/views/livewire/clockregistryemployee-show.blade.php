@@ -133,9 +133,9 @@
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="120">
-    <x-layout.card.card-body-content-table-body-line-cell-action-add-employee-date :id="$item->id"/>
+    <x-layout.card.card-body-content-table-body-line-cell-action-add-employee2 :id="$item->id"/>
 
-    <x-layout.card.card-body-content-table-body-line-cell-action-edit-month :id="$item->id"/>
+    <x-layout.card.card-body-content-table-body-line-cell-action-edit-date :id="$item->id"/>
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}}
 
