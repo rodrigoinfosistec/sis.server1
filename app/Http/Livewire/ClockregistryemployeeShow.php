@@ -58,6 +58,10 @@ class ClockregistryemployeeShow extends Component
     public function mount($config){
         $this->config = $config;
         $this->month  = date('Y-m');
+
+        if(!empty($this->date)):
+            $this->input = '10:00';
+        endif;
     }
 
     /**
@@ -293,10 +297,6 @@ class ClockregistryemployeeShow extends Component
         // Último dia do mês.
         $x = explode('-', $this->month);
         $this->month_end = cal_days_in_month(CAL_GREGORIAN, $x[1], $x[0]);
-
-        if(!empty($this->date)):
-            $this->input = '10:00';
-        endif;
     }
         public function modernizeDate()
         {
