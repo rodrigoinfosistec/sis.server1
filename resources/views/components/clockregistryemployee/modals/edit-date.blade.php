@@ -47,7 +47,6 @@
             Funcionário de Férias nesta data.
         </span>
     </x-layout.modal.modal-add-body-group-item>
-
 @elseif(App\Models\Employeeeasy::where(['date' => $date, 'employee_id' => $employee_id])->exists())
     <x-layout.modal.modal-add-body-group-item columms="12">
         <span class="text-danger">
