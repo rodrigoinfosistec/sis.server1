@@ -365,12 +365,12 @@ class ClockregistryemployeeShow extends Component
         // Percorre todas as dias do mês.
         while($date <= $end):
             // Eventos do Funcionário na data.
-            $events = Pointevent::where(['employee_id' => $id, 'date' => $date])->orderBy('time', 'ASC')->get();
+            $events = Clockregistry::where(['employee_id' => $id, 'date' => $date])->orderBy('time', 'ASC')->get();
 
             // Verifica se extistem eventos do Funcionário na data.
             if($events->count() > 0):
                 // Eventos do Funcionário na data.
-                $events = Pointevent::where(['employee_id' => $id, 'date' => $date])->orderBy('time', 'ASC')->get();
+                $events = Clockregistry::where(['employee_id' => $id, 'date' => $date])->orderBy('time', 'ASC')->get();
 
                 // Percorre todos os eventos do Funcionário na data.
                 foreach($events as $key => $event):
