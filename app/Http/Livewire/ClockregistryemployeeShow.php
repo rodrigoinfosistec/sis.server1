@@ -348,8 +348,9 @@ class ClockregistryemployeeShow extends Component
         $Employee = Employee::find($id);
 
         // Define propriedades dinâmicas.
-        $this->pis  = $Employee->pis;
-        $this->name = $Employee->name;
+        $this->employee_id = $Employee->id;
+        $this->pis         = $Employee->pis;
+        $this->name        = $Employee->name;
 
         // Variáveis úteis.
         $x     = explode('-', $this->month); 
