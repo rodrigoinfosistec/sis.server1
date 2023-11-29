@@ -360,9 +360,9 @@ class ClockregistryemployeeShow extends Component
         $start = $this->month . '-01';
         $end   = $this->month . '-' . $days;
 
+        // Percorre todas as dias do mês.
         $this->times_more = 0;
         $date = $start;
-        // Percorre todas as dias do mês.
         while($date <= $end):
             // Eventos do Funcionário na data.
             $events = Clockregistry::where(['employee_id' => $id, 'date' => $date])->orderBy('time', 'ASC')->get();
@@ -388,7 +388,7 @@ class ClockregistryemployeeShow extends Component
     }
         public function modernizeMonth()
         {
-            // ...
+            dd($this->array_events);
         }
 
     /**
