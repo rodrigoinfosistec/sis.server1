@@ -388,6 +388,7 @@ class ClockregistryemployeeShow extends Component
     }
         public function modernizeMonth()
         {
+            // Verifica se há eventos.
             dd($this->array_events);
         }
 
