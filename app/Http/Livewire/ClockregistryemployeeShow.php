@@ -58,10 +58,6 @@ class ClockregistryemployeeShow extends Component
     public function mount($config){
         $this->config = $config;
         $this->month  = date('Y-m');
-
-        if(!empty($this->date)):
-            $this->input = '10:00';
-        endif;
     }
 
     /**
