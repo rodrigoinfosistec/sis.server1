@@ -507,10 +507,11 @@ class Invoiceitem extends Model
         $card = Invoiceitem::roundUp($card_full, 2);
 
         // Cálculo Preço Varejo - Define a Percentagem sobre o cartão.
-        if($card_full <= 20)                            : $retail_aliquot = 0.7;
-            elseif($card_full > 20 && $card_full <= 30) : $retail_aliquot = 0.8;
+        if($card_full <= 10)                            : $retail_aliquot = 0.7;
+            elseif($card_full > 10 && $card_full <= 20) : $retail_aliquot = 0.8;
             else                                        : $retail_aliquot = 0.85;
         endif;
+
         // Preço Varejo.
         $retail_full = $card_full / $retail_aliquot;
         $retail = Invoiceitem::roundUp($retail_full, 2);
