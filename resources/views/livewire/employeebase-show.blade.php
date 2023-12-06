@@ -56,7 +56,7 @@
 						<div style="line-height: 1.3;">
 							<span class="text-muted" style="font-size: 8pt;">REGISTROS DE HOJE - {{ date('d/m/Y') }}</span>
 							<br>
-							@foreach(App\Models\Clockregistry::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->get() as $key => $clockregistry)
+							@foreach(App\Models\Clockregistry::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->orderBy('time', 'ASC')->get() as $key => $clockregistry)
 								@if(!$loop->first)
 									<i class="bi-caret-right-fill text-muted" style="font-size: 9pt;"></i>
 								@endif
