@@ -96,7 +96,7 @@ class Clockregistry extends Model
         $time = ($t[0] * 60) + $t[1];
 
         $min = 450;  // 07:30.
-        $max = 1260; // 21:00.
+        $max = 1200; // 20:00.
         if(($time < $min) || ($time > $max)):
             $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
         endif;
