@@ -104,7 +104,7 @@ class Usergrouppage extends Model
                 'usergroup_id' => Usergroup::where('name', 'FUNCIONARIO')->first()->id, 
                 'page_id'      => $page->id
             ]);
-        endif;
+		endif;
 
         return true;
     }
