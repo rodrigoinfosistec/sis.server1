@@ -77,6 +77,10 @@ class Clockday extends Model
      * @return bool true
      */
     public static function edit(array $data) : bool {
+        // Inicializa Allowance.
+        $allowance_real = 0;
+        $minuts_al      = 0;
+
         // Allowance.
         $allowance = Employeeallowance::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['date']])->first();
         if($allowance):
@@ -84,14 +88,16 @@ class Clockday extends Model
             $minuts_as = General::timeToMinuts($allowance->start);
             $minuts_ae = General::timeToMinuts($allowance->end);
 
+            // Abono Minutos.
+            $allowance_real = $minuts_ae - $minuts_as;
+
             // Justificado.
             if($allowance->merged):
                 $minuts_as -= 60;
                 $minuts_ae += 60;
             endif;
+
             $minuts_al = $minuts_ae - $minuts_as;
-        else:
-            $minuts_al = 0;
         endif;
 
         // Atualiza.
@@ -108,17 +114,16 @@ class Clockday extends Model
         // Inicializa $authorized.
         $authorized = true;
 
+        // Inicializa variáveis.
+        $minuts_delay   = 0;
+        $minuts_extra   = 0;
+
         // Sábado.
         if(date_format(date_create($data['date']), 'l') == 'Saturday'):
             // Evita horários vazios.
             if($data['input'] && $data['output']):
                 // Evita saída menor que entrada.
                 if($data['output'] >= $data['input']):
-                    // Inicializa variáveis.
-                    $allowance_real = 0;
-                    $minuts_delay   = 0;
-                    $minuts_extra   = 0;
-
                     // Converte jornada para minutos.
                     $minuts_js = General::timeToMinuts($data['journey_start']);
                     $minuts_je = General::timeToMinuts($data['journey_end']);
@@ -140,8 +145,7 @@ class Clockday extends Model
                         endif;
 
                         // Abono válido para fins de cálculo.
-                        $minuts_al      = $minuts_ae - $minuts_as;
-                        $allowance_real = $minuts_al;
+                        $minuts_al = $minuts_ae - $minuts_as;
                     endif;
 
                     // Analisa Entrada.
@@ -176,7 +180,7 @@ class Clockday extends Model
                                 $minuts_delay = 0;
                             else:
                                 $minuts_delay -= $minuts_al;
-                                $minuts_allowance = 0;
+                                $minuts_al = 0;
                             endif;
                         endif;
                     elseif($minuts_je < ($minuts_r_ou - 5)):
@@ -208,11 +212,6 @@ class Clockday extends Model
             if($data['input'] && $data['break_start'] && $data['break_end'] && $data['output']):
                 // Evita pausa inicial menor que entrada.
                 if($data['break_start'] >= $data['input'] && $data['break_end'] >= $data['break_start'] && $data['output'] >= $data['break_end']):
-                    // Inicializa variáveis.
-                    $allowance_real = 0;
-                    $minuts_delay   = 0;
-                    $minuts_extra   = 0;
-
                     // Converte jornada para minutos.
                     $minuts_js = General::timeToMinuts($data['journey_start']);
                     $minuts_je = General::timeToMinuts($data['journey_end']);
@@ -236,10 +235,6 @@ class Clockday extends Model
                             $minuts_as = 0;
                             $minuts_ae = 0;
                         endif;
-
-                        // Abono válido para fins de cálculo.
-                        $minuts_al      = $minuts_ae - $minuts_as;
-                        $allowance_real = $minuts_al;
                     endif;
 
                     // Analisa Entrada.
@@ -290,11 +285,11 @@ class Clockday extends Model
                         // Decrementa atraso, no caso abono.
                         if($minuts_al > 0):
                             if($minuts_al >= $minuts_delay):
-                                $minuts_al -= $minuts_delay;
+                                $minuts_al    -= $minuts_delay;
                                 $minuts_delay = 0;
                             else:
                                 $minuts_delay -= $minuts_al;
-                                $minuts_allowance = 0;
+                                $minuts_al    = 0;
                             endif;
                         endif;
                     elseif($minuts_je < ($minuts_r_ou - 5)):
@@ -304,6 +299,8 @@ class Clockday extends Model
 
                     // Saldo.
                     $minuts_ba = $minuts_extra - $minuts_delay;
+
+                    //dd($minuts_ba);
 
                     // Sinal.
                     if($minuts_ba > 0):     
