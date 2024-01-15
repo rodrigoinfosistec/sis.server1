@@ -756,11 +756,11 @@ class Invoiceitem extends Model
             'equipment'         => $data['validatedData']['equipment'],
             'productgroup_id'   => !empty($data['validatedData']['productgroup_id']) ? $data['validatedData']['productgroup_id'] : null,
             'invoicecsv_id'     => !empty($data['validatedData']['invoicecsv_id']) ? $data['validatedData']['invoicecsv_id']  : null,
-            'quantity_final'    => (General::encodeFloat3($data['validatedData']['quantity_final']) > $item->quantity) ? General::encodeFloat3($data['validatedData']['quantity_final']) : $item->quantity,
-            'value_final'       => (General::encodeFloat3($data['validatedData']['value_final']) > $item->value) ? General::encodeFloat3($data['validatedData']['value_final']) : $item->value,
+            'quantity_final'    => General::encodeFloat3($data['validatedData']['quantity_final']),
+            'value_final'       => General::encodeFloat3($data['validatedData']['value_final']),
             'ipi_final'         => General::encodeFloat3($data['validatedData']['ipi_final']),
             'ipi_aliquot_final' => General::encodeFloat3($data['validatedData']['ipi_aliquot_final']),
-            'margin'            => (General::encodeFloat2($data['validatedData']['margin']) > $item->margin) ? General::encodeFloat2($data['validatedData']['margin']) : $item->margin,
+            'margin'            => General::encodeFloat2($data['validatedData']['margin']),
             'shipping'          => General::encodeFloat2($data['validatedData']['shipping']),
         ]);
 

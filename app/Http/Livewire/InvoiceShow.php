@@ -529,8 +529,10 @@ class InvoiceShow extends Component
     }
         public function modernizeItem()
         {
-            // Estende $validatedData
+            // Estende $validatedData.
             $validatedData['invoice_id'] = $this->invoice_id;
+
+            // 
 
             // Percorre os itens da Nota Fiscal.
             foreach(Invoiceitem::where('invoice_id', $this->invoice_id)->get() as $key => $invoiceitem):
