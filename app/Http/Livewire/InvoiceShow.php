@@ -606,7 +606,7 @@ class InvoiceShow extends Component
     }
         public function modernizeItemAmount()
         {
-            // Estende $validatedData
+            // Estende $validatedData.
             $validatedData['invoice_id'] = $this->invoice_id;
 
             // Percorre os itens da Nota Fiscal.
@@ -663,7 +663,7 @@ class InvoiceShow extends Component
     }
         public function modernizeItemPrice()
         {
-            // Estende $validatedData
+            // Estende $validatedData.
             $validatedData['invoice_id'] = $this->invoice_id;
             $validatedData['hold_all']   = $this->hold_all;
 
@@ -729,7 +729,7 @@ class InvoiceShow extends Component
     }
         public function exclude()
         {
-            // Define $validatedData
+            // Define $validatedData.
             $validatedData['invoice_id']    = $this->invoice_id;
             $validatedData['provider_id']   = $this->provider_id;
             $validatedData['provider_name'] = $this->provider_name;
