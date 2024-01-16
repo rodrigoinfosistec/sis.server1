@@ -532,8 +532,6 @@ class InvoiceShow extends Component
             // Estende $validatedData.
             $validatedData['invoice_id'] = $this->invoice_id;
 
-            // 
-
             // Percorre os itens da Nota Fiscal.
             foreach(Invoiceitem::where('invoice_id', $this->invoice_id)->get() as $key => $invoiceitem):
                 // Monta array Item da Nota Fiscal.
