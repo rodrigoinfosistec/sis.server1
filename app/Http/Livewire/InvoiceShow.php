@@ -32,7 +32,7 @@ class InvoiceShow extends Component
     public $config;
 
     public $search = '';
-    public $filter = 'number';
+    public $filter = 'provider_name';
 
     public $report_id;
     public $mail;
