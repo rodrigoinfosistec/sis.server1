@@ -94,14 +94,13 @@
         @yield('script')
     </body>
 
-    <footer class="bg-white dark:bg-gray-800 shadow">
+    <footer class="bg-light text-center text-lg-start">
         {{-- Copyright --}}
-        <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8 text-center">
-            ©Copyright {{ date('Y'); }}
+        <div class="text-center p-3 text-dark" style="background-color: #d3d3d3;">
+            © Copyright 2022 a {{ date('Y'); }} Desenvolvido por
             <br>
-            Desenvolvido por
-            <a class="fw-bold text-decoration-none" href="/">
-                SIS INFORMÁTICA
+            <a class="text-primary fw-bold text-decoration-none" href="#">
+                SIS SISTEMA INFORMÁTICA
             </a>
         </div>
     </footer>
