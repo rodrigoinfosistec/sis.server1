@@ -4,6 +4,8 @@
     </script>
 @endif
 <x-app-layout>
+    @section('browser', 'Perfil')
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             <i class="bi-gear-fill"></i> {{ __('Profile') }}
