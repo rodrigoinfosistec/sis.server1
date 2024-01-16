@@ -819,7 +819,7 @@ class Invoiceitem extends Model
             'signal' => $data['validatedData']['signal'],
             'amount' => ($data['validatedData']['amount'] > 0) ? General::encodeFloat3($data['validatedData']['amount']) : 1.00,
             'index'  => ($data['validatedData']['index'] > 0) ? General::encodeFloat2($data['validatedData']['index']) : 100.00,
-        ]);i
+        ]);
 
         // Mensagem.
         $message = 'Itens da ' . $data['config']['title'] . ' ' . Invoice::find($data['validatedData']['invoice_id'])->number . ' atualizados com sucesso.';
