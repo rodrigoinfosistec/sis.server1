@@ -56,8 +56,8 @@
 
             {{-- Conteúdo --}}
             <main>
-                <div class="py-4">
-                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="py-2">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" style="padding: 0; margin: 0;">
                         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                             {{ $slot }}
 
