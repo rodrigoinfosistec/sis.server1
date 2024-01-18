@@ -12,6 +12,10 @@
         </h2>
     </x-slot>
 
+    @if($config['name'] == 'home')
+        <x-layout.home.slide-show/>
+    @endif
+
     <div class="p-1 lg:p-8 bg-white dark:bg-gray-800 dark:bg-gradient-to-bl dark:from-gray-700/50 dark:via-transparent border-b border-gray-200 dark:border-gray-700">
         @livewire($config['name'] . '-show', ['config' => $config])
     </div>
