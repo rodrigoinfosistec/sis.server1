@@ -13,6 +13,8 @@
     </x-slot>
 
     @if($config['name'] == 'home')
+        <x-layout.alert/>
+
         <x-layout.home.slide-show/>
     @endif
 
