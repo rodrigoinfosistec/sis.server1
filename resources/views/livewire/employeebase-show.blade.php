@@ -7,7 +7,7 @@
 
 	<div class="container" style="margin:10px 0 50px 0;">
 		@if(!empty($employee))
-			<div class="alert alert-primary" role="alert">
+			<div class="alert alert-primary text-center" role="alert">
 				{{ $employee->name }}
 			</div>
 
