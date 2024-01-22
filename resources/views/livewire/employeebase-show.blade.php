@@ -22,7 +22,7 @@
 					{{ App\Models\Clock::minutsToTimeSignal((int)$employee->datatime) }}
 				</span>
 
-				<br><br>
+				<br>
 
 				<div class="text-muted fw-normal" style="font-size: 8pt; line-height: 1.2;">
 					@if(!empty($clockbase))
