@@ -93,22 +93,25 @@
 				</div>
 			@endif
 
-			<hr>
+			<div style="line-height: 1.3;">
+				<hr>
 
-			<i class="bi-emoji-sunglasses text-muted"></i>
-			<span class="fw-bold">Folgas</span> <span class="text-muted">(últimas 6)</span>
+				<i class="bi-emoji-sunglasses text-muted"></i>
+				<span class="fw-bold">Folgas</span> <span class="text-muted">(últimas 6)</span>
 
-			<br>
-			@foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'DESC')->limit(6)->get() as $key => $employeeeasy)
-				{{ date_format(date_create($employeeeasy->date), 'd/m/Y') }} <span class="text-muted">{{ App\Models\General::decodeWeek(date_format(date_create($employeeeasy->date), 'l')) }}</span>
 				<br>
-			@endforeach
+				@foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'DESC')->limit(6)->get() as $key => $employeeeasy)
+					{{ date_format(date_create($employeeeasy->date), 'd/m/Y') }} <span class="text-muted">{{ App\Models\General::decodeWeek(date_format(date_create($employeeeasy->date), 'l')) }}</span>
+					<br>
+				@endforeach
+			</div>
 		@else
 			<div style="font-size: 15pt;">
 				<i class="bi-archive text-muted"></i>
 				<span class="text-muted">Usuário não está vinculado a nenhum Funcionário.</span>
 			</div>
 		@endif
+
 		<hr>
 
 		<div style="line-height: 1.3;">
