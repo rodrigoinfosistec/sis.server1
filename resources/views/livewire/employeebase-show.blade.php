@@ -34,6 +34,22 @@
 				</div>
 			</div>
 
+			<hr>
+
+			<div style="line-height: 1.3;">
+				<i class="bi-search-heart text-muted"></i>
+
+				<a type="button" href="https://forms.gle/wdtDPF7ALAVkqjsP6" target="_BLANK" class="btn btn-link btn-sm text-primary text-decoration-none" style="font-size: 13pt;" title="Pesquisa de Clima">
+					Pesquisa de Clima
+				</a>
+
+				<br>
+
+				<a type="button" href="https://forms.gle/wdtDPF7ALAVkqjsP6" target="_BLANK" class="btn btn-link btn-sm text-muted" style="font-size: 10pt;" title="Pesquisa de Clima">
+					Clique aqui
+				</a>
+			</div>
+
 			@if(
 				($employee->clock_type == 'REGISTRY')
 				&& (date('l') != 'Sunday')
@@ -44,7 +60,8 @@
 				&& (App\Models\Employeeattestday::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
 				&& (App\Models\Employeeabsenceday::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
 			)
-				<br>
+				<hr>
+
 				<div style="line-height: 1.3;">
 					<a type="button" wire:click="addRegistry({{ (int)Auth()->User()->employee_id }})" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#addRegistryModal" title="Registrar Ponto">
 						Registrar Ponto
@@ -74,11 +91,12 @@
 			@endif
 
 			<hr>
+
 			<i class="bi-emoji-sunglasses text-muted"></i>
-			<span class="fw-bold">Folgas</span>
+			<span class="fw-bold">Folgas</span> <span class="text-muted">(últimas 6)</span>
 
 			<br>
-			@foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'DESC')->limit(10)->get() as $key => $employeeeasy)
+			@foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'DESC')->limit(6)->get() as $key => $employeeeasy)
 				{{ date_format(date_create($employeeeasy->date), 'd/m/Y') }} <span class="text-muted">{{ App\Models\General::decodeWeek(date_format(date_create($employeeeasy->date), 'l')) }}</span>
 				<br>
 			@endforeach
