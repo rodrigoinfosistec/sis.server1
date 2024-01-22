@@ -7,11 +7,15 @@
 
 	<div class="container" style="margin:10px 0 50px 0;">
 		@if(!empty($employee))
-			<span class="fw-bold">{{ $employee->name }}</span>
+			<div class="alert alert-primary" role="alert">
+				{{ $employee->name }}
+			</div>
+
 			<br>
-			<div style="font-size: 12pt;">
-				<i class="bi-clock-fill text-muted"></i>
-				<span class="text-dark">BANCO DE HORAS</span><i class="bi-caret-right-fill text-muted"></i>
+
+			<div style="font-size: 13pt;">
+				<i class="bi-clock-fill text-black" style="font-size: 18px;"></i>
+				<span class="text-dark fw-bold">BANCO DE HORAS</span><i class="bi-caret-right-fill text-muted"></i>
 				<span class="fw-bold">
 					@if($employee->datatime > 0) <span class="text-primary">
 						@elseif($employee->datatime < 0) <span class="text-danger">
@@ -19,7 +23,8 @@
 						{{ App\Models\Clock::minutsToTimeSignal((int)$employee->datatime) }}
 					</span>
 				</span>
-				<br><br>
+
+				<br>
 
 				<div class="text-muted fw-normal" style="font-size: 8pt; line-height: 1.2;">
 					@if(!empty($clockbase))
@@ -37,11 +42,11 @@
 			<hr style="color: #C0C0C0;">
 
 			<div style="line-height: 1.3;">
-				<a type="button" href="https://forms.gle/wdtDPF7ALAVkqjsP6" target="_BLANK" title="Pesquisa de Clima">
-					<i class="bi-search-heart text-muted"></i>
+				<a type="button" href="https://forms.gle/wdtDPF7ALAVkqjsP6" style="padding: 0; margin: 0;" target="_BLANK" title="Pesquisa de Clima">
+					<i class="bi-search-heart text-primary" style="font-size: 18px;"></i>
 				</a>
 
-				<a type="button" href="https://forms.gle/wdtDPF7ALAVkqjsP6" target="_BLANK" class="btn btn-link btn-sm text-primary text-decoration-none" style="font-size: 13pt;" title="Pesquisa de Clima">
+				<a type="button" href="https://forms.gle/wdtDPF7ALAVkqjsP6" target="_BLANK" class="btn btn-link btn-sm text-primary text-decoration-none fw-bold" style="font-size: 13pt; padding: 0; margin: 0;" title="Pesquisa de Clima">
 					Pesquisa de Clima
 				</a>
 
@@ -67,7 +72,7 @@
 				<div style="line-height: 1.3;">
 					<x-layout.card.card-header-button-action-add-registry/>
 
-					<a type="button" wire:click="addRegistry({{ (int)Auth()->User()->employee_id }})" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#addRegistryModal" title="Registrar Ponto">
+					<a type="button" wire:click="addRegistry({{ (int)Auth()->User()->employee_id }})" class="btn btn-link btn-sm text-danger text-decoration-none fw-bold" style="font-size: 13pt; padding: 0; margin: 0;" data-bs-toggle="modal" data-bs-target="#addRegistryModal" title="Registrar Ponto">
 						Registrar Ponto
 					</a>
 
@@ -96,10 +101,10 @@
 			<div style="line-height: 1.3;">
 				<hr style="color: #C0C0C0;">
 
-				<i class="bi-emoji-sunglasses text-muted"></i>
-				<span class="fw-bold">Folgas</span> <span class="text-muted">(últimas 6)</span>
+				<i class="bi-emoji-sunglasses text-black" style="font-size: 18px;"></i>
+				<span class="fw-bold text-black" style="font-size: 13pt;">Folgas</span> <span class="text-muted">(últimas 6)</span>
 
-				<br><br>
+				<br>
 
 				<span style="font-size: 11pt;">
 					@foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'DESC')->limit(6)->get() as $key => $employeeeasy)
