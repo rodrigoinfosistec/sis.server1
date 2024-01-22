@@ -37,7 +37,9 @@
 			<hr>
 
 			<div style="line-height: 1.3;">
-				<i class="bi-search-heart text-muted"></i>
+				<a type="button" href="https://forms.gle/wdtDPF7ALAVkqjsP6" target="_BLANK" title="Pesquisa de Clima">
+					<i class="bi-search-heart text-muted"></i>
+				</a>
 
 				<a type="button" href="https://forms.gle/wdtDPF7ALAVkqjsP6" target="_BLANK" class="btn btn-link btn-sm text-primary text-decoration-none" style="font-size: 13pt;" title="Pesquisa de Clima">
 					Pesquisa de Clima
@@ -63,10 +65,11 @@
 				<hr>
 
 				<div style="line-height: 1.3;">
+					<x-layout.card.card-header-button-action-add-registry/>
+
 					<a type="button" wire:click="addRegistry({{ (int)Auth()->User()->employee_id }})" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#addRegistryModal" title="Registrar Ponto">
 						Registrar Ponto
 					</a>
-					<x-layout.card.card-header-button-action-add-registry/>
 
 					@if(App\Models\Clockregistry::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->exists())
 						<br>
