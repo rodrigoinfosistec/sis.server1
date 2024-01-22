@@ -99,7 +99,7 @@
 				<i class="bi-emoji-sunglasses text-muted"></i>
 				<span class="fw-bold">Folgas</span> <span class="text-muted">(últimas 6)</span>
 
-				<br>
+				<br><br>
 
 				<span style="font-size: 11pt;">
 					@foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'DESC')->limit(6)->get() as $key => $employeeeasy)
