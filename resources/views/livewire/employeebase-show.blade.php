@@ -15,12 +15,14 @@
 
 			<div style="font-size: 13pt;">
 				<i class="bi-clock-fill text-black" style="font-size: 18px;"></i>
-				<span class="text-dark fw-bold">BANCO DE HORAS</span><i class="bi-caret-right-fill text-muted"></i>
-				<span class="fw-bold text-black">
+
+				<span class="text-dark fw-bold">BANCO DE HORAS</span>
+				
+				<span class="badge rounded-pill bg-black" style="font-size:11pt;">
 					{{ App\Models\Clock::minutsToTimeSignal((int)$employee->datatime) }}
 				</span>
 
-				<br>
+				<br><br>
 
 				<div class="text-muted fw-normal" style="font-size: 8pt; line-height: 1.2;">
 					@if(!empty($clockbase))
