@@ -34,7 +34,7 @@
 				</div>
 			</div>
 
-			<hr>
+			<hr style="color: #C0C0C0;">
 
 			<div style="line-height: 1.3;">
 				<a type="button" href="https://forms.gle/wdtDPF7ALAVkqjsP6" target="_BLANK" title="Pesquisa de Clima">
@@ -62,7 +62,7 @@
 				&& (App\Models\Employeeattestday::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
 				&& (App\Models\Employeeabsenceday::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
 			)
-				<hr>
+				<hr style="color: #C0C0C0;">
 
 				<div style="line-height: 1.3;">
 					<x-layout.card.card-header-button-action-add-registry/>
@@ -94,12 +94,13 @@
 			@endif
 
 			<div style="line-height: 1.3;">
-				<hr>
+				<hr style="color: #C0C0C0;">
 
 				<i class="bi-emoji-sunglasses text-muted"></i>
 				<span class="fw-bold">Folgas</span> <span class="text-muted">(últimas 6)</span>
 
 				<br>
+
 				<span style="font-size: 11pt;">
 					@foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'DESC')->limit(6)->get() as $key => $employeeeasy)
 						{{ date_format(date_create($employeeeasy->date), 'd/m/Y') }} <span class="text-muted">{{ App\Models\General::decodeWeek(date_format(date_create($employeeeasy->date), 'l')) }}</span>
@@ -114,7 +115,7 @@
 			</div>
 		@endif
 
-		<hr>
+		<hr style="color: #C0C0C0;">
 
 		<div style="line-height: 1.3;">
 			<i class="bi-clock-history text-muted"></i>
