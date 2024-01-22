@@ -18,7 +18,6 @@
 				<span class="text-dark fw-bold">BANCO DE HORAS</span><i class="bi-caret-right-fill text-muted"></i>
 				<span class="fw-bold text-black">
 					{{ App\Models\Clock::minutsToTimeSignal((int)$employee->datatime) }}
-					
 				</span>
 
 				<br>
