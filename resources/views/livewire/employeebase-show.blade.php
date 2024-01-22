@@ -7,7 +7,7 @@
 
 	<div class="container" style="margin:10px 0 50px 0;">
 		@if(!empty($employee))
-			<div class="alert alert-primary text-center" role="alert">
+			<div class="alert alert-primary text-center fw-bold" role="alert">
 				{{ $employee->name }}
 			</div>
 
@@ -16,12 +16,9 @@
 			<div style="font-size: 13pt;">
 				<i class="bi-clock-fill text-black" style="font-size: 18px;"></i>
 				<span class="text-dark fw-bold">BANCO DE HORAS</span><i class="bi-caret-right-fill text-muted"></i>
-				<span class="fw-bold">
-					@if($employee->datatime > 0) <span class="text-primary">
-						@elseif($employee->datatime < 0) <span class="text-danger">
-						@else <span class="text-muted"> @endif
-						{{ App\Models\Clock::minutsToTimeSignal((int)$employee->datatime) }}
-					</span>
+				<span class="fw-bold text-black">
+					{{ App\Models\Clock::minutsToTimeSignal((int)$employee->datatime) }}
+					
 				</span>
 
 				<br>
@@ -102,7 +99,7 @@
 				<hr style="color: #C0C0C0;">
 
 				<i class="bi-emoji-sunglasses text-black" style="font-size: 18px;"></i>
-				<span class="fw-bold text-black" style="font-size: 13pt;">Folgas</span> <span class="text-muted">(últimas 6)</span>
+				<span class="fw-bold text-black" style="font-size: 13pt;">Folgas</span> <span class="text-muted">(Últimas 6)</span>
 
 				<br>
 
