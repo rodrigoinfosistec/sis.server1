@@ -108,6 +108,7 @@
 						{{ date_format(date_create($employeeeasy->date), 'd/m/Y') }} <span class="text-muted">{{ App\Models\General::decodeWeek(date_format(date_create($employeeeasy->date), 'l')) }}</span>
 
 						<br>
+
 					@endforeach
 				</span>
 			</div>
