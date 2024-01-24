@@ -98,6 +98,7 @@
 				<hr style="color: #C0C0C0;">
 
 				<i class="bi-emoji-sunglasses text-black" style="font-size: 18px;"></i>
+
 				<span class="fw-bold text-black" style="font-size: 13pt;">Folgas</span> <span class="text-muted">(Últimas 6)</span>
 
 				<br>
@@ -105,6 +106,7 @@
 				<span style="font-size: 11pt;">
 					@foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'DESC')->limit(6)->get() as $key => $employeeeasy)
 						{{ date_format(date_create($employeeeasy->date), 'd/m/Y') }} <span class="text-muted">{{ App\Models\General::decodeWeek(date_format(date_create($employeeeasy->date), 'l')) }}</span>
+
 						<br>
 					@endforeach
 				</span>
