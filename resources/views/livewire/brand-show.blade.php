@@ -122,34 +122,14 @@
             {{ $item->created_at->format('d/m/y') }}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
-
-    <x-layout.card.card-body-content-table-body-line-cell-content>
-        {{ $item->name }}
-        <br>
-        @if($item->name == 'ADMINISTRADOR')
-            <span class="text-muted">PERMISSÃO TOTAL</span>
-        @elseif($item->name == 'FUNCIONARIO')
-            <span class="text-muted">ESPAÇO DO COLABORADOR</span>
-        @endif
-    </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="150">
     <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
 
-    @if($item->name == 'ADMINISTRADOR' || $item->name == 'FUNCIONARIO')
-        <x-layout.card.card-body-content-table-body-line-cell-action-edit-muted/>
+    <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
 
-        <x-layout.card.card-body-content-table-body-line-cell-action-edit-permission-muted/>
-
-        <x-layout.card.card-body-content-table-body-line-cell-action-erase-muted/>
-    @else
-        <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
-
-        <x-layout.card.card-body-content-table-body-line-cell-action-edit-permission :id="$item->id"/>
-
-        <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
-    @endif
+    <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
 
