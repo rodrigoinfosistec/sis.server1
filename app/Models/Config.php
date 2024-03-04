@@ -91,7 +91,7 @@ class Config extends Model
             ],
             [
                 'name'  => 'product',
-                'title' => 'Produto',
+                'title' => 'Custo de Produto',
                 'icon'  => 'bi-box',
                 'test'  => true,
             ],
