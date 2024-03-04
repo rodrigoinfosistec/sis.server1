@@ -122,6 +122,10 @@
             {{ $item->created_at->format('d/m/y') }}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
+
+    <x-layout.card.card-body-content-table-body-line-cell-content>
+        {{ $item->name }}
+    </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="150">
