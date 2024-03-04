@@ -191,6 +191,12 @@ class Config extends Model
                 'icon'  => 'bi-clock-history',
                 'test'  => true,
             ],
+            [
+                'name'  => 'brand',
+                'title' => 'Marca',
+                'icon'  => 'bi-shield-shaded',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
