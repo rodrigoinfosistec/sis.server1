@@ -92,7 +92,7 @@ class Config extends Model
             [
                 'name'  => 'product',
                 'title' => 'Custo de Produto',
-                'icon'  => 'bi-box',
+                'icon'  => 'bi-coin',
                 'test'  => true,
             ],
             [
@@ -192,9 +192,9 @@ class Config extends Model
                 'test'  => true,
             ],
             [
-                'name'  => 'brand',
-                'title' => 'Marca',
-                'icon'  => 'bi-shield-shaded',
+                'name'  => 'productnew',
+                'title' => 'Produto',
+                'icon'  => 'bi-box',
                 'test'  => true,
             ],
         ];
