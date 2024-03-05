@@ -49,11 +49,6 @@
                             <x-responsive-nav-link href="{{ route('product') }}" :active="request()->routeIs('product')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('product') }}"></i> {{ App\Models\Page::getTitleByName('product') }}
                             </x-responsive-nav-link>
-
-                            {{-- Marca --}}
-                            <x-responsive-nav-link href="{{ route('brand') }}" :active="request()->routeIs('brand')" class="text-decoration-none">
-                                <i class="{{ App\Models\Page::getIconByName('brand') }}"></i> {{ App\Models\Page::getTitleByName('brand') }}
-                            </x-responsive-nav-link>
                         </div>
 
                         <div class="pt-2 pb-0 border-t border-gray-200">
