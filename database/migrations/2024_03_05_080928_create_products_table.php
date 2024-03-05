@@ -21,10 +21,10 @@ return new class extends Migration
             $table->boolean('status')->default(true);
 
             $table->unsignedBigInteger('company_id');
-            $table->string('company_name')->unique();
+            $table->string('company_name');
 
             $table->unsignedBigInteger('provider_id');
-            $table->string('provider_name')->unique();
+            $table->string('provider_name');
 
             $table->timestamps();
 
