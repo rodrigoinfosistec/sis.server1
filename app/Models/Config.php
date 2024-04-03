@@ -203,6 +203,12 @@ class Config extends Model
                 'icon'  => 'bi-calendar-date',
                 'test'  => true,
             ],
+            [
+                'name'  => 'concessionaire',
+                'title' => 'Concessionária',
+                'icon'  => 'bi-water',
+                'test'  => true,
+            ],
         ];
 
         return $pages;

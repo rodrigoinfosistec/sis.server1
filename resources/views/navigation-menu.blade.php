@@ -26,7 +26,7 @@
 
                 {{-- Contas a Pagar --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="text-decoration-none" title="Contas a Pagar">
+                    <x-nav-link href="{{ route('account') }}" :active="request()->routeIs('account')" class="text-decoration-none" title="Contas a Pagar">
                         <i class="bi-calendar-date" style="font-size: 25pt;"></i>
                     </x-nav-link>
                 </div>
@@ -170,13 +170,13 @@
                 <i class="bi-receipt" style="font-size: 25pt;"></i>
             </x-nav-link>
 
-             {{-- Ponto --}}
-             <x-nav-link href="{{ route('clock') }}" :active="request()->routeIs('clock')" class="text-decoration-none" style="margin-right: 10px;">
+            {{-- Ponto --}}
+            <x-nav-link href="{{ route('clock') }}" :active="request()->routeIs('clock')" class="text-decoration-none" style="margin-right: 10px;">
                 <i class="bi-clock" style="font-size: 25pt;"></i>
             </x-nav-link>
 			
 			{{-- Contas a Pagar --}}
-             <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="text-decoration-none" style="margin-right: 10px;">
+            <x-nav-link href="{{ route('account') }}" :active="request()->routeIs('account')" class="text-decoration-none" style="margin-right: 10px;">
                 <i class="bi-calendar-date" style="font-size: 25pt;"></i>
             </x-nav-link>
         </div>
