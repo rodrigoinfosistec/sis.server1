@@ -197,6 +197,12 @@ class Config extends Model
                 'icon'  => 'bi-box',
                 'test'  => true,
             ],
+            [
+                'name'  => 'account',
+                'title' => 'Contas a Pagar',
+                'icon'  => 'bi-calendar-date',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
