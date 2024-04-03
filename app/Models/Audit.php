@@ -2641,4 +2641,120 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Concessionaire Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function concessionaireAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='     . $after->id     . ',' .
+                'name='   . $after->name   . ',' .
+                'status=' . $after->status . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Concessionaire Edit.
+     * @var array $data
+     * @var object $before
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function concessionaireEdit(array $data, object $before, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[atualizou]' . $data['config']['title'] . ' {' .
+                'id='     . $before->id     . '>' . $after->id     . ',' .
+                'name='   . $before->name   . '>' . $after->name   . ',' .
+                'status=' . $before->status . '>' . $after->status . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Concessionaire Erase.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function concessionaireErase(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
+                'id='     . $data['validatedData']['usergroup_id'] . ',' .
+                'name='   . $data['validatedData']['name']         . ',' .
+                'status=' . $data['validatedData']['status']       . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Concessionaire Generate.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function concessionaireGenerate(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[gerou relatório]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name'] . ',' .
+                'file_name=' . $data['file_name']      . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Concessionaire Mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function concessionaireMail(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[enviou e-mail]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name']                    . ',' .
+                'report_id=' . $data['validatedData']['report_id']        . ',' .
+                'email='     . $data['validatedData']['mail']             . ',' .
+                'subject='   . 'Relatório de ' . $data['config']['title'] . ',' .
+                'title='     . $data['config']['title']                   . ',' .
+                'comment='   . $data['validatedData']['comment']          . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
 }
