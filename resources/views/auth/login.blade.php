@@ -22,20 +22,39 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
-            <div>
-                <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <h1 class="h3 mb-3 fw-normal fst-italic text-black">
+                
+            </h1>
+
+            <div class="form-floating">
+                <x-input type="email" class="form-control" 
+                    style="
+                    margin-bottom: -1px;
+                    border-bottom-right-radius: 0;
+                    border-bottom-left-radius: 0;
+                " id="email" placeholder="name@example.com" name="email" :value="old('email')" required autofocus autocomplete="username"/>
+
+                <x-label for="email">
+                    E-mail
+                </x-label>
             </div>
 
-            <div class="mt-4">
-                <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+            <div class="form-floating">
+                <x-input type="password" class="form-control"
+                    style="
+                    border-top-left-radius: 0;
+                    border-top-right-radius: 0;
+                " id="password" placeholder="Password" name="password" required autocomplete="current-password"/>
+
+                <x-label for="password">
+                    Senha
+                </x-label>
             </div>
 
             <div class="block mt-4">
                 <label for="remember_me" class="flex items-center">
                     <x-checkbox id="remember_me" name="remember" />
-                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+                    <span class="ml-2 text-sm text-gray-600 dark:text-gray-400 text-black">{{ __('Remember me') }}</span>
                 </label>
             </div>
 

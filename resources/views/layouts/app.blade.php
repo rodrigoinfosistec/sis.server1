@@ -31,6 +31,8 @@
 
         {{-- Styles --}}
         @livewireStyles
+		
+		<meta name="theme-color" content="#212529">
     </head>
     <body class="font-sans antialiased">
         {{-- Banner --}}
@@ -57,7 +59,7 @@
             {{-- Conteúdo --}}
             <main>
                 <div class="py-2">
-                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8" style="padding: 0; margin: 0;">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                         <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                             {{ $slot }}
 

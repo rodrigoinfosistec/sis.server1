@@ -12,22 +12,22 @@
 
                 {{-- Nota Fiscal --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('invoice') }}" :active="request()->routeIs('invoice')" class="text-decoration-none">
-                        <img src="/img/icon/nfe.png" alt=""/>
+                    <x-nav-link href="{{ route('invoice') }}" :active="request()->routeIs('invoice')" class="text-decoration-none" title="Nota Fiscal">
+                        <i class="bi-receipt" style="font-size: 25pt;"></i>
                     </x-nav-link>
                 </div>
 
                 {{-- Ponto --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('clock') }}" :active="request()->routeIs('clock')" class="text-decoration-none">
-                        <img src="/img/icon/ponto.png" alt=""/>
+                    <x-nav-link href="{{ route('clock') }}" :active="request()->routeIs('clock')" class="text-decoration-none" title="Ponto">
+                        <i class="bi-clock" style="font-size: 25pt;"></i>
                     </x-nav-link>
                 </div>
-                
-                {{-- Banco de Horas --}}
+
+                {{-- Contas a Pagar --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('clockbase') }}" :active="request()->routeIs('clockbase')" class="text-decoration-none">
-                        <img src="/img/icon/bancohora.png" alt=""/>
+                    <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="text-decoration-none" title="Contas a Pagar">
+                        <i class="bi-calendar-date" style="font-size: 25pt;"></i>
                     </x-nav-link>
                 </div>
             </div>
@@ -167,17 +167,17 @@
         <div class="pt-2 pb-3 space-y-1" style="margin-left: 25px;">
             {{-- Nota Fiscal --}}
             <x-nav-link href="{{ route('invoice') }}" :active="request()->routeIs('invoice')" class="text-decoration-none" style="margin-right: 10px;">
-                <img src="/img/icon/nfe.png" alt=""/>
+                <i class="bi-receipt" style="font-size: 25pt;"></i>
             </x-nav-link>
 
              {{-- Ponto --}}
              <x-nav-link href="{{ route('clock') }}" :active="request()->routeIs('clock')" class="text-decoration-none" style="margin-right: 10px;">
-                <img src="/img/icon/ponto.png" alt=""/>
+                <i class="bi-clock" style="font-size: 25pt;"></i>
             </x-nav-link>
-
-             {{-- Banco de Horas --}}
-             <x-nav-link href="{{ route('clockbase') }}" :active="request()->routeIs('clockbase')" class="text-decoration-none" style="margin-right: 10px;">
-                <img src="/img/icon/bancohora.png" alt=""/>
+			
+			{{-- Contas a Pagar --}}
+             <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="text-decoration-none" style="margin-right: 10px;">
+                <i class="bi-calendar-date" style="font-size: 25pt;"></i>
             </x-nav-link>
         </div>
 

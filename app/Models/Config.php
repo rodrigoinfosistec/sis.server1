@@ -110,7 +110,7 @@ class Config extends Model
             [
                 'name'  => 'clockbase',
                 'title' => 'Banco de Horas',
-                'icon'  => 'bi-clock',
+                'icon'  => 'bi-database',
                 'test'  => true,
             ],
             [

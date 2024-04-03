@@ -24,6 +24,8 @@
 
         {{-- Bootstrap Icons | CDN --}}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+		
+		<meta name="theme-color" content="#212529">
     </head>
 
     <body>

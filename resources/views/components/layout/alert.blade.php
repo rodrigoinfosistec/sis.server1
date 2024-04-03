@@ -1,5 +1,5 @@
 @if(session()->has('message') and session()->has('color'))
-    <div class="alert alert-{{ session('color') }}" style="margin: 0;">
+    <div class="alert alert-{{ session('color') }}">
         @if(session('color') == 'success')
             <i class="bi-shield-check text-{{ session('color') }}" style="font-size: 11pt;">
                 {{ session('message') }}

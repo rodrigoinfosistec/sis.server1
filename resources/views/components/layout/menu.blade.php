@@ -1,6 +1,6 @@
 <div style="width: 85px; height: 50px; margin: -37px;" class="float-end">
     {{-- Botão --}}
-    <button type="button" class="navbar-toggler bg-primary" style="padding: 5px; border-radius: 50%;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+    <button type="button" class="navbar-toggler bg-dark" style="padding: 5px; border-radius: 50%;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
         <i class="bi-list text-light" style="font-size: 25px;"></i>
     </button>
 
@@ -56,6 +56,11 @@
                             <x-responsive-nav-link href="{{ route('employee') }}" :active="request()->routeIs('employee')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('employee') }}"></i> {{ App\Models\Page::getTitleByName('employee') }}
                             </x-responsive-nav-link>
+							
+							{{-- Banco de Horas --}}
+                            <x-responsive-nav-link href="{{ route('clockbase') }}" :active="request()->routeIs('clockbase')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('clockbase') }}"></i> {{ App\Models\Page::getTitleByName('clockbase') }}
+                            </x-responsive-nav-link>
 
                             {{-- Registro de ponto --}}
                             <x-responsive-nav-link href="{{ route('clockregistry') }}" :active="request()->routeIs('clockregistry')" class="text-decoration-none">
@@ -63,9 +68,9 @@
                             </x-responsive-nav-link>
 
                             {{-- Tratamento de ponto --}}
-                            <x-responsive-nav-link href="{{ route('clockregistryemployee') }}" :active="request()->routeIs('clockregistryemployee')" class="text-decoration-none">
+								{{-- <x-responsive-nav-link href="{{ route('clockregistryemployee') }}" :active="request()->routeIs('clockregistryemployee')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('clockregistryemployee') }}"></i> {{ App\Models\Page::getTitleByName('clockregistryemployee') }}
-                            </x-responsive-nav-link>
+								</x-responsive-nav-link>--}}
 
                             {{-- Feriado --}}
                             <x-responsive-nav-link href="{{ route('holiday') }}" :active="request()->routeIs('holiday')" class="text-decoration-none">
@@ -154,9 +159,9 @@
                                 </x-responsive-nav-link>
 
                                 {{-- Eventos --}}
-                                <x-responsive-nav-link href="{{ route('pointevent') }}" :active="request()->routeIs('pointevent')" class="text-decoration-none">
+                                {{--<x-responsive-nav-link href="{{ route('pointevent') }}" :active="request()->routeIs('pointevent')" class="text-decoration-none">
                                     <i class="{{ App\Models\Page::getIconByName('pointevent') }}"></i> {{ App\Models\Page::getTitleByName('pointevent') }}
-                                </x-responsive-nav-link>
+                                </x-responsive-nav-link>--}}
                             @endif
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
