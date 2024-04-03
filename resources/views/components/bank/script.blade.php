@@ -1,3 +1,12 @@
-<div>
-    <!-- Life is available only in the present moment. - Thich Nhat Hanh -->
-</div>
+<script>
+    window.addEventListener('close-modal', event => {
+        $('#generateModal').modal('hide');
+        $('#mailModal').modal('hide');
+
+        $('#addModal').modal('hide');
+
+        $('#detailModal').modal('hide');
+        $('#editModal').modal('hide');
+        $('#eraseModal').modal('hide');
+    })
+</script>
