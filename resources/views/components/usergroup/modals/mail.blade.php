@@ -3,7 +3,7 @@
         {{ $config['title'] }}
 
         <x-slot:identifier>
-           
+
         </x-slot>
     </x-layout.modal.modal-mail-header>
 

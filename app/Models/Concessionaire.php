@@ -94,16 +94,7 @@ class Concessionaire extends Model
     public static function validateEdit(array $data) : bool {
         $message = null;
 
-        // Concessionária.
-        $concessionaire = Concessionaire::find($data['validatedData']['concessionaire_id']);
-
-        // Verifica se Usuário não está Inativo.
-        if(!$data['validatedData']['status']):
-            // Verifica se algum Usuário já utiliza o Grupo de Produto.
-            if(User::where(['concessionaire_id' => $data['validatedData']['concessionaire_id']])->exists()):
-                $message = $data['config']['title'] . ' ' . $concessionaire->name .' utilizado em usuário ' . User::where(['concessionaire_id' => $data['validatedData']['concessionaire_id']])->first()->name;
-            endif;
-        endif;
+        // ...
 
         // Desvio.
         if(!empty($message)):
@@ -167,10 +158,7 @@ class Concessionaire extends Model
     public static function validateErase(array $data) : bool {
         $message = null;
 
-        // Usuário.
-        if(User::where(['concessionaire_id' => $data['validatedData']['concessionaire_id']])->exists()):
-            $message = $data['config']['title'] . ' ' . Concessionaire::find($data['validatedData']['concessionaire_id'])->name . ' utilizado em usuário ' . User::where(['concessionaire_id' => $data['validatedData']['concessionaire_id']])->first()->name . '.';
-        endif;
+        // ...
 
         // Desvio.
         if(!empty($message)):

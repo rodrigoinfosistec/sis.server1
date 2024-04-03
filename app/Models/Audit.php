@@ -2702,9 +2702,9 @@ class Audit extends Model
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
             'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
-                'id='     . $data['validatedData']['usergroup_id'] . ',' .
-                'name='   . $data['validatedData']['name']         . ',' .
-                'status=' . $data['validatedData']['status']       . ',' .
+                'id='     . $data['validatedData']['concessionaire_id'] . ',' .
+                'name='   . $data['validatedData']['name']              . ',' .
+                'status=' . $data['validatedData']['status']            . ',' .
             '}',
         ]);
 
