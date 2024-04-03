@@ -119,6 +119,11 @@
                         </div>
 
                         <div class="pt-2 pb-0 border-t border-gray-200">
+                            {{-- Banco --}}
+                            <x-responsive-nav-link href="{{ route('bank') }}" :active="request()->routeIs('bank')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('bank') }}"></i> {{ App\Models\Page::getTitleByName('bank') }}
+                            </x-responsive-nav-link>
+
                             {{-- Concessionária --}}
                             <x-responsive-nav-link href="{{ route('concessionaire') }}" :active="request()->routeIs('concessionaire')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('concessionaire') }}"></i> {{ App\Models\Page::getTitleByName('concessionaire') }}
