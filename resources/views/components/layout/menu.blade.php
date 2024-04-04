@@ -129,6 +129,11 @@
                                 <i class="{{ App\Models\Page::getIconByName('document') }}"></i> {{ App\Models\Page::getTitleByName('document') }}
                             </x-responsive-nav-link>
 
+                            {{-- Destino Conta --}}
+                            <x-responsive-nav-link href="{{ route('accountdestiny') }}" :active="request()->routeIs('accountdestiny')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('accountdestiny') }}"></i> {{ App\Models\Page::getTitleByName('accountdestiny') }}
+                            </x-responsive-nav-link>
+
                             {{-- Concessionária --}}
                             <x-responsive-nav-link href="{{ route('concessionaire') }}" :active="request()->routeIs('concessionaire')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('concessionaire') }}"></i> {{ App\Models\Page::getTitleByName('concessionaire') }}
