@@ -215,6 +215,12 @@ class Config extends Model
                 'icon'  => 'bi-bank',
                 'test'  => true,
             ],
+            [
+                'name'  => 'document',
+                'title' => 'Documento',
+                'icon'  => 'bi-award',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
