@@ -124,6 +124,11 @@
                                 <i class="{{ App\Models\Page::getIconByName('bank') }}"></i> {{ App\Models\Page::getTitleByName('bank') }}
                             </x-responsive-nav-link>
 
+                            {{-- Documento --}}
+                            <x-responsive-nav-link href="{{ route('document') }}" :active="request()->routeIs('document')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('document') }}"></i> {{ App\Models\Page::getTitleByName('document') }}
+                            </x-responsive-nav-link>
+
                             {{-- Concessionária --}}
                             <x-responsive-nav-link href="{{ route('concessionaire') }}" :active="request()->routeIs('concessionaire')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('concessionaire') }}"></i> {{ App\Models\Page::getTitleByName('concessionaire') }}

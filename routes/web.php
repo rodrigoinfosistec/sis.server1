@@ -36,6 +36,7 @@ use App\Http\Controllers\PointeventController;
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ConcessionaireController;
 
 Route::get('/', function () {
@@ -83,5 +84,6 @@ Route::middleware([
 
     Route::get('/account', [AccountController::class, 'index'])->name('account');
     Route::get('/bank', [BankController::class, 'index'])->name('bank');
+    Route::get('/document', [DocumentController::class, 'index'])->name('document');
     Route::get('/concessionaire', [ConcessionaireController::class, 'index'])->name('concessionaire');
 });
