@@ -221,6 +221,12 @@ class Config extends Model
                 'icon'  => 'bi-award',
                 'test'  => true,
             ],
+            [
+                'name'  => 'accountdestiny',
+                'title' => 'Destino Conta',
+                'icon'  => 'bi-signpost-2',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
