@@ -227,6 +227,12 @@ class Config extends Model
                 'icon'  => 'bi-signpost-2',
                 'test'  => true,
             ],
+            [
+                'name'  => 'rhsearch',
+                'title' => 'RH Pesquisa',
+                'icon'  => 'bi-search',
+                'test'  => true,
+            ],
         ];
 
         return $pages;

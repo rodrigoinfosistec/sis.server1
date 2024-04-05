@@ -42,18 +42,19 @@
 					@php
 						$rhsearh = App\Models\Rhsearch::first() ?? 'none';
 					@endphp
+
 					<hr style="color: #C0C0C0;">
 
 					<div style="line-height: 1.3;">
 						<a type="button" href="{{ $rhsearh->link ?? '#' }}" style="padding: 0; margin: 0;" target="_BLANK" title="{{ $rhsearh->name ?? 'Pesquisa' }}">
-							<i class="bi-{{ $rhsearh->icon ?? 'search' }} text-primary" style="font-size: 18px;"></i>
+							<i class="bi-{{ $rhsearh->icon ?? 'search' }}" style="font-size: 18px; color: {{ $rhsearh->color ?? '#0D6EFD' }};"></i>
 						</a>
 
-						<a type="button" href="{{ $rhsearh->link ?? '#' }}" target="_BLANK" class="btn btn-link btn-sm text-primary text-decoration-none fw-bold" style="font-size: 13pt; padding: 0; margin: 0;" title="{{ $rhsearh->name ?? 'Pesquisa' }}">
+						<a type="button" href="{{ $rhsearh->link ?? '#' }}" target="_BLANK" class="btn btn-link btn-sm text-decoration-none fw-bold" style="font-size: 13pt; padding: 0; margin: 0;  color: {{ $rhsearh->color ?? '#0D6EFD' }};" title="{{ $rhsearh->name ?? 'Pesquisa' }}">
 							{{ $rhsearh->name ?? 'Pesquisa' }}
 						</a>
 
-						<a type="button" href="{{ $rhsearh->link ?? '#' }}" target="_BLANK" class="btn btn-link btn-sm text-muted" style="font-size: 10pt;" title="{{ $rhsearh->name ?? 'Pesquisa' }}a">
+						<a type="button" href="{{ $rhsearh->link ?? '#' }}" target="_BLANK" class="btn btn-link btn-sm text-muted" style="font-size: 10pt;" title="{{ $rhsearh->name ?? 'Pesquisa' }}">
 							Clique aqui
 						</a>
 					</div>
