@@ -48,8 +48,6 @@
 					Pesquisa de Clima
 				</a>
 
-				<br>
-
 				<a type="button" href="https://forms.gle/wdtDPF7ALAVkqjsP6" target="_BLANK" class="btn btn-link btn-sm text-muted" style="font-size: 10pt;" title="Pesquisa de Clima">
 					Clique aqui
 				</a>
