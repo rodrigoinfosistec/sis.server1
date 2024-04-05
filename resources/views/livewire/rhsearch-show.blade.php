@@ -22,13 +22,13 @@
 
 {{-- botão relatório --}}
 @if($existsItem)
-    <x-layout.card.card-header-button-action-generate/>
+    <x-layout.card.card-header-button-action-generate-muted/>
 @else
     <x-layout.card.card-header-button-action-generate-muted/>
 @endif
 
 @if($existsReport)
-    <x-layout.card.card-header-button-action-mail/>
+    <x-layout.card.card-header-button-action-mail-muted/>
 @else
     <x-layout.card.card-header-button-action-mail-muted/>
 @endif
@@ -117,12 +117,10 @@
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
-        <span style="color: {{ $item->color }}; font-size: 12pt;">
+        <a class="text-decoration-none" href="{{ $item->link }}" style="color: {{ $item->color }}; font-size: 12pt;" target="_BLANK">
             <i class="bi-{{ $item->icon }}" style="color: {{ $item->color }};"></i>
             {{ $item->name }}
-        </span>
-        <br>
-        <span class="text-muted">{{ $item->link }}</span>
+        </a>
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
