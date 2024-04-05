@@ -1,5 +1,5 @@
 <x-layout.modal.modal-add modal="addEfisco" method="registerEfisco" size="">
-    <x-layout.modal.modal-add-header icon="bi-receipt" modal="addEfisco">
+    <x-layout.modal.modal-add-header icon="bi-coin" modal="addEfisco">
         eFisco de {{ $config['title'] }}
 
         <x-slot:identifier>
