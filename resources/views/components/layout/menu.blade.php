@@ -40,6 +40,13 @@
                         </div>
 
                         <div class="pt-2 pb-0 border-t border-gray-200">
+                            {{-- RH Pesquisa --}}
+                            <x-responsive-nav-link href="{{ route('rhsearch') }}" :active="request()->routeIs('rhsearch')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('rhsearch') }}"></i> {{ App\Models\Page::getTitleByName('rhsearch') }}
+                            </x-responsive-nav-link>
+                        </div>
+
+                        <div class="pt-2 pb-0 border-t border-gray-200">
                             {{-- Grupo de Produto --}}
                             <x-responsive-nav-link href="{{ route('productgroup') }}" :active="request()->routeIs('productgroup')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('productgroup') }}"></i> {{ App\Models\Page::getTitleByName('productgroup') }}
