@@ -37,21 +37,28 @@
 				</div>
 			</div>
 
-			<hr style="color: #C0C0C0;">
+			@if(App\Models\Rhsearch::exists())
+				@if(App\Models\Rhsearch::first()->status)
+					@php
+						$rhsearh = App\Models\Rhsearch::first() ?? 'none';
+					@endphp
+					<hr style="color: #C0C0C0;">
 
-			<div style="line-height: 1.3;">
-				<a type="button" href="https://forms.gle/wdtDPF7ALAVkqjsP6" style="padding: 0; margin: 0;" target="_BLANK" title="Pesquisa de Clima">
-					<i class="bi-search-heart text-primary" style="font-size: 18px;"></i>
-				</a>
+					<div style="line-height: 1.3;">
+						<a type="button" href="{{ $rhsearh->link }}" style="padding: 0; margin: 0;" target="_BLANK" title="Pesquisa de Clima">
+							<i class="bi-{{ $rhsearh->icon }} text-primary" style="font-size: 18px;"></i>
+						</a>
 
-				<a type="button" href="https://forms.gle/wdtDPF7ALAVkqjsP6" target="_BLANK" class="btn btn-link btn-sm text-primary text-decoration-none fw-bold" style="font-size: 13pt; padding: 0; margin: 0;" title="Pesquisa de Clima">
-					Pesquisa de Clima
-				</a>
+						<a type="button" href="{{ $rhsearh->link }}" target="_BLANK" class="btn btn-link btn-sm text-primary text-decoration-none fw-bold" style="font-size: 13pt; padding: 0; margin: 0;" title="Pesquisa de Clima">
+							{{ $rhsearh->name }}
+						</a>
 
-				<a type="button" href="https://forms.gle/wdtDPF7ALAVkqjsP6" target="_BLANK" class="btn btn-link btn-sm text-muted" style="font-size: 10pt;" title="Pesquisa de Clima">
-					Clique aqui
-				</a>
-			</div>
+						<a type="button" href="{{ $rhsearh->link }}" target="_BLANK" class="btn btn-link btn-sm text-muted" style="font-size: 10pt;" title="Pesquisa de Clima">
+							Clique aqui
+						</a>
+					</div>
+				@endif
+			@endif
 
 			@if(
 				($employee->clock_type == 'REGISTRY')

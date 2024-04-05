@@ -2,10 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Rhsearch extends Model
 {
-    use HasFactory;
+    /**
+     * Nome da tabela.
+     */
+    protected $table = 'rhsearches';
+
+    /**
+     * Campos manipuláveis.
+     */
+    protected $fillable = [
+        'name',
+        'link',
+        'icon',
+
+        'status',
+
+        'created_at',
+        'updated_at',
+    ];
 }
