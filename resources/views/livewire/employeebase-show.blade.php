@@ -45,15 +45,15 @@
 					<hr style="color: #C0C0C0;">
 
 					<div style="line-height: 1.3;">
-						<a type="button" href="{{ $rhsearh->link }}" style="padding: 0; margin: 0;" target="_BLANK" title="Pesquisa de Clima">
-							<i class="bi-{{ $rhsearh->icon }} text-primary" style="font-size: 18px;"></i>
+						<a type="button" href="{{ $rhsearh->link ?? '#' }}" style="padding: 0; margin: 0;" target="_BLANK" title="{{ $rhsearh->name ?? 'Pesquisa' }}">
+							<i class="bi-{{ $rhsearh->icon ?? 'search' }} text-primary" style="font-size: 18px;"></i>
 						</a>
 
-						<a type="button" href="{{ $rhsearh->link }}" target="_BLANK" class="btn btn-link btn-sm text-primary text-decoration-none fw-bold" style="font-size: 13pt; padding: 0; margin: 0;" title="Pesquisa de Clima">
-							{{ $rhsearh->name }}
+						<a type="button" href="{{ $rhsearh->link ?? '#' }}" target="_BLANK" class="btn btn-link btn-sm text-primary text-decoration-none fw-bold" style="font-size: 13pt; padding: 0; margin: 0;" title="{{ $rhsearh->name ?? 'Pesquisa' }}">
+							{{ $rhsearh->name ?? 'Pesquisa' }}
 						</a>
 
-						<a type="button" href="{{ $rhsearh->link }}" target="_BLANK" class="btn btn-link btn-sm text-muted" style="font-size: 10pt;" title="Pesquisa de Clima">
+						<a type="button" href="{{ $rhsearh->link ?? '#' }}" target="_BLANK" class="btn btn-link btn-sm text-muted" style="font-size: 10pt;" title="{{ $rhsearh->name ?? 'Pesquisa' }}a">
 							Clique aqui
 						</a>
 					</div>
