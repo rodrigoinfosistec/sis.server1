@@ -40,8 +40,6 @@
 
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="12">
-        <x-layout.modal.modal-add-body-group-item-label item="icon" title="ÍCONE" plus="none"/>
-
         <div class="form-check">
             <input type="radio" wire:model="icon" class="form-check-input" id="icon1" value="search" checked>
             <label class="form-check-label" for="icon1">

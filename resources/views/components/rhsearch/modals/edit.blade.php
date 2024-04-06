@@ -44,8 +44,6 @@
 
 <x-layout.modal.modal-edit-body-group>
     <x-layout.modal.modal-edit-body-group-item columms="6">
-        <x-layout.modal.modal-edit-body-group-item-label item="icon" title="ÍCONE" plus="none"/>
-
         <div class="form-check">
             <input type="radio" wire:model="icon" class="form-check-input" id="icon1" value="search" checked>
             <label class="form-check-label" for="icon1">
