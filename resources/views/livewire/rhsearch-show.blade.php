@@ -4,6 +4,7 @@
 {{-- botões --}}
 
 {{-- plus --}}
+@include('components.' .  $config['name'] . '.modals.add')
 
 {{-- info --}}
 
@@ -46,7 +47,11 @@
                 <x-layout.card.card-header-button-more>
 
 {{-- botão add --}}
-<x-layout.card.card-header-button-more-plus-muted/>
+@if(App\Models\Rhsearch::exists())
+    <x-layout.card.card-header-button-more-plus-muted/>
+@else
+    <x-layout.card.card-header-button-more-plus/>
+@endif
 {{-- botão add --}}
 
                 </x-layout.card.card-header-button-more>

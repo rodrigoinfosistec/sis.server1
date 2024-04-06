@@ -1,3 +1,7 @@
-<div>
-    <!-- Breathing in, I calm body and mind. Breathing out, I smile. - Thich Nhat Hanh -->
-</div>
+<script>
+    window.addEventListener('close-modal', event => {
+        $('#addModal').modal('hide');
+
+        $('#editModal').modal('hide');
+    })
+</script>

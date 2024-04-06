@@ -55,10 +55,9 @@ class RhsearchShow extends Component
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
 
-            'name'  => ['required', 'between:2,255', 'unique:Rhsearches,name,'.$this->Rhsearch_id.''],
-            'link'  => ['required', 'between:5,255', 'unique:Rhsearches,link,'.$this->Rhsearch_id.''],
-            'icon'  => ['required', 'between:2,50', 'unique:Rhsearches,icon,'.$this->Rhsearch_id.''],
-            'color' => ['required', 'between:4,7', 'unique:Rhsearches,color,'.$this->Rhsearch_id.''],
+            'name'  => ['required', 'between:2,255', 'unique:rhsearches,name,'.$this->rhsearch_id.''],
+            'link'  => ['required', 'between:1,255', 'unique:rhsearches,link,'.$this->rhsearch_id.''],
+            'icon'  => ['required', 'between:2,50', 'unique:rhsearches,icon,'.$this->rhsearch_id.''],
         ];
     }
 
@@ -131,10 +130,12 @@ class RhsearchShow extends Component
             // Valida campos.
             $validatedData = $this->validate([
                 'name' => ['required', 'between:2,255', 'unique:rhsearches'],
-                'link' => ['required', 'between:5,255', 'unique:rhsearches'],
-                'icon' => ['required', 'between:2,50', 'unique:rhsearches'],
-                'color' => ['required', 'between:4,7', 'unique:rhsearches'],
+                'link' => ['required', 'between:1,255', 'unique:rhsearches'],
             ]);
+
+            // Estende $validatedData
+            $validatedData['icon']  = $this->icon;
+            $validatedData['color'] = $this->color;
 
             // Define $data.
             $data['config']        = $this->config;
@@ -195,13 +196,13 @@ class RhsearchShow extends Component
             // Valida campos.
             $validatedData = $this->validate([
                 'name'  => ['required', 'between:2,255', 'unique:rhsearches,name,'.$this->rhsearch_id.''],
-                'link'  => ['required', 'between:5,255', 'unique:rhsearches,link,'.$this->rhsearch_id.''],
-                'icon'  => ['required', 'between:2,50', 'unique:rhsearches,icon,'.$this->rhsearch_id.''],
-                'color' => ['required', 'between:4,7', 'unique:rhsearches,color,'.$this->rhsearch_id.''],
+                'link'  => ['required', 'between:1,255', 'unique:rhsearches,link,'.$this->rhsearch_id.''],
             ]);
 
             // Estende $validatedData
-            $validatedData['rhsearch_id'] = $this->Rhsearch_id;
+            $validatedData['rhsearch_id'] = $this->rhsearch_id;
+            $validatedData['icon']        = $this->icon;
+            $validatedData['color']       = $this->color;
             $this->status ? $validatedData['status'] = true : $validatedData['status'] = false;
 
             // Define $data.
