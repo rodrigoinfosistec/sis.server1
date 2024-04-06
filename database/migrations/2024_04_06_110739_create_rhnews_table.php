@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('name')->unique();
-            $table->string('description');
+            $table->text('description');
 
             $table->boolean('status')->default(true);
 
