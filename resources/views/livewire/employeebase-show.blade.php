@@ -104,6 +104,32 @@
 				</div>
 			@endif
 
+			@if(App\Models\Rhnews::where('status', true)->exists())
+				<hr style="color: #C0C0C0;">
+
+				<h5 class="text-primary">
+					<i class="bi-info-circle"></i>
+					RH Informa
+				</h5>
+
+				<div class="accordion accordion-flush" id="accordionFlushExample" style="max-width: 500px;">
+					@foreach(App\Models\Rhnews::where('status', true)->orderBy('created_at', 'DESC')->get() as $key => $news)
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $news->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $news->id }}">
+									<i class="bi-info-circle-fill text-primary"></i>&nbsp;&nbsp;
+									{{ $news->name }}
+								</button>
+							</h2>
+
+							<div id="flush-collapse{{ $news->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+								<div class="accordion-body">{{ $news->description }}</div>
+							</div>
+						</div>
+					@endforeach
+				</div>
+			@endif
+
 			<div style="line-height: 1.3;">
 				<hr style="color: #C0C0C0;">
 

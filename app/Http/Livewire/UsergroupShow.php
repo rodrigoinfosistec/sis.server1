@@ -57,7 +57,7 @@ class UsergroupShow extends Component
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
 
-            'name' => ['required', 'between:3,255', 'unique:usergroups,name,'.$this->usergroup_id.''],
+            'name' => ['required', 'between:2,255', 'unique:usergroups,name,'.$this->usergroup_id.''],
         ];
     }
 
@@ -131,7 +131,7 @@ class UsergroupShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'name' => ['required', 'between:3,255', 'unique:usergroups'],
+                'name' => ['required', 'between:2,255', 'unique:usergroups'],
             ]);
 
             // Define $data.
@@ -186,7 +186,7 @@ class UsergroupShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'name' => ['required', 'between:3,255', 'unique:usergroups,name,'.$this->usergroup_id.''],
+                'name' => ['required', 'between:2,255', 'unique:usergroups,name,'.$this->usergroup_id.''],
             ]);
 
             // Estende $validatedData
