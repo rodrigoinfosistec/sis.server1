@@ -33,7 +33,7 @@ class RhsearchShow extends Component
     public $rhsearch_id;
     public $name;
     public $link;
-    public $icon;
+    public $icon = 'search';
     public $color;
     public $status;
     public $created;

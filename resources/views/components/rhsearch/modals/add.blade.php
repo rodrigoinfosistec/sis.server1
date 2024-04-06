@@ -41,7 +41,7 @@
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="12">
         <div class="form-check">
-            <input type="radio" wire:model="icon" class="form-check-input" id="icon1" value="search" checked>
+            <input type="radio" wire:model="icon" class="form-check-input" id="icon1" value="search">
             <label class="form-check-label" for="icon1">
                 <i class="bi-search"></i>
             </label>
