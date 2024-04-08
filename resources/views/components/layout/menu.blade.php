@@ -44,6 +44,11 @@
                             <x-responsive-nav-link href="{{ route('rhsearch') }}" :active="request()->routeIs('rhsearch')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('rhsearch') }}"></i> {{ App\Models\Page::getTitleByName('rhsearch') }}
                             </x-responsive-nav-link>
+
+                            {{-- RH Informa --}}
+                            <x-responsive-nav-link href="{{ route('rhnews') }}" :active="request()->routeIs('rhnews')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('rhnews') }}"></i> {{ App\Models\Page::getTitleByName('rhnews') }}
+                            </x-responsive-nav-link>
                         </div>
 
                         <div class="pt-2 pb-0 border-t border-gray-200">
