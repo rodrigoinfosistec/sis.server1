@@ -3225,4 +3225,122 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Rhnews Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function rhnewsAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='          . $after->id          . ',' .
+                'name='        . $after->name        . ',' .
+                'description=' . $after->description . ',' .
+                'status='      . $after->status      . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Rhnews Edit.
+     * @var array $data
+     * @var object $before
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function rhnewsEdit(array $data, object $before, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[atualizou]' . $data['config']['title'] . ' {' .
+                'id='          . $before->id          . '>' . $after->id          . ',' .
+                'name='        . $before->name        . '>' . $after->name        . ',' .
+                'description=' . $before->description . '>' . $after->description . ',' .
+                'status='      . $before->status      . '>' . $after->status      . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Rhnews Erase.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function rhnewsErase(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
+                'id='          . $data['validatedData']['rhnews_id']   . ',' .
+                'name='        . $data['validatedData']['name']        . ',' .
+                'description=' . $data['validatedData']['description'] . ',' .
+                'status='      . $data['validatedData']['status']      . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Rhnews Generate.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function rhnewsGenerate(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[gerou relatório]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name'] . ',' .
+                'file_name=' . $data['file_name']      . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Rhnews Mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function rhnewsMail(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[enviou e-mail]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name']                    . ',' .
+                'report_id=' . $data['validatedData']['report_id']        . ',' .
+                'email='     . $data['validatedData']['mail']             . ',' .
+                'subject='   . 'Relatório de ' . $data['config']['title'] . ',' .
+                'title='     . $data['config']['title']                   . ',' .
+                'comment='   . $data['validatedData']['comment']          . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }
