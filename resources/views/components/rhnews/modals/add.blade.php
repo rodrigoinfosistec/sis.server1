@@ -29,7 +29,6 @@
         <x-layout.modal.modal-mail-body-group-item-error item="description" message="$message"/>
     </div>
 </div>
-
 {{-- conteúdo --}}
 
     </x-layout.modal.modal-add-body>
