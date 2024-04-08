@@ -15,7 +15,7 @@
 
 {{-- conteúdo --}}
 <x-layout.modal.modal-edit-body-group>
-    <x-layout.modal.modal-edit-body-group-item columms="10">
+    <x-layout.modal.modal-edit-body-group-item columms="12">
         <x-layout.modal.modal-edit-body-group-item-label item="name" title="NOME" plus="none"/>
 
         <input type="text" wire:model="name" class="form-control form-control-sm" id="name">
@@ -24,15 +24,15 @@
     </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
 
-<div class="row g-3" style="margin-bottom: 10px;">
-    <div class="col-sm-12">
+<x-layout.modal.modal-edit-body-group>
+    <x-layout.modal.modal-edit-body-group-item columms="12">
         <textarea wire:model="description" class="form-control form-control-sm" id="description" rows="6"></textarea>
 
         <x-layout.modal.modal-mail-body-group-item-count :comment="$description"/>
 
         <x-layout.modal.modal-mail-body-group-item-error item="description" message="$message"/>
-    </div>
-</div>
+    </x-layout.modal.modal-edit-body-group-item>
+</x-layout.modal.modal-edit-body-group>
 
 <x-layout.modal.modal-edit-body-group>
     <x-layout.modal.modal-edit-body-group-item columms="12">
