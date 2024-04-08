@@ -1507,8 +1507,8 @@ class Report extends Model
             'title' => $data['config']['title'],
             'date'  => date('d/m/Y H:i:s'),
             'list'  => $list = Rhnews::where([
-                            [$data['filter'], 'like', '%'. $data['search'] . '%'],
-                        ])->orderBy('name', 'ASC')->get(), 
+                [$data['filter'], 'like', '%'. $data['search'] . '%'],
+            ])->orderBy('name', 'ASC')->get(), 
         ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
 
         // Salva o arquivo PDF.
