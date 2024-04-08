@@ -233,6 +233,12 @@ class Config extends Model
                 'icon'  => 'bi-search',
                 'test'  => true,
             ],
+            [
+                'name'  => 'rhnews',
+                'title' => 'RH Informa',
+                'icon'  => 'bi-info-circle',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
