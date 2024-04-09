@@ -132,7 +132,7 @@
 											{{ $news->salute }}
 											<br>
 										@endif
-										
+
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<span style="font-size: 9pt;">
 											{{ $news->created_at->format('d/m/Y') }}
