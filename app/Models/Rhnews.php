@@ -19,6 +19,7 @@ class Rhnews extends Model
     protected $fillable = [
         'name',
         'description',
+        'salute',
 
         'status',
 
@@ -60,6 +61,7 @@ class Rhnews extends Model
         Rhnews::create([
             'name'        => $data['validatedData']['name'],
             'description' => $data['validatedData']['description'],
+            'salute'      => $data['validatedData']['salute'],
         ]);
 
         // After.
@@ -124,6 +126,7 @@ class Rhnews extends Model
         Rhnews::find($data['validatedData']['rhnews_id'])->update([
             'name'        => $data['validatedData']['name'],
             'description' => $data['validatedData']['description'],
+            'salute'      => $data['validatedData']['salute'],
             'status'      => $data['validatedData']['status'],
         ]);
 

@@ -29,6 +29,16 @@
         <x-layout.modal.modal-mail-body-group-item-error item="description" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
+
+<x-layout.modal.modal-add-body-group>
+    <x-layout.modal.modal-add-body-group-item columms="12">
+        <x-layout.modal.modal-add-body-group-item-label item="salute" title="SAUDAÇÃO" plus="none"/>
+
+        <input type="text" wire:model="salute" class="form-control form-control-sm" id="salute">
+
+        <x-layout.modal.modal-add-body-group-item-error item="salute" message="$message"/>
+    </x-layout.modal.modal-add-body-group-item>
+</x-layout.modal.modal-add-body-group>
 {{-- conteúdo --}}
 
     </x-layout.modal.modal-add-body>

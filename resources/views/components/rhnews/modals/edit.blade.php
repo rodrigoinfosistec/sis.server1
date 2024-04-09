@@ -36,6 +36,16 @@
 
 <x-layout.modal.modal-edit-body-group>
     <x-layout.modal.modal-edit-body-group-item columms="12">
+        <x-layout.modal.modal-edit-body-group-item-label item="salute" title="SAUDAÇÃO" plus="none"/>
+
+        <input type="text" wire:model="salute" class="form-control form-control-sm" id="salute">
+
+        <x-layout.modal.modal-edit-body-group-item-error item="salute" message="$message"/>
+    </x-layout.modal.modal-edit-body-group-item>
+</x-layout.modal.modal-edit-body-group>
+
+<x-layout.modal.modal-edit-body-group>
+    <x-layout.modal.modal-edit-body-group-item columms="12">
         <x-layout.modal.modal-edit-body-group-item-status>
             <input wire:model="status" class="form-check-input" type="checkbox" role="switch" id="status">
 

@@ -33,6 +33,7 @@ class RhnewsShow extends Component
     public $rhnews_id;
     public $name;
     public $description;
+    public $salute;
     public $status;
     public $created;
 
@@ -85,6 +86,7 @@ class RhnewsShow extends Component
         $this->rhnews_id   = '';
         $this->name        = '';
         $this->description = '';
+        $this->salute      = '';
         $this->status      = '';
         $this->created     = '';
     }
@@ -128,6 +130,9 @@ class RhnewsShow extends Component
                 'description' => ['required', 'between:2,255', 'unique:rhnews'],
             ]);
 
+            // Estende $validatedData
+            $validatedData['salute'] = $this->salute;
+
             // Define $data.
             $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;
@@ -158,6 +163,7 @@ class RhnewsShow extends Component
         $this->rhnews_id   = $rhnews->id;
         $this->name        = $rhnews->name;
         $this->description = $rhnews->description;
+        $this->salute      = $rhnews->salute;
         $this->status      = $rhnews->status;
         $this->created     = $rhnews->created_at->format('d/m/Y H:i:s');
     }
@@ -175,6 +181,7 @@ class RhnewsShow extends Component
         $this->rhnews_id   = $rhnews->id;
         $this->name        = $rhnews->name;
         $this->description = $rhnews->description;
+        $this->salute      = $rhnews->salute;
         $this->status      = $rhnews->status;
         $this->created     = $rhnews->created_at->format('d/m/Y H:i:s');
     }
@@ -188,6 +195,7 @@ class RhnewsShow extends Component
 
             // Estende $validatedData
             $validatedData['rhnews_id'] = $this->rhnews_id;
+            $validatedData['salute']    = $this->salute;
             $this->status ? $validatedData['status'] = true : $validatedData['status'] = false;
 
             // Define $data.
@@ -221,6 +229,7 @@ class RhnewsShow extends Component
         $this->rhnews_id   = $rhnews->id;
         $this->name        = $rhnews->name;
         $this->description = $rhnews->description;
+        $this->salute      = $rhnews->salute;
         $this->status      = $rhnews->status;
         $this->created     = $rhnews->created_at->format('d/m/Y H:i:s');
     }
@@ -230,6 +239,7 @@ class RhnewsShow extends Component
             $validatedData['rhnews_id']   = $this->rhnews_id;
             $validatedData['name']        = $this->name;
             $validatedData['description'] = $this->description;
+            $validatedData['salute']      = $this->salute;
             $validatedData['status']      = $this->status;
 
             // Define $data.

@@ -3243,6 +3243,7 @@ class Audit extends Model
                 'id='          . $after->id          . ',' .
                 'name='        . $after->name        . ',' .
                 'description=' . $after->description . ',' .
+                'salute='      . $after->salute      . ',' .
                 'status='      . $after->status      . ',' .
             '}',
         ]);
@@ -3268,6 +3269,7 @@ class Audit extends Model
                 'id='          . $before->id          . '>' . $after->id          . ',' .
                 'name='        . $before->name        . '>' . $after->name        . ',' .
                 'description=' . $before->description . '>' . $after->description . ',' .
+                'salute='      . $before->salute      . '>' . $after->salute      . ',' .
                 'status='      . $before->status      . '>' . $after->status      . ',' .
             '}',
         ]);
@@ -3291,6 +3293,7 @@ class Audit extends Model
                 'id='          . $data['validatedData']['rhnews_id']   . ',' .
                 'name='        . $data['validatedData']['name']        . ',' .
                 'description=' . $data['validatedData']['description'] . ',' .
+                'salute='      . $data['validatedData']['salute']      . ',' .
                 'status='      . $data['validatedData']['status']      . ',' .
             '}',
         ]);

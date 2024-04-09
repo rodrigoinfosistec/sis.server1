@@ -123,7 +123,22 @@
 							</h2>
 
 							<div id="flush-collapse{{ $news->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-								<div class="accordion-body">{{ $news->description }}</div>
+								<div class="accordion-body" style="line-height: 1.2">
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $news->description }}
+
+									<p class="text-secondary" style="font-size: 11pt; margin-top: 10px;">
+										@if(!empty($news->salute))
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											{{ $news->salute }}
+											<br>
+										@endif
+										
+										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<span style="font-size: 9pt;">
+											{{ $news->created_at->format('d/m/Y') }}
+										</span>
+									</p>
+								</div>
 							</div>
 						</div>
 					@endforeach
