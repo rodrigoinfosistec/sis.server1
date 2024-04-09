@@ -17,7 +17,7 @@
 				<i class="bi-clock-fill text-black" style="font-size: 18px;"></i>
 
 				<span class="text-dark fw-bold">BANCO DE HORAS</span>
-				
+
 				<span class="badge rounded-pill bg-black" style="font-size:11pt;">
 					{{ App\Models\Clock::minutsToTimeSignal((int)$employee->datatime) }}
 				</span>
