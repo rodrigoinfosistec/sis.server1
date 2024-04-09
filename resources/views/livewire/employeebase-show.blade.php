@@ -117,8 +117,10 @@
 						<div class="accordion-item">
 							<h2 class="accordion-header">
 								<button class="accordion-button collapsed" style="padding-top: 5px; padding-bottom: 5px;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $news->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $news->id }}">
-									<i class="bi-info-circle-fill text-primary"></i>&nbsp;&nbsp;
-									{{ $news->name }}
+									<span class="fw-bold uppercase" style="font-size: 10.5pt;">
+										<i class="bi-info-circle-fill text-primary"></i>&nbsp;
+										{{ $news->name }}
+									</span>
 								</button>
 							</h2>
 
