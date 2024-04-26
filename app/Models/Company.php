@@ -363,8 +363,8 @@ class Company extends Model
 
         // Atualiza.
         Company::find($data['validatedData']['company_id'])->update([
-            'limit_start' => $data['validatedData']['limit_start'],
-            'limit_end'   => $data['validatedData']['limit_end'],
+            'limit_start' => General::timeToMinuts($data['validatedData']['limit_start']),
+            'limit_end'   => General::timeToMinuts($data['validatedData']['limit_end']),
         ]);
 
         // After.

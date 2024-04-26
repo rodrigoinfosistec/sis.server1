@@ -96,12 +96,14 @@ class CompanyShow extends Component
         $this->mail      = '';
         $this->comment   = '';
 
-        $this->company_id = '';
-        $this->cnpj       = '';
-        $this->name       = '';
-        $this->nickname   = '';
-        $this->price      = '';
-        $this->created    = '';
+        $this->company_id  = '';
+        $this->cnpj        = '';
+        $this->name        = '';
+        $this->nickname    = '';
+        $this->price       = '';
+        $this->limit_start = '';
+        $this->limit_end   = '';
+        $this->created     = '';
 
         $this->xml = '';
         $this->txt = '';
@@ -301,6 +303,52 @@ class CompanyShow extends Component
 
             // Estende $validatedData
             $validatedData['company_id'] = $this->company_id;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Company::validateEdit($data);
+
+            // Atualiza.
+            if ($valid) Company::edit($data);
+
+            // Executa dependências.
+            if ($valid) Company::dependencyEdit($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * editLimit()
+     *  modernizeLimit()
+     */
+    public function editLimit(int $company_id)
+    {
+        // Empresa.
+        $company = Company::find($company_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->company_id = $company->id;
+        $this->name       = $company->name;
+        $this->nickname   = $company->nickname;
+        $this->price      = $company->price;
+        $this->created    = $company->created_at->format('d/m/Y H:i:s');
+    }
+        public function modernizeLimit()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'limit_start' => ['required'],
+                'limit_end'   => ['required'],
+            ]);
+
+            // Estende $validatedData.
+            $validatedData['company_id'] = $this->company_id;
+            $validatedData['name']       = $this->name;
 
             // Define $data.
             $data['config']        = $this->config;
