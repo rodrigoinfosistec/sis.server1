@@ -1,6 +1,6 @@
 <x-layout.modal.modal-edit modal="editReset" size="">
     <x-layout.modal.modal-edit-header icon="bi-shield-lock" modal="editReset">
-        Senha de {{ $config['title'] }}
+        / Resetar Senha de {{ $config['title'] }}
 
         <x-slot:identifier>
             ID: {{ $user_id }}

@@ -70,6 +70,12 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- Botão Up --}}
+                <x-layout.button.up/>
+
+                {{-- Botão Whatsapp --}}
+                {{-- <x-layout.button.whatsapp/> --}}
             </main>
         </div>
 
