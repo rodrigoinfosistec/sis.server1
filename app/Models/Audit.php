@@ -645,6 +645,30 @@ class Audit extends Model
     }
 
     /**
+     * Auditoria Company Edit Limit.
+     * @var array $data
+     * @var object $before
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function companyEditLimit(array $data, object $before, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[atualizou]' . 'Limites de Ponto da ' . $data['config']['title'] . ' {' .
+                'id='          . $before->id          . '>' . $after->id          . ',' .
+                'name='        . $before->name        . '>' . $after->name        . ',' .
+                'limit_start=' . $before->limit_start . '>' . $after->limit_start . ',' .
+                'limit_end='   . $before->limit_end   . '>' . $after->limit_end   . ','
+        ]);
+
+        return true;
+    }
+
+    /**
      * Auditoria Company Erase.
      * @var array $data
      * 
