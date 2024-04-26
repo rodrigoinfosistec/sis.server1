@@ -38,6 +38,7 @@ class UserShow extends Component
     public $name;
     public $email;
     public $password;
+    public $password_user;
     public $confirm;
     public $password_old;
     public $confirm_old;
@@ -61,12 +62,13 @@ class UserShow extends Component
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
 
-            'company_id'   => ['required'],
-            'usergroup_id' => ['required'],
-            'employee_id'  => ['required'],
-            'name'         => ['required', 'between:3,255'],
-            'email'        => ['required', 'email', 'between:3,255', 'unique:users,email,'.$this->user_id.''],
-            'password'     => ['required', 'between:3,255'],
+            'company_id'    => ['required'],
+            'usergroup_id'  => ['required'],
+            'employee_id'   => ['required'],
+            'name'          => ['required', 'between:3,255'],
+            'email'         => ['required', 'email', 'between:3,255', 'unique:users,email,'.$this->user_id.''],
+            'password'      => ['required', 'between:3,255'],
+            'password_user' => ['required'],
 
             'confirm'      => ['required', 'between:3,255'],
             'password_old' => ['required', 'between:3,255'],
@@ -106,6 +108,7 @@ class UserShow extends Component
         $this->name           = '';
         $this->email          = '';
         $this->password       = '';
+        $this->password_user  = '';
         $this->confirm        = '';
         $this->password_old   = '';
         $this->confirm_old    = '';
