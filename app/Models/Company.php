@@ -23,6 +23,9 @@ class Company extends Model
 
         'price',
 
+        'limit_start',
+        'limit_end',
+
         'created_at',
         'updated_at',
     ];
@@ -322,6 +325,70 @@ class Company extends Model
         Clock::where(['company_id' => $data['validatedData']['company_id']])->update([
             'company_name' => Str::upper($data['validatedData']['name']),
         ]);
+
+        return true;
+    }
+
+    /**
+     * Valida atualização do Limite.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateEditLimit(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Atualiza.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function editLimit(array $data) : bool {
+        // Before.
+        $before = Company::find($data['validatedData']['company_id']);
+
+        // Atualiza.
+        Company::find($data['validatedData']['company_id'])->update([
+            'limit_start' => $data['validatedData']['limit_start'],
+            'limit_end'   => $data['validatedData']['limit_end'],
+        ]);
+
+        // After.
+        $after = Company::find($data['validatedData']['company_id']);
+
+        // Auditoria.
+        Audit::companyEditLimit($data, $before, $after);
+
+        // Mensagem.
+        $message = 'Limites de Ponto da ' . $data['config']['title'] . ' ' .  $after->name . ' atualizados com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyEditLimit(array $data) : bool {
+        // ...
 
         return true;
     }
