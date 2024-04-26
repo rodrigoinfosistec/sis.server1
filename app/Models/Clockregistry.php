@@ -94,8 +94,8 @@ class Clockregistry extends Model
         // Verifica se horário está entre o horário autorizado.
         $t = explode(':', $data['validatedData']['time']);
         $time = ($t[0] * 60) + $t[1];
-        $min = 450;  // 07:30.
-        $max = 1260; // 21:00.
+        $min = Company::find(Auth()->user()->company_id)->limit_start;
+        $max = Company::find(Auth()->user()->company_id)->limit_end;
         if(($time < $min) || ($time > $max)):
             $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
         endif;
