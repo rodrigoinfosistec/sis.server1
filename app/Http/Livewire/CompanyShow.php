@@ -355,13 +355,13 @@ class CompanyShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida atualização.
-            $valid = Company::validateEdit($data);
+            $valid = Company::validateEditLimit($data);
 
             // Atualiza.
-            if ($valid) Company::edit($data);
+            if ($valid) Company::editLimit($data);
 
             // Executa dependências.
-            if ($valid) Company::dependencyEdit($data);
+            if ($valid) Company::dependencyEditLimit($data);
 
             // Fecha modal.
             $this->closeModal();
