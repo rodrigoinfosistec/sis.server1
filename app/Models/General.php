@@ -178,7 +178,6 @@ class General extends Model
         return (int)$minuts;
     }
 
-    
     /**
      * Converte minutos(65) em Time(01:05)
      * @var int $minuts
@@ -194,4 +193,5 @@ class General extends Model
 
         return (string)$time;
     }
+
 }
