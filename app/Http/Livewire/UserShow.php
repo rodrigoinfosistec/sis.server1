@@ -302,6 +302,54 @@ class UserShow extends Component
         }
 
     /**
+     * editReset()
+     *  modernizeReset()
+     */
+    public function editReset(int $user_id)
+    {
+        // Usuário.
+        $user = User::find($user_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->user_id        = $user->id;
+        $this->company_id     = $user->company_id;
+        $this->company_name   = $user->company_name;
+        $this->usergroup_id   = $user->usergroup_id;
+        $this->usergroup_name = $user->usergroup_name;
+        $this->name           = $user->name;
+        $this->email          = $user->email;
+        $this->status         = $user->status;
+        $this->created        = $user->created_at->format('d/m/Y H:i:s');
+    }
+        public function modernizeReset()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'password_user' => ['required'],
+            ]);
+
+            // Estende $validatedData
+            $validatedData['user_id'] = $this->user_id;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = User::validateEditReset($data);
+
+            // Atualiza.
+            if ($valid) User::editReset($data);
+
+            // Executa dependências.
+            if ($valid) User::dependencyEditReset($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
      * erase()
      *  exclude()
      */

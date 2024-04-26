@@ -453,6 +453,28 @@ class Audit extends Model
     }
 
     /**
+     * Auditoria User Edit Reset.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function userEditReset(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[resetou]' . 'Senha de ' . $data['config']['title'] . ' {' .
+                'id='       . $data['validatedData']['user_id']   . '>' . $data['validatedData']['user_id']   . ',' .
+                'name='     . $data['validatedData']['name'] . '>' . $data['validatedData']['name'] . ',' .
+                'password=' . '**********'                   . '>' . '**********'                   . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
      * Auditoria User Erase.
      * @var array $data
      * 

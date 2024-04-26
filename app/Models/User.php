@@ -326,6 +326,69 @@ class User extends Authenticatable
     }
 
     /**
+     * Valida Reset da senha.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateEditReset(array $data) : bool {
+        $message = null;
+
+        // Usuário.
+        $user = User::find($data['validatedData']['user_id']);
+
+        // Verifica se senha atual está Correta.
+        if(!Hash::check(auth()->user()->password, $data['validatedData']['password_user'])):
+            $message = 'Senha do usuário logado está incorreta.';
+        endif;
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Reseta senha.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function editReset(array $data) : bool {
+        // Atualiza.
+        User::find($data['validatedData']['user_id'])->update([
+            'password' => Hash::make('123'),
+        ]);
+
+        // Auditoria.
+        Audit::userEditReset($data);
+
+        // Mensagem.
+        $message = 'Senha do ' . $data['config']['title'] . ' ' .  User::find($data['validatedData']['user_id'])->name . ' resetada com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências do reset da senha.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyEditReset(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
      * Valida exclusão.
      * @var array $data
      * 
