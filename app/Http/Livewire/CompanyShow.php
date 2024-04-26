@@ -34,6 +34,9 @@ class CompanyShow extends Component
     public $name;
     public $nickname;
     public $price;
+    public $limit_start;
+    public $limit_end;
+
     public $created;
 
     public $xml;
@@ -60,6 +63,9 @@ class CompanyShow extends Component
             'name'     => ['required', 'between:3,60'],
             'nickname' => ['nullable', 'between:3,60'],
             'price'    => ['required'],
+
+            'limit_start' => ['required'],
+            'limit_end'   => ['required'],
 
             'txt' => ['file', 'required'],
             'xml' => ['file', 'required'],
