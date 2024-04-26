@@ -75,7 +75,7 @@
                 <x-layout.button.up/>
 
                 {{-- Botão Whatsapp --}}
-                {{-- <x-layout.button.whatsapp/> --}}
+                <x-layout.button.whatsapp/>
             </main>
         </div>
 
