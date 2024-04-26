@@ -332,11 +332,13 @@ class CompanyShow extends Component
         $company = Company::find($company_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->company_id = $company->id;
-        $this->name       = $company->name;
-        $this->nickname   = $company->nickname;
-        $this->price      = $company->price;
-        $this->created    = $company->created_at->format('d/m/Y H:i:s');
+        $this->company_id  = $company->id;
+        $this->name        = $company->name;
+        $this->nickname    = $company->nickname;
+        $this->price       = $company->price;
+        $this->limit_start = General::minutsToTime($company->limit_start);
+        $this->limit_end   = General::minutsToTime($company->limit_end);
+        $this->created     = $company->created_at->format('d/m/Y H:i:s');
     }
         public function modernizeLimit()
         {

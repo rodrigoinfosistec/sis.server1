@@ -166,7 +166,7 @@ class General extends Model
      * Converte Time(01:05) em minutos(65)
      * @var string $time
      * 
-     * @return string $minuts
+     * @return int $minuts
      */
     public static function timeToMinuts(string $time) : int {
         // Separa as horas dos minutos.
@@ -176,5 +176,22 @@ class General extends Model
         $minuts = ((int)$x[0]* 60) + (int)$x[1];
 
         return (int)$minuts;
+    }
+
+    
+    /**
+     * Converte minutos(65) em Time(01:05)
+     * @var int $minuts
+     * 
+     * @return string $time
+     */
+    public static function minutsToTime(int $minuts) : string {
+        // Converte Minutos(65) em Time(01:05)
+        $hour  = $minuts / 60;
+        $hour  = (int)$hour;
+        $minut = $minuts % 60;
+        $time  = str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
+
+        return (string)$time;
     }
 }

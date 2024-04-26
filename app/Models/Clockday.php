@@ -197,7 +197,7 @@ class Clockday extends Model
                     elseif($minuts_ba < 0): 
                         $signal = '-';
                     else:                  
-                         $signal = ''; 
+                        $signal = ''; 
                     endif;  
                 else:
                     $authorized = false;
@@ -308,7 +308,7 @@ class Clockday extends Model
                     elseif($minuts_ba < 0): 
                         $signal = '-';
                     else:                  
-                         $signal = ''; 
+                        $signal = ''; 
                     endif;
                 else:
                     $authorized = false;
