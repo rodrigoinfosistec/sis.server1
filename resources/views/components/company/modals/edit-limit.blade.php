@@ -14,7 +14,7 @@
 {{-- conteúdo --}}
 <x-layout.modal.modal-edit-body-group>
     <x-layout.modal.modal-edit-body-group-item columms="6">
-        <x-layout.modal.modal-edit-body-group-item-label item="limit_start" title="Limite Início Ponto" plus="none"/>
+        <x-layout.modal.modal-edit-body-group-item-label item="limit_start" title="LIMITE PONTO INÍCIO" plus="none"/>
 
         <input type="time" wire:model="limit_start" class="form-control form-control-sm" id="limit_start">
 
@@ -22,7 +22,7 @@
     </x-layout.modal.modal-edit-body-group-item>
 
     <x-layout.modal.modal-edit-body-group-item columms="6">
-        <x-layout.modal.modal-edit-body-group-item-label item="limit_end" title="Limite Final Ponto" plus="none"/>
+        <x-layout.modal.modal-edit-body-group-item-label item="limit_end" title="LIMITE PONTO FINAL" plus="none"/>
 
         <input type="time" wire:model="limit_end" class="form-control form-control-sm" id="limit_end">
 
