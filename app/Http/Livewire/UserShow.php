@@ -333,6 +333,7 @@ class UserShow extends Component
 
             // Estende $validatedData
             $validatedData['user_id'] = $this->user_id;
+            $validatedData['name']    = User::find($this->user_id)->name;
 
             // Define $data.
             $data['config']        = $this->config;

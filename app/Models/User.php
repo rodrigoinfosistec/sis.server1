@@ -338,7 +338,7 @@ class User extends Authenticatable
         $user = User::find($data['validatedData']['user_id']);
 
         // Verifica se senha atual está Correta.
-        if(!Hash::check(auth()->user()->password, $data['validatedData']['password_user'])):
+        if(!Hash::check($data['validatedData']['password_user'], auth()->user()->password)):
             $message = 'Senha do usuário logado está incorreta.';
         endif;
 
