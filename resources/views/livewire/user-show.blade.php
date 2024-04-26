@@ -15,9 +15,10 @@
 @include('components.' .  $config['name'] . '.modals.detail')
 @include('components.' .  $config['name'] . '.modals.edit')
 @include('components.' .  $config['name'] . '.modals.edit-password')
+@include('components.' .  $config['name'] . '.modals.reset-password')
 @include('components.' .  $config['name'] . '.modals.erase')
 {{-- modal --}}
-    
+
     <x-layout.alert/>
 
     <x-layout.card.card>
@@ -149,7 +150,7 @@
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
-<x-layout.card.card-body-content-table-body-line-cell-action width="150">
+<x-layout.card.card-body-content-table-body-line-cell-action width="180">
     <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
 
     @if(Auth::user()->id == $item->id)
@@ -157,11 +158,15 @@
 
         <x-layout.card.card-body-content-table-body-line-cell-action-edit-password-muted/>
 
+        <x-layout.card.card-body-content-table-body-line-cell-action-edit-reset-muted/>
+
         <x-layout.card.card-body-content-table-body-line-cell-action-erase-muted/>
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
 
         <x-layout.card.card-body-content-table-body-line-cell-action-edit-password :id="$item->id"/>
+
+        <x-layout.card.card-body-content-table-body-line-cell-action-edit-reset :id="$item->id"/>
 
         <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
     @endif
