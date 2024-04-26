@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Report;
 
 use App\Models\Company;
+use App\Models\General;
 
 use Livewire\WithPagination;
 use Livewire\Component;
@@ -333,6 +334,7 @@ class CompanyShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->company_id  = $company->id;
+        $this->cnpj        = $company->cnpj;
         $this->name        = $company->name;
         $this->nickname    = $company->nickname;
         $this->price       = $company->price;
