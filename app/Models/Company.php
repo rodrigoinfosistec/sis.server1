@@ -25,6 +25,8 @@ class Company extends Model
 
         'limit_start',
         'limit_end',
+        'limit_start_saturday',
+        'limit_end_saturday',
 
         'created_at',
         'updated_at',
@@ -363,8 +365,10 @@ class Company extends Model
 
         // Atualiza.
         Company::find($data['validatedData']['company_id'])->update([
-            'limit_start' => General::timeToMinuts($data['validatedData']['limit_start']),
-            'limit_end'   => General::timeToMinuts($data['validatedData']['limit_end']),
+            'limit_start'          => General::timeToMinuts($data['validatedData']['limit_start']),
+            'limit_end'            => General::timeToMinuts($data['validatedData']['limit_end']),
+            'limit_start_saturday' => General::timeToMinuts($data['validatedData']['limit_start_saturday']),
+            'limit_end_saturday'   => General::timeToMinuts($data['validatedData']['limit_end_saturday']),
         ]);
 
         // After.

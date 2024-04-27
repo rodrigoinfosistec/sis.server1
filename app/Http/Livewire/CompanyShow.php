@@ -37,6 +37,8 @@ class CompanyShow extends Component
     public $price;
     public $limit_start;
     public $limit_end;
+    public $limit_start_saturday;
+    public $limit_end_saturday;
 
     public $created;
 
@@ -65,8 +67,10 @@ class CompanyShow extends Component
             'nickname' => ['nullable', 'between:3,60'],
             'price'    => ['required'],
 
-            'limit_start' => ['required'],
-            'limit_end'   => ['required'],
+            'limit_start'          => ['required'],
+            'limit_end'            => ['required'],
+            'limit_start_saturday' => ['required'],
+            'limit_end_saturday'   => ['required'],
 
             'txt' => ['file', 'required'],
             'xml' => ['file', 'required'],
@@ -97,14 +101,16 @@ class CompanyShow extends Component
         $this->mail      = '';
         $this->comment   = '';
 
-        $this->company_id  = '';
-        $this->cnpj        = '';
-        $this->name        = '';
-        $this->nickname    = '';
-        $this->price       = '';
-        $this->limit_start = '';
-        $this->limit_end   = '';
-        $this->created     = '';
+        $this->company_id           = '';
+        $this->cnpj                 = '';
+        $this->name                 = '';
+        $this->nickname             = '';
+        $this->price                = '';
+        $this->limit_start          = '';
+        $this->limit_end            = '';
+        $this->limit_start_saturday = '';
+        $this->limit_end_saturday   = '';
+        $this->created              = '';
 
         $this->xml = '';
         $this->txt = '';
@@ -333,21 +339,25 @@ class CompanyShow extends Component
         $company = Company::find($company_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->company_id  = $company->id;
-        $this->cnpj        = $company->cnpj;
-        $this->name        = $company->name;
-        $this->nickname    = $company->nickname;
-        $this->price       = $company->price;
-        $this->limit_start = General::minutsToTime($company->limit_start);
-        $this->limit_end   = General::minutsToTime($company->limit_end);
-        $this->created     = $company->created_at->format('d/m/Y H:i:s');
+        $this->company_id           = $company->id;
+        $this->cnpj                 = $company->cnpj;
+        $this->name                 = $company->name;
+        $this->nickname             = $company->nickname;
+        $this->price                = $company->price;
+        $this->limit_start          = General::minutsToTime($company->limit_start);
+        $this->limit_end            = General::minutsToTime($company->limit_end);
+        $this->limit_start_saturday = General::minutsToTime($company->limit_start_saturday);
+        $this->limit_end_saturday   = General::minutsToTime($company->limit_end_saturday);
+        $this->created              = $company->created_at->format('d/m/Y H:i:s');
     }
         public function modernizeLimit()
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'limit_start' => ['required'],
-                'limit_end'   => ['required'],
+                'limit_start'          => ['required'],
+                'limit_end'            => ['required'],
+                'limit_start_saturday' => ['required'],
+                'limit_end_saturday'   => ['required'],
             ]);
 
             // Estende $validatedData.

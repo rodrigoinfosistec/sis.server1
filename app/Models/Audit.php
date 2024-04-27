@@ -659,10 +659,12 @@ class Audit extends Model
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
             'extensive' => '[atualizou]' . 'Limites de Ponto da ' . $data['config']['title'] . ' {' .
-                'id='          . $before->id          . '>' . $after->id          . ',' .
-                'name='        . $before->name        . '>' . $after->name        . ',' .
-                'limit_start=' . $before->limit_start . '>' . $after->limit_start . ',' .
-                'limit_end='   . $before->limit_end   . '>' . $after->limit_end   . ','
+                'id='                   . $before->id                   . '>' . $after->id                   . ',' .
+                'name='                 . $before->name                 . '>' . $after->name                 . ',' .
+                'limit_start='          . $before->limit_start          . '>' . $after->limit_start          . ',' .
+                'limit_end='            . $before->limit_end            . '>' . $after->limit_end            . ',' .
+                'limit_start_saturday=' . $before->limit_start_saturday . '>' . $after->limit_start_saturday . ',' .
+                'limit_end_saturday='   . $before->limit_end_saturday   . '>' . $after->limit_end_saturday   . ','
         ]);
 
         return true;
