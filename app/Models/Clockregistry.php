@@ -93,8 +93,8 @@ class Clockregistry extends Model
 
         // Define o Horário Permitido para Registrar o Ponto (Semana ou Sábado).
         if(date_format(date_create($data['validatedData']['date']), 'l') == 'Saturday'):
-            $min  = Company::find(Auth()->user()->company_id)->limit_start;
-            $max  = Company::find(Auth()->user()->company_id)->limit_end;
+            $min  = Company::find(Auth()->user()->company_id)->limit_start_saturday;
+            $max  = Company::find(Auth()->user()->company_id)->limit_end_saturday;
         else:
             $min  = Company::find(Auth()->user()->company_id)->limit_start;
             $max  = Company::find(Auth()->user()->company_id)->limit_end;
