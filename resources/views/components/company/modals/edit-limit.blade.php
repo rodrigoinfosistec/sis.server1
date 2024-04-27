@@ -1,6 +1,6 @@
 <x-layout.modal.modal-edit modal="editLimit" size="">
     <x-layout.modal.modal-edit-header icon="bi-clock" modal="editLimit">
-        {{ $config['title'] }}
+        Limites do Ponto da {{ $config['title'] }}
 
         <x-slot:identifier>
             CNPJ {{ $cnpj }}
