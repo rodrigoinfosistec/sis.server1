@@ -179,19 +179,25 @@
 
                     <div class="card-body overflow-auto" style="height: 170px;"> 
                         <div class="mb-3">
-                            <ul class="list-group list-group-flush">
-                                @foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'DESC')->limit(20)->get() as $key => $employeeeasy)
-                                    <li class="list-group-item">
-                                        <span class="float-start text-success">
-										{{ date_format(date_create($employeeeasy->date), 'd/m/y') }}
-										</span>
-										
-										<span class="text-muted float-end">
-											{{ App\Models\General::decodeWeek(date_format(date_create($employeeeasy->date), 'l')) }}
-										</span>
-									</li>
-								@endforeach
-							</ul>
+                            @if(App\Models\Employeeeasy::where('employee_id', $employee->id)->exists())
+                                <ul class="list-group list-group-flush">
+                                    @foreach(App\Models\Employeeeasy::where('employee_id', $employee->id)->orderBy('date', 'DESC')->limit(20)->get() as $key => $employeeeasy)
+                                        <li class="list-group-item">
+                                            <span class="float-start text-success">
+											{{ date_format(date_create($employeeeasy->date), 'd/m/y') }}
+											</span>
+											
+											<span class="text-muted float-end">
+												{{ App\Models\General::decodeWeek(date_format(date_create($employeeeasy->date), 'l')) }}
+											</span>
+										</li>
+									@endforeach
+								</ul>
+							@else
+								<h5 class="card-title text-muted text-center" style="font-size: 11pt;">
+									NÃO EXISTEM FOLGAS REGISTRADAS.
+								</h5>
+							@endif
 						</div>
 					</div>{{-- card-body --}}
                 </div>{{-- card --}}
