@@ -156,7 +156,7 @@
 								NÃO EXISTEM PERÍODOS CONSOLIDADOS.
 							@endif
 						</h5>
-                        
+
                         <br>
 
                         <p class="card-text text-center">
@@ -164,7 +164,7 @@
 								{{ App\Models\Clock::minutsToTimeSignal((int)$employee->datatime) }}
 							</span>
 						</p>
-                        
+
                     </div>{{-- card-body --}}
                 </div>{{-- card- --}}
             </div>{{-- col --}}
