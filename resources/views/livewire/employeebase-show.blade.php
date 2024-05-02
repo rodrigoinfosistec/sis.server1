@@ -204,6 +204,8 @@
             </div>{{-- col --}}
         </div>{{-- row --}}
 
+		<br>
+
 		<div style="line-height: 1.3; margin-left: 20px;">
 			<i class="bi-envelope text-muted"></i>
 			<a type="button" wire:click="mail" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#mailModal" title="Sugest達o">
