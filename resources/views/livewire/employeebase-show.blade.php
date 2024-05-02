@@ -1,5 +1,5 @@
 <div class="container">
-	<x-layout.alert2/>
+	<x-layout.alert/>
 
 	@include('components.' .  $config['name'] . '.modals.mail')
 	@include('components.' .  $config['name'] . '.modals.add-registry')
