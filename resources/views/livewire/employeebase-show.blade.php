@@ -197,9 +197,8 @@
                 </div>{{-- card --}}
             </div>{{-- col --}}
         </div>{{-- row --}}
-        
-        
-		<div style="line-height: 1.3;">
+
+		<div style="line-height: 1.3; margin-left: 20px;">
 			<i class="bi-envelope text-muted"></i>
 			<a type="button" wire:click="mail" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#mailModal" title="Sugest達o">
 				Deixe-nos sua Sugestão
@@ -209,7 +208,7 @@
 
 		<br>
 
-		<div style="line-height: 1.3">
+		<div style="line-height: 1.3; margin-left: 20px;">
 			<i class="bi-archive text-muted"></i>
 			<a type="button" wire:click="detail({{ (int)Auth()->User()->employee_id }})" class="btn btn-link btn-sm text-black text-decoration-none" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#detailModal" title="Documentos">
 				Meus Documentos
