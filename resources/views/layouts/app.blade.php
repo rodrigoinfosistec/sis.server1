@@ -34,15 +34,14 @@
 		
 		<meta name="theme-color" content="#212529">
     </head>
+
     <body class="font-sans antialiased">
         {{-- Banner --}}
         <x-banner />
 
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @if(Auth()->User()->usergroup_id != App\Models\Usergroup::where('name', 'FUNCIONARIO')->first()->id)
-                {{-- Menu Navegação--}}
-                @livewire('navigation-menu')
-            @endif
+            {{-- Menu Navegação--}}
+            @livewire('navigation-menu')
 
             {{-- Cabeçalho --}}
             @if (isset($header))
