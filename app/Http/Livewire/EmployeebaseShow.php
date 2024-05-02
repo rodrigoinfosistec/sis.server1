@@ -47,7 +47,7 @@ class EmployeebaseShow extends Component
     public function mount($config){
         $this->config  = $config;
         $this->mail    = 'dpgrupoamm23@gmail.com';
-        $this->company = Employee::find(Auth()->User()->employee_id)->company_name;
+        $this->company = Employee::find(Auth()->User()->employee_id)->company_name ?? null;
     }
 
     /**

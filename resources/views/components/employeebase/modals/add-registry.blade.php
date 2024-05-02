@@ -12,7 +12,7 @@
 {{-- conteúdo --}}
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="12">
-        <span class="text-primary">{{ $employee->name }}</span>
+        <span class="text-primary">{{ $employee->name ?? 'none' }}</span>
         <br>
         <span class="text-muted">{{ date('d/m/Y') }}</span>
         <span class="text-danger fw-bold">{{ date('H:i') }}</span>
