@@ -250,4 +250,24 @@ class General extends Model
         return (string)$month;
     }
 
+    /**
+     * Subtrai meses de uma data.
+     * 
+     * @var string $date
+     * @var int    $qtdMonths
+     * 
+     * @return string $dateFinal
+     */
+    public static function subMonths(string $date, string $qtdMonths) : string {
+        // Formata data de entrada.
+        $dating=date_create($date);
+
+        // Subtrai x Meses da data.
+        date_sub($dating,date_interval_create_from_date_string($qtdMonths . " months"));
+        
+        // Formata data de saída.
+        $dateFinal = date_format($dating,"Y-m-d");
+
+        return $dateFinal;
+    }
 }
