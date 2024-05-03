@@ -235,6 +235,8 @@ class ClockShow extends Component
      * Renderiza página.
      */
     public function render(){
+        $end = Clock::orderBy('end', 'DESC')->first()->end;
+
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
             'existsItem'   => Clock::exists(),
@@ -243,7 +245,7 @@ class ClockShow extends Component
             'list'         => Clock::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
                                 ['company_id', Auth()->user()->company_id],
-                            ])->orderBy('id', 'DESC')->paginate(1),
+                            ])->whereBetween('end', ['2024-01-01', $end])->orderBy('id', 'DESC')->paginate(1),
         ]);
     }
 

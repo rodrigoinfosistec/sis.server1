@@ -256,7 +256,7 @@ class InvoiceShow extends Component
             'list'         => Invoice::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
                                 ['company_id', Auth()->user()->company_id],
-                            ])->orderBy('id', 'DESC')->paginate(12),
+                            ])->orderBy('id', 'DESC')->paginate(25),
         ]);
     }
 
