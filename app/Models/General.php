@@ -270,4 +270,5 @@ class General extends Model
 
         return $dateFinal;
     }
+
 }
