@@ -18,51 +18,52 @@
     </x-layout.modal.modal-detail-header>
 
     <div class="modal-body">
-        <div class="table-responsive">
-            <table class="table table-sm table-borderless table-hover" wire:loading.class.deley="opacity-50">
-                <thead class="fw-bolder" style="border-bottom: #808080 1px solid; font-size: 7.5pt;">
-                    <th class="" style="padding: 0;">
-                        <div class="text-center" style="width: 22px;">
-                            <div class="form-check" style="margin-bottom: -6px; margin-left: 2px;">
-                                <input type="checkbox" class="form-check-input" style="width: 12px; height: 12px;" disabled>
+        @if(App\Models\Clockbase::where('employee_id', $employee_id)->exists())
+            <div class="table-responsive">
+                <table class="table table-sm table-borderless table-hover" wire:loading.class.deley="opacity-50">
+                    <thead class="fw-bolder" style="border-bottom: #808080 1px solid; font-size: 7.5pt;">
+                        <th class="" style="padding: 0;">
+                            <div class="text-center" style="width: 22px;">
+                                <div class="form-check" style="margin-bottom: -6px; margin-left: 2px;">
+                                    <input type="checkbox" class="form-check-input" style="width: 12px; height: 12px;" disabled>
+                                </div>
                             </div>
-                        </div>
-                    </th>
-        
-                    <th class="" style="padding: 0;">
-                        <div class="" style="width: 10px;">
-                            {{--  --}}
-                        </div>
-                    </th>
-        
-                    <th class="" style="padding: 0;">
-                        <div class="" style="margin-right: 5px; min-width: 100px;">
-                            DESCRIÇÃO
-                        </div>
-                    </th>
-        
-                    <th class="" style="padding: 0;">
-                        <div class="" style="width: 70px;">
-                            PERÍODO
-                        </div>
-                    </th>
-        
-                    <th class="" style="padding: 0;">
-                        <div class="" style="width: 60px;">
-                            HORAS
-                        </div>
-                    </th>
-        
-                    <th class="" style="padding: 0;">
-                        <div class="" style="width: 80px;">
-                            CADASTRO
-                        </div>
-                    </th>
-                </thead>
+                        </th>
+            
+                        <th class="" style="padding: 0;">
+                            <div class="" style="width: 10px;">
+                                {{--  --}}
+                            </div>
+                        </th>
+            
+                        <th class="" style="padding: 0;">
+                            <div class="" style="margin-right: 5px; min-width: 100px;">
+                                DESCRIÇÃO
+                            </div>
+                        </th>
+            
+                        <th class="" style="padding: 0;">
+                            <div class="" style="width: 70px;">
+                                PERÍODO
+                            </div>
+                        </th>
+            
+                        <th class="" style="padding: 0;">
+                            <div class="" style="width: 60px;">
+                                HORAS
+                            </div>
+                        </th>
+            
+                        <th class="" style="padding: 0;">
+                            <div class="" style="width: 80px;">
+                                CADASTRO
+                            </div>
+                        </th>
+                    </thead>
 
-                <tbody>
-                    @foreach(App\Models\Clockbase::where('employee_id', $employee_id)->orderBy('created_at', 'DESC')->get() as $key => $clockbase)
-                        <tr>
+                    <tbody>
+                        @foreach(App\Models\Clockbase::where('employee_id', $employee_id)->orderBy('created_at', 'DESC')->get() as $key => $clockbase)
+                            <tr>
 
 {{-- conteúdo --}}
 {{-- CHECKBOX --}}
@@ -130,10 +131,17 @@
 </td>
 {{-- conteúdo --}}
 
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <div class="text-center text-muted fw-bold" style="">
+                <i class="bi bi-archive-fill"></i>
+
+                SEM MOVIMENTAÇÕES
+            </div>
+        @endif
     </div>
 </x-layout.modal.modal-detail>
