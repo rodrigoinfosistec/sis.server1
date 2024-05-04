@@ -264,9 +264,10 @@
     <td class="align-middle" style="line-height: 1;">
         <div class="" style="width: 80px;">
             @php
-                $events = App\Models\Clockevent::where(['clock_id' => $clockemployee_clock_id, 'employee_id' => $clockemployee_employee_id, 'date' => $date])->get();
+                $events     = App\Models\Clockevent::where(['clock_id' => $clockemployee_clock_id, 'employee_id' => $clockemployee_employee_id, 'date' => $date])->get();
+                $registries = App\Models\Clockregistry::where(['employee_id' => $clockemployee_employee_id, 'date' => $date])->get();
             @endphp
-            @if($events->count() > 0)
+            @if(($events->count() > 0))
                 <div class="dropdown float-start">
                     <a type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi-eye text-dark" style="font-size: 20px;  padding: 0px 5px 0px 20px;" title="Eventos"></i>
@@ -279,6 +280,25 @@
                                         <i class="bi-exclamation-circle text-danger" style="font-size: 11px;  padding: 0px 5px 0px 5px;"></i>
                                         <span style="font-size: 8pt;">EVENTO {{ str_pad($loop->iteration , 2 , '0' , STR_PAD_LEFT)}}:</span>
                                         <span class="text-dark">{{ $event->time }}</span>
+                                    </span>
+                                </span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @elseif(($registries->count() > 0))
+                <div class="dropdown float-start">
+                    <a type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi-eye text-dark" style="font-size: 20px;  padding: 0px 5px 0px 20px;" title="Eventos"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach($registries as $key => $registry)
+                            <li>
+                                <span class="text-uppercase text-muted fw-bold" style="font-size: 8.5pt;">
+                                    <span class="fst-italic">
+                                        <i class="bi-exclamation-circle text-danger" style="font-size: 11px;  padding: 0px 5px 0px 5px;"></i>
+                                        <span style="font-size: 8pt;">REGISTRO {{ str_pad($loop->iteration , 2 , '0' , STR_PAD_LEFT)}}:</span>
+                                        <span class="text-dark">{{ $registry->time }}</span>
                                     </span>
                                 </span>
                             </li>
