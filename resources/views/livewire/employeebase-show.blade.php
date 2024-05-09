@@ -113,14 +113,20 @@
 
                                 <p class="card-text">
                                     @foreach(App\Models\Clockregistry::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->orderBy('time', 'ASC')->get() as $key => $clockregistry)
-										<span class="badge rounded-pill bg-danger" style="font-size:10pt;">
+										<span class="badge rounded-pill bg-danger" style="font-size:11pt;">
 											{{ $clockregistry->time }}
 										</span>
 									@endforeach
 								</p>
                             @else
                                 <h5 class="card-title text-muted" style="font-size: 11pt;">
-                                    NENHUM REGISTRO DE HOJE ({{ date('d/m/Y') }})
+                                    NENHUM REGISTRO DE HOJE 
+
+                                    <i class="bi bi-caret-right-fill"></i>
+
+                                    {{ date('d') }}
+                                    de
+                                    {{ App\Models\General::numberToMonth((string)date('m')) }}
                                 </h5>
                             @endif
 
@@ -156,7 +162,7 @@
 								NÃO EXISTEM PERÍODOS CONSOLIDADOS.
 							@endif
 						</h5>
-
+                        
                         <br>
 
                         <p class="card-text text-center">
@@ -164,20 +170,20 @@
 								{{ App\Models\Clock::minutsToTimeSignal((int)$employee->datatime) }}
 							</span>
 						</p>
-
+                        
                     </div>{{-- card-body --}}
                 </div>{{-- card- --}}
             </div>{{-- col --}}
 
             <div class="col-sm-4  mb-4">
-                <div class="card">
+                <div class="card z-0">
                     <div class="card-header fw-bold text-success text-center">
                         <i class="bi bi-emoji-sunglasses"></i>
 
                         FOLGAS
                     </div>{{-- card-header --}}
 
-                    <div class="card-body overflow-auto" style="height: 170px;"> 
+                     <div class="card-body overflow-auto" style="height: 170px;"> 
                         <div class="mb-3">
                             @if(App\Models\Employeeeasy::where('employee_id', $employee->id)->exists())
                                 <ul class="list-group list-group-flush">
@@ -203,8 +209,8 @@
                 </div>{{-- card --}}
             </div>{{-- col --}}
         </div>{{-- row --}}
-
-		<br>
+        
+        <br>
 
 		<div style="line-height: 1.3; margin-left: 20px;">
 			<i class="bi-envelope text-muted"></i>
