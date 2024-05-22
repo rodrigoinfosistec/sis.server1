@@ -384,12 +384,13 @@ class Invoiceitem extends Model
         $card = Invoiceitem::roundUp($card_full, 2);
 
         // Cálculo Preço Varejo - Define a Percentagem sobre o cartão.
-        if($card_full <= 20)                             : $retail_aliquot = 50;
-            elseif($card_full > 20 && $card_full <= 50)  : $retail_aliquot = 40;
-            elseif($card_full > 50 && $card_full <= 80)  : $retail_aliquot = 30;
-            elseif($card_full > 80 && $card_full <= 200) : $retail_aliquot = 20;
-            else                                         : $retail_aliquot = 15;
-        endif;
+        //if($card_full <= 20)                             : $retail_aliquot = 50;
+            //elseif($card_full > 20 && $card_full <= 50)  : $retail_aliquot = 40;
+            //elseif($card_full > 50 && $card_full <= 80)  : $retail_aliquot = 30;
+            //elseif($card_full > 80 && $card_full <= 200) : $retail_aliquot = 20;
+            //else                                         : $retail_aliquot = 15;
+        //endif;
+        $retail_aliquot = 20; // alteração
         $retail_full = $card_full + (($card_full * $retail_aliquot) / 100);
         $retail_nick = Invoiceitem::roundUp($retail_full, 2);
         // Ajusta Centavos.
@@ -422,12 +423,13 @@ class Invoiceitem extends Model
         $card_csv      = Invoiceitem::roundUp($card_csv_full, 2);
 
         // Cálculo Preço CSV Varejo - Define a Percentagem sobre o cartão.
-        if($card_csv_full <= 20)                                 : $retail_csv_aliquot = 50;
-            elseif($card_csv_full > 20 && $card_csv_full <= 50)  : $retail_csv_aliquot = 40;
-            elseif($card_csv_full > 50 && $card_csv_full <= 80)  : $retail_csv_aliquot = 30;
-            elseif($card_csv_full > 80 && $card_csv_full <= 200) : $retail_csv_aliquot = 20;
-            else                                                 : $retail_csv_aliquot = 15;
-        endif;
+        //if($card_csv_full <= 20)                                 : $retail_csv_aliquot = 50;
+            //elseif($card_csv_full > 20 && $card_csv_full <= 50)  : $retail_csv_aliquot = 40;
+            //elseif($card_csv_full > 50 && $card_csv_full <= 80)  : $retail_csv_aliquot = 30;
+            //elseif($card_csv_full > 80 && $card_csv_full <= 200) : $retail_csv_aliquot = 20;
+            //else                                                 : $retail_csv_aliquot = 15;
+        //endif;
+        $retail_csv_aliquot = 20; //alteração
         $retail_csv_full = $card_csv_full + (($card_csv_full * $retail_csv_aliquot) / 100);
         $retail_csv_nick = Invoiceitem::roundUp($retail_csv_full, 2);
         // Ajusta Centavos.
