@@ -139,7 +139,7 @@ class Clockregistry extends Model
         Audit::clockregistryAdd($data, $after);
 
         // Mensagem.
-        $message = 'Ponto: ' . date_format(date_create($data['validatedData']['date']), 'd/m') . ' às ' . $data['validatedData']['time'] . ' registrado com sucesso.';
+        $message = 'Ponto: ' . date_format(date_create($data['validatedData']['date']), 'd/m') . ' às ' . $data['validatedData']['time'] . ' registrado.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
