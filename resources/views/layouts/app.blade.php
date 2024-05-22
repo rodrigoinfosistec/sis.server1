@@ -101,14 +101,14 @@
         @yield('script')
     </body>
 
-    <footer class="bg-white dark:bg-gray-800 shadow">
+    <footer class="dark:bg-gray-800 shadow" style="background-color: #2f2f2f;">
         {{-- Copyright --}}
-        <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8 text-center">
-            © Copyright 2022 a {{ date('Y'); }}
+        <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8 text-center text-white">
+            © <span class="fw-bold" style="font-size: 9pt;">COPYRIGHT</span> 2022 a {{ date('Y'); }}
             <br>
             by 
             <a class="fw-bold text-decoration-none" href="#">
-                SIS INFORMÁTICA
+                SIS INTEGRAÇÃO
             </a>
         </div>
     </footer>
