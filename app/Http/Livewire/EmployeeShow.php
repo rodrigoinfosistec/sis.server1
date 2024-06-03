@@ -46,6 +46,7 @@ class EmployeeShow extends Component
     public $clock_type;
     public $code;
     public $status;
+    public $trainee;
     public $created;
 
     public $txt;
@@ -128,6 +129,7 @@ class EmployeeShow extends Component
         $this->clock_type             = '';
         $this->code                   = '';
         $this->status                 = '';
+        $this->trainee                = '';
         $this->created                = '';
 
         $this->txt = '';
@@ -269,6 +271,7 @@ class EmployeeShow extends Component
         $this->clock_type             = $employee->clock_type;
         $this->code                   = $employee->code;
         $this->status                 = $employee->status;
+        $this->trainee                = $employee->trainee;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
 
@@ -295,6 +298,7 @@ class EmployeeShow extends Component
         $this->clock_type             = $employee->clock_type;
         $this->code                   = $employee->code;
         $this->status                 = $employee->status;
+        $this->trainee                = $employee->trainee;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
         public function modernize()
@@ -314,8 +318,9 @@ class EmployeeShow extends Component
             ]);
 
             // Estende $validatedData
-            $validatedData['employee_id']            = $this->employee_id;
-            $this->status ? $validatedData['status'] = true : $validatedData['status'] = false;
+            $validatedData['employee_id']              = $this->employee_id;
+            $this->status ? $validatedData['status']   = true : $validatedData['status'] = false;
+            $this->trainee ? $validatedData['trainee'] = true : $validatedData['trainee'] = false;
 
             // Define $data.
             $data['config']        = $this->config;
@@ -409,6 +414,7 @@ class EmployeeShow extends Component
         $this->clock_type             = $employee->clock_type;
         $this->code                   = $employee->code;
         $this->status                 = $employee->status;
+        $this->trainee                = $employee->trainee;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
