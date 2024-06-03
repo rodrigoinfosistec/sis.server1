@@ -123,7 +123,7 @@
         <x-layout.card.card-body-content-table-body-line-cell-id-badge>
             {{ str_pad($item->id, Str::length($list->count()), '0', STR_PAD_LEFT); }}
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
-        
+
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
             @if($item->status)
                 <span class="text-success">Ativo</span>

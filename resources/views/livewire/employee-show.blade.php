@@ -113,24 +113,26 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            {{ $item->pis }}
+            @if($item->status)
+                <span class="text-success">ATIVO</span>
+            @else
+                <span class="text-danger">INATIVO</span>
+            @endif
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            {{ $item->created_at->format('d/m/y') }}
+            {{-- ... --}}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
         {{ $item->name }}
-        @if(!empty(App\Models\Company::nicknameNoRepeatName($item->id)))
-            <br>
-            <span class="text-muted">
-                {{ App\Models\Company::nicknameNoRepeatName($item->id) }}
-            </span>
-        @endif
+
         <br>
-        {{ $item->company_name }}
+
+        <span class="text-muted">
+            {{ $item->pis }}
+        </span>
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
