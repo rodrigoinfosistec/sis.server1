@@ -130,6 +130,30 @@
         </x-layout.modal.modal-edit-body-group-item-status>
     </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
+
+<x-layout.modal.modal-edit-body-group>
+    <x-layout.modal.modal-edit-body-group-item columms="12">
+        <x-layout.modal.modal-edit-body-group-item-status>
+            <input wire:model="trainee" class="form-check-input" type="checkbox" role="switch" id="trainee">
+
+            <x-slot:label>
+                <span class="" style="font-size: 9pt;">
+                    ESTAGIÁRIO? 
+                </span>
+
+                @if($trainee)
+                    <span class="text-danger fw-bold" style="font-size: 9pt;">
+                        SIM
+                    </span>
+                @else
+                    <span class="text-muted fw-bold" style="font-size: 9pt;">
+                        NÃO
+                    </span>
+                @endif
+            </x-slot>
+        </x-layout.modal.modal-edit-body-group-item-status>
+    </x-layout.modal.modal-edit-body-group-item>
+</x-layout.modal.modal-edit-body-group>
 {{-- conteúdo --}}
 
     </x-layout.modal.modal-edit-body>
