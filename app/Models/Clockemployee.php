@@ -124,7 +124,12 @@ class Clockemployee extends Model
                 if(date_format(date_create($date), 'l') != 'Saturday'):
                     $journey_start = $clockemployee->employee->journey_start_week;
                     $journey_end   = $clockemployee->employee->journey_end_week;
-                    $journey_break = '01:00';
+
+                    if($clockemployee->employee->trainee):
+                        $journey_break = '00:15';
+                    else:
+                        $journey_break = '01:00';
+                    endif;
                 else:
                     $journey_start = $clockemployee->employee->journey_start_saturday;
                     $journey_end   = $clockemployee->employee->journey_end_saturday;
