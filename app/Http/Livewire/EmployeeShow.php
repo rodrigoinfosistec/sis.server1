@@ -155,7 +155,7 @@ class EmployeeShow extends Component
             'list'         => Employee::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
                                 ['company_id', Auth()->user()->company_id],
-                            ])->orderBy('status', 'DESC')->orderBy('name', 'ASC')->paginate(12),
+                            ])->orderBy('status', 'DESC')->orderBy('trainee', 'ASC')->orderBy('name', 'ASC')->paginate(12),
         ]);
     }
 

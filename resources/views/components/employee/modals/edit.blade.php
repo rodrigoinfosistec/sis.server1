@@ -133,10 +133,10 @@
 
 <x-layout.modal.modal-edit-body-group>
     <x-layout.modal.modal-edit-body-group-item columms="12">
-        <x-layout.modal.modal-edit-body-group-item-status>
+        <div class="form-check form-switch">
             <input wire:model="trainee" class="form-check-input" type="checkbox" role="switch" id="trainee">
-
-            <x-slot:label>
+        
+            <label class="form-check-label" for="trainee">
                 <span class="" style="font-size: 9pt;">
                     ESTAGIÁRIO? 
                 </span>
@@ -150,8 +150,8 @@
                         NÃO
                     </span>
                 @endif
-            </x-slot>
-        </x-layout.modal.modal-edit-body-group-item-status>
+            </label>
+        </div>
     </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
 {{-- conteúdo --}}
