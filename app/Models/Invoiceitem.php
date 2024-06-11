@@ -360,9 +360,8 @@ class Invoiceitem extends Model
 
         // Cálculo Custo.
         $cost_begin         = $item->value_final * $item->quantity_final;
-
         $cost_plus_index    = ($cost_begin / $item->index) * 100;
-
+        $cost_plus_ipi      = $cost_plus_index + (($cost_plus_index * $item->ipi_aliquot_final) / 100);
         $cost_plus_shipping = $cost_plus_ipi + (($cost_plus_ipi * $item->shipping) / 100);
 
         // Custos.
@@ -686,6 +685,7 @@ class Invoiceitem extends Model
                 'value_final'       => (($invoiceitem->value / $providerbusiness->multiplier_value) * 100),
                 'value_total_final' => (($invoiceitem->value_total / $providerbusiness->multiplier_value) * 100),
                 'ipi_final'         => ($providerbusiness->multiplier_ipi > 0) ? (($invoiceitem->ipi / $providerbusiness->multiplier_ipi) * 100) : 0.00,
+                //'ipi_aliquot_final' => ($providerbusiness->multiplier_ipi_aliquot > 0) ? (($invoiceitem->ipi_aliquot / $providerbusiness->multiplier_ipi_aliquot) * 100) : 0.00,
                 'ipi_aliquot_final' => ($providerbusiness->multiplier_ipi_aliquot > 0) ? (($invoiceitem->ipi_aliquot / $providerbusiness->multiplier_ipi_aliquot) * 100) / (100 / $providerbusiness->multiplier_value) : 0.00,
 
                 'margin'            => $providerbusiness->margin,
