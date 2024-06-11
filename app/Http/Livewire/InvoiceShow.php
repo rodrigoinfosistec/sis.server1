@@ -526,6 +526,8 @@ class InvoiceShow extends Component
             $this->array_item_margin[$invoiceitem->id]            = General::decodeFloat2($invoiceitem->margin);
             $this->array_item_shipping[$invoiceitem->id]          = General::decodeFloat2($invoiceitem->shipping);
         endforeach;
+
+        //dd($this->array_item_ipi_aliquot_final[$invoiceitem->id]);
     }
         public function modernizeItem()
         {
