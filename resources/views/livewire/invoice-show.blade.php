@@ -133,7 +133,6 @@
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
         {{ $item->provider_name }}
-
         <br>
 
         <div class="text-muted" style="font-size: 7pt; line-height: 1;">
