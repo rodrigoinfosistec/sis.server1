@@ -110,7 +110,6 @@
             <x-layout.card.card-body-content>
                 <x-layout.card.card-body-content-table>
                     <x-layout.card.card-body-content-table-body>
-                    
                         @if($list->count() > 0)
                             @foreach($list as $item)
                                 <x-layout.card.card-body-content-table-body-line>
