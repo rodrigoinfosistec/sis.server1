@@ -542,6 +542,7 @@ class Invoiceitem extends Model
             elseif($card_csv_full > 20 && $card_csv_full <= 30)  : $retail_csv_aliquot = 0.8;
             else                                                 : $retail_csv_aliquot = 0.85;
         endif;
+
         // Preço CSV Varejo.
         $retail_csv_full = $card_csv_full / $retail_csv_aliquot;
         $retail_csv = Invoiceitem::roundUp($retail_csv_full, 2);

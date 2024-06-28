@@ -32,6 +32,7 @@
         {{-- Styles --}}
         @livewireStyles
 		
+		{{-- cor do tema --}}
 		<meta name="theme-color" content="#212529">
     </head>
 

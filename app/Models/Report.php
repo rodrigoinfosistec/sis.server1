@@ -403,7 +403,7 @@ class Report extends Model
         if($data[0][0] == 'C' && $data[0][12] == 'R' && $data[0][23] == 'C'):
             // Percorre as linhas do arquivo csv.
             foreach($data as $key => $line):
-                // Desconsidera a linha de cabeçalho (promeira linha).
+                // Desconsidera a linha de cabeçalho (primeira linha).
                 if($key != 0):
                     // Separa dados em cada linha.
                     $l = explode(';', $line);

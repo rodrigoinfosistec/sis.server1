@@ -20,6 +20,8 @@ class Employeelicense extends Model
         'employee_id',
         'employee_name',
 
+        'type',
+
         'date_start',
         'date_end',
 
