@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('employeeabsences', function (Blueprint $table) {
+        Schema::table('employeelicenses', function (Blueprint $table) {
             $table->enum('type', ['MATERNIDADE', 'PATERNIDADE', 'CASAMENTO', 'OBITO', 'SAUDE'])
                 ->after('employee_name')
                 ->default('SAUDE');
@@ -23,7 +23,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('employeeabsences', function (Blueprint $table) {
+        Schema::table('employeelicenses', function (Blueprint $table) {
             //
         });
     }

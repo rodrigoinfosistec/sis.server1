@@ -1752,6 +1752,7 @@ class Audit extends Model
                 'id='            . $after->id            . ',' .
                 'employee_id='   . $after->employee_id   . ',' .
                 'employee_name=' . $after->employee_name . ',' .
+                'type='          . $after->type          . ',' .
                 'date_start='    . $after->date_start    . ',' .
                 'date_end='      . $after->date_end      . ',' .
             '}',
@@ -1776,6 +1777,7 @@ class Audit extends Model
                 'id='            . $data['validatedData']['employeelicense_id'] . ',' .
                 'employee_id='   . $data['validatedData']['employee_id']        . ',' .
                 'employee_name=' . $data['validatedData']['employee_name']      . ',' .
+                'type='          . $data['validatedData']['type']               . ',' .
                 'date_start='    . $data['validatedData']['date_start']         . ',' .
                 'date_end='      . $data['validatedData']['date_end']           . ',' .
             '}',

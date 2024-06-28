@@ -34,6 +34,7 @@ class EmployeelicenseShow extends Component
     public $employeelicense_id;
     public $employee_id;
     public $employee_name;
+    public $type;
     public $date_start;
     public $date_end;
     public $date_start_encode;
@@ -58,6 +59,7 @@ class EmployeelicenseShow extends Component
             'comment'   => ['nullable', 'between:2,255'],
 
             'employee_id' => ['required'],
+            'type'        => ['required'],
             'date_start'  => ['required'],
             'date_end'    => ['required'],
         ];
@@ -90,6 +92,7 @@ class EmployeelicenseShow extends Component
         $this->employeelicense_id = '';
         $this->employee_id        = '';
         $this->employee_name      = '';
+        $this->type               = '';
         $this->date_start         = '';
         $this->date_end           = '';
         $this->date_start_encode  = '';
@@ -141,6 +144,7 @@ class EmployeelicenseShow extends Component
             // Valida campos.
             $validatedData = $this->validate([
                 'employee_id' => ['required'],
+                'type'        => ['required'],
                 'date_start'  => ['required'],
                 'date_end'    => ['required'],
             ]);
@@ -175,6 +179,7 @@ class EmployeelicenseShow extends Component
         $this->employeelicense_id = $employeelicense->id;
         $this->employee_id        = $employeelicense->employee_id;
         $this->employee_name      = $employeelicense->employee_name;
+        $this->type               = $employeelicense->type;
         $this->date_start         = General::decodedate($employeelicense->date_start);
         $this->date_end           = General::decodedate($employeelicense->date_end);
         $this->created            = $employeelicense->created_at->format('d/m/Y H:i:s');
@@ -193,6 +198,7 @@ class EmployeelicenseShow extends Component
         $this->employeelicense_id = $employeelicense->id;
         $this->employee_id        = $employeelicense->employee_id;
         $this->employee_name      = $employeelicense->employee_name;
+        $this->type               = $employeelicense->type;
         $this->date_start         = General::decodeDate($employeelicense->date_start);
         $this->date_end           = General::decodeDate($employeelicense->date_end);
         $this->date_start_encode  = $employeelicense->date_start;
@@ -205,6 +211,7 @@ class EmployeelicenseShow extends Component
             $validatedData['employeelicense_id'] = $this->employeelicense_id;
             $validatedData['employee_id']        = $this->employee_id;
             $validatedData['employee_name']      = $this->employee_name;
+            $validatedData['type']               = $this->type;
             $validatedData['date_start']         = $this->date_start;
             $validatedData['date_end']           = $this->date_end;
             $validatedData['date_start_encode']  = $this->date_start_encode;

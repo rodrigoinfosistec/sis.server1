@@ -27,7 +27,7 @@
 </x-layout.modal.modal-add-body-group>
 
 <x-layout.modal.modal-add-body-group>
-    <x-layout.modal.modal-add-body-group-item columms="6">
+    <x-layout.modal.modal-add-body-group-item columms="4">
         <x-layout.modal.modal-add-body-group-item-label item="date_start" title="INÍCIO" plus="none"/>
 
         <input type="date" wire:model="date_start" class="form-control form-control-sm" id="date_start">
@@ -35,12 +35,28 @@
         <x-layout.modal.modal-add-body-group-item-error item="date_start" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
 
-    <x-layout.modal.modal-add-body-group-item columms="6">
+    <x-layout.modal.modal-add-body-group-item columms="4">
         <x-layout.modal.modal-add-body-group-item-label item="date_end" title="FINAL" plus="none"/>
 
         <input type="date" wire:model="date_end" class="form-control form-control-sm" id="date_end">
 
         <x-layout.modal.modal-add-body-group-item-error item="date_end" message="$message"/>
+    </x-layout.modal.modal-add-body-group-item>
+
+    <x-layout.modal.modal-add-body-group-item columms="4">
+        <x-layout.modal.modal-add-body-group-item-label item="type" title="TIPO" plus="none"/>
+
+        <select wire:model="type" class="form-select form-select-sm text-uppercase" id="type">
+            <x-layout.modal.modal-add-body-group-item-option-muted/>
+
+            <option value="MATERNIDADE">MATERNIDADE</option>
+            <option value="PATERNIDADE">PATERNIDADE</option>
+            <option value="CASAMENTO">CASAMENTO</option>
+            <option value="OBITO">OBITO</option>
+            <option value="SAUDE">SAUDE</option>
+        </select>
+
+        <x-layout.modal.modal-add-body-group-item-error item="type" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
 {{-- conteúdo --}}

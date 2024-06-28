@@ -18,6 +18,10 @@
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
+    TIPO
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
     INÍCIO
 </x-layout.pdf.pdf-table-header-column>
 
@@ -41,6 +45,11 @@
 {{-- FUNCIONÁRIO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     {{ $item->employee_name }}
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- TIPO --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    {{ $item->type }}
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- INÍCIO --}}

@@ -64,6 +64,7 @@
 
 {{-- filtro nome --}}
 <option value="employee_name">Funcionário</option>
+<option value="type">Tipo</option>
 <option value="date_start">INÍCIO</option>
 <option value="date_end">FINAL</option>
 {{-- filtro nome --}}
@@ -118,6 +119,12 @@
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
         {{ $item->employee_name }}
+
+        <br/>
+
+        <span class="text-muted">
+            {{ $item->type }}
+        </span>
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 

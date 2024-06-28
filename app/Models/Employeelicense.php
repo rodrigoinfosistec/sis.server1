@@ -81,6 +81,7 @@ class Employeelicense extends Model
         Employeelicense::create([
             'employee_id'   => $data['validatedData']['employee_id'],
             'employee_name' => Employee::find($data['validatedData']['employee_id'])->name,
+            'type'          => $data['validatedData']['type'],
             'date_start'    => $data['validatedData']['date_start'],
             'date_end'      => $data['validatedData']['date_end'],
         ]);
