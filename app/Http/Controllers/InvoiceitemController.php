@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Page;
 
-class ProductnewController extends Controller
+class InvoiceitemController extends Controller
 {
     public $pageName;
 
@@ -15,7 +15,7 @@ class ProductnewController extends Controller
          * Nome da página - Configurável e único.
          * @var string $this->pageName.
          */
-        $this->pageName = 'productnew';
+        $this->pageName = 'invoiceitem';
 
         /**
          * Expulsa Usuário sem autorização de acesso à Página.

@@ -12,7 +12,6 @@ use App\Http\Controllers\ProviderController;
 
 use App\Http\Controllers\ProductgroupController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductnewController;
 
 use App\Http\Controllers\ClockregistryController;
 use App\Http\Controllers\ClockregistryemployeeController;
@@ -32,6 +31,7 @@ use App\Http\Controllers\EmployeeseparateController;
 use App\Http\Controllers\HolidayController;
 
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\InvoiceitemController;
 use App\Http\Controllers\ClockController;
 use App\Http\Controllers\ClockbaseController;
 
@@ -62,10 +62,10 @@ Route::middleware([
 
     Route::get('/productgroup', [ProductgroupController::class, 'index'])->name('productgroup');
     Route::get('/product', [ProductController::class, 'index'])->name('product');
-    Route::get('/productnew', [ProductnewController::class, 'index'])->name('productnew');
 
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
     Route::get('/price-zip/{invoice_id}/', [InvoiceController::class, 'priceZip'])->name('price-zip');
+    Route::get('/invoiceitem', [InvoiceitemController::class, 'index'])->name('invoiceitem');
 
     Route::get('/clockregistry', [ClockregistryController::class, 'index'])->name('clockregistry');
     Route::get('/clockregistryemployee', [ClockregistryemployeeController::class, 'index'])->name('clockregistryemployee');

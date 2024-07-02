@@ -58,8 +58,8 @@
                             </x-responsive-nav-link>
 
                             {{-- Custo de Produto --}}
-                            <x-responsive-nav-link href="{{ route('product') }}" :active="request()->routeIs('product')" class="text-decoration-none">
-                                <i class="{{ App\Models\Page::getIconByName('product') }}"></i> {{ App\Models\Page::getTitleByName('product') }}
+                            <x-responsive-nav-link href="{{ route('invoiceitem') }}" :active="request()->routeIs('invoiceitem')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('invoiceitem') }}"></i> {{ App\Models\Page::getTitleByName('invoiceitem') }}
                             </x-responsive-nav-link>
                         </div>
 
@@ -127,6 +127,13 @@
                             {{-- Falta --}}
                             <x-responsive-nav-link href="{{ route('employeeabsence') }}" :active="request()->routeIs('employeeabsence')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('employeeabsence') }}"></i> {{ App\Models\Page::getTitleByName('employeeabsence') }}
+                            </x-responsive-nav-link>
+                        </div>
+
+                        <div class="pt-2 pb-0 border-t border-gray-200">
+                            {{-- Produto --}}
+                            <x-responsive-nav-link href="{{ route('product') }}" :active="request()->routeIs('product')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('product') }}"></i> {{ App\Models\Page::getTitleByName('product') }}
                             </x-responsive-nav-link>
                         </div>
 
