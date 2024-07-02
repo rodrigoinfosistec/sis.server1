@@ -4,8 +4,10 @@ namespace App\Http\Livewire;
 
 use App\Models\Report;
 
-use App\Models\Invoiceitem;
-use App\Models\Invoice;
+use App\Models\Product;
+use App\Models\Productgroup;
+use App\Models\Productmeasure;
+use App\Models\Provider;
 
 use Livewire\WithPagination;
 use Livewire\Component;
@@ -24,28 +26,35 @@ class ProductShow extends Component
     public $config;
 
     public $search = '';
-    public $filter = 'code';
+    public $filter = 'name';
 
     public $report_id;
     public $mail;
     public $comment;
 
     public $product_id;
+    public $name;
+    public $code;
+    public $reference;
+    public $ean;
+    public $cost;
+    public $margin;
+    public $value;
     public $signal;
     public $amount;
-    public $code;
-    public $ean;
-    public $name;
-    public $cost;
-    public $ncm;
-    public $cfop;
-    public $cest;
+    public $productgroup_id;
+    public $productmeasure_id;
+    public $status;
     public $created;
 
-    public $invoice_provider_name;
-    public $invoice_company_name;
-    public $invoice_number;
-    public $invoice_issue;
+    public $productgroup_name;
+    public $productgroup_code;
+    public $productgroup_origin;
+    public $productmeasure_name;
+    public $productmeasure_quantity;
+
+    public $csv;
+    public $provider;
 
     /**
      * Construtor.
@@ -91,21 +100,28 @@ class ProductShow extends Component
         $this->comment   = '';
 
         $this->product_id = '';
-        $this->signal     = '';
-        $this->amount     = '';
-        $this->code       = '';
-        $this->ean        = '';
-        $this->name       = '';
-        $this->cost       = '';
-        $this->ncm        = '';
-        $this->cfop       = '';
-        $this->cest       = '';
-        $this->created    = '';
+        $this->name = '';
+        $this->code = '';
+        $this->reference = '';
+        $this->ean = '';
+        $this->cost = '';
+        $this->margin = '';
+        $this->value = '';
+        $this->signal = '';
+        $this->amount = '';
+        $this->productgroup_id = '';
+        $this->productmeasure_id = '';
+        $this->status = '';
+        $this->created = '';
 
-        $this->invoice_provider_name = '';
-        $this->invoice_company_name  = '';
-        $this->invoice_number        = '';
-        $this->invoice_issue         = '';
+        $this->productgroup_name = '';
+        $this->productgroup_code = '';
+        $this->productgroup_origin = '';
+        $this->productmeasure_name = '';
+        $this->productmeasure_quantity = '';
+
+        $this->csv = '';
+        $this->provider = '';
     }
 
     /**
@@ -122,13 +138,12 @@ class ProductShow extends Component
     public function render(){
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
-            'existsItem'   => Invoiceitem::exists(),
+            'existsItem'   => Product::where('status', true)->exists(),
             'existsReport' => Report::where('folder', $this->config['name'])->exists(),
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
-            'list'         => Invoiceitem::where([
-                                ['cost', '!=', NULL],
+            'list'         => Product::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
-                            ])->orderBy('id', 'DESC')->limit(200)->paginate(20),
+                            ])->orderBy('name', 'ASC')->paginate(100),
         ]);
     }
 
@@ -137,29 +152,33 @@ class ProductShow extends Component
      */
     public function detail(int $product_id)
     {
-        // Grupo de Produto.
-        $product = Invoiceitem::find($product_id);
+        // Produto.
+        $product = Product::find($product_id);
 
         // Nota Fiscal.
         $invoice = Invoice::find($product->invoice_id);
 
         // Inicializa propriedades dinâmicas.
         $this->product_id = $product->id;
-        $this->signal     = $product->signal;
-        $this->amount     = $product->amount;
-        $this->code       = $product->code;
-        $this->ean        = $product->ean;
-        $this->name       = $product->name;
-        $this->cost       = $product->cost;
-        $this->ncm        = $product->ncm;
-        $this->cfop       = $product->cfop;
-        $this->cest       = $product->cest;
-        $this->created    = $product->created_at->format('d/m/Y H:i:s');
 
-        $this->invoice_provider_name = $invoice->provider_name;
-        $this->invoice_company_name  = $invoice->company_name;
-        $this->invoice_number        = $invoice->number;
-        $this->invoice_issue         = date_format(date_create($invoice->issue), 'd/m/Y H:i:s');
+        $this->product_id = $product->id;
+        $this->name = $product->name;
+        $this->code = $product->code;
+        $this->reference = $product->reference;
+        $this->ean = $product->ean;
+        $this->cost = $product->cost;
+        $this->margin = $product->margin;
+        $this->value = $product->value;
+        $this->signal = $product->signal;
+        $this->amount = $product->amount;
+        $this->status = $product->status;
+        $this->created = $product->created_at->format('d/m/Y H:i:s');
+
+        $this->productgroup_name = $product->productgroup->name;
+        $this->productgroup_code = $product->productgroup->code;
+        $this->productgroup_origin = $product->productgroup->origin;
+        $this->productmeasure_name = $product->productmeasure->name;
+        $this->productmeasure_quantity = $product->productmeasure->quantity;
     }
 
     /**
@@ -178,13 +197,13 @@ class ProductShow extends Component
             $data['search'] = $this->search;
 
             // Valida geração de relatório.
-            $valid = Invoiceitem::validateGenerate($data);
+            $valid = Product::validateGenerate($data);
 
             // Gera relatório.
-            if ($valid) Invoiceitem::generate($data);
+            if ($valid) Product::generate($data);
 
             // Executa dependências.
-            if ($valid) Invoiceitem::dependencyGenerate($data);
+            if ($valid) Product::dependencyGenerate($data);
 
             // Fecha modal.
             $this->closeModal();
@@ -213,13 +232,13 @@ class ProductShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida envio do e-mail.
-            $valid = Invoiceitem::validateMail($data);
+            $valid = Product::validateMail($data);
 
             // Envia e-mail.
-            if ($valid) Invoiceitem::mail($data);
+            if ($valid) Product::mail($data);
 
             // Executa dependências.
-            if ($valid) Invoiceitem::dependencyMail($data);
+            if ($valid) Product::dependencyMail($data);
 
             // Fecha modal.
             $this->closeModal();
