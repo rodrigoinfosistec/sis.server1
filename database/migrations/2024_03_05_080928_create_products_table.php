@@ -17,16 +17,14 @@ return new class extends Migration
             $table->string('name', length: 120);
             $table->string('code', length: 20)->unique();
 
-            $table->string('reference', length: 30)->nullable();
-            $table->string('ean', length: 20)->nullable();
+            $table->string('reference', length: 30)->nullable()->default(null);
+            $table->string('ean', length: 20)->nullable()->default(null);
 
             $table->decimal('cost', total: 16, places: 7)->nullable()->default(null);
             $table->decimal('margin', total: 16, places: 7)->nullable()->default(null);
             $table->decimal('value', total: 16, places: 7)->nullable()->default(null);
 
-            $table->enum('signal', ['/', '*'])->default('/');
-            $table->decimal('amount', total: 16, places: 7)->default(1);
-
+            $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('productgroup_id')->nullable()->default(null);
             $table->unsignedBigInteger('productmeasure_id')->nullable()->default(null);
 
@@ -34,6 +32,7 @@ return new class extends Migration
 
             $table->timestamps();
 
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('productgroup_id')->references('id')->on('productgroups');
             $table->foreign('productmeasure_id')->references('id')->on('productmeasures');
         });

@@ -6,7 +6,7 @@
 @include('components.' .  $config['name'] . '.modals.mail')
 
 {{-- plus --}}
-
+@include('components.' .  $config['name'] . '.modals.add-csv')
 {{-- info --}}
 
 
@@ -44,7 +44,7 @@
                 <x-layout.card.card-header-button-more>
 
 {{-- botão add --}}
-<x-layout.card.card-header-button-more-plus-muted/>
+<x-layout.card.card-header-button-more-plus-csv/>
 {{-- botão add --}}
 
                 </x-layout.card.card-header-button-more>                    
@@ -57,13 +57,13 @@
                     <x-layout.card.card-body-navigation-search-filter>
 
 {{-- filtro nome --}}
-<option value="code">CÓDIGO</option>
 <option value="name">DESCRIÇÃO</option>
+<option value="code">CÓDIGO</option>
 <option value="ean">EAN</option>
-<option value="cest">CEST</option>
+<option value="reference">REFERÊNCIA</option>
 {{-- filtro nome --}}
 
-                        </x-layout.card.card-body-navigation-search-filter>
+                    </x-layout.card.card-body-navigation-search-filter>
 
 <x-layout.card.card-body-navigation-search-type-search/>
 
@@ -117,7 +117,7 @@
             </span>
             <br>
             <span class="text-muted" style="font-size: 7pt;">
-                {{ $item->invoice->provider->name }}
+                {{-- $item->invoice->provider->name --}}
             </span>
         </div>
     </x-layout.card.card-body-content-table-body-line-cell-content>
