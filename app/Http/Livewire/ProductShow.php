@@ -72,6 +72,9 @@ class ProductShow extends Component
             'report_id' => ['required'],
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
+
+            'csv' => ['file', 'required'],
+            'provider_id' => ['required'],
         ];
     }
 
@@ -147,39 +150,56 @@ class ProductShow extends Component
         ]);
     }
 
-    /** 
-     * detail()
+    /**
+     * add()
+     *  register()
      */
-    public function detail(int $product_id)
+    public function add()
     {
-        // Produto.
-        $product = Product::find($product_id);
-
-        // Nota Fiscal.
-        $invoice = Invoice::find($product->invoice_id);
-
-        // Inicializa propriedades dinâmicas.
-        $this->product_id = $product->id;
-
-        $this->product_id = $product->id;
-        $this->name = $product->name;
-        $this->code = $product->code;
-        $this->reference = $product->reference;
-        $this->ean = $product->ean;
-        $this->cost = $product->cost;
-        $this->margin = $product->margin;
-        $this->value = $product->value;
-        $this->signal = $product->signal;
-        $this->amount = $product->amount;
-        $this->status = $product->status;
-        $this->created = $product->created_at->format('d/m/Y H:i:s');
-
-        $this->productgroup_name = $product->productgroup->name;
-        $this->productgroup_code = $product->productgroup->code;
-        $this->productgroup_origin = $product->productgroup->origin;
-        $this->productmeasure_name = $product->productmeasure->name;
-        $this->productmeasure_quantity = $product->productmeasure->quantity;
+        //...
     }
+        public function register()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'csv' => ['file', 'required'],
+                'provider_id' => ['required'],
+            ]);
+
+            dd($validatedData);
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = Product::validateAdd($data);
+
+            // Valida.
+            if($valid):
+                // Inicializa array csv.
+                $CsvArray  = $valid['CsvArray'];
+
+                // Provider.
+                $provider = Provider::where('cnpj', Provider::encodeCnpj((string)$xmlObject->NFe->infNFe->emit->CNPJ))->first();
+
+                // Company.
+                $company = Company::where('cnpj', Company::encodeCnpj((string)$xmlObject->NFe->infNFe->dest->CNPJ))->first();
+
+                $data['validatedData']['csvArray']      = $CsvArray;
+            endif;
+
+            // Cadastra.
+            if ($valid) Product::add($data);
+
+            // Executa dependências.
+            if ($valid) Product::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+            return redirect()->to('/product');
+        }
 
     /**
      * generate()
