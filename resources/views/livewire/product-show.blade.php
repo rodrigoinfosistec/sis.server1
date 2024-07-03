@@ -7,6 +7,7 @@
 
 {{-- plus --}}
 @include('components.' .  $config['name'] . '.modals.add-csv')
+
 {{-- info --}}
 
 

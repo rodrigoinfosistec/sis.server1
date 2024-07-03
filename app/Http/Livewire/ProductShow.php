@@ -141,24 +141,24 @@ class ProductShow extends Component
     public function render(){
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
-            'existsItem'   => Product::where('status', true)->exists(),
+            'existsItem'   => Product::exists(),
             'existsReport' => Report::where('folder', $this->config['name'])->exists(),
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Product::where([
-                                [$this->filter, 'like', '%'. $this->search . '%'],
-                            ])->orderBy('name', 'ASC')->paginate(100),
+                            [$this->filter, 'like', '%'. $this->search . '%'],
+                        ])->orderBy('name', 'ASC')->paginate(100),
         ]);
     }
 
     /**
-     * add()
-     *  register()
+     * addCsv()
+     *  registerCsv()
      */
-    public function add()
+    public function addCsv()
     {
         //...
     }
-        public function register()
+        public function registerCsv()
         {
             // Valida campos.
             $validatedData = $this->validate([
