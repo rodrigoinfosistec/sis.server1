@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Str;
+
 class Product extends Model
 {
     use HasFactory;
@@ -25,6 +27,7 @@ class Product extends Model
         'ean',
 
         'cost',
+        'margin',
         'value',
 
         'company_id',
@@ -45,95 +48,24 @@ class Product extends Model
     public function productmeasure(){return $this->belongsTo(Productmeasure::class);}
 
     /**
-     * Valida Arquivo CSV.
-     * @var array $data
-     * 
-     * @return @return <array, faslse> $CSV
-     */
-    public static function validateFileCsv(array $data){
-        // Inicializa variáveis.
-        $file_name = $data['validatedData']['file_name'];
-        $path = public_path('/storage/product/csv/');
-        $csvArray = false;
-
-        // Salva o arquivo CSV.
-        File::makeDirectory($path, $mode = 0777, true, true);
-        $data['validatedData']['csv']->storeAs('public/product/csv/',  $file_name);
-
-        // Instancia dados do CSV.
-        @$data = file($path .  $file_name); 
-
-        // Verifica se é um CSV.
-        if($data):
-            // Verifica se é um CSV válido.
-            if($data[0][0] == 'C' && $data[0][12] == 'R' && $data[0][23] == 'C'):
-                // Percorre as linhas do arquivo CSV.
-                foreach($data as $key => $line):
-                    // Desconsidera a linha de cabeçalho (primeira linha).
-                    if($key != 0):
-                        // Separa dados em cada linha.
-                        $l = explode(';', $line);
-
-                        // Verifica se o arquivo possui as aspas "".
-                        if($l[0][0] == '"'):
-                            $l[0] = str_replace('"', '', $l[0]);
-                            $l[1] = str_replace('"', '', $l[1]);
-                            $l[2] = str_replace('"', '', $l[2]);
-                            $l[3] = str_replace('"', '', $l[3]);
-                            $l[4] = str_replace('"', '', $l[4]);
-                            $l[5] = str_replace('"', '', $l[5]);
-                            $l[6] = str_replace('"', '', $l[6]);
-                        endif;
-
-                        // Monta array CSV.
-                        $csvArray[] = [
-                            'code'       => $l[0],
-                            'reference'  => $l[1],
-                            'ean'        => $l[2],
-                            'name'       => $l[3],
-                            'cost'       => $l[4],
-                            'value'      => $l[6],
-                        ];
-                    endif;
-                endforeach;
-            endif;
-        endif;
-
-        return  $csvArray;
-    }
-
-    /**
-     * Valida Cadastro.
+     * Valida cadastro.
      * @var array $data
      * 
      * @return <object, bool>
      */
     public static function validateAdd(array $data){
-        // Inicializa variáveis.
         $message = null;
-        $valid['csvArray'] = false;
-        $file_name = $data['validatedData']['file_name'];
-        $path = public_path('/storage/product/csv/');
 
-        // verifica se existe CSV.
-        if($data['validatedData']['csv']):
-            // Salva CSV.
-            $csvArray = Product::validateFileCsv($data);
+        // Verifica se o usuário possui Empresa Vinculada.
+        if(empty(auth()->user()->company_id)) $message = 'Usuário sem vínculo com alguma Empresa Própria.';
 
-            // Verifica se o CSV é válido.
-            if($csvArray):
-                // Inicializa array CSV.
-                $valid['csvArray'] = $csvArray;
-            else:
-                // Mensagem.
-                $message = 'Arquivo deve ser um CSV válido (Automação).';
+        // Salva o arquivo, caso seja um CSV.
+        $CsvArray = Report::csvProduct($data);
 
-                // Exclui o arquivo.
-                @unlink($path . $file_name);
-            endif;
-        endif;
+        // Verifica se é um arquivo CSV.
+        if (empty($CsvArray)) $message = 'Arquivo deve ser um csv de produtos.';
 
-        // Atribui retorno negativo, caso reprovado em alguma das validações anteriores.
+        // Desvio.
         if(!empty($message)):
             session()->flash('message', $message );
             session()->flash('color', 'danger');
@@ -141,8 +73,76 @@ class Product extends Model
             return false;
         endif;
 
-        // Retorno positivo, caso aprovado nas validações anteriores.
+        // Atribui retorno, caso aprovado nas validações anteriores.
+        $valid['CsvArray']  = $CsvArray;
+
         return $valid;
+    }
+
+    /**
+     * Cadastra.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function add(array $data) : bool {
+        //Percorre todos os Produtos.
+        foreach($data['validatedData']['csvArray'] as $key => $product):
+            // Verifica se o Produto não está cadastrado.
+            if(Product::where(['code' => $product['code'], 'company_id' => auth()->user()->company_id])->doesntExist()):
+                // Cadastra.
+                $product_id = Product::create([
+                    'name' => Invoicecsv::nameValidate($product['name']),
+                    'code' => $product['code'],
+                    'reference' => !empty($product['reference']) ? $product['reference'] : null,
+                    'ean' => !empty($product['ean']) ? $product['ean'] : null,
+                    'cost' => General::encodeFloat($product['cost'], 7),
+                    'margin' => General::encodeFloat($product['margin'], 7),
+                    'value' => General::encodeFloat($product['value'], 7),
+                    'company_id' => auth()->user()->company_id,
+                ])->id;
+            else:
+                // Atualiza.
+                $product_id = Product::where(['code' => $product['code'], 'company_id' => auth()->user()->company_id])->first()->id;
+                Product::where(['code' => $product['code'], 'company_id' => auth()->user()->company_id])->update([
+                    'name' => Invoicecsv::nameValidate($product['name']),
+                    'reference' => !empty($product['reference']) ? $product['reference'] : null,
+                    'ean' => !empty($product['ean']) ? $product['ean'] : null,
+                    'cost' => General::encodeFloat($product['cost'], 7),
+                    'margin' => General::encodeFloat($product['margin'], 7),
+                    'value' => General::encodeFloat($product['value'], 7),
+                ]);
+            endif;
+
+            // verifica se o Fornecedor já está associado a este Produto.
+            if(Productprovider::where(['product_id' => $product_id, 'provider_id' => $data['validatedData']['provider_id']])->doesntExist()):
+                // Associa o Produto ao Fornecedor.
+                Productprovider::create([
+                    'product_id' => $product_id,
+                    'product_code' => (string)$product['code'],
+                    'provider_id' => $data['validatedData']['provider_id'],
+                ]);
+            endif;
+        endforeach;
+
+        // Mensagem.
+        $message = 'Produtos cadastrados/atualizados com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de cadastro.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyAdd(array $data) : bool {
+        // ...
+
+        return true;
     }
 
 }

@@ -15,12 +15,13 @@ return new class extends Migration
             $table->id();
 
             $table->string('name', length: 120);
-            $table->string('code', length: 20)->unique();
+            $table->string('code', length: 20);
 
             $table->string('reference', length: 30)->nullable()->default(null);
             $table->string('ean', length: 20)->nullable()->default(null);
 
             $table->decimal('cost', total: 16, places: 7)->nullable()->default(null);
+            $table->decimal('margin', total: 16, places: 7)->nullable()->default(null);
             $table->decimal('value', total: 16, places: 7)->nullable()->default(null);
 
             $table->unsignedBigInteger('company_id');

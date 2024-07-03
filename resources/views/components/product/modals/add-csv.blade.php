@@ -11,7 +11,15 @@
 
 {{-- conteúdo --}}
 <x-layout.modal.modal-add-body-group>
-    <x-layout.modal.modal-add-body-group-item columms="12">
+    <x-layout.modal.modal-add-body-group-item columms="6">
+        <x-layout.modal.modal-add-body-group-item-label item="append" title="ADICIONAR" plus="none"/>
+
+        <input type="text" wire:model="append" class="form-control form-control-sm" id="append">
+
+        <x-layout.modal.modal-add-body-group-item-error item="append" message="$message"/>
+    </x-layout.modal.modal-add-body-group-item>
+
+    <x-layout.modal.modal-add-body-group-item columms="6">
         <x-layout.modal.modal-add-body-group-item-label item="csv" title="CSV" plus="none"/>
 
         <input type="file" wire:model="csv" class="form-control form-control-sm" id="csv">

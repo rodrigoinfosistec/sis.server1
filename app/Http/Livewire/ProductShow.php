@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Str;
+
 use App\Models\Report;
 
 use App\Models\Product;
@@ -56,6 +58,7 @@ class ProductShow extends Component
 
     public $csv;
     public $provider;
+    public $append;
 
     /**
      * Construtor.
@@ -76,6 +79,7 @@ class ProductShow extends Component
 
             'csv' => ['file', 'required'],
             'provider_id' => ['required'],
+            'append' => ['nullable'],
         ];
     }
 
@@ -128,6 +132,7 @@ class ProductShow extends Component
 
         $this->csv = '';
         $this->provider = '';
+        $this->append = '';
     }
 
     /**
@@ -167,7 +172,12 @@ class ProductShow extends Component
             $validatedData = $this->validate([
                 'csv' => ['file', 'required'],
                 'provider_id' => ['required'],
+                'append' => ['nullable'],
             ]);
+
+            // Estende $validatedData.
+            $validatedData['provider'] = Provider::find($validatedData['provider_id']);
+            $validatedData['file_name'] = $validatedData['provider_id'] . '_' . Str::random(10) . '.csv';
 
             // Define $data.
             $data['config']        = $this->config;
@@ -177,18 +187,7 @@ class ProductShow extends Component
             $valid = Product::validateAdd($data);
 
             // Valida.
-            if($valid):
-                // Inicializa array csv.
-                $CsvArray  = $valid['CsvArray'];
-
-                // Provider.
-                $provider = Provider::where('cnpj', Provider::encodeCnpj((string)$xmlObject->NFe->infNFe->emit->CNPJ))->first();
-
-                // Company.
-                $company = Company::where('cnpj', Company::encodeCnpj((string)$xmlObject->NFe->infNFe->dest->CNPJ))->first();
-
-                $data['validatedData']['csvArray']      = $CsvArray;
-            endif;
+            if ($valid) $data['validatedData']['csvArray'] = $valid['CsvArray'];
 
             // Cadastra.
             if ($valid) Product::add($data);

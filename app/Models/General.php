@@ -20,6 +20,23 @@ class General extends Model
     }
 
     /**
+     * Converte valor monetário (R$ -> $)
+     * @var string $float_decode
+     * @var int $decimal
+     * 
+     * @return float $float_encode
+     */
+    public static function encodeFloat(string $float_decode, int $decimal) : float {
+        // Inicializa variável.
+        $float_encode = 0;
+
+        // Converte a string em float com 2 casas decimais.
+        if(!empty($float_decode)) $float_encode = number_format(str_replace(",", ".", str_replace(".", "", $float_decode)), $decimal, '.', '');
+
+        return (float)$float_encode;
+    }
+
+    /**
      * Converte valor monetário (R$ -> $), 2 casas decimais
      * @var string $float_decode
      * 

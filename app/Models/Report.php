@@ -1524,4 +1524,74 @@ class Report extends Model
 
         return true;
     }
+
+    /**
+     * Product Csv
+     * @var array $data
+     * 
+     * @return <object, null> $csv
+     */
+    public static function csvProduct(array $data){
+        // Salva o arquivo csv.
+        $file_name = $data['validatedData']['file_name'];
+        $path = public_path('/storage/csv/' . $data['config']['name'] . '/');
+        File::makeDirectory($path, $mode = 0777, true, true);
+        $data['validatedData']['csv']->storeAs('public/csv/' . $data['config']['name'] . '/', $file_name);
+        $append = $data['validatedData']['append'];
+        // Instancia dados do csv.
+        $data = file($path . $file_name);
+
+        // Verifica se é um csv de produtos.
+        if($data[0][0] == 'C' && $data[0][12] == 'R' && $data[0][23] == 'C'):
+            // Percorre as linhas do arquivo csv.
+            foreach($data as $key => $line):
+                // Desconsidera a linha de cabeçalho (primeira linha).
+                if($key != 0):
+                    // Separa dados em cada linha.
+                    $l = explode(';', $line);
+
+                    // Retira as aspas "";
+                    if($l[0][0] == '"'):
+                        $l[0] = str_replace('"', '', $l[0]);
+                        $l[1] = str_replace('"', '', $l[1]);
+                        $l[2] = str_replace('"', '', $l[2]);
+                        $l[3] = str_replace('"', '', $l[3]);
+                        $l[4] = str_replace('"', '', $l[4]);
+                        $l[5] = str_replace('"', '', $l[5]);
+                        $l[6] = str_replace('"', '', $l[6]);
+                    endif;
+
+                    // Trata name.
+                    if(!empty($append) && $append != ''):
+                        $name = Str::upper($append) . ' ' . $l[3];
+                    else:
+                        $name = $l[3];
+                    endif;
+
+                    // Monta array csv.
+                    $CsvArray[] = [
+                        'code'       => $l[0],
+                        'reference'  => $l[1],
+                        'ean'        => $l[2],
+                        'name'       => $name,
+                        'cost'       => $l[4],
+                        'margin'     => $l[5],
+                        'value'      => $l[6],
+                    ];
+                endif;
+            endforeach;
+
+            // Atribui à variável.
+            $csv = $CsvArray;
+        else:
+            // Exclui o arquivo.
+            unlink($path . $file_name);
+
+            // Atribui à variável.
+            $csv = null;
+        endif;
+
+        return  $csv;
+    }
+
 }
