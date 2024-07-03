@@ -24,7 +24,7 @@
                     <x-layout.card.card-header-button-action-refresh href="{{ $config['name'] }}"/>
 
 {{-- botão relatório --}}
-<x-layout.card.card-header-button-action-generate-muted/>
+<x-layout.card.card-header-button-action-generate/>
 
 @if($existsReport)
     <x-layout.card.card-header-button-action-mail/>
