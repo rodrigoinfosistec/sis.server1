@@ -153,6 +153,7 @@ class ProductShow extends Component
             'existsReport' => Report::where('folder', $this->config['name'])->exists(),
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Product::where([
+                            ['company_id', auth()->user()->company_id],
                             [$this->filter, 'like', '%'. $this->search . '%'],
                         ])->orderBy('name', 'ASC')->paginate(100),
         ]);

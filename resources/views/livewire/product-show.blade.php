@@ -96,15 +96,15 @@
 <x-layout.card.card-body-content-table-body-line-cell width="">
     <x-layout.card.card-body-content-table-body-line-cell-id>
         <x-layout.card.card-body-content-table-body-line-cell-id-badge>
-            {{ str_pad($item->id, Str::length($list->count()), '0', STR_PAD_LEFT); }}
+            {{ $item->code }}
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
         
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            {{ $item->code }}@if(!empty($item->code))<i class="bi-caret-right-fill text-danger" style="font-size: 10px;"></i>@endif{{ $item->ean }}
+            {{ $item->ean }}
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            {{ $item->created_at->format('d/m/y') }}
+            {{-- $item->created_at->format('d/m/y') --}}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
@@ -112,13 +112,10 @@
         <div style="line-height: 1;">
             {{ $item->name }}
             <br>
-            <span class="text-primary" style="font-size: 9pt;">
-                <span class="fst-italic">R$</span>
-                {{ App\Models\General::decodeFloat2($item->cost) }}
-            </span>
-            <br>
             <span class="text-muted" style="font-size: 7pt;">
-                {{-- $item->invoice->provider->name --}}
+                {{ $item->reference }}
+                <i class="bi bi-caret-right-fill"></i>
+                {{ App\Models\Productprovider::where('product_id', $item->id)->first()->provider->name }}
             </span>
         </div>
     </x-layout.card.card-body-content-table-body-line-cell-content>
