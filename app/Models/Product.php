@@ -25,7 +25,6 @@ class Product extends Model
         'ean',
 
         'cost',
-        'margin',
         'value',
 
         'company_id',
@@ -88,13 +87,11 @@ class Product extends Model
 
                         // Monta array CSV.
                         $csvArray[] = [
-                            'identifier' => $key,
                             'code'       => $l[0],
                             'reference'  => $l[1],
                             'ean'        => $l[2],
                             'name'       => $l[3],
                             'cost'       => $l[4],
-                            'margin'     => $l[5],
                             'value'      => $l[6],
                         ];
                     endif;

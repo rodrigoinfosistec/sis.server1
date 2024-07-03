@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('ean', length: 20)->nullable()->default(null);
 
             $table->decimal('cost', total: 16, places: 7)->nullable()->default(null);
-            $table->decimal('margin', total: 16, places: 7)->nullable()->default(null);
             $table->decimal('value', total: 16, places: 7)->nullable()->default(null);
 
             $table->unsignedBigInteger('company_id');
