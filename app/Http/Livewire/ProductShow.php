@@ -169,8 +169,6 @@ class ProductShow extends Component
                 'provider_id' => ['required'],
             ]);
 
-            dd($validatedData);
-
             // Define $data.
             $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;
