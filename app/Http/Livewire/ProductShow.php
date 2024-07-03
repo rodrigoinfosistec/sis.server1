@@ -42,6 +42,8 @@ class ProductShow extends Component
     public $value;
     public $signal;
     public $amount;
+    public $company_id;
+    public $provider_id;
     public $productgroup_id;
     public $productmeasure_id;
     public $status;
@@ -74,6 +76,7 @@ class ProductShow extends Component
             'comment'   => ['nullable', 'between:2,255'],
 
             'csv' => ['file', 'required'],
+            'company_id' => ['required'],
             'provider_id' => ['required'],
         ];
     }
@@ -112,6 +115,8 @@ class ProductShow extends Component
         $this->value = '';
         $this->signal = '';
         $this->amount = '';
+        $this->company_id = '';
+        $this->provider_id = '';
         $this->productgroup_id = '';
         $this->productmeasure_id = '';
         $this->status = '';
@@ -120,6 +125,7 @@ class ProductShow extends Component
         $this->productgroup_name = '';
         $this->productgroup_code = '';
         $this->productgroup_origin = '';
+
         $this->productmeasure_name = '';
         $this->productmeasure_quantity = '';
 
@@ -163,6 +169,7 @@ class ProductShow extends Component
             // Valida campos.
             $validatedData = $this->validate([
                 'csv' => ['file', 'required'],
+                'company_id' => ['required'],
                 'provider_id' => ['required'],
             ]);
 
