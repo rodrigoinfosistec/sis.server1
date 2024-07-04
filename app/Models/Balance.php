@@ -108,7 +108,7 @@ class Balance extends Model
      * @return bool true
      */
     public static function dependencyAdd(array $data) : bool {
-        // Percorre 
+        // Percorre os Produtos do Fornecedor.
         foreach(Productprovider::where('provider_id', $data['validatedData']['provider_id']) as $key => $productprovider):
             // Cadastra produtos do Balanço.
             Balanceproduct::create([

@@ -44,6 +44,7 @@ class BalanceShow extends Component
     public $user_id;
     public $user_name;
     public $observation;
+    public $finished;
     public $created;
 
     /**
@@ -65,6 +66,7 @@ class BalanceShow extends Component
 
             'provider_id' => ['required'],
             'deposit_id' => ['required'],
+            'observation' => ['required'],
         ];
     }
 
@@ -100,6 +102,7 @@ class BalanceShow extends Component
         $this->user_id = '';
         $this->user_name = '';
         $this->observation = '';
+        $this->finished = '';
         $this->created = '';
     }
 

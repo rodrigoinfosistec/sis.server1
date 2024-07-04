@@ -1,3 +1,10 @@
-<div>
-    <!-- People find pleasure in different ways. I find it in keeping my mind clear. - Marcus Aurelius -->
-</div>
+<script>
+    window.addEventListener('close-modal', event => {
+        $('#generateModal').modal('hide');
+        $('#mailModal').modal('hide');
+        
+        $('#addModal').modal('hide');
+
+        $('#detailModal').modal('hide');
+    })
+</script>
