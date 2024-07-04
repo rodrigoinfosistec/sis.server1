@@ -123,30 +123,25 @@ class BalanceShow extends Component
             'list'         => Balance::where([
                             ['company_id', auth()->user()->company_id],
                             [$this->filter, 'like', '%'. $this->search . '%'],
-                        ])->orderBy('name', 'ASC')->paginate(100),
+                        ])->orderBy('id', 'DESC')->paginate(100),
         ]);
     }
 
     /**
-     * addCsv()
-     *  registerCsv()
+     * add()
+     *  register()
      */
-    public function addCsv()
+    public function add()
     {
         //...
     }
-        public function registerCsv()
+        public function register()
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'csv' => ['file', 'required'],
                 'provider_id' => ['required'],
-                'append' => ['nullable'],
+                'deposit_id' => ['required'],
             ]);
-
-            // Estende $validatedData.
-            $validatedData['provider'] = Provider::find($validatedData['provider_id']);
-            $validatedData['file_name'] = $validatedData['provider_id'] . '_' . Str::random(10) . '.csv';
 
             // Define $data.
             $data['config']        = $this->config;
@@ -154,9 +149,6 @@ class BalanceShow extends Component
 
             // Valida cadastro.
             $valid = Balance::validateAdd($data);
-
-            // Valida.
-            if ($valid) $data['validatedData']['csvArray'] = $valid['CsvArray'];
 
             // Cadastra.
             if ($valid) Balance::add($data);
@@ -167,7 +159,6 @@ class BalanceShow extends Component
             // Fecha modal.
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
-            return redirect()->to('/balance');
         }
 
     /**
