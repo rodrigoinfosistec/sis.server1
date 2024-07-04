@@ -78,9 +78,9 @@ class Balance extends Model
         // Cadastra.
         $balance_id = Balance::create([
             'provider_id' => $data['validatedData']['provider_id'],
-            'provider_name' => $data['validatedData']['provider_name'],
+            'provider_name' => Provider::find($data['validatedData']['provider_id'])->name,
             'deposit_id' => $data['validatedData']['deposit_id'],
-            'deposit_name' => $data['validatedData']['deposit_name'],
+            'deposit_name' => Deposit::find($data['validatedData']['deposit_id'])->name,
             'company_id' => auth()->user()->company_id,
             'user_id' => auth()->user()->id,
             'user_name' => auth()->user()->name,
@@ -112,8 +112,8 @@ class Balance extends Model
         foreach(Productprovider::where('provider_id', $data['validatedData']['provider_id']) as $key => $productprovider):
             // Cadastra produtos do Balanço.
             Balanceproduct::create([
-                'balance_id' => $data['validatedData']['provider_id'],
-                'product_id' =>$productprovider->provider_id,
+                'balance_id' => $data['validatedData']['balance_id'],
+                'product_id' =>$productprovider->product_id,
             ]);
         endforeach;
 

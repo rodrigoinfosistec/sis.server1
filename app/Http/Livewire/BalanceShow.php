@@ -123,7 +123,7 @@ class BalanceShow extends Component
             'list'         => Balance::where([
                             ['company_id', auth()->user()->company_id],
                             [$this->filter, 'like', '%'. $this->search . '%'],
-                        ])->orderBy('id', 'DESC')->paginate(100),
+                        ])->orderBy('finished', 'ASC')->orderBy('id', 'DESC')->paginate(100),
         ]);
     }
 
