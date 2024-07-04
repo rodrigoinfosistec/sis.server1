@@ -47,6 +47,17 @@ class BalanceShow extends Component
     public $finished;
     public $created;
 
+    public $array_product_id = [];
+    public $array_product_name = [];
+    public $array_product_code = [];
+    public $array_product_reference = [];
+    public $array_product_ean = [];
+    public $array_product_quantity = [];
+
+    public $array_product_productmeasure_id = [];
+    public $array_product_productmeasure_name = [];
+    public $array_product_productmeasure_quantity = [];
+
     /**
      * Construtor.
      */
@@ -104,6 +115,17 @@ class BalanceShow extends Component
         $this->observation = '';
         $this->finished = '';
         $this->created = '';
+
+        $this->array_product_id = [];
+        $this->array_product_name = [];
+        $this->array_product_code = [];
+        $this->array_product_reference = [];
+        $this->array_product_ean = [];
+        $this->array_product_quantity = [];
+
+        $this->array_product_productmeasure_id = [];
+        $this->array_product_productmeasure_name = [];
+        $this->array_product_productmeasure_quantity = [];
     }
 
     /**
@@ -175,7 +197,7 @@ class BalanceShow extends Component
     public function edit(int $balance_id)
     {
         // Balanço.
-        $balance = Balance::find((int)$balance_id);
+        $balance = Balance::find($balance_id);
 
         // Inicializa propriedades dinâmicas.
         $this->balance_id = $balance->id;
@@ -189,6 +211,20 @@ class BalanceShow extends Component
         $this->observation = (string)$balance->observation;
         $this->finished = $balance->finished;
         $this->created = $balance->created_at->format('d/m/Y H:i:s');
+
+        // Percorre os itens da Nota Fiscal.
+        foreach(Balanceproduct::where('balance_id', $balance_id)->get() as $key => $balanceproduct):
+            // Inicializa variáveis, dinamicamente.
+            $this->array_product_name[$balanceproduct->product->id]      = $balanceproduct->product->name;
+            $this->array_product_code[$balanceproduct->product->id]      = $balanceproduct->product->code;
+            $this->array_product_reference[$balanceproduct->product->id] = $balanceproduct->product->name;
+            $this->array_product_ean[$balanceproduct->product->id]       = $balanceproduct->product->reference;
+            $this->array_product_quantity[$balanceproduct->product->id]  = $balanceproduct->product->quantity;
+
+            $this->array_product_productmeasure_id[$balanceproduct->product->id]       = !empty($balanceproduct->product->productmeasure->id) ? $balanceproduct->product->productmeasure->id : '';
+            $this->array_product_productmeasure_name[$balanceproduct->product->id]     = !empty($balanceproduct->product->productmeasure->name) ? $balanceproduct->product->productmeasure->name : '';
+            $this->array_product_productmeasure_quantity[$balanceproduct->product->id] = !empty($balanceproduct->product->productmeasure->quantity) ? $balanceproduct->product->productmeasure->quantity : '';
+        endforeach;
     }
         public function modernize()
         {
