@@ -30,6 +30,8 @@ class Product extends Model
         'margin',
         'value',
 
+        'quantity',
+
         'company_id',
         'productgroup_id',
         'productmeasure_id',

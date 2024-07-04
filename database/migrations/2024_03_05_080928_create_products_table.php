@@ -24,6 +24,8 @@ return new class extends Migration
             $table->decimal('margin', total: 16, places: 7)->nullable()->default(null);
             $table->decimal('value', total: 16, places: 7)->nullable()->default(null);
 
+            $table->decimal('quantity', total: 16, places: 7)->default(0);
+
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('productgroup_id')->nullable()->default(null);
             $table->unsignedBigInteger('productmeasure_id')->nullable()->default(null);
