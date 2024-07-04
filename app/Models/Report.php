@@ -1068,7 +1068,7 @@ class Report extends Model
                             [$data['filter'], 'like', '%'. $data['search'] . '%'],
                             ['company_id', Auth()->user()->company_id],
                             ['status', true],
-                        ])->orderBy('name', 'ASC')->get(), 
+                        ])->orderBy('datatime', 'DESC')->orderBy('name', 'ASC')->get(), 
         ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
 
         // Salva o arquivo PDF.
