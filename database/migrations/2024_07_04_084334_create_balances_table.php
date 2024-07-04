@@ -27,6 +27,8 @@ return new class extends Migration
 
             $table->text('observation');
 
+            $table->boolean('finished')->default(false);
+
             $table->timestamps();
 
             $table->foreign('provider_id')->references('id')->on('providers');

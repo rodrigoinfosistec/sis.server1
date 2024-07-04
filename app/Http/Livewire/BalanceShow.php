@@ -141,6 +141,7 @@ class BalanceShow extends Component
             $validatedData = $this->validate([
                 'provider_id' => ['required'],
                 'deposit_id' => ['required'],
+                'observation' => ['required'],
             ]);
 
             // Define $data.
@@ -152,6 +153,9 @@ class BalanceShow extends Component
 
             // Cadastra.
             if ($valid) Balance::add($data);
+
+            // Estende $data['validatedData'].
+            $data['validatedData']['balance_id'] = $valid;
 
             // Executa dependências.
             if ($valid) Balance::dependencyAdd($data);
