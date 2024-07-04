@@ -12,6 +12,7 @@ use App\Http\Controllers\ProviderController;
 
 use App\Http\Controllers\ProductgroupController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BalanceController;
 
 use App\Http\Controllers\ClockregistryController;
 use App\Http\Controllers\ClockregistryemployeeController;
@@ -62,6 +63,7 @@ Route::middleware([
 
     Route::get('/productgroup', [ProductgroupController::class, 'index'])->name('productgroup');
     Route::get('/product', [ProductController::class, 'index'])->name('product');
+    Route::get('/balance', [BalanceController::class, 'index'])->name('balance');
 
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
     Route::get('/price-zip/{invoice_id}/', [InvoiceController::class, 'priceZip'])->name('price-zip');

@@ -239,6 +239,12 @@ class Config extends Model
                 'icon'  => 'bi-info-circle',
                 'test'  => true,
             ],
+            [
+                'name'  => 'balance',
+                'title' => 'Balanço de Estoque',
+                'icon'  => 'bi-award',
+                'test'  => true,
+            ],
         ];
 
         return $pages;

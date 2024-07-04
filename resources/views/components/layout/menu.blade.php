@@ -135,6 +135,11 @@
                             <x-responsive-nav-link href="{{ route('product') }}" :active="request()->routeIs('product')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('product') }}"></i> {{ App\Models\Page::getTitleByName('product') }}
                             </x-responsive-nav-link>
+
+                            {{-- Balanço --}}
+                            <x-responsive-nav-link href="{{ route('balance') }}" :active="request()->routeIs('balance')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('balance') }}"></i> {{ App\Models\Page::getTitleByName('balance') }}
+                            </x-responsive-nav-link>
                         </div>
 
                         <div class="pt-2 pb-0 border-t border-gray-200">
