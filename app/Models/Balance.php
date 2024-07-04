@@ -55,7 +55,10 @@ class Balance extends Model
     public static function validateAdd(array $data){
         $message = null;
 
-        // ...
+        // Verifica se o Fornecedor não possui Produto Vinculado.
+        if(Productprovider::where('provider_id', $data['validatedData']['provider_id'])->doesntExist()):
+            $message = 'Nenhum Produto vinculado com este Fornecedor.';
+        endif;
 
         // Desvio.
         if(!empty($message)):
