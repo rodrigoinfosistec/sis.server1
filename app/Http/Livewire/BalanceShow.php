@@ -169,6 +169,59 @@ class BalanceShow extends Component
         }
 
     /**
+     * edit()
+     *  modernize()
+     */
+    public function edit(int $balance_id)
+    {
+        // Balanço.
+        $balance = Balance::find($balance_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->balance_id = $balance->id;
+        $this->provider_id = $balance->provider_id;
+        $this->provider_name = $balance->provider_name;
+        $this->deposit_id = $balance->deposit_id;
+        $this->deposit_name = $balance->deposit_name;
+        $this->company_id = $balance->company_id;
+        $this->user_id = $balance->user_id;
+        $this->user_name = $balance->user_name;
+        $this->observation = $balance->observation;
+        $this->finished = $balance->finished;
+        $this->created = $balance->created_at->format('d/m/Y H:i:s');
+    }
+        public function modernize()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'cnpj'     => ['required', 'min:18', 'max:18', 'unique:companies,cnpj,'.$this->company_id.''],
+                'name'     => ['required', 'between:3,60'],
+                'nickname' => ['nullable', 'between:3,60'],
+                'price'    => ['required'],
+            ]);
+
+            // Estende $validatedData
+            $validatedData['company_id'] = $this->company_id;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Company::validateEdit($data);
+
+            // Atualiza.
+            if ($valid) Company::edit($data);
+
+            // Executa dependências.
+            if ($valid) Company::dependencyEdit($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
      * generate()
      *  sire()
      */

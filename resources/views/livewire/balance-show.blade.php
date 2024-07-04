@@ -12,6 +12,7 @@
 
 {{-- ações --}}
 @include('components.' .  $config['name'] . '.modals.detail')
+@include('components.' .  $config['name'] . '.modals.edit')
 {{-- modal --}}
 
 <x-layout.alert/>
@@ -103,27 +104,29 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            {{ $item->created_at->format('d/m/y') }}
+            {{ $item->deposit_name }}
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            {{ $item->finished }}
+            {{ $item->created_at->format('d/m/y') }}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
         <div style="line-height: 1;">
-            {{ $item->deposit_name }}
+            {{ $item->provider_name }}
             <br>
             <span class="text-muted" style="font-size: 7pt;">
-                {{ $item->provider_name }}
+                {{ $item->observation }}
             </span>
         </div>
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="40">
-    {{-- <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/> --}}
+    
+        <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
+    
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
 
