@@ -43,6 +43,7 @@ class Balance extends Model
      * Relaciona Models.
      */
     public function provider(){return $this->belongsTo(Provider::class);}
+    public function deposit(){return $this->belongsTo(Deposit::class);}
     public function company(){return $this->belongsTo(Company::class);}
     public function user(){return $this->belongsTo(User::class);}
 
