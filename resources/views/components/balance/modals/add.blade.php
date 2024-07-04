@@ -49,7 +49,6 @@
         <x-layout.modal.modal-mail-body-group-item-error item="observation" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
-
 {{-- conteúdo --}}
 
     </x-layout.modal.modal-add-body>
