@@ -12,14 +12,14 @@ class Balanceproduct extends Model
     /**
      * Nome da tabela.
      */
-    protected $table = 'balances';
+    protected $table = 'balanceproducts';
 
     /**
      * Campos manipuláveis.
      */
     protected $fillable = [
         'balance_id',
-        'product_name',
+        'product_id',
 
         'quantity',
 

@@ -155,10 +155,10 @@ class BalanceShow extends Component
             $valid = Balance::validateAdd($data);
 
             // Cadastra.
-            if ($valid) Balance::add($data);
+            if ($valid) $balance_id = Balance::add($data);
 
             // Estende $data['validatedData'].
-            $data['validatedData']['balance_id'] = $valid;
+            if ($valid) $data['validatedData']['balance_id'] = $balance_id;
 
             // Executa dependências.
             if ($valid) Balance::dependencyAdd($data);

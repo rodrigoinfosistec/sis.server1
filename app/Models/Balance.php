@@ -74,7 +74,7 @@ class Balance extends Model
      * 
      * @return bool true
      */
-    public static function add(array $data) : bool {
+    public static function add(array $data) {
         // Cadastra.
         $balance_id = Balance::create([
             'provider_id' => $data['validatedData']['provider_id'],
@@ -109,11 +109,11 @@ class Balance extends Model
      */
     public static function dependencyAdd(array $data) : bool {
         // Percorre os Produtos do Fornecedor.
-        foreach(Productprovider::where('provider_id', $data['validatedData']['provider_id']) as $key => $productprovider):
+        foreach(Productprovider::where('provider_id', $data['validatedData']['provider_id'])->get() as $key => $productprovider):
             // Cadastra produtos do Balanço.
             Balanceproduct::create([
                 'balance_id' => $data['validatedData']['balance_id'],
-                'product_id' =>$productprovider->product_id,
+                'product_id' => $productprovider->product_id,
             ]);
         endforeach;
 
