@@ -58,7 +58,7 @@
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 100px;">
+    <div class="" style="width: 100px;">
         CONTAGEM
     </div>
 </x-layout.pdf.pdf-table-header-column>
