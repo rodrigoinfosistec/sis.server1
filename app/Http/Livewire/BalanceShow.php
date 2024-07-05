@@ -58,6 +58,8 @@ class BalanceShow extends Component
     public $array_product_productmeasure_name = [];
     public $array_product_productmeasure_quantity = [];
 
+    public $array_product_score = [];
+
     /**
      * Construtor.
      */
@@ -126,6 +128,8 @@ class BalanceShow extends Component
         $this->array_product_productmeasure_id = [];
         $this->array_product_productmeasure_name = [];
         $this->array_product_productmeasure_quantity = [];
+
+        $this->array_product_score = [];
     }
 
     /**
@@ -215,20 +219,12 @@ class BalanceShow extends Component
         // Percorre os itens da Nota Fiscal.
         foreach(Balanceproduct::where('balance_id', $balance_id)->get() as $key => $balanceproduct):
             // Inicializa variáveis, dinamicamente.
-            $this->array_product_name[$balanceproduct->product->id]      = $balanceproduct->product->name;
-            $this->array_product_code[$balanceproduct->product->id]      = $balanceproduct->product->code;
-            $this->array_product_reference[$balanceproduct->product->id] = $balanceproduct->product->name;
-            $this->array_product_ean[$balanceproduct->product->id]       = $balanceproduct->product->reference;
-            $this->array_product_quantity[$balanceproduct->product->id]  = $balanceproduct->product->quantity;
-
-            $this->array_product_productmeasure_id[$balanceproduct->product->id]       = !empty($balanceproduct->product->productmeasure->id) ? $balanceproduct->product->productmeasure->id : '';
-            $this->array_product_productmeasure_name[$balanceproduct->product->id]     = !empty($balanceproduct->product->productmeasure->name) ? $balanceproduct->product->productmeasure->name : '';
-            $this->array_product_productmeasure_quantity[$balanceproduct->product->id] = !empty($balanceproduct->product->productmeasure->quantity) ? $balanceproduct->product->productmeasure->quantity : '';
+            $this->array_product_score[$balanceproduct->product->id] = '';
         endforeach;
     }
         public function modernize()
         {
-            
+
 
             // Fecha modal.
             $this->closeModal();
