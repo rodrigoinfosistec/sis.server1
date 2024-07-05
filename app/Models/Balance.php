@@ -154,7 +154,7 @@ class Balance extends Model
         ]);
 
         // Atualiza quantidade do Produto no Depósito.
-
+        
 
         // Atualiza quantidade Total do Produto.
         
