@@ -226,6 +226,7 @@ class BalanceShow extends Component
         {
             // Estende $validatedData.
             $validatedData['balance_id'] = $this->balance_id;
+            $validatedData['deposit_id'] = $this->deposit_id;
 
             // Percorre os itens da Nota Fiscal.
             foreach(Balanceproduct::where('balance_id', $this->balance_id)->get() as $key => $balanceproduct):
