@@ -1641,13 +1641,13 @@ class Report extends Model
         // Gera o arquivo PDF.
         $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf', [
             'user'  => auth()->user()->name,
-            'title' => $data['config']['title'],
+            'title' => 'Balanço',
             'date'  => date('d/m/Y H:i:s'),
             'balance' => Balance::find($data['validatedData']['balance_id']),
             'list'  => $list = Balanceproduct::where(
                 'balance_id', $data['validatedData']['balance_id']
             )->get(), 
-        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
 
         // Salva o arquivo PDF.
         File::makeDirectory($path, $mode = 0777, true, true);
