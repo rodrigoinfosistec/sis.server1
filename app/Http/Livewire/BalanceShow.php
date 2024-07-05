@@ -205,6 +205,7 @@ class BalanceShow extends Component
         $balance = Balance::find($balance_id);
 
         // Inicializa propriedades dinâmicas.
+        $this->balance_id = $balance_id;
         $this->provider_id = $balance->provider_id;
         $this->provider_name = $balance->provider_name;
         $this->deposit_id = $balance->deposit_id;

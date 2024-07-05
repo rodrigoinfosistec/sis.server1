@@ -107,14 +107,14 @@
                     {{-- DIFERENÇA --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="fw-bold text-center" style="width: 75px; font-size: 9pt;">
-                            @if(((int)$array_product_score[$balanceproduct->product->id] - (int)$balanceproduct->product->quantity) > 0)
-                                <span class="text-primary">
-                            @elseif(((int)$array_product_score[$balanceproduct->product->id] - (int)$balanceproduct->product->quantity) < 0)
-                                <span class="text-danger">
-                            @else
-                                <span class="text-dark">
-                            @endif
-                                    {{ (int)$array_product_score[$balanceproduct->product->id] - (int)$balanceproduct->product->quantity }}
+                        @if((@(int)$array_product_score[$balanceproduct->product->id] - @(int)$balanceproduct->product->quantity) > 0)
+                            <span class="text-primary">
+                        @elseif((@(int)$array_product_score[$balanceproduct->product->id] - @(int)$balanceproduct->product->quantity) < 0)
+                            <span class="text-danger">
+                        @else
+                            <span class="text-dark">
+                        @endif
+                                {{ @(int)$array_product_score[$balanceproduct->product->id] - @(int)$balanceproduct->product->quantity }}
                             </span>
                         </div>
                     </td>

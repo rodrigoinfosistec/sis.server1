@@ -123,11 +123,13 @@
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
-<x-layout.card.card-body-content-table-body-line-cell-action width="40">
+<x-layout.card.card-body-content-table-body-line-cell-action width="80">
     @if(!$item->finished)
         <x-layout.card.card-body-content-table-body-line-cell-action-edit-balance :id="$item->id"/>
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
+
+        <x-layout.card.card-body-content-table-body-line-cell-action-print-balance :id="$item->id"/>
     @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
