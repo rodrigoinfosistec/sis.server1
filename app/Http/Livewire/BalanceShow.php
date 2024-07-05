@@ -224,7 +224,33 @@ class BalanceShow extends Component
     }
         public function modernize()
         {
+            // Estende $validatedData.
+            $validatedData['balance_id'] = $this->balance_id;
 
+            // Percorre os itens da Nota Fiscal.
+            foreach(Balanceproduct::where('balance_id', $this->balance_id)->get() as $key => $balanceproduct):
+                // Monta array do Produto do balanço.
+                $validatedData['balanceproduct_id'] = $balanceproduct->id;
+                $validatedData['score'] = $this->array_product_score[$balanceproduct->product->id];
+
+                // Define $data.
+                $data['config']        = $this->config;
+                $data['validatedData'] = $validatedData;
+
+                // Valida atualização.
+                $valid = Balance::validateEdit($data);
+
+                // Atualiza.
+                if ($valid) Balance::edit($data);
+
+                // Executa dependências.
+                if ($valid) Balance::dependencyEdit($data);
+            endforeach;
+
+            // Consolida balanço.
+            Balance::find($this->balance_id)->update([
+                'finished' => true,
+            ]);
 
             // Fecha modal.
             $this->closeModal();

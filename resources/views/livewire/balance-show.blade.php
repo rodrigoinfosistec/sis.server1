@@ -126,6 +126,8 @@
 <x-layout.card.card-body-content-table-body-line-cell-action width="40">
     @if(!$item->finished)
         <x-layout.card.card-body-content-table-body-line-cell-action-edit-balance :id="$item->id"/>
+    @else
+        <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
     @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 

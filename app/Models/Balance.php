@@ -123,4 +123,60 @@ class Balance extends Model
 
         return true;
     }
+
+    /**
+     * Valida atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateEdit(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        return true;
+    }
+
+    /**
+     * Atualiza.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function edit(array $data) : bool {
+        // Item.
+        $balanceproduct = Balanceproduct::find($data['validatedData']['balanceproduct_id']);
+
+        // Atualiza quantidade do Produto no Balanço.
+        Balanceproduct::find($data['validatedData']['balanceproduct_id'])->update([
+            'quantity' => $data['validatedData']['score'],
+        ]);
+
+        // Atualiza quantidade do Produto no Depósito.
+        
+
+        // Atualiza quantidade Total do Produto.
+
+
+        // Mensagem.
+        $message = 'Balanço Consolidado';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyEdit(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
 }
