@@ -186,6 +186,8 @@ class Balance extends Model
             ]);
         endif;
 
+        Report::balance($data);
+
         // Mensagem.
         $message = 'Balanço Consolidado';
         session()->flash('message', $message);
