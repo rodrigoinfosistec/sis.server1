@@ -145,7 +145,7 @@ class Balance extends Model
      * @return bool true
      */
     public static function edit(array $data) : bool {
-        // Item.
+        // Produto do Balanço.
         $balanceproduct = Balanceproduct::find($data['validatedData']['balanceproduct_id']);
 
         // Atualiza quantidade do Produto no Balanço.
@@ -154,10 +154,10 @@ class Balance extends Model
         ]);
 
         // Atualiza quantidade do Produto no Depósito.
-        
+
 
         // Atualiza quantidade Total do Produto.
-
+        
 
         // Mensagem.
         $message = 'Balanço Consolidado';
