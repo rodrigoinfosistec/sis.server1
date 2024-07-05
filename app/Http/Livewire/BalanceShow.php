@@ -46,6 +46,7 @@ class BalanceShow extends Component
     public $observation;
     public $finished;
     public $created;
+    public $updated;
 
     public $array_product_id = [];
     public $array_product_name = [];
@@ -117,6 +118,7 @@ class BalanceShow extends Component
         $this->observation = '';
         $this->finished = '';
         $this->created = '';
+        $this->updated = '';
 
         $this->array_product_id = [];
         $this->array_product_name = [];
@@ -193,6 +195,27 @@ class BalanceShow extends Component
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
         }
+
+    /** 
+     * detail()
+     */
+    public function detail(int $balance_id)
+    {
+        // Empresa.
+        $balance = Balance::find($balance_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->provider_id = $balance->provider_id;
+        $this->provider_name = $balance->provider_name;
+        $this->deposit_id = $balance->deposit_id;
+        $this->deposit_name = $balance->deposit_name;
+        $this->user_id = $balance->user_id;
+        $this->user_name = $balance->user_name;
+        $this->observation = $balance->observation;
+        $this->finished = $balance->finished;
+        $this->created = $balance->created_at->format('d/m/Y H:i:s');
+        $this->updated = $balance->updated_at->format('d/m/Y H:i:s');
+    }
 
     /**
      * edit()
