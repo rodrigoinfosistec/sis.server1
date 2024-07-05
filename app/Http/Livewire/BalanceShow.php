@@ -277,6 +277,9 @@ class BalanceShow extends Component
                 'finished' => true,
             ]);
 
+            // Gera o Relatório em PDF.
+            Report::balanceGenerate($data);
+
             // Fecha modal.
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');

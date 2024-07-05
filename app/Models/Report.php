@@ -1634,25 +1634,30 @@ class Report extends Model
      * @return bool true
      */
     public static function balanceGenerate(array $data) : bool {
+        // Define as variáveis
+        $path = public_path('/storage/pdf/' . $data['config']['name'] . '/');
+        $file_name = 'balance_' . $data['validatedData']['balance_id'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
+
         // Gera o arquivo PDF.
         $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf', [
             'user'  => auth()->user()->name,
             'title' => $data['config']['title'],
             'date'  => date('d/m/Y H:i:s'),
+            'balance' => Balance::find($data['validatedData']['balance_id']),
             'list'  => $list = Balanceproduct::where(
-                'balance', $data['validatedData']['balance_id']
+                'balance_id', $data['validatedData']['balance_id']
             )->get(), 
         ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
 
         // Salva o arquivo PDF.
-        File::makeDirectory($data['path'], $mode = 0777, true, true);
-        $pdf->save($data['path'] . $data['file_name']);
+        File::makeDirectory($path, $mode = 0777, true, true);
+        $pdf->save($path . $file_name);
 
         // Registra os dados do arquivo PDF.
         Report::create([
             'user_id' => auth()->user()->id,
             'folder'  => $data['config']['name'],
-            'file'    => $data['file_name'],
+            'file'    => $file_name,
             'reference_1' => $data['validatedData']['balance_id'],
         ]);
 

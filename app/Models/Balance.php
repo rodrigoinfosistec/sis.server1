@@ -186,9 +186,6 @@ class Balance extends Model
             ]);
         endif;
 
-        // Gera o Relatório em PDF.
-        Report::balanceGenerate($data);
-
         // Mensagem.
         $message = 'Balanço Consolidado';
         session()->flash('message', $message);
