@@ -180,7 +180,7 @@ class Balance extends Model
             // Regista Movimentação do produto.
             Productmoviment::create([
                 'product_id' => $balanceproduct->product_id,
-                'identification' => 'Balanço:' . $data['validatedData']['balance_id'] . ']', 
+                'identification' => 'Balanço:' . $data['validatedData']['balance_id'],
                 'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
                 'user_id' => auth()->user()->id,
             ]);
