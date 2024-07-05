@@ -124,9 +124,9 @@
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="40">
-    
-        <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
-    
+    @if(!$item->finished)
+        <x-layout.card.card-body-content-table-body-line-cell-action-edit-balance :id="$item->id"/>
+    @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
 

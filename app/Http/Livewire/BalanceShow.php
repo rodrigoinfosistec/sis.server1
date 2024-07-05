@@ -229,6 +229,7 @@ class BalanceShow extends Component
         public function modernize()
         {
             
+
             // Fecha modal.
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
