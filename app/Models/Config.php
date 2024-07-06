@@ -246,7 +246,7 @@ class Config extends Model
                 'test'  => true,
             ],
             [
-                'name'  => 'productoutput',
+                'name'  => 'output',
                 'title' => 'Saída de Produtos',
                 'icon'  => 'bi-reply-all',
                 'test'  => true,
