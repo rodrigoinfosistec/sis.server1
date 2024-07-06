@@ -17,7 +17,16 @@
         <select wire:model="deposit_id" class="form-select form-select-sm text-uppercase" id="deposit_id">
             <x-layout.modal.modal-add-body-group-item-option-muted/>
 
-            @foreach(App\Models\Deposit::where('company_id', auth()->user()->company_id)->orderBy('name', 'ASC')->get() as $key => $deposit)
+            @php
+                // Inicializa variável.
+                $array = [];
+
+                // Monta o array.
+                foreach(App\Models\Deposituser::where('user_id', auth()->user()->id)->get() as $key => $deposituser):
+                    $array[] =  $deposituser->deposit_id;
+                endforeach;
+            @endphp
+            @foreach(App\Models\Deposit::where('company_id', auth()->user()->company_id)->whereIn('id', $array)->orderBy('name', 'ASC')->get() as $key => $deposit)
                 <option value="{{ $deposit->id }}">{{ $deposit->name }}</option>
             @endforeach
         </select>

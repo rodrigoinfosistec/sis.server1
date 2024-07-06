@@ -10,6 +10,8 @@ use App\Models\Output;
 use App\Models\Outputproduct;
 use App\Models\Product;
 use App\Models\Company;
+use App\Models\Deposit;
+use App\Models\Deposituser;
 use App\Models\User;
 
 use Livewire\WithPagination;
@@ -237,7 +239,7 @@ class OutputShow extends Component
         $this->finished = $output->finished;
         $this->created = $output->created_at->format('d/m/Y H:i:s');
 
-        // Percorre os itens da Nota Fiscal.
+        // Percorre os Produtos da Saída.
         foreach(Outputproduct::where('output_id', $output_id)->get() as $key => $outputproduct):
             // Inicializa variáveis, dinamicamente.
             $this->array_product_score[$outputproduct->product->id] = '';
@@ -249,7 +251,7 @@ class OutputShow extends Component
             $validatedData['output_id'] = $this->output_id;
             $validatedData['deposit_id'] = $this->deposit_id;
 
-            // Percorre os itens da Nota Fiscal.
+            // Percorre os Produtos da Saída.
             foreach(Outputproduct::where('output_id', $this->output_id)->get() as $key => $outputproduct):
                 // Monta array do Produto do balanço.
                 $validatedData['outputproduct_id'] = $outputproduct->id;

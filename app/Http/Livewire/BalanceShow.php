@@ -10,6 +10,7 @@ use App\Models\Balance;
 use App\Models\Balanceproduct;
 use App\Models\Product;
 use App\Models\Provider;
+use App\Models\Deposit;
 use App\Models\Company;
 use App\Models\User;
 
@@ -201,7 +202,7 @@ class BalanceShow extends Component
      */
     public function detail(int $balance_id)
     {
-        // Empresa.
+        // Balanço.
         $balance = Balance::find($balance_id);
 
         // Inicializa propriedades dinâmicas.
@@ -240,7 +241,7 @@ class BalanceShow extends Component
         $this->finished = $balance->finished;
         $this->created = $balance->created_at->format('d/m/Y H:i:s');
 
-        // Percorre os itens da Nota Fiscal.
+        // Percorre os Produtos do Balanço.
         foreach(Balanceproduct::where('balance_id', $balance_id)->get() as $key => $balanceproduct):
             // Inicializa variáveis, dinamicamente.
             $this->array_product_score[$balanceproduct->product->id] = '';
@@ -252,7 +253,7 @@ class BalanceShow extends Component
             $validatedData['balance_id'] = $this->balance_id;
             $validatedData['deposit_id'] = $this->deposit_id;
 
-            // Percorre os itens da Nota Fiscal.
+            // Percorre os Produtos do Balanço.
             foreach(Balanceproduct::where('balance_id', $this->balance_id)->get() as $key => $balanceproduct):
                 // Monta array do Produto do balanço.
                 $validatedData['balanceproduct_id'] = $balanceproduct->id;
