@@ -140,15 +140,23 @@ class OutputShow extends Component
      * Renderiza página.
      */
     public function render(){
+        // Inicializa variável.
+        $array = [];
+
+        // Monta o array.
+        foreach(Deposituser::where('user_id', auth()->user()->id)->get() as $key => $deposituser):
+            $array[] =  $deposituser->deposit_id;
+        endforeach;
+
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
             'existsItem'   => Output::exists(),
             'existsReport' => Report::where(['folder' => $this->config['name'], 'reference_1' => auth()->user()->company_id])->exists(),
             'reports'      => Report::where(['folder' => $this->config['name'], 'reference_1' => auth()->user()->company_id])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Output::where([
-                            ['company_id', auth()->user()->company_id],
-                            [$this->filter, 'like', '%'. $this->search . '%'],
-                        ])->orderBy('finished', 'ASC')->orderBy('id', 'DESC')->paginate(100),
+                ['company_id', auth()->user()->company_id],
+                [$this->filter, 'like', '%'. $this->search . '%'],
+            ])->whereIn('deposit_id', $array)->orderBy('finished', 'ASC')->orderBy('id', 'DESC')->paginate(100),
         ]);
     }
 

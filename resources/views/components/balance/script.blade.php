@@ -7,5 +7,6 @@
 
         $('#detailModal').modal('hide');
         $('#editModal').modal('hide');
+        $('#deleteModal').modal('hide');
     })
 </script>
