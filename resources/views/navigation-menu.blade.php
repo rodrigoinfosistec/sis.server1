@@ -31,6 +31,13 @@
                             <i class="bi-calendar-date" style="font-size: 20pt;"></i>
                         </x-nav-link>
                     </div>
+                    
+                    {{-- Saída de Produtos --}}
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('productoutput') }}" :active="request()->routeIs('productoutput')" class="text-decoration-none" title="Saída de Produtos">
+                            <i class="bi-reply-all" style="font-size: 20pt;"></i>
+                        </x-nav-link>
+                    </div>
                 @endif
             </div>
 
@@ -182,6 +189,11 @@
 			{{-- Contas a Pagar --}}
             <x-nav-link href="{{ route('account') }}" :active="request()->routeIs('account')" class="text-decoration-none" style="margin-right: 10px;">
                 <i class="bi-calendar-date" style="font-size: 20pt;"></i>
+            </x-nav-link>
+
+            {{-- Saída de Produtos --}}
+            <x-nav-link href="{{ route('productoutput') }}" :active="request()->routeIs('productoutput')" class="text-decoration-none" style="margin-right: 10px;">
+                <i class="bi-reply-all" style="font-size: 20pt;"></i>
             </x-nav-link>
         </div>
 

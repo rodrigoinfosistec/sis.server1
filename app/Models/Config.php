@@ -245,6 +245,12 @@ class Config extends Model
                 'icon'  => 'bi-boxes',
                 'test'  => true,
             ],
+            [
+                'name'  => 'productoutput',
+                'title' => 'Saída de Produtos',
+                'icon'  => 'bi-reply-all',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
