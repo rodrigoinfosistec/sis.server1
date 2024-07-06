@@ -47,6 +47,9 @@ class OutputShow extends Component
     public $created;
     public $updated;
 
+    public $product_id;
+    public $quantity;
+
     public $array_product_id = [];
     public $array_product_name = [];
     public $array_product_code = [];
@@ -115,6 +118,9 @@ class OutputShow extends Component
         $this->finished = '';
         $this->created = '';
         $this->updated = '';
+
+        $this->product_id = '';
+        $this->quantity = '';
 
         $this->array_product_id = [];
         $this->array_product_name = [];
@@ -193,6 +199,58 @@ class OutputShow extends Component
 
             // Executa dependências.
             if ($valid) Output::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * addProduct()
+     *  registerProduct()
+     */
+    public function addProduct(int $output_id)
+    {
+        // Empresa.
+        $output = Output::find($output_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->output_id = $output_id;
+        $this->deposit_id = $output->deposit_id;
+        $this->deposit_name = $output->deposit_name;
+        $this->user_id = $output->user_id;
+        $this->user_name = $output->user_name;
+        $this->observation = $output->observation;
+        $this->finished = $output->finished;
+        $this->created = $output->created_at->format('d/m/Y H:i:s');
+        $this->updated = $output->updated_at->format('d/m/Y H:i:s');
+    }
+        public function registerProduct()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'product_id' => ['required'],
+                'quantity' => ['required'],
+            ]);
+
+            // Estende $validatedData.
+            $validatedData['output_id'] = $this->output_id;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = Outputproduct::validateAdd($data);
+
+            // Cadastra.
+            if ($valid) $output_id = Outputproduct::add($data);
+
+            // Estende $data['validatedData'].
+            if ($valid) $data['validatedData']['output_id'] = $output_id;
+
+            // Executa dependências.
+            if ($valid) Outputproduct::dependencyAdd($data);
 
             // Fecha modal.
             $this->closeModal();
