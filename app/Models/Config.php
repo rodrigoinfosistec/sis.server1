@@ -242,7 +242,7 @@ class Config extends Model
             [
                 'name'  => 'balance',
                 'title' => 'Balanço de Estoque',
-                'icon'  => 'bi-award',
+                'icon'  => 'bi-boxes',
                 'test'  => true,
             ],
         ];
