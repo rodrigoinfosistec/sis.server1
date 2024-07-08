@@ -39,7 +39,7 @@ class Outputproduct extends Model
      * 
      * @return <object, bool>
      */
-    public static function validateAdd(array $data){
+    public static function validateAdd(array $data) : bool {
         $message = null;
 
         // Verifica se o Produto já está cadastrado na Saída.
@@ -64,7 +64,7 @@ class Outputproduct extends Model
      * 
      * @return bool true
      */
-    public static function add(array $data) {
+    public static function add(array $data) : bool {
         $outputproduct_id = Outputproduct::create([
             'output_id' => $data['validatedData']['output_id'],
             'product_id' => $data['validatedData']['product_id'],
@@ -79,7 +79,7 @@ class Outputproduct extends Model
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
-        return $output_id;
+        return true;
     }
 
     /**

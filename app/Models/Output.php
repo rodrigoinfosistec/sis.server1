@@ -49,7 +49,7 @@ class Output extends Model
      * 
      * @return <object, bool>
      */
-    public static function validateAdd(array $data) : bool {
+    public static function validateAdd(array $data){
         $message = null;
 
         // ...
@@ -71,7 +71,7 @@ class Output extends Model
      * 
      * @return bool true
      */
-    public static function add(array $data) : bool {
+    public static function add(array $data) {
         // Cadastra.
         $output_id = Output::create([
             'deposit_id' => $data['validatedData']['deposit_id'],
@@ -93,7 +93,7 @@ class Output extends Model
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
-        return true;
+        return $output_id;
     }
 
     /**
