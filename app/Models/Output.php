@@ -219,7 +219,11 @@ class Output extends Model
      * @return bool true
      */
     public static function dependencyErase(array $data) : bool {
-        // ...
+        // Percorre todos os Produtos da Saída.
+        foreach(Outputproduct::where('output', $data['validatedData']['output_id']) as $key => $outputproduct):
+            // Exclui Produto da Saída.
+            Outputproduct::find($outputproduct->id)->delete();
+        endforeach;
 
         return true;
     }
@@ -231,13 +235,11 @@ class Output extends Model
      * @return bool true
      */
     public static function erase(array $data) : bool {
-        $output = Output::find($data['validatedData']['output_id']);
-
         // Exclui.
         Output::find($data['validatedData']['output_id'])->delete();
 
         // Auditoria.
-        //Audit::providerErase($data);
+        Audit::outputErase($data);
 
         // Mensagem.
         $message = 'Saída excluída com sucesso.';

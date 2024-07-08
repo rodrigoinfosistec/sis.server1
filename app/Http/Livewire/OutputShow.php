@@ -386,6 +386,49 @@ class OutputShow extends Component
             $this->dispatchBrowserEvent('close-modal');
         }
 
+        /**
+     * erase()
+     *  exclude()
+     */
+    public function erase(int $output_id)
+    {
+        // Produto da Saída.
+        $output = Output::find($output_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->output_id = $output_id;
+        $this->deposit_id = $output->deposit_id;
+        $this->deposit_name = $output->deposit_name->name;
+        $this->observation = $output->observation;
+        $this->created = $output->created_at->format('d/m/Y H:i:s');
+    }
+        public function exclude()
+        {
+            // Define $validatedData
+            $validatedData['output_id'] = $this->output_id;
+            $validatedData['deposit_id'] = $this->deposit_id;
+            $validatedData['deposit_name'] = $this->deposit_name;
+            $validatedData['observation'] = $this->observation;
+            $validatedData['created'] = $this->created;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida exclusão.
+            $valid = Output::validateErase($data);
+
+            // Executa dependências.
+            if ($valid) Output::dependencyErase($data);
+
+            // Exclui.
+            if ($valid) Output::erase($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
     /**
      * generate()
      *  sire()
