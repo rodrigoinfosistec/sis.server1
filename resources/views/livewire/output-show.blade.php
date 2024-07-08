@@ -98,7 +98,7 @@
                                 <x-layout.card.card-body-content-table-body-line>
                                     <div class="accordion accordion-flush" id="accordionOutput">
 {{-- conteúdo --}}
-<div class="accordion-item">
+<div class="accordion-item" style="border-bottom: 1px solid #ddd;">
     <h2 class="accordion-header">
         <button class="accordion-button collapsed" style="padding-top: 5px; padding-bottom: 5px;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $item->id }}">
             <div class="w-100">
