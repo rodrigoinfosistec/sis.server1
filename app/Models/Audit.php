@@ -3469,4 +3469,28 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Saída Erase.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function outputErase(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
+                'id='           . $data['validatedData']['output_id']    . ',' .
+                'deposit_id='   . $data['validatedData']['deposit_id']   . ',' .
+                'deposit_name=' . $data['validatedData']['deposit_name'] . ',' .
+                'company_id='   . $data['validatedData']['company_id']   . ',' .
+                'observation='  . $data['validatedData']['observation']  . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }

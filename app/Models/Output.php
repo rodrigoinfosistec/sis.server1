@@ -220,7 +220,7 @@ class Output extends Model
      */
     public static function dependencyErase(array $data) : bool {
         // Percorre todos os Produtos da Saída.
-        foreach(Outputproduct::where('output', $data['validatedData']['output_id']) as $key => $outputproduct):
+        foreach(Outputproduct::where('output_id', $data['validatedData']['output_id'])->get() as $key => $outputproduct):
             // Exclui Produto da Saída.
             Outputproduct::find($outputproduct->id)->delete();
         endforeach;
@@ -242,7 +242,7 @@ class Output extends Model
         Audit::outputErase($data);
 
         // Mensagem.
-        $message = 'Saída excluída com sucesso.';
+        $message = 'Saída de Produtos excluída com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 

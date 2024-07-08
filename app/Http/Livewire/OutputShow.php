@@ -399,6 +399,7 @@ class OutputShow extends Component
         $this->output_id = $output_id;
         $this->deposit_id = $output->deposit_id;
         $this->deposit_name = $output->deposit_name;
+        $this->company_id = $output->company_id;
         $this->observation = $output->observation;
         $this->created = $output->created_at->format('d/m/Y H:i:s');
     }
@@ -408,6 +409,7 @@ class OutputShow extends Component
             $validatedData['output_id'] = $this->output_id;
             $validatedData['deposit_id'] = $this->deposit_id;
             $validatedData['deposit_name'] = $this->deposit_name;
+            $validatedData['company_id'] = $this->company_id;
             $validatedData['observation'] = $this->observation;
             $validatedData['created'] = $this->created;
 
