@@ -137,38 +137,28 @@ class Output extends Model
             'finished' => true,
         ]);
 
-        //Verfica se o Produto está vinculado ao depósito.
-        if(Productdeposit::where(['product_id' => $outputproduct->product_id, 'deposit_id' => $data['validatedData']['deposit_id']])->exists()):
+        // Percorre todos os Produtos da Saída.
+        foreach(Outputproduct::where('output_id', $data['validatedData']['output_id'])->get() as $key => $outputproduct):
             // Atualiza quantidade do Produto no Depósito.
-            Productdeposit::where(['product_id' => $outputproduct->product_id, 'deposit_id' => $data['validatedData']['deposit_id']])->update([
-                'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
+            Productdeposit::where(['product_id' => $outputproduct->product->id, 'deposit_id' => $data['validatedData']['deposit_id']])->update([
+                'quantity' => General::encodeFloat($data['validatedData']['quantity'], 7),
             ]);
-        else:
-            // Vincula o Produto ao Depósito e atualiza quantidade do Produto no Depósito.
-            Productdeposit::create([
-                'product_id' => $outputproduct->product_id,
-                'deposit_id' => $data['validatedData']['deposit_id'],
-                'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
+
+            // Atualiza quantidade Total do Produto.
+            $quantity_last = Product::find($outputproduct->product->id)->quantity;
+            $quantity_new = $quantity_last - General::encodeFloat($data['validatedData']['quantity'], 7);
+            Product::find($outputproduct->product->id)->update([
+                'quantity' => $quantity_new,
             ]);
-        endif;
 
-        // Atualiza quantidade Total do Produto.
-        $quantity_last = Product::find($outputproduct->product_id)->quantity;
-        $quantity_new = $quantity_last + General::encodeFloat($data['validatedData']['score'], 7);
-        Product::find($outputproduct->product_id)->update([
-            'quantity' => $quantity_new,
-        ]);
-
-        // Verifica se quantidade não é Zero (0).
-        if(General::encodeFloat($data['validatedData']['score'], 7) != 0):
             // Regista Movimentação do produto.
             Productmoviment::create([
-                'product_id' => $outputproduct->product_id,
-                'identification' => 'Balanço:' . $data['validatedData']['output_id'],
-                'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
+                'product_id' => $outputproduct->product->id,
+                'identification' => 'Saída de Produto:' . $data['validatedData']['output_id'],
+                'quantity' => General::encodeFloat($data['validatedData']['quantity'], 7),
                 'user_id' => auth()->user()->id,
             ]);
-        endif;
+        endforeach;
 
         // Mensagem.
         $message = 'Balanço Consolidado';

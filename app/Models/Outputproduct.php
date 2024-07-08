@@ -48,8 +48,9 @@ class Outputproduct extends Model
             $message = 'Produto já cadastrado nesta saída.';
         endif;
 
-        // Verifica se o produto existe no depósito.
+        // Verifica se o produto não existe no depósito.
         if(Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->doesntExist()):
+            // Cadastra Produto no Depósito.
             Productdeposit::create([
                 'product_id' => $data['validatedData']['product_id'],
                 'deposit_id' => $data['validatedData']['deposit_id'],

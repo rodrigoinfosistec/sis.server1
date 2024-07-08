@@ -41,7 +41,7 @@
     <x-layout.modal.modal-add-body-group-item columms="4">
         <x-layout.modal.modal-add-body-group-item-label item="quantity" title="QUANTIDADE" plus="none"/>
 
-        <input type="number" wire:model="quantity" class="form-control form-control-sm" id="quantity">
+        <input type="text" wire:model="quantity" class="form-control form-control-sm" id="quantity" onKeyUp="maskFloat2(this, event)" required>
 
         <x-layout.modal.modal-add-body-group-item-error item="quantity" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
