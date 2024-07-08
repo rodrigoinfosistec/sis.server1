@@ -102,7 +102,7 @@
     <h2 class="accordion-header">
         <button class="accordion-button collapsed" style="padding-top: 5px; padding-bottom: 5px;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $item->id }}">
             <div class="w-100">
-                <div class="float-start" style="width: 200px; font-size: 8pt; background-color: #ddd">
+                <div class="float-start" style="width: 170px; font-size: 8pt;">
                     <x-layout.card.card-body-content-table-body-line-cell-id-badge>
                         {{ str_pad($item->id, Str::length($list->count()), '0', STR_PAD_LEFT); }}
                     </x-layout.card.card-body-content-table-body-line-cell-id-badge>
@@ -117,22 +117,16 @@
                     </span>
                 </div>
 
-                <div class="float-end" style="width: 75px; background-color: #ddd">
+                <div class="float-end" style="width: 75px;">
                     @if(!$item->finished)
-                        <x-layout.card.card-body-content-table-body-line-cell-action-edit-output :id="$item->id"/>
-
                         <x-layout.card.card-body-content-table-body-line-cell-action-add-product :id="$item->id"/>
-                    @else
-                        <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
-                
-                        <x-layout.card.card-body-content-table-body-line-cell-action-print-output :id="$item->id"/>
                     @endif
                 </div>
             </div>
         </button>
     </h2>
 
-    <div id="flush-collapse{{ $item->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionOutput">
+    <div id="flush-collapse{{ $item->id }}" class="accordion-collapse collapse @if($loop->first) show @endif" data-bs-parent="#accordionOutput">
         <div class="accordion-body" style="line-height: 1.2">
             @if(App\Models\Outputproduct::where('output_id', $item->id)->exists())
                 <ol class="list-group list-group-numbered">
@@ -148,70 +142,7 @@
             @else
                 <div class="text-muted text-center fw-bold" style="padding-bottom: 20px;">
                     <i class="bi bi-archive-fill"></i>
-                    Nenhum Produto cadastrado nesta Saída
-                </div>
-            @endif
-        </div>
-    </div>
-</div>
-{{-- conteúdo --}}
-                                    </div>
-                                </x-layout.card.card-body-content-table-body-line>
-
-                                <x-layout.card.card-body-content-table-body-line>
-                                    <div class="accordion accordion-flush" id="accordionOutput">
-{{-- conteúdo --}}
-<div class="accordion-item">
-    <h2 class="accordion-header">
-        <button class="accordion-button collapsed" style="padding-top: 5px; padding-bottom: 5px;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $item->id }}">
-            <div class="w-100">
-                <div class="float-start" style="width: 200px; font-size: 8pt; background-color: #ddd">
-                    <x-layout.card.card-body-content-table-body-line-cell-id-badge>
-                        {{ str_pad($item->id, Str::length($list->count()), '0', STR_PAD_LEFT); }}
-                    </x-layout.card.card-body-content-table-body-line-cell-id-badge>
-                    {{ $item->user->name }}
-                    <br>
-                    {{ $item->deposit->name }}
-                    <br>
-                    <span class="text-muted">
-                        {{ $item->created_at->format('d/m/y') }}
-                        <i class="bi bi-caret-right-fill"></i>
-                        {{ $item->observation }}
-                    </span>
-                </div>
-
-                <div class="float-end" style="width: 75px; background-color: #ddd">
-                    @if(!$item->finished)
-                        <x-layout.card.card-body-content-table-body-line-cell-action-edit-output :id="$item->id"/>
-
-                        <x-layout.card.card-body-content-table-body-line-cell-action-add-product :id="$item->id"/>
-                    @else
-                        <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
-                
-                        <x-layout.card.card-body-content-table-body-line-cell-action-print-output :id="$item->id"/>
-                    @endif
-                </div>
-            </div>
-        </button>
-    </h2>
-
-    <div id="flush-collapse{{ $item->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionOutput">
-        <div class="accordion-body" style="line-height: 1.2">
-            @if(App\Models\Outputproduct::where('output_id', $item->id)->exists())
-                <ol class="list-group list-group-numbered">
-                    @foreach(App\Models\Outputproduct::where('output_id', $item->id)->get() as $key => $outputproduct)
-                        <li class="list-group-item d-flex justify-content-between align-items-start" style="font-size: 9pt;">
-                            <div class="ms-2 me-auto text-dark" style="font-size: 9pt;">
-                                {{ $outputproduct->product->name }}
-                            </div>
-                            <span class="badge text-bg-secondary rounded-pill">{{ $outputproduct->product->quantity }}</span>
-                        </li>
-                    @endforeach
-                </ol>
-            @else
-                <div class="text-muted text-center fw-bold" style="padding-bottom: 20px;">
-                    <i class="bi bi-archive-fill"></i>
-                    Nenhum Produto cadastrado nesta Saída
+                    Nenhum Produto encontrado.
                 </div>
             @endif
         </div>

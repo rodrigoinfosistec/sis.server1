@@ -66,13 +66,13 @@ class Outputproduct extends Model
      */
     public static function add(array $data) {
         $outputproduct_id = Outputproduct::create([
-            'outout_id' => $data['validatedData']['output_id'],
+            'output_id' => $data['validatedData']['output_id'],
             'product_id' => $data['validatedData']['product_id'],
             'quantity' => $data['validatedData']['quantity'],
         ])->id;
 
         // After.
-        $after = Output::find($outputproduct_id);
+        $after = Outputproduct::find($outputproduct_id);
 
         // Mensagem.
         $message = 'Produto ' . $after->product->name . ' incluído na Saída.';
