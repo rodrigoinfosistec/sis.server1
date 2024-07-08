@@ -69,6 +69,7 @@ class Outputproduct extends Model
         $outputproduct_id = Outputproduct::create([
             'output_id' => $data['validatedData']['output_id'],
             'product_id' => $data['validatedData']['product_id'],
+            'product_name' => Product::find($data['validatedData']['product_id'])->name,
             'quantity' => $data['validatedData']['quantity'],
         ])->id;
 

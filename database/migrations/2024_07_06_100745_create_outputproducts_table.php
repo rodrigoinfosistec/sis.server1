@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('output_id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('product_name');
+            $table->string('product_name');
 
             $table->decimal('quantity', total: 16, places: 7)->default(0);
 

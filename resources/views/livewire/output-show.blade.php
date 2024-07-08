@@ -131,10 +131,10 @@
 
     <div id="flush-collapse{{ $item->id }}" class="accordion-collapse collapse @if($loop->first) show @endif" data-bs-parent="#accordionOutput">
         <div class="accordion-body" style="line-height: 1.2">
-            <span class="text-muted" style="font-size:8pt;">
-                #. INT | DESCRIÇÃO | EAN | REF
-            </span>
             @if(App\Models\Outputproduct::where('output_id', $item->id)->exists())
+                <span class="text-muted" style="font-size:8pt;">
+                    #. INT | DESCRIÇÃO | EAN | REF
+                </span>
                 <ol class="list-group list-group-numbered">
                     @foreach(App\Models\Outputproduct::where('output_id', $item->id)->get() as $key => $outputproduct)
                         <li class="list-group-item d-flex justify-content-between align-items-start" style="font-size: 9pt;">
