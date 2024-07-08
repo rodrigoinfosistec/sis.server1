@@ -17,10 +17,10 @@
 
 {{-- conteúdo --}}
 <x-layout.modal.modal-add-body-group>
-    <x-layout.modal.modal-add-body-group-item columms="12">
+    <x-layout.modal.modal-add-body-group-item columms="8">
         <x-layout.modal.modal-add-body-group-item-label item="product_id" title="PRODUTO" plus="none"/>
 
-        <input class="form-control" list="products" id="product_id" placeholder="Buscar...">
+        <input wire:model="product_id" type="text" class="form-control form-control-sm" list="products" id="product_id">
         <datalist id="products">
             @foreach(App\Models\Product::where('status', true)->orderBy('name', 'ASC')->get() as $key => $product)
                 <option value="{{ $product->id }}">
@@ -35,10 +35,8 @@
 
         <x-layout.modal.modal-add-body-group-item-error item="product_id" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
-</x-layout.modal.modal-add-body-group>
 
-<x-layout.modal.modal-add-body-group>
-    <x-layout.modal.modal-add-body-group-item columms="12">
+    <x-layout.modal.modal-add-body-group-item columms="4">
         <x-layout.modal.modal-add-body-group-item-label item="quantity" title="QUANTIDADE" plus="none"/>
 
         <input type="number" wire:model="quantity" class="form-control form-control-sm" id="quantity">

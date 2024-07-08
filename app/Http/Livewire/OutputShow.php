@@ -82,6 +82,9 @@ class OutputShow extends Component
 
             'deposit_id' => ['required'],
             'observation' => ['required'],
+
+            'product_id' => ['required'],
+            'quantity' => ['required', 'numeric'],
         ];
     }
 
@@ -230,8 +233,10 @@ class OutputShow extends Component
             // Valida campos.
             $validatedData = $this->validate([
                 'product_id' => ['required'],
-                'quantity' => ['required', 'numeric'],
+                'quantity' => ['required', 'numeric', 'min:0.1'],
             ]);
+
+            dd($validatedData);
 
             // Estende $validatedData.
             $validatedData['output_id'] = $this->output_id;
