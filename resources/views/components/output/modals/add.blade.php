@@ -37,6 +37,8 @@
 
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="12">
+        <x-layout.modal.modal-add-body-group-item-label item="observation" title="OBSERVAÇÕES" plus="none"/>
+
         <textarea wire:model="observation" class="form-control form-control-sm" id="observation" rows="6"></textarea>
 
         <x-layout.modal.modal-mail-body-group-item-count :comment="$observation"/>

@@ -14,7 +14,10 @@
 @include('components.' .  $config['name'] . '.modals.add-product')
 @include('components.' .  $config['name'] . '.modals.detail')
 @include('components.' .  $config['name'] . '.modals.edit')
-@include('components.' .  $config['name'] . '.modals.delete')
+@include('components.' .  $config['name'] . '.modals.erase')
+
+{{-- ações específicas --}}
+@include('components.' .  $config['name'] . '.modals.erase-product')
 {{-- modal --}}
 
 <x-layout.alert/>
@@ -140,8 +143,12 @@
                                 {{ $outputproduct->product->name }} |
                                 {{ $outputproduct->product->ean }} |
                                 {{ $outputproduct->product->reference }}
+                                @if(!$item->finished)
+                                    <x-layout.card.card-body-content-table-body-line-cell-action-erase-product :id="$outputproduct->id"/>
+                                @endif
                             </div>
                             <span class="badge text-bg-primary rounded-pill">{{ number_format($outputproduct->quantity) }}</span>
+            
                         </li>
                     @endforeach
                 </ol>
