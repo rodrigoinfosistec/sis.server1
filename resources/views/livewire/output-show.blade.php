@@ -11,6 +11,7 @@
 {{-- info --}}
 
 {{-- ações --}}
+@include('components.' .  $config['name'] . '.modals.add-product')
 @include('components.' .  $config['name'] . '.modals.detail')
 @include('components.' .  $config['name'] . '.modals.edit')
 @include('components.' .  $config['name'] . '.modals.delete')
@@ -126,6 +127,8 @@
 <x-layout.card.card-body-content-table-body-line-cell-action width="80">
     @if(!$item->finished)
         <x-layout.card.card-body-content-table-body-line-cell-action-edit-output :id="$item->id"/>
+
+        <x-layout.card.card-body-content-table-body-line-cell-action-add-product :id="$item->id"/>
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
 

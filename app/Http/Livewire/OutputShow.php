@@ -230,7 +230,7 @@ class OutputShow extends Component
             // Valida campos.
             $validatedData = $this->validate([
                 'product_id' => ['required'],
-                'quantity' => ['required'],
+                'quantity' => ['required', 'numeric'],
             ]);
 
             // Estende $validatedData.
@@ -245,9 +245,6 @@ class OutputShow extends Component
 
             // Cadastra.
             if ($valid) $output_id = Outputproduct::add($data);
-
-            // Estende $data['validatedData'].
-            if ($valid) $data['validatedData']['output_id'] = $output_id;
 
             // Executa dependências.
             if ($valid) Outputproduct::dependencyAdd($data);
