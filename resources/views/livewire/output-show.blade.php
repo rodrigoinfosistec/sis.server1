@@ -136,7 +136,7 @@
                     #. INT | DESCRIÇÃO | EAN | REF
                 </span>
                 <ol class="list-group list-group-numbered">
-                    @foreach(App\Models\Outputproduct::where('output_id', $item->id)->get() as $key => $outputproduct)
+                    @foreach(App\Models\Outputproduct::where('output_id', $item->id)->orderBy('product_name', 'ASC')->get() as $key => $outputproduct)
                         <li class="list-group-item d-flex justify-content-between align-items-start" style="font-size: 9pt;">
                             <div class="ms-2 me-auto text-dark" style="font-size: 8.5pt;">
                                 {{ $outputproduct->product->code }} |

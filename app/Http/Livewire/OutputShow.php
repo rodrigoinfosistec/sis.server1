@@ -48,6 +48,7 @@ class OutputShow extends Component
     public $updated;
 
     public $product_id;
+    public $product_name;
     public $quantity;
 
     public $array_product_id = [];
@@ -123,6 +124,7 @@ class OutputShow extends Component
         $this->updated = '';
 
         $this->product_id = '';
+        $this->product_name = '';
         $this->quantity = '';
 
         $this->array_product_id = [];
@@ -348,14 +350,12 @@ class OutputShow extends Component
      */
     public function eraseProduct(int $outputproduct_id)
     {
-
-        dd($outputproduct_id);
         // Produto da Saída.
         $outputproduct = Outputproduct::find($outputproduct_id);
 
         // Inicializa propriedades dinâmicas.
         $this->outputproduct_id = $outputproduct_id;
-        $this->cnpj        = $provider->cnpj;
+        $this->product_name        = $outputproduct->product_name;
         $this->name        = $provider->name;
         $this->nickname    = $provider->nickname;
         $this->created     = $provider->created_at->format('d/m/Y H:i:s');
