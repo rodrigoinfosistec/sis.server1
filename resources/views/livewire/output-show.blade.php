@@ -128,12 +128,18 @@
 
     <div id="flush-collapse{{ $item->id }}" class="accordion-collapse collapse @if($loop->first) show @endif" data-bs-parent="#accordionOutput">
         <div class="accordion-body" style="line-height: 1.2">
+            <span class="text-muted" style="font-size:8pt;">
+                #. INT | DESCRIÇÃO | EAN | REF
+            </span>
             @if(App\Models\Outputproduct::where('output_id', $item->id)->exists())
                 <ol class="list-group list-group-numbered">
                     @foreach(App\Models\Outputproduct::where('output_id', $item->id)->get() as $key => $outputproduct)
                         <li class="list-group-item d-flex justify-content-between align-items-start" style="font-size: 9pt;">
-                            <div class="ms-2 me-auto text-dark" style="font-size: 9pt;">
-                                {{ $outputproduct->product->code }} {{ $outputproduct->product->name }} {{ $outputproduct->product->ean }}
+                            <div class="ms-2 me-auto text-dark" style="font-size: 8.5pt;">
+                                {{ $outputproduct->product->code }} |
+                                {{ $outputproduct->product->name }} |
+                                {{ $outputproduct->product->ean }} |
+                                {{ $outputproduct->product->reference }}
                             </div>
                             <span class="badge text-bg-primary rounded-pill">{{ number_format($outputproduct->quantity) }}</span>
                         </li>
