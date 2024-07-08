@@ -109,12 +109,12 @@ class Output extends Model
     }
 
     /**
-     * Valida atualização.
+     * Valida Consolidação.
      * @var array $data
      * 
      * @return bool true
      */
-    public static function validateEdit(array $data) : bool {
+    public static function validateEditFinished(array $data) : bool {
         $message = null;
 
         // ...
@@ -123,12 +123,12 @@ class Output extends Model
     }
 
     /**
-     * Atualiza.
+     * Consolida.
      * @var array $data
      * 
      * @return bool true
      */
-    public static function edit(array $data) : bool {
+    public static function editFinished(array $data) : bool {
         // Produto do Balanço.
         $outputproduct = Outputproduct::find($data['validatedData']['outputproduct_id']);
 

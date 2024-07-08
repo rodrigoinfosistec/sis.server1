@@ -263,85 +263,45 @@ class OutputShow extends Component
             $this->dispatchBrowserEvent('close-modal');
         }
 
-    /** 
-     * detail()
+    /**
+     * editFinished()
+     *  modernizeFinished()
      */
-    public function detail(int $output_id)
+    public function editFinished(int $output_id)
     {
-        // Empresa.
+        // Produto da Saída.
         $output = Output::find($output_id);
 
         // Inicializa propriedades dinâmicas.
         $this->output_id = $output_id;
         $this->deposit_id = $output->deposit_id;
         $this->deposit_name = $output->deposit_name;
-        $this->user_id = $output->user_id;
-        $this->user_name = $output->user_name;
-        $this->observation = $output->observation;
-        $this->finished = $output->finished;
-        $this->created = $output->created_at->format('d/m/Y H:i:s');
-        $this->updated = $output->updated_at->format('d/m/Y H:i:s');
-    }
-
-    /**
-     * edit()
-     *  modernize()
-     */
-    public function edit(int $output_id)
-    {
-        // Balanço.
-        $output = Output::find($output_id);
-
-        // Inicializa propriedades dinâmicas.
-        $this->output_id = $output->id;
-        $this->deposit_id = $output->deposit_id;
-        $this->deposit_name = (string)$output->deposit_name;
         $this->company_id = $output->company_id;
-        $this->user_id = $output->user_id;
-        $this->user_name = (string)$output->user_name;
-        $this->observation = (string)$output->observation;
-        $this->finished = $output->finished;
+        $this->observation = $output->observation;
         $this->created = $output->created_at->format('d/m/Y H:i:s');
-
-        // Percorre os Produtos da Saída.
-        foreach(Outputproduct::where('output_id', $output_id)->get() as $key => $outputproduct):
-            // Inicializa variáveis, dinamicamente.
-            $this->array_product_score[$outputproduct->product->id] = '';
-        endforeach;
     }
-        public function modernize()
+        public function modernizeFinished()
         {
-            // Estende $validatedData.
+            // Define $validatedData
             $validatedData['output_id'] = $this->output_id;
             $validatedData['deposit_id'] = $this->deposit_id;
+            $validatedData['deposit_name'] = $this->deposit_name;
+            $validatedData['company_id'] = $this->company_id;
+            $validatedData['observation'] = $this->observation;
+            $validatedData['created'] = $this->created;
 
-            // Percorre os Produtos da Saída.
-            foreach(Outputproduct::where('output_id', $this->output_id)->get() as $key => $outputproduct):
-                // Monta array do Produto do balanço.
-                $validatedData['outputproduct_id'] = $outputproduct->id;
-                $validatedData['score'] = $this->array_product_score[$outputproduct->product->id];
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
 
-                // Define $data.
-                $data['config']        = $this->config;
-                $data['validatedData'] = $validatedData;
+            // Valida exclusão.
+            $valid = Output::validateEditFinished($data);
 
-                // Valida atualização.
-                $valid = Output::validateEdit($data);
+            // Executa dependências.
+            if ($valid) Output::dependencyEditFinished($data);
 
-                // Atualiza.
-                if ($valid) Output::edit($data);
-
-                // Executa dependências.
-                if ($valid) Output::dependencyEdit($data);
-            endforeach;
-
-            // Consolida balanço.
-            Output::find($this->output_id)->update([
-                'finished' => true,
-            ]);
-
-            // Gera o Relatório em PDF.
-            Report::outputGenerate($data);
+            // Exclui.
+            if ($valid) Output::editFinished($data);
 
             // Fecha modal.
             $this->closeModal();
