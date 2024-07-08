@@ -398,7 +398,7 @@ class OutputShow extends Component
         // Inicializa propriedades dinâmicas.
         $this->output_id = $output_id;
         $this->deposit_id = $output->deposit_id;
-        $this->deposit_name = $output->deposit_name->name;
+        $this->deposit_name = $output->deposit_name;
         $this->observation = $output->observation;
         $this->created = $output->created_at->format('d/m/Y H:i:s');
     }

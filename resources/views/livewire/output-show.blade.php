@@ -123,6 +123,8 @@
                 <div class="float-end" style="width: 75px;">
                     @if(!$item->finished)
                         <x-layout.card.card-body-content-table-body-line-cell-action-add-product :id="$item->id"/>
+                        
+                        <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
                     @endif
                 </div>
             </div>
