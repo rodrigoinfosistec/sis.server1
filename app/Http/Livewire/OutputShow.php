@@ -244,6 +244,7 @@ class OutputShow extends Component
 
             // Estende $validatedData.
             $validatedData['output_id'] = $this->output_id;
+            $validatedData['deposit_id'] = $this->deposit_id;
 
             // Define $data.
             $data['config']        = $this->config;

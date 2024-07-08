@@ -48,6 +48,19 @@ class Outputproduct extends Model
             $message = 'Produto já cadastrado nesta saída.';
         endif;
 
+        // Verifica se o produto existe no depósito.
+        if(Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->doesntExist()):
+            Productdeposit::create([
+                'product_id' => $data['validatedData']['product_id'],
+                'deposit_id' => $data['validatedData']['deposit_id'],
+            ]);
+        endif;
+
+        // Verifica se o Depósito possui a quantidade de Produto desejada.
+        if(Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity < $data['validatedData']['quantity']):
+            $message = 'Quantidade insuficiente no Depósito.';
+        endif;
+
         // Desvio.
         if(!empty($message)):
             session()->flash('message', $message );

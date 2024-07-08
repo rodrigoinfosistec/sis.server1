@@ -109,7 +109,7 @@ class Output extends Model
     }
 
     /**
-     * Valida Consolidação.
+     * Valida Atualização.
      * @var array $data
      * 
      * @return bool true
@@ -123,18 +123,18 @@ class Output extends Model
     }
 
     /**
-     * Consolida.
+     * Atualiza..
      * @var array $data
      * 
      * @return bool true
      */
     public static function editFinished(array $data) : bool {
         // Produto do Balanço.
-        $outputproduct = Outputproduct::find($data['validatedData']['outputproduct_id']);
+        $output = Output::find($data['validatedData']['output_id']);
 
-        // Atualiza quantidade do Produto na Saída.
-        Outputproduct::find($data['validatedData']['outputproduct_id'])->update([
-            'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
+        // Atualiza Finalização/Consolidação.
+        Output::find($data['validatedData']['output_id'])->update([
+            'finished' => true,
         ]);
 
         //Verfica se o Produto está vinculado ao depósito.
