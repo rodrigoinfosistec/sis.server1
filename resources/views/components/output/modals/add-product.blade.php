@@ -24,11 +24,13 @@
         <datalist id="products">
             @foreach(App\Models\Product::where('status', true)->orderBy('name', 'ASC')->get() as $key => $product)
                 <option value="{{ $product->id }}">
-                    {{ $product->reference }}
+                    {{ $product->code }}
                     |
                     {{ $product->name }}
                     |
                     {{ $product->ean }}
+                    |
+                    {{ $product->reference }}
                 </option>
             @endforeach
         </datalist>

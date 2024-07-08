@@ -133,9 +133,9 @@
                     @foreach(App\Models\Outputproduct::where('output_id', $item->id)->get() as $key => $outputproduct)
                         <li class="list-group-item d-flex justify-content-between align-items-start" style="font-size: 9pt;">
                             <div class="ms-2 me-auto text-dark" style="font-size: 9pt;">
-                                {{ $outputproduct->product->name }}
+                                {{ $outputproduct->product->code }} {{ $outputproduct->product->name }} {{ $outputproduct->product->ean }}
                             </div>
-                            <span class="badge text-bg-secondary rounded-pill">{{ $outputproduct->product->quantity }}</span>
+                            <span class="badge text-bg-primary rounded-pill">{{ number_format($outputproduct->product->quantity) }}</span>
                         </li>
                     @endforeach
                 </ol>
