@@ -42,7 +42,7 @@ class Outputproduct extends Model
     public static function validateAdd(array $data){
         $message = null;
 
-        // Verifica se o Produto não está cadastrado na Saída.
+        // Verifica se o Produto já está cadastrado na Saída.
         if(Outputproduct::where(['output_id' => $data['validatedData']['output_id'], 'product_id' => $data['validatedData']['product_id']])->exists()):
             $message = 'Produto já cadastrado nesta saída.';
         endif;
@@ -73,9 +73,6 @@ class Outputproduct extends Model
 
         // After.
         $after = Output::find($outputproduct_id);
-
-        // Auditoria.
-        //Audit::outputAdd($data, $after);
 
         // Mensagem.
         $message = 'Produto ' . $after->product->name . ' incluído na Saída.';

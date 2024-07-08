@@ -1,6 +1,6 @@
 <x-layout.modal.modal-add modal="addProduct" method="registerProduct" size="">
-    <x-layout.modal.modal-add-header icon="bi-plus-circle-fill" modal="addProduct">
-        {{ $config['title'] }}
+    <x-layout.modal.modal-add-header icon="bi-basket" modal="addProduct">
+        Produto na Saída
 
         <x-slot:identifier>
             SAÍDA
