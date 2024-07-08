@@ -127,7 +127,7 @@
                         <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
 
                             @if(App\Models\Outputproduct::where('output_id', $item->id)->exists())
-                                <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
+                                <x-layout.card.card-body-content-table-body-line-cell-action-edit-finished :id="$item->id"/>
                             @endif
                     @endif
                 </div>
