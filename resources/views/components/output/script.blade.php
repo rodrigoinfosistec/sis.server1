@@ -8,6 +8,7 @@
         $('#addProductModal').modal('hide');
         $('#detailModal').modal('hide');
         $('#editModal').modal('hide');
-        $('#deleteModal').modal('hide');
+        $('#eraseModal').modal('hide');
+        $('#eraseProductModal').modal('hide');
     })
 </script>

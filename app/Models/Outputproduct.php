@@ -137,14 +137,16 @@ class Outputproduct extends Model
      * @return bool true
      */
     public static function erase(array $data) : bool {
+        $outpuproduct = Outputproduct::find($data['validatedData']['outputproduct_id']);
+
         // Exclui.
-        Outpuproduct::find($data['validatedData']['outputproduct_id'])->delete();
+        Outputproduct::find($data['validatedData']['outputproduct_id'])->delete();
 
         // Auditoria.
         //Audit::providerErase($data);
 
         // Mensagem.
-        $message = 'Produto ' . $data['validatedData']['outputproduct_name'] . ' excluído com sucesso.';
+        $message = 'Produto ' . $outpuproduct->product->name . ' excluído com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
