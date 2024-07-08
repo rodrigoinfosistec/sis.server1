@@ -58,8 +58,9 @@ class Outputproduct extends Model
         endif;
 
         // Verifica se o Depósito possui a quantidade de Produto desejada.
-        if(Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity < $data['validatedData']['quantity']):
-            $message = 'Quantidade insuficiente no Depósito.';
+        if(Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity < General::encodeFloat($data['validatedData']['quantity'], 7)):
+            $productdeposit = Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->first();
+            $message = 'Quantidade no Depósito:' . $productdeposit . ' menos que a desejada:' . $data['validatedData']['quantity'] . '.';
         endif;
 
         // Desvio.
