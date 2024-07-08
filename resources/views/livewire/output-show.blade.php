@@ -135,7 +135,7 @@
                             <div class="ms-2 me-auto text-dark" style="font-size: 9pt;">
                                 {{ $outputproduct->product->code }} {{ $outputproduct->product->name }} {{ $outputproduct->product->ean }}
                             </div>
-                            <span class="badge text-bg-primary rounded-pill">{{ number_format($outputproduct->product->quantity) }}</span>
+                            <span class="badge text-bg-primary rounded-pill">{{ number_format($outputproduct->quantity) }}</span>
                         </li>
                     @endforeach
                 </ol>
