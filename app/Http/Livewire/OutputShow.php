@@ -343,6 +343,47 @@ class OutputShow extends Component
         }
 
     /**
+     * eraseProduct()
+     *  excludeProduct()
+     */
+    public function eraseProduct(int $outputproduct_id)
+    {
+
+        dd($outputproduct_id);
+        // Produto da Saída.
+        $outputproduct = Outputproduct::find($outputproduct_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->outputproduct_id = $outputproduct_id;
+        $this->cnpj        = $provider->cnpj;
+        $this->name        = $provider->name;
+        $this->nickname    = $provider->nickname;
+        $this->created     = $provider->created_at->format('d/m/Y H:i:s');
+    }
+        public function excludeProduct()
+        {
+            // Define $validatedData
+            $validatedData['outputproduct_id'] = $this->outputproduct_id;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida exclusão.
+            $valid = Outputproduct::validateErase($data);
+
+            // Executa dependências.
+            if ($valid) Outputproduct::dependencyErase($data);
+
+            // Exclui.
+            if ($valid) Outputproduct::erase($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
      * generate()
      *  sire()
      */

@@ -16,7 +16,6 @@
 
         <select wire:model="deposit_id" class="form-select form-select-sm text-uppercase" id="deposit_id">
             <x-layout.modal.modal-add-body-group-item-option-muted/>
-
             @php
                 // Inicializa variável.
                 $array = [];

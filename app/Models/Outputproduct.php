@@ -20,6 +20,7 @@ class Outputproduct extends Model
     protected $fillable = [
         'output_id',
         'product_id',
+        'product_name',
 
         'quantity',
 
@@ -90,6 +91,61 @@ class Outputproduct extends Model
      */
     public static function dependencyAdd(array $data) : bool {
         // ...
+
+        return true;
+    }
+
+    /**
+     * Valida exclusão.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateErase(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de exclusão.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyErase(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
+     * Exclui.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function erase(array $data) : bool {
+        // Exclui.
+        Outpuproduct::find($data['validatedData']['outputproduct_id'])->delete();
+
+        // Auditoria.
+        //Audit::providerErase($data);
+
+        // Mensagem.
+        $message = 'Produto ' . $data['validatedData']['outputproduct_name'] . ' excluído com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
 
         return true;
     }
