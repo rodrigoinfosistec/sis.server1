@@ -51,6 +51,8 @@ class OutputShow extends Component
     public $product_name;
     public $quantity;
 
+    public $outputproduct_id;
+
     public $array_product_id = [];
     public $array_product_name = [];
     public $array_product_code = [];
@@ -126,6 +128,8 @@ class OutputShow extends Component
         $this->product_id = '';
         $this->product_name = '';
         $this->quantity = '';
+
+        $this->outputproduct_id = '';
 
         $this->array_product_id = [];
         $this->array_product_name = [];
@@ -355,10 +359,9 @@ class OutputShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->outputproduct_id = $outputproduct_id;
-        $this->product_name        = $outputproduct->product_name;
-        $this->name        = $provider->name;
-        $this->nickname    = $provider->nickname;
-        $this->created     = $provider->created_at->format('d/m/Y H:i:s');
+        $this->product_name = $outputproduct->product_name;
+        $this->deposit_name = $outputproduct->output->deposit->name;
+        $this->created = $outputproduct->created_at->format('d/m/Y H:i:s');
     }
         public function excludeProduct()
         {
