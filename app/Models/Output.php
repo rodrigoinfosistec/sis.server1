@@ -140,8 +140,10 @@ class Output extends Model
         // Percorre todos os Produtos da Saída.
         foreach(Outputproduct::where('output_id', $data['validatedData']['output_id'])->get() as $key => $outputproduct):
             // Atualiza quantidade do Produto no Depósito.
+            $productdeposit = Productdeposit::where(['product_id' => $outputproduct->product->id, 'deposit_id' => $data['validatedData']['deposit_id']])->first();
+            $productdeposit_quantity = $productdeposit->quantity - General::encodeFloat($data['validatedData']['quantity'], 7);
             Productdeposit::where(['product_id' => $outputproduct->product->id, 'deposit_id' => $data['validatedData']['deposit_id']])->update([
-                'quantity' => General::encodeFloat($data['validatedData']['quantity'], 7),
+                'quantity' => $productdeposit_quantity,
             ]);
 
             // Atualiza quantidade Total do Produto.
@@ -161,7 +163,7 @@ class Output extends Model
         endforeach;
 
         // Mensagem.
-        $message = 'Balanço Consolidado';
+        $message = 'Saída de Produtos Consolidada com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
