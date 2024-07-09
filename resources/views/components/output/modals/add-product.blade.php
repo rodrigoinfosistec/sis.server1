@@ -46,6 +46,12 @@
         <x-layout.modal.modal-add-body-group-item-error item="quantity" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
+
+<x-layout.modal.modal-add-body-group>
+    <x-layout.modal.modal-add-body-group-item columms="12">
+        <textarea class="form-control form-control-sm bg-light" rows="2" readonly>{{ @App\Models\Product::find($product_id)->name }}</textarea>
+    </x-layout.modal.modal-add-body-group-item>
+</x-layout.modal.modal-add-body-group>
 {{-- conteúdo --}}
 
     </x-layout.modal.modal-add-body>

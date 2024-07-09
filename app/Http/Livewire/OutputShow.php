@@ -66,6 +66,8 @@ class OutputShow extends Component
 
     public $array_product_score = [];
 
+    public $productName;
+
     /**
      * Construtor.
      */
@@ -143,6 +145,8 @@ class OutputShow extends Component
         $this->array_product_productmeasure_quantity = [];
 
         $this->array_product_score = [];
+
+        $this->productName = '';
     }
 
     /**
