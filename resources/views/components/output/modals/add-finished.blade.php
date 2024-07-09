@@ -1,11 +1,11 @@
-<x-layout.modal.modal-add modal="addFunded" method="registerFunded" size="modal-fullscreen">
-    <x-layout.modal.modal-add-header icon="bi-database-fill-check" modal="addFunded">
+<x-layout.modal.modal-add modal="addFinished" method="registerFinished" size="modal-fullscreen">
+    <x-layout.modal.modal-add-header icon="bi-database-fill-check" modal="addFinished">
         Saída de produtos
 
         <x-slot:identifier>
-            <span class="text-primary fw-bold">{{ $company_name }}
+            <span class="text-primary fw-bold">{{ $deposit_name }}
             <br>
-            {{ $start_decode }}<i class="bi-caret-right-fill text-muted"></i>{{ $end_decode }}</span>
+            OBSERVAÇÃO:<i class="bi-caret-right-fill text-muted"></i>{{ $observation }}</span>
             <br><br>
             <span class="text-danger fw-bold" style="font-size: 13pt">
                 Consolidar Saída?
@@ -13,7 +13,7 @@
         </x-slot>
     </x-layout.modal.modal-add-header>
 
-    <x-layout.modal.modal-add-body method="registerFunded">
+    <x-layout.modal.modal-add-body method="registerFinished">
 
 {{-- conteúdo --}}
 <div class="table-responsive">
@@ -28,44 +28,37 @@
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="" style="width: 15px;">
-                    {{--  --}}
+                <div class="" style="width: 200px; background-color: #ddd;">
+                    DESCRIÇÃO
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="" style="min-width: 200px;">
-                    FUNCIONÁRIO
+                <div class="" style="width: 50px; background-color: #ddd;">
+                    QUANTIDADE
+                </div>
+            </th>
+            <th class="" style="padding: 0;">
+                <div class="" style="width: 70px; background-color: #ddd;">
+                    INTERNO
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="" style="width: 80px;">
-                    ABONO
+                <div class="" style="width: 80px; background-color: #ddd;">
+                    REFERÊCNIA
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="" style="width: 80px;">
-                    ATRASO
-                </div>
-            </th>
-
-            <th class="" style="padding: 0;">
-                <div class="" style="width: 80px;">
-                    EXTRA
-                </div>
-            </th>
-
-            <th class="" style="padding: 0;">
-                <div class="" style="width: 80px;">
-                    SALDO
+                <div class="" style="width: 100px; background-color: #ddd;">
+                    BARRAS
                 </div>
             </th>
         </thead>
 
         <tbody>
-            @foreach(App\Models\Clockemployee::where('clock_id', $clock_id)->orderBy('employee_name')->get() as $key => $clockemployee)
+            @foreach(App\Models\Outputproduct::where('output_id', $output_id)->orderBy('product_name')->get() as $key => $outputproduct)
 
 {{-- dia --}}
 <tr style="border-bottom: 1px solid #ddd; margin: 5px 0 5px 0;">
@@ -78,51 +71,38 @@
         </div>
     </td>
 
-    {{-- ... --}}
+    {{-- DESCRIÇÃO --}}
+    <td class="align-middle" style="line-height: 1;">
+        <div class="fw-bold" style="width: 200px; font-size: 9pt; background-color: #ddd;">
+            {{ $outputproduct->product_name }}
+        </div>
+    </td>
+
+    {{-- QUANTIDADE --}}
+    <td class="align-middle" style="line-height: 1;">
+        <div class="fw-bold" style="width: 50px; font-size: 10pt; background-color: #ddd;">
+            {{ $outputproduct->quantity }}
+        </div>
+    </td>
+
+    {{-- INTERNO --}}
     <td class="align-middle" style="line-height: 1; padding: 0;">
-        <div class="" style="width: 15px; font-size: 12pt;">
-            {{-- ... --}}
+        <div class="fw-bold" style="width: 70px; font-size: 9pt; background-color: #ddd;">
+            {{ $outputproduct->product->code }}
         </div>
     </td>
 
-    {{-- FUNCIONÁRIO --}}
-    <td class="align-middle" style="line-height: 1; padding: 0;">
-        <div class="fw-bold" style="min-width: 200px; font-size: 9pt;">
-            {{ $clockemployee->employee_name }}
-        </div>
-    </td>
-
-    {{-- ABONO --}}
+    {{-- REFERÊCNIA --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="fw-bold" style="width: 80px; font-size: 9pt">
-            {{ $clockemployee->allowance_total }}
+        <div class="fw-bold" style="width: 80px; font-size: 9pt; background-color: #ddd;">
+            {{ $outputproduct->product->reference }}
         </div>
     </td>
 
-    {{-- ATRASO --}}
+    {{-- BARRAS --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="fw-bold" style="width: 80px; font-size: 9pt">
-            {{ $clockemployee->delay_total }}
-        </div>
-    </td>
-
-    {{-- EXTRA --}}
-    <td class="align-middle" style="line-height: 1;">
-        <div class="fw-bold" style="width: 80px; font-size: 9pt">
-            {{ $clockemployee->extra_total }}
-        </div>
-    </td>
-
-    {{-- SALDO --}}
-    <td class="align-middle" style="line-height: 1;">
-        <div class="fw-bold" style="width: 80px; font-size: 10pt">
-            @if(!empty($clockemployee->balance_total))
-                @if($clockemployee->balance_total[0] == '+') <span class="text-primary">
-                @elseif($clockemployee->balance_total[0] == '-') <span class="text-danger">
-                @else <span class="text-muted"> @endif
-                    {{ $clockemployee->balance_total }}
-                </span>
-            @endif
+        <div class="fw-bold" style="width: 100px; font-size: 9pt; background-color: #ddd;">
+            {{ $outputproduct->product->ean }}
         </div>
     </td>
 </tr>

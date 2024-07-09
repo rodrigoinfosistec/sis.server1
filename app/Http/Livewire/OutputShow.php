@@ -265,10 +265,10 @@ class OutputShow extends Component
         }
 
     /**
-     * editFinished()
-     *  modernizeFinished()
+     * addFinished()
+     *  registerFinished()
      */
-    public function editFinished(int $output_id)
+    public function addFinished(int $output_id)
     {
         // Produto da Saída.
         $output = Output::find($output_id);
@@ -281,7 +281,7 @@ class OutputShow extends Component
         $this->observation = $output->observation;
         $this->created = $output->created_at->format('d/m/Y H:i:s');
     }
-        public function modernizeFinished()
+        public function registerFinished()
         {
             // Define $validatedData
             $validatedData['output_id'] = $this->output_id;
