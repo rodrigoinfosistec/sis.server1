@@ -12,8 +12,8 @@
 
 {{-- ações --}}
 @include('components.' .  $config['name'] . '.modals.add-product')
+@include('components.' .  $config['name'] . '.modals.add-finished')
 @include('components.' .  $config['name'] . '.modals.detail')
-@include('components.' .  $config['name'] . '.modals.edit-finished')
 @include('components.' .  $config['name'] . '.modals.erase')
 
 {{-- ações específicas --}}
@@ -127,7 +127,7 @@
                         <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
 
                             @if(App\Models\Outputproduct::where('output_id', $item->id)->exists())
-                                <x-layout.card.card-body-content-table-body-line-cell-action-edit-finished :id="$item->id"/>
+                                <x-layout.card.card-body-content-table-body-line-cell-action-add-finished :id="$item->id"/>
                             @endif
                     @endif
                 </div>
