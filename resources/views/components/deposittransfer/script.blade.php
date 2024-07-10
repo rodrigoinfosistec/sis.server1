@@ -1,3 +1,14 @@
-<div>
-    <!-- Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less. - Marie Curie -->
-</div>
+<script>
+    window.addEventListener('close-modal', event => {
+        $('#generateModal').modal('hide');
+        $('#mailModal').modal('hide');
+
+        $('#addModal').modal('hide');
+
+        $('#addModal').modal('hide');
+        $('#addProductModal').modal('hide');
+        $('#addFundedModal').modal('hide');
+        $('#eraseModal').modal('hide');
+        $('#eraseProductModal').modal('hide');
+    })
+</script>
