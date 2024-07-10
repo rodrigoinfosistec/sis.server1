@@ -311,23 +311,27 @@ class DeposittransferShow extends Component
      */
     public function addFunded(int $deposittransfer_id)
     {
-        // Produto da Saída.
-        $deposittransfer = Deposittransfer::find($deposittransfer_id);
-
         // Inicializa propriedades dinâmicas.
         $this->deposittransfer_id = $deposittransfer_id;
-        $this->deposit_id = $deposittransfer->deposit_id;
-        $this->deposit_name = $deposittransfer->deposit_name;
+        $this->origin_id = $deposittransfer->origin_id;
+        $this->origin_name = $deposittransfer->origin_name;
+        $this->destiny_id = $deposittransfer->destiny_id;
+        $this->destiny_name = $deposittransfer->destiny_name;
         $this->company_id = $deposittransfer->company_id;
+        $this->user_id = $deposittransfer->user_id;
+        $this->user_name = $deposittransfer->user_name;
         $this->observation = $deposittransfer->observation;
         $this->created = $deposittransfer->created_at->format('d/m/Y H:i:s');
+        $this->updated = $deposittransfer->updated_at->format('d/m/Y H:i:s');
     }
         public function registerFunded()
         {
             // Define $validatedData
             $validatedData['deposittransfer_id'] = $this->deposittransfer_id;
-            $validatedData['deposit_id'] = $this->deposit_id;
-            $validatedData['deposit_name'] = $this->deposit_name;
+            $validatedData['origin_id'] = $this->origin_id;
+            $validatedData['origin_name'] = $this->origin_name;
+            $validatedData['destiny_id'] = $this->destiny_id;
+            $validatedData['destiny_name'] = $this->destiny_name;
             $validatedData['company_id'] = $this->company_id;
             $validatedData['observation'] = $this->observation;
             $validatedData['created'] = $this->created;
@@ -337,13 +341,13 @@ class DeposittransferShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida exclusão.
-            $valid = Deposittransfer::validateAddFinished($data);
+            $valid = Deposittransfer::validateAddFunded($data);
 
             // Executa dependências.
-            if ($valid) Deposittransfer::dependencyAddFinished($data);
+            if ($valid) Deposittransfer::dependencyAddFunded($data);
 
             // Exclui.
-            if ($valid) Deposittransfer::addFinished($data);
+            if ($valid) Deposittransfer::addFunded($data);
 
             // Fecha modal.
             $this->closeModal();
