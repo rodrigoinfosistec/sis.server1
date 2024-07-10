@@ -215,12 +215,13 @@ class DeposittransferShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->deposittransfer_id = $deposittransfer_id;
-        $this->deposit_id = $deposittransfer->deposit_id;
-        $this->deposit_name = $deposittransfer->deposit_name;
+        $this->origin_id = $deposittransfer->origin_id;
+        $this->origin_name = $deposittransfer->origin_name;
+        $this->destiny_id = $deposittransfer->destiny_id;
+        $this->destiny_name = $deposittransfer->destiny_name;
         $this->user_id = $deposittransfer->user_id;
         $this->user_name = $deposittransfer->user_name;
         $this->observation = $deposittransfer->observation;
-        $this->funded = $deposittransfer->funded;
         $this->created = $deposittransfer->created_at->format('d/m/Y H:i:s');
         $this->updated = $deposittransfer->updated_at->format('d/m/Y H:i:s');
     }
@@ -234,7 +235,8 @@ class DeposittransferShow extends Component
 
             // Estende $validatedData.
             $validatedData['deposittransfer_id'] = $this->deposittransfer_id;
-            $validatedData['deposit_id'] = $this->deposit_id;
+            $validatedData['origin_id'] = $this->origin_id;
+            $validatedData['destiny_id'] = $this->destiny_id;
 
             // Define $data.
             $data['config']        = $this->config;

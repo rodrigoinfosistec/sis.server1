@@ -114,4 +114,143 @@ class Deposittransfer extends Model
 
         return true;
     }
+
+    /**
+     * Valida exclusão.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateErase(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de exclusão.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyErase(array $data) : bool {
+        // Percorre todos os Produtos da Transferência.
+        foreach(Deposittransferproduct::where('deposittransfer_id', $data['validatedData']['deposittransfer_id'])->get() as $key => $deposittransferproduct):
+            // Exclui Produto da Transferência.
+            Deposittransferproduct::find($deposittransferproduct->id)->delete();
+        endforeach;
+
+        return true;
+    }
+
+    /**
+     * Exclui.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function erase(array $data) : bool {
+        // Exclui.
+        Deposittransfer::find($data['validatedData']['Deposittransfer_id'])->delete();
+
+        // Auditoria.
+        Audit::deposittransferErase($data);
+
+        // Mensagem.
+        $message = 'Tranferência de Produtos excluída com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Valida Consolidação.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateAddFunded(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        return true;
+    }
+
+    /**
+     * Consolida.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function addFunded(array $data) : bool {
+        // Produto do Balanço.
+        $deposittransfer = Deposittransfer::find($data['validatedData']['deposittransfer_id']);
+
+        // Percorre todos os Produtos da Transferência.
+        foreach(Deposittransferproduct::where('output_id', $data['validatedData']['deposittransfer_id'])->get() as $key => $deposittransferproduct):
+            // Retira Quantidade do Depósito Origem.
+
+            // Acrescenta Quantidade do Depósito Destino.
+
+            // Registra Movimentação do Produto.
+
+            // Atualiza quantidade do Produto no Depósito.
+            $productdeposit = Productdeposit::where(['product_id' => $outputproduct->product->id, 'deposit_id' => $data['validatedData']['deposit_id']])->first();
+            $productdeposit_quantity = $productdeposit->quantity - General::encodeFloat($data['validatedData']['quantity'], 7);
+            Productdeposit::where(['product_id' => $outputproduct->product->id, 'deposit_id' => $data['validatedData']['deposit_id']])->update([
+                'quantity' => $productdeposit_quantity,
+            ]);
+
+            // Atualiza quantidade Total do Produto.
+            $quantity_last = Product::find($outputproduct->product->id)->quantity;
+            $quantity_new = $quantity_last - General::encodeFloat($data['validatedData']['quantity'], 7);
+            Product::find($outputproduct->product->id)->update([
+                'quantity' => $quantity_new,
+            ]);
+
+            // Regista Movimentação do produto.
+            Productmoviment::create([
+                'product_id' => $outputproduct->product->id,
+                'identification' => 'Saída de Produto:' . $data['validatedData']['output_id'],
+                'quantity' => General::encodeFloat($data['validatedData']['quantity'], 7),
+                'user_id' => auth()->user()->id,
+            ]);
+        endforeach;
+
+        // Atualiza Consolidação.
+        Deposittransfer::find($data['validatedData']['deposittransfer_id'])->update([
+            'funded' => true,
+        ]);
+
+        // Mensagem.
+        $message = 'Tranferência Depósitos Consolidada com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de consolidação.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyAddFunded(array $data) : bool {
+        // ...
+
+        return true;
+    }
 }
