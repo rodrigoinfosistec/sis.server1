@@ -300,13 +300,13 @@ class OutputShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida exclusão.
-            $valid = Output::validateEditFinished($data);
+            $valid = Output::validateAddFinished($data);
 
             // Executa dependências.
-            if ($valid) Output::dependencyEditFinished($data);
+            if ($valid) Output::dependencyAddFinished($data);
 
             // Exclui.
-            if ($valid) Output::editFinished($data);
+            if ($valid) Output::addFinished($data);
 
             // Fecha modal.
             $this->closeModal();

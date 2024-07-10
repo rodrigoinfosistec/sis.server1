@@ -28,30 +28,37 @@
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="" style="width: 200px; background-color: #ddd;">
+                <div class="" style="width: 30px;">
+                    #
+                </div>
+            </th>
+
+            <th class="" style="padding: 0;">
+                <div class="" style="width: 200px;">
                     DESCRIÇÃO
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="" style="width: 50px; background-color: #ddd;">
+                <div class="" style="width: 70px;">
                     QUANTIDADE
                 </div>
             </th>
+
             <th class="" style="padding: 0;">
-                <div class="" style="width: 70px; background-color: #ddd;">
+                <div class="" style="width: 70px;">
                     INTERNO
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="" style="width: 80px; background-color: #ddd;">
+                <div class="" style="width: 80px;">
                     REFERÊCNIA
                 </div>
             </th>
 
             <th class="" style="padding: 0;">
-                <div class="" style="width: 100px; background-color: #ddd;">
+                <div class="" style="width: 100px;">
                     BARRAS
                 </div>
             </th>
@@ -71,37 +78,44 @@
         </div>
     </td>
 
+    {{-- # --}}
+    <td class="align-middle" style="line-height: 1;">
+        <div class="fw-bold" style="width: 30px; font-size: 9pt;">
+            {{ str_pad($loop->iteration, Str::length($list->count()), '0', STR_PAD_LEFT); }}
+        </div>
+    </td>
+
     {{-- DESCRIÇÃO --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="fw-bold" style="width: 200px; font-size: 9pt; background-color: #ddd;">
+        <div class="fw-bold" style="width: 200px; font-size: 9pt;">
             {{ $outputproduct->product_name }}
         </div>
     </td>
 
     {{-- QUANTIDADE --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="fw-bold" style="width: 50px; font-size: 10pt; background-color: #ddd;">
-            {{ $outputproduct->quantity }}
+        <div class="fw-bold" style="width: 70px; font-size: 10pt;">
+            {{ App\Models\General::decodeFloat2($outputproduct->quantity) }}
         </div>
     </td>
 
     {{-- INTERNO --}}
     <td class="align-middle" style="line-height: 1; padding: 0;">
-        <div class="fw-bold" style="width: 70px; font-size: 9pt; background-color: #ddd;">
+        <div class="fw-bold" style="width: 70px; font-size: 9pt;">
             {{ $outputproduct->product->code }}
         </div>
     </td>
 
     {{-- REFERÊCNIA --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="fw-bold" style="width: 80px; font-size: 9pt; background-color: #ddd;">
+        <div class="fw-bold" style="width: 80px; font-size: 9pt;">
             {{ $outputproduct->product->reference }}
         </div>
     </td>
 
     {{-- BARRAS --}}
     <td class="align-middle" style="line-height: 1;">
-        <div class="fw-bold" style="width: 100px; font-size: 9pt; background-color: #ddd;">
+        <div class="fw-bold" style="width: 100px; font-size: 9pt;">
             {{ $outputproduct->product->ean }}
         </div>
     </td>

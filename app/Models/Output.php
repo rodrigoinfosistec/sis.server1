@@ -114,7 +114,7 @@ class Output extends Model
      * 
      * @return bool true
      */
-    public static function validateEditFinished(array $data) : bool {
+    public static function validateAddFinished(array $data) : bool {
         $message = null;
 
         // ...
@@ -128,7 +128,7 @@ class Output extends Model
      * 
      * @return bool true
      */
-    public static function editFinished(array $data) : bool {
+    public static function addFinished(array $data) : bool {
         // Produto do Balanço.
         $output = Output::find($data['validatedData']['output_id']);
 
@@ -176,7 +176,7 @@ class Output extends Model
      * 
      * @return bool true
      */
-    public static function dependencyEdit(array $data) : bool {
+    public static function dependencyAddFinished(array $data) : bool {
         // ...
 
         return true;
