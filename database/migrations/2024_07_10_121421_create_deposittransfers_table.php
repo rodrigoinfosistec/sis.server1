@@ -13,7 +13,25 @@ return new class extends Migration
     {
         Schema::create('deposittransfers', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('origin_id');
+            $table->string('origin_name');
+
+            $table->unsignedBigInteger('destiny_id');
+            $table->string('destiny_name');
+
+            $table->unsignedBigInteger('user_id');
+            $table->string('user_name');
+
+            $table->text('observation');
+
+            $table->boolean('funded')->default(false);
+
             $table->timestamps();
+
+            $table->foreign('origin_id')->references('id')->on('deposits');
+            $table->foreign('destiny_id')->references('id')->on('deposits');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
