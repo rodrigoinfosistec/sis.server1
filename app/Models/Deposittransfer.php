@@ -24,6 +24,8 @@ class Deposittransfer extends Model
         'destiny_id',
         'destiny_name',
 
+        'company_id',
+
         'user_id',
         'user_name',
 
@@ -40,5 +42,73 @@ class Deposittransfer extends Model
      */
     public function origin(){return $this->belongsTo(Deposit::class);}
     public function destiny(){return $this->belongsTo(Deposit::class);}
+    public function company(){return $this->belongsTo(Company::class);}
     public function user(){return $this->belongsTo(User::class);}
+
+    /**
+     * Valida cadastro.
+     * @var array $data
+     * 
+     * @return <object, bool>
+     */
+    public static function validateAdd(array $data){
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Cadastra.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function add(array $data) {
+        // Cadastra.
+        $deposittransfer_id = Deposittransfer::create([
+            'origin_id' => $data['validatedData']['origin_id'],
+            'origin_name' => Deposit::find($data['validatedData']['origin_id'])->name,
+            'destiny_id' => $data['validatedData']['destiny_id'],
+            'destiny_name' => Deposit::find($data['validatedData']['destiny_id'])->name,
+            'company_id' => auth()->user()->company_id,
+            'user_id' => auth()->user()->id,
+            'user_name' => auth()->user()->name,
+            'observation' => $data['validatedData']['observation'],
+        ])->id;
+
+        // After.
+        $after = Deposittransfer::find($deposittransfer_id);
+
+        // Auditoria.
+        Audit::deposittransferAdd($data, $after);
+
+        // Mensagem.
+        $message = $data['config']['title'] . ' cadastrado com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return $deposittransfer_id;
+    }
+
+    /**
+     * Executa dependências de cadastro.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyAdd(array $data) : bool {
+        // ...
+
+        return true;
+    }
 }

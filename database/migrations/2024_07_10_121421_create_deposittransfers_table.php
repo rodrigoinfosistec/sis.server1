@@ -20,6 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('destiny_id');
             $table->string('destiny_name');
 
+            $table->unsignedBigInteger('company_id');
+
             $table->unsignedBigInteger('user_id');
             $table->string('user_name');
 
@@ -31,6 +33,7 @@ return new class extends Migration
 
             $table->foreign('origin_id')->references('id')->on('deposits');
             $table->foreign('destiny_id')->references('id')->on('deposits');
+            $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

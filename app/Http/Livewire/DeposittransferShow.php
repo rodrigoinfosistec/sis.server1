@@ -42,6 +42,7 @@ class DeposittransferShow extends Component
     public $origin_name;
     public $destiny_id;
     public $destiny_name;
+    public $company_id;
     public $user_id;
     public $user_name;
     public $observation;
@@ -114,6 +115,7 @@ class DeposittransferShow extends Component
         $this->origin_name = '';
         $this->destiny_id = '';
         $this->destiny_name = '';
+        $this->company_id = '';
         $this->user_id = '';
         $this->user_name = '';
         $this->observation = '';
@@ -176,7 +178,8 @@ class DeposittransferShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'deposit_id' => ['required'],
+                'origin_id' => ['required'],
+                'destiny_id' => ['required'],
                 'observation' => ['required'],
             ]);
 
