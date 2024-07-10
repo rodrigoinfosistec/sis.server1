@@ -200,30 +200,24 @@ class Deposittransfer extends Model
 
         // Percorre todos os Produtos da Transferência.
         foreach(Deposittransferproduct::where('output_id', $data['validatedData']['deposittransfer_id'])->get() as $key => $deposittransferproduct):
-            // Retira Quantidade do Depósito Origem.
-
-            // Acrescenta Quantidade do Depósito Destino.
-
-            // Registra Movimentação do Produto.
-
-            // Atualiza quantidade do Produto no Depósito.
-            $productdeposit = Productdeposit::where(['product_id' => $outputproduct->product->id, 'deposit_id' => $data['validatedData']['deposit_id']])->first();
-            $productdeposit_quantity = $productdeposit->quantity - General::encodeFloat($data['validatedData']['quantity'], 7);
-            Productdeposit::where(['product_id' => $outputproduct->product->id, 'deposit_id' => $data['validatedData']['deposit_id']])->update([
-                'quantity' => $productdeposit_quantity,
+            // Retira Quantidade do Produto no Depósito Origem.
+            $productorigin = Productdeposit::where(['product_id' => $deposittransferproduct->product->id, 'deposit_id' => $data['validatedData']['origin_id']])->first();
+            $productorigin_quantity = $productorigin->quantity - General::encodeFloat($data['validatedData']['quantity'], 7);
+            Productdeposit::where(['product_id' => $deposittransferproduct->product->id, 'deposit_id' => $data['validatedData']['origin_id']])->update([
+                'quantity' => $productorigin_quantity,
             ]);
 
-            // Atualiza quantidade Total do Produto.
-            $quantity_last = Product::find($outputproduct->product->id)->quantity;
-            $quantity_new = $quantity_last - General::encodeFloat($data['validatedData']['quantity'], 7);
-            Product::find($outputproduct->product->id)->update([
-                'quantity' => $quantity_new,
+            // Acrescenta Quantidade do Produto no Depósito Destino.
+            $productdestiny = Productdeposit::where(['product_id' => $deposittransferproduct->product->id, 'deposit_id' => $data['validatedData']['destiny_id']])->first();
+            $productdestiny_quantity = $productdestiny->quantity + General::encodeFloat($data['validatedData']['quantity'], 7);
+            Productdeposit::where(['product_id' => $deposittransferproduct->product->id, 'deposit_id' => $data['validatedData']['destiny_id']])->update([
+                'quantity' => $productdestiny_quantity,
             ]);
 
             // Regista Movimentação do produto.
             Productmoviment::create([
                 'product_id' => $outputproduct->product->id,
-                'identification' => 'Saída de Produto:' . $data['validatedData']['output_id'],
+                'identification' => 'Transf. Dep: ' . $data['validatedData']['deposittransfer_id'] . '. De:' . $data['validatedData']['origin_id'] . ' Para:' . $data['validatedData']['destiny_id'],
                 'quantity' => General::encodeFloat($data['validatedData']['quantity'], 7),
                 'user_id' => auth()->user()->id,
             ]);
@@ -235,7 +229,7 @@ class Deposittransfer extends Model
         ]);
 
         // Mensagem.
-        $message = 'Tranferência Depósitos Consolidada com sucesso.';
+        $message = 'Tranferência entre Depósitos Consolidada com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
