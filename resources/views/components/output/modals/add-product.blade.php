@@ -22,7 +22,7 @@
 
         <input wire:model="product_id" type="text" class="form-control form-control-sm" list="products" id="product_id">
         <datalist id="products">
-            @foreach(App\Models\Product::where('status', true)->orderBy('name', 'ASC')->get() as $key => $product)
+            @foreach(App\Models\Product::where(['company_id' => auth()->user()->company_id, 'status' => true])->orderBy('name', 'ASC')->get() as $key => $product)
                 <option value="{{ $product->id }}">
                     {{ $product->code }}
                     |

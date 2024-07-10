@@ -366,8 +366,10 @@ class DeposittransferShow extends Component
         // Inicializa propriedades dinâmicas.
         $this->deposittransferproduct_id = $deposittransferproduct_id;
         $this->product_name = $deposittransferproduct->product_name;
-        $this->deposit_name = $deposittransferproduct->deposittransfer->deposit->name;
-        $this->created = $deposittransferproduct->created_at->format('d/m/Y H:i:s');
+        $this->origin_name = $deposittransferproduct->deposittransfer->origin->name;
+        $this->destiny_name = $deposittransferproduct->deposittransfer->destiny->name;
+        $this->quantity = $deposittransferproduct->quantity;
+        $this->created = $deposittransferproduct->product->created_at->format('d/m/Y H:i:s');
     }
         public function excludeProduct()
         {
