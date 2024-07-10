@@ -161,7 +161,7 @@ class Deposittransfer extends Model
      */
     public static function erase(array $data) : bool {
         // Exclui.
-        Deposittransfer::find($data['validatedData']['Deposittransfer_id'])->delete();
+        Deposittransfer::find($data['validatedData']['deposittransfer_id'])->delete();
 
         // Auditoria.
         Audit::deposittransferErase($data);

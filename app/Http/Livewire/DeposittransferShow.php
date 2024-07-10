@@ -257,60 +257,14 @@ class DeposittransferShow extends Component
         }
 
     /**
-     * erase()
-     *  exclude()
-     */
-    public function erase(int $deposittransfer_id)
-    {
-        // Inicializa propriedades dinâmicas.
-        $this->deposittransfer_id = $deposittransfer_id;
-        $this->origin_id = $deposittransfer->origin_id;
-        $this->origin_name = $deposittransfer->origin_name;
-        $this->destiny_id = $deposittransfer->destiny_id;
-        $this->destiny_name = $deposittransfer->destiny_name;
-        $this->company_id = $deposittransfer->company_id;
-        $this->user_id = $deposittransfer->user_id;
-        $this->user_name = $deposittransfer->user_name;
-        $this->observation = $deposittransfer->observation;
-        $this->created = $deposittransfer->created_at->format('d/m/Y H:i:s');
-        $this->updated = $deposittransfer->updated_at->format('d/m/Y H:i:s');
-    }
-        public function exclude()
-        {
-            // Define $validatedData
-            $validatedData['deposittransfer_id'] = $this->deposittransfer_id;
-            $validatedData['origin_id'] = $this->origin_id;
-            $validatedData['origin_name'] = $this->origin_name;
-            $validatedData['destiny_id'] = $this->destiny_id;
-            $validatedData['destiny_name'] = $this->destiny_name;
-            $validatedData['company_id'] = $this->company_id;
-            $validatedData['observation'] = $this->observation;
-            $validatedData['created'] = $this->created;
-
-            // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
-
-            // Valida exclusão.
-            $valid = Deposittransfer::validateErase($data);
-
-            // Executa dependências.
-            if ($valid) Deposittransfer::dependencyErase($data);
-
-            // Exclui.
-            if ($valid) Deposittransfer::erase($data);
-
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
-        }
-
-    /**
      * addFunded()
      *  registerFinished()
      */
     public function addFunded(int $deposittransfer_id)
     {
+        // Transferência Depósito.
+        $deposittransfer = Deposittransfer::find($deposittransfer_id);
+
         // Inicializa propriedades dinâmicas.
         $this->deposittransfer_id = $deposittransfer_id;
         $this->origin_id = $deposittransfer->origin_id;
@@ -348,6 +302,58 @@ class DeposittransferShow extends Component
 
             // Exclui.
             if ($valid) Deposittransfer::addFunded($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * erase()
+     *  exclude()
+     */
+    public function erase(int $deposittransfer_id)
+    {
+        // Transferência Depósito.
+        $deposittransfer = Deposittransfer::find($deposittransfer_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->deposittransfer_id = $deposittransfer_id;
+        $this->origin_id = $deposittransfer->origin_id;
+        $this->origin_name = $deposittransfer->origin_name;
+        $this->destiny_id = $deposittransfer->destiny_id;
+        $this->destiny_name = $deposittransfer->destiny_name;
+        $this->company_id = $deposittransfer->company_id;
+        $this->user_id = $deposittransfer->user_id;
+        $this->user_name = $deposittransfer->user_name;
+        $this->observation = $deposittransfer->observation;
+        $this->created = $deposittransfer->created_at->format('d/m/Y H:i:s');
+        $this->updated = $deposittransfer->updated_at->format('d/m/Y H:i:s');
+    }
+        public function exclude()
+        {
+            // Define $validatedData
+            $validatedData['deposittransfer_id'] = $this->deposittransfer_id;
+            $validatedData['origin_id'] = $this->origin_id;
+            $validatedData['origin_name'] = $this->origin_name;
+            $validatedData['destiny_id'] = $this->destiny_id;
+            $validatedData['destiny_name'] = $this->destiny_name;
+            $validatedData['company_id'] = $this->company_id;
+            $validatedData['observation'] = $this->observation;
+            $validatedData['created'] = $this->created;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida exclusão.
+            $valid = Deposittransfer::validateErase($data);
+
+            // Executa dependências.
+            if ($valid) Deposittransfer::dependencyErase($data);
+
+            // Exclui.
+            if ($valid) Deposittransfer::erase($data);
 
             // Fecha modal.
             $this->closeModal();
