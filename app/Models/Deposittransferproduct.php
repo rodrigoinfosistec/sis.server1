@@ -12,7 +12,7 @@ class Deposittransferproduct extends Model
     /**
      * Nome da tabela.
      */
-    protected $table = 'deposittransfers';
+    protected $table = 'deposittransferproducts';
 
     /**
      * Campos manipuláveis.

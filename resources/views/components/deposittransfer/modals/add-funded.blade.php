@@ -90,35 +90,35 @@
     {{-- DESCRIÇÃO --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="fw-bold" style="width: 200px; font-size: 9pt;">
-            {{ $deposittransfer->product_name }}
+            {{ $deposittransferproduct->product_name }}
         </div>
     </td>
 
     {{-- QUANTIDADE --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="fw-bold" style="width: 70px; font-size: 10pt;">
-            {{ App\Models\General::decodeFloat2($deposittransfer->quantity) }}
+            {{ App\Models\General::decodeFloat2($deposittransferproduct->quantity) }}
         </div>
     </td>
 
     {{-- INTERNO --}}
     <td class="align-middle" style="line-height: 1; padding: 0;">
         <div class="fw-bold" style="width: 70px; font-size: 9pt;">
-            {{ $outputproduct->product->code }}
+            {{ $deposittransferproduct->product->code }}
         </div>
     </td>
 
     {{-- REFERÊCNIA --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="fw-bold" style="width: 80px; font-size: 9pt;">
-            {{ $outputproduct->product->reference }}
+            {{ $deposittransferproduct->product->reference }}
         </div>
     </td>
 
     {{-- BARRAS --}}
     <td class="align-middle" style="line-height: 1;">
         <div class="fw-bold" style="width: 100px; font-size: 9pt;">
-            {{ $outputproduct->product->ean }}
+            {{ $deposittransferproduct->product->ean }}
         </div>
     </td>
 </tr>
