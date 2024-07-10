@@ -1700,4 +1700,41 @@ class Report extends Model
 
         return true;
     }
+
+    /**
+     * Deposittransfer Generate
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function deposittransferGenerate(array $data) : bool {
+        // Define as variáveis
+        $path = public_path('/storage/pdf/' . $data['config']['name'] . '/');
+        $file_name = 'deposittransfer_' . $data['validatedData']['deposittransfer_id'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
+
+        // Gera o arquivo PDF.
+        $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf', [
+            'user'  => auth()->user()->name,
+            'title' => 'Tranferência',
+            'date'  => date('d/m/Y H:i:s'),
+            'deposittransfer' => Deposittransfer::find($data['validatedData']['deposittransfer_id']),
+            'list'  => $list = Deposittransferproduct::where(
+                'deposittransfer_id', $data['validatedData']['deposittransfer_id']
+            )->get(), 
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
+
+        // Salva o arquivo PDF.
+        File::makeDirectory($path, $mode = 0777, true, true);
+        $pdf->save($path . $file_name);
+
+        // Registra os dados do arquivo PDF.
+        Report::create([
+            'user_id' => auth()->user()->id,
+            'folder'  => $data['config']['name'],
+            'file'    => $file_name,
+            'reference_1' => $data['validatedData']['deposittransfer_id'],
+        ]);
+
+        return true;
+    }
 }

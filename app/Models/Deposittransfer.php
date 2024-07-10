@@ -54,7 +54,10 @@ class Deposittransfer extends Model
     public static function validateAdd(array $data){
         $message = null;
 
-        // ...
+        // Verifica se Depósito de Origem e Destino são o mesmo.
+        if($data['validatedData']['origin_id'] == $data['validatedData']['destiny_id']):
+            $message = 'origem e destino devem ser Depósitos diferentes';
+        endif;
 
         // Desvio.
         if(!empty($message)):

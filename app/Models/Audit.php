@@ -3434,6 +3434,7 @@ class Audit extends Model
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
             'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='            . $after->id            . ',' .
                 'provider_id='   . $after->provider_id   . ',' .
                 'provider_name=' . $after->provider_name . ',' .
                 'deposit_id='    . $after->deposit_id    . ',' .
@@ -3460,6 +3461,7 @@ class Audit extends Model
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
             'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='           . $after->id           . ',' .
                 'deposit_id='   . $after->deposit_id   . ',' .
                 'deposit_name=' . $after->deposit_name . ',' .
                 'company_id='   . $after->company_id   . ',' .
@@ -3488,6 +3490,59 @@ class Audit extends Model
                 'deposit_name=' . $data['validatedData']['deposit_name'] . ',' .
                 'company_id='   . $data['validatedData']['company_id']   . ',' .
                 'observation='  . $data['validatedData']['observation']  . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Deposittransfer Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function deposittransferAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='           . $after->id           . ',' .
+                'origin_id='    . $after->origin_id    . ',' .
+                'origin_name='  . $after->origin_name  . ',' .
+                'destiny_id='   . $after->destiny_id   . ',' .
+                'destiny_name=' . $after->destiny_name . ',' .
+                'company_id='   . $after->company_id   . ',' .
+                'observation='  . $after->observation  . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Deposittransfer Erase.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function deposittransferErase(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
+                'id='           . $data['validatedData']['deposittransfer_id'] . ',' .
+                'origin_id='    . $data['validatedData']['origin_id']          . ',' .
+                'origin_name='  . $data['validatedData']['origin_name']        . ',' .
+                'destiny_id='   . $data['validatedData']['destiny_id']         . ',' .
+                'destiny_name=' . $data['validatedData']['destiny_name']       . ',' .
+                'company_id='   . $data['validatedData']['company_id']         . ',' .
+                'observation='  . $data['validatedData']['observation']        . ',' .
             '}',
         ]);
 
