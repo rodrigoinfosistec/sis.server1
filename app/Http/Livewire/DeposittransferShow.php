@@ -210,7 +210,7 @@ class DeposittransferShow extends Component
      */
     public function addProduct(int $deposittransfer_id)
     {
-        // Empresa.
+        // Transferência Depósito.
         $deposittransfer = Deposittransfer::find($deposittransfer_id);
 
         // Inicializa propriedades dinâmicas.
