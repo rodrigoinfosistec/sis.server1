@@ -251,6 +251,12 @@ class Config extends Model
                 'icon'  => 'bi-reply-all',
                 'test'  => true,
             ],
+            [
+                'name'  => 'deposittransfer',
+                'title' => 'Transferência Depósitos',
+                'icon'  => 'bi-arrow-left-right',
+                'test'  => true,
+            ],
         ];
 
         return $pages;

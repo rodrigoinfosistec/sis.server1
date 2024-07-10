@@ -32,10 +32,10 @@
                         </x-nav-link>
                     </div>
 
-                    {{-- Saída de Produtos --}}
+                    {{-- Transferêcnia Depósitos --}}
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link href="{{ route('output') }}" :active="request()->routeIs('output')" class="text-decoration-none" title="Saída de Produtos">
-                            <i class="bi-reply-all" style="font-size: 20pt;"></i>
+                        <x-nav-link href="{{ route('deposittransfer') }}" :active="request()->routeIs('deposittransfer')" class="text-decoration-none" title="Transferência Depósitos">
+                            <i class="bi-arrow-left-right" style="font-size: 20pt;"></i>
                         </x-nav-link>
                     </div>
                 @endif
