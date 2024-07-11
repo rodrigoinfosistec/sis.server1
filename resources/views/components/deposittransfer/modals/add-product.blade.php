@@ -5,12 +5,17 @@
         <x-slot:identifier>
             TRANSFERÊNCIA
             <i class="bi bi-caret-right-fill"></i>
-            #{{ $deposittransfer_id }}
+            <span class="text-dark fw-bold">
+                #{{ $deposittransfer_id }}
+            </span>
             <br>
+            ORIGEM
+            <i class="bi bi-caret-right-fill"></i>
             <span class="text-primary">
                 {{ $origin_name }}
             </span>
-            <i class="bi bi-caret-right-fill"></i>
+            <br>
+            DESTINO<i class="bi bi-caret-right-fill"></i>
             <span class="text-primary">
                 {{ $destiny_name }}
             </span>

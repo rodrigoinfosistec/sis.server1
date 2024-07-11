@@ -199,26 +199,26 @@ class Deposittransfer extends Model
         $deposittransfer = Deposittransfer::find($data['validatedData']['deposittransfer_id']);
 
         // Percorre todos os Produtos da Transferência.
-        foreach(Deposittransferproduct::where('output_id', $data['validatedData']['deposittransfer_id'])->get() as $key => $deposittransferproduct):
+        foreach(Deposittransferproduct::where('deposittransfer_id', $data['validatedData']['deposittransfer_id'])->get() as $key => $deposittransferproduct):
             // Retira Quantidade do Produto no Depósito Origem.
             $productorigin = Productdeposit::where(['product_id' => $deposittransferproduct->product->id, 'deposit_id' => $data['validatedData']['origin_id']])->first();
-            $productorigin_quantity = $productorigin->quantity - General::encodeFloat($data['validatedData']['quantity'], 7);
+            $productorigin_quantity = $productorigin->quantity - $deposittransferproduct->quantity;
             Productdeposit::where(['product_id' => $deposittransferproduct->product->id, 'deposit_id' => $data['validatedData']['origin_id']])->update([
                 'quantity' => $productorigin_quantity,
             ]);
 
             // Acrescenta Quantidade do Produto no Depósito Destino.
             $productdestiny = Productdeposit::where(['product_id' => $deposittransferproduct->product->id, 'deposit_id' => $data['validatedData']['destiny_id']])->first();
-            $productdestiny_quantity = $productdestiny->quantity + General::encodeFloat($data['validatedData']['quantity'], 7);
+            $productdestiny_quantity = $productdestiny->quantity + $deposittransferproduct->quantity;
             Productdeposit::where(['product_id' => $deposittransferproduct->product->id, 'deposit_id' => $data['validatedData']['destiny_id']])->update([
                 'quantity' => $productdestiny_quantity,
             ]);
 
             // Regista Movimentação do produto.
             Productmoviment::create([
-                'product_id' => $outputproduct->product->id,
+                'product_id' => $deposittransferproduct->product->id,
                 'identification' => 'Transf. Dep: ' . $data['validatedData']['deposittransfer_id'] . '. De:' . $data['validatedData']['origin_id'] . ' Para:' . $data['validatedData']['destiny_id'],
-                'quantity' => General::encodeFloat($data['validatedData']['quantity'], 7),
+                'quantity' => $productdestiny_quantity,
                 'user_id' => auth()->user()->id,
             ]);
         endforeach;

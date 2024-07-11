@@ -105,13 +105,17 @@
     <h2 class="accordion-header">
         <button class="accordion-button collapsed" style="padding-top: 5px; padding-bottom: 5px;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $item->id }}">
             <div class="w-100">
-                <div class="float-start" style="width: 170px; font-size: 8pt;">
+                <div class="float-start" style="font-size: 8pt;">
                     <x-layout.card.card-body-content-table-body-line-cell-id-badge>
                         {{ str_pad($item->id, Str::length($list->count()), '0', STR_PAD_LEFT); }}
                     </x-layout.card.card-body-content-table-body-line-cell-id-badge>
                     {{ $item->user->name }}
                     <br>
+                    DE
+                    <i class="bi bi-caret-right-fill"></i>
                     {{ $item->origin->name }}
+                    <br>
+                    PARA
                     <i class="bi bi-caret-right-fill"></i>
                     {{ $item->destiny->name }}
                     <br>
@@ -144,7 +148,7 @@
                     #. INT | DESCRIÇÃO | EAN | REF
                 </span>
                 <ol class="list-group list-group-numbered">
-                    @foreach(App\Models\Deposittransferproduct::where('output_id', $item->id)->orderBy('product_name', 'ASC')->get() as $key => $deposittransferproduct)
+                    @foreach(App\Models\Deposittransferproduct::where('deposittransfer_id', $item->id)->orderBy('product_name', 'ASC')->get() as $key => $deposittransferproduct)
                         <li class="list-group-item d-flex justify-content-between align-items-start" style="font-size: 9pt;">
                             <div class="ms-2 me-auto text-dark" style="font-size: 8.5pt;">
                                 {{ $deposittransferproduct->product->code }} |

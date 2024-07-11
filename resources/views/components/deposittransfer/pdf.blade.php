@@ -15,9 +15,11 @@
         </div>
 
         <div class="float-start fw-bold" style="width: 600px; height: 35px; margin-right: 10px; margin-top: 5px; font-size: 9pt;">
-            {{ $balance->origin_name }}
-            <span class="fw-normal text-muted"><i class="bi bi-caret-fill"></i>
-            {{ $balance->destiny_name }} </span>
+            <span class="fw-normal text-muted">DE:</span>
+            {{ $deposittransfer->origin_name }}
+            <br>
+            <span class="fw-normal text-muted">PARA:</span>
+            {{ $deposittransfer->destiny_name }}
         </div>
 
         <div class="float-end" style="width: 100px; height: 40px;">
@@ -104,7 +106,7 @@
 {{-- QUANTIDADE --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="text-dark fw-bold" style="width: 100px; font-size: 10pt;">
-        {{ ($item->quantity) }}
+        {{ App\Models\General::decodeFloat2($item->quantity) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 {{-- conteúdo --}}

@@ -43,33 +43,38 @@ class Deposittransferproduct extends Model
     public static function validateAdd(array $data) : bool {
         $message = null;
 
-        // Verifica se o Produto já está cadastrado na Tranferência.
-        if(Deposittransferproduct::where(['deposittransfer_id' => $data['validatedData']['deposittransfer_id'], 'product_id' => $data['validatedData']['product_id']])->exists()):
-            $message = 'Produto já cadastrado nesta saída.';
-        endif;
+        // Verifica se o Produto existe, pelo código id passado.
+        if(Product::where('id', $data['validatedData']['product_id'])->doesntExist() OR empty($data['validatedData']['product_id'])):
+            $message = 'Código de Produto:' . $data['validatedData']['product_id'] .' não encontrado.';
+        else:
+            // Verifica se o Produto já está cadastrado na Tranferência.
+            if(Deposittransferproduct::where(['deposittransfer_id' => $data['validatedData']['deposittransfer_id'], 'product_id' => $data['validatedData']['product_id']])->exists()):
+                $message = 'Produto já cadastrado nesta saída.';
+            endif;
 
-        // Verifica se o produto não existe no Depósito Origem.
-        if(Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['origin_id']])->doesntExist()):
-            // Cadastra Produto no Depósito Origem.
-            Productdeposit::create([
-                'product_id' => $data['validatedData']['product_id'],
-                'deposit_id' => $data['validatedData']['origin_id'],
-            ]);
-        endif;
+            // Verifica se o produto não existe no Depósito Origem.
+            if(Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['origin_id']])->doesntExist()):
+                // Cadastra Produto no Depósito Origem.
+                Productdeposit::create([
+                    'product_id' => $data['validatedData']['product_id'],
+                    'deposit_id' => $data['validatedData']['origin_id'],
+                ]);
+            endif;
 
-        // Verifica se o produto não existe no Depósito Destino.
-        if(Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['destiny_id']])->doesntExist()):
-            // Cadastra Produto no Depósito Destino.
-            Productdeposit::create([
-                'product_id' => $data['validatedData']['product_id'],
-                'deposit_id' => $data['validatedData']['destiny_id'],
-            ]);
-        endif;
+            // Verifica se o produto não existe no Depósito Destino.
+            if(Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['destiny_id']])->doesntExist()):
+                // Cadastra Produto no Depósito Destino.
+                Productdeposit::create([
+                    'product_id' => $data['validatedData']['product_id'],
+                    'deposit_id' => $data['validatedData']['destiny_id'],
+                ]);
+            endif;
 
-        // Verifica se o Depósito Origem possui a quantidade de Produto transferida.
-        if(Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['origin_id']])->first()->quantity < General::encodeFloat($data['validatedData']['quantity'], 7)):
-            $productdeposit = Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['origin_id']])->first();
-            $message = 'Quantidade no Depósito Origem:' . General::decodeFloat2($productdeposit->quantity, 2) . ' menor do que a desejada:' . $data['validatedData']['quantity'] . '.';
+            // Verifica se o Depósito Origem possui a quantidade de Produto transferida.
+            if(Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['origin_id']])->first()->quantity < General::encodeFloat($data['validatedData']['quantity'], 7)):
+                $productdeposit = Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['origin_id']])->first();
+                $message = 'Quantidade no Depósito Origem:' . General::decodeFloat2($productdeposit->quantity, 2) . ' menor do que a desejada:' . $data['validatedData']['quantity'] . '.';
+            endif;
         endif;
 
         // Desvio.
