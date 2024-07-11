@@ -12,7 +12,7 @@
 {{-- conteúdo --}}
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="6">
-        <x-layout.modal.modal-add-body-group-item-label item="origin_id" title="ORIGEM" plus="deposit"/>
+        <x-layout.modal.modal-add-body-group-item-label item="origin_id" title="ORIGEM" plus="none"/>
 
         <select wire:model="origin_id" class="form-select form-select-sm text-uppercase" id="origin_id">
             <x-layout.modal.modal-add-body-group-item-option-muted/>
@@ -34,7 +34,7 @@
     </x-layout.modal.modal-add-body-group-item>
 
     <x-layout.modal.modal-add-body-group-item columms="6">
-        <x-layout.modal.modal-add-body-group-item-label item="destiny_id" title="DESTINO" plus="deposit"/>
+        <x-layout.modal.modal-add-body-group-item-label item="destiny_id" title="DESTINO" plus="none"/>
 
         <select wire:model="destiny_id" class="form-select form-select-sm text-uppercase" id="destiny_id">
             <x-layout.modal.modal-add-body-group-item-option-muted/>
