@@ -231,6 +231,7 @@ class DeposittransferShow extends Component
             $validatedData = $this->validate([
                 'product_id' => ['required'],
                 'quantity' => ['required', 'numeric', 'min:0.1'],
+                'product_id' => ['required'],
             ]);
 
             // Estende $validatedData.
