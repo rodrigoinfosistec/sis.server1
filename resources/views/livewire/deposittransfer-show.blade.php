@@ -135,6 +135,8 @@
                         @if(App\Models\Deposittransferproduct::where('deposittransfer_id', $item->id)->exists())
                             <x-layout.card.card-body-content-table-body-line-cell-action-add-funded :id="$item->id"/>
                         @endif
+                    @else
+                        <x-layout.card.card-body-content-table-body-line-cell-action-print-deposittransfer :id="$item->id"/>
                     @endif
                 </div>
             </div>
