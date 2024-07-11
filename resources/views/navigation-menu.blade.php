@@ -191,9 +191,9 @@
                 <i class="bi-calendar-date" style="font-size: 20pt;"></i>
             </x-nav-link>
 
-            {{-- Saída de Produtos --}}
-            <x-nav-link href="{{ route('output') }}" :active="request()->routeIs('output')" class="text-decoration-none" style="margin-right: 10px;">
-                <i class="bi-reply-all" style="font-size: 20pt;"></i>
+            {{-- Transferência Depósito --}}
+            <x-nav-link href="{{ route('deposittransfer') }}" :active="request()->routeIs('deposittransfer')" class="text-decoration-none" style="margin-right: 10px;">
+                <i class="bi-arrow-left-right" style="font-size: 20pt;"></i>
             </x-nav-link>
         </div>
 
