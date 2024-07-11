@@ -100,6 +100,7 @@
                             @foreach($list as $item)
                                 <x-layout.card.card-body-content-table-body-line>
                                     <div class="accordion accordion-flush" id="accordionOutput">
+
 {{-- conteúdo --}}
 <div class="accordion-item" style="border-bottom: 1px solid #ddd;">
     <h2 class="accordion-header">
@@ -162,7 +163,7 @@
                                 @endif
                             </div>
                             <span class="badge text-bg-primary rounded-pill">{{ number_format($deposittransferproduct->quantity) }}</span>
-            
+
                         </li>
                     @endforeach
                 </ol>
