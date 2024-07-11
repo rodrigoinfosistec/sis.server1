@@ -158,7 +158,7 @@
                                 {{ $deposittransferproduct->product->ean }} |
                                 {{ $deposittransferproduct->product->reference }}
                                 @if(!$item->funded)
-                                    <x-layout.card.card-body-content-table-body-line-cell-action-erase-product :id="$deposittransferproduct->id"/>
+                                    <x-layout.card.card-body-content-table-body-line-cell-action-erase-deposittransferproduct :id="$deposittransferproduct->id"/>
                                 @endif
                             </div>
                             <span class="badge text-bg-primary rounded-pill">{{ number_format($deposittransferproduct->quantity) }}</span>
