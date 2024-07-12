@@ -32,10 +32,17 @@
                         </x-nav-link>
                     </div>
 
-                    {{-- Transferêcnia Depósitos --}}
+                    {{-- Transferêcnia Depósito --}}
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link href="{{ route('deposittransfer') }}" :active="request()->routeIs('deposittransfer')" class="text-decoration-none" title="Transferência Depósitos">
+                        <x-nav-link href="{{ route('deposittransfer') }}" :active="request()->routeIs('deposittransfer')" class="text-decoration-none" title="Transferência Depósito">
                             <i class="bi-arrow-left-right" style="font-size: 20pt;"></i>
+                        </x-nav-link>
+                    </div>
+
+                    {{-- Saída Depósito --}}
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('depositoutput') }}" :active="request()->routeIs('depositoutput')" class="text-decoration-none" title="Saída Depósito">
+                            <i class="bi-arrow-down" style="font-size: 20pt;"></i>
                         </x-nav-link>
                     </div>
                 @endif
@@ -194,6 +201,11 @@
             {{-- Transferência Depósito --}}
             <x-nav-link href="{{ route('deposittransfer') }}" :active="request()->routeIs('deposittransfer')" class="text-decoration-none" style="margin-right: 10px;">
                 <i class="bi-arrow-left-right" style="font-size: 20pt;"></i>
+            </x-nav-link>
+
+            {{-- Saída Depósito --}}
+            <x-nav-link href="{{ route('depositoutput') }}" :active="request()->routeIs('depositoutput')" class="text-decoration-none" style="margin-right: 10px;">
+                <i class="bi-arrow-down" style="font-size: 20pt;"></i>
             </x-nav-link>
         </div>
 
