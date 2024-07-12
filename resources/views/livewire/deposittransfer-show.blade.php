@@ -66,7 +66,7 @@
                     <x-layout.card.card-body-navigation-search-filter>
 
 {{-- filtro nome --}}
-<option value="origem_name">ORIGEM</option>
+<option value="origin_name">ORIGEM</option>
 <option value="destiny_name">DESTINO</option>
 <option value="user_name">USUÁRIO</option>
 <option value="observation">OBSERVAÇÃO</option>
