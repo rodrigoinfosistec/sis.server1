@@ -106,28 +106,22 @@
     <h2 class="accordion-header">
         <button class="accordion-button collapsed" style="padding-top: 5px; padding-bottom: 5px;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $item->id }}">
             <div class="w-100">
-                <div class="float-start" style="font-size: 8pt;">
+                <div class="float-start" style="min-width: 240px; font-size: 8pt;">
                     <x-layout.card.card-body-content-table-body-line-cell-id-badge>
                         {{ str_pad($item->id, Str::length($list->count()), '0', STR_PAD_LEFT); }}
                     </x-layout.card.card-body-content-table-body-line-cell-id-badge>
                     {{ $item->user->name }}
                     <br>
-                    DE
-                    <i class="bi bi-caret-right-fill"></i>
-                    {{ $item->origin->name }}
+                    <i class="bi bi-caret-left-fill text-danger"></i><span class="text-danger">{{ $item->origin->name }}</span>
                     <br>
-                    PARA
-                    <i class="bi bi-caret-right-fill"></i>
-                    {{ $item->destiny->name }}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="bi bi-caret-right-fill text-primary"></i><span class="text-primary">{{ $item->destiny->name }}</span>
                     <br>
                     <span class="text-muted">
                         {{ $item->created_at->format('d/m/y') }}
                         <i class="bi bi-caret-right-fill"></i>
                         {{ $item->observation }}
                     </span>
-                </div>
-
-                <div class="float-end" style="width: 110px;">
+                    <br>
                     @if(!$item->funded)
                         <x-layout.card.card-body-content-table-body-line-cell-action-add-product :id="$item->id"/>
 
