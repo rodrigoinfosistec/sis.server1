@@ -65,6 +65,8 @@ class DeposittransferShow extends Component
      */
     public function mount($config){
         $this->config = $config;
+
+        $this->destiny_id = Deposit::find(Company::find(auth()->user()->company_id)->depositdefault_id)->id;
     }
 
     /**
