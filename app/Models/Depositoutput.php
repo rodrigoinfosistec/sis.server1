@@ -197,7 +197,7 @@ class Depositoutput extends Model
             ]);
 
             // Atualiza quantidade Total do Produto.
-            Product::find($balanceproduct->product_id)->update([
+            Product::find($depositoutputproduct->product->id)->update([
                 'quantity' => Product::find($depositoutputproduct->product->id)->quantity + $depositoutputproduct->quantity,
             ]);
 

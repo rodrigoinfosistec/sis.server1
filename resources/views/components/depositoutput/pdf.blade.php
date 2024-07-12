@@ -10,13 +10,13 @@
             <h2 class="text-uppercase fw-bold" style="font-size: 12pt;">
                 {{ $title }}
                 <br>
-                #{{ $deposittransfer->id }}
+                #{{ $depositoutput->id }}
             </h2>
         </div>
 
         <div class="float-start fw-bold" style="width: 600px; height: 35px; margin-right: 10px; margin-top: 5px; font-size: 9pt;">
             <span class="fw-normal text-muted">DEPÓSITO</span>
-            {{ $deposittransfer->deposit_name }}
+            {{ $depositoutput->deposit_name }}
         </div>
 
         <div class="float-end" style="width: 100px; height: 40px;">
