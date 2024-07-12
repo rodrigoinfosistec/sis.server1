@@ -253,8 +253,14 @@ class Config extends Model
             ],
             [
                 'name'  => 'deposittransfer',
-                'title' => 'Transferência Depósitos',
+                'title' => 'Transferência Depósito',
                 'icon'  => 'bi-arrow-left-right',
+                'test'  => true,
+            ],
+            [
+                'name'  => 'depositoutput',
+                'title' => 'Saída Depósito',
+                'icon'  => 'bi-arrow-down',
                 'test'  => true,
             ],
         ];
