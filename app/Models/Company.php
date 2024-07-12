@@ -28,9 +28,16 @@ class Company extends Model
         'limit_start_saturday',
         'limit_end_saturday',
 
+        'depositdefault_id',
+
         'created_at',
         'updated_at',
     ];
+
+    /**
+     * Relaciona Models.
+     */
+    public function deposit(){return $this->belongsTo(Deposit::class);}
 
     /**
      * Esconde Nome Fantasia que seja igual à Razão Social.
