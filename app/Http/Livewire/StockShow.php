@@ -54,12 +54,9 @@ class StockShow extends Component
     public $productgroup_name;
     public $productgroup_code;
     public $productgroup_origin;
+
     public $productmeasure_name;
     public $productmeasure_quantity;
-
-    public $csv;
-    public $provider;
-    public $append;
 
     /**
      * Construtor.
@@ -77,10 +74,6 @@ class StockShow extends Component
             'report_id' => ['required'],
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
-
-            'csv' => ['file', 'required'],
-            'provider_id' => ['required'],
-            'append' => ['nullable'],
         ];
     }
 
@@ -130,10 +123,6 @@ class StockShow extends Component
 
         $this->productmeasure_name = '';
         $this->productmeasure_quantity = '';
-
-        $this->csv = '';
-        $this->provider = '';
-        $this->append = '';
     }
 
     /**
@@ -161,49 +150,6 @@ class StockShow extends Component
     }
 
     /**
-     * addCsv()
-     *  registerCsv()
-     */
-    public function addCsv()
-    {
-        //...
-    }
-        public function registerCsv()
-        {
-            // Valida campos.
-            $validatedData = $this->validate([
-                'csv' => ['file', 'required'],
-                'provider_id' => ['required'],
-                'append' => ['nullable'],
-            ]);
-
-            // Estende $validatedData.
-            $validatedData['provider'] = Provider::find($validatedData['provider_id']);
-            $validatedData['file_name'] = $validatedData['provider_id'] . '_' . Str::random(10) . '.csv';
-
-            // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
-
-            // Valida cadastro.
-            $valid = Product::validateAdd($data);
-
-            // Valida.
-            if ($valid) $data['validatedData']['csvArray'] = $valid['CsvArray'];
-
-            // Cadastra.
-            if ($valid) Product::add($data);
-
-            // Executa dependências.
-            if ($valid) Product::dependencyAdd($data);
-
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
-            return redirect()->to('/product');
-        }
-
-    /**
      * generate()
      *  sire()
      */
@@ -219,13 +165,13 @@ class StockShow extends Component
             $data['search'] = $this->search;
 
             // Valida geração de relatório.
-            $valid = Product::validateGenerate($data);
+            $valid = Stock::validateGenerate($data);
 
             // Gera relatório.
-            if ($valid) Product::generate($data);
+            if ($valid) Stock::generate($data);
 
             // Executa dependências.
-            if ($valid) Product::dependencyGenerate($data);
+            if ($valid) Stock::dependencyGenerate($data);
 
             // Fecha modal.
             $this->closeModal();
@@ -254,13 +200,13 @@ class StockShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida envio do e-mail.
-            $valid = Product::validateMail($data);
+            $valid = Stock::validateMail($data);
 
             // Envia e-mail.
-            if ($valid) Product::mail($data);
+            if ($valid) Stock::mail($data);
 
             // Executa dependências.
-            if ($valid) Product::dependencyMail($data);
+            if ($valid) Stock::dependencyMail($data);
 
             // Fecha modal.
             $this->closeModal();
