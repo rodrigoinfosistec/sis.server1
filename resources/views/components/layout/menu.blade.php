@@ -136,6 +136,11 @@
                                 <i class="{{ App\Models\Page::getIconByName('product') }}"></i> {{ App\Models\Page::getTitleByName('product') }}
                             </x-responsive-nav-link>
 
+                            {{-- Estoque de Produto --}}
+                            <x-responsive-nav-link href="{{ route('stock') }}" :active="request()->routeIs('stock')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('stock') }}"></i> {{ App\Models\Page::getTitleByName('stock') }}
+                            </x-responsive-nav-link>
+
                             {{-- Balanço --}}
                             <x-responsive-nav-link href="{{ route('balance') }}" :active="request()->routeIs('balance')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('balance') }}"></i> {{ App\Models\Page::getTitleByName('balance') }}
