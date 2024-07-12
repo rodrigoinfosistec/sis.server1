@@ -128,11 +128,11 @@
 
                             <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
 
-                            @if(App\Models\Deposittransferproduct::where('deposittransfer_id', $item->id)->exists())
+                            @if(App\Models\Depositoutputproduct::where('depositoutput_id', $item->id)->exists())
                                 <x-layout.card.card-body-content-table-body-line-cell-action-add-funded :id="$item->id"/>
                             @endif
                         @else
-                            <x-layout.card.card-body-content-table-body-line-cell-action-print-deposittransfer :id="$item->id"/>
+                            <x-layout.card.card-body-content-table-body-line-cell-action-print-depositoutput :id="$item->id"/>
                         @endif
                     </div>
                 </div>
@@ -141,23 +141,23 @@
     
         <div id="flush-collapse{{ $item->id }}" class="accordion-collapse collapse @if($loop->first) show @endif" data-bs-parent="#accordionOutput">
             <div class="accordion-body" style="line-height: 1.2">
-                @if(App\Models\Deposittransferproduct::where('deposittransfer_id', $item->id)->exists())
+                @if(App\Models\Depositoutputproduct::where('depositoutput_id', $item->id)->exists())
                     <span class="text-muted" style="font-size:8pt;">
                         #. INT | DESCRIÇÃO | EAN | REF
                     </span>
                     <ol class="list-group list-group-numbered">
-                        @foreach(App\Models\Deposittransferproduct::where('deposittransfer_id', $item->id)->orderBy('product_name', 'ASC')->get() as $key => $deposittransferproduct)
+                        @foreach(App\Models\Depositoutputproduct::where('depositoutput_id', $item->id)->orderBy('product_name', 'ASC')->get() as $key => $depositoutputproduct)
                             <li class="list-group-item d-flex justify-content-between align-items-start" style="font-size: 9pt;">
                                 <div class="ms-2 me-auto text-dark" style="font-size: 8.5pt;">
-                                    {{ $deposittransferproduct->product->code }} |
-                                    {{ $deposittransferproduct->product->name }} |
-                                    {{ $deposittransferproduct->product->ean }} |
-                                    {{ $deposittransferproduct->product->reference }}
+                                    {{ $depositoutputproduct->product->code }} |
+                                    {{ $depositoutputproduct->product->name }} |
+                                    {{ $depositoutputproduct->product->ean }} |
+                                    {{ $depositoutputproduct->product->reference }}
                                     @if(!$item->funded)
-                                        <x-layout.card.card-body-content-table-body-line-cell-action-erase-deposittransferproduct :id="$deposittransferproduct->id"/>
+                                        <x-layout.card.card-body-content-table-body-line-cell-action-erase-depositoutputproduct :id="$depositoutputproduct->id"/>
                                     @endif
                                 </div>
-                                <span class="badge text-bg-primary rounded-pill">{{ number_format($deposittransferproduct->quantity) }}</span>
+                                <span class="badge text-bg-primary rounded-pill">{{ number_format($depositoutputproduct->quantity) }}</span>
     
                             </li>
                         @endforeach

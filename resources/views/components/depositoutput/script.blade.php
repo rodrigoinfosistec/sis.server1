@@ -1,3 +1,14 @@
-<div>
-    <!-- Knowing is not enough; we must apply. Being willing is not enough; we must do. - Leonardo da Vinci -->
-</div>
+<script>
+    window.addEventListener('close-modal', event => {
+        $('#generateModal').modal('hide');
+        $('#mailModal').modal('hide');
+
+        $('#addModal').modal('hide');
+
+        $('#addModal').modal('hide');
+        $('#addProductModal').modal('hide');
+        $('#addFundedModal').modal('hide');
+        $('#eraseModal').modal('hide');
+        $('#eraseProductModal').modal('hide');
+    })
+</script>
