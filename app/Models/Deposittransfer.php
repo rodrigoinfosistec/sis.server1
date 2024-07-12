@@ -218,7 +218,7 @@ class Deposittransfer extends Model
             Productmoviment::create([
                 'product_id' => $deposittransferproduct->product->id,
                 'identification' => 'Transf. Dep: ' . $data['validatedData']['deposittransfer_id'] . '. De:' . $data['validatedData']['origin_id'] . ' Para:' . $data['validatedData']['destiny_id'],
-                'quantity' => $productdestiny_quantity,
+                'quantity' => $deposittransferproduct->quantity,
                 'user_id' => auth()->user()->id,
             ]);
         endforeach;

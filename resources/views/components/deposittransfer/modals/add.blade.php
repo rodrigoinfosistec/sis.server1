@@ -36,7 +36,7 @@
     <x-layout.modal.modal-add-body-group-item columms="6">
         <x-layout.modal.modal-add-body-group-item-label item="destiny_id" title="DESTINO" plus="none"/>
 
-        <select wire:model="destiny_id" class="form-select form-select-sm text-uppercase" id="destiny_id">
+        <select wire:model="destiny_id" class="form-select form-select-sm text-uppercase" id="destiny_id" disabled>
             <x-layout.modal.modal-add-body-group-item-option-muted/>
             @php
                 // Inicializa variável.
@@ -51,6 +51,8 @@
                 <option value="{{ $deposit->id }}">{{ $deposit->name }}</option>
             @endforeach
         </select>
+
+
 
         <x-layout.modal.modal-add-body-group-item-error item="destiny_id" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
