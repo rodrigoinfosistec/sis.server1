@@ -12,6 +12,7 @@ use App\Http\Controllers\ProviderController;
 
 use App\Http\Controllers\ProductgroupController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StockController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\OutputController;
 use App\Http\Controllers\DeposittransferController;
@@ -66,6 +67,7 @@ Route::middleware([
 
     Route::get('/productgroup', [ProductgroupController::class, 'index'])->name('productgroup');
     Route::get('/product', [ProductController::class, 'index'])->name('product');
+    Route::get('/stock', [StockController::class, 'index'])->name('stock');
     Route::get('/balance', [BalanceController::class, 'index'])->name('balance');
     Route::get('/output', [OutputController::class, 'index'])->name('output');
     Route::get('/deposittransfer', [DeposittransferController::class, 'index'])->name('deposittransfer');

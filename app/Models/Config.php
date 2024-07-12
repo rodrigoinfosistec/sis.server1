@@ -263,6 +263,12 @@ class Config extends Model
                 'icon'  => 'bi-arrow-down',
                 'test'  => true,
             ],
+            [
+                'name'  => 'stock',
+                'title' => 'Estoque de Produto',
+                'icon'  => 'bi-box',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
