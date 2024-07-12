@@ -25,7 +25,7 @@
                     $array[] =  $deposituser->deposit_id;
                 endforeach;
             @endphp
-            @foreach(App\Models\Deposit::where('company_id', auth()->user()->company_id)->whereIn('id', $array)->orderBy('name', 'ASC')->get() as $key => $deposit)
+            @foreach(App\Models\Deposit::where('company_id', auth()->user()->company_id)->whereNot('id', App\Models\Company::find( auth()->user()->company_id)->depositdefault_id)->whereNot('id', $origin_id)->orderBy('name', 'ASC')->get() as $key => $deposit)
                 <option value="{{ $deposit->id }}">{{ $deposit->name }}</option>
             @endforeach
         </select>

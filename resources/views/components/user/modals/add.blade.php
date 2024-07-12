@@ -31,7 +31,7 @@
         <select wire:model="usergroup_id" class="form-select form-select-sm text-uppercase" id="usergroup_id">
             <x-layout.modal.modal-add-body-group-item-option-muted/>
 
-            @foreach(App\Models\Usergroup::where([['name', '!=', 'DEVELOPMENT'], ['status', true]])->get() as $key => $usergroup)
+            @foreach(App\Models\Usergroup::where([['name', '!=', 'DEVELOPMENT'], ['status', true]])->orderBy('name', 'ASC')->get() as $key => $usergroup)
                 <option value="{{ $usergroup->id }}">{{ $usergroup->name }}</option>
             @endforeach
         </select>
