@@ -140,6 +140,11 @@
                             <x-responsive-nav-link href="{{ route('balance') }}" :active="request()->routeIs('balance')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('balance') }}"></i> {{ App\Models\Page::getTitleByName('balance') }}
                             </x-responsive-nav-link>
+
+                            {{-- Saída Depósito --}}
+                            <x-responsive-nav-link href="{{ route('depositoutput') }}" :active="request()->routeIs('depositoutput')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('depositoutput') }}"></i> {{ App\Models\Page::getTitleByName('depositoutput') }}
+                            </x-responsive-nav-link>
                         </div>
 
                         <div class="pt-2 pb-0 border-t border-gray-200">

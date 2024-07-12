@@ -15,7 +15,6 @@
         </div>
 
         <div class="float-start fw-bold" style="width: 600px; height: 35px; margin-right: 10px; margin-top: 5px; font-size: 9pt;">
-            <span class="fw-normal text-muted">DEPÓSITO</span>
             {{ $depositoutput->deposit_name }}
         </div>
 
