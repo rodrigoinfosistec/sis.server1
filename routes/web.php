@@ -15,6 +15,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\OutputController;
 use App\Http\Controllers\DeposittransferController;
+use App\Http\Controllers\DepositoutputController;
 
 use App\Http\Controllers\ClockregistryController;
 use App\Http\Controllers\ClockregistryemployeeController;
@@ -68,6 +69,7 @@ Route::middleware([
     Route::get('/balance', [BalanceController::class, 'index'])->name('balance');
     Route::get('/output', [OutputController::class, 'index'])->name('output');
     Route::get('/deposittransfer', [DeposittransferController::class, 'index'])->name('deposittransfer');
+    Route::get('/depositoutput', [DepositoutputController::class, 'index'])->name('depositoutput');
 
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice');
     Route::get('/price-zip/{invoice_id}/', [InvoiceController::class, 'priceZip'])->name('price-zip');
