@@ -198,7 +198,7 @@ class Depositoutput extends Model
 
             // Atualiza quantidade Total do Produto.
             Product::find($depositoutputproduct->product->id)->update([
-                'quantity' => Product::find($depositoutputproduct->product->id)->quantity + $depositoutputproduct->quantity,
+                'quantity' => Product::find($depositoutputproduct->product->id)->quantity - $depositoutputproduct->quantity,
             ]);
 
             // Regista Movimentação do produto.
