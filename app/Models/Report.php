@@ -1758,7 +1758,7 @@ class Report extends Model
             'list'  => $list = Depositoutputproduct::where(
                 'depositoutput_id', $data['validatedData']['depositoutput_id']
             )->get(), 
-        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
 
         // Salva o arquivo PDF.
         File::makeDirectory($path, $mode = 0777, true, true);
