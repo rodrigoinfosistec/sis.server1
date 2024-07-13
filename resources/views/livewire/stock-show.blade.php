@@ -105,10 +105,12 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            TOTAL
-            <i class="bi-caret-right-fill"></i>
-            <span style="font-size: 10pt;" class="text-primary">
-                {{ App\Models\General::decodeFloat2($item->quantity) }}
+            @if(App\Models\Productdeposit::where('product_id', $item->id)->sum('quantity') > 0)
+                <span style="font-size: 11pt;" class="text-primary fw-bold">
+            @else
+                <span style="font-size: 11pt;" class="text-muted fw-bold">
+            @endif
+                {{ App\Models\General::decodeFloat2(App\Models\Productdeposit::where('product_id', $item->id)->sum('quantity')) }}
             </span>
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
