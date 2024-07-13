@@ -51,13 +51,13 @@
 
 <x-layout.pdf.pdf-table-header-column>
     <div class="text-center" style="width: 350px;">
-        INTERNO/DESCRIÇÃO
+        DESCRIÇÃO
     </div>
 </x-layout.pdf.pdf-table-header-column>
 
-@foreach(App\Models\Deposit::where('company_id', auth()->user()->company_id)->whereNot(App\Models\Company::find(auth()->user()->company_id)->depositdefault_id)->get() as $key => $deposit)
+@foreach(App\Models\Deposit::where('company_id', auth()->user()->company_id)->whereNot('id', App\Models\Company::find(auth()->user()->company_id)->depositdefault_id)->orderBy('name', 'ASC')->get() as $key => $deposit)
     <x-layout.pdf.pdf-table-header-column>
-        <div class="text-center" style="width: 100px;">
+        <div class="" style="width: 100px;">
             {{ $deposit->nick }}
         </div>
     </x-layout.pdf.pdf-table-header-column>
@@ -98,7 +98,7 @@
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
-{{-- INTERNO/DESCRIÇÃO --}}
+{{-- DESCRIÇÃO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="" style="width: 350px; line-height: 1.0;">
         <span class="text-muted">|</span>
@@ -106,13 +106,29 @@
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
+@foreach(App\Models\Deposit::where('company_id', auth()->user()->company_id)->whereNot('id', App\Models\Company::find(auth()->user()->company_id)->depositdefault_id)->orderBy('name', 'ASC')->get() as $key => $deposit)
 {{-- QUANTIDADE --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-muted" style="width: 80px;">
+    <div class="" style="width: 80px; font-size: 10pt;">
         <span class="text-muted">|</span>
+
+        @if(App\Models\Productdeposit::where(['product_id' => $item->id, 'deposit_id' => $deposit->id])->exists())
+            @if(App\Models\Productdeposit::where(['product_id' => $item->id, 'deposit_id' => $deposit->id])->first()->quantity > 0)
+                <span class="fw-bold">
+            @else
+                <span class="text-muted">
+            @endif
+                {{ App\Models\General::decodeFloat2(App\Models\Productdeposit::where(['product_id' => $item->id, 'deposit_id' => $deposit->id])->first()->quantity) }}
+            </span>
+        @else
+            <span class="text-muted">
+                0,00
+            </span>
+        @endif
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 {{-- conteúdo --}}
+@endforeach
 
                 </x-layout.pdf.pdf-table-body-line>
             @endforeach
