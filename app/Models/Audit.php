@@ -3597,4 +3597,25 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Stock Generate.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function stockGenerate(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[gerou relatório]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name'] . ',' .
+                'file_name=' . $data['file_name']      . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }

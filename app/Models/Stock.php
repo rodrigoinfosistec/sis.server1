@@ -52,10 +52,10 @@ class Stock extends Model
         $data['file_name'] = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
 
         // Gera PDF.
-        Report::productGenerate($data);
+        Report::stockGenerate($data);
 
         // Auditoria.
-        Audit::productGenerate($data);
+        Audit::stockGenerate($data);
 
         // Mensagem.
         $message = 'Relatório PDF gerado com sucesso.';

@@ -32,39 +32,33 @@
 
 {{-- conteúdo título --}}
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 30px;">
+    <div class="text-center" style="width: 20px;">
         #
     </div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 50px;">
-        INTERNO
-    </div>
-</x-layout.pdf.pdf-table-header-column>
-
-<x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 80px;">
+    <div class="text-center" style="width: 90px;">
         REF/EAN
     </div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 300px;">
-        DESCRIÇÃO
+    <div class="text-center" style="width: 280px;">
+        INTERNO/DESCRIÇÃO
     </div>
 </x-layout.pdf.pdf-table-header-column>
 
 @foreach(App\Models\Deposit::where('company_id', auth()->user()->company_id)->whereNot('id', App\Models\Company::find(auth()->user()->company_id)->depositdefault_id)->orderBy('name', 'ASC')->get() as $key => $deposit)
     <x-layout.pdf.pdf-table-header-column>
-        <div class="text-center" style="width: 60px;">
+        <div class="text-center" style="width: 80px;">
             {{ $deposit->nick }}
         </div>
     </x-layout.pdf.pdf-table-header-column>
 @endforeach
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 60px;">
+    <div class="text-center" style="width: 80px;">
         TOTAL
     </div>
 </x-layout.pdf.pdf-table-header-column>
@@ -80,22 +74,14 @@
 {{-- conteúdo --}}
 {{-- # --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-muted text-center" style="width: 30px;">
+    <div class="text-muted text-center" style="width: 20px;">
         {{ str_pad($loop->iteration , Str::length($list->count()), '0', STR_PAD_LEFT) }}
-    </div>
-</x-layout.pdf.pdf-table-body-line-cell>
-
-{{-- INTERNO --}}
-<x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 50px;">
-        <span class="text-muted">|</span>
-        {{ $item->code }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- REF/EAN --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 80px; line-height: 1.0;">
+    <div class="" style="width: 90px; line-height: 1.0;">
         <span class="text-muted">
             | {{ $item->reference }}
         </span>
@@ -105,9 +91,13 @@
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
-{{-- DESCRIÇÃO --}}
+{{-- INTERNO/DESCRIÇÃO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 300px; line-height: 1.0;">
+    <div class="" style="width: 280px; line-height: 1.0;">
+        <span class="text-muted">
+            | {{ $item->code }}
+        </span>
+        <br>
         <span class="text-muted">|</span>
         {{ $item->name }}
     </div>
@@ -116,7 +106,7 @@
 @foreach(App\Models\Deposit::where('company_id', auth()->user()->company_id)->whereNot('id', App\Models\Company::find(auth()->user()->company_id)->depositdefault_id)->orderBy('name', 'ASC')->get() as $key => $deposit)
 {{-- QUANTIDADE --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 60px; font-size: 10pt;">
+    <div class="" style="width: 80px; font-size: 8pt;">
         <span class="text-muted">|</span>
 
         @if(App\Models\Productdeposit::where(['product_id' => $item->id, 'deposit_id' => $deposit->id])->whereNot('deposit_id', App\Models\Company::find(auth()->user()->company_id)->depositdefault_id)->exists())
@@ -139,7 +129,7 @@
 
 {{-- TOTAL --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 60px; font-size: 10pt;">
+    <div class="" style="width: 80px; font-size: 8pt;">
         <span class="text-muted">|</span>
 
         @if(App\Models\Productdeposit::where(['product_id' => $item->id])->whereNot('deposit_id', App\Models\Company::find(auth()->user()->company_id)->depositdefault_id)->sum('quantity') > 0)

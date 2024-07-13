@@ -1758,7 +1758,7 @@ class Report extends Model
             'list'  => $list = Depositoutputproduct::where(
                 'depositoutput_id', $data['validatedData']['depositoutput_id']
             )->get(), 
-        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
 
         // Salva o arquivo PDF.
         File::makeDirectory($path, $mode = 0777, true, true);
@@ -1770,6 +1770,39 @@ class Report extends Model
             'folder'  => $data['config']['name'],
             'file'    => $file_name,
             'reference_1' => $data['validatedData']['depositoutput_id'],
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Stock Generate
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function stockGenerate(array $data) : bool {
+        // Gera o arquivo PDF.
+        $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf', [
+            'user'  => auth()->user()->name,
+            'title' => $data['config']['title'],
+            'date'  => date('d/m/Y H:i:s'),
+            'list'  => $list = Product::where([
+                            ['company_id', auth()->user()->company_id],
+                            [$data['filter'], 'like', '%'. $data['search'] . '%'],
+                        ])->orderBy('name', 'ASC')->get(), 
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
+
+        // Salva o arquivo PDF.
+        File::makeDirectory($data['path'], $mode = 0777, true, true);
+        $pdf->save($data['path'] . $data['file_name']);
+
+        // Registra os dados do arquivo PDF.
+        Report::create([
+            'user_id' => auth()->user()->id,
+            'folder'  => $data['config']['name'],
+            'file'    => $data['file_name'],
+            'reference_1' => auth()->user()->company_id,
         ]);
 
         return true;
