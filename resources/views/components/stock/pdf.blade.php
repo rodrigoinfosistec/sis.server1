@@ -55,7 +55,7 @@
     </div>
 </x-layout.pdf.pdf-table-header-column>
 
-@foreach(App\Models\Deposit::where('company_id', auth()->user()->company_id)->whereNot(Company::find(auth()->user()->company_id)->depositdefault_id)->get() as $key => $deposit)
+@foreach(App\Models\Deposit::where('company_id', auth()->user()->company_id)->whereNot(App\Models\Company::find(auth()->user()->company_id)->depositdefault_id)->get() as $key => $deposit)
     <x-layout.pdf.pdf-table-header-column>
         <div class="text-center" style="width: 100px;">
             {{ $deposit->nick }}
