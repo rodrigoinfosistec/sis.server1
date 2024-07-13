@@ -51,7 +51,7 @@
 
 <x-layout.pdf.pdf-table-header-column>
     <div class="text-center" style="width: 350px;">
-        DESCRIÇÃO
+        INTERNO/DESCRIÇÃO
     </div>
 </x-layout.pdf.pdf-table-header-column>
 
@@ -96,7 +96,7 @@
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
-{{-- DESCRIÇÃO --}}
+{{-- INTERNO/DESCRIÇÃO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="" style="width: 350px; line-height: 1.0;">
         <span class="text-muted">|</span>
