@@ -38,33 +38,33 @@
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 60px;">
+    <div class="text-center" style="width: 50px;">
         INTERNO
     </div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 100px;">
+    <div class="text-center" style="width: 80px;">
         REF/EAN
     </div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 350px;">
+    <div class="text-center" style="width: 300px;">
         DESCRIÇÃO
     </div>
 </x-layout.pdf.pdf-table-header-column>
 
 @foreach(App\Models\Deposit::where('company_id', auth()->user()->company_id)->whereNot('id', App\Models\Company::find(auth()->user()->company_id)->depositdefault_id)->orderBy('name', 'ASC')->get() as $key => $deposit)
     <x-layout.pdf.pdf-table-header-column>
-        <div class="text-center" style="width: 70px;">
+        <div class="text-center" style="width: 60px;">
             {{ $deposit->nick }}
         </div>
     </x-layout.pdf.pdf-table-header-column>
 @endforeach
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 70px;">
+    <div class="text-center" style="width: 60px;">
         TOTAL
     </div>
 </x-layout.pdf.pdf-table-header-column>
@@ -87,7 +87,7 @@
 
 {{-- INTERNO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 60px;">
+    <div class="" style="width: 50px;">
         <span class="text-muted">|</span>
         {{ $item->code }}
     </div>
@@ -95,7 +95,7 @@
 
 {{-- REF/EAN --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 100px; line-height: 1.0;">
+    <div class="" style="width: 80px; line-height: 1.0;">
         <span class="text-muted">
             | {{ $item->reference }}
         </span>
@@ -107,7 +107,7 @@
 
 {{-- DESCRIÇÃO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 350px; line-height: 1.0;">
+    <div class="" style="width: 300px; line-height: 1.0;">
         <span class="text-muted">|</span>
         {{ $item->name }}
     </div>
