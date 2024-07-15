@@ -269,6 +269,12 @@ class Config extends Model
                 'icon'  => 'bi-box',
                 'test'  => true,
             ],
+            [
+                'name'  => 'depositinput',
+                'title' => 'Entrada Depósito',
+                'icon'  => 'bi-plus-square-dotted',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
