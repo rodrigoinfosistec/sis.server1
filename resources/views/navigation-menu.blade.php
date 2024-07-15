@@ -25,10 +25,10 @@
                         </x-nav-link>
                     </div>
 
-                    {{-- Contas a Pagar --}}
+                    {{-- Entrada Depósito --}}
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link href="{{ route('account') }}" :active="request()->routeIs('account')" class="text-decoration-none" title="Contas a Pagar">
-                            <i class="bi-calendar-date" style="font-size: 20pt;"></i>
+                        <x-nav-link href="{{ route('depositinput') }}" :active="request()->routeIs('depositinput')" class="text-decoration-none" title="Entrada Depósito">
+                            <i class="bi-plus-square-dotted" style="font-size: 20pt;"></i>
                         </x-nav-link>
                     </div>
 
@@ -186,9 +186,9 @@
                 <i class="bi-clock" style="font-size: 20pt;"></i>
             </x-nav-link>
 
-			{{-- Contas a Pagar --}}
-            <x-nav-link href="{{ route('account') }}" :active="request()->routeIs('account')" class="text-decoration-none" style="margin-right: 10px;">
-                <i class="bi-calendar-date" style="font-size: 20pt;"></i>
+			{{-- Entrada Depósito --}}
+            <x-nav-link href="{{ route('depositinput') }}" :active="request()->routeIs('depositinput')" class="text-decoration-none" style="margin-right: 10px;">
+                <i class="bi-plus-square-dotted" style="font-size: 20pt;"></i>
             </x-nav-link>
 
             {{-- Transferência Depósito --}}
