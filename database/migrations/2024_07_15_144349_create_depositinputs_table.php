@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('number');
             $table->string('range')->default('000');
 
-            $table->decimal('total', 12, 3);
+            $table->decimal('total', 12, 3)->default(0.000);
 
             $table->timestamp('issue');
 
