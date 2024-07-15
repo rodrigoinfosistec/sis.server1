@@ -29,9 +29,18 @@
     <x-layout.modal.modal-add-body-group-item columms="8">
         <x-layout.modal.modal-add-body-group-item-label item="product_id" title="PRODUTO" plus="none"/>
 
+        @php
+            // Inicializa variável.
+            $array = [];
+
+            // Monta o array.
+            foreach(App\Models\Productdeposit::where('deposit_id', $origin_id)->get() as $key => $productdeposit):
+                $array[] =  $productdeposit->product_id;
+            endforeach;
+        @endphp
         <input wire:model="product_id" type="text" class="form-control form-control-sm" list="products" id="product_id">
         <datalist id="products">
-            @foreach(App\Models\Product::where(['company_id' => auth()->user()->company_id, 'status' => true])->orderBy('name', 'ASC')->get() as $key => $product)
+            @foreach(App\Models\Product::where(['company_id' => auth()->user()->company_id, 'status' => true])->whereIn('id', $array)->orderBy('name', 'ASC')->get() as $key => $product)
                 <option value="{{ $product->id }}">
                     {{ $product->code }}
                     |
@@ -58,7 +67,11 @@
 
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="12">
-        <textarea class="form-control form-control-sm bg-light" rows="2" readonly required>{{ @App\Models\Product::find($product_id)->name }}</textarea>
+        <textarea class="form-control form-control-sm bg-light" rows="3" readonly required>{{ @App\Models\Product::find($product_id)->name }}
+            @if(@App\Models\Productdeposit::where(['product_id' => $product_id, 'deposit_id' => $origin_id])->first()->quantity)
+                {{ @App\Models\General::decodeFloat2(App\Models\Productdeposit::where(['product_id' => $product_id, 'deposit_id' => $origin_id])->first()->quantity) }}
+            @endif
+        </textarea>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
 {{-- conteúdo --}}
