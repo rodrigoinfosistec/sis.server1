@@ -104,7 +104,7 @@
 {{-- QUANTIDADE --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="text-dark fw-bold" style="width: 100px; font-size: 10pt;">
-        {{ number_format($item->quantity) }}
+        {{ App\Models\General::decodeFloat2($item->quantity) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 {{-- conteúdo --}}
