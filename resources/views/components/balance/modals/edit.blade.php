@@ -93,7 +93,7 @@
                     {{-- CONTAGEM --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text" style="width: 75px;">
-                            <input type="text" wire:model="array_product_score.{{ $balanceproduct->product->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_product_score_{{ $balanceproduct->product->id }}" onKeyUp="maskFloat2(this, event)" required>
+                            <input type="text" wire:model="array_product_score.{{ $balanceproduct->product->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_product_score_{{ $balanceproduct->product->id }}" required>
                         </div>
                     </td>
 
