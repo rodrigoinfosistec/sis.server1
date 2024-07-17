@@ -185,17 +185,14 @@ class DepositinputShow extends Component
                 $provider = Provider::where('cnpj', Provider::encodeCnpj((string)$xmlObject->NFe->infNFe->emit->CNPJ))->first();
 
                 // Estende $data['validatedData'].
-                $data['validatedData']['provider_id']   = $provider->id;
+                $data['validatedData']['provider_id'] = $provider->id;
                 $data['validatedData']['provider_name'] = $provider->name;
-                $data['validatedData']['company_id']    = $company->id;
-                $data['validatedData']['company_name']  = $company->name;
-                $data['validatedData']['key']           = Invoice::encodeKey((string)$xmlObject->protNFe->infProt->chNFe);
-                $data['validatedData']['number']        = Invoice::encodeNumber((string)$xmlObject->NFe->infNFe->ide->nNF);
-                $data['validatedData']['range']         = Invoice::encodeRange((string)$xmlObject->NFe->infNFe->ide->serie);
-                $data['validatedData']['total']         = $xmlObject->NFe->infNFe->total->ICMSTot->vNF;
-                $data['validatedData']['issue']         = Invoice::encodeIssue((string)$xmlObject->NFe->infNFe->ide->dhEmi);
-                $data['validatedData']['xmlObject']     = $xmlObject;
-                $data['validatedData']['CsvArray']      = $CsvArray;
+                $data['validatedData']['key'] = Invoice::encodeKey((string)$xmlObject->protNFe->infProt->chNFe);
+                $data['validatedData']['number'] = Invoice::encodeNumber((string)$xmlObject->NFe->infNFe->ide->nNF);
+                $data['validatedData']['range'] = Invoice::encodeRange((string)$xmlObject->NFe->infNFe->ide->serie);
+                $data['validatedData']['total'] = $xmlObject->NFe->infNFe->total->ICMSTot->vNF;
+                $data['validatedData']['issue'] = Invoice::encodeIssue((string)$xmlObject->NFe->infNFe->ide->dhEmi);
+                $data['validatedData']['xmlObject'] = $xmlObject;
             endif;
 
             // Cadastra.
