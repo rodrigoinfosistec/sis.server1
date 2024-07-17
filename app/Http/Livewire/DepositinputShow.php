@@ -174,7 +174,7 @@ class DepositinputShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida cadastro.
-            $valid = Depositinput::validateAdd($data);
+            $valid = Depositinput::validateAddXml($data);
 
             // Valida.
             if($valid):
@@ -199,14 +199,14 @@ class DepositinputShow extends Component
             endif;
 
             // Cadastra.
-            if ($valid) Invoice::add($data);
+            if ($valid) Depositinput::addXml($data);
 
             // Executa dependências.
-            if ($valid) Invoice::dependencyAdd($data);
+            if ($valid) Depositinput::dependencyAddXml($data);
 
             // Fecha modal.
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
-            return redirect()->to('/invoice');
+            return redirect()->to('/depositinput');
         }
 }
