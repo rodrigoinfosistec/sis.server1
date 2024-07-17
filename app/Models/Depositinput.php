@@ -68,7 +68,7 @@ class Depositinput extends Model
         $xmlObject = Report::xmlDepositinput($data);
 
         // Verifica se usuário tem Permissão à Empresa Própria.
-
+        
 
         // Verifica se é um arquivo XML.
         if (empty($xmlObject)) $message = 'Arquivo deve ser um xml (NFe).';

@@ -1807,4 +1807,42 @@ class Report extends Model
 
         return true;
     }
+
+    /**
+     * Depositinput Xml
+     * @var array $data
+     * 
+     * @return <object, null> $xml 
+     */
+    public static function xmlDepositinput(array $data){
+        // Salva o arquivo xml.
+        $file_name = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.xml';
+        $path      = public_path('/storage/xml/' . $data['config']['name'] . '/');
+        File::makeDirectory($path, $mode = 0777, true, true);
+        $data['validatedData']['xml']->storeAs('public/xml/' . $data['config']['name'] . '/', $file_name);
+
+        // Instancia o objeto Xml.
+        $xmlFile    = file_get_contents($path . $file_name);
+        @$xmlObject = simplexml_load_string($xmlFile);
+
+        // verifica se é um xml.
+        if($xmlObject):
+            // "Renomeia" o arquivo com a chave do xml.
+            $data['validatedData']['xml']->storeAs('public/xml/' . $data['config']['name'] . '/', $xmlObject->protNFe->infProt->chNFe . '.xml');
+            
+            // Exclui o arquivo.
+            unlink($path . $file_name);
+
+            // Atribui à variável.
+            $xml = $xmlObject;
+        else:
+            // Exclui o arquivo.
+            unlink($path . $file_name);
+
+            // Atribui à variável.
+            $xml = null;
+        endif;
+
+        return  $xml;
+    }
 }
