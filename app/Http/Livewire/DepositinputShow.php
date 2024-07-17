@@ -74,6 +74,7 @@ class DepositinputShow extends Component
             'comment'   => ['nullable', 'between:2,255'],
 
             'xml' => ['file', 'required'],
+            'deposit_id' => ['required'],
         ];
     }
 
@@ -132,15 +133,80 @@ class DepositinputShow extends Component
      * Renderiza página.
      */
     public function render(){
+        // Inicializa variável.
+        $array = [];
+
+        // Monta o array.
+        foreach(Deposituser::where('user_id', auth()->user()->id)->get() as $key => $deposituser):
+            $array[] =  $deposituser->deposit_id;
+        endforeach;
+
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
-            'existsItem'   => Depositinput::exists(),
+            'existsItem'   => Depositinput::where('company_id', auth()->user()->company_id)->whereIn('deposit_id', $array)->exists(),
             'existsReport' => Report::where(['folder' => $this->config['name'], 'reference_1' => Auth()->user()->company_id])->exists(),
             'reports'      => Report::where(['folder' => $this->config['name'], 'reference_1' => Auth()->user()->company_id])->orderBy('id', 'DESC')->limit(12)->get(),
-            'list'         => Invoice::where([
-                                [$this->filter, 'like', '%'. $this->search . '%'],
-                                ['company_id', Auth()->user()->company_id],
-                            ])->orderBy('id', 'DESC')->paginate(25),
+            'list'         => Depositinput::where([
+                [$this->filter, 'like', '%'. $this->search . '%'],
+                ['company_id', Auth()->user()->company_id],
+            ])->whereIn('deposit_id', $array)->orderBy('id', 'DESC')->paginate(100),
         ]);
     }
+
+    /**
+     * addXml()
+     *  register()
+     */
+    public function addXml()
+    {
+        //...
+    }
+        public function registerXml()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'xml' => ['required', 'file'],
+                'deposit_id' => ['required'],
+            ]);
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = Depositinput::validateAdd($data);
+
+            // Valida.
+            if($valid):
+                // Inicializa objeto xml.
+                $xmlObject = $valid['xmlObject'];
+
+                // Provider.
+                $provider = Provider::where('cnpj', Provider::encodeCnpj((string)$xmlObject->NFe->infNFe->emit->CNPJ))->first();
+
+                // Estende $data['validatedData'].
+                $data['validatedData']['provider_id']   = $provider->id;
+                $data['validatedData']['provider_name'] = $provider->name;
+                $data['validatedData']['company_id']    = $company->id;
+                $data['validatedData']['company_name']  = $company->name;
+                $data['validatedData']['key']           = Invoice::encodeKey((string)$xmlObject->protNFe->infProt->chNFe);
+                $data['validatedData']['number']        = Invoice::encodeNumber((string)$xmlObject->NFe->infNFe->ide->nNF);
+                $data['validatedData']['range']         = Invoice::encodeRange((string)$xmlObject->NFe->infNFe->ide->serie);
+                $data['validatedData']['total']         = $xmlObject->NFe->infNFe->total->ICMSTot->vNF;
+                $data['validatedData']['issue']         = Invoice::encodeIssue((string)$xmlObject->NFe->infNFe->ide->dhEmi);
+                $data['validatedData']['xmlObject']     = $xmlObject;
+                $data['validatedData']['CsvArray']      = $CsvArray;
+            endif;
+
+            // Cadastra.
+            if ($valid) Invoice::add($data);
+
+            // Executa dependências.
+            if ($valid) Invoice::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+            return redirect()->to('/invoice');
+        }
 }
