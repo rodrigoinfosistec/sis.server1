@@ -8,6 +8,7 @@ use App\Models\General;
 use App\Models\Report;
 
 use App\Models\Deposit;
+use App\Models\Deposituser;
 use App\Models\Depositinput;
 use App\Models\Depositinputproduct;
 
