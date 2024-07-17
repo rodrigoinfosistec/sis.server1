@@ -99,7 +99,7 @@ class Depositinput extends Model
                     $message = 'Empresa Própria não cadastrada.';
                 endif;
             else:
-                $message = 'Nota Fiscal' . $xmlObject->NFe->infNFe->ide->nNF . ' do Fornecedor ' . $xmlObject->NFe->infNFe->emit->xNome . ' já está cadastrada.';
+                $message = 'Nota Fiscal ' . $xmlObject->NFe->infNFe->ide->nNF . ' do Fornecedor ' . $xmlObject->NFe->infNFe->emit->xNome . ' já está cadastrada.';
             endif;
         else:
             $message = 'Arquivo deve ser um xml (NFe).';
@@ -127,7 +127,7 @@ class Depositinput extends Model
      */
     public static function addXml(array $data) : bool {
         // Cadastra.
-        Depositinput::create([
+        $depositinput_id = Depositinput::create([
             'deposit_name' => $data['validatedData']['deposit_name'],
             'deposit_id'   => $data['validatedData']['deposit_id'],
             'provider_id' => $data['validatedData']['provider_id'],
@@ -142,16 +142,16 @@ class Depositinput extends Model
             'total' => $data['validatedData']['total'],
             'issue' => $data['validatedData']['issue'],
             'observation' => $data['validatedData']['observation'],
-        ]);
+        ])->id;
 
         // After.
-        $after = Invoice::where('key', $data['validatedData']['key'])->first();
+        $after = Depositinput::find($depositinput_id);
 
         // Auditoria.
-        Audit::invoiceAdd($data, $after);
+        Audit::depositinputAddXml($data, $after);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' ' . $after->number . '  do Forcenedor ' . $after->provider_name . ' cadastrada com sucesso.';
+        $message = 'Nota Fiscal ' . $after->number . '  do Forcenedor ' . $after->provider_name . ' cadastrada com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -165,6 +165,7 @@ class Depositinput extends Model
      * @return bool true
      */
     public static function dependencyAddXml(array $data) : bool {
+        dd($data);
         // Cadastra itens CSV da NFe.
         Invoicecsv::add($data);
 
