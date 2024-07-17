@@ -158,7 +158,7 @@ class DeposittransferShow extends Component
 
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
-            'existsItem'   => Deposittransfer::exists(),
+            'existsItem'   => Deposittransfer::where('company_id', auth()->user()->company_id)->whereIn('destiny_id', $array)->whereIn('origin_id', $array)->exists(),
             'existsReport' => Report::where(['folder' => $this->config['name'], 'reference_1' => auth()->user()->company_id])->exists(),
             'reports'      => Report::where(['folder' => $this->config['name'], 'reference_1' => auth()->user()->company_id])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Deposittransfer::where([
