@@ -6,8 +6,8 @@
 @include('components.' .  $config['name'] . '.modals.mail')
 
 {{-- plus --}}
-@include('components.' .  $config['name'] . '.modals.add')
 @include('components.' .  $config['name'] . '.modals.add-xml')
+@include('components.' .  $config['name'] . '.modals.add-product')
 
 {{-- info --}}
 
@@ -73,7 +73,6 @@
 <option value="range">SÉRIE NFE</option>
 <option value="issue">DATA EMISSÃO</option>
 <option value="provider_name">FORNECEDOR</option>
-<option value="company_name">EMPRESA</option>
 {{-- filtro nome --}}
 
                         </x-layout.card.card-body-navigation-search-filter>
