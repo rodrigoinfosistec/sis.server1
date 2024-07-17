@@ -53,6 +53,8 @@ class DepositinputShow extends Component
     public $range;
     public $total;
     public $issue;
+    public $observation;
+    public $funded;
     public $created;
 
     public $xml;
@@ -76,6 +78,7 @@ class DepositinputShow extends Component
 
             'xml' => ['file', 'required'],
             'deposit_id' => ['required'],
+            'observation' => ['required'],
         ];
     }
 
@@ -117,6 +120,8 @@ class DepositinputShow extends Component
         $this->range = '';
         $this->total = '';
         $this->issue = '';
+        $this->observation = '';
+        $this->funded = '';
         $this->created = '';
 
         $this->xml = '';
@@ -168,6 +173,7 @@ class DepositinputShow extends Component
             $validatedData = $this->validate([
                 'xml' => ['required', 'file'],
                 'deposit_id' => ['required'],
+                'observation' => ['required'],
             ]);
 
             // Define $data.

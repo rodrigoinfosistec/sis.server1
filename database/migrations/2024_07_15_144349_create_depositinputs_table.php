@@ -34,6 +34,10 @@ return new class extends Migration
 
             $table->timestamp('issue');
 
+            $table->text('observation');
+
+            $table->boolean('funded')->default(false);
+
             $table->timestamps();
 
             $table->foreign('deposit_id')->references('id')->on('deposits');
