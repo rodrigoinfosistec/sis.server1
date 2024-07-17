@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 
 use App\Models\General;
 use App\Models\Report;
+use App\Models\Invoice;
 
 use App\Models\Deposit;
 use App\Models\Deposituser;
@@ -171,7 +172,7 @@ class DepositinputShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'xml' => ['required', 'file'],
+                'xml' => ['required', 'file', 'mimetypes:application/x-empty,text/plain,text/x-asm,application/octet-stream,inode/x-empty'],
                 'deposit_id' => ['required'],
                 'observation' => ['required'],
             ]);
@@ -188,12 +189,21 @@ class DepositinputShow extends Component
                 // Inicializa objeto xml.
                 $xmlObject = $valid['xmlObject'];
 
-                // Provider.
+                // Depósito.
+                $deposit = Deposit::find($data['validatedData']['deposit_id']);
+
+                // Fornecedor.
                 $provider = Provider::where('cnpj', Provider::encodeCnpj((string)$xmlObject->NFe->infNFe->emit->CNPJ))->first();
 
+                // Empresa.
+                $company = Company::find(auth()->user()->company_id);
+
                 // Estende $data['validatedData'].
+                $data['validatedData']['deposit_name'] = $deposit->name;
                 $data['validatedData']['provider_id'] = $provider->id;
                 $data['validatedData']['provider_name'] = $provider->name;
+                $data['validatedData']['company_id'] = $company->id;
+                $data['validatedData']['company_name'] = $company->name;
                 $data['validatedData']['key'] = Invoice::encodeKey((string)$xmlObject->protNFe->infProt->chNFe);
                 $data['validatedData']['number'] = Invoice::encodeNumber((string)$xmlObject->NFe->infNFe->ide->nNF);
                 $data['validatedData']['range'] = Invoice::encodeRange((string)$xmlObject->NFe->infNFe->ide->serie);
