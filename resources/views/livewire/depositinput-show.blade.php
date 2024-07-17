@@ -53,7 +53,7 @@
                 <x-layout.card.card-header-button-more>
 
 {{-- botão add --}}
-<x-layout.card.card-header-button-more-plus/>
+<x-layout.card.card-header-button-more-plus-xml/>
 
 <x-layout.card.card-header-button-more-plus-down-muted/>
 {{-- botão add --}}
@@ -139,45 +139,7 @@
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="150">
-    <x-layout.card.card-body-content-table-body-line-cell-action-edit-business :id="$item->id"/>
-
-    @if(App\Models\Invoiceefisco::where('invoice_id', $item->id)->exists())
-        <x-layout.card.card-body-content-table-body-line-cell-action-add-efisco-on :id="$item->id"/>
-    @else
-        <x-layout.card.card-body-content-table-body-line-cell-action-add-efisco :id="$item->id"/>
-    @endif
-
-    @if(App\Models\Invoiceefisco::where('invoice_id', $item->id)->exists() && App\Models\Invoiceitem::where('invoice_id', $item->id)->get()->count() == App\Models\Invoicecsv::where('invoice_id', $item->id)->get()->count())
-        @if(App\Models\Invoiceitem::where(['invoice_id' => $item->id, 'index' => NULL])->exists())
-            <x-layout.card.card-body-content-table-body-line-cell-action-edit-item :id="$item->id"/>
-        @else
-            <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-amount :id="$item->id"/>
-        @endif
-    @else
-        <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-muted/>
-    @endif
-
-    <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
-
-    @if(App\Models\Invoice::alerts($item->id)['amount'] > 0)
-        <x-layout.card.card-body-content-table-body-line-cell-action-detail-alert :id="$item->id"/>
-    @else
-        <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-price :id="$item->id"/>
-    @endif
-
-    @if(App\Models\Csv::where(['folder' => 'zip/price', 'reference_1' => $item->id])->exists())
-        <x-layout.card.card-body-content-table-body-line-cell-action-zip :id="$item->id"/>
-    @else
-        <x-layout.card.card-body-content-table-body-line-cell-action-zip-muted :id="$item->id"/>
-    @endif
-
-    @if(App\Models\Report::where(['folder' => 'price', 'reference_1' => $item->id])->exists())
-        <x-layout.card.card-body-content-table-body-line-cell-action-mail :id="$item->id"/>
-        <x-layout.card.card-body-content-table-body-line-cell-action-print :id="$item->id"/>
-    @else
-        <x-layout.card.card-body-content-table-body-line-cell-action-mail-muted :id="$item->id"/>
-        <x-layout.card.card-body-content-table-body-line-cell-action-print-muted :id="$item->id"/>
-    @endif
+    
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
 
