@@ -204,6 +204,8 @@ class DepositinputShow extends Component
                 $data['validatedData']['provider_name'] = $provider->name;
                 $data['validatedData']['company_id'] = $company->id;
                 $data['validatedData']['company_name'] = $company->name;
+                $data['validatedData']['user_id'] = auth()->user()->id;
+                $data['validatedData']['user_name'] = auth()->user()->name;
                 $data['validatedData']['key'] = Invoice::encodeKey((string)$xmlObject->protNFe->infProt->chNFe);
                 $data['validatedData']['number'] = Invoice::encodeNumber((string)$xmlObject->NFe->infNFe->ide->nNF);
                 $data['validatedData']['range'] = Invoice::encodeRange((string)$xmlObject->NFe->infNFe->ide->serie);

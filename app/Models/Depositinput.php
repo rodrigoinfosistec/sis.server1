@@ -128,17 +128,20 @@ class Depositinput extends Model
     public static function addXml(array $data) : bool {
         // Cadastra.
         Depositinput::create([
-            'deposit_id'   => $data['validatedData']['deposit_id'],
             'deposit_name' => $data['validatedData']['deposit_name'],
+            'deposit_id'   => $data['validatedData']['deposit_id'],
             'provider_id' => $data['validatedData']['provider_id'],
             'provider_name' => $data['validatedData']['provider_name'],
             'company_id' => $data['validatedData']['company_id'],
             'company_name' => $data['validatedData']['company_name'],
+            'user_id' => $data['validatedData']['user_id'],
+            'user_name' => $data['validatedData']['user_name'],
             'key' => $data['validatedData']['key'],
             'number' => $data['validatedData']['number'],
             'range' => $data['validatedData']['range'],
             'total' => $data['validatedData']['total'],
             'issue' => $data['validatedData']['issue'],
+            'observation' => $data['validatedData']['observation'],
         ]);
 
         // After.
