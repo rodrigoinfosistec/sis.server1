@@ -168,25 +168,38 @@ class Depositinput extends Model
         // Percorre todos os itens da Nota Fiscal.
         foreach($data['validatedData']['xmlObject']->NFe->infNFe->det as $item):
             // Verifica se item não está cadastrado no Fornecedor.
-            if(Provideritem::where(['code' => $item->code, 'provider_id' => $data['validatedData']['provider_id']])->doesntExist()):
+            if(Provideritem::where(['code' => $item->prod->cProd, 'provider_id' => $data['validatedData']['provider_id']])->doesntExist()):
                 // Cadastra o item no Fornecedor.
                 $provideritem_id = Provideritem::create([
-                'name' => Str::upper($item->prod->xProd),
-                'code' => $item->prod->cProd,
-                'ean' => !empty($item->prod->cEANTrib) ? $item->prod->cEANTrib : null,
-                'ncm' => $item->prod->NCM,
-                'cfop' => $item->prod->CFOP,
-                'cest' => !empty($item->prod->CEST) ? $item->prod->CEST : null,
-                'measure' => Str::upper($item->prod->uCom),
-                'provider_name'=> $data['validatedData']['provider_name'],
-                'provider_id'=> $data['validatedData']['provider_id'],
+                    'name' => Str::upper($item->prod->xProd),
+                    'code' => $item->prod->cProd,
+                    'ean' => !empty($item->prod->cEANTrib) ? $item->prod->cEANTrib : null,
+                    'ncm' => $item->prod->NCM,
+                    'cfop' => $item->prod->CFOP,
+                    'cest' => !empty($item->prod->CEST) ? $item->prod->CEST : null,
+                    'measure' => Str::upper($item->prod->uCom),
+                    'provider_name'=> $data['validatedData']['provider_name'],
+                    'provider_id'=> $data['validatedData']['provider_id'],
                 ])->id;
             else:
+                Provideritem::where(['code' => $item->prod->cProd, 'provider_id' => $data['validatedData']['provider_id']])->update([
+                    'name' => Str::upper($item->prod->xProd),
+                    'ean' => !empty($item->prod->cEANTrib) ? $item->prod->cEANTrib : null,
+                    'ncm' => $item->prod->NCM,
+                    'cfop' => $item->prod->CFOP,
+                    'cest' => !empty($item->prod->CEST) ? $item->prod->CEST : null,
+                    'measure' => Str::upper($item->prod->uCom),
+                ]);
+
                 // Retorna id do item no Fornecedor.
                 $provideritem_id = Provideritem::where(['code' => $item->code, 'provider_id' => $data['validatedData']['provider_id']])->first();
             endif;
 
-            
+            // Inclui os items na Entrada.
+            Depositinputitem::create([
+                'depositinput_id' => Depositinput::where('key', $data['validatedData']['key'])->first()->id,
+                'provideritem_id' => $provideritem_id,
+            ]);
         endforeach;
 
         return true;
