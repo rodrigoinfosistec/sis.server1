@@ -165,12 +165,29 @@ class Depositinput extends Model
      * @return bool true
      */
     public static function dependencyAddXml(array $data) : bool {
-        dd($data);
-        // Cadastra itens CSV da NFe.
-        Invoicecsv::add($data);
+        // Percorre todos os itens da Nota Fiscal.
+        foreach($data['validatedData']['xmlObject']->NFe->infNFe->det as $item):
+            // Verifica se item não está cadastrado no Fornecedor.
+            if(Provideritem::where(['code' => $item->code, 'provider_id' => $data['validatedData']['provider_id']])->doesntExist()):
+                // Cadastra o item no Fornecedor.
+                $provideritem_id = Provideritem::create([
+                'name' => Str::upper($item->prod->xProd),
+                'code' => $item->prod->cProd,
+                'ean' => !empty($item->prod->cEANTrib) ? $item->prod->cEANTrib : null,
+                'ncm' => $item->prod->NCM,
+                'cfop' => $item->prod->CFOP,
+                'cest' => !empty($item->prod->CEST) ? $item->prod->CEST : null,
+                'measure' => Str::upper($item->prod->uCom),
+                'provider_name'=> $data['validatedData']['provider_name'],
+                'provider_id'=> $data['validatedData']['provider_id'],
+                ])->id;
+            else:
+                // Retorna id do item no Fornecedor.
+                $provideritem_id = Provideritem::where(['code' => $item->code, 'provider_id' => $data['validatedData']['provider_id']])->first();
+            endif;
 
-        // Cadastra itens da NFe.
-        Invoiceitem::add($data);
+            
+        endforeach;
 
         return true;
     }
