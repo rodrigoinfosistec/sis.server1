@@ -229,7 +229,7 @@ class DepositinputShow extends Component
      * erase()
      *  exclude()
      */
-    public function erase(int $Depositinput_id)
+    public function erase(int $depositinput_id)
     {
         // Transferência Depósito.
         $depositinput = Depositinput::find($depositinput_id);
@@ -241,8 +241,14 @@ class DepositinputShow extends Component
         $this->provider_id = $depositinput->provider_id;
         $this->provider_name = $depositinput->provider_name;
         $this->company_id = $depositinput->company_id;
+        $this->company_name = $depositinput->company_name;
         $this->user_id = $depositinput->user_id;
         $this->user_name = $depositinput->user_name;
+        $this->key = $depositinput->key;
+        $this->number = $depositinput->number;
+        $this->range = $depositinput->range;
+        $this->total = $depositinput->total;
+        $this->issue = date_format(date_create($depositinput->issue), 'd/m/Y H:i:s');
         $this->observation = $depositinput->observation;
         $this->created = $depositinput->created_at->format('d/m/Y H:i:s');
         $this->updated = $depositinput->updated_at->format('d/m/Y H:i:s');
@@ -251,11 +257,19 @@ class DepositinputShow extends Component
         {
             // Define $validatedData
             $validatedData['depositinput_id'] = $this->depositinput_id;
-            $validatedData['origin_id'] = $this->origin_id;
-            $validatedData['origin_name'] = $this->origin_name;
-            $validatedData['destiny_id'] = $this->destiny_id;
-            $validatedData['destiny_name'] = $this->destiny_name;
+            $validatedData['deposit_name'] = $this->deposit_name;
+            $validatedData['deposit_id'] = $this->deposit_id;
+            $validatedData['provider_id'] = $this->provider_id;
+            $validatedData['provider_name'] = $this->provider_name;
             $validatedData['company_id'] = $this->company_id;
+            $validatedData['company_name'] = $this->company_name;
+            $validatedData['user_id'] = $this->user_id;
+            $validatedData['user_name'] = $this->user_name;
+            $validatedData['key'] = $this->key;
+            $validatedData['number'] = $this->number;
+            $validatedData['range'] = $this->range;
+            $validatedData['total'] = $this->total;
+            $validatedData['issue'] = $this->issue;
             $validatedData['observation'] = $this->observation;
             $validatedData['created'] = $this->created;
 
