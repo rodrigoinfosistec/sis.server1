@@ -55,6 +55,7 @@ class DepositinputShow extends Component
     public $total;
     public $issue;
     public $observation;
+    public $type;
     public $funded;
     public $created;
 
@@ -122,6 +123,7 @@ class DepositinputShow extends Component
         $this->total = '';
         $this->issue = '';
         $this->observation = '';
+        $this->type = '';
         $this->funded = '';
         $this->created = '';
 
@@ -251,6 +253,7 @@ class DepositinputShow extends Component
         $this->total = $depositinput->total;
         $this->issue = date_format(date_create($depositinput->issue), 'd/m/Y H:i:s');
         $this->observation = $depositinput->observation;
+        $this->type = $depositinput->type;
         $this->created = $depositinput->created_at->format('d/m/Y H:i:s');
         $this->updated = $depositinput->updated_at->format('d/m/Y H:i:s');
     }
@@ -272,6 +275,7 @@ class DepositinputShow extends Component
             $validatedData['total'] = $this->total;
             $validatedData['issue'] = $this->issue;
             $validatedData['observation'] = $this->observation;
+            $validatedData['type'] = $this->type;
             $validatedData['created'] = $this->created;
 
             // Define $data.

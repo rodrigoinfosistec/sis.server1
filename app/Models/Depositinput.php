@@ -263,9 +263,9 @@ class Depositinput extends Model
      */
     public static function dependencyErase(array $data) : bool {
         // Percorre todos os Itens da Saída.
-        foreach(Depositinputitem::where('depositinput_id', $data['validatedData']['depositinput_id'])->get() as $key => $deposiinputitem):
+        foreach(Depositinputitem::where('depositinput_id', $data['validatedData']['depositinput_id'])->get() as $key => $depositinputitem):
             // Exclui Item da Saída.
-            Depositinputitem::find($depositinputproduct->id)->delete();
+            Depositinputitem::find($depositinputitem->id)->delete();
         endforeach;
 
         // Percorre todos os Produtos da Saída.

@@ -3652,4 +3652,37 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Depositinput Erase.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function depositinputErase(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
+                'id='            . $data['validatedData']['depositinput_id'] . ',' .
+                'deposit_name='  . $data['validatedData']['deposit_name']    . ',' .
+                'deposit_id='    . $data['validatedData']['deposit_id']      . ',' .
+                'provider_id='   . $data['validatedData']['provider_id']     . ',' .
+                'provider_name=' . $data['validatedData']['provider_name']   . ',' .
+                'company_id='    . $data['validatedData']['company_id']      . ',' .
+                'company_name='  . $data['validatedData']['company_name']    . ',' .
+                'key='           . $data['validatedData']['key']             . ',' .
+                'number='        . $data['validatedData']['number']          . ',' .
+                'range='         . $data['validatedData']['range']           . ',' .
+                'total='         . $data['validatedData']['total']           . ',' .
+                'issue='         . $data['validatedData']['issue']           . ',' .
+                'observation='   . $data['validatedData']['observation']     . ',' .
+                'type='          . $data['validatedData']['type']            . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }
