@@ -193,20 +193,34 @@ class Depositinput extends Model
                 ]);
 
                 // Retorna id do item no Fornecedor.
-                $provideritem_id = Provideritem::where(['code' => $item->code, 'provider_id' => $data['validatedData']['provider_id']])->first();
+                $provideritem = Provideritem::where(['code' => $item->code, 'provider_id' => $data['validatedData']['provider_id']])->first();
             endif;
 
             // Inclui os items na Entrada.
             Depositinputitem::create([
-                'depositinput_id' => Depositinput::where(['deposit_id' => $data['validatedData']['provider_id'], 'key' => $data['validatedData']['key']])->first()->id,
-                'provideritem_id' => $provideritem_id,
+                'depositinput_id' => Depositinput::where(['deposit_id' => $data['validatedData']['deposit_id'], 'key' => $data['validatedData']['key']])->first()->id,
+                'provideritem_id' => $provideritem->id,
             ]);
 
             // Verifica se o Item do Fornecedor está relacionado com algum Produto.
-            if(!empty(Provideritem::find($provideritem_id)->product_id)):
+            if(!empty($provideritem->product_id)):
+                // Entrada no Depósito.
+                $depositinput = Depositinput::where(['deposit_id' => $data['validatedData']['deposit_id'], 'key' => $data['validatedData']['key']])->first();
+
+                // Multiplicador de quantidade.
+                if($provideritem->signal == 'divide'):
+                    $quantity_final = $item->qCom / $provideritem->amount;
+                else:
+                    $quantity_final = $item->qCom * $provideritem->amount;
+                endif;
+
                 // Cadastra Produto na Entrada do depósito.
                 Depositinputproduct::create([
-                    
+                    'depositinput_id' => $depositinput->id,
+                    'product_id' => $provideritem->product_id,
+                    'product_name' => $provideritem->product_name,
+                    'quantity' => $item->qCom,
+                    'quantity_final' => $quantity_final,
                 ]);
             endif;
         endforeach;
