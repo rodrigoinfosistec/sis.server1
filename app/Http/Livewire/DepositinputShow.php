@@ -224,6 +224,7 @@ class DepositinputShow extends Component
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
         }
+
     /**
      * erase()
      *  exclude()
