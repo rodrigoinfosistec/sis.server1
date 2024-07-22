@@ -69,7 +69,7 @@ class Depositinput extends Model
 
         // Verifica se é um arquivo XML.
         if(!empty($xmlObject)):
-            // Verifica se a NFe não está cadastrada.
+            // Verifica se a NFe não está cadastrada do Depósito.
             if(Depositinput::where(['deposit_id' => $data['validatedData']['deposit_id'], 'key' => Invoice::encodeKey((string)$xmlObject->protNFe->infProt->chNFe)])->doesntExist()):
                 //Verifica se a Empresa Própria está cadastrada.
                 if(Company::where('cnpj', Company::encodeCnpj((string)$xmlObject->NFe->infNFe->dest->CNPJ))->exists()):
@@ -99,7 +99,7 @@ class Depositinput extends Model
                     $message = 'Empresa Própria não cadastrada.';
                 endif;
             else:
-                $message = 'NFe ' . $xmlObject->NFe->infNFe->ide->nNF . ' já cadastrada no depósito ' . Deposit::find($data['validatedData']['deposit_id'])->name . '.';
+                $message = 'NFe ' . $xmlObject->NFe->infNFe->ide->nNF . ' já cadastrada no Depósito ' . Deposit::find($data['validatedData']['deposit_id'])->name . '.';
             endif;
         else:
             $message = 'Arquivo deve ser um xml (NFe).';
@@ -152,7 +152,7 @@ class Depositinput extends Model
         Audit::depositinputAddXml($data, $after);
 
         // Mensagem.
-        $message = 'Entrada do Depósito ' . $after->provider_name . ' cadastrada com sucesso.';
+        $message = 'Entrada no Depósito ' . $after->deposit_name . ' cadastrada com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -196,9 +196,9 @@ class Depositinput extends Model
                 $provideritem_id = Provideritem::where(['code' => $item->code, 'provider_id' => $data['validatedData']['provider_id']])->first();
             endif;
 
-            // Inclui os items na Saída.
+            // Inclui os items na Entrada.
             Depositinputitem::create([
-                'depositinput_id' => Depositinput::where('key', $data['validatedData']['key'])->first()->id,
+                'depositinput_id' => Depositinput::where(['deposit_id' => $data['validatedData']['provider_id'], 'key' => $data['validatedData']['key']])->first()->id,
                 'provideritem_id' => $provideritem_id,
             ]);
         endforeach;

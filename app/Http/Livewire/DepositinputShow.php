@@ -232,7 +232,7 @@ class DepositinputShow extends Component
      */
     public function erase(int $depositinput_id)
     {
-        // Transferência Depósito.
+        // Entrada Depósito.
         $depositinput = Depositinput::find($depositinput_id);
 
         // Inicializa propriedades dinâmicas.
