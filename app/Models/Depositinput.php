@@ -145,28 +145,7 @@ class Depositinput extends Model
             'type' => $data['validatedData']['type'],
         ])->id;
 
-        // After.
-        $after = Depositinput::find($depositinput_id);
-
-        // Auditoria.
-        Audit::depositinputAddXml($data, $after);
-
-        // Mensagem.
-        $message = 'Entrada no Depósito ' . $after->deposit_name . ' cadastrada com sucesso.';
-        session()->flash('message', $message);
-        session()->flash('color', 'success');
-
-        return true;
-    }
-
-    /**
-     * Executa dependências de cadastro.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function dependencyAddXml(array $data) : bool {
-        // Percorre todos os itens da Nota Fiscal.
+        // Percorre todos os itens do XML.
         foreach($data['validatedData']['xmlObject']->NFe->infNFe->det as $item):
             // Verifica se item não está cadastrado no Fornecedor.
             if(Provideritem::where(['code' => $item->prod->cProd, 'provider_id' => $data['validatedData']['provider_id']])->doesntExist()):
@@ -193,8 +172,11 @@ class Depositinput extends Model
                 ]);
 
                 // Retorna id do item no Fornecedor.
-                $provideritem = Provideritem::where(['code' => $item->code, 'provider_id' => $data['validatedData']['provider_id']])->first();
+                $provideritem_id = Provideritem::where(['code' => $item->code, 'provider_id' => $data['validatedData']['provider_id']])->first()->id;
             endif;
+
+            // Item do Fornecedor.
+            $provideritem = Provideritem::find($provideritem_id);
 
             // Inclui os items na Entrada.
             Depositinputitem::create([
@@ -224,6 +206,29 @@ class Depositinput extends Model
                 ]);
             endif;
         endforeach;
+
+        // After.
+        $after = Depositinput::find($depositinput_id);
+
+        // Auditoria.
+        Audit::depositinputAddXml($data, $after);
+
+        // Mensagem.
+        $message = 'Entrada no Depósito ' . $after->deposit_name . ' cadastrada com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de cadastro.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyAddXml(array $data) : bool {
+        // ...
 
         return true;
     }
