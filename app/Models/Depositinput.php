@@ -195,12 +195,77 @@ class Depositinput extends Model
                 $provideritem_id = Provideritem::where(['code' => $item->code, 'provider_id' => $data['validatedData']['provider_id']])->first();
             endif;
 
-            // Inclui os items na Entrada.
+            // Inclui os items na Saída.
             Depositinputitem::create([
                 'depositinput_id' => Depositinput::where('key', $data['validatedData']['key'])->first()->id,
                 'provideritem_id' => $provideritem_id,
             ]);
         endforeach;
+
+        return true;
+    }
+
+    /**
+     * Valida exclusão.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateErase(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de exclusão.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyErase(array $data) : bool {
+        // Percorre todos os Itens da Saída.
+        foreach(Depositinputitem::where('depositinput_id', $data['validatedData']['depositinput_id'])->get() as $key => $deposiinputitem):
+            // Exclui Item da Saída.
+            Depositinputitem::find($depositinputproduct->id)->delete();
+        endforeach;
+
+        // Percorre todos os Produtos da Saída.
+        foreach(Depositinputproduct::where('depositinput_id', $data['validatedData']['depositinput_id'])->get() as $key => $deposiinputproduct):
+            // Exclui Produto da Saída.
+            Depositinputproduct::find($depositinputproduct->id)->delete();
+        endforeach;
+
+        return true;
+    }
+
+    /**
+     * Exclui.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function erase(array $data) : bool {
+        // Exclui.
+        Deposittransfer::find($data['validatedData']['deposittransfer_id'])->delete();
+
+        // Auditoria.
+        Audit::deposittransferErase($data);
+
+        // Mensagem.
+        $message = 'Tranferência de Produtos excluída com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
 
         return true;
     }
