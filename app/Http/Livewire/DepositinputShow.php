@@ -211,6 +211,7 @@ class DepositinputShow extends Component
                 $data['validatedData']['range'] = Invoice::encodeRange((string)$xmlObject->NFe->infNFe->ide->serie);
                 $data['validatedData']['total'] = $xmlObject->NFe->infNFe->total->ICMSTot->vNF;
                 $data['validatedData']['issue'] = Invoice::encodeIssue((string)$xmlObject->NFe->infNFe->ide->dhEmi);
+                $data['validatedData']['type'] = 'xml';
                 $data['validatedData']['xmlObject'] = $xmlObject;
             endif;
 

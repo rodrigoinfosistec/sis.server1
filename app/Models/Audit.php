@@ -3646,6 +3646,7 @@ class Audit extends Model
                 'total='         . $after->total         . ',' .
                 'issue='         . $after->issue         . ',' .
                 'observation='   . $after->observation   . ',' .
+                'type='          . $after->type          . ',' .
             '}',
         ]);
 

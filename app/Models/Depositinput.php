@@ -70,7 +70,7 @@ class Depositinput extends Model
         // Verifica se é um arquivo XML.
         if(!empty($xmlObject)):
             // Verifica se a NFe não está cadastrada.
-            if(Depositinput::where('key', Invoice::encodeKey((string)$xmlObject->protNFe->infProt->chNFe))->doesntExist()):
+            if(Depositinput::where(['deposit_id' => $data['validatedData']['deposit_id'], 'key' => Invoice::encodeKey((string)$xmlObject->protNFe->infProt->chNFe)])->doesntExist()):
                 //Verifica se a Empresa Própria está cadastrada.
                 if(Company::where('cnpj', Company::encodeCnpj((string)$xmlObject->NFe->infNFe->dest->CNPJ))->exists()):
                     // Verifica se Usuário tem Permissão na Empresa Própria.
@@ -99,7 +99,7 @@ class Depositinput extends Model
                     $message = 'Empresa Própria não cadastrada.';
                 endif;
             else:
-                $message = 'Nota Fiscal ' . $xmlObject->NFe->infNFe->ide->nNF . ' do Fornecedor ' . $xmlObject->NFe->infNFe->emit->xNome . ' já está cadastrada.';
+                $message = 'NFe ' . $xmlObject->NFe->infNFe->ide->nNF . ' já cadastrada no depósito ' . Deposit::find($data['validatedData']['deposit_id'])->name . '.';
             endif;
         else:
             $message = 'Arquivo deve ser um xml (NFe).';
@@ -142,6 +142,7 @@ class Depositinput extends Model
             'total' => $data['validatedData']['total'],
             'issue' => $data['validatedData']['issue'],
             'observation' => $data['validatedData']['observation'],
+            'type' => $data['validatedData']['type'],
         ])->id;
 
         // After.
@@ -151,7 +152,7 @@ class Depositinput extends Model
         Audit::depositinputAddXml($data, $after);
 
         // Mensagem.
-        $message = 'Nota Fiscal ' . $after->number . '  do Forcenedor ' . $after->provider_name . ' cadastrada com sucesso.';
+        $message = 'Entrada do Depósito ' . $after->provider_name . ' cadastrada com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -257,13 +258,13 @@ class Depositinput extends Model
      */
     public static function erase(array $data) : bool {
         // Exclui.
-        Deposittransfer::find($data['validatedData']['deposittransfer_id'])->delete();
+        Depositinput::find($data['validatedData']['depositinput_id'])->delete();
 
         // Auditoria.
-        Audit::deposittransferErase($data);
+        Audit::depositinputErase($data);
 
         // Mensagem.
-        $message = 'Tranferência de Produtos excluída com sucesso.';
+        $message = 'Saída de Depósito excluída com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
