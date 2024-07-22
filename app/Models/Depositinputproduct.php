@@ -24,6 +24,7 @@ class Depositinputproduct extends Model
         'product_name',
 
         'quantity',
+        'quantity_final',
 
         'created_at',
         'updated_at',

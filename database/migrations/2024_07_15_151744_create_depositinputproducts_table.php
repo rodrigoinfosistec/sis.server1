@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('product_name');
 
             $table->decimal('quantity', total: 16, places: 7)->default(0);
+            $table->decimal('quantity_final', total: 16, places: 7)->default(0);
 
             $table->timestamps();
 
