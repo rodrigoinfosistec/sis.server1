@@ -36,6 +36,8 @@ return new class extends Migration
 
             $table->text('observation');
 
+            $table->enum('type', ['xml', 'manual']);
+
             $table->boolean('funded')->default(false);
 
             $table->timestamps();
