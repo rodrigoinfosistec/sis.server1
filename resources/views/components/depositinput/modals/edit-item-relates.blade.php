@@ -120,7 +120,7 @@
                         </div>
                     </td>
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="text-primary" style="font-size: 9pt;">
+                        <div class="text-primary" style="font-size: 8pt;">
                             <span class="text-danger">
                                 {{ @App\Models\Product::find($array_product_id[$depositinputitem->id])->reference }}
                             </span>
