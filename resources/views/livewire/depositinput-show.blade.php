@@ -7,13 +7,15 @@
 
 {{-- plus --}}
 @include('components.' .  $config['name'] . '.modals.add-xml')
-@include('components.' .  $config['name'] . '.modals.add-product')
 
 {{-- info --}}
 
 
 {{-- ações --}}
+@include('components.' .  $config['name'] . '.modals.add-product')
+@include('components.' .  $config['name'] . '.modals.edit-item-relates')
 @include('components.' .  $config['name'] . '.modals.erase')
+@include('components.' .  $config['name'] . '.modals.erase-product')
 
 {{-- extra --}}
 
@@ -69,10 +71,12 @@
 
 {{-- filtro nome --}}
 <option value="number">NÚMERO NFE</option>
+<option value="deposit_name">DEPÓSITO</option>
 <option value="key">CHAVE NFE</option>
 <option value="range">SÉRIE NFE</option>
 <option value="issue">DATA EMISSÃO</option>
 <option value="provider_name">FORNECEDOR</option>
+<option value="user_name">USUÁRIO</option>
 {{-- filtro nome --}}
 
                         </x-layout.card.card-body-navigation-search-filter>
