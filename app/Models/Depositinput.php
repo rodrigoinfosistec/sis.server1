@@ -172,7 +172,7 @@ class Depositinput extends Model
                 ]);
 
                 // Retorna id do item no Fornecedor.
-                $provideritem_id = Provideritem::where(['code' => $item->code, 'provider_id' => $data['validatedData']['provider_id']])->first()->id;
+                $provideritem_id = Provideritem::where(['code' => $item->prod->cProd, 'provider_id' => $data['validatedData']['provider_id']])->first()->id;
             endif;
 
             // Item do Fornecedor.
