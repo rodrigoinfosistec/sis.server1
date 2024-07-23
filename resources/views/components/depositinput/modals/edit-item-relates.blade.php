@@ -105,16 +105,18 @@
                         <div class="" style="width: 50px;">
                             <input wire:model="array_product_id.{{ $depositinputitem->id }}" type="text" class="form-control form-control-sm" list="array_products_{{ $depositinputitem->id }}" id="array_product_id_{{ $depositinputitem->id }}">
                             <datalist id="array_products_{{ $depositinputitem->id }}">
-                                @foreach(App\Models\Product::where(['company_id' => auth()->user()->company_id, 'status' => true])->whereNot('id', $array_product_id)->orderBy('name', 'ASC')->get() as $key => $product)
-                                    <option value="{{ $product->id }}">
-                                        {{ $product->code }}
-                                        &#187;
-                                        {{ $product->name }}
-                                        &#187;
-                                        {{ $product->ean }}
-                                        &#187;
-                                        {{ $product->reference }}
-                                    </option>
+                                @foreach(App\Models\Product::where(['company_id' => auth()->user()->company_id, 'status' => true])->orderBy('name', 'ASC')->get() as $key => $product)
+                                    @if(!in_array($product->id, $array_product_id))
+                                        <option value="{{ $product->id }}">
+                                            {{ $product->code }}
+                                            &#187;
+                                            {{ $product->name }}
+                                            &#187;
+                                            {{ $product->ean }}
+                                            &#187;
+                                            {{ $product->reference }}
+                                        </option>
+                                    @endif
                                 @endforeach
                             </datalist>
                         </div>
@@ -123,6 +125,7 @@
                         <div class="text-primary" style="font-size: 8pt;">
                             <span class="text-danger">
                                 {{ @App\Models\Product::find($array_product_id[$depositinputitem->id])->reference }}
+                                <i class=""></i>
                             </span>
                             <br>
                             {{ @App\Models\Product::find($array_product_id[$depositinputitem->id])->name }}
