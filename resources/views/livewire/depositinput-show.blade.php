@@ -119,7 +119,7 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            {{ App\Models\Invoice::decodeIssue($item->issue) }}
+            {{ $item->created_at->format('d/m/y') }}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
@@ -128,11 +128,10 @@
         <br>
 
         <div class="text-muted" style="font-size: 7pt; line-height: 1;">
-            {{ $item->key }}
+            {{ $item->deposit_name }}
             <br>
             <span class="text-primary" style="font-size: 9pt;">
-                <span class="fst-italic">R$</span>
-                {{ App\Models\General::decodeFloat2($item->total) }}
+                <span class="fst-italic">{{ $item->observation }}</span>
             </span>
         </div>
     </x-layout.card.card-body-content-table-body-line-cell-content>
