@@ -8,6 +8,10 @@
             {{ $provider_name }}
             <br>
             {{ $deposit_name }}
+            <br>
+            @foreach($array_product_id as $prod)
+                {{ $prod }}
+            @endforeach
         </x-slot>
     </x-layout.modal.modal-edit-header>
 
@@ -30,6 +34,7 @@
                         </div>
                     </div>
                 </th>
+
                 <th class="" style="padding: 0;">
                     <div class="" style="width: 90px;">
                         EAN/NCM/CEST
@@ -37,8 +42,14 @@
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 155px;">
+                    <div class="text-center" style="width: 50px;">
                         PRODUTO
+                    </div>
+                </th>
+
+                <th class="" style="padding: 0;">
+                    <div class="" style="">
+                        DETALHES
                     </div>
                 </th>
             </tr>
@@ -91,10 +102,10 @@
 
                     {{-- PRODUTO --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 155px;">
+                        <div class="" style="width: 50px;">
                             <input wire:model="array_product_id.{{ $depositinputitem->id }}" type="text" class="form-control form-control-sm" list="array_products_{{ $depositinputitem->id }}" id="array_product_id_{{ $depositinputitem->id }}">
                             <datalist id="array_products_{{ $depositinputitem->id }}">
-                                @foreach(App\Models\Product::where(['company_id' => auth()->user()->company_id, 'status' => true])->orderBy('name', 'ASC')->get() as $key => $product)
+                                @foreach(App\Models\Product::where(['company_id' => auth()->user()->company_id, 'status' => true])->whereNot('id', $array_product_id)->orderBy('name', 'ASC')->get() as $key => $product)
                                     <option value="{{ $product->id }}">
                                         {{ $product->code }}
                                         &#187;
@@ -106,6 +117,15 @@
                                     </option>
                                 @endforeach
                             </datalist>
+                        </div>
+                    </td>
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="text-primary" style="font-size: 9pt;">
+                            <span class="text-danger">
+                                {{ @App\Models\Product::find($array_product_id[$depositinputitem->id])->reference }}
+                            </span>
+                            <br>
+                            {{ @App\Models\Product::find($array_product_id[$depositinputitem->id])->name }}
                         </div>
                     </td>
                 </tr>

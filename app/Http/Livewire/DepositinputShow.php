@@ -61,6 +61,8 @@ class DepositinputShow extends Component
 
     public $xml;
 
+    public $array_product_id = [];
+
     /**
      * Construtor.
      */
@@ -128,6 +130,8 @@ class DepositinputShow extends Component
         $this->created = '';
 
         $this->xml = '';
+
+        $this->array_product_id = [];
     }
 
     /**
