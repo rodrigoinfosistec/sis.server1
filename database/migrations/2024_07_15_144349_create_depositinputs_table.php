@@ -26,7 +26,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('user_name');
 
-            $table->string('key')->unique()->nullable()->default(null);
+            $table->string('key')->nullable()->default(null);
             $table->string('number');
             $table->string('range')->default('000');
 
