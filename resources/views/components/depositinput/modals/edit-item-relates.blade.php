@@ -42,14 +42,14 @@
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 50px;">
+                    <div class="text-center" style="width: 60px;">
                         PRODUTO
                     </div>
                 </th>
 
                 <th class="" style="padding: 0;">
                     <div class="" style="">
-                        DETALHES
+                        INT<span class="text-muted">&#187;</span>REFERÊNCIA<span class="text-muted">&#187;</span>BARRAS
                     </div>
                 </th>
             </tr>
@@ -124,8 +124,13 @@
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text-primary" style="font-size: 8pt;">
                             <span class="text-danger">
-                                {{ @App\Models\Product::find($array_product_id[$depositinputitem->id])->reference }}
-                                <i class=""></i>
+                                @if(!empty($array_product_id[$depositinputitem->id]))
+                                    {{ @App\Models\Product::find($array_product_id[$depositinputitem->id])->code }}
+                                    <span class="text-muted">&#187;</span>
+                                    {{ @App\Models\Product::find($array_product_id[$depositinputitem->id])->reference }}
+                                    <span class="text-muted">&#187;</span>
+                                    {{ @App\Models\Product::find($array_product_id[$depositinputitem->id])->ean }}
+                                @endif
                             </span>
                             <br>
                             {{ @App\Models\Product::find($array_product_id[$depositinputitem->id])->name }}
