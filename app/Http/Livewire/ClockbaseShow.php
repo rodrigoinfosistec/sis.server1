@@ -57,8 +57,6 @@ class ClockbaseShow extends Component
      */
     public function mount($config){
         $this->config = $config;
-
-        $this->orderType = $this->order == 'datatime' ? 'DESC' : 'ASC';
     }
 
     /**
@@ -154,6 +152,10 @@ class ClockbaseShow extends Component
                                 ['status', true],
                             ])->orderBy($this->order, $this->orderType)->paginate(100),
         ]);
+    }
+
+    public function setOrderType(){
+        $this->orderType = $this->order == 'datatime' ? 'DESC' : 'ASC'; 
     }
 
     /**

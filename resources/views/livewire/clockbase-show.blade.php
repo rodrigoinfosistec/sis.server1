@@ -104,7 +104,7 @@
 {{-- info action --}}
 <div class="row g-3">
     <div class="col">
-        <select wire:model="order" class="form-select form-select-sm" style="font-size: 8pt; margin: 0;" id="order">
+        <select wire:model="order" wire:click="setOrderType" class="form-select form-select-sm" style="font-size: 8pt; margin: 0;" id="order">
             <option value="datatime">Horas</option>
             <option value="name">Nome</option>
         </select>
