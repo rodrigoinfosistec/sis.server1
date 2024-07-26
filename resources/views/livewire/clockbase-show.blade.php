@@ -100,7 +100,10 @@
                     <x-layout.card.card-body-navigation-info-action>
 
 {{-- info action --}}
-
+<select wire:model="order" class="form-select form-select-sm" style="font-size: 8pt; margin: 0;" id="order">
+    <option value="datatime">Horas</option>
+    <option value="name">Nome</option>
+</select>
 {{-- info action --}}
 
                     </x-layout.card.card-body-navigation-info-action>

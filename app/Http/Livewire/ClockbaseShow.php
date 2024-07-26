@@ -139,6 +139,7 @@ class ClockbaseShow extends Component
      * Renderiza página.
      */
     public function render(){
+        $orderType = $this->order == 'datatime' ? 'DESC' : 'ASC';
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
             'existsItem'   => Employee::exists(),
@@ -148,7 +149,7 @@ class ClockbaseShow extends Component
                                 [$this->filter, 'like', '%'. $this->search . '%'],
                                 ['company_id', Auth()->user()->company_id],
                                 ['status', true],
-                            ])->orderBy('datatime', 'DESC')->orderBy('name', 'ASC')->paginate(100),
+                            ])->orderBy($this->order, $orderType)->paginate(100),
         ]);
     }
 
