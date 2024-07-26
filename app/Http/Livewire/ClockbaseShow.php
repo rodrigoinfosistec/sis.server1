@@ -49,7 +49,8 @@ class ClockbaseShow extends Component
 
     public $discount;
 
-    public $order = 'datatime';
+    public $order     = 'datatime';
+    public $orderType = 'DESC';
 
     /**
      * Construtor.
@@ -124,7 +125,8 @@ class ClockbaseShow extends Component
 
         $this->date = '';
 
-        $this->order = 'datatime';
+        $this->order     = 'datatime';
+        $this->orderType = 'DESC';
     }
 
     /**
