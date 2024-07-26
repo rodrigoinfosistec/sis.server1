@@ -96,6 +96,8 @@
 
                 </x-layout.card.card-body-navigation-search>
 
+                <div style="width: 100%; height: 8px;"></div>
+
                 <x-layout.card.card-body-navigation-info>
                     <x-layout.card.card-body-navigation-info-action>
 
@@ -111,6 +113,8 @@
                     <x-layout.card.card-body-navigation-info-count :count="$list->total()"/>
                 </x-layout.card.card-body-navigation-info>
             </x-layout.card.card-body-navigation>
+
+            <div style="width: 100%; height: 5px;"></div>
 
             <x-layout.card.card-body-content>
                 <x-layout.card.card-body-content-table>
