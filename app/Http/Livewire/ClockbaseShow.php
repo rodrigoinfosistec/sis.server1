@@ -364,7 +364,7 @@ class ClockbaseShow extends Component
             $data['filter']    = $this->filter;
             $data['search']    = $this->search;
             $data['order']     = $this->order;
-            $data['orderType'] = $this->order == 'datatime' ? 'DESC' : 'ASC';
+            $data['orderType'] = $this->orderType;
 
             // Valida geração de relatório.
             $valid = Clockbase::validateGenerate($data);
