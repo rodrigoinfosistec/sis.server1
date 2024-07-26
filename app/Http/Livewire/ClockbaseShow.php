@@ -49,6 +49,8 @@ class ClockbaseShow extends Component
 
     public $discount;
 
+    public $order = 'datatime';
+
     /**
      * Construtor.
      */
@@ -121,6 +123,8 @@ class ClockbaseShow extends Component
         $this->discount = true;
 
         $this->date = '';
+
+        $this->order = 'datatime';
     }
 
     /**
@@ -350,9 +354,11 @@ class ClockbaseShow extends Component
         public function sire()
         {
             // Define $data.
-            $data['config'] = $this->config;
-            $data['filter'] = $this->filter;
-            $data['search'] = $this->search;
+            $data['config']    = $this->config;
+            $data['filter']    = $this->filter;
+            $data['search']    = $this->search;
+            $data['order']     = $this->order;
+            $data['orderType'] = $this->order == 'datatime' ? 'DESC' : 'ASC';
 
             // Valida geração de relatório.
             $valid = Clockbase::validateGenerate($data);
