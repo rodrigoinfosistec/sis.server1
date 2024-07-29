@@ -246,10 +246,7 @@ class Depositinput extends Model
     public static function validateEditItemRelates(array $data) : bool {
         $message = null;
 
-        // Verifica se as quantidades de itens da Nota Fiscal e itens CSV estão iguais.
-        if(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count() != Invoicecsv::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count()):
-            $message = 'Quantidade diferente de itens da Nota Fiscal(' . Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count() . ') e itens CSV(' . Invoicecsv::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count() . ').';
-        endif;
+        // ...
 
         // Desvio.
         if(!empty($message)):
