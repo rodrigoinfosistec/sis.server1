@@ -103,13 +103,6 @@
                     {{-- PRODUTO --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="" style="width: 50px;">
-                            @php
-                                $array = [];
-
-                                foreach(App\Models\Provideritem::whereNot(['' => , 'product_id' => null])->get() as $key => $produt):
-                                    $array[] = $produt->id;
-                                endforeach;
-                            @endphp
                             <input wire:model="array_product_id.{{ $depositinputitem->id }}" type="text" class="form-control form-control-sm" list="array_products_{{ $depositinputitem->id }}" id="array_product_id_{{ $depositinputitem->id }}">
                             <datalist id="array_products_{{ $depositinputitem->id }}">
                                 @foreach(App\Models\Product::where(['company_id' => auth()->user()->company_id, 'status' => true])->orderBy('name', 'ASC')->get() as $key => $product)
