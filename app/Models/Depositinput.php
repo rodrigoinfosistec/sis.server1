@@ -237,7 +237,74 @@ class Depositinput extends Model
 
         return true;
     }
+/**
+     * Valida atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateEditItemRelates(array $data) : bool {
+        $message = null;
 
+        // Verifica se as quantidades de itens da Nota Fiscal e itens CSV estão iguais.
+        if(Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count() != Invoicecsv::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count()):
+            $message = 'Quantidade diferente de itens da Nota Fiscal(' . Invoiceitem::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count() . ') e itens CSV(' . Invoicecsv::where('invoice_id', $data['validatedData']['invoice_id'])->get()->count() . ').';
+        endif;
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Atualiza.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function editItemRelates(array $data) : bool {
+        // Item.
+        $item = Invoiceitem::find($data['validatedData']['invoiceitem_id']);
+
+        // Atualiza item.
+        Invoiceitem::find($data['validatedData']['invoiceitem_id'])->update([
+            'equipment'         => $data['validatedData']['equipment'],
+            'productgroup_id'   => !empty($data['validatedData']['productgroup_id']) ? $data['validatedData']['productgroup_id'] : null,
+            'invoicecsv_id'     => !empty($data['validatedData']['invoicecsv_id']) ? $data['validatedData']['invoicecsv_id']  : null,
+            'quantity_final'    => General::encodeFloat3($data['validatedData']['quantity_final']),
+            'value_final'       => General::encodeFloat3($data['validatedData']['value_final']),
+            'ipi_final'         => General::encodeFloat3($data['validatedData']['ipi_final']),
+            'ipi_aliquot_final' => General::encodeFloat3($data['validatedData']['ipi_aliquot_final']),
+            'margin'            => General::encodeFloat2($data['validatedData']['margin']),
+            'shipping'          => General::encodeFloat2($data['validatedData']['shipping']),
+        ]);
+
+        // Mensagem.
+        $message = 'Itens da ' . $data['config']['title'] . ' ' . Invoice::find($data['validatedData']['invoice_id'])->number . ' atualizados com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyEditItemRelates(array $data) : bool {
+        // Atualiza index.
+        Invoiceitem::generateIndex($data);
+
+        return true;
+    }
     /**
      * Valida exclusão.
      * @var array $data

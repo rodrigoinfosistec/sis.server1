@@ -287,13 +287,13 @@ class DepositinputShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida exclusão.
-            $valid = Depositinput::validateErase($data);
+            $valid = Depositinput::validateEditItemRelates($data);
 
             // Executa dependências.
-            if ($valid) Depositinput::dependencyErase($data);
+            if ($valid) Depositinput::dependencyEditItemRelates($data);
 
             // Exclui.
-            if ($valid) Depositinput::erase($data);
+            if ($valid) Depositinput::editItemRelates($data);
 
             // Fecha modal.
             $this->closeModal();
