@@ -110,11 +110,9 @@
                     <x-layout.card.card-body-content-table-body-line-cell-id-badge>
                         {{ str_pad($item->id, Str::length($list->count()), '0', STR_PAD_LEFT); }}
                     </x-layout.card.card-body-content-table-body-line-cell-id-badge>
-                    {{ $item->user->name }}
+                    &nbsp;&nbsp;{{ $item->user->name }}
                     <br>
                     <i class="bi bi-caret-left-fill text-danger"></i><span class="text-danger">{{ $item->origin->name }}</span>
-                    <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="bi bi-caret-right-fill text-primary"></i><span class="text-primary">{{ $item->destiny->name }}</span>
                     <br>
                     <span class="text-muted">
                         {{ $item->created_at->format('d/m/y') }}
