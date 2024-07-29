@@ -191,18 +191,23 @@ class Depositinput extends Model
 
                 // Multiplicador de quantidade.
                 if($provideritem->signal == 'divide'):
-                    $quantity_final = $item->qCom / $provideritem->amount;
+                    $quantity_final = $item->prod->qCom / $provideritem->amount;
                 else:
-                    $quantity_final = $item->qCom * $provideritem->amount;
+                    $quantity_final = $item->prod->qCom * $provideritem->amount;
                 endif;
 
                 // Cadastra Produto na Entrada do depósito.
                 Depositinputproduct::create([
                     'depositinput_id' => $depositinput->id,
                     'product_id' => $provideritem->product_id,
-                    'product_name' => $provideritem->product_name,
-                    'quantity' => $item->qCom,
+                    'product_name' => Product::find($provideritem->product_id)->name,
+                    'quantity' => $item->prod->qCom,
                     'quantity_final' => $quantity_final,
+                ]);
+
+                // Atribui Código no relacionamento Productprovider.
+                Productprovider::where(['product_id' => $provideritem->product_id, 'provider_id' => $data['validatedData']['provider_id']])->update([
+                    'provider_code' => $item->prod->cProd,
                 ]);
             endif;
         endforeach;
@@ -269,7 +274,7 @@ class Depositinput extends Model
         endforeach;
 
         // Percorre todos os Produtos da Saída.
-        foreach(Depositinputproduct::where('depositinput_id', $data['validatedData']['depositinput_id'])->get() as $key => $deposiinputproduct):
+        foreach(Depositinputproduct::where('depositinput_id', $data['validatedData']['depositinput_id'])->get() as $key => $depositinputproduct):
             // Exclui Produto da Saída.
             Depositinputproduct::find($depositinputproduct->id)->delete();
         endforeach;
