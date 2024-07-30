@@ -108,7 +108,7 @@ class Depositinputproduct extends Model
                 'provider_code' => $data['validatedData']['provider_code'],
             ]);
         endif;
-        
+
         // Mensagem.
         $message = 'Quantidades dos Produtos atualizadas com sucesso.';
         session()->flash('message', $message);
