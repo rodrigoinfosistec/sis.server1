@@ -357,7 +357,7 @@ class DepositinputShow extends Component
     }
         public function modernizeItemAmount()
         {
-            // Define $validatedData
+            // Define $validatedData.
             $validatedData['depositinput_id'] = $this->depositinput_id;
             $validatedData['deposit_name'] = $this->deposit_name;
             $validatedData['deposit_id'] = $this->deposit_id;
