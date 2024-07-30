@@ -1,6 +1,6 @@
 <x-layout.modal.modal-edit modal="editItemAmount" size="modal-fullscreen">
     <x-layout.modal.modal-edit-header icon="bi-basket" modal="editItemAmount">
-        Itens
+        Itens 
 
         <x-slot:identifier>
             NFe {{ $number }}
@@ -33,127 +33,74 @@
 
                 <th class="" style="padding: 0;">
                     <div class="" style="width: 90px;">
-                        EAN/NCM/CEST
+                        EAN
                     </div>
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 60px;">
-                        PRODUTO
-                    </div>
-                </th>
-
-                <th class="" style="padding: 0;">
-                    <div class="" style="">
-                        INT<span class="text-muted">&#187;</span>REFERÊNCIA<span class="text-muted">&#187;</span>BARRAS
+                    <div class="text-center" style="width: 120px;">
+                        EMBALAGEM
                     </div>
                 </th>
             </tr>
         </thead>
 
         <tbody style="font-size: 7pt;">
-            @foreach(App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->get() as $key => $depositinputitem)
-                @if(App\Models\Depositinputproduct::where(['depositinput_id' => $depositinput_id, 'identifier' => $depositinputitem->identifier])->doesntExist())
-                    <tr>
-                        {{-- ITEM --}}
-                        <td rowspan="2" class="align-middle" style="line-height: 1; padding: 0;">
-                            <div class="text-break text-center" style="width: 40px; font-size: 9pt;">
-                                <span class="badge rounded-pill bg-secondary">
-                                    {{ str_pad($loop->iteration, Str::length(App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->get()->count()), '0', STR_PAD_LEFT); }}
-                                </span>
-                            </div>
-                        </td>
+            @foreach(App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->get() as $key => $depositinputproduct)
+                <tr>
+                    {{-- ITEM --}}
+                    <td rowspan="2" class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="text-break text-center" style="width: 40px; font-size: 9pt;">
+                            <span class="badge rounded-pill bg-secondary">
+                                {{ str_pad($loop->iteration, Str::length(App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->get()->count()), '0', STR_PAD_LEFT); }}
+                            </span>
+                        </div>
+                    </td>
 
-                        {{-- CHECKBOX --}}
-                        <td rowspan="2" class="align-middle" style="line-height: 1; padding: 0;">
-                            <div class="" style="width: 22px;">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" style="width: 15px; height: 15px;" onchange="closest('tr').classList.toggle('row_selected')">
-                                </div>
+                    {{-- CHECKBOX --}}
+                    <td rowspan="2" class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="" style="width: 22px;">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" style="width: 15px; height: 15px;" onchange="closest('tr').classList.toggle('row_selected')">
                             </div>
-                        </td>
+                        </div>
+                    </td>
 
-                        <td colspan="100%" class="align-middle" style="line-height: 1; padding: 6px 0 0 0;">
-                            {{-- CÓDIGO E DESCRIÇÃO --}}
-                            <div class="fw-bolder" style="font-size: 8pt;" title="{{ $depositinputitem->provideritem->name }}">
-                                <span class="text-muted">
-                                    {{ $depositinputitem->provideritem->code }}
-                                </span>
-                                <i class="bi-caret-right-fill text-muted"></i>
-                                {{ mb_strimwidth($depositinputitem->provideritem->name, 0, 90, "...") }}
+                    <td colspan="100%" class="align-middle" style="line-height: 1; padding: 6px 0 0 0;">
+                        {{-- CÓDIGO E DESCRIÇÃO --}}
+                        <div class="fw-bolder" style="font-size: 8pt;" title="{{ $depositinputproduct->product->name }}">
+                            <span class="text-muted">
+                                {{ $depositinputproduct->product->code }}
+                            </span>
+                            <i class="bi-caret-right-fill text-muted"></i>
+                            {{ $depositinputproduct->product->name }}
+                        </div>
+                    </td>
+                </tr>
+
+                <tr style="border-bottom: 1px solid #ddd;">
+                    {{-- EAN --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="" style="width: 90px;">
+                            {{ $depositinputproduct->product->ean }}
+                        </div>
+                    </td>
+
+                    {{-- EMBALAGEM --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="text-center fw-bold" style="width: 120px; height: 25px;">
+                            <div class="float-start" style="width: 45px;">
+                                <select wire:model="array_product_signal.{{ $depositinputproduct->id }}" class="form-select form-control-sm text-uppercase text-danger" style="font-size: 8pt;  padding: 0 30px 0 5px;" id="array_product_signal_{{ $depositinputproduct->id }}" required>
+                                    <option value="multiply" class="text-muted fw-bold" style="font-size: 6pt;">*</option>
+                                    <option value="divide" class="text-muted fw-bold" style="font-size: 6pt;">/</option>
+                                </select>
                             </div>
-                        </td>
-                    </tr>
-
-                    <tr style="border-bottom: 1px solid #ddd;">
-                        {{-- EAN/NCM/CEST --}}
-                        <td class="align-middle" style="line-height: 1; padding: 0;">
-                            <div class="" style="width: 90px;">
-                                {{ $depositinputitem->provideritem->ean }}
-                                <br>
-                                {{ $depositinputitem->provideritem->ncm }}
-                                <br>
-                                {{ $depositinputitem->provideritem->cest }}
+                            <div class="float-start" style="width: 68px;">
+                                <input type="text" wire:model="array_product_amount.{{ $depositinputproduct->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px;" id="array_product_amount_{{ $depositinputproduct->id }}" onKeyUp="maskFloat3(this, event)" required>
                             </div>
-                        </td>
-
-                        {{-- PRODUTO --}}
-                        <td class="align-middle" style="line-height: 1; padding: 0;">
-                            <div class="" style="width: 50px;">
-                                <input wire:model="array_product_id.{{ $depositinputitem->id }}" type="text" class="form-control form-control-sm" list="array_products_{{ $depositinputitem->id }}" id="array_product_id_{{ $depositinputitem->id }}">
-                                @php
-                                    $arr_prod = [];
-                                    foreach(App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->get() as $key => $produ):
-                                        $arr_produ[] = $produ->product_id;
-                                    endforeach;
-
-                                    $ar_pro = [];
-                                    foreach(App\Models\Provideritem::where(['provider_id' => $provider_id, 'product_id' => $produ->product_id])->get() as $key => $pro):
-                                        if(!empty($pro->product_id)):
-                                            $ar_pro[] = $pro->product_id;
-                                        endif;
-                                    endforeach;
-                                @endphp
-                                <datalist id="array_products_{{ $depositinputitem->id }}">
-                                    @foreach(App\Models\Product::where(['company_id' => auth()->user()->company_id, 'status' => true])->orderBy('name', 'ASC')->get() as $key => $product)
-                                        @if(!in_array($product->id, $array_product_id))
-                                            @if(!in_array($product->id, $arr_produ))
-                                                @if(!in_array($product->id, $ar_pro))
-                                                    <option value="{{ $product->id }}">
-                                                        {{ $product->code }}
-                                                        &#187;
-                                                        {{ $product->name }}
-                                                        &#187;
-                                                        {{ $product->ean }}
-                                                        &#187;
-                                                        {{ $product->reference }}
-                                                        <br>
-                                                    </option>
-                                                @endif
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                </datalist>
-                            </div>
-                        </td>
-
-                        <td class="align-middle" style="line-height: 1; padding: 0;">
-                            <div class="text-primary" style="font-size: 8pt;">
-                                <span class="text-danger">
-                                    @if(!empty($array_product_id[$depositinputitem->id]))
-                                        {{ @App\Models\Product::find($array_product_id[$depositinputitem->id])->code }}
-                                        <span class="text-muted">&#187;</span>
-                                        {{ @App\Models\Product::find($array_product_id[$depositinputitem->id])->reference }}
-                                        <span class="text-muted">&#187;</span>
-                                        {{ @App\Models\Product::find($array_product_id[$depositinputitem->id])->ean }}
-                                    @endif
-                                </span>
-                                <br>
-                                {{ @App\Models\Product::find($array_product_id[$depositinputitem->id])->name }}
-                            </div>
-                        </td>
-                    </tr>
-                @endif
+                        </div>
+                    </td>
+                </tr>
             @endforeach
         </tbody>
     </table>

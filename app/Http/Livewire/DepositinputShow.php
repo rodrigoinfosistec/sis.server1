@@ -64,6 +64,8 @@ class DepositinputShow extends Component
     public $xml;
 
     public $array_product_id = [];
+    public $array_product_signal = [];
+    public $array_product_amount = [];
     public $array_product_quantity = [];
     public $array_product_quantity_final = [];
 
@@ -136,6 +138,8 @@ class DepositinputShow extends Component
         $this->xml = '';
 
         $this->array_product_id = [];
+        $this->array_product_signal = [];
+        $this->array_product_amount = [];
         $this->array_product_quantity = [];
         $this->array_product_quantity_final = [];
     }
@@ -354,6 +358,11 @@ class DepositinputShow extends Component
         $this->type = $depositinput->type;
         $this->created = $depositinput->created_at->format('d/m/Y H:i:s');
         $this->updated = $depositinput->updated_at->format('d/m/Y H:i:s');
+
+        // Percorre todos os Produtos da Entrada.
+        foreach(Depositinputproduct::where('depositinput_id', $depositinput_id)->get() as $key => $depositinputproduct):
+            $this->array_product_signal[$depositinputproduct] = '';
+        endforeach;
     }
         public function modernizeItemAmount()
         {
@@ -379,7 +388,7 @@ class DepositinputShow extends Component
             // Percorre os itens da Nota Fiscal.
             foreach(Depositinputproduct::where($this->depositinput_id)->get() as $key => $depositinputproduct):
                 // Monta array Item da Nota Fiscal.
-                $validatedData['depositinputitem_id'] = $key;
+                //$validatedData['?'] = $?;
 
                 // Define $data.
                 $data['config']        = $this->config;
