@@ -389,8 +389,19 @@ class DepositinputShow extends Component
 
             // Percorre os itens da Nota Fiscal.
             foreach(Depositinputproduct::where($this->depositinput_id)->get() as $key => $depositinputproduct):
+                // Item da Entrada.
+                $depositinputitem = Depositinputitem::where(['depositinput_id' => $this->depositinput_id, 'identifier' => $depositinputproduct->identifier])->first();
+
                 // Monta array Item da Nota Fiscal.
-                //$validatedData['?'] = $?;
+                $validatedData['depositinputproduct_id'] = $depositinputproduct->id;
+                $validatedData['provideritem_id'] = $$depositinputitem->provideritem_id;
+                $validatedData['signal'] = $this->array_product_signal[$depositinputproduct->id];
+                $validatedData['amount'] = General::encodeFloat3($this->array_product_signal[$depositinputproduct->id]);
+                if($this->array_product_signal[$depositinputproduct->id] == 'divide'):
+                    $validatedData['quantity_final'] = $depositinputproduct->quantity / General::encodeFloat3($this->array_product_amount[$depositinputproduct->id]);
+                else:
+                    $validatedData['quantity_final'] = $depositinputproduct->quantity * General::encodeFloat3($this->array_product_amount[$depositinputproduct->id]);
+                endif;
 
                 // Define $data.
                 $data['config']        = $this->config;
