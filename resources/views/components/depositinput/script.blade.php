@@ -6,6 +6,7 @@
         $('#addXmlModal').modal('hide');
         $('#addProductModal').modal('hide');
         $('#editItemRelatesModal').modal('hide');
+        $('#editItemAmountModal').modal('hide');
 
         $('#eraseModal').modal('hide');
     })
