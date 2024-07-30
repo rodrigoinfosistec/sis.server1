@@ -23,6 +23,8 @@ return new class extends Migration
             $table->decimal('quantity', total: 16, places: 7)->default(0);
             $table->decimal('quantity_final', total: 16, places: 7)->default(0);
 
+            $table->boolean('funded')->default(false);
+
             $table->timestamps();
 
             $table->foreign('depositinput_id')->references('id')->on('depositinputs');

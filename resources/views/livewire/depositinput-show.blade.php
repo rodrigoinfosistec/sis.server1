@@ -148,7 +148,7 @@
     @if(App\Models\Depositinputitem::where('depositinput_id', $item->id)->count() != App\Models\Depositinputproduct::where('depositinput_id', $item->id)->count())
         <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-relates :id="$item->id"/>
     @else
-    <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-amount :id="$item->id"/>
+        <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-amount :id="$item->id"/>
     @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
