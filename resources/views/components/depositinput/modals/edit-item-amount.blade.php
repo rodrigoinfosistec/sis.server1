@@ -32,26 +32,20 @@
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="" style="width: 90px;">
-                        EAN
+                    <div class="" style="width: 150px; background-color: #ddd;">
+                        INT/DESC/QTD/EAN/REF
                     </div>
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="" style="width: 90px;">
-                        QUANTIDADE
-                    </div>
-                </th>
-
-                <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 120px;">
+                    <div class="text-center" style="width: 120px; background-color: #ddd;">
                         EMBALAGEM
                     </div>
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 120px;">
-                        FINAL
+                    <div class="" style="width: 90px; background-color: #ddd;">
+                        QTD NOVA
                     </div>
                 </th>
             </tr>
@@ -86,22 +80,19 @@
                             </span>
                             <i class="bi-caret-right-fill text-muted"></i>
                             {{ $depositinputproduct->product->name }}
+                            <i class="bi-caret-right-fill text-muted"></i>
+                            <span class="text-primary">{{ App\Models\General::decodeFloat3($depositinputproduct->quantity) }}</span>
                         </div>
                     </td>
                 </tr>
 
                 <tr style="border-bottom: 1px solid #ddd;">
-                    {{-- EAN --}}
+                    {{-- EAN/REF --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="" style="width: 90px;">
+                        <div class="" style="width: 150px;">
                             {{ $depositinputproduct->product->ean }}
-                        </div>
-                    </td>
-
-                    {{-- QUANTIDADE --}}
-                    <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="fw-bold" style="width: 90px; font-size: 10pt;">
-                            {{ App\Models\General::decodeFloat3($depositinputproduct->quantity) }}
+                            &#187;
+                            {{ $depositinputproduct->product->reference }}
                         </div>
                     </td>
 
@@ -125,10 +116,12 @@
                         <div class="text-primary fw-bold" style="width: 90px; font-size: 10pt;">
                             @if(App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id]) > 0 && !empty(App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id])))
                                 @if($array_product_signal[$depositinputproduct->id] == 'divide')
-                                    {{ $depositinputproduct->quantity /  App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id]) }}
+                                    {{ App\Models\General::decodeFloat3($depositinputproduct->quantity /  App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id])) }}
                                 @else
-                                    {{ $depositinputproduct->quantity *  App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id]) }}
+                                    {{ App\Models\General::decodeFloat3($depositinputproduct->quantity *  App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id])) }}
                                 @endif
+                            @else
+                                <i class="bi-exclamation-triangle text-danger"></i>
                             @endif
                         </div>
                     </td>
