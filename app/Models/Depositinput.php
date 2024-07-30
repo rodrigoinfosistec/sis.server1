@@ -249,7 +249,13 @@ class Depositinput extends Model
     public static function validateEditItemRelates(array $data) : bool {
         $message = null;
 
-        // ...
+        // Percorre todos os Itens.
+        foreach($data['validatedData']['items'] as $key => $item):
+            // Verifica se o Produto existe.
+            if( Product::where('id', $data['validatedData']['product_id'])->doesntExist() ):
+                $message = 'Produto ID: ' . $data['validatedData']['product_id'] . ' inexistente!';
+            endif;
+        endforeach;
 
         // Desvio.
         if(!empty($message)):
@@ -269,24 +275,14 @@ class Depositinput extends Model
      * @return bool true
      */
     public static function editItemRelates(array $data) : bool {
-        // Item.
-        $item = Invoiceitem::find($data['validatedData']['invoiceitem_id']);
+        // Depositinput.
+        $depositinput = Depositinput::find($data['validatedData']['depositinput_id']);
 
-        // Atualiza item.
-        Invoiceitem::find($data['validatedData']['invoiceitem_id'])->update([
-            'equipment'         => $data['validatedData']['equipment'],
-            'productgroup_id'   => !empty($data['validatedData']['productgroup_id']) ? $data['validatedData']['productgroup_id'] : null,
-            'invoicecsv_id'     => !empty($data['validatedData']['invoicecsv_id']) ? $data['validatedData']['invoicecsv_id']  : null,
-            'quantity_final'    => General::encodeFloat3($data['validatedData']['quantity_final']),
-            'value_final'       => General::encodeFloat3($data['validatedData']['value_final']),
-            'ipi_final'         => General::encodeFloat3($data['validatedData']['ipi_final']),
-            'ipi_aliquot_final' => General::encodeFloat3($data['validatedData']['ipi_aliquot_final']),
-            'margin'            => General::encodeFloat2($data['validatedData']['margin']),
-            'shipping'          => General::encodeFloat2($data['validatedData']['shipping']),
-        ]);
+        // Relaciona Produto ao Item do Depositinput.
+        
 
         // Mensagem.
-        $message = 'Itens da ' . $data['config']['title'] . ' ' . Invoice::find($data['validatedData']['invoice_id'])->number . ' atualizados com sucesso.';
+        $message = 'Itens Relacionados aos Produtos com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
@@ -300,8 +296,7 @@ class Depositinput extends Model
      * @return bool true
      */
     public static function dependencyEditItemRelates(array $data) : bool {
-        // Atualiza index.
-        Invoiceitem::generateIndex($data);
+        // ...
 
         return true;
     }
