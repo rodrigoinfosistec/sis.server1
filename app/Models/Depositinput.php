@@ -183,6 +183,7 @@ class Depositinput extends Model
                 'depositinput_id' => Depositinput::where(['deposit_id' => $data['validatedData']['deposit_id'], 'key' => $data['validatedData']['key']])->first()->id,
                 'provideritem_id' => $provideritem->id,
                 'identifier' => $item['nItem'],
+                'quantity' => $item->prod->qCom,
             ]);
 
             // Verifica se o Item do Fornecedor está relacionado com algum Produto.

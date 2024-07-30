@@ -260,7 +260,6 @@ class DepositinputShow extends Component
         $this->type = $depositinput->type;
         $this->created = $depositinput->created_at->format('d/m/Y H:i:s');
         $this->updated = $depositinput->updated_at->format('d/m/Y H:i:s');
-
     }
         public function modernizeItemRelates()
         {

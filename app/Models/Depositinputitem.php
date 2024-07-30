@@ -25,6 +25,8 @@ class Depositinputitem extends Model
 
         'identifier',
 
+        'quantity',
+
         'created_at',
         'updated_at',
     ];

@@ -19,6 +19,8 @@ return new class extends Migration
 
             $table->integer('identifier');
 
+            $table->decimal('quantity', total: 16, places: 7)->default(0);
+
             $table->timestamps();
 
             $table->foreign('depositinput_id')->references('id')->on('depositinputs');
