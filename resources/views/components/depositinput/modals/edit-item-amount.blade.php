@@ -32,19 +32,19 @@
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="" style="width: 150px; background-color: #ddd;">
+                    <div class="" style="width: 150px;">
                         INT/DESC/QTD/EAN/REF
                     </div>
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 120px; background-color: #ddd;">
+                    <div class="text-center" style="width: 120px;">
                         EMBALAGEM
                     </div>
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="" style="width: 90px; background-color: #ddd;">
+                    <div class="" style="width: 90px;">
                         QTD NOVA
                     </div>
                 </th>
