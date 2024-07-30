@@ -80,7 +80,7 @@
                                     {{ $depositinputitem->provideritem->code }}
                                 </span>
                                 <i class="bi-caret-right-fill text-muted"></i>
-                                {{ mb_strimwidth($depositinputitem->provideritem->name, 0, 90, "...") }}
+                                {{ $depositinputitem->provideritem->name }}
                             </div>
                         </td>
                     </tr>
@@ -127,7 +127,6 @@
                                                         {{ $product->ean }}
                                                         &#187;
                                                         {{ $product->reference }}
-                                                        <br>
                                                     </option>
                                                 @endif
                                             @endif
