@@ -363,7 +363,7 @@ class DepositinputShow extends Component
         foreach(Depositinputproduct::where('depositinput_id', $depositinput_id)->get() as $key => $depositinputproduct):
             $depositinputitem = Depositinputitem::where(['depositinput_id' => $depositinput_id, 'identifier' => $depositinputproduct->identifier])->first();
             $this->array_product_signal[$depositinputproduct->id] = $depositinputitem->provideritem->signal;
-            $this->array_product_amount[$depositinputproduct->id] = $depositinputitem->provideritem->amount;
+            $this->array_product_amount[$depositinputproduct->id] = General::decodeFloat3($depositinputitem->provideritem->amount);
         endforeach;
     }
         public function modernizeItemAmount()
