@@ -239,7 +239,8 @@ class Depositinput extends Model
 
         return true;
     }
-/**
+
+    /**
      * Valida atualização.
      * @var array $data
      * 
