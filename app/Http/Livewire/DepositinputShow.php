@@ -12,6 +12,8 @@ use App\Models\Deposit;
 use App\Models\Deposituser;
 use App\Models\Depositinput;
 use App\Models\Depositinputproduct;
+use App\Models\Depositinputitem;
+use App\Models\Product;
 
 use App\Models\Provider;
 use App\Models\Company;

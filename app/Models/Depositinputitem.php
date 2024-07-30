@@ -52,7 +52,7 @@ class Depositinputitem extends Model
         endif;
 
         // Verifica se o Produto já consta na Entrada.
-        if( Depositinputroduct::where('product_id', $data['validatedData']['product_id'])->exists() ):
+        if( Depositinputproduct::where('product_id', $data['validatedData']['product_id'])->exists() ):
             $message = 'Produto ID: ' . $data['validatedData']['product_id'] . ' Já existe nesta Entrada.';
         endif;
 
@@ -95,7 +95,7 @@ class Depositinputitem extends Model
         ]);
 
         // Verifica se Produto não está relacionado com Fornecedor.
-        if(Productprovider::where(['product_id' => $data['validatedData']['product_id'], 'provider' => $data['validatedData']['provider_id']])->doesntExist()):
+        if(Productprovider::where(['product_id' => $data['validatedData']['product_id'], 'provider_id' => $data['validatedData']['provider_id']])->doesntExist()):
             Productprovider::create([
                 'product_id' => $data['validatedData']['product_id'],
                 'product_code' => $data['validatedData']['product_code'],
@@ -103,7 +103,7 @@ class Depositinputitem extends Model
                 'provider_code' => $data['validatedData']['provider_code'],
             ]);
         else:
-            Productprovider::where(['product_id' => $data['validatedData']['product_id'], 'provider' => $data['validatedData']['provider_id']])->update([
+            Productprovider::where(['product_id' => $data['validatedData']['product_id'], 'provider_id' => $data['validatedData']['provider_id']])->update([
                 'provider_code' => $data['validatedData']['provider_code'],
             ]);
         endif;
