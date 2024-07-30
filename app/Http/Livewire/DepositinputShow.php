@@ -260,6 +260,8 @@ class DepositinputShow extends Component
         $this->type = $depositinput->type;
         $this->created = $depositinput->created_at->format('d/m/Y H:i:s');
         $this->updated = $depositinput->updated_at->format('d/m/Y H:i:s');
+
+
     }
         public function modernizeItemRelates()
         {
@@ -286,14 +288,28 @@ class DepositinputShow extends Component
             $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;
 
-            // Valida exclusão.
-            $valid = Depositinput::validateEditItemRelates($data);
+            // Percorre os itens da Nota Fiscal.
+            foreach($this->array_product_id as $key => $product_id):
+                // Depositinputitem.
+                $depositinputitem = Depositinputitem::find($key);
 
-            // Executa dependências.
-            if ($valid) Depositinput::dependencyEditItemRelates($data);
+                // Monta array Item da Nota Fiscal.
+                $validatedData['depositinputitem_id'] = $key;
+                $validatedData['identifier'] = $depositinputitem->provideritem->identifier;
+                $validatedData['code'] = $depositinputitem->provideritem->code;
 
-            // Exclui.
-            if ($valid) Depositinput::editItemRelates($data);
+                $validatedData['product_id'] = $product_id;
+                $validatedData['product_name'] = Product::find($product_id)->name;
+
+                // Valida exclusão.
+                $valid = Depositinputitem::validateEditItemRelates($data);
+
+                // Executa dependências.
+                if ($valid) Depositinputitem::dependencyEditItemRelates($data);
+
+                // Exclui.
+                if ($valid) Depositinputitem::editItemRelates($data);
+            endforeach;
 
             // Fecha modal.
             $this->closeModal();

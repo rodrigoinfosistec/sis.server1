@@ -241,66 +241,6 @@ class Depositinput extends Model
     }
 
     /**
-     * Valida atualização.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function validateEditItemRelates(array $data) : bool {
-        $message = null;
-
-        // Percorre todos os Itens.
-        foreach($data['validatedData']['items'] as $key => $item):
-            // Verifica se o Produto existe.
-            if( Product::where('id', $data['validatedData']['product_id'])->doesntExist() ):
-                $message = 'Produto ID: ' . $data['validatedData']['product_id'] . ' inexistente!';
-            endif;
-        endforeach;
-
-        // Desvio.
-        if(!empty($message)):
-            session()->flash('message', $message );
-            session()->flash('color', 'danger');
-
-            return false;
-        endif;
-
-        return true;
-    }
-
-    /**
-     * Atualiza.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function editItemRelates(array $data) : bool {
-        // Depositinput.
-        $depositinput = Depositinput::find($data['validatedData']['depositinput_id']);
-
-        // Relaciona Produto ao Item do Depositinput.
-        
-
-        // Mensagem.
-        $message = 'Itens Relacionados aos Produtos com sucesso.';
-        session()->flash('message', $message);
-        session()->flash('color', 'success');
-
-        return true;
-    }
-
-    /**
-     * Executa dependências de atualização.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function dependencyEditItemRelates(array $data) : bool {
-        // ...
-
-        return true;
-    }
-    /**
      * Valida exclusão.
      * @var array $data
      * 
