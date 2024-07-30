@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('cest')->nullable()->default(null);
             $table->string('measure');
 
-            $table->enum('signal', ['divide', 'multiply'])->default('multiply');
+            $table->enum('signal', ['divide', 'multiply'])->default('divide');
             $table->decimal('amount', 12, 3)->default(1.000);
 
             $table->string('provider_name');

@@ -361,7 +361,9 @@ class DepositinputShow extends Component
 
         // Percorre todos os Produtos da Entrada.
         foreach(Depositinputproduct::where('depositinput_id', $depositinput_id)->get() as $key => $depositinputproduct):
-            $this->array_product_signal[$depositinputproduct] = '';
+            $depositinputitem = Depositinputitem::where(['depositinput_id' => $depositinput_id, 'identifier' => $depositinputproduct->identifier])->first();
+            $this->array_product_signal[$depositinputproduct->id] = $depositinputitem->provideritem->signal;
+            $this->array_product_amount[$depositinputproduct->id] = $depositinputitem->provideritem->amount;
         endforeach;
     }
         public function modernizeItemAmount()
