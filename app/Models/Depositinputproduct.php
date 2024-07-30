@@ -80,34 +80,45 @@ class Depositinputproduct extends Model
      * @return bool true
      */
     public static function editItemAmount(array $data) : bool {
-        // Cadastra Produto na Entrada.
-        Depositinputproduct::create([
-            'depositinput_id' => $data['validatedData']['depositinput_id'],
-            'product_id' => $data['validatedData']['product_id'],
-            'product_name' => $data['validatedData']['product_name'],
-            'identifier' => $data['validatedData']['identifier'],
-            'quantity' => $data['validatedData']['quantity'],
-            'quantity_final' => $data['validatedData']['quantity'],
+        // Atualiza a Produto da Entrada.
+        Depositinputproduct::find($data['validatedData']['depositinputproduct_id'])->update([
+            'quantity_final' => $data['validatedData']['quantity_final'],
         ]);
 
-        // Relaciona Produto com Item.
+        // Atualiza Item do Fornecedor.
         Provideritem::find($data['validatedData']['provideritem_id'])->update([
-            'product_id' => $data['validatedData']['product_id'],
+            'signal' => $data['validatedData']['sinal'],
+            'amount' => $data['validatedData']['amount'],
         ]);
 
-        // Verifica se Produto não está relacionado com Fornecedor.
-        if(Productprovider::where(['product_id' => $data['validatedData']['product_id'], 'provider_id' => $data['validatedData']['provider_id']])->doesntExist()):
-            Productprovider::create([
-                'product_id' => $data['validatedData']['product_id'],
-                'product_code' => $data['validatedData']['product_code'],
-                'provider_id' => $data['validatedData']['provider_id'],
-                'provider_code' => $data['validatedData']['provider_code'],
-            ]);
-        else:
-            Productprovider::where(['product_id' => $data['validatedData']['product_id'], 'provider_id' => $data['validatedData']['provider_id']])->update([
-                'provider_code' => $data['validatedData']['provider_code'],
+        // Verifica se o Produto não existe no Depósito
+        if(Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->doesntExist()):
+            // Cadastra o Produto no Depósito.
+            Productdeposit::create([
+                'product_id' => $data['validatedData']['product_id'], 
+                'deposit_id' => $data['validatedData']['deposit_id'],
             ]);
         endif;
+
+        // Acrescenta a Quantidade no Depósito.
+        $newQtdDep = Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->quantity += $data['validatedData']['quantity_final'];
+        Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->update([
+            'quantity' => $newQtd,
+        ]);
+
+        // Acrescenta a Quantidade no Produto.
+        $newQtdProd = Product::find($data['validatedData']['product_id'])->quantity += $data['validatedData']['quantity_final'];
+        Product::find($data['validatedData']['product_id'])->update([
+            'quantity' => $newQtdProd,
+        ]);
+
+        // Registra Movimentação do Produto.
+        Productmoviment::create([
+            'product_id' => $data['validatedData']['product_id'],
+            'identification' => 'Entrada no Depósito: ' . $data['validatedData']['deposit_id'],
+            'quantity' => $data['validatedData']['quantity_final'],
+            'user_id' => auth()->user()->id,
+        ]);
 
         // Mensagem.
         $message = 'Quantidades dos Produtos atualizadas com sucesso.';

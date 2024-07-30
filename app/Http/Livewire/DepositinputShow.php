@@ -394,7 +394,8 @@ class DepositinputShow extends Component
 
                 // Monta array Item da Nota Fiscal.
                 $validatedData['depositinputproduct_id'] = $depositinputproduct->id;
-                $validatedData['provideritem_id'] = $$depositinputitem->provideritem_id;
+                $validatedData['provideritem_id'] = $depositinputitem->provideritem_id;
+                $validatedData['product_id'] = $depositinputproduct->product_id;
                 $validatedData['signal'] = $this->array_product_signal[$depositinputproduct->id];
                 $validatedData['amount'] = General::encodeFloat3($this->array_product_signal[$depositinputproduct->id]);
                 if($this->array_product_signal[$depositinputproduct->id] == 'divide'):
