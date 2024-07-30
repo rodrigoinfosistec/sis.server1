@@ -134,5 +134,23 @@
 
     </x-layout.modal.modal-edit-body>
 
-    <x-layout.modal.modal-edit-footer/>
+    <div class="modal-footer">
+        @php
+            $ar = [];
+
+            foreach($array_product_amount as $t):
+                if(!(App\Models\General::encodeFloat3($t) > 0 && !empty($t))):
+                    $ar[] = 1;
+                endif;
+            endforeach;
+        @endphp 
+        @if(empty($ar))
+            <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-primary">
+                <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
+                Atualizar
+            </button>
+        @else
+            <i class="bi-exclamation-triangle text-danger" style="font-size: 25pt;"></i>
+        @endif
+    </div>
 </x-layout.modal.modal-edit>
