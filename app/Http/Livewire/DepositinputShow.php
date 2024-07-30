@@ -397,7 +397,7 @@ class DepositinputShow extends Component
                 $validatedData['provideritem_id'] = $depositinputitem->provideritem_id;
                 $validatedData['product_id'] = $depositinputproduct->product_id;
                 $validatedData['signal'] = $this->array_product_signal[$depositinputproduct->id];
-                $validatedData['amount'] = General::encodeFloat3((float)$this->array_product_signal[$depositinputproduct->id]);
+                $validatedData['amount'] = General::encodeFloat3($this->array_product_amount[$depositinputproduct->id]);
                 if($this->array_product_signal[$depositinputproduct->id] == 'divide'):
                     $validatedData['quantity_final'] = $depositinputproduct->quantity / General::encodeFloat3($this->array_product_amount[$depositinputproduct->id]);
                 else:
@@ -417,6 +417,11 @@ class DepositinputShow extends Component
                 // Exclui.
                 if ($valid) Depositinputproduct::editItemAmount($data);
             endforeach;
+
+            // Consolida a Entrada.
+            Depositinput::find($this->depositinput_id)->update([
+                'funded' => true,
+            ]);
 
             // Fecha modal.
             $this->closeModal();
