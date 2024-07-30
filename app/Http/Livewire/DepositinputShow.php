@@ -466,5 +466,69 @@ class DepositinputShow extends Component
             // Fecha modal.
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
-        }    
+        } 
+
+        /**
+     * generate()
+     *  sire()
+     */
+    public function generate()
+    {
+        //...
+    }
+        public function sire()
+        {
+            // Define $data.
+            $data['config'] = $this->config;
+            $data['filter'] = $this->filter;
+            $data['search'] = $this->search;
+
+            // Valida geração de relatório.
+            $valid = Depositinput::validateGenerate($data);
+
+            // Gera relatório.
+            if ($valid) Depositinput::generate($data);
+
+            // Executa dependências.
+            if ($valid) Depositinput::dependencyGenerate($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * mail()
+     *  send()
+     */
+    public function mail()
+    {
+        //...
+    }
+        public function send()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'report_id' => ['required'],
+                'mail'      => ['required', 'email', 'between:2,255'],
+                'comment'   => ['nullable', 'between:2,255'],
+            ]);
+
+            // Define $data
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida envio do e-mail.
+            $valid = Depositinput::validateMail($data);
+
+            // Envia e-mail.
+            if ($valid) Depositinput::mail($data);
+
+            // Executa dependências.
+            if ($valid) Depositinput::dependencyMail($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
 }
