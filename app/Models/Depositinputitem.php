@@ -86,12 +86,28 @@ class Depositinputitem extends Model
             'product_name' => $data['validatedData']['product_name'],
             'identifier' => $data['validatedData']['identifier'],
             'quantity' => $data['validatedData']['quantity'],
-            'quantity_final' => $data['validatedData']['quantity_final'],
+            'quantity_final' => $data['validatedData']['quantity'],
         ]);
 
-        // Relaciona Produto com Item
-        
+        // Relaciona Produto com Item.
+        Provideritem::find($data['validatedData']['provideritem_id'])->update([
+            'product_id' => $data['validatedData']['product_id'],
+        ]);
 
+        // Verifica se Produto não está relacionado com Fornecedor.
+        if(Productprovider::where(['product_id' => $data['validatedData']['product_id'], 'provider' => $data['validatedData']['provider_id']])->doesntExist()):
+            Productprovider::create([
+                'product_id' => $data['validatedData']['product_id'],
+                'product_code' => $data['validatedData']['product_code'],
+                'provider_id' => $data['validatedData']['provider_id'],
+                'provider_code' => $data['validatedData']['provider_code'],
+            ]);
+        else:
+            Productprovider::where(['product_id' => $data['validatedData']['product_id'], 'provider' => $data['validatedData']['provider_id']])->update([
+                'provider_code' => $data['validatedData']['provider_code'],
+            ]);
+        endif;
+        
         // Mensagem.
         $message = 'Itens Relacionados aos Produtos com sucesso.';
         session()->flash('message', $message);

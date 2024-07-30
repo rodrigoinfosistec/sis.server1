@@ -282,22 +282,28 @@ class DepositinputShow extends Component
             $validatedData['type'] = $this->type;
             $validatedData['created'] = $this->created;
 
-            // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
-
             // Percorre os itens da Nota Fiscal.
             foreach($this->array_product_id as $key => $product_id):
-                // Depositinputitem.
+                // item da Entrada.
                 $depositinputitem = Depositinputitem::find($key);
+
+                // Produto.
+                $product = Product::find($product_id);
 
                 // Monta array Item da Nota Fiscal.
                 $validatedData['depositinputitem_id'] = $key;
-                $validatedData['identifier'] = $depositinputitem->provideritem->identifier;
-                $validatedData['code'] = $depositinputitem->provideritem->code;
+                $validatedData['identifier'] = $depositinputitem->identifier;
+                $validatedData['quantity'] = $depositinputitem->quantity;
+                $validatedData['provider_code'] = $depositinputitem->provideritem->code;
+                $validatedData['provideritem_id'] = $depositinputitem->provideritem->id;
 
                 $validatedData['product_id'] = $product_id;
-                $validatedData['product_name'] = Product::find($product_id)->name;
+                $validatedData['product_name'] = $product->name;
+                $validatedData['product_code'] = $product->code;
+
+                // Define $data.
+                $data['config']        = $this->config;
+                $data['validatedData'] = $validatedData;
 
                 // Valida exclusão.
                 $valid = Depositinputitem::validateEditItemRelates($data);
