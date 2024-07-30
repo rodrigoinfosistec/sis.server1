@@ -101,7 +101,7 @@
                         <div class="text-center fw-bold" style="width: 120px; height: 25px;">
                             <div class="float-start" style="width: 45px;">
                                 <select wire:model="array_product_signal.{{ $depositinputproduct->id }}" class="form-select form-control-sm text-uppercase text-danger" style="font-size: 8pt;  padding: 0 30px 0 5px;" id="array_product_signal_{{ $depositinputproduct->id }}" required>
-                                    <option value="multiply" class="text-muted fw-bold" style="font-size: 6pt;">*</option>
+                                    <option value="multiply" class="text-muted fw-bold" style="font-size: 6pt;">x</option>
                                     <option value="divide" class="text-muted fw-bold" style="font-size: 6pt;">/</option>
                                 </select>
                             </div>
