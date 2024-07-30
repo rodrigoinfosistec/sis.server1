@@ -8,10 +8,6 @@
             {{ $provider_name }}
             <br>
             {{ $deposit_name }}
-            <br>
-            @foreach($array_product_id as $prod)
-                {{ $prod }}
-            @endforeach
         </x-slot>
     </x-layout.modal.modal-edit-header>
 
