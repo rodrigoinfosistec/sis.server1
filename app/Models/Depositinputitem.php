@@ -23,6 +23,8 @@ class Depositinputitem extends Model
         'depositinput_id',
         'provideritem_id',
 
+        'identifier',
+
         'created_at',
         'updated_at',
     ];

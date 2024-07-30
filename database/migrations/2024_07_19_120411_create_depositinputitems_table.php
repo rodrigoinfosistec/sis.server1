@@ -17,6 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('depositinput_id');
             $table->unsignedBigInteger('provideritem_id');
 
+            $table->integer('identifier');
+
             $table->timestamps();
 
             $table->foreign('depositinput_id')->references('id')->on('depositinputs');
