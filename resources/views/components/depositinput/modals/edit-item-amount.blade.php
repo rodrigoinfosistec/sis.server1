@@ -38,8 +38,20 @@
                 </th>
 
                 <th class="" style="padding: 0;">
+                    <div class="" style="width: 90px;">
+                        QUANTIDADE
+                    </div>
+                </th>
+
+                <th class="" style="padding: 0;">
                     <div class="text-center" style="width: 120px;">
                         EMBALAGEM
+                    </div>
+                </th>
+
+                <th class="" style="padding: 0;">
+                    <div class="text-center" style="width: 120px;">
+                        FINAL
                     </div>
                 </th>
             </tr>
@@ -48,7 +60,7 @@
         <tbody style="font-size: 7pt;">
             @foreach(App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->get() as $key => $depositinputproduct)
                 <tr>
-                    {{-- ITEM --}}
+                    {{-- # --}}
                     <td rowspan="2" class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text-break text-center" style="width: 40px; font-size: 9pt;">
                             <span class="badge rounded-pill bg-secondary">
@@ -86,6 +98,13 @@
                         </div>
                     </td>
 
+                    {{-- QUANTIDADE --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="fw-bold" style="width: 90px; font-size: 10pt;">
+                            {{ App\Models\General::decodeFloat3($depositinputproduct->quantity) }}
+                        </div>
+                    </td>
+
                     {{-- EMBALAGEM --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text-center fw-bold" style="width: 120px; height: 25px;">
@@ -98,6 +117,19 @@
                             <div class="float-start" style="width: 68px;">
                                 <input type="text" wire:model="array_product_amount.{{ $depositinputproduct->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px;" id="array_product_amount_{{ $depositinputproduct->id }}" onKeyUp="maskFloat3(this, event)" required>
                             </div>
+                        </div>
+                    </td>
+
+                    {{-- FINAL --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="text-primary fw-bold" style="width: 90px; font-size: 10pt;">
+                            @if(App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id]) > 0 && !empty(App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id])))
+                                @if($array_product_signal[$depositinputproduct->id] == 'divide')
+                                    {{ $depositinputproduct->quantity /  App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id]) }}
+                                @else
+                                    {{ $depositinputproduct->quantity *  App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id]) }}
+                                @endif
+                            @endif
                         </div>
                     </td>
                 </tr>
