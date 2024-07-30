@@ -64,6 +64,8 @@ class DepositinputShow extends Component
     public $xml;
 
     public $array_product_id = [];
+    public $array_product_quantity = [];
+    public $array_product_quantity_final = [];
 
     /**
      * Construtor.
@@ -134,6 +136,8 @@ class DepositinputShow extends Component
         $this->xml = '';
 
         $this->array_product_id = [];
+        $this->array_product_quantity = [];
+        $this->array_product_quantity_final = [];
     }
 
     /**
@@ -286,7 +290,7 @@ class DepositinputShow extends Component
 
             // Percorre os itens da Nota Fiscal.
             foreach($this->array_product_id as $key => $product_id):
-                // item da Entrada.
+                // Item da Entrada.
                 $depositinputitem = Depositinputitem::find($key);
 
                 // Produto.
@@ -315,6 +319,80 @@ class DepositinputShow extends Component
 
                 // Exclui.
                 if ($valid) Depositinputitem::editItemRelates($data);
+            endforeach;
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * editItemAmount()
+     *  modernizeItemAmount()
+     */
+    public function editItemAmount(int $depositinput_id)
+    {
+        // Entrada Depósito.
+        $depositinput = Depositinput::find($depositinput_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->depositinput_id = $depositinput_id;
+        $this->deposit_name = $depositinput->deposit_name;
+        $this->deposit_id = $depositinput->deposit_id;
+        $this->provider_id = $depositinput->provider_id;
+        $this->provider_name = $depositinput->provider_name;
+        $this->company_id = $depositinput->company_id;
+        $this->company_name = $depositinput->company_name;
+        $this->user_id = $depositinput->user_id;
+        $this->user_name = $depositinput->user_name;
+        $this->key = $depositinput->key;
+        $this->number = $depositinput->number;
+        $this->range = $depositinput->range;
+        $this->total = $depositinput->total;
+        $this->issue = date_format(date_create($depositinput->issue), 'd/m/Y H:i:s');
+        $this->observation = $depositinput->observation;
+        $this->type = $depositinput->type;
+        $this->created = $depositinput->created_at->format('d/m/Y H:i:s');
+        $this->updated = $depositinput->updated_at->format('d/m/Y H:i:s');
+    }
+        public function modernizeItemAmount()
+        {
+            // Define $validatedData
+            $validatedData['depositinput_id'] = $this->depositinput_id;
+            $validatedData['deposit_name'] = $this->deposit_name;
+            $validatedData['deposit_id'] = $this->deposit_id;
+            $validatedData['provider_id'] = $this->provider_id;
+            $validatedData['provider_name'] = $this->provider_name;
+            $validatedData['company_id'] = $this->company_id;
+            $validatedData['company_name'] = $this->company_name;
+            $validatedData['user_id'] = $this->user_id;
+            $validatedData['user_name'] = $this->user_name;
+            $validatedData['key'] = $this->key;
+            $validatedData['number'] = $this->number;
+            $validatedData['range'] = $this->range;
+            $validatedData['total'] = $this->total;
+            $validatedData['issue'] = $this->issue;
+            $validatedData['observation'] = $this->observation;
+            $validatedData['type'] = $this->type;
+            $validatedData['created'] = $this->created;
+
+            // Percorre os itens da Nota Fiscal.
+            foreach(Depositinputproduct::where($this->depositinput_id)->get() as $key => $depositinputproduct):
+                // Monta array Item da Nota Fiscal.
+                $validatedData['depositinputitem_id'] = $key;
+
+                // Define $data.
+                $data['config']        = $this->config;
+                $data['validatedData'] = $validatedData;
+
+                // Valida exclusão.
+                $valid = Depositinputproduct::validateEditItemAmount($data);
+
+                // Executa dependências.
+                if ($valid) Depositinputproduct::dependencyEditItemAmount($data);
+
+                // Exclui.
+                if ($valid) Depositinputproduct::editItemAmount($data);
             endforeach;
 
             // Fecha modal.
