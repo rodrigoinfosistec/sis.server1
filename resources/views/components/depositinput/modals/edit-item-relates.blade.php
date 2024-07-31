@@ -66,7 +66,7 @@
                         {{-- ERASE --}}
                         <td rowspan="2" class="align-middle" style="line-height: 1; padding: 0;">
                             <div class="" style="width: 30px;">
-                                <a type="button" wire:click="eraseProduct({{ $depositinputitem->id }})" class="btn btn-link btn-sm" title="Excluir Produto">
+                                <a type="button" wire:click="excludeItem({{ $depositinputitem->id }})" class="btn btn-link btn-sm" title="Excluir Item">
                                     <i class="bi-trash3-fill text-danger" style="font-size: 14pt;"></i>
                                 </a>
                             </div>
