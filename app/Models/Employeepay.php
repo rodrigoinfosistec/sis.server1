@@ -48,7 +48,7 @@ class Employeepay extends Model
         endif;
 
         // Verifica se o tempo não estão zerados.
-        if($data['validatedData']['time_old'] == 0 && $data['validatedData']['minut'] == 0):
+        if((int)$data['validatedData']['time_old'] == 0 && (int)$data['validatedData']['minut'] == 0):
             $message = 'Tempo não pode está zerado.';
         endif;
 
