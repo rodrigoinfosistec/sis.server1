@@ -47,6 +47,11 @@ class Employeepay extends Model
             $message = 'O dia ' . General::decodeDate($data['validatedData']['date']) . ' já consta em outro pagamento para o  funcionário.';
         endif;
 
+        // Verifica se o tempo não estão zerados.
+        if($data['validatedData']['time_old'] == 0 && $data['validatedData']['minut'] == 0):
+            $message = 'Tempo não pode está zerado.';
+        endif;
+
         // Desvio.
         if(!empty($message)):
             session()->flash('message', $message );
