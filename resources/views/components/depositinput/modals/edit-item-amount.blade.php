@@ -114,14 +114,16 @@
                     {{-- FINAL --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text-primary fw-bold" style="width: 90px; font-size: 10pt;">
-                            @if(App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id]) > 0 && !empty(App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id])))
-                                @if($array_product_signal[$depositinputproduct->id] == 'divide')
-                                    {{ App\Models\General::decodeFloat3($depositinputproduct->quantity /  App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id])) }}
+                            @if(!empty($array_product_amount[$depositinputproduct->id]))
+                                @if(App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id]) > 0 && !empty(App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id])))
+                                    @if($array_product_signal[$depositinputproduct->id] == 'divide')
+                                        {{ App\Models\General::decodeFloat3($depositinputproduct->quantity /  App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id])) }}
+                                    @else
+                                        {{ App\Models\General::decodeFloat3($depositinputproduct->quantity *  App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id])) }}
+                                    @endif
                                 @else
-                                    {{ App\Models\General::decodeFloat3($depositinputproduct->quantity *  App\Models\General::encodeFloat3($array_product_amount[$depositinputproduct->id])) }}
+                                    <i class="bi-exclamation-triangle text-danger"></i>
                                 @endif
-                            @else
-                                <i class="bi-exclamation-triangle text-danger"></i>
                             @endif
                         </div>
                     </td>
