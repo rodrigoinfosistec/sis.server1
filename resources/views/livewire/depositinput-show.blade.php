@@ -149,7 +149,7 @@
         $arr = [];
 
         foreach(App\Models\Depositinputitem::where('depositinput_id', $item->id)->get() as $key => $depositinputitem):
-            if(App\Models\Depositinputproduct::where(['depositinput_id' => $item->id])-> ):
+            if(App\Models\Depositinputproduct::where(['depositinput_id' => $item->id]) ):
                 $arr[] = 1;
             endif;
         endforeach;
