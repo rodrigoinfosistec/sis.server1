@@ -60,7 +60,7 @@ class EmployeepayShow extends Component
             'employee_id' => ['required'],
             'date'        => ['required'],
             'time'        => ['required', 'numeric', 'min:0'],
-            'minut'       => ['required', 'numeric', 'min:0'],
+            'minut'       => ['required', 'numeric', 'min:0', 'max:60'],
         ];
     }
 
@@ -145,12 +145,12 @@ class EmployeepayShow extends Component
                 'employee_id' => ['required'],
                 'date'        => ['required'],
                 'time'        => ['required', 'numeric', 'min:0'],
-                'minut'       => ['required', 'numeric', 'min:0'],
+                'minut'       => ['required', 'numeric', 'min:0', 'max:60'],
             ]);
 
             // Monta $validatedData['time']
             $validatedData['time_old'] = $validatedData['time'];
-            $validatedData['time'] = $validatedData['time'] . ':' . $validatedData['minut'];
+            $validatedData['time'] = str_pad($validatedData['time'], 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($validatedData['minut'], 2 ,'0' , STR_PAD_LEFT);
 
             // Define $data.
             $data['config']        = $this->config;
