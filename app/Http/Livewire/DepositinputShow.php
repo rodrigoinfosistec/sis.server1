@@ -494,9 +494,40 @@ class DepositinputShow extends Component
             // Fecha modal.
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
-        } 
+        }
 
-        /**
+    /**
+     * eraseProduct()
+     *  excludeProduct()
+     */
+    public function eraseProduct(int $depositinputitem_id)
+    {
+        // Inicializa propriedades dinâmicas.
+        $this->depositinputitem_id = $depositinputitem_id;
+    }
+        public function excludeProduct()
+        {
+            // Define $validatedData
+            $validatedData['depositinputitem_id'] = $this->depositinputitem_id;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida exclusão.
+            $valid = Depositinputitem::validateErase($data);
+
+            // Executa dependências.
+            if ($valid) Depositinputitem::dependencyErase($data);
+
+            // Exclui.
+            if ($valid) Depositinputitem::erase($data);
+
+            // Fecha modal.
+            $this->closeModal();
+        }
+
+    /**
      * generate()
      *  sire()
      */
