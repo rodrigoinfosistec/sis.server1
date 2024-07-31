@@ -23,11 +23,10 @@
                         #
                     </div>
                 </th>
+
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 22px;">
-                        <div class="form-check" style="margin-bottom: -6px; margin-left: 2px;">
-                            <input type="checkbox" class="form-check-input" style="width: 12px; height: 12px;" disabled>
-                        </div>
+                    <div class="text-right" style="width: 26px;">
+                        <i class="bi-trash3-fill" style="font-size: 10pt;"></i>
                     </div>
                 </th>
 
@@ -64,12 +63,12 @@
                             </div>
                         </td>
 
-                        {{-- CHECKBOX --}}
+                        {{-- ERASE --}}
                         <td rowspan="2" class="align-middle" style="line-height: 1; padding: 0;">
-                            <div class="" style="width: 22px;">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" style="width: 15px; height: 15px;" onchange="closest('tr').classList.toggle('row_selected')">
-                                </div>
+                            <div class="" style="width: 30px;">
+                                <a type="button" wire:click="eraseProduct({{ $depositinputitem->id }})" class="btn btn-link btn-sm" title="Excluir Produto">
+                                    <i class="bi-trash3-fill text-danger" style="font-size: 14pt;"></i>
+                                </a>
                             </div>
                         </td>
 
