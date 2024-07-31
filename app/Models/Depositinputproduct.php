@@ -47,20 +47,7 @@ class Depositinputproduct extends Model
     public static function validateEditItemAmount(array $data) : bool {
         $message = null;
 
-        // Verifica se o Produto existe.
-        if( Product::where('id', $data['validatedData']['product_id'])->doesntExist() ):
-            $message = 'Produto ID: ' . $data['validatedData']['product_id'] . ' inexistente!';
-        endif;
-
-        // Verifica se o Produto já consta na Entrada.
-        if( Depositinputproduct::where('product_id', $data['validatedData']['product_id'])->exists() ):
-            $message = 'Produto ID: ' . $data['validatedData']['product_id'] . ' Já existe nesta Entrada.';
-        endif;
-
-        // Verifica se produto já está relacionado com outro item deste Fornecedor.
-        if( Provideritem::where(['provider_id' => $data['validatedData']['provider_id'], 'product_id' => $data['validatedData']['product_id']])->exists() ):
-            $message = 'Produto ID: ' . $data['validatedData']['product_id'] . ' Já relacionado com outro item deste Fornecedor.';
-        endif;
+        // ...
 
         // Desvio.
         if(!empty($message)):
@@ -87,7 +74,7 @@ class Depositinputproduct extends Model
 
         // Atualiza Item do Fornecedor.
         Provideritem::find($data['validatedData']['provideritem_id'])->update([
-            'signal' => $data['validatedData']['sinal'],
+            'signal' => $data['validatedData']['signal'],
             'amount' => $data['validatedData']['amount'],
         ]);
 
