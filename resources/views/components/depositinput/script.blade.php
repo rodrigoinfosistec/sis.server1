@@ -3,6 +3,7 @@
         $('#generateModal').modal('hide');
         $('#mailModal').modal('hide');
 
+        $('#addModal').modal('hide');
         $('#addXmlModal').modal('hide');
         $('#addProductModal').modal('hide');
         $('#editItemRelatesModal').modal('hide');
