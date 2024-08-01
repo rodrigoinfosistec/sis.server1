@@ -1,6 +1,6 @@
 <x-layout.modal.modal-edit modal="editItemAmount" size="modal-fullscreen">
     <x-layout.modal.modal-edit-header icon="bi-basket" modal="editItemAmount">
-        Produtos 
+        Itens 
 
         <x-slot:identifier>
             NFe {{ $number }}
@@ -136,7 +136,7 @@
     </x-layout.modal.modal-edit-body>
 
     <div class="modal-footer">
-        @if(count($array_product_amount) > 0)
+        @if(count($array_product_amount))
             <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-primary">
                 <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
                 Atualizar
