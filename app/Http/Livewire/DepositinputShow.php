@@ -177,8 +177,66 @@ class DepositinputShow extends Component
     }
 
     /**
-     * addXml()
+     * add()
      *  register()
+     */
+    public function add()
+    {
+        //...
+    }
+        public function register()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'deposit_id' => ['required'],
+                'provider_id' => ['required'],
+                'observation' => ['required'],
+            ]);
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = Depositinput::validateAdd($data);
+
+            // Valida.
+            if($valid):
+                // Depósito.
+                $deposit = Deposit::find($data['validatedData']['deposit_id']);
+
+                // Fornecedor.
+                $provider = Provider::find($data['validatedData']['provider_id']);
+
+                // Empresa.
+                $company = Company::find(auth()->user()->company_id);
+
+                // Estende $data['validatedData'].
+                $data['validatedData']['deposit_name'] = $deposit->name;
+                $data['validatedData']['provider_id'] = $provider->id;
+                $data['validatedData']['provider_name'] = $provider->name;
+                $data['validatedData']['company_id'] = $company->id;
+                $data['validatedData']['company_name'] = $company->name;
+                $data['validatedData']['user_id'] = auth()->user()->id;
+                $data['validatedData']['user_name'] = auth()->user()->name;
+                $data['validatedData']['number'] = Invoice::encodeNumber((string)( (string)$validatedData['deposit_id'] . (string)$validatedData['provider_id'] ) );
+                $data['validatedData']['type'] = 'manual';
+            endif;
+
+            // Cadastra.
+            if ($valid) Depositinput::add($data);
+
+            // Executa dependências.
+            if ($valid) Depositinput::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * addXml()
+     *  registerXml()
      */
     public function addXml()
     {
@@ -292,7 +350,7 @@ class DepositinputShow extends Component
             $validatedData['type'] = $this->type;
             $validatedData['created'] = $this->created;
 
-            // Percorre os itens da Nota Fiscal.
+            // Percorre os produtos da Nota Fiscal.
             foreach($this->array_product_id as $key => $product_id):
                 // Item da Entrada.
                 $depositinputitem = Depositinputitem::find($key);
