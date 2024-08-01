@@ -184,7 +184,7 @@
         {{ (App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->count() - App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->count()) }} >
         {{ count($array_product_id) }} >
         {{ count(array_count_values($array_product_id)) }} >
-        {{ App\Models\Product::whereIn('id', $array_product_id)->count() }}
+        {{ App\Models\Product::where(['company_id' => auth()->user()->company_id, 'status' => true])->whereIn('id', $array_product_id)->count() }}
         @if(
             count($array_product_id) > 0 &&  
             count(array_count_values($array_product_id)) == (App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->count() - App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->count()) &&
