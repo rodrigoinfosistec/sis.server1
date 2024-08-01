@@ -181,14 +181,38 @@
     </x-layout.modal.modal-edit-body>
 
     <div class="modal-footer">
-        {{ (App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->count() - App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->count()) }} >
-        {{ count($array_product_id) }} >
-        {{ count(array_count_values($array_product_id)) }} >
-        {{ App\Models\Product::where(['company_id' => auth()->user()->company_id, 'status' => true])->whereIn('id', $array_product_id)->count() }}
+        @php
+            $arr_produ = [];
+            foreach(App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->get() as $key => $produ):
+                $arr_produ[] = $produ->product_id;
+            endforeach;
+
+            $ar_pro = [];
+            foreach(App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->get() as $key => $depositinputitem):
+                if(App\Models\Depositinputproduct::where(['depositinput_id' => $depositinput_id, 'identifier' => $depositinputitem->identifier])->doesntExist()):
+                    $pro = App\Models\Provideritem::where(['provider_id' => $provider_id, 'product_id' => $depositinputitem->provideritem->product_id])->first();
+                    if(!empty($pro->product_id)):
+                        $ar_pro[] = $pro->product_id;
+                    endif;
+                endif;
+            endforeach;
+
+            $products = [];
+            foreach(App\Models\Product::where(['company_id' => auth()->user()->company_id, 'status' => true])->get() as $key => $product):
+                if(!in_array($product->id, $array_product_id)):
+                    if(!in_array($product->id, $arr_produ)):
+                        if(!in_array($product->id, $ar_pro)):
+                            $products[] = $product->id;
+                        endif;
+                    endif;
+                endif;
+            endforeach;
+        @endphp
+
         @if(
             count($array_product_id) > 0 &&  
             count(array_count_values($array_product_id)) == (App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->count() - App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->count()) &&
-            App\Models\Product::whereIn('id', $array_product_id)->count() == (App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->count() - App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->count())
+            App\Models\Product::whereIn('id', $products)->count() == (App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->count() - App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->count())
         )
             <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-primary">
                 <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
