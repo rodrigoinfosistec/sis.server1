@@ -213,7 +213,6 @@ class DepositinputShow extends Component
 
                 // Estende $data['validatedData'].
                 $data['validatedData']['deposit_name'] = $deposit->name;
-                $data['validatedData']['provider_id'] = $provider->id;
                 $data['validatedData']['provider_name'] = $provider->name;
                 $data['validatedData']['company_id'] = $company->id;
                 $data['validatedData']['company_name'] = $company->name;

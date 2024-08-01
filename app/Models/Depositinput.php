@@ -242,6 +242,76 @@ class Depositinput extends Model
     }
 
     /**
+     * Valida cadastro.
+     * @var array $data
+     * 
+     * @return bool
+     */
+    public static function validateAdd(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Cadastra.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function add(array $data) : bool {
+        // Cadastra.
+        $depositinput_id = Depositinput::create([
+            'deposit_name' => $data['validatedData']['deposit_name'],
+            'deposit_id'   => $data['validatedData']['deposit_id'],
+            'provider_id' => $data['validatedData']['provider_id'],
+            'provider_name' => $data['validatedData']['provider_name'],
+            'company_id' => $data['validatedData']['company_id'],
+            'company_name' => $data['validatedData']['company_name'],
+            'user_id' => $data['validatedData']['user_id'],
+            'user_name' => $data['validatedData']['user_name'],
+            'number' => $data['validatedData']['number'],
+            'observation' => $data['validatedData']['observation'],
+            'type' => $data['validatedData']['type'],
+        ])->id;
+
+        // After.
+        $after = Depositinput::find($depositinput_id);
+
+        // Auditoria.
+        Audit::depositinputAdd($data, $after);
+
+        // Mensagem.
+        $message = 'Entrada no Depósito ' . $after->deposit_name . ' cadastrada com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de cadastro.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyAdd(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
      * Valida exclusão.
      * @var array $data
      * 
