@@ -37,6 +37,12 @@
                 </th>
 
                 <th class="" style="padding: 0;">
+                    <div class="" style="width: 20px; background-color: #ddd;">
+                        
+                    </div>
+                </th>
+
+                <th class="" style="padding: 0;">
                     <div class="text-center" style="width: 60px;">
                         PRODUTO
                     </div>
@@ -93,6 +99,20 @@
                                 {{ $depositinputitem->provideritem->ncm }}
                                 <br>
                                 {{ $depositinputitem->provideritem->cest }}
+                            </div>
+                        </td>
+
+                        {{-- ERRO --}}
+                        <td class="align-middle" style="line-height: 1; padding: 0;">
+                            <div class="text-danger" style="width: 100px; font-size: 6pt;">
+                                @if(!empty($array_product_id[$depositinputitem->id]))
+                                    @php
+                                        $array = array_count_values($array_product_id)
+                                    @endphp
+                                    @if($array[$array_product_id[$depositinputitem->id]] > 1)
+                                        REP
+                                    @endif
+                                @endif
                             </div>
                         </td>
 
@@ -160,5 +180,14 @@
 
     </x-layout.modal.modal-edit-body>
 
-    <x-layout.modal.modal-edit-footer/>
+    <div class="modal-footer">
+        @if(count($array_product_id) > 0 &&  count(array_count_values($array_product_id)) == (App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->count() - App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->count()))
+            <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-primary">
+                <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
+                Atualizar
+            </button>
+        @else
+            <i class="bi-exclamation-triangle text-danger" style="font-size: 25pt;"></i>
+        @endif
+    </div>
 </x-layout.modal.modal-edit>
