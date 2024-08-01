@@ -90,7 +90,7 @@ class Depositinputproduct extends Model
         // Acrescenta a Quantidade no Depósito.
         $newQtdDep = Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->quantity += $data['validatedData']['quantity_final'];
         Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->update([
-            'quantity' => $newQtd,
+            'quantity' => $newQtdDep,
         ]);
 
         // Acrescenta a Quantidade no Produto.
