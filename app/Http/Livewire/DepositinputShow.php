@@ -423,6 +423,9 @@ class DepositinputShow extends Component
                 'funded' => true,
             ]);
 
+            // Gera o Relatório em PDF.
+            if ($valid) Report::depositinputGenerate($data);
+
             // Fecha modal.
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
