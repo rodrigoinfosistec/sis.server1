@@ -189,17 +189,16 @@
                 endif;
             endforeach;
         @endphp
-        @if(
+        <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-primary"
+        @if(!(
             count($array_product_id) > 0 &&  
             count(array_count_values($array_product_id)) == (App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->count() - App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->count()) &&
             App\Models\Product::whereNotIn('id', $arr_provitem)->whereIn('id', $array_product_id)->count() == (App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->count() - App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->count())
-        )
-            <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-primary">
-                <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
-                Atualizar
-            </button>
-        @else
-            <i class="bi-exclamation-triangle text-danger" style="font-size: 25pt;"></i>
-        @endif
+        )) 
+            disabled 
+        @endif>
+            <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
+            Atualizar
+        </button>
     </div>
 </x-layout.modal.modal-edit>

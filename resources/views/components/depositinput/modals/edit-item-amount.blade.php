@@ -144,12 +144,12 @@
                 endif;
             endforeach;
         @endphp
-        {{ count($pro_amount) }} > {{ count($array_product_amount) }}
-        @if(count($pro_amount) == count($array_product_amount))
-            <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-primary">
-                <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
-                Atualizar
-            </button>
-        @endif
+        <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-primary"
+        @if(!(count($pro_amount) == count($array_product_amount)))
+            disabled
+        @endif>
+            <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
+            Atualizar
+        </button>
     </div>
 </x-layout.modal.modal-edit>
