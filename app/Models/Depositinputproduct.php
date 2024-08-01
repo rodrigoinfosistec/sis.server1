@@ -126,4 +126,58 @@ class Depositinputproduct extends Model
 
         return true;
     }
+
+    /**
+     * Valida exclusão.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateErase(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de exclusão.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyErase(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
+     * Exclui.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function erase(array $data) : bool {
+        $depositinputproduct = Depositinputproduct::find($data['validatedData']['depositinputproduct_id']);
+
+        // Exclui.
+        Depositinputproduct::find($data['validatedData']['depositinputproduct_id'])->delete();
+
+        // Mensagem.
+        $message = 'Item ' . $depositinputproduct->product_name . ' excluído com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
 }

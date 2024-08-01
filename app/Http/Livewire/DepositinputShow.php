@@ -527,6 +527,36 @@ class DepositinputShow extends Component
         }
 
     /**
+     * eraseProduct()
+     *  excludeProduct()
+     */
+    public function eraseProduct()
+    {
+        // ...
+    }
+        public function excludeProduct(int $depositinputproduct_id)
+        {
+            // Define $validatedData
+            $validatedData['depositinputproduct_id'] = $depositinputproduct_id;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida exclusão.
+            $valid = Depositinputproduct::validateErase($data);
+
+            // Executa dependências.
+            if ($valid) Depositinputproduct::dependencyErase($data);
+
+            // Exclui.
+            if ($valid) Depositinputproduct::erase($data);
+
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
      * generate()
      *  sire()
      */
