@@ -121,13 +121,13 @@
                             <div class="" style="width: 50px;">
                                 <input wire:model="array_product_id.{{ $depositinputitem->id }}" type="text" class="form-control form-control-sm" list="array_products_{{ $depositinputitem->id }}" id="array_product_id_{{ $depositinputitem->id }}">
                                 @php
-                                    $arr_prod = [];
+                                    $arr_produ = [];
                                     foreach(App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->get() as $key => $produ):
                                         $arr_produ[] = $produ->product_id;
                                     endforeach;
 
                                     $ar_pro = [];
-                                    foreach(App\Models\Provideritem::where(['provider_id' => $provider_id, 'product_id' => $produ->product_id])->get() as $key => $pro):
+                                    foreach(App\Models\Provideritem::where(['provider_id' => $provider_id, 'product_id' => $depositinputitem->provideritem->product_id])->get() as $key => $pro):
                                         if(!empty($pro->product_id)):
                                             $ar_pro[] = $pro->product_id;
                                         endif;
