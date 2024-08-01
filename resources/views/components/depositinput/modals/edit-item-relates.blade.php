@@ -181,7 +181,15 @@
     </x-layout.modal.modal-edit-body>
 
     <div class="modal-footer">
-        @if(count($array_product_id) > 0 &&  count(array_count_values($array_product_id)) == (App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->count() - App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->count()))
+        {{ (App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->count() - App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->count()) }} >
+        {{ count($array_product_id) }} >
+        {{ count(array_count_values($array_product_id)) }} >
+        {{ App\Models\Product::whereIn('id', $array_product_id)->count() }}
+        @if(
+            count($array_product_id) > 0 &&  
+            count(array_count_values($array_product_id)) == (App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->count() - App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->count()) &&
+            App\Models\Product::whereIn('id', $array_product_id)->count() == (App\Models\Depositinputitem::where('depositinput_id', $depositinput_id)->count() - App\Models\Depositinputproduct::where('depositinput_id', $depositinput_id)->count())
+        )
             <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-primary">
                 <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
                 Atualizar
