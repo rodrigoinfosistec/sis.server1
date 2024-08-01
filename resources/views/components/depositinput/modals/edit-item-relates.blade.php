@@ -198,12 +198,6 @@
                 <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
                 Atualizar
             </button>
-        @else
-            <i class="bi-exclamation-triangle text-danger" style="font-size: 25pt;"></i>
-            <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-primary" disabled>
-                <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
-                Atualizar
-            </button>
         @endif
     </div>
 </x-layout.modal.modal-edit>

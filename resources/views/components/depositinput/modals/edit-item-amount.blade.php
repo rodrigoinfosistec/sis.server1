@@ -136,14 +136,17 @@
     </x-layout.modal.modal-edit-body>
 
     <div class="modal-footer">
-        @if(count($array_product_amount))
+        @php
+            $pro_amount = [];
+            foreach($array_product_amount as $amoun):
+                if(!empty($amoun) && (int)$amoun > 0):
+                    $pro_amount[] = $amoun;
+                endif;
+            endforeach;
+        @endphp
+        {{ count($pro_amount) }} > {{ count($array_product_amount) }}
+        @if(count($pro_amount) == count($array_product_amount))
             <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-primary">
-                <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
-                Atualizar
-            </button>
-        @else
-            <i class="bi-exclamation-triangle text-danger" style="font-size: 25pt;"></i>
-            <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-primary" disabled>
                 <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
                 Atualizar
             </button>
