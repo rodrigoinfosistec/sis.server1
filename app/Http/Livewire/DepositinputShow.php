@@ -89,6 +89,9 @@ class DepositinputShow extends Component
             'xml' => ['file', 'required'],
             'deposit_id' => ['required'],
             'observation' => ['required'],
+
+            'array_product_amount' => ['required', 'array'],
+            'array_product_amount.*' => ['required', 'min:1'],
         ];
     }
 
@@ -368,6 +371,12 @@ class DepositinputShow extends Component
     }
         public function modernizeItemAmount()
         {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'array_product_amount' => ['required', 'array'],
+                'array_product_amount.*' => ['min:1'],
+            ]);
+
             // Define $validatedData.
             $validatedData['depositinput_id'] = $this->depositinput_id;
             $validatedData['deposit_name'] = $this->deposit_name;

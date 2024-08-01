@@ -1,6 +1,6 @@
 <x-layout.modal.modal-edit modal="editItemAmount" size="modal-fullscreen">
     <x-layout.modal.modal-edit-header icon="bi-basket" modal="editItemAmount">
-        Itens 
+        Produtos 
 
         <x-slot:identifier>
             NFe {{ $number }}
@@ -126,6 +126,7 @@
                             @endif
                         </div>
                     </td>
+                </tr>
                 @endforeach
         </tbody>
     </table>
@@ -135,22 +136,17 @@
     </x-layout.modal.modal-edit-body>
 
     <div class="modal-footer">
-        @php
-            $ar = [];
-
-            foreach($array_product_amount as $t):
-                if(!(App\Models\General::encodeFloat3($t) > 0 && !empty($t))):
-                    $ar[] = 1;
-                endif;
-            endforeach;
-        @endphp 
-        @if(empty($ar))
+        @if(count($array_product_amount) > 0)
             <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-primary">
                 <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
                 Atualizar
             </button>
         @else
             <i class="bi-exclamation-triangle text-danger" style="font-size: 25pt;"></i>
+            <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-primary" disabled>
+                <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
+                Atualizar
+            </button>
         @endif
     </div>
 </x-layout.modal.modal-edit>
