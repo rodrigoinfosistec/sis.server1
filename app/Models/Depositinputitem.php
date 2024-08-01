@@ -169,6 +169,7 @@ class Depositinputitem extends Model
      * @return bool true
      */
     public static function erase(array $data) : bool {
+        // Item da Entrada.
         $depositinputitem = Depositinputitem::find($data['validatedData']['depositinputitem_id']);
 
         // Exclui.

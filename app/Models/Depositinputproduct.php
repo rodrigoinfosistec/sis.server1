@@ -168,13 +168,17 @@ class Depositinputproduct extends Model
      * @return bool true
      */
     public static function erase(array $data) : bool {
+        // Produto da Entrada.
         $depositinputproduct = Depositinputproduct::find($data['validatedData']['depositinputproduct_id']);
 
-        // Exclui.
+        // Exclui Produto da Entrada.
         Depositinputproduct::find($data['validatedData']['depositinputproduct_id'])->delete();
 
+        // Exclui Item da Entrada.
+        Depositinputitem::where(['depositinput_id' => $data['validatedData']['depositinput_id'], 'identifier' => $depositinputproduct->identifier])->delete();
+
         // Mensagem.
-        $message = 'Item ' . $depositinputproduct->product_name . ' excluído com sucesso.';
+        $message = 'Produto ' . $depositinputproduct->product_name . ' excluído com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
