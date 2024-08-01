@@ -136,7 +136,10 @@ class Depositinputproduct extends Model
     public static function validateErase(array $data) : bool {
         $message = null;
 
-        // ...
+        // Verifica se não existe Produtos na Entrada.
+        if(Depositinputproduct::where('depositinput_id', $data['validatedData']['depositinput_id'])->count() < 0):
+            $message = 'Produto não pode ser excluído: Entrada com apenas um Produto!';
+        endif;
 
         // Desvio.
         if(!empty($message)):
