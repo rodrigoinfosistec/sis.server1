@@ -16,6 +16,7 @@
 
         <div class="float-start fw-bold" style="width: 600px; height: 35px; margin-right: 10px; margin-top: 5px; font-size: 9pt;">
             {{ $depositinput->deposit_name }}
+            <br>
             <span class="text-muted">{{ $depositinput->company_name }}</span>
         </div>
 
