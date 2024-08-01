@@ -143,22 +143,26 @@
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="150">
-    <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
+    @if(!$item->funded)
+        <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
 
-    @php
-        $arr = [];
+        @php
+            $arr = [];
 
-        foreach(App\Models\Depositinputitem::where('depositinput_id', $item->id)->get() as $key => $depositinputitem):
-            if(App\Models\Depositinputproduct::where(['depositinput_id' => $item->id, 'identifier' => $depositinputitem->identifier])):
-                $arr[] = 1;
-            endif;
-        endforeach;
-    @endphp
+            foreach(App\Models\Depositinputitem::where('depositinput_id', $item->id)->get() as $key => $depositinputitem):
+                if(App\Models\Depositinputproduct::where(['depositinput_id' => $item->id, 'identifier' => $depositinputitem->identifier])):
+                    $arr[] = 1;
+                endif;
+            endforeach;
+        @endphp
 
-    @if(App\Models\Depositinputitem::where('depositinput_id', $item->id)->count() != App\Models\Depositinputproduct::where('depositinput_id', $item->id)->count())
-        <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-relates :id="$item->id"/>
+        @if(App\Models\Depositinputitem::where('depositinput_id', $item->id)->count() != App\Models\Depositinputproduct::where('depositinput_id', $item->id)->count())
+            <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-relates :id="$item->id"/>
+        @else
+            <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-amount :id="$item->id"/>
+        @endif
     @else
-        <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-amount :id="$item->id"/>
+        
     @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
