@@ -162,7 +162,7 @@
             <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-amount :id="$item->id"/>
         @endif
     @else
-        
+    <x-layout.card.card-body-content-table-body-line-cell-action-print-depositinput :id="$item->id"/>
     @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
