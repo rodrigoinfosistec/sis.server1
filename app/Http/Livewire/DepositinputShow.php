@@ -327,6 +327,11 @@ class DepositinputShow extends Component
         $this->type = $depositinput->type;
         $this->created = $depositinput->created_at->format('d/m/Y H:i:s');
         $this->updated = $depositinput->updated_at->format('d/m/Y H:i:s');
+
+        // Seta quantidades.
+        foreach(Depositinputitem::where('depositinput_id', $depositinput_id)->get() as $key => $depositinputitem):
+            $this->array_product_quantity[$depositinputitem->id] = number_format($depositinputitem->quantity);
+        endforeach;
     }
         public function modernizeItemRelates()
         {
@@ -360,7 +365,7 @@ class DepositinputShow extends Component
                 // Monta array Item da Nota Fiscal.
                 $validatedData['depositinputitem_id'] = $key;
                 $validatedData['identifier'] = $depositinputitem->identifier;
-                $validatedData['quantity'] = $depositinputitem->quantity;
+                $validatedData['quantity'] = $this->array_product_quantity[$depositinputitem->id];
                 $validatedData['provider_code'] = $depositinputitem->provideritem->code;
                 $validatedData['provideritem_id'] = $depositinputitem->provideritem->id;
 
