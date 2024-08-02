@@ -63,6 +63,9 @@ class DepositinputShow extends Component
 
     public $xml;
 
+    public $product_id;
+    public $quantity;
+
     public $array_product_id = [];
     public $array_product_signal = [];
     public $array_product_amount = [];
@@ -89,6 +92,9 @@ class DepositinputShow extends Component
             'xml' => ['file', 'required'],
             'deposit_id' => ['required'],
             'observation' => ['required'],
+
+            'product_id' => ['required'],
+            'quantity' => ['required', 'numeric', 'min:0.1'],
         ];
     }
 
@@ -136,6 +142,9 @@ class DepositinputShow extends Component
         $this->created = '';
 
         $this->xml = '';
+
+        $this->product_id = '';
+        $this->quantity = '';
 
         $this->array_product_id = [];
         $this->array_product_signal = [];
@@ -332,12 +341,9 @@ class DepositinputShow extends Component
                 'quantity' => ['required', 'numeric', 'min:0.1'],
             ]);
 
-            // Produto.
-            $product = Product::find($validatedData['product_id']);
-
             // Estende $validatedData.
             $validatedData['depositinput_id'] = $this->depositinput_id;
-            $validatedData['product_name'] = $product->name;
+            $validatedData['identifier'] = Depositinputproduct::where('depositinput_id', $this->depositinput_id)->count() + 1;
 
             // Define $data.
             $data['config']        = $this->config;
