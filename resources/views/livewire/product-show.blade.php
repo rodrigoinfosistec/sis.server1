@@ -104,7 +104,13 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            {{ App\Models\General::decodeFloat2($item->quantity) }}
+            <div class="fw-bold" style="font-size: 10pt;">
+                @if($item->quantity > 0) <span class="text-primary">
+                    @elseif($item->quantity < 0) <span class="text-danger">
+                    @else <span class="text-muted"> @endif
+                    {{ App\Models\General::decodeFloat2($item->quantity) }}
+                </span>
+            </div>
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
@@ -122,7 +128,7 @@
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="40">
-    {{-- <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/> --}}
+    <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
 
