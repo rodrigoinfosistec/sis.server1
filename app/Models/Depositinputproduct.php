@@ -93,7 +93,7 @@ class Depositinputproduct extends Model
         ])->id;
 
         // After.
-        $after = Depositinputproduct::find($deposittransferproduct_id);
+        $after = Depositinputproduct::find($depositinputproduct_id);
 
         // Mensagem.
         $message = 'Produto ' . $after->product->name . ' incluído na Entrada.';
