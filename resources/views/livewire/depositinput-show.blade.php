@@ -146,9 +146,8 @@
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="100">
     @if(!$item->funded)
+    <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
         @if($item->type == 'xml')
-            <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
-
             @php
                 $arr = [];
 
@@ -165,7 +164,7 @@
                 <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-amount :id="$item->id"/>
             @endif
         @else
-            
+            <x-layout.card.card-body-content-table-body-line-cell-action-add-depositinput-product :id="$item->id"/>
         @endif
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-print-depositinput :id="$item->id"/>
