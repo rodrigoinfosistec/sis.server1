@@ -14,6 +14,7 @@
 
 {{-- ações --}}
 @include('components.' .  $config['name'] . '.modals.add-product')
+@include('components.' .  $config['name'] . '.modals.edit-product-amount')
 @include('components.' .  $config['name'] . '.modals.edit-item-relates')
 @include('components.' .  $config['name'] . '.modals.edit-item-amount')
 @include('components.' .  $config['name'] . '.modals.erase')
