@@ -142,7 +142,7 @@ class Depositinput extends Model
             'total' => $data['validatedData']['total'],
             'issue' => $data['validatedData']['issue'],
             'observation' => $data['validatedData']['observation'],
-            'type' => $data['validatedData']['type'],
+            'input_type' => $data['validatedData']['input_type'],
         ])->id;
 
         // Percorre todos os itens do XML.
@@ -270,8 +270,6 @@ class Depositinput extends Model
      * @return bool true
      */
     public static function add(array $data) : bool {
-        //dd($data['validatedData']);
-
         // Cadastra.
         $depositinput_id = Depositinput::create([
             'deposit_name' => $data['validatedData']['deposit_name'],
@@ -284,7 +282,7 @@ class Depositinput extends Model
             'user_name' => $data['validatedData']['user_name'],
             'number' => $data['validatedData']['number'],
             'observation' => $data['validatedData']['observation'],
-            'type' => $data['validatedData']['type'],
+            'input_type' => $data['validatedData']['input_type'],
         ])->id;
 
         // After.

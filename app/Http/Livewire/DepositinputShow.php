@@ -57,7 +57,7 @@ class DepositinputShow extends Component
     public $total;
     public $issue;
     public $observation;
-    public $type;
+    public $input_type;
     public $funded;
     public $created;
 
@@ -131,7 +131,7 @@ class DepositinputShow extends Component
         $this->total = '';
         $this->issue = '';
         $this->observation = '';
-        $this->type = '';
+        $this->input_type = '';
         $this->funded = '';
         $this->created = '';
 
@@ -209,8 +209,8 @@ class DepositinputShow extends Component
             $validatedData['company_name'] = $company->name;
             $validatedData['user_id'] = auth()->user()->id;
             $validatedData['user_name'] = auth()->user()->name;
-            $validatedData['number'] = Invoice::encodeNumber((string)( (string)$validatedData['deposit_id'] . (string)$validatedData['provider_id'] ) );
-            $validatedData['type'] = 'manual';
+            $validatedData['number'] = Invoice::encodeNumber((string)( (string)$validatedData['deposit_id'] . (string)$validatedData['provider_id'] ) . str_pad(rand(0,9999), 4, "0", STR_PAD_LEFT) );
+            $data['validatedData']['input_type'] = 'manual';
 
             // Define $data.
             $data['config']        = $this->config;
@@ -242,7 +242,7 @@ class DepositinputShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'xml' => ['required', 'file', 'mimetypes:application/x-empty,text/plain,text/x-asm,application/octet-stream,inode/x-empty'],
+                'xml' => ['required', 'file', 'mimeinput_types:application/x-empty,text/plain,text/x-asm,application/octet-stream,inode/x-empty'],
                 'deposit_id' => ['required'],
                 'observation' => ['required'],
             ]);
@@ -281,7 +281,7 @@ class DepositinputShow extends Component
                 $data['validatedData']['range'] = Invoice::encodeRange((string)$xmlObject->NFe->infNFe->ide->serie);
                 $data['validatedData']['total'] = $xmlObject->NFe->infNFe->total->ICMSTot->vNF;
                 $data['validatedData']['issue'] = Invoice::encodeIssue((string)$xmlObject->NFe->infNFe->ide->dhEmi);
-                $data['validatedData']['type'] = 'xml';
+                $data['validatedData']['input_type'] = 'xml';
                 $data['validatedData']['xmlObject'] = $xmlObject;
             endif;
 
@@ -321,7 +321,7 @@ class DepositinputShow extends Component
         $this->total = $depositinput->total;
         $this->issue = date_format(date_create($depositinput->issue), 'd/m/Y H:i:s');
         $this->observation = $depositinput->observation;
-        $this->type = $depositinput->type;
+        $this->input_type = $depositinput->input_type;
         $this->created = $depositinput->created_at->format('d/m/Y H:i:s');
         $this->updated = $depositinput->updated_at->format('d/m/Y H:i:s');
 
@@ -348,7 +348,7 @@ class DepositinputShow extends Component
             $validatedData['total'] = $this->total;
             $validatedData['issue'] = $this->issue;
             $validatedData['observation'] = $this->observation;
-            $validatedData['type'] = $this->type;
+            $validatedData['input_type'] = $this->input_type;
             $validatedData['created'] = $this->created;
 
             // Percorre os produtos da Nota Fiscal.
@@ -414,7 +414,7 @@ class DepositinputShow extends Component
         $this->total = $depositinput->total;
         $this->issue = date_format(date_create($depositinput->issue), 'd/m/Y H:i:s');
         $this->observation = $depositinput->observation;
-        $this->type = $depositinput->type;
+        $this->input_type = $depositinput->input_type;
         $this->created = $depositinput->created_at->format('d/m/Y H:i:s');
         $this->updated = $depositinput->updated_at->format('d/m/Y H:i:s');
 
@@ -443,7 +443,7 @@ class DepositinputShow extends Component
             $validatedData['total'] = $this->total;
             $validatedData['issue'] = $this->issue;
             $validatedData['observation'] = $this->observation;
-            $validatedData['type'] = $this->type;
+            $validatedData['input_type'] = $this->input_type;
             $validatedData['created'] = $this->created;
 
             // Percorre os itens da Nota Fiscal.
@@ -515,7 +515,7 @@ class DepositinputShow extends Component
         $this->total = $depositinput->total;
         $this->issue = date_format(date_create($depositinput->issue), 'd/m/Y H:i:s');
         $this->observation = $depositinput->observation;
-        $this->type = $depositinput->type;
+        $this->input_type = $depositinput->input_type;
         $this->created = $depositinput->created_at->format('d/m/Y H:i:s');
         $this->updated = $depositinput->updated_at->format('d/m/Y H:i:s');
     }
@@ -537,7 +537,7 @@ class DepositinputShow extends Component
             $validatedData['total'] = $this->total;
             $validatedData['issue'] = $this->issue;
             $validatedData['observation'] = $this->observation;
-            $validatedData['type'] = $this->type;
+            $validatedData['input_type'] = $this->input_type;
             $validatedData['created'] = $this->created;
 
             // Define $data.
