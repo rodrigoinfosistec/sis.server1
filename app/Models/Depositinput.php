@@ -270,6 +270,8 @@ class Depositinput extends Model
      * @return bool true
      */
     public static function add(array $data) : bool {
+        //dd($data['validatedData']);
+
         // Cadastra.
         $depositinput_id = Depositinput::create([
             'deposit_name' => $data['validatedData']['deposit_name'],

@@ -193,34 +193,31 @@ class DepositinputShow extends Component
                 'observation' => ['required'],
             ]);
 
+            // Depósito.
+            $deposit = Deposit::find($validatedData['deposit_id']);
+
+            // Fornecedor.
+            $provider = Provider::find($validatedData['provider_id']);
+
+            // Empresa.
+            $company = Company::find(auth()->user()->company_id);
+
+            // Estende $validatedData.
+            $validatedData['deposit_name'] = $deposit->name;
+            $validatedData['provider_name'] = $provider->name;
+            $validatedData['company_id'] = $company->id;
+            $validatedData['company_name'] = $company->name;
+            $validatedData['user_id'] = auth()->user()->id;
+            $validatedData['user_name'] = auth()->user()->name;
+            $validatedData['number'] = Invoice::encodeNumber((string)( (string)$validatedData['deposit_id'] . (string)$validatedData['provider_id'] ) );
+            $validatedData['type'] = 'manual';
+
             // Define $data.
             $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;
 
             // Valida cadastro.
             $valid = Depositinput::validateAdd($data);
-
-            // Valida.
-            if($valid):
-                // Depósito.
-                $deposit = Deposit::find($data['validatedData']['deposit_id']);
-
-                // Fornecedor.
-                $provider = Provider::find($data['validatedData']['provider_id']);
-
-                // Empresa.
-                $company = Company::find(auth()->user()->company_id);
-
-                // Estende $data['validatedData'].
-                $data['validatedData']['deposit_name'] = $deposit->name;
-                $data['validatedData']['provider_name'] = $provider->name;
-                $data['validatedData']['company_id'] = $company->id;
-                $data['validatedData']['company_name'] = $company->name;
-                $data['validatedData']['user_id'] = auth()->user()->id;
-                $data['validatedData']['user_name'] = auth()->user()->name;
-                $data['validatedData']['number'] = Invoice::encodeNumber((string)( (string)$validatedData['deposit_id'] . (string)$validatedData['provider_id'] ) );
-                $data['validatedData']['type'] = 'manual';
-            endif;
 
             // Cadastra.
             if ($valid) Depositinput::add($data);
