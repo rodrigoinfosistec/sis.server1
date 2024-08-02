@@ -37,6 +37,12 @@
                 </th>
 
                 <th class="" style="padding: 0;">
+                    <div class="" style="width: 80px;">
+                        QUANTIDADE
+                    </div>
+                </th>
+
+                <th class="" style="padding: 0;">
                     <div class="" style="width: 20px; background-color: #ddd;">
                         
                     </div>
@@ -99,6 +105,13 @@
                                 {{ $depositinputitem->provideritem->ncm }}
                                 <br>
                                 {{ $depositinputitem->provideritem->cest }}
+                            </div>
+                        </td>
+
+                        {{-- QUANTIDADE --}}
+                        <td class="align-middle" style="line-height: 1; padding: 0;">
+                            <div class="" style="width: 80px;">
+                                <input wire:model="array_product_quantity.{{ $depositinputitem->id }}" type="number" class="form-control form-control-sm" id="array_product_quantity_{{ $depositinputitem->id }}" min="1" required>
                             </div>
                         </td>
 
