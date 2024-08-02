@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id');
             $table->string('product_name');
 
-            $table->integer('identifier');
+            $table->integer('identifier')->nullable()->default(null);
 
             $table->decimal('quantity', total: 16, places: 7)->default(0);
             $table->decimal('quantity_final', total: 16, places: 7)->default(0);

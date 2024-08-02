@@ -344,7 +344,6 @@ class DepositinputShow extends Component
             // Estende $validatedData.
             $validatedData['depositinput_id'] = $this->depositinput_id;
             $validatedData['deposit_id'] = $this->deposit_id;
-            $validatedData['identifier'] = Depositinputproduct::where('depositinput_id', $this->depositinput_id)->count() + 1;
 
             // Define $data.
             $data['config']        = $this->config;

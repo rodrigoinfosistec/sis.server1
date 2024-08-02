@@ -88,7 +88,6 @@ class Depositinputproduct extends Model
             'depositinput_id' => $data['validatedData']['depositinput_id'],
             'product_id' => $data['validatedData']['product_id'],
             'product_name' => Product::find($data['validatedData']['product_id'])->name,
-            'identifier' => $data['validatedData']['identifier'],
             'quantity' => $data['validatedData']['quantity'],
             'quantity_final' => $data['validatedData']['quantity'],
         ])->id;
@@ -200,6 +199,84 @@ class Depositinputproduct extends Model
      * @return bool true
      */
     public static function dependencyEditItemAmount(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
+     * Valida atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateEditProductAmount(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Atualiza.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function editProductAmount(array $data) : bool {
+        // Verifica se o Produto não existe no Depósito
+        if(Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->doesntExist()):
+            // Cadastra o Produto no Depósito.
+            Productdeposit::create([
+                'product_id' => $data['validatedData']['product_id'], 
+                'deposit_id' => $data['validatedData']['deposit_id'],
+            ]);
+        endif;
+
+        // Acrescenta a Quantidade no Depósito.
+        $newQtdDep = Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity += $data['validatedData']['quantity_final'];
+        Productdeposit::where(['product_id' => $data['validatedData']['product_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->update([
+            'quantity' => $newQtdDep,
+        ]);
+
+        // Acrescenta a Quantidade no Produto.
+        $newQtdProd = Product::find($data['validatedData']['product_id'])->quantity += $data['validatedData']['quantity_final'];
+        Product::find($data['validatedData']['product_id'])->update([
+            'quantity' => $newQtdProd,
+        ]);
+
+        // Registra Movimentação do Produto.
+        Productmoviment::create([
+            'product_id' => $data['validatedData']['product_id'],
+            'identification' => 'Entrada no Depósito: ' . $data['validatedData']['deposit_id'],
+            'quantity' => $data['validatedData']['quantity_final'],
+            'user_id' => auth()->user()->id,
+        ]);
+
+        // Mensagem.
+        $message = 'Quantidades dos Produtos atualizadas com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyEditProductAmount(array $data) : bool {
         // ...
 
         return true;
