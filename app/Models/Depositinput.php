@@ -41,6 +41,8 @@ class Depositinput extends Model
 
         'observation',
 
+        'type',
+
         'funded',
 
         'created_at',
@@ -142,7 +144,7 @@ class Depositinput extends Model
             'total' => $data['validatedData']['total'],
             'issue' => $data['validatedData']['issue'],
             'observation' => $data['validatedData']['observation'],
-            'input_type' => $data['validatedData']['input_type'],
+            'type' => $data['validatedData']['type'],
         ])->id;
 
         // Percorre todos os itens do XML.
@@ -282,7 +284,6 @@ class Depositinput extends Model
             'user_name' => $data['validatedData']['user_name'],
             'number' => $data['validatedData']['number'],
             'observation' => $data['validatedData']['observation'],
-            'input_type' => $data['validatedData']['input_type'],
         ])->id;
 
         // After.

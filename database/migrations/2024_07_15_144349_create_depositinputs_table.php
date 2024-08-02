@@ -36,7 +36,7 @@ return new class extends Migration
 
             $table->text('observation');
 
-            $table->string('input_type');
+            $table->enum('type', ['xml', 'manual'])->default('manual');
 
             $table->boolean('funded')->default(false);
 
