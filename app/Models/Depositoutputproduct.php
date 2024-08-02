@@ -90,14 +90,14 @@ class Depositoutputproduct extends Model
             'depositoutput_id' => $data['validatedData']['depositoutput_id'],
             'product_id' => $data['validatedData']['product_id'],
             'product_name' => Product::find($data['validatedData']['product_id'])->name,
-            'quantity' => $data['validatedData']['quantity'],
+            'quantity' => General::encodeFloat3($data['validatedData']['quantity']),
         ])->id;
 
         // After.
         $after = Depositoutputproduct::find($depositoutputproduct_id);
 
         // Mensagem.
-        $message = 'Produto ' . $after->product->name . ' incluído na Transferência.';
+        $message = 'Produto ' . $after->product->name . ' incluído na Saída.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 

@@ -77,7 +77,7 @@ class DepositoutputShow extends Component
             'observation' => ['required'],
 
             'product_id' => ['required'],
-            'quantity' => ['required', 'numeric'],
+            'quantity' => ['required'],
         ];
     }
 
@@ -218,7 +218,7 @@ class DepositoutputShow extends Component
             // Valida campos.
             $validatedData = $this->validate([
                 'product_id' => ['required'],
-                'quantity' => ['required', 'numeric', 'min:0.1'],
+                'quantity' => ['required'],
             ]);
 
             // Estende $validatedData.
