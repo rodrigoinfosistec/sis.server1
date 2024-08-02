@@ -90,6 +90,7 @@ class Depositinputproduct extends Model
             'product_name' => Product::find($data['validatedData']['product_id'])->name,
             'identifier' => $data['validatedData']['identifier'],
             'quantity' => $data['validatedData']['quantity'],
+            'quantity_final' => $data['validatedData']['quantity'],
         ])->id;
 
         // After.
