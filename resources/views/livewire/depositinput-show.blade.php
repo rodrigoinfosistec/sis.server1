@@ -144,7 +144,7 @@
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
-<x-layout.card.card-body-content-table-body-line-cell-action width="100">
+<x-layout.card.card-body-content-table-body-line-cell-action width="120">
     @if(!$item->funded)
     <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
         @if($item->type == 'xml')
@@ -165,6 +165,9 @@
             @endif
         @else
             <x-layout.card.card-body-content-table-body-line-cell-action-add-depositinput-product :id="$item->id"/>
+                @if(App\Models\Depositinputproduct::where('depositinput_id', $item->id)->count() > 0)
+                    <x-layout.card.card-body-content-table-body-line-cell-action-edit-item-amount :id="$item->id"/>
+                @endif
         @endif
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-print-depositinput :id="$item->id"/>

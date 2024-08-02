@@ -296,6 +296,68 @@ class DepositinputShow extends Component
         }
 
     /**
+     * addProduct()
+     *  registerProduct()
+     */
+    public function addProduct(int $depositinput_id)
+    {
+        // Entrada Depósito.
+        $depositinput = Depositinput::find($depositinput_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->depositinput_id = $depositinput_id;
+        $this->deposit_name = $depositinput->deposit_name;
+        $this->deposit_id = $depositinput->deposit_id;
+        $this->provider_id = $depositinput->provider_id;
+        $this->provider_name = $depositinput->provider_name;
+        $this->company_id = $depositinput->company_id;
+        $this->company_name = $depositinput->company_name;
+        $this->user_id = $depositinput->user_id;
+        $this->user_name = $depositinput->user_name;
+        $this->key = $depositinput->key;
+        $this->number = $depositinput->number;
+        $this->range = $depositinput->range;
+        $this->total = $depositinput->total;
+        $this->issue = date_format(date_create($depositinput->issue), 'd/m/Y H:i:s');
+        $this->observation = $depositinput->observation;
+        $this->type = $depositinput->type;
+        $this->created = $depositinput->created_at->format('d/m/Y H:i:s');
+        $this->updated = $depositinput->updated_at->format('d/m/Y H:i:s');
+    }
+        public function registerProduct()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'product_id' => ['required'],
+                'quantity' => ['required', 'numeric', 'min:0.1'],
+            ]);
+
+            // Produto.
+            $product = Product::find($validatedData['product_id']);
+
+            // Estende $validatedData.
+            $validatedData['depositinput_id'] = $this->depositinput_id;
+            $validatedData['product_name'] = $product->name;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = Depositinputproduct::validateAdd($data);
+
+            // Cadastra.
+            if ($valid) Depositinputproduct::add($data);
+
+            // Executa dependências.
+            if ($valid) Depositinputproduct::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
      * editItemRelates()
      *  modernizeItemRelates()
      */
