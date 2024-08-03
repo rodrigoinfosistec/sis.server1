@@ -202,6 +202,30 @@ class ProductShow extends Component
             return redirect()->to('/product');
         }
 
+    /** 
+     * detail()
+     */
+    public function detail(int $product_id)
+    {
+        // Funcionário.
+        $product = Product::find($product_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->product_id = $product_id;
+        $this->name = $product->name;
+        $this->code = $product->code;
+        $this->reference = $product->reference;
+        $this->ean = $product->ean;
+        $this->cost = $product->cost;
+        $this->margin = $product->margin;
+        $this->quantity = $product->quantity;
+        $this->company_id = $product->company_id;
+        $this->productgroup_id = $product->productgroup_id;
+        $this->productmeasure_id = $product->productmeasure_id;
+        $this->status = $product->status;
+        $this->created = $product->created_at->format('d/m/Y H:i:s');
+    }
+
     /**
      * generate()
      *  sire()
