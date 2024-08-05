@@ -5,11 +5,14 @@ namespace App\Http\Livewire;
 use Illuminate\Support\Str;
 
 use App\Models\Report;
+use App\Models\General;
 
 use App\Models\Product;
 use App\Models\Productgroup;
+use App\Models\Productdeposit;
 use App\Models\Productmeasure;
 use App\Models\Provider;
+use App\Models\Company;
 
 use Livewire\WithPagination;
 use Livewire\Component;
@@ -42,6 +45,7 @@ class ProductShow extends Component
     public $cost;
     public $margin;
     public $value;
+    public $quantity;
     public $signal;
     public $amount;
     public $provider_id;
@@ -115,6 +119,7 @@ class ProductShow extends Component
         $this->cost = '';
         $this->margin = '';
         $this->value = '';
+        $this->quantity = '';
         $this->signal = '';
         $this->amount = '';
         $this->provider_id = '';
@@ -210,6 +215,13 @@ class ProductShow extends Component
         // Funcionário.
         $product = Product::find($product_id);
 
+        // Quantidade.
+        if(Productdeposit::where(['product_id' => $product_id, 'deposit_id' => Company::find(auth()->user()->company_id)->depositdefault_id])->exists()):
+            $quantity = Productdeposit::where(['product_id' => $product_id, 'deposit_id' => Company::find(auth()->user()->company_id)->depositdefault_id])->first()->quantity;
+        else:
+            $quantity = 0.00;
+        endif;
+
         // Inicializa propriedades dinâmicas.
         $this->product_id = $product_id;
         $this->name = $product->name;
@@ -218,7 +230,7 @@ class ProductShow extends Component
         $this->ean = $product->ean;
         $this->cost = $product->cost;
         $this->margin = $product->margin;
-        $this->quantity = $product->quantity;
+        $this->quantity = General::decodeFloat2($product->quantity - $quantity);
         $this->company_id = $product->company_id;
         $this->productgroup_id = $product->productgroup_id;
         $this->productmeasure_id = $product->productmeasure_id;
