@@ -15,7 +15,8 @@ class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name' => mb_convert_encoding($this->name, 'UTF-8', 'UTF-8'),
+            'id' => $this->id,
+            'name' => $this->name,
             'email' => $this->email,
             'status' => $this->status,
         ];
