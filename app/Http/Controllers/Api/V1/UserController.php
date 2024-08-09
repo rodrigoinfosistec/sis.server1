@@ -8,16 +8,22 @@ use App\Http\Resources\V1\UserResource;
 
 use App\Models\User;
 
+use App\Traits\HttpResponses;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    use HttpResponses;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return UserResource::collection(User::all());
+        return UserResource::collection(User::get());
     }
 
     /**
@@ -33,7 +39,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'company_id' => ['required'],
+            'usergroup_id' => ['required'],
+            'name' => ['required', 'between:3,255'],
+            'email' => ['required', 'email', 'between:3,255', 'unique:users'],
+            'password' => ['required', 'between:3,255'],
+        ]);
+
+        if($validator->fails()){
+            return $this->error('Data Invalid', 422, $validator->errors());
+        }
+
+        // Estende $validator.
+        $validator[''] = ;
+
+        $created = User::create($validator->validated())
     }
 
     /**
