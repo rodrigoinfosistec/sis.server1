@@ -52,9 +52,9 @@ class UserController extends Controller
         }
 
         // Estende $validator.
-        $validator[''] = ;
+        $validator[''] = '';
 
-        $created = User::create($validator->validated())
+        $created = User::create($validator->validated());
     }
 
     /**
