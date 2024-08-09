@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\UserResource;
 
 use App\Models\User;
+use App\Models\Usergroup;
+use App\Models\Company;
 
 use App\Traits\HttpResponses;
 
@@ -51,10 +53,38 @@ class UserController extends Controller
             return $this->error('Data Invalid', 422, $validator->errors());
         }
 
-        // Estende $validator.
-        $validator[''] = '';
+        $validator = $validator->safe();
 
-        $created = User::create($validator->validated());
+        if(Company::where('id', $validator['company_id'])->doesntExist()){
+            return $this->error('Company Invalid', 400, []);
+        }
+
+        if(Usergroup::where('id', $validator['usergroup_id'])->doesntExist()){
+            return $this->error('Usergroup Invalid', 400, []);
+        }
+
+        $validator->safe()->merge([
+            'company_name' => Company::find($validator['company_id'])->name,
+            'usergroup_name' => Usergroup::find($validator['usergroup_id'])->name,
+        ]);
+
+        // Estende $validator.
+        $validator['company_name'] = Company::find($validator['company_id'])->name;
+        $validator['usergroup_name'] = Usergroup::find($validator['usergroup_id'])->name;
+
+        $created = User::create([
+            'company_id' => $validator['company_id'],
+            'company_name' => Company::find($validator['company_id'])->name,
+            'usergroup_id' => Usergroup::find($validator['usergroup_id'])->name,
+            'usergroup_name' => $validator['usergroup_id'],
+            'name' => $validator['name'],
+            'email' => $validator['email'],
+            'password' => $validator['password'],
+        ]);
+
+        if(!$created){
+            return $this->error('Data Invalid', 400, $validator->errors());
+        }
     }
 
     /**
