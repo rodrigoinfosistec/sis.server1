@@ -15,6 +15,7 @@ use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -63,23 +64,14 @@ class UserController extends Controller
             return $this->error('Usergroup Invalid', 400, []);
         }
 
-        $validator->safe()->merge([
-            'company_name' => Company::find($validator['company_id'])->name,
-            'usergroup_name' => Usergroup::find($validator['usergroup_id'])->name,
-        ]);
-
-        // Estende $validator.
-        $validator['company_name'] = Company::find($validator['company_id'])->name;
-        $validator['usergroup_name'] = Usergroup::find($validator['usergroup_id'])->name;
-
         $created = User::create([
             'company_id' => $validator['company_id'],
             'company_name' => Company::find($validator['company_id'])->name,
-            'usergroup_id' => Usergroup::find($validator['usergroup_id'])->name,
-            'usergroup_name' => $validator['usergroup_id'],
+            'usergroup_id' => $validator['usergroup_id'],
+            'usergroup_name' => Usergroup::find($validator['usergroup_id'])->name,
             'name' => $validator['name'],
             'email' => $validator['email'],
-            'password' => $validator['password'],
+            'password' => Hash::make($validator['password']),
         ]);
 
         if(!$created){
