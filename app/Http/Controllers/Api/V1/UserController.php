@@ -24,12 +24,14 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return UserResource::collection(User::where([
-            ['company_name', '=', 'DISTRIBUIDORA MIX'],
-            ['usergroup_name', '=', 'DEVELOPMENT'],
-        ])->get());
+        //return UserResource::collection(User::where([
+        //    ['company_name', '=', 'DISTRIBUIDORA MIX'],
+        //    ['usergroup_name', '=', 'DEVELOPMENT'],
+        //])->get());
+
+        return (new User())->filter($request);
     }
 
     /**
