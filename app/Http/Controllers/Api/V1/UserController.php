@@ -51,17 +51,17 @@ class UserController extends Controller
         ]);
 
         if($validator->fails()){
-            return $this->error('Data Invalid', 422, $validator->errors());
+            return $this->error('Invalid Data', 422, $validator->errors());
         }
 
         $validator = $validator->safe();
 
         if(Company::where('id', $validator['company_id'])->doesntExist()){
-            return $this->error('Company Invalid', 400, []);
+            return $this->error('Invalid Company', 400, []);
         }
 
         if(Usergroup::where('id', $validator['usergroup_id'])->doesntExist()){
-            return $this->error('Usergroup Invalid', 400, []);
+            return $this->error('Invalid Usergroup', 400, []);
         }
 
         $created = User::create([
@@ -75,7 +75,7 @@ class UserController extends Controller
         ]);
 
         if(!$created){
-            return $this->error('Data Invalid', 400, $validator->errors());
+            return $this->error('Created Invalid', 400, $validator->errors());
         }
     }
 
