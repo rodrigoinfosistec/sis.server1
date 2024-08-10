@@ -21,25 +21,6 @@ class UserController extends Controller
 {
     use HttpResponses;
 
-    protected function rules()
-    {
-        return [
-            'report_id' => ['required'],
-            'mail'      => ['required', 'email', 'between:2,255'],
-            'comment'   => ['nullable', 'between:2,255'],
-
-            'company_id'    => ['required'],
-            'usergroup_id'  => ['required'],
-            'employee_id'   => ['required'],
-            'name'          => ['required', 'between:3,255'],
-            'email'         => ['required', 'email', 'between:3,255', 'unique:users,email,'.$id.''],
-            'password_user' => ['required'],
-
-            'confirm'      => ['required', 'between:3,255'],
-            'password_old' => ['required', 'between:3,255'],
-        ];
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -132,7 +113,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, int $id)
     {
         $validator = Validator::make($request->all(), [
             'company_id'   => ['required'],
@@ -160,7 +141,7 @@ class UserController extends Controller
         $validator['company_name'] = Company::find($validator['company_id'])->name;
         $validator['usergroup_name'] = Usergroup::find($validator['usergroup_id'])->name;
 
-        $created = User::find($id)->update([
+        $updated = User::find($id)->update([
             'company_id' => $validator['company_id'],
             'company_name' => $validator['company_name'],
             'usergroup_id' => $validator['usergroup_id'],
@@ -169,8 +150,8 @@ class UserController extends Controller
             'email' => $validator['email'],
         ]);
 
-        if($created){
-            return $this->response('User Created', 200, [
+        if($updated){
+            return $this->response('User Updated', 200, [
                 'company_id' => $validator['company_id'],
                 'company_name' => $validator['company_name'],
                 'usergroup_id' => $validator['usergroup_id'],
@@ -180,7 +161,7 @@ class UserController extends Controller
             ]);
         }
 
-        return $this->error('User Not Created', 400);
+        return $this->error('User Not Updated', 400);
     }
 
     /**
