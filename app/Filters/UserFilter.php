@@ -1,11 +1,8 @@
 <?php
-
 namespace App\Filters;
 
-use DeepCopy\Exception\PropertyException;
-use Illuminate\Http\Requet;
-
 use App\Filters\Filter;
+use DeepCopy\Exception\PropertyException;
 
 class UserFilter extends Filter
 {
