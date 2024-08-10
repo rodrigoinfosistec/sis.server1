@@ -26,7 +26,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::get());
+        return UserResource::collection(User::where([
+            ['company_name', '=', 'DISTRIBUIDORA MIX'],
+            ['usergroup_name', '=', 'DEVELOPMENT'],
+        ])->get());
     }
 
     /**

@@ -80,8 +80,17 @@ class User extends Authenticatable
     /**
      * Relaciona Models.
      */
+    public function company(){return $this->belongsTo(Company::class);}
     public function usergroup(){return $this->belongsTo(Usergroup::class);}
     public function employee(){return $this->belongsTo(Employee::class);}
+
+    /**
+     * Filtros.
+     */
+    public function filter(Request $request)
+    {
+        return (new UserFilter)->filter($request);
+    }
 
     /**
      * Força o cadastro do Usuário "MASTER" com Grupo de Usuário "DEVELOPMENT".

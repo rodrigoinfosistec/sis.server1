@@ -22,7 +22,11 @@ class UserResource extends JsonResource
             'usergroup' => [
                 'usergroup_id' => $this->usergroup->id,
                 'usergroup_name' => $this->usergroup->name,
-            ], 
+            ],
+            'company' => [
+                'company_id' => $this->company->id,
+                'company_name' => $this->company->name,
+            ],
         ];
     }
 }
