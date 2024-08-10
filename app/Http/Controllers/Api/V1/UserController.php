@@ -169,6 +169,12 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $deleted = User::find($id)->delete();
+
+        if($deleted){
+            return $this->response('User Deleted', 200);
+        }
+
+        return $this->error('User Not Deleted', 400);
     }
 }
