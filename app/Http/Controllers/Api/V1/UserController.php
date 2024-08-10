@@ -21,6 +21,25 @@ class UserController extends Controller
 {
     use HttpResponses;
 
+    protected function rules()
+    {
+        return [
+            'report_id' => ['required'],
+            'mail'      => ['required', 'email', 'between:2,255'],
+            'comment'   => ['nullable', 'between:2,255'],
+
+            'company_id'    => ['required'],
+            'usergroup_id'  => ['required'],
+            'employee_id'   => ['required'],
+            'name'          => ['required', 'between:3,255'],
+            'email'         => ['required', 'email', 'between:3,255', 'unique:users,email,'.$id.''],
+            'password_user' => ['required'],
+
+            'confirm'      => ['required', 'between:3,255'],
+            'password_old' => ['required', 'between:3,255'],
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -54,6 +73,7 @@ class UserController extends Controller
             return $this->error('Invalid Data', 422, $validator->errors());
         }
 
+        // Converte para array.
         $validator = $validator->safe();
 
         if(Company::where('id', $validator['company_id'])->doesntExist()){
@@ -64,19 +84,33 @@ class UserController extends Controller
             return $this->error('Invalid Usergroup', 400, []);
         }
 
+        // Estende array.
+        $validator['company_name'] = Company::find($validator['company_id'])->name;
+        $validator['usergroup_name'] = Usergroup::find($validator['usergroup_id'])->name;
+        $validator['password'] = Hash::make($validator['password']);
+
         $created = User::create([
             'company_id' => $validator['company_id'],
-            'company_name' => Company::find($validator['company_id'])->name,
+            'company_name' => $validator['company_name'],
             'usergroup_id' => $validator['usergroup_id'],
-            'usergroup_name' => Usergroup::find($validator['usergroup_id'])->name,
+            'usergroup_name' => $validator['usergroup_name'],
             'name' => $validator['name'],
             'email' => $validator['email'],
-            'password' => Hash::make($validator['password']),
+            'password' => $validator['password'],
         ]);
 
-        if(!$created){
-            return $this->error('Created Invalid', 400, $validator->errors());
+        if($created){
+            return $this->response('User Created', 200, [
+                'company_id' => $validator['company_id'],
+                'company_name' => $validator['company_name'],
+                'usergroup_id' => $validator['usergroup_id'],
+                'usergroup_name' => $validator['usergroup_name'],
+                'name' => $validator['name'],
+                'email' => $validator['email'],
+            ]);
         }
+
+        return $this->error('User Not Created', 400);
     }
 
     /**
@@ -100,7 +134,53 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'company_id'   => ['required'],
+            'usergroup_id' => ['required'],
+            'name'         => ['required', 'between:3,255'],
+            'email'        => ['required', 'email', 'between:3,255', 'unique:users,email,'.$id.''],
+        ]);
+
+        if($validator->fails()){
+            return $this->error('Invalid Data', 422, $validator->errors());
+        }
+
+        // Converte para array.
+        $validator = $validator->safe();
+
+        if(Company::where('id', $validator['company_id'])->doesntExist()){
+            return $this->error('Invalid Company', 400, []);
+        }
+
+        if(Usergroup::where('id', $validator['usergroup_id'])->doesntExist()){
+            return $this->error('Invalid Usergroup', 400, []);
+        }
+
+        // Estende array.
+        $validator['company_name'] = Company::find($validator['company_id'])->name;
+        $validator['usergroup_name'] = Usergroup::find($validator['usergroup_id'])->name;
+
+        $created = User::find($id)->update([
+            'company_id' => $validator['company_id'],
+            'company_name' => $validator['company_name'],
+            'usergroup_id' => $validator['usergroup_id'],
+            'usergroup_name' => $validator['usergroup_name'],
+            'name' => $validator['name'],
+            'email' => $validator['email'],
+        ]);
+
+        if($created){
+            return $this->response('User Created', 200, [
+                'company_id' => $validator['company_id'],
+                'company_name' => $validator['company_name'],
+                'usergroup_id' => $validator['usergroup_id'],
+                'usergroup_name' => $validator['usergroup_name'],
+                'name' => $validator['name'],
+                'email' => $validator['email'],
+            ]);
+        }
+
+        return $this->error('User Not Created', 400);
     }
 
     /**
