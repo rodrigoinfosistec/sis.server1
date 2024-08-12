@@ -26,12 +26,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        //return UserResource::collection(User::where([
-        //    ['company_name', '=', 'DISTRIBUIDORA MIX'],
-        //    ['usergroup_name', '=', 'DEVELOPMENT'],
-        //])->get());
+        return UserResource::collection(User::get());
 
-        return (new User())->filter($request);
+        //return (new User())->filter($request);
     }
 
     /**

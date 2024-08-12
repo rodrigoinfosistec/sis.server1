@@ -1,8 +1,6 @@
 <?php
 namespace App\Filters;
 
-use DeepCopy\Exception\PropertyException;
-
 abstract class Filter
 {
     protected array $allowedOperatorsFields = [];
@@ -28,6 +26,6 @@ abstract class Filter
 
         foreach($this->allowedOperatorsFields as $param => $operators){
             $queryOperator = $request->query('company_id');
-;        }
+        }
     }
 }
