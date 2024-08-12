@@ -26,10 +26,6 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        //return UserResource::collection(User::where([
-        //    ['name', 'like', '%rodri%'],
-        //])->get());
-
         return (new User())->filter($request);
     }
 

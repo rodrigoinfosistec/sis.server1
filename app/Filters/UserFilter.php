@@ -8,18 +8,12 @@ class UserFilter extends Filter
 {
     protected array $allowedOperatorsFields = [
         'company_id' => ['eq', 'ne', 'in'],
-        'company_name' => ['eq', 'ne', 'in'],
-        'status' => ['eq'],
+        'company_name' => ['eq', 'ne', 'in', 'like'],
+        'usergroup_id' => ['eq', 'ne', 'in'],
+        'usergroup_name' => ['eq', 'ne', 'in', 'like'],
+        'name' => ['eq', 'ne', 'in', 'like'],
+        'email' => ['like'],
+        'status' => ['eq', 'ne', 'in', 'like'],
         'created_at' => ['gt', 'gte', 'lt', 'lte', 'eq', 'ne', 'in'],
     ];
-
-    public function filter(Request $request)
-    {
-        $where = [];
-        $whereIn = [];
-
-        if(empty($this->allowedOperatorsFields)){
-            throw new PropertyException("Property allowedOperatorsFields is empty");
-        }
-    }
 }

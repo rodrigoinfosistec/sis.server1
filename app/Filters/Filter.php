@@ -1,6 +1,9 @@
 <?php
 namespace App\Filters;
 
+use Illuminate\Http\Request;
+use DeepCopy\Exception\PropertyException;
+
 abstract class Filter
 {
     protected array $allowedOperatorsFields = [];
@@ -27,8 +30,35 @@ abstract class Filter
             throw new PropertyException("Property allowedOperatorsFields is empty");
         }
 
-        foreach($this->allowedOperatorsFields as $param => $operators){
-            $queryOperator = $request->query();
-        }
+        foreach($this->allowedOperatorsFields as $param => $operators):
+            $queryOperator = $request->query($param);
+            if($queryOperator):
+                var_dump($queryOperator);
+                foreach($queryOperator as $operator => $value):
+                    if(!in_array($operator, $operators)):
+                        throw new Exception("{$param} does not have {$operator} operator");
+                    endif;
+
+                    if(str_contains($value, '[')):
+                        $whereIn[] = [
+                            $param,
+                            explode(',', str_replace(['[', ']'], ['', ''], $value)),
+                            $value
+                        ];
+                    else:
+                        $where[] = [
+                            $param,
+                            $this->allowedOperatorsFields[$operator],
+                            $value,
+                        ];
+                    endif;
+                endforeach;
+            endif;
+        endforeach;
+
+        return [
+            'where' => $where,
+            'whereIn' => $whereIn,
+        ];
     }
 }

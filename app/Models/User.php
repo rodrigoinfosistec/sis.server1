@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Filters\UserFilter;
+
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Laravel\Sanctum\HasApiTokens;
@@ -90,7 +91,13 @@ class User extends Authenticatable
      */
     public function filter(Request $request)
     {
-        //return (new UserFilter)->filter($request);
+        $queryFilter = (new UserFilter)->filter($request);
+
+        var_dump($queryFilter);
+
+        //if(empty( $queryFilter)):
+        //    return UserResource::collection(User::get());
+        //endif;
     }
 
     /**
