@@ -9,12 +9,12 @@ abstract class Filter
     protected array $allowedOperatorsFields = [];
 
     protected array $translateOperatorsFields = [
+        'eq' => '=',
+        'ne' => '!=',
         'gt' => '>',
         'gte' => '>=',
         'lt' => '<',
         'lte' => '<=',
-        'eq' => '=',
-        'ne' => '!=',
         'in' => 'in',
         'like' => 'like',
     ];
@@ -43,7 +43,7 @@ abstract class Filter
                         $whereIn[] = [
                             $param,
                             explode(',', str_replace(['[', ']'], ['', ''], $value)),
-                            $value
+                            $value,
                         ];
                     else:
                         $where[] = [
@@ -55,6 +55,10 @@ abstract class Filter
                 endforeach;
             endif;
         endforeach;
+
+        if(empty($where) && empty($whereIn)):
+            return [];
+        endif;
 
         return [
             'where' => $where,

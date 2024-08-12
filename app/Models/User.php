@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Jetstream\HasProfilePhoto;
+use App\Http\Resources\V1\UserResource;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -95,9 +96,11 @@ class User extends Authenticatable
 
         var_dump($queryFilter);
 
-        //if(empty( $queryFilter)):
-        //    return UserResource::collection(User::get());
-        //endif;
+        if(empty( $queryFilter)):
+            var_dump($queryFilter);
+
+            return UserResource::collection(User::get());
+        endif;
     }
 
     /**
