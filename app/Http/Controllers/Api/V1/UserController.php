@@ -42,6 +42,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
+        if(auth()->user()->tokenCan('user-store')):
+            return $this->error('Unauthorized', 403);
+        endif;
+
         $validator = Validator::make($request->all(), [
             'company_id' => ['required'],
             'usergroup_id' => ['required'],

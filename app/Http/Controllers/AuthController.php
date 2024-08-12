@@ -16,7 +16,9 @@ class AuthController extends Controller
     {
         if(Auth::attempt($request->only('email', 'password'))):
             return $this->response('Authorized', 200, [
-                'token' => $request->user()->createToken('user', ['user-index', 'user-store', 'user-update', 'user-show', 'user-destroy'])->plainTextToken
+                'token' => $request->user()->createToken('user', [
+                    'user-index', 'user-store', 'user-show', 'user-update', 'user-destroy'
+                ])->plainTextToken
             ]);
         endif;
 
