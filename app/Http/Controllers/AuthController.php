@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Auth;
 
-// 5|0nrZUQkTJ6J9vt9Wp8LHSFJRSsqdtqo3MZ0ezsUCeb7b8218
+// 8|BaM198HbllRoZtUSY5XYJQQSBSMhgS9ZpFQ4hdLB02e36759
 
 class AuthController extends Controller
 {
@@ -16,7 +16,7 @@ class AuthController extends Controller
     {
         if(Auth::attempt($request->only('email', 'password'))):
             return $this->response('Authorized', 200, [
-                'token' => $request->user()->createToken('user')->plainTextToken
+                'token' => $request->user()->createToken('user', ['user-index', 'user-store', 'user-update', 'user-show', 'user-destroy'])->plainTextToken
             ]);
         endif;
 
