@@ -13,16 +13,6 @@ class UserFilter extends Filter
         'created_at' => ['gt', 'gte', 'lt', 'lte', 'eq', 'ne', 'in'],
     ];
 
-    protected array $translateOperatorsFields = [
-        'gt' => '>',
-        'gte' => '>=',
-        'lt' => '<',
-        'lte' => '<=',
-        'eq' => '=',
-        'ne' => '!=',
-        'in' => 'in',
-    ];
-
     public function filter(Request $request)
     {
         $where = [];
