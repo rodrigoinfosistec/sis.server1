@@ -97,7 +97,7 @@ class User extends Authenticatable
         var_dump($queryFilter);
 
         if(empty( $queryFilter)):
-            var_dump($queryFilter);
+            var_dump('empty');
 
             return UserResource::collection(User::get());
         endif;

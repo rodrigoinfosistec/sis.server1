@@ -26,7 +26,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        return (new User())->filter($request);
+        //return (new User())->filter($request);
+
+        return UserResource::collection(User::get());
     }
 
     /**
