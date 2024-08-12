@@ -20,12 +20,14 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'status' => $this->status ? 'Ativo' : 'Inativo',
             'usergroup' => [
-                'usergroup_id' => $this->usergroup->id,
-                'usergroup_name' => $this->usergroup->name,
+                'id' => $this->usergroup->id,
+                'name' => $this->usergroup->name,
+                'status' => $this->usergroup->status ? 'Ativo' : 'Inativo',
             ],
             'company' => [
-                'company_id' => $this->company->id,
-                'company_name' => $this->company->name,
+                'id' => $this->company->id,
+                'cnpj' => $this->company->cnpj,
+                'name' => $this->company->name,
             ],
         ];
     }
