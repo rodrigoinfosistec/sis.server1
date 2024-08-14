@@ -104,11 +104,20 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
+            @php
+                if(!empty(App\Models\Company::find(auth()->user()->company_id)->depositdefault_id)):
+                    if(App\Models\Productdeposit::where(['product_id' => $item->id, 'deposit_id' => App\Models\Company::find(auth()->user()->company_id)->depositdefault_id])->exists()):
+                        $quantity = App\Models\Productdeposit::where(['product_id' => $item->id, 'deposit_id' => App\Models\Company::find(auth()->user()->company_id)->depositdefault_id])->first()->quantity;
+                    endif;
+                else:
+                    $quantity = 0.0;
+                endif;
+            @endphp
             <div class="fw-bold" style="font-size: 10pt;">
                 @if($item->quantity > 0) <span class="text-primary">
                     @elseif($item->quantity < 0) <span class="text-danger">
                     @else <span class="text-muted"> @endif
-                    {{ App\Models\General::decodeFloat2($item->quantity) }}
+                    {{ App\Models\General::decodeFloat2($item->quantity - $quantity) }}
                 </span>
             </div>
         </x-layout.card.card-body-content-table-body-line-cell-id-end>

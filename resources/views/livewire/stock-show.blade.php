@@ -12,8 +12,7 @@
 
 
 {{-- ações --}}
-
-
+@include('components.' .  $config['name'] . '.modals.detail')
 {{-- modal --}}
 
     <x-layout.alert/>
@@ -105,13 +104,22 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            @if(App\Models\Productdeposit::where('product_id', $item->id)->sum('quantity') > 0)
-                <span style="font-size: 11pt;" class="text-primary fw-bold">
-            @else
-                <span style="font-size: 11pt;" class="text-muted fw-bold">
-            @endif
-                {{ App\Models\General::decodeFloat2(App\Models\Productdeposit::where('product_id', $item->id)->sum('quantity')) }}
-            </span>
+            @php
+                if(!empty(App\Models\Company::find(auth()->user()->company_id)->depositdefault_id)):
+                    if(App\Models\Productdeposit::where(['product_id' => $item->id, 'deposit_id' => App\Models\Company::find(auth()->user()->company_id)->depositdefault_id])->exists()):
+                        $quantity = App\Models\Productdeposit::where(['product_id' => $item->id, 'deposit_id' => App\Models\Company::find(auth()->user()->company_id)->depositdefault_id])->first()->quantity;
+                    endif;
+                else:
+                    $quantity = 0.0;
+                endif;
+            @endphp
+            <div class="fw-bold" style="font-size: 10pt;">
+                @if($item->quantity > 0) <span class="text-primary">
+                    @elseif($item->quantity < 0) <span class="text-danger">
+                    @else <span class="text-muted"> @endif
+                    {{ App\Models\General::decodeFloat2($item->quantity - $quantity) }}
+                </span>
+            </div>
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
@@ -149,7 +157,7 @@
 </x-layout.card.card-body-content-table-body-line-cell>
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="">
-    
+    <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
 
