@@ -117,7 +117,11 @@
                 @if($item->quantity > 0) <span class="text-primary">
                     @elseif($item->quantity < 0) <span class="text-danger">
                     @else <span class="text-muted"> @endif
-                    {{ App\Models\General::decodeFloat2($item->quantity - $quantity) }}
+                        @if($item->quantity - $quantity < 0)
+                            {{ App\Models\General::decodeFloat2($item->quantity) }}
+                        @else
+                            {{ App\Models\General::decodeFloat2($item->quantity - $quantity) }}
+                        @endif
                 </span>
             </div>
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
