@@ -96,7 +96,7 @@
                 <x-layout.card.card-body-content>
                     @if(App\Models\Deposittransfer::where('funded', false)->exists())
                         <div style="width: 100%;">
-                            <div class="bg-warning float-start" style="width: 10px; height: 10px; margin-bottom: 5px; margin-right: 5px;"></div>
+                            <div class="float-start" style="width: 10px; height: 10px; margin-bottom: 5px; margin-right: 5px; background-color: #ffff7a; border: solid 1px #ff0000;"></div>
                             <div class="text-danger float-start fw-bold" style="font-size: 8pt; padding: 0; margin-top: -3px;">
                                 ATENÇÃO: 
                                 <span class="text-primary">
@@ -117,8 +117,7 @@
     {{-- conteúdo --}}
     <div class="accordion-item" style="border-bottom: 1px solid #ddd;">
         <h2 class="accordion-header">
-            <button class="accordion-button collapsed
-            @if(!$item->funded) bg-warning @endif" style="padding-top: 5px; padding-bottom: 5px;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $item->id }}">
+            <button class="accordion-button collapsed" style="padding-top: 5px; padding-bottom: 5px; @if(!$item->funded) background-color: #ffff7a; @endif" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $item->id }}">
                 <div class="w-100">
                     <div class="float-start" style="min-width: 240px; font-size: 8pt;">
                         <x-layout.card.card-body-content-table-body-line-cell-id-badge>
