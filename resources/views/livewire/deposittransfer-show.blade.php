@@ -102,7 +102,7 @@
                                 <span class="text-primary">
                                     {{ App\Models\Deposittransfer::where('funded', false)->count() }}
                                 </span>
-                                TRANFERÊNCIA(S) NÃO CONSOLIDADA(S).
+                                TRANSFERÊNCIA(S) NÃO CONSOLIDADA(S).
                             </div>
                         </div>
                     @endif
@@ -117,7 +117,7 @@
     {{-- conteúdo --}}
     <div class="accordion-item" style="border-bottom: 1px solid #ddd;">
         <h2 class="accordion-header">
-            <button class="accordion-button collapsed" style="padding-top: 5px; padding-bottom: 5px; @if(!$item->funded) background-color: #ffff7a; @endif" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $item->id }}">
+            <button class="accordion-button collapsed" style="padding-top: 5px; padding-bottom: 5px; @if(!$item->funded) background-color: #ffff7a; border: solid 1px #ff0000; @endif" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $item->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $item->id }}">
                 <div class="w-100">
                     <div class="float-start" style="min-width: 240px; font-size: 8pt;">
                         <x-layout.card.card-body-content-table-body-line-cell-id-badge>
