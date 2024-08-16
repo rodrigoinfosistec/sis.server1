@@ -182,7 +182,7 @@
         </div>
     </div>
     {{-- conteúdo --}}
-    
+
                                         </div>
                                     </x-layout.card.card-body-content-table-body-line>
                                 @endforeach
