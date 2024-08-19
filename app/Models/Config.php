@@ -28,12 +28,12 @@ class Config extends Model
     }
 
     /**
-     * Define as áginas.
+     * Define as Páginas.
      * 
      * @return array $pages
      */
     public static function getPages() : array {
-        // Define as áginas.
+        // Define as Páginas.
         $pages = [
             [
                 'name'  => 'home',

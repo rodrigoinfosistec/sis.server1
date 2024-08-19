@@ -34,7 +34,7 @@ class RhsearchShow extends Component
     public $name;
     public $link;
     public $icon = 'search';
-    public $color;
+    public $color = '#0000FF';
     public $status;
     public $created;
 
@@ -88,8 +88,8 @@ class RhsearchShow extends Component
         $this->rhsearch_id = '';
         $this->name        = '';
         $this->link        = '';
-        $this->icon        = '';
-        $this->color       = '';
+        $this->icon        = 'search';
+        $this->color       = '#0000FF';
         $this->status      = '';
         $this->created     = '';
     }
