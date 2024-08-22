@@ -1659,6 +1659,7 @@ class Report extends Model
             'folder'  => $data['config']['name'],
             'file'    => $file_name,
             'reference_1' => $data['validatedData']['balance_id'],
+            'reference_2' => auth()->user()->company_id,
         ]);
 
         return true;
