@@ -117,10 +117,10 @@
                 @if($item->quantity > 0) <span class="text-primary">
                     @elseif($item->quantity < 0) <span class="text-danger">
                     @else <span class="text-muted"> @endif
-                        @if($item->quantity - $quantity < 0)
+                        @if((float)$item->quantity - (float)$quantity < 0)
                             {{ App\Models\General::decodeFloat2($item->quantity) }}
                         @else
-                            {{ App\Models\General::decodeFloat2($item->quantity - $quantity) }}
+                            {{ App\Models\General::decodeFloat2((float)$item->quantity - (float)$quantity) }}
                         @endif
                 </span>
             </div>
