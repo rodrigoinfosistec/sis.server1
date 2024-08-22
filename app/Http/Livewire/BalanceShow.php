@@ -150,8 +150,8 @@ class BalanceShow extends Component
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
             'existsItem'   => Balance::where('company_id', auth()->user()->company_id)->exists(),
-            'existsReport' => Report::where(['folder' => $this->config['name'], 'reference_1' => auth()->user()->company_id])->exists(),
-            'reports'      => Report::where(['folder' => $this->config['name'], 'reference_1' => auth()->user()->company_id])->orderBy('id', 'DESC')->limit(12)->get(),
+            'existsReport' => Report::where(['folder' => $this->config['name'], 'reference_2' => auth()->user()->company_id])->exists(),
+            'reports'      => Report::where(['folder' => $this->config['name'], 'reference_2' => auth()->user()->company_id])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Balance::where([
                             ['company_id', auth()->user()->company_id],
                             [$this->filter, 'like', '%'. $this->search . '%'],

@@ -25,26 +25,12 @@
                 <x-layout.card.card-header-button-action-refresh href="{{ $config['name'] }}"/>
 
 {{-- botão relatório --}}
-@if($existsItem)
-    <x-layout.card.card-header-button-action-generate/>
-@else
-    <x-layout.card.card-header-button-action-generate-muted/>
-@endif
+<x-layout.card.card-header-button-action-generate-muted/>
 
-@if($existsReport)
-    <x-layout.card.card-header-button-action-mail/>
-@else
-    <x-layout.card.card-header-button-action-mail-muted/>
-@endif
+<x-layout.card.card-header-button-action-mail-muted/>
 {{-- botão relatório --}}
 
-                    @if($existsReport)
-                        <x-layout.card.card-header-button-action-print>
-                            <x-layout.card.card-header-button-action-print-for :config="$config" :reports="$reports"/>
-                        </x-layout.card.card-header-button-print>
-                    @else
-                        <x-layout.card.card-header-button-action-print-muted/>
-                    @endif
+                    <x-layout.card.card-header-button-action-print-muted/>
                 </x-layout.card.card-header-button-action>
 
                 <x-layout.card.card-header-button-more>
