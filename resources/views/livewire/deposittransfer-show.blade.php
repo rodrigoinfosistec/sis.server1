@@ -94,7 +94,7 @@
             </x-layout.card.card-body-navigation>
 
             <x-layout.card.card-body-content>
-                @if(App\Models\Deposittransfer::where('funded', false)->exists())
+                @if(App\Models\Deposittransfer::where(['company_id' => auth()->user()->company_id,'funded' => false])->exists())
                     <div style="width: 100%;">
                         <div class="float-start" style="width: 10px; height: 10px; margin-bottom: 5px; margin-right: 5px; background-color: #ffff7a; border: solid 1px #ff0000;"></div>
                         <div class="text-danger float-start fw-bold" style="font-size: 8pt; padding: 0; margin-top: -3px;">
