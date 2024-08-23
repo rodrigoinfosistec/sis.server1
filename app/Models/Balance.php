@@ -155,11 +155,15 @@ class Balance extends Model
 
         //Verfica se o Produto está vinculado ao depósito.
         if(Productdeposit::where(['product_id' => $balanceproduct->product_id, 'deposit_id' => $data['validatedData']['deposit_id']])->exists()):
+            $quantity_old = Productdeposit::where(['product_id' => $balanceproduct->product_id, 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity;
+
             // Atualiza quantidade do Produto no Depósito.
             Productdeposit::where(['product_id' => $balanceproduct->product_id, 'deposit_id' => $data['validatedData']['deposit_id']])->update([
                 'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
             ]);
         else:
+            $quantity_old = 0.00;
+
             // Vincula o Produto ao Depósito e atualiza quantidade do Produto no Depósito.
             Productdeposit::create([
                 'product_id' => $balanceproduct->product_id,
@@ -170,21 +174,18 @@ class Balance extends Model
 
         // Atualiza quantidade Total do Produto.
         $quantity_last = Product::find($balanceproduct->product_id)->quantity;
-        $quantity_new = $quantity_last + General::encodeFloat($data['validatedData']['score'], 7);
+        $quantity_new = $quantity_last + (General::encodeFloat($data['validatedData']['score'], 7)  - $quantity_old);
         Product::find($balanceproduct->product_id)->update([
             'quantity' => $quantity_new,
         ]);
 
-        // Verifica se quantidade não é Zero (0).
-        if(General::encodeFloat($data['validatedData']['score'], 7) != 0):
-            // Regista Movimentação do produto.
-            Productmoviment::create([
-                'product_id' => $balanceproduct->product_id,
-                'identification' => 'Balanço:' . $data['validatedData']['balance_id'],
-                'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
-                'user_id' => auth()->user()->id,
-            ]);
-        endif;
+        // Regista Movimentação do produto.
+        Productmoviment::create([
+            'product_id' => $balanceproduct->product_id,
+            'identification' => 'Balanço:' . $data['validatedData']['balance_id'],
+            'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
+            'user_id' => auth()->user()->id,
+        ]);
 
         // Mensagem.
         $message = 'Balanço Consolidado';
