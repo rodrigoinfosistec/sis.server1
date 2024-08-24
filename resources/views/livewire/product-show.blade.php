@@ -112,6 +112,8 @@
                 if(!empty(App\Models\Company::find(auth()->user()->company_id)->depositdefault_id)):
                     if(App\Models\Productdeposit::where(['product_id' => $item->id, 'deposit_id' => App\Models\Company::find(auth()->user()->company_id)->depositdefault_id])->exists()):
                         $quantity = App\Models\Productdeposit::where(['product_id' => $item->id, 'deposit_id' => App\Models\Company::find(auth()->user()->company_id)->depositdefault_id])->first()->quantity;
+                    else:
+                        $quantity = 0.0;
                     endif;
                 else:
                     $quantity = 0.0;
