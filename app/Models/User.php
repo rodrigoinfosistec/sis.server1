@@ -94,8 +94,6 @@ class User extends Authenticatable
     {
         $queryFilter = (new UserFilter)->filter($request);
 
-        var_dump($queryFilter);
-
         if(empty( $queryFilter)):
             var_dump('empty');
 

@@ -921,7 +921,7 @@ class Report extends Model
             // Verifica se o ponto é da mesma empresa.
             if(Company::where('cnpj', Company::encodeCnpj($file[0][11].$file[0][12].$file[0][13].$file[0][14].$file[0][15].$file[0][16].$file[0][17].$file[0][18].$file[0][19].$file[0][20].$file[0][21].$file[0][22].$file[0][23].$file[0][24]))->exists()):
                  // Inicializa array compacto.
-                 $txtArrayCompact = [];
+                $txtArrayCompact = [];
 
                 // Percorre todas as linhas do arquivo.
                 foreach($file as $key => $line):
