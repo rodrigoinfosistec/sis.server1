@@ -43,6 +43,10 @@ class EmployeeShow extends Component
     public $journey_start_saturday;
     public $journey_end_saturday;
     public $journey;
+    public $limit_start_week;
+    public $limit_end_week;
+    public $limit_start_saturday;
+    public $limit_end_saturday;
     public $clock_type;
     public $code;
     public $status;
@@ -76,6 +80,10 @@ class EmployeeShow extends Component
             'journey_start_saturday' => ['required'],
             'journey_end_saturday'   => ['required'],
             'journey'                => ['required'],
+            'limit_start_week'       => ['required'],
+            'limit_end_week'         => ['required'],
+            'limit_start_saturday'   => ['required'],
+            'limit_end_saturday'     => ['required'],
             'clock_type'             => ['required'],
             'code'                   => ['nullable', 'between:4,10', 'unique:employees,code'],
 
@@ -126,6 +134,10 @@ class EmployeeShow extends Component
         $this->journey_start_saturday = '';
         $this->journey_end_saturday   = '';
         $this->journey                = '';
+        $this->limit_start_week       = '';
+        $this->limit_end_week         = '';
+        $this->limit_start_saturday   = '';
+        $this->limit_end_saturday     = '';
         $this->clock_type             = '';
         $this->code                   = '';
         $this->status                 = '';
@@ -385,6 +397,58 @@ class EmployeeShow extends Component
 
             // Executa dependências.
             if ($valid) Employee::dependencyEditDoc($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * editLimit()
+     *  modernizeLimit()
+     */
+    public function editLimit(int $employee_id)
+    {
+        // Funcionário.
+        $employee = Employee::find($employee_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->employee_id  = $employee->id;
+        $this->company_id   = $employee->company_id;
+        $this->company_name = $employee->company_name;
+        $this->pis          = $employee->pis;
+        $this->name         = $employee->name;
+        $this->cpf          = $employee->cpf;
+        $this->rg           = $employee->rg;
+        $this->cnh          = $employee->cnh;
+        $this->ctps         = $employee->ctps;
+    }
+        public function modernizeLimit()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'limit_start'          => ['required'],
+                'limit_end'            => ['required'],
+                'limit_start_saturday' => ['required'],
+                'limit_end_saturday'   => ['required'],
+            ]);
+
+            // Estende $validatedData.
+            $validatedData['employee_id'] = $this->employee_id;
+            $validatedData['name']        = $this->name;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Employee::validateEditLimit($data);
+
+            // Atualiza.
+            if ($valid) Employee::editLimit($data);
+
+            // Executa dependências.
+            if ($valid) Employee::dependencyEditLimit($data);
 
             // Fecha modal.
             $this->closeModal();
