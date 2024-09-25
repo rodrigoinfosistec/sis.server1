@@ -3746,4 +3746,28 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Presencein Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function presenceinAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='            . $after->id            . ',' .
+                'company_name='  . $after->company_name  . ',' .
+                'company_id='    . $after->company_id    . ',' .
+                'date='          . $after->date          . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }

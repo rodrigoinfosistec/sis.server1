@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\General;
 use App\Models\Report;
 
-use App\Models\Precencein;
+use App\Models\Presencein;
 
 use App\Models\Company;
 use App\Models\User;
@@ -16,7 +16,7 @@ use Livewire\WithPagination;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class DepositinputShow extends Component
+class PresenceinShow extends Component
 {
     use WithFileUploads;
     use WithPagination;
@@ -29,7 +29,7 @@ class DepositinputShow extends Component
     public $config;
 
     public $search = '';
-    public $filter;
+    public $filter = 'date';
 
     public $report_id;
     public $mail;
@@ -111,10 +111,10 @@ class DepositinputShow extends Component
     public function render(){
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
-            'existsItem'   => Precencein::where('company_id', auth()->user()->company_id)->exists(),
+            'existsItem'   => Presencein::where('company_id', auth()->user()->company_id)->exists(),
             'existsReport' => Report::where(['folder' => $this->config['name'], 'reference_1' => Auth()->user()->company_id])->exists(),
-            'reports'      => Report::where(['folder' => $this->config['name'], 'reference_1' => Auth()->user()->company_id])->orderBy('date', 'DESC')->limit(12)->get(),
-            'list'         => Precencein::where([
+            'reports'      => Report::where(['folder' => $this->config['name'], 'reference_1' => Auth()->user()->company_id])->orderBy('id', 'DESC')->limit(12)->get(),
+            'list'         => Presencein::where([
                 [$this->filter, 'like', '%'. $this->search . '%'],
                 ['company_id', Auth()->user()->company_id],
             ])->orderBy('date', 'DESC')->paginate(100),
@@ -147,13 +147,13 @@ class DepositinputShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida cadastro.
-            $valid = Precencein::validateAdd($data);
+            $valid = Presencein::validateAdd($data);
 
             // Cadastra.
-            if ($valid) Precencein::add($data);
+            if ($valid) Presencein::add($data);
 
             // Executa dependências.
-            if ($valid) Precencein::dependencyAdd($data);
+            if ($valid) Presencein::dependencyAdd($data);
 
             // Fecha modal.
             $this->closeModal();
@@ -176,13 +176,13 @@ class DepositinputShow extends Component
             $data['search'] = $this->search;
 
             // Valida geração de relatório.
-            $valid = Precencein::validateGenerate($data);
+            $valid = Presencein::validateGenerate($data);
 
             // Gera relatório.
-            if ($valid) Precencein::generate($data);
+            if ($valid) Presencein::generate($data);
 
             // Executa dependências.
-            if ($valid) Precencein::dependencyGenerate($data);
+            if ($valid) Presencein::dependencyGenerate($data);
 
             // Fecha modal.
             $this->closeModal();
@@ -211,13 +211,13 @@ class DepositinputShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida envio do e-mail.
-            $valid = Precencein::validateMail($data);
+            $valid = Presencein::validateMail($data);
 
             // Envia e-mail.
-            if ($valid) Precencein::mail($data);
+            if ($valid) Presencein::mail($data);
 
             // Executa dependências.
-            if ($valid) Precencein::dependencyMail($data);
+            if ($valid) Presencein::dependencyMail($data);
 
             // Fecha modal.
             $this->closeModal();
