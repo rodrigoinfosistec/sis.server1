@@ -275,6 +275,18 @@ class Config extends Model
                 'icon'  => 'bi-plus-square-dotted',
                 'test'  => true,
             ],
+            [
+                'name'  => 'presencein',
+                'title' => 'Presença Entrada',
+                'icon'  => 'bi-box-arrow-in-right',
+                'test'  => true,
+            ],
+            [
+                'name'  => 'presenceout',
+                'title' => 'Presença Saída',
+                'icon'  => 'bi-box-arrow-right',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
