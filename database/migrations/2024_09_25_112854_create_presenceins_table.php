@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('presenceins', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('company_id');
             $table->string('company_name');
+            $table->unsignedBigInteger('company_id');
 
             $table->unsignedBigInteger('user_id');
             $table->string('user_name');
+
+            $table->timestamps('date');
 
             $table->timestamps();
 
