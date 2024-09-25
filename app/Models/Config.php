@@ -277,12 +277,24 @@ class Config extends Model
             ],
             [
                 'name'  => 'presencein',
-                'title' => 'Presença Entrada',
+                'title' => 'Presença Entrada - old',
                 'icon'  => 'bi-box-arrow-in-right',
                 'test'  => true,
             ],
             [
                 'name'  => 'presenceout',
+                'title' => 'Presença Saída - old',
+                'icon'  => 'bi-box-arrow-right',
+                'test'  => true,
+            ],
+            [
+                'name'  => 'employeepresencein',
+                'title' => 'Presença Entrada',
+                'icon'  => 'bi-box-arrow-in-right',
+                'test'  => true,
+            ],
+            [
+                'name'  => 'employeepresenceout',
                 'title' => 'Presença Saída',
                 'icon'  => 'bi-box-arrow-right',
                 'test'  => true,
