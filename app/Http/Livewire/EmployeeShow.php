@@ -44,6 +44,7 @@ class EmployeeShow extends Component
     public $journey_start_saturday;
     public $journey_end_saturday;
     public $journey;
+    public $limit_controll;
     public $limit_start_week;
     public $limit_end_week;
     public $limit_start_saturday;
@@ -135,6 +136,7 @@ class EmployeeShow extends Component
         $this->journey_start_saturday = '';
         $this->journey_end_saturday   = '';
         $this->journey                = '';
+        $this->limit_controll         = '';
         $this->limit_start_week       = '';
         $this->limit_end_week         = '';
         $this->limit_start_saturday   = '';
@@ -308,6 +310,7 @@ class EmployeeShow extends Component
         $this->journey_start_saturday = $employee->journey_start_saturday;
         $this->journey_end_saturday   = $employee->journey_end_saturday;
         $this->journey                = $employee->journey;
+        $this->limit_controll         = $employee->limit_controll;
         $this->clock_type             = $employee->clock_type;
         $this->code                   = $employee->code;
         $this->status                 = $employee->status;
@@ -331,9 +334,10 @@ class EmployeeShow extends Component
             ]);
 
             // Estende $validatedData
-            $validatedData['employee_id']              = $this->employee_id;
-            $this->status ? $validatedData['status']   = true : $validatedData['status'] = false;
-            $this->trainee ? $validatedData['trainee'] = true : $validatedData['trainee'] = false;
+            $validatedData['employee_id']                            = $this->employee_id;
+            $this->status ? $validatedData['status']                 = true : $validatedData['status'] = false;
+            $this->trainee ? $validatedData['trainee']               = true : $validatedData['trainee'] = false;
+            $this->limit_controll ? $validatedData['limit_controll'] = true : $validatedData['limit_controll'] = false;
 
             // Define $data.
             $data['config']        = $this->config;

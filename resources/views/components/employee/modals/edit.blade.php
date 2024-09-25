@@ -154,6 +154,30 @@
         </div>
     </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
+
+<x-layout.modal.modal-edit-body-group>
+    <x-layout.modal.modal-edit-body-group-item columms="12">
+        <div class="form-check form-switch">
+            <input wire:model="limit_controll" class="form-check-input" type="checkbox" role="switch" id="limit_controll">
+        
+            <label class="form-check-label" for="limit_controll">
+                <span class="" style="font-size: 9pt;">
+                    PONTO CONTROLADO? 
+                </span>
+
+                @if($limit_controll)
+                    <span class="text-danger fw-bold" style="font-size: 9pt;">
+                        SIM
+                    </span>
+                @else
+                    <span class="text-muted fw-bold" style="font-size: 9pt;">
+                        NÃO
+                    </span>
+                @endif
+            </label>
+        </div>
+    </x-layout.modal.modal-edit-body-group-item>
+</x-layout.modal.modal-edit-body-group>
 {{-- conteúdo --}}
 
     </x-layout.modal.modal-edit-body>

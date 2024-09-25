@@ -35,6 +35,7 @@ class Employee extends Model
 
         'journey',
 
+        'limit_controll',
         'limit_start_week',
         'limit_end_week',
         'limit_start_saturday',
@@ -248,6 +249,7 @@ class Employee extends Model
             'journey_start_saturday' => $data['validatedData']['journey_start_saturday'],
             'journey_end_saturday'   => $data['validatedData']['journey_end_saturday'],
             'journey'                => $data['validatedData']['journey'],
+            'limit_controll'         => $data['validatedData']['limit_controll'],
             'clock_type'             => $data['validatedData']['clock_type'],
             'code'                   => Employee::codeValidateNull($data['validatedData']['code']),
             'status'                 => $data['validatedData']['status'],
