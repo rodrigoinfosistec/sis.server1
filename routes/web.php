@@ -94,7 +94,7 @@ Route::middleware([
     Route::get('/employeeeasy', [EmployeeeasyController::class, 'index'])->name('employeeeasy');
     Route::get('/employeepay', [EmployeepayController::class, 'index'])->name('employeepay');
     Route::get('/employeeseparate', [EmployeeseparateController::class, 'index'])->name('employeeseparate');
-    Route::get('/Presencein', [PresenceinController::class, 'index'])->name('Presencein');
+    Route::get('/presencein', [PresenceinController::class, 'index'])->name('presencein');
 
     Route::get('/holiday', [HolidayController::class, 'index'])->name('holiday');
 
