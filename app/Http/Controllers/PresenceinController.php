@@ -10,7 +10,7 @@ class PresenceinController extends Controller
 {
     public $pageName;
 
-    public function index(){
+    public function index() {
         /**
          * Nome da página - Configurável e único.
          * @var string $this->pageName.
@@ -28,8 +28,8 @@ class PresenceinController extends Controller
         return view('index', [
             'config' => [
                 'name'  => $this->pageName,
-                'title' => Page::getTitleByName($this->pageName), 
-                'icon'  => Page::getIconByName($this->pageName), 
+                'title' => Page::getTitleByName($this->pageName),
+                'icon'  => Page::getIconByName($this->pageName),
             ],
         ]);
     }
