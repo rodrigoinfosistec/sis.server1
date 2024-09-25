@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->float('icms', 12, 2);
             $table->float('value', 12, 2);
-           
+
             $table->float('value_invoice', 12, 2)->nullable()->default(null);
             $table->float('value_final', 12, 2)->nullable()->default(null);
 
