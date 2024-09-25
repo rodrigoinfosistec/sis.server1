@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('user_name');
 
-            $table->timestamps('date');
+            $table->timestamp('date');
 
             $table->timestamps();
 
