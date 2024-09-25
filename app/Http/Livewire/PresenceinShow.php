@@ -4,10 +4,10 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 
-class EmployeepresenceinShow extends Component
+class PresenceinShow extends Component
 {
     public function render()
     {
-        return view('livewire.employeepresencein-show');
+        return view('livewire.presencein-show');
     }
 }

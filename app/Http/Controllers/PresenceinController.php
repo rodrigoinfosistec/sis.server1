@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Page;
 
-class EmployeepresenceinController extends Controller
+class PresenceinController extends Controller
 {
     public $pageName;
 
@@ -15,7 +15,7 @@ class EmployeepresenceinController extends Controller
          * Nome da página - Configurável e único.
          * @var string $this->pageName.
          */
-        $this->pageName = 'employeepresencein';
+        $this->pageName = 'presencein';
 
         /**
          * Expulsa Usuário sem autorização de acesso à Página.
