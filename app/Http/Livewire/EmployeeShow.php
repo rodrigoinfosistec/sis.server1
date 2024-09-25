@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Report;
+use App\Models\General;
 
 use App\Models\Employee;
 
@@ -423,10 +424,10 @@ class EmployeeShow extends Component
         $this->cnh          = $employee->cnh;
         $this->ctps         = $employee->ctps;
 
-        $this->limit_start_week     = $employee->limit_start_week;
-        $this->limit_end_week       = $employee->limit_end_week;
-        $this->limit_start_saturday = $employee->limit_start_saturday;
-        $this->limit_end_saturday   = $employee->limit_end_saturday;
+        $this->limit_start_week     = General::minutsToTime($employee->limit_start_week);
+        $this->limit_end_week       = General::minutsToTime($employee->limit_end_week);
+        $this->limit_start_saturday = General::minutsToTime($employee->limit_start_saturday);
+        $this->limit_end_saturday   = General::minutsToTime($employee->limit_end_saturday);
     }
         public function modernizeLimit()
         {

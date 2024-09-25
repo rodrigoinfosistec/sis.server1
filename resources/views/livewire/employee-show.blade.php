@@ -16,6 +16,7 @@
 @include('components.' .  $config['name'] . '.modals.detail')
 @include('components.' .  $config['name'] . '.modals.edit')
 @include('components.' .  $config['name'] . '.modals.edit-doc')
+@include('components.' .  $config['name'] . '.modals.edit-limit')
 @include('components.' .  $config['name'] . '.modals.erase')
 {{-- modal --}}
 

@@ -9,6 +9,7 @@
         $('#detailModal').modal('hide');
         $('#editModal').modal('hide');
         $('#editDocModal').modal('hide');
+        $('#editLimitModal').modal('hide');
         $('#eraseModal').modal('hide');
     })
 </script>
