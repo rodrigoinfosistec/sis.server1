@@ -13,7 +13,17 @@ return new class extends Migration
     {
         Schema::create('presenceins', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('company_id');
+            $table->string('company_name');
+
+            $table->unsignedBigInteger('user_id');
+            $table->string('user_name');
+
             $table->timestamps();
+
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
