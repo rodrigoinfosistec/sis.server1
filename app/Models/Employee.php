@@ -35,6 +35,11 @@ class Employee extends Model
 
         'journey',
 
+        'limit_start_week',
+        'limit_end_week',
+        'limit_start_saturday',
+        'limit_end_saturday',
+
         'clock_type', // (event/registry)
 
         'datatime',
@@ -333,6 +338,72 @@ class Employee extends Model
      * @return bool true
      */
     public static function dependencyEditDoc(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
+     * Valida atualização do Limite.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateEditLimit(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Atualiza.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function editLimit(array $data) : bool {
+        // Before.
+        $before = Employee::find($data['validatedData']['employee_id']);
+
+        // Atualiza.
+        Employee::find($data['validatedData']['employee_id'])->update([
+            'limit_start_week'     => General::timeToMinuts($data['validatedData']['limit_start_week']),
+            'limit_end_week'       => General::timeToMinuts($data['validatedData']['limit_end_week']),
+            'limit_start_saturday' => General::timeToMinuts($data['validatedData']['limit_start_saturday']),
+            'limit_end_saturday'   => General::timeToMinuts($data['validatedData']['limit_end_saturday']),
+        ]);
+
+        // After.
+        $after = Employee::find($data['validatedData']['employee_id']);
+
+        // Auditoria.
+        Audit::employeeEditLimit($data, $before, $after);
+
+        // Mensagem.
+        $message = 'Limites de Ponto do ' . $data['config']['title'] . ' ' .  $after->name . ' atualizados com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyEditLimit(array $data) : bool {
         // ...
 
         return true;

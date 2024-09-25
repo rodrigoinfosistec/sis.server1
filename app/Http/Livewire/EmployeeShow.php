@@ -422,13 +422,18 @@ class EmployeeShow extends Component
         $this->rg           = $employee->rg;
         $this->cnh          = $employee->cnh;
         $this->ctps         = $employee->ctps;
+
+        $this->limit_start_week     = $employee->limit_start_week;
+        $this->limit_end_week       = $employee->limit_end_week;
+        $this->limit_start_saturday = $employee->limit_start_saturday;
+        $this->limit_end_saturday   = $employee->limit_end_saturday;
     }
         public function modernizeLimit()
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'limit_start'          => ['required'],
-                'limit_end'            => ['required'],
+                'limit_start_week'     => ['required'],
+                'limit_end_week'       => ['required'],
                 'limit_start_saturday' => ['required'],
                 'limit_end_saturday'   => ['required'],
             ]);

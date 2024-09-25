@@ -3719,4 +3719,30 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Employee Edit Limit.
+     * @var array $data
+     * @var object $before
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function employeeEditLimit(array $data, object $before, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[atualizou]' . 'Limites de Ponto da ' . $data['config']['title'] . ' {' .
+                'id='                   . $before->id                   . '>' . $after->id                   . ',' .
+                'name='                 . $before->name                 . '>' . $after->name                 . ',' .
+                'limit_start_week='     . $before->limit_start_week     . '>' . $after->limit_start_week     . ',' .
+                'limit_end_week='       . $before->limit_end_week       . '>' . $after->limit_end_week       . ',' .
+                'limit_start_saturday=' . $before->limit_start_saturday . '>' . $after->limit_start_saturday . ',' .
+                'limit_end_saturday='   . $before->limit_end_saturday   . '>' . $after->limit_end_saturday   . ','
+        ]);
+
+        return true;
+    }
 }
