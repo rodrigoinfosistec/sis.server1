@@ -112,6 +112,8 @@ class Presencein extends Model
                 'presencein_id' => $presencein->id,
                 'employee_id' => $employee->id,
                 'employee_name' => $employee->name,
+                'user_id' => Auth()->user()->id,
+                'user_name' => Auth()->user()->name,
             ])->id;
 
             $after = Presenceinemployee::find($presenceinemployee_id);

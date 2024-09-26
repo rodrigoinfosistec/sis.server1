@@ -38,8 +38,6 @@
                 <i class="bi-check2-circle text-success" style="font-size: 14pt;"></i>
                 {{ $presenceinemployee->employee_name }}
                 @if(App\Models\Clockregistry::where(['employee_id' => $presenceinemployee->employee->id, 'date' => $presenceinemployee->presencein->date])->exists())
-                    <br>
-
                     @foreach(App\Models\Clockregistry::where(['employee_id' => $presenceinemployee->employee->id, 'date' => $presenceinemployee->presencein->date])->orderBy('time', 'ASC')->get() as $key => $clockregistry)
                         <span class="badge rounded-pill text-bg-secondary">
                             {{ $clockregistry->time }}

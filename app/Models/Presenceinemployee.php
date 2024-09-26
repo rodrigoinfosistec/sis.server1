@@ -22,6 +22,9 @@ class Presenceinemployee extends Model
         'employee_id',
         'employee_name',
 
+        'user_id',
+        'user_name',
+
         'is_present',
 
         'created_at',
@@ -43,6 +46,8 @@ class Presenceinemployee extends Model
     public static function editPresence(int $presenceinemployee_id) : bool {
         // Atualiza Presença.
         Presenceinemployee::find($presenceinemployee_id)->update([
+            'user_id' => Auth()->user()->id,
+            'user_name' => Auth()->user()->name,
             'is_present' => true,
         ]);
 

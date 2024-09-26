@@ -15,8 +15,12 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('presencein_id');
+
             $table->unsignedBigInteger('employee_id');
             $table->string('employee_name');
+
+            $table->unsignedBigInteger('user_id');
+            $table->string('user_name');
 
             $table->boolean('is_present')->default(false);
 
@@ -24,6 +28,7 @@ return new class extends Migration
 
             $table->foreign('presencein_id')->references('id')->on('presenceins');
             $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
