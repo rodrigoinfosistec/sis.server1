@@ -106,7 +106,7 @@ class Presencein extends Model
         $presencein = Presencein::where(['company_id' => Auth()->user()->company_id, 'date' => $data['validatedData']['date']])->first();
 
         // Percorre todos os funcionarios controlados.
-        foreach(Employee::where(['company_id' => Auth()->user()->company_id, 'limit_controll' => true]) as $key => $employee):
+        foreach(Employee::where(['company_id' => Auth()->user()->company_id, 'limit_controll' => true, 'status' => true])->get() as $key => $employee):
             // Vincula Funcionario na Presença Entrada.
             $presenceinemployee_id = Presenceinemployee::create([
                 'presencein_id' => $presencein->id,
