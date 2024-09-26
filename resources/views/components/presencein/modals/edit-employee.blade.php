@@ -34,7 +34,7 @@
                 </x-layout.modal.modal-edit-body-group-item-switch>
             </x-layout.modal.modal-edit-body-group-item>
         @else
-            <label class="form-check-label" style="font-size: 10pt;">
+            <label class="form-check-label" style="font-size: 10pt; line-height: 1;">
                 <i class="bi-check2-circle text-success" style="font-size: 14pt;"></i>
                 {{ $presenceinemployee->employee_name }}
                 @if(App\Models\Clockregistry::where(['employee_id' => $presenceinemployee->employee->id, 'date' => $presenceinemployee->presencein->date])->exists())
@@ -44,6 +44,13 @@
                         </span>
                     @endforeach
                 @endif
+
+                <br>
+
+                <span class="text-muted fw-light" style="font-size: 8pt; padding-left: 20px;">
+                    <i class="bi-caret-right-fill"></i>
+                    {{ $presenceinemployee->user_name }} {{ $presenceinemployee->updated_at->format('H:i') }}
+                </span>
             </label>
         @endif
     @endforeach
