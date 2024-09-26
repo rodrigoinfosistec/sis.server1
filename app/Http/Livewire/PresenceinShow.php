@@ -43,6 +43,8 @@ class PresenceinShow extends Component
     public $date;
     public $created;
 
+    public $array_presenceinemployee = [];
+
     /**
      * Construtor.
      */
@@ -95,6 +97,8 @@ class PresenceinShow extends Component
         $this->user_name     = '';
         $this->date          = '';
         $this->created       = '';
+
+        $this->array_presenceinemployee = [];
     }
 
     /**
@@ -154,6 +158,52 @@ class PresenceinShow extends Component
 
             // Executa dependências.
             if ($valid) Presencein::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * editEmployee()
+     *  modernizeEmployee()
+     */
+    public function editEmployee(int $precenin_id)
+    {
+        // Presença Entrada.
+        $precenin = Precenin_id::find($precenin_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->precenin_id  = $precenin->id;
+        $this->company_name = $precenin->company_name;
+        $this->company_id   = $precenin->company_id;
+        $this->user_id      = $precenin->user_id;
+        $this->user_name    = $precenin->user_name;
+        $this->date         = $precenin->date;
+        $this->created      = $precenin->created_at->format('d/m/Y H:i:s');
+
+        // Percorre os Funcionarios da Presença Entrada.
+        foreach(presenceinemployee::where('presence_in', $this->precenin_id)->orderBy('is_present', 'DESC')->orderBy('employee_name', 'ASC')->get() as $key => $presenceinemployee):
+            // Relaciona Grupo de Usuário à Página.
+            $presenceinemployee->is_present ? $this->array_preceninemployee[$page->id] = true: $this->array_preceninemployee[$page->id];
+        endforeach;
+    }
+        public function modernizeEmployee()
+        {
+            // Define $data
+            $data['config']             = $this->config;
+            $data['array_preceninemployee'] = $this->array_preceninemployee;
+            $data['precenin_id']        = $this->precenin_id;
+            $data['name']               = Usergroup::find($this->usergroup_id)->name;
+
+            // Valida atualização de permissão.
+            $valid = Usergroup::validateEditPermission($data);
+
+            // Atualiza permissão.
+            if ($valid) Usergroup::editPermission($data);
+
+            // Executa dependências de permissão.
+            if ($valid) Usergroup::dependencyEditPermission($data);
 
             // Fecha modal.
             $this->closeModal();

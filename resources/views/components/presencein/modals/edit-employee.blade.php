@@ -19,7 +19,7 @@
         <x-layout.modal.modal-edit-body-group-item columms="12">
             <x-layout.modal.modal-edit-body-group-item-switch>
                 <input wire:model="array_presenceinemployee.{{ $presenceinemployee->id }}" class="form-check-input" type="checkbox" role="switch" id="array_presenceinemployee_{{ $presenceinemployee->id }}">
-                <label class="form-check-label" for="array_usergrouppage_{{ $presenceinemployee->id }}">{{ $presenceinemployee->employee->name }}</label>
+                <label class="form-check-label" for="array_presenceinemployee_{{ $presenceinemployee->id }}">{{ $presenceinemployee->employee_name }}</label>
             </x-layout.modal.modal-edit-body-group-item-switch>
         </x-layout.modal.modal-edit-body-group-item>
     @endforeach
