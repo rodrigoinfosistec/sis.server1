@@ -1,5 +1,5 @@
 <x-layout.modal.modal-edit modal="editEmployee" size="">
-    <x-layout.modal.modal-edit-header icon="bi-lock" modal="editEmployee">
+    <x-layout.modal.modal-edit-header icon="bi-people" modal="editEmployee">
         {{ $config['title'] }}
 
         <x-slot:identifier>
@@ -7,7 +7,7 @@
 
             <br>
 
-            {{ App\Models\Invoice::decodeData($data) }}
+            {{ $date }}
         </x-slot>
     </x-layout.modal.modal-edit-header>
 

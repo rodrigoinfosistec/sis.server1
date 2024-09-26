@@ -8,6 +8,7 @@ use App\Models\General;
 use App\Models\Report;
 
 use App\Models\Presencein;
+use App\Models\Presenceinemployee;
 
 use App\Models\Company;
 use App\Models\User;
@@ -168,42 +169,42 @@ class PresenceinShow extends Component
      * editEmployee()
      *  modernizeEmployee()
      */
-    public function editEmployee(int $precenin_id)
+    public function editEmployee(int $presencein_id)
     {
         // Presença Entrada.
-        $precenin = Precenin_id::find($precenin_id);
+        $presencein = Presencein::find($presencein_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->precenin_id  = $precenin->id;
-        $this->company_name = $precenin->company_name;
-        $this->company_id   = $precenin->company_id;
-        $this->user_id      = $precenin->user_id;
-        $this->user_name    = $precenin->user_name;
-        $this->date         = $precenin->date;
-        $this->created      = $precenin->created_at->format('d/m/Y H:i:s');
+        $this->presencein_id  = $presencein->id;
+        $this->company_name   = $presencein->company_name;
+        $this->company_id     = $presencein->company_id;
+        $this->user_id        = $presencein->user_id;
+        $this->user_name      = $presencein->user_name;
+        $this->date           = $presencein->date;
+        $this->created        = $presencein->created_at->format('d/m/Y H:i:s');
 
         // Percorre os Funcionarios da Presença Entrada.
-        foreach(presenceinemployee::where('presence_in', $this->precenin_id)->orderBy('is_present', 'DESC')->orderBy('employee_name', 'ASC')->get() as $key => $presenceinemployee):
+        foreach(Presenceinemployee::where('presencein_id', $this->presencein_id)->orderBy('is_present', 'DESC')->orderBy('employee_name', 'ASC')->get() as $key => $presenceinemployee):
             // Relaciona Grupo de Usuário à Página.
-            $presenceinemployee->is_present ? $this->array_preceninemployee[$page->id] = true: $this->array_preceninemployee[$page->id];
+            $presenceinemployee->is_present ? $this->array_presenceinemployee[$presenceinemployee->id] = true: $this->array_presenceinemployee[$presenceinemployee->id] = false;
         endforeach;
     }
         public function modernizeEmployee()
         {
             // Define $data
-            $data['config']             = $this->config;
-            $data['array_preceninemployee'] = $this->array_preceninemployee;
-            $data['precenin_id']        = $this->precenin_id;
-            $data['name']               = Usergroup::find($this->usergroup_id)->name;
+            $data['config']                 = $this->config;
+            $data['array_preceninemployee'] = $this->array_presenceinemployee;
+            $data['presencein_id']           = $this->presencein_id;
 
-            // Valida atualização de permissão.
-            $valid = Usergroup::validateEditPermission($data);
+            // Percorre os Funcionários da Presença Entrada.
+            foreach(Presenceinemployee::where('presencein', $this->presencein_id)->get() as $key => $presenceinemployee):
+                // Estende $data
+                
 
-            // Atualiza permissão.
-            if ($valid) Usergroup::editPermission($data);
+                // Atualiza Precença do Funcionário.
+                Presenceinemployee::editPresence($data);
 
-            // Executa dependências de permissão.
-            if ($valid) Usergroup::dependencyEditPermission($data);
+            endforeach;
 
             // Fecha modal.
             $this->closeModal();

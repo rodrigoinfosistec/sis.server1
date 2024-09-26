@@ -33,4 +33,24 @@ class Presenceinemployee extends Model
      */
     public function presencein(){return $this->belongsTo(Presencein::class);}
     public function employee(){return $this->belongsTo(Employee::class);}
+
+    /**
+     * Atualiza Presence.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function editPresence(array $data) : bool {
+        // Atualiza Presença.
+        Presenceinemployee::find($data['presenceinemployee_id'])->update([
+            'is_present' => $data['is_present'],
+        ]);
+
+        // Mensagem.
+        $message = 'Presença Entrada atualizada com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
 }
