@@ -191,20 +191,19 @@ class PresenceinShow extends Component
     }
         public function modernizeEmployee()
         {
-            // Define $data
-            $data['config']                 = $this->config;
-            $data['array_preceninemployee'] = $this->array_presenceinemployee;
-            $data['presencein_id']           = $this->presencein_id;
-
             // Percorre os Funcionários da Presença Entrada.
-            foreach(Presenceinemployee::where('presencein', $this->presencein_id)->get() as $key => $presenceinemployee):
-                // Estende $data
-                
-
-                // Atualiza Precença do Funcionário.
-                Presenceinemployee::editPresence($data);
-
+            foreach(Presenceinemployee::where(['presencein_id' => $this->presencein_id, 'is_present' => false])->get() as $key => $presenceinemployee):
+                // Verifica se Funcionário está Presente.
+                if($this->array_presenceinemployee[$presenceinemployee->id] == true):
+                    // Assinala Precença do Funcionário.
+                    Presenceinemployee::editPresence($presenceinemployee->id);
+                endif;
             endforeach;
+
+            // Mensagem.
+            $message = 'Presença Entrada atualizada com sucesso.';
+            session()->flash('message', $message);
+            session()->flash('color', 'success');
 
             // Fecha modal.
             $this->closeModal();
