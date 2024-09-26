@@ -7,7 +7,7 @@
 
             <br>
 
-            {{ $date }}
+            <span class="text-danger fw-bold" style="font-size: 12pt;">{{ date_format(date_create($date), "d/m/Y") }}</span>
         </x-slot>
     </x-layout.modal.modal-edit-header>
 
