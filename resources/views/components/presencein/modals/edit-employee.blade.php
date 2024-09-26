@@ -23,8 +23,6 @@
                     <label class="form-check-label text-danger" style="font-size: 10pt;" for="array_presenceinemployee_{{ $presenceinemployee->id }}">
                         {{ $presenceinemployee->employee_name }}
 
-                        <br>
-
                         @if(App\Models\Clockregistry::where(['employee_id' => $presenceinemployee->employee->id, 'date' => $presenceinemployee->presencein->date])->exists())
                             @foreach(App\Models\Clockregistry::where(['employee_id' => $presenceinemployee->employee->id, 'date' => $presenceinemployee->presencein->date])->orderBy('time', 'ASC')->get() as $key => $clockregistry)
                                 <span class="badge rounded-pill text-bg-secondary">
@@ -39,10 +37,9 @@
             <label class="form-check-label" style="font-size: 10pt;">
                 <i class="bi-check2-circle text-success" style="font-size: 14pt;"></i>
                 {{ $presenceinemployee->employee_name }}
-
-                <br>
-
                 @if(App\Models\Clockregistry::where(['employee_id' => $presenceinemployee->employee->id, 'date' => $presenceinemployee->presencein->date])->exists())
+                    <br>
+
                     @foreach(App\Models\Clockregistry::where(['employee_id' => $presenceinemployee->employee->id, 'date' => $presenceinemployee->presencein->date])->orderBy('time', 'ASC')->get() as $key => $clockregistry)
                         <span class="badge rounded-pill text-bg-secondary">
                             {{ $clockregistry->time }}
