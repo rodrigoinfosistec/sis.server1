@@ -14,7 +14,7 @@
     <x-layout.modal.modal-add-body-group-item columms="12">
         <x-layout.modal.modal-add-body-group-item-label item="date" title="DATA" plus="none"/>
 
-        <input type="date" wire:model="date" min="{{ date('Y-m-d') }}" class="form-control form-control-sm" id="date">
+        <input type="date" wire:model="date" min="{{ date('Y-m-d') }}" class="form-control form-control-sm" id="date" readonly>
 
         <x-layout.modal.modal-add-body-group-item-error item="date" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
