@@ -16,6 +16,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('presencein_id');
             $table->unsignedBigInteger('employee_id');
+            $table->string('employee_name');
 
             $table->boolean('is_present')->default(false);
 

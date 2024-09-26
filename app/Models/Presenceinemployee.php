@@ -20,6 +20,7 @@ class Presenceinemployee extends Model
     protected $fillable = [
         'presencein_id',
         'employee_id',
+        'employee_name',
 
         'is_present',
 

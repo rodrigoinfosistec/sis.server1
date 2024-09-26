@@ -3788,6 +3788,7 @@ class Audit extends Model
                 'id='            . $after->id            . ',' .
                 'presencein_id=' . $after->presencein_id . ',' .
                 'employee_id='   . $after->employee_id   . ',' .
+                'employee_name=' . $after->employee_name . ',' .
                 'is_present='    . $after->is_present    . ',' .
             '}',
         ]);
