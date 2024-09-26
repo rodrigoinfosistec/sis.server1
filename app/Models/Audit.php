@@ -3770,4 +3770,28 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Presenceinemployee Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function presenceinemployeeAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='            . $after->id            . ',' .
+                'presencein_id=' . $after->presencein_id . ',' .
+                'employee_id='   . $after->employee_id   . ',' .
+                'is_present='    . $after->is_present    . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }

@@ -108,11 +108,11 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            {{ $item->company->cnpj }}
+            <span class="text-muted">{{ $item->user_name }}</span>
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            {{ App\Models\Invoice::decodeIssue($item->date) }}
+            {{ App\Models\General::decodeDate($item->date) }}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 

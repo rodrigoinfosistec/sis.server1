@@ -45,7 +45,15 @@ class Presencein extends Model
     public static function validateAdd(array $data) : bool {
         $message = null;
 
-        // ...
+        // Verifica se Presença Entrada já existe para a Empresa.
+        if(Presencein::where(['company_id' => Auth()->user()->company_id, 'date' => $data['validatedData']['date']])->exists()):
+            $message = 'Presença Entrada em ' . General::decodeDate($data['validatedData']['date']);
+        endif;
+
+        // Verifica se não existe funcionário controlado para esta Empresa.
+        if(Employee::where(['company_id' => Auth()->user()->company_id, 'limit_controll' => true, 'status' => true])->doesntExist()):
+            $message = 'Nenhum Funcionário controlado para esta Empresa';
+        endif;
 
         // Desvio.
         if(!empty($message)):
@@ -78,7 +86,7 @@ class Presencein extends Model
         $after = Presencein::find($presencein_id);
 
         // Auditoria.
-        Audit::precenceinAdd($data, $after);
+        Audit::presenceinAdd($data, $after);
 
         // Mensagem.
         $message = $data['config']['title'] . ' cadastrada com sucesso.';
@@ -95,7 +103,21 @@ class Presencein extends Model
      * @return bool true
      */
     public static function dependencyAdd(array $data) : bool {
-        // ...
+        $presencein = Presencein::where(['company_id' => Auth()->user()->company_id, 'date' => $data['validatedData']['date']])->first();
+
+        // Percorre todos os funcionarios controlados.
+        foreach(Employee::where(['company_id' => Auth()->user()->company_id, 'limit_controll' => true]) as $key => $employee):
+            // Vincula Funcionario na Presença Entrada.
+            $presenceinemployee_id = Presenceinemployee::create([
+                'presencein_id' => $presencein->id,
+                'employee_id' => $employee->id,
+            ])->id;
+
+            $after = Presenceinemployee::find($presenceinemployee_id);
+
+            // Auditoria.
+            Audit::presenceinemployeeAdd($data, $after);
+        endforeach;
 
         return true;
     }

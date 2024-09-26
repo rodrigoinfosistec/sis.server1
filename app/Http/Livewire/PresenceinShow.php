@@ -127,7 +127,7 @@ class PresenceinShow extends Component
      */
     public function add()
     {
-        $this->date = date('Y-m-d H:i:s');
+        $this->date = date('Y-m-d');
     }
         public function register()
         {
