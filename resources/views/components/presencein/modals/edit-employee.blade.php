@@ -20,13 +20,31 @@
             <x-layout.modal.modal-edit-body-group-item columms="12">
                 <x-layout.modal.modal-edit-body-group-item-switch>
                     <input wire:model="array_presenceinemployee.{{ $presenceinemployee->id }}" class="form-check-input" type="checkbox" role="switch" id="array_presenceinemployee_{{ $presenceinemployee->id }}">
-                    <label class="form-check-label text-danger" for="array_presenceinemployee_{{ $presenceinemployee->id }}">{{ $presenceinemployee->employee_name }}</label>
+                    <label class="form-check-label text-danger" style="font-size: 10pt;" for="array_presenceinemployee_{{ $presenceinemployee->id }}">
+                        {{ $presenceinemployee->employee_name }}
+
+                        @if(App\Models\Clockregistry::where(['employee_id' => $presenceinemployee->employee->id, 'date' => $presenceinemployee->presencein->date])->exists())
+                            @foreach(App\Models\Clockregistry::where(['employee_id' => $presenceinemployee->employee->id, 'date' => $presenceinemployee->presencein->date])->orderBy('time', 'ASC')->get() as $key => $clockregistry)
+                                <span class="badge rounded-pill text-bg-secondary">
+                                    {{ $clockregistry->time }}
+                                </span>
+                            @endforeach
+                        @endif
+                    </label>
                 </x-layout.modal.modal-edit-body-group-item-switch>
             </x-layout.modal.modal-edit-body-group-item>
         @else
-            <label class="form-check-label">
+            <label class="form-check-label" style="font-size: 10pt;">
                 <i class="bi-check2-circle text-success" style="font-size: 14pt;"></i>
                 {{ $presenceinemployee->employee_name }}
+                <br>
+                @if(App\Models\Clockregistry::where(['employee_id' => $presenceinemployee->employee->id, 'date' => $presenceinemployee->presencein->date])->exists())
+                    @foreach(App\Models\Clockregistry::where(['employee_id' => $presenceinemployee->employee->id, 'date' => $presenceinemployee->presencein->date])->orderBy('time', 'ASC')->get() as $key => $clockregistry)
+                        <span class="badge rounded-pill text-bg-secondary">
+                            {{ $clockregistry->time }}
+                        </span>
+                    @endforeach
+                @endif
             </label>
         @endif
     @endforeach
