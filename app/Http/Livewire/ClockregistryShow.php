@@ -2,8 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Str;
+
 use App\Models\Report;
 use App\Models\General;
+
+use File;
 
 use App\Models\Employee;
 use App\Models\Clockregistry;
@@ -146,7 +150,7 @@ class ClockregistryShow extends Component
                 'employee_id' => ['required'],
                 'date'        => ['required'],
                 'time'        => ['required'],
-                'photo'       => ['required', 'extensions:jpg,png,jpeg'],
+                'photo'       => ['required', 'image'],
             ]);
 
             // Estende $validatedData.

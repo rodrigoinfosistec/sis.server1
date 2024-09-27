@@ -40,6 +40,7 @@ class EmployeebaseShow extends Component
 
     public $date;
     public $time;
+    public $photo;
 
     /**
      * Construtor.
@@ -89,8 +90,9 @@ class EmployeebaseShow extends Component
         $this->employee_cnh  = '';
         $this->employee_ctps = '';
 
-        $this->date = '';
-        $this->time = '';
+        $this->date  = '';
+        $this->time  = '';
+        $this->photo = '';
     }
 
     /**
@@ -127,6 +129,7 @@ class EmployeebaseShow extends Component
             $validatedData['employee_name'] = Employee::find(Auth()->User()->employee_id)->name;
             $validatedData['date']          = date('Y-m-d');
             $validatedData['time']          = date('H:i');
+            $validatedData['photo']         = null;
 
             // Define $data.
             $data['config']        = $this->config;
