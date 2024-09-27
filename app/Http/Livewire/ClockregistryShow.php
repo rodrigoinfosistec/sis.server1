@@ -37,6 +37,8 @@ class ClockregistryShow extends Component
     public $date;
     public $date_encode;
     public $time;
+    public $photo;
+    public $photo_link;
     public $created;
 
     /**
@@ -59,6 +61,7 @@ class ClockregistryShow extends Component
             'employee_id' => ['required'],
             'date'        => ['required'],
             'time'        => ['required'],
+            'photo'       => ['required'],
         ];
     }
 
@@ -92,6 +95,8 @@ class ClockregistryShow extends Component
         $this->date             = '';
         $this->date_encode      = '';
         $this->time             = '';
+        $this->photo            = '';
+        $this->photo_link       = '';
         $this->created          = '';
     }
 
@@ -106,7 +111,7 @@ class ClockregistryShow extends Component
     /**
      * Renderiza página.
      */
-    public function render(){
+    public function render() {
         // Inicializa variável.
         $array = [];
 
@@ -141,6 +146,7 @@ class ClockregistryShow extends Component
                 'employee_id' => ['required'],
                 'date'        => ['required'],
                 'time'        => ['required'],
+                'photo'       => ['required'],
             ]);
 
             // Estende $validatedData.
@@ -180,6 +186,7 @@ class ClockregistryShow extends Component
         $this->date             = General::decodedate($clockregistry->date);
         $this->date_encode      = $clockregistry->date;
         $this->time             = $clockregistry->time;
+        $this->photo_link       = $clockregistry->photo_link;
         $this->created          = $clockregistry->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
@@ -191,6 +198,7 @@ class ClockregistryShow extends Component
             $validatedData['date']             = $this->date;
             $validatedData['date_encode']      = $this->date_encode;
             $validatedData['time']             = $this->time;
+            $validatedData['photo_link']       = $this->photo_link;
 
             // Define $data.
             $data['config']        = $this->config;

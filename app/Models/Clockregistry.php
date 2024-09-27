@@ -111,7 +111,16 @@ class Clockregistry extends Model
 
         //Verifica se está fora do Horário Permitido.
         $time = General::timeToMinuts($data['validatedData']['time']);
-        if(($time < $min) || ($time > $max)):
+        $limit_start = $min + 60;
+        $limit_end   = $max - 60;
+        // if(($time < $min) || ($time > $max)):
+        //     $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
+        // endif;
+
+        if(!(
+            (($time >= $min)       && ($time <= $limit_start )) || 
+            (($time >= $limit_end) && ($time <= $max ))
+        )):
             $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
         endif;
 
