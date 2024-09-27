@@ -23,6 +23,7 @@ class Clockregistry extends Model
         'event',
         'date',
         'time',
+        'photo_link',
         'code',
 
         'created_at',
@@ -118,7 +119,13 @@ class Clockregistry extends Model
         // endif;
 
         if(!(
-            (($time >= $min)       && ($time <= $limit_start )) || 
+            // Entre o limite start + 60 minutos.
+            (($time >= $min)       && ($time <= $limit_start )) ||
+
+            // Entre 10h e 16h.
+            (($time >= 600)        && ($time <= 960))           ||
+
+            // Entre o limite end - 60 minutos.
             (($time >= $limit_end) && ($time <= $max ))
         )):
             $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
