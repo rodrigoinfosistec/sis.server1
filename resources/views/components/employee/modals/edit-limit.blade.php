@@ -28,7 +28,6 @@
 
         <x-layout.modal.modal-edit-body-group-item-error item="limit_end_week" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>
-    </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
 
 <x-layout.modal.modal-edit-body-group>

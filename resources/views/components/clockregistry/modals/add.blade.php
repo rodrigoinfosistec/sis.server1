@@ -44,6 +44,15 @@
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
 
+<x-layout.modal.modal-add-body-group>
+    <x-layout.modal.modal-add-body-group-item columms="12">
+        <x-layout.modal.modal-add-body-group-item-label item="photo" title="COMPROVANTE" plus="none"/>
+
+        <input type="file" wire:model="photo" class="form-control form-control-sm" id="photo" apture="environment">
+
+        <x-layout.modal.modal-add-body-group-item-error item="photo" message="$message"/>
+    </x-layout.modal.modal-add-body-group-item>
+</x-layout.modal.modal-add-body-group>
 {{-- conteúdo --}}
 
     </x-layout.modal.modal-add-body>

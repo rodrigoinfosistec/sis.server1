@@ -146,7 +146,7 @@ class ClockregistryShow extends Component
                 'employee_id' => ['required'],
                 'date'        => ['required'],
                 'time'        => ['required'],
-                'photo'       => ['required'],
+                'photo'       => ['required', 'extensions:jpg,png,jpeg'],
             ]);
 
             // Estende $validatedData.
