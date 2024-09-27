@@ -92,12 +92,21 @@ class Clockregistry extends Model
         endif;
 
         // Define o Horário Permitido para Registrar o Ponto (Semana ou Sábado).
+        // if(date_format(date_create($data['validatedData']['date']), 'l') == 'Saturday'):
+        //     $min  = Company::find(Auth()->user()->company_id)->limit_start_saturday;
+        //     $max  = Company::find(Auth()->user()->company_id)->limit_end_saturday;
+        // else:
+        //     $min  = Company::find(Auth()->user()->company_id)->limit_start;
+        //     $max  = Company::find(Auth()->user()->company_id)->limit_end;
+        // endif;
+
+        // Define o Horário Permitido para Registrar o Ponto (Semana ou Sábado).
         if(date_format(date_create($data['validatedData']['date']), 'l') == 'Saturday'):
-            $min  = Company::find(Auth()->user()->company_id)->limit_start_saturday;
-            $max  = Company::find(Auth()->user()->company_id)->limit_end_saturday;
+            $min  = Employee::find($data['validatedData']['employee_id'])->limit_start_saturday;
+            $max  = Employee::find($data['validatedData']['employee_id'])->limit_end_saturday;
         else:
-            $min  = Company::find(Auth()->user()->company_id)->limit_start;
-            $max  = Company::find(Auth()->user()->company_id)->limit_end;
+            $min  = Employee::find($data['validatedData']['employee_id'])->limit_start_week;
+            $max  = Employee::find($data['validatedData']['employee_id'])->limit_end_week;
         endif;
 
         //Verifica se está fora do Horário Permitido.
