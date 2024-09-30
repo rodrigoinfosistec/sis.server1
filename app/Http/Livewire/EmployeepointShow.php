@@ -57,6 +57,7 @@ class EmployeepointShow extends Component
     public $created;
 
     public $date;
+    public $employee;
 
     public $txt;
 
@@ -151,6 +152,8 @@ class EmployeepointShow extends Component
         $this->trainee                = '';
         $this->created                = '';
 
+        $this->employee = '';
+
         $this->txt = '';
     }
 
@@ -184,10 +187,14 @@ class EmployeepointShow extends Component
      * add()
      *  register()
      */
-    public function add()
+    public function add(string $code)
     {
-        // Empresa.
-        $this->company_id = Auth()->user()->company_id;
+        // Funcionário.
+        if(Employee::where(['code' => $code])->exists()):
+            $this->employee = '';
+        else:
+            $this->employee = '';
+        endif;
     }
         public function register()
         {

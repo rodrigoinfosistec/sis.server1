@@ -19,55 +19,25 @@
 
     <x-layout.alert/>
 
-    <div class="text-center" style="width: 100%; height: 500px; background-color: #ddd;">
-        <div class="row">
-            <div class="col-sm-12 mb-4">
-                <div class="card">
-                    <div class="card-header fw-bold text-primary text-center">
-                        <i class="bi bi-info-circle"></i>
+    <div class="card" style="margin-bottom: 20px;">
+        <div class="card-header fw-bold text-primary text-center">
+            <i class="bi bi-info-circle"></i>
 
-                        RH INFORMA
-                    </div>{{-- card-header --}}
+            REGISTRO DE PONTO
+        </div>{{-- card-header --}}
 
-                    <div class="card-body">
-                        <div class="accordion accordion-flush" id="accordionFlushExample">
-							@foreach(App\Models\Rhnews::where('status', true)->orderBy('created_at', 'DESC')->get() as $key => $news)
-								<div class="accordion-item">
-									<h2 class="accordion-header">
-										<button class="accordion-button collapsed" style="padding-top: 5px; padding-bottom: 5px;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $news->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $news->id }}">
-											<span class="fw-bold uppercase" style="font-size: 10.5pt;">
-												<i class="bi-info-circle-fill text-primary"></i>&nbsp;
-												{{ $news->name }}
-											</span>
-										</button>
-									</h2>
+        <div class="card-body">
+            <div class="row g-3" style="margin-top: -10px;">
+                <div class="col">
+                    <input type="text" wire:model="code" class="form-control form-control-sm float-start" style="width: 200px; font-size: 12pt;" id="code"/>
 
-									<div id="flush-collapse{{ $news->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-										<div class="accordion-body" style="line-height: 1.2">
-											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $news->description }}
-
-											<p class="text-secondary" style="font-size: 11pt; margin-top: 10px;">
-												@if(!empty($news->salute))
-													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													{{ $news->salute }}
-													<br>
-												@endif
-
-												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-												<span style="font-size: 9pt;">
-													{{ $news->updated_at->format('d/m/Y') }}
-												</span>
-											</p>
-										</div>
-									</div>
-								</div>
-							@endforeach
-						</div>
-                    </div>{{-- card-body --}}
-                </div>{{-- card --}}
-            </div>{{-- col --}}
-        </div>{{-- row --}}
-    </div>
+                    <a type="button" wire:click="add({{ $code }})" class="btn btn btn-outline-danger btn-sm fw-bold float-start" style="font-size: 12pt;" title="Registrar Ponto">
+                        Registrar <i class="bi bi-hand-index-thumb"></i>
+                    </a>
+                </div>
+            </div>
+        </div>{{-- card-body --}}
+    </div>{{-- card --}}
 
     <x-layout.card.card>
         <x-layout.card.card-header>
