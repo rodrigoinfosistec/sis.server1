@@ -10,6 +10,8 @@ use App\Models\General;
 use App\Models\Employee;
 use App\Models\Employeepoint;
 
+use App\Models\Clockregistry;
+
 use Livewire\WithPagination;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -205,21 +207,25 @@ class EmployeepointShow extends Component
         public function register()
         {
             // Define $validatedData
-            $validatedData['register_employee_id'] = $this->register_employee_id;
-            $validatedData['cripto']               = true;
-            
+            $validatedData['employee_id']   = $this->register_employee_id;
+            $validatedData['employee_name'] = $this->register_employee_name;
+            $validatedData['date']          = date('Y-m-d');
+            $validatedData['time']          = date('H:i');
+            $validatedData['photo']         = null;
+            $validatedData['cripto']        = true;
+
             // Define $data.
             $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;
 
             // Valida cadastro.
-            $valid = Employee::validateAdd($data);
+            $valid = Clockregistry::validateAdd($data);
 
             // Cadastra.
-            if ($valid) Employee::add($data);
+            if ($valid) Clockregistry::add($data);
 
             // Executa dependências.
-            if ($valid) Employee::dependencyAdd($data);
+            if ($valid) Clockregistry::dependencyAdd($data);
 
             // Fecha modal.
             $this->closeModal();

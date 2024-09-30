@@ -13,7 +13,7 @@
         <span class="" style="font-size: 15pt;">
             <span class="text-danger">Registrar ponto para?</span>
             <br>
-            {{ $code_aux }}
+            {{ $register_employee_name }}
             <br>
             <span class="text-primary" style="font-size: 12pt;">{{ date('H:i') }}</span>
         </span>
