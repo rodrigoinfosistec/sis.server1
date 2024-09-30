@@ -26,17 +26,9 @@
                     <x-layout.card.card-header-button-action-refresh href="{{ $config['name'] }}"/>
 
 {{-- botão relatório --}}
-@if($existsItem)
-    <x-layout.card.card-header-button-action-generate/>
-@else
-    <x-layout.card.card-header-button-action-generate-muted/>
-@endif
+<x-layout.card.card-header-button-action-generate-muted/>
+<x-layout.card.card-header-button-action-mail-muted/>
 
-@if($existsReport)
-    <x-layout.card.card-header-button-action-mail/>
-@else
-    <x-layout.card.card-header-button-action-mail-muted/>
-@endif
 {{-- botão relatório --}}
 
                     @if($existsReport)
@@ -51,8 +43,7 @@
                 <x-layout.card.card-header-button-more>
 
 {{-- botão add --}}
-<x-layout.card.card-header-button-more-plus/>
-<x-layout.card.card-header-button-more-plus-txt/>
+<x-layout.card.card-header-button-more-plus-muted/>
 {{-- botão add --}}
 
                 </x-layout.card.card-header-button-more>
@@ -111,11 +102,7 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            @if($item->status)
-                <span class="text-success">ATIVO</span>
-            @else
-                <span class="text-danger">INATIVO</span>
-            @endif
+            
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
@@ -133,21 +120,27 @@
         <br>
 
         <span class="text-muted">
-            {{ $item->pis }}
+            @if(date_format(date_create(date('Y-m-d')), 'l') == 'Saturday')
+                {{ $item->journey_start_saturday }}
+                <i class="bi-caret-right-fill"></i>
+                {{ $item->journey_end_saturday }}
+            @else
+                {{ $item->journey_start_week }}
+                <i class="bi-caret-right-fill"></i>
+                {{ $item->journey_end_week }}
+            @endif
         </span>
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
-<x-layout.card.card-body-content-table-body-line-cell-action width="120">
-    <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
-
-    <x-layout.card.card-body-content-table-body-line-cell-action-edit-doc :id="$item->id"/>
-
-    <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
-
-    <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
-
-    <x-layout.card.card-body-content-table-body-line-cell-action-edit-limit :id="$item->id"/>
+<x-layout.card.card-body-content-table-body-line-cell-action width="100">
+    <div style="line-height: 1.5;">
+        @foreach(App\Models\Clockregistry::where(['employee_id' => $item->id, 'date' => date('Y-m-d')])->orderBy('time', 'ASC')->get() as $key => $clockregistry)
+            <span class="badge rounded-pill bg-danger" style="font-size:9pt;">
+                {{ $clockregistry->time }}
+            </span>
+        @endforeach
+    </div>
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
 
