@@ -15,6 +15,7 @@
 @include('components.' .  $config['name'] . '.modals.detail')
 @include('components.' .  $config['name'] . '.modals.edit')
 @include('components.' .  $config['name'] . '.modals.erase')
+
 {{-- modal --}}
 
     <x-layout.alert/>
@@ -29,11 +30,13 @@
         <div class="card-body">
             <div class="row g-3" style="margin-top: -10px;">
                 <div class="col">
-                    <input type="text" wire:model="code" class="form-control form-control-sm float-start" style="width: 200px; font-size: 12pt;" id="code"/>
+                    <input type="number" wire:model="code" class="form-control form-control-sm float-start" style="width: 200px; font-size: 13pt;" id="code"/>
 
-                    <a type="button" wire:click="add({{ $code }})" class="btn btn btn-outline-danger btn-sm fw-bold float-start" style="font-size: 12pt;" title="Registrar Ponto">
-                        Registrar <i class="bi bi-hand-index-thumb"></i>
-                    </a>
+                    @if($code != '')
+                        <a type="button" wire:click="add({{ $code }})" class="btn btn btn-outline-danger btn-sm fw-bold float-end" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#addModal" title="Registrar Ponto">
+                            Registrar <i class="bi bi-hand-index-thumb"></i>
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>{{-- card-body --}}

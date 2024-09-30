@@ -51,7 +51,7 @@ class EmployeepointShow extends Component
     public $limit_start_saturday;
     public $limit_end_saturday;
     public $clock_type;
-    public $code;
+    public $code = '';
     public $status;
     public $trainee;
     public $created;
