@@ -87,7 +87,7 @@ class EmployeeShow extends Component
             'limit_start_saturday'   => ['required'],
             'limit_end_saturday'     => ['required'],
             'clock_type'             => ['required'],
-            'code'                   => ['nullable', 'between:4,10', 'unique:employees,code'],
+            'code'                   => ['nullable', 'min:4', 'max:4', 'unique:employees,code,'.$this->employee_id.''],
 
             'txt' => ['file', 'required'],
 
@@ -330,7 +330,7 @@ class EmployeeShow extends Component
                 'journey_end_saturday'   => ['required'],
                 'journey'                => ['required'],
                 'clock_type'             => ['required'],
-                'code'                   => ['nullable', 'between:4,10', 'unique:employees,code'],
+                'code'                   => ['nullable', 'min:4', 'max:4', 'unique:employees,code,'.$this->employee_id.''],
             ]);
 
             // Estende $validatedData
