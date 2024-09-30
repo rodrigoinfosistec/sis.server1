@@ -32,6 +32,7 @@ use App\Http\Controllers\EmployeeabsenceController;
 use App\Http\Controllers\EmployeeallowanceController;
 use App\Http\Controllers\EmployeeeasyController;
 use App\Http\Controllers\EmployeepayController;
+use App\Http\Controllers\EmployeepointController;
 use App\Http\Controllers\EmployeeseparateController;
 use App\Http\Controllers\PresenceinController;
 
@@ -93,6 +94,7 @@ Route::middleware([
     Route::get('/employeeallowance', [EmployeeallowanceController::class, 'index'])->name('employeeallowance');
     Route::get('/employeeeasy', [EmployeeeasyController::class, 'index'])->name('employeeeasy');
     Route::get('/employeepay', [EmployeepayController::class, 'index'])->name('employeepay');
+    Route::get('/employeepoint', [EmployeepointController::class, 'index'])->name('employeepoint');
     Route::get('/employeeseparate', [EmployeeseparateController::class, 'index'])->name('employeeseparate');
     Route::get('/presencein', [PresenceinController::class, 'index'])->name('presencein');
 

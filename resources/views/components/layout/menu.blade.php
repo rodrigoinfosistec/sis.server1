@@ -28,6 +28,13 @@
 
                     <li class="nav-item">
                         <div class="pt-2 pb-0 border-t border-gray-200">
+                            {{-- Controle Ponto --}}
+                            <x-responsive-nav-link href="{{ route('employeepoint') }}" :active="request()->routeIs('employeepoint')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('employeepoint') }}"></i> {{ App\Models\Page::getTitleByName('employeepoint') }}
+                            </x-responsive-nav-link>
+                        </div>
+
+                        <div class="pt-2 pb-0 border-t border-gray-200">
                             {{-- Empresa --}}
                             <x-responsive-nav-link href="{{ route('company') }}" :active="request()->routeIs('company')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('company') }}"></i> {{ App\Models\Page::getTitleByName('company') }}
