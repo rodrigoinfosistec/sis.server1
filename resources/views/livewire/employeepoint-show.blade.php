@@ -19,6 +19,56 @@
 
     <x-layout.alert/>
 
+    <div class="text-center" style="width: 100%; height: 500px; background-color: #ddd;">
+        <div class="row">
+            <div class="col-sm-12 mb-4">
+                <div class="card">
+                    <div class="card-header fw-bold text-primary text-center">
+                        <i class="bi bi-info-circle"></i>
+
+                        RH INFORMA
+                    </div>{{-- card-header --}}
+
+                    <div class="card-body">
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+							@foreach(App\Models\Rhnews::where('status', true)->orderBy('created_at', 'DESC')->get() as $key => $news)
+								<div class="accordion-item">
+									<h2 class="accordion-header">
+										<button class="accordion-button collapsed" style="padding-top: 5px; padding-bottom: 5px;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $news->id }}" aria-expanded="false" aria-controls="flush-collapse{{ $news->id }}">
+											<span class="fw-bold uppercase" style="font-size: 10.5pt;">
+												<i class="bi-info-circle-fill text-primary"></i>&nbsp;
+												{{ $news->name }}
+											</span>
+										</button>
+									</h2>
+
+									<div id="flush-collapse{{ $news->id }}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+										<div class="accordion-body" style="line-height: 1.2">
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ $news->description }}
+
+											<p class="text-secondary" style="font-size: 11pt; margin-top: 10px;">
+												@if(!empty($news->salute))
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													{{ $news->salute }}
+													<br>
+												@endif
+
+												&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+												<span style="font-size: 9pt;">
+													{{ $news->updated_at->format('d/m/Y') }}
+												</span>
+											</p>
+										</div>
+									</div>
+								</div>
+							@endforeach
+						</div>
+                    </div>{{-- card-body --}}
+                </div>{{-- card --}}
+            </div>{{-- col --}}
+        </div>{{-- row --}}
+    </div>
+
     <x-layout.card.card>
         <x-layout.card.card-header>
             <x-layout.card.card-header-button>
@@ -78,7 +128,11 @@
                     <x-layout.card.card-body-navigation-info-action>
 
 {{-- info action --}}
-
+<div class="row g-3" style="margin-top: -10px;">
+    <div class="col">
+        <input type="date" wire:model="date" class="form-control form-control-sm" style="font-size: 8pt; margin: 0;" id="date"/>
+    </div>
+</div>
 {{-- info action --}}
 
                     </x-layout.card.card-body-navigation-info-action>
@@ -98,7 +152,7 @@
 <x-layout.card.card-body-content-table-body-line-cell width="">
     <x-layout.card.card-body-content-table-body-line-cell-id>
         <x-layout.card.card-body-content-table-body-line-cell-id-badge>
-            {{ str_pad($loop->iteration, Str::length($list->count()), '0', STR_PAD_LEFT); }}
+            {{ str_pad($item->code, 4, '0', STR_PAD_LEFT); }}
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
@@ -135,7 +189,7 @@
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="100">
     <div style="line-height: 1.5;">
-        @foreach(App\Models\Clockregistry::where(['employee_id' => $item->id, 'date' => date('Y-m-d')])->orderBy('time', 'ASC')->get() as $key => $clockregistry)
+        @foreach(App\Models\Clockregistry::where(['employee_id' => $item->id, 'date' => $date])->orderBy('time', 'ASC')->get() as $key => $clockregistry)
             <span class="badge rounded-pill bg-danger" style="font-size:9pt;">
                 {{ $clockregistry->time }}
             </span>

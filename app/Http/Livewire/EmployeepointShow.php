@@ -25,7 +25,7 @@ class EmployeepointShow extends Component
     public $config;
 
     public $search = '';
-    public $filter = 'name';
+    public $filter = 'date';
 
     public $report_id;
     public $mail;
@@ -56,6 +56,8 @@ class EmployeepointShow extends Component
     public $trainee;
     public $created;
 
+    public $date;
+
     public $txt;
 
     /**
@@ -63,6 +65,7 @@ class EmployeepointShow extends Component
      */
     public function mount($config){
         $this->config = $config;
+        $this->date = date('Y-m-d');
     }
 
     /**
@@ -172,6 +175,7 @@ class EmployeepointShow extends Component
                                 [$this->filter, 'like', '%'. $this->search . '%'],
                                 ['company_id', Auth()->user()->company_id],
                                 ['status', true],
+                                ['limit_controll', true],
                             ])->orderBy('trainee', 'ASC')->orderBy('name', 'ASC')->paginate(100),
         ]);
     }
