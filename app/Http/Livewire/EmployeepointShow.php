@@ -193,8 +193,8 @@ class EmployeepointShow extends Component
     {
         // Funcionário.
         if($cod != '' && $code != null && Str::length($code) == 4):
-            if(Employee::where(['company_id' => Auth()->user()->company_id, 'code' => $code, ])->exists()):
-                $this->employee = '';
+            if(Employee::where(['company_id' => Auth()->user()->company_id, 'limit_controll' => true, 'code' => $code, 'status' => true])->exists()):
+                $this->employee = Employee::where(['company_id' => Auth()->user()->company_id, 'limit_controll' => true, 'code' => $code, 'status' => true])->first();
             else:
                 $this->employee = '';
             endif;
