@@ -205,8 +205,8 @@ class EmployeepointShow extends Component
         public function register()
         {
             // Define $validatedData
-            $validatedData['employee_id'] = $this->register_employee_id;
-            $validatedData['cripto']      = true;
+            $validatedData['register_employee_id'] = $this->register_employee_id;
+            $validatedData['cripto']               = true;
             
             // Define $data.
             $data['config']        = $this->config;
