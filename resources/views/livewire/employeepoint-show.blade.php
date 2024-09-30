@@ -32,7 +32,7 @@
                 <div class="col">
                     <input type="text" wire:model="code" class="form-control form-control-sm float-start" style="width: 200px; font-size: 13pt;" id="code" onKeyUp="maskCode(this, event)"/>
 
-                    @if($code != '')
+                    @if($code != '' && $code != null && Illuminate\Support\Str::length($code) == 4)
                         <a type="button" wire:click="add({{ $code }})" class="btn btn btn-outline-danger btn-sm fw-bold float-start" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#addModal" title="Registrar Ponto">
                             Registrar <i class="bi bi-hand-index-thumb"></i>
                         </a>

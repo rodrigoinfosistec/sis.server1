@@ -5,12 +5,6 @@
 	@include('components.' .  $config['name'] . '.modals.add-registry')
 	@include('components.' .  $config['name'] . '.modals.detail')
 
-	<div class="float-start" style="width: 40px; padding-left: 3px;">
-		<a type="button" href="employeebase" class="btn btn-link btn-sm" title="Atualizar página">
-			<i class="bi-arrow-repeat text-dark" style="font-size: 20px;"></i>
-		</a>
-	</div>
-
     @if(!empty($employee))
 		<div class="alert alert-primary text-center fw-bold" role="alert">
 			{{-- <i class="bi-person-fill"></i> --}}
