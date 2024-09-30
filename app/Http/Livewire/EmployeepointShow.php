@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Str;
+
 use App\Models\Report;
 use App\Models\General;
 
@@ -190,8 +192,12 @@ class EmployeepointShow extends Component
     public function add(string $code)
     {
         // Funcionário.
-        if(Employee::where(['code' => $code])->exists()):
-            $this->employee = '';
+        if($cod != '' && $code != null && Str::length($code) == 4):
+            if(Employee::where(['company_id' => Auth()->user()->company_id, 'code' => $code, ])->exists()):
+                $this->employee = '';
+            else:
+                $this->employee = '';
+            endif;
         else:
             $this->employee = '';
         endif;
