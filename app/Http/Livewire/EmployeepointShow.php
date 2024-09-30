@@ -27,7 +27,7 @@ class EmployeepointShow extends Component
     public $config;
 
     public $search = '';
-    public $filter = 'date';
+    public $filter = 'name';
 
     public $report_id;
     public $mail;
@@ -53,7 +53,8 @@ class EmployeepointShow extends Component
     public $limit_start_saturday;
     public $limit_end_saturday;
     public $clock_type;
-    public $code = '';
+    public $code;
+    public $code_aux;
     public $status;
     public $trainee;
     public $created;
@@ -62,6 +63,9 @@ class EmployeepointShow extends Component
     public $employee;
 
     public $txt;
+
+    public $register_employee_id;
+    public $register_employee_name;
 
     /**
      * Construtor.
@@ -150,11 +154,15 @@ class EmployeepointShow extends Component
         $this->limit_end_saturday     = '';
         $this->clock_type             = '';
         $this->code                   = '';
+        $this->code_aux               = '';
         $this->status                 = '';
         $this->trainee                = '';
         $this->created                = '';
-
+        
         $this->employee = '';
+        
+        $this->register_employee_id   = '';
+        $this->register_employee_name = '';
 
         $this->txt = '';
     }
@@ -189,32 +197,17 @@ class EmployeepointShow extends Component
      * add()
      *  register()
      */
-    public function add(string $code)
+    public function add(int $register_employee_id)
     {
-        // Funcionário.
-        if($cod != '' && $code != null && Str::length($code) == 4):
-            if(Employee::where(['company_id' => Auth()->user()->company_id, 'limit_controll' => true, 'code' => $code, 'status' => true])->exists()):
-                $this->employee = Employee::where(['company_id' => Auth()->user()->company_id, 'limit_controll' => true, 'code' => $code, 'status' => true])->first();
-            else:
-                $this->employee = '';
-            endif;
-        else:
-            $this->employee = '';
-        endif;
+        $this->register_employee_id   = $register_employee_id;
+        $this->register_employee_name = Employee::find($register_employee_id)->name;
     }
         public function register()
         {
-            // Valida campos.
-            $validatedData = $this->validate([
-                'company_id'             => ['required'],
-                'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees'],
-                'name'                   => ['required', 'between:3,60'],
-                'journey_start_week'     => ['required'],
-                'journey_end_week'       => ['required'],
-                'journey_start_saturday' => ['required'],
-                'journey_end_saturday'   => ['required'],
-            ]);
-
+            // Define $validatedData
+            $validatedData['employee_id'] = $this->register_employee_id;
+            $validatedData['cripto']      = true;
+            
             // Define $data.
             $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;
