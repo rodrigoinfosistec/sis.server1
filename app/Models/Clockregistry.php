@@ -93,15 +93,6 @@ class Clockregistry extends Model
         endif;
 
         // Define o Horário Permitido para Registrar o Ponto (Semana ou Sábado).
-        // if(date_format(date_create($data['validatedData']['date']), 'l') == 'Saturday'):
-        //     $min  = Company::find(Auth()->user()->company_id)->limit_start_saturday;
-        //     $max  = Company::find(Auth()->user()->company_id)->limit_end_saturday;
-        // else:
-        //     $min  = Company::find(Auth()->user()->company_id)->limit_start;
-        //     $max  = Company::find(Auth()->user()->company_id)->limit_end;
-        // endif;
-
-        // Define o Horário Permitido para Registrar o Ponto (Semana ou Sábado).
         if(date_format(date_create($data['validatedData']['date']), 'l') == 'Saturday'):
             $min  = Employee::find($data['validatedData']['employee_id'])->limit_start_saturday;
             $max  = Employee::find($data['validatedData']['employee_id'])->limit_end_saturday;
@@ -114,21 +105,17 @@ class Clockregistry extends Model
         $time = General::timeToMinuts($data['validatedData']['time']);
         $limit_start = $min + 65;
         $limit_end   = $max - 65;
-        // if(($time < $min) || ($time > $max)):
-        //     $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
-        // endif;
 
-        if(!(
-            // Entre o limite start e + 65 minutos.
-            (($time >= $min)       && ($time <= $limit_start )) ||
+        if(!isset($data['validatedData']['cripto'])):
+            if(!(
+                // Entre o limite start e + 65 minutos.
+                (($time >= $min)       && ($time <= $limit_start )) ||
 
-            // Entre 10h e 16h.
-            (($time >= 600)        && ($time <= 960))           ||
-
-            // Entre o limite end e - 65 minutos.
-            (($time >= $limit_end) && ($time <= $max ))
-        )):
-            $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
+                // Entre o limite end e - 65 minutos.
+                (($time >= $limit_end) && ($time <= $max ))
+            )):
+                $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
+            endif;
         endif;
 
         // Desvio.
