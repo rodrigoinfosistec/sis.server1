@@ -215,6 +215,14 @@ class Clockregistry extends Model
             endif;
         endif;
 
+        // if($employee->limit_controll):
+        //     if(!isset($data['validatedData']['cripto'])):
+        //         if(($time < $min) || ($time > $max )):
+        //             $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
+        //         endif;
+        //     endif;
+        // endif;
+
         // Desvio.
         if(!empty($message)):
             session()->flash('message', $message );
