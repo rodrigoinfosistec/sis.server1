@@ -203,10 +203,7 @@ class Clockregistry extends Model
                 if(!(
                     // Entre o limite start e + 65 minutos.
                     (($time >= $min)       && ($time <= $limit_start )) ||
-        
-                    // Entre 10h e 16h.
-                    //(($time >= 600)        && ($time <= 960))           ||
-        
+
                     // Entre o limite end e - 65 minutos.
                     (($time >= $limit_end) && ($time <= $max ))
                 )):
