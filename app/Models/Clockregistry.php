@@ -36,141 +36,6 @@ class Clockregistry extends Model
     public function employee(){return $this->belongsTo(Employee::class);}
 
     /**
-     * Valida cadastro.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function validateAdd(array $data) : bool {
-        $message = null;
-
-        // Funcionário.
-        $employee = Employee::find($data['validatedData']['employee_id']);
-
-        // Verifica se este Registro já foi efetuado.
-        if(Clockregistry::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date'], 'time' => $data['validatedData']['time']])->exists()):
-            $message = 'Registro já efetuado em ' . date_format(date_create($data['validatedData']['date']), 'd/m/Y') . ' ' . $data['validatedData']['time'] . '.';
-        endif;
-
-        // Verifica se o tipo de registro do Funcionário é 'ALTERNATIVO'.
-        if($employee->clock_type != 'REGISTRY'):
-            $message = 'Sem permissão para utilizar esta função.';
-        endif;
-
-        // Verifica se data é domingo.
-        if(date_format(date_create($data['validatedData']['date']), 'l') == 'Sunday'):
-            $message = 'Domingo: Dia não autorizado para registrar ponto, será reportado à Gerência.';
-        endif;
-
-        // Verifica se data é Feriado.
-        if(Holiday::where(['date' => $data['validatedData']['date']])->exists()):
-            $message = 'Feriado: Dia não autorizado para registrar ponto, será reportado à Gerência.';
-        endif;
-
-        // Verifica se Funcionário está de Férias na data.
-        if(Employeevacationday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
-            $message = 'Férias: Dia não autorizado para registrar ponto, será reportado à Gerência.';
-        endif;
-
-        // Verifica se Funcionário está de Folga na data.
-        if(Employeeeasy::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
-            $message = 'Falta computada: Dia não autorizado para registrar ponto, será reportado à Gerência.';
-        endif;
-
-        // Verifica se Funcionário está de Licença na data.
-        if(Employeelicenseday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
-            $message = 'Licença médica: Dia não autorizado para registrar ponto, será reportado à Gerência.';
-        endif;
-
-        // Verifica se Funcionário está de Atestado na data.
-        if(Employeeattestday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
-            $message = 'Atestado médico: Dia não autorizado para registrar ponto, será reportado à Gerência.';
-        endif;
-
-        // Verifica se Funcionário Faltou na data.
-        if(Employeeabsenceday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
-            $message = 'Falta computada: Dia não autorizado para registrar ponto, será reportado à Gerência.';
-        endif;
-
-        // Define o Horário Permitido para Registrar o Ponto (Semana ou Sábado).
-        if(date_format(date_create($data['validatedData']['date']), 'l') == 'Saturday'):
-            $min  = Employee::find($data['validatedData']['employee_id'])->limit_start_saturday;
-            $max  = Employee::find($data['validatedData']['employee_id'])->limit_end_saturday;
-        else:
-            $min  = Employee::find($data['validatedData']['employee_id'])->limit_start_week;
-            $max  = Employee::find($data['validatedData']['employee_id'])->limit_end_week;
-        endif;
-
-        //Verifica se está fora do Horário Permitido.
-        $time = General::timeToMinuts($data['validatedData']['time']);
-        $limit_start = $min + 65;
-        $limit_end   = $max - 65;
-
-        if(!isset($data['validatedData']['cripto'])):
-            if(!(
-                // Entre o limite start e + 65 minutos.
-                (($time >= $min)       && ($time <= $limit_start )) ||
-
-                // Entre o limite end e - 65 minutos.
-                (($time >= $limit_end) && ($time <= $max ))
-            )):
-                $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
-            endif;
-        endif;
-
-        // Desvio.
-        if(!empty($message)):
-            session()->flash('message', $message );
-            session()->flash('color', 'danger');
-
-            return false;
-        endif;
-
-        return true;
-    }
-
-    /**
-     * Cadastra.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function add(array $data) : bool {
-        // Cadastra.
-        Clockregistry::create([
-            'employee_id'   => $data['validatedData']['employee_id'],
-            'employee_name' => $data['validatedData']['employee_name'],
-            'date'          => $data['validatedData']['date'],
-            'time'          => $data['validatedData']['time'],
-        ]);
-
-        // After.
-        $after = Clockregistry::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date'], 'time' => $data['validatedData']['time']])->first();
-
-        // Auditoria.
-        Audit::clockregistryAdd($data, $after);
-
-        // Mensagem.
-        $message = 'Ponto: ' . date_format(date_create($data['validatedData']['date']), 'd/m') . ' às ' . $data['validatedData']['time'] . ' registrado.';
-        session()->flash('message', $message);
-        session()->flash('color', 'success');
-
-        return true;
-    }
-
-    /**
-     * Executa dependências de cadastro.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function dependencyAdd(array $data) : bool {
-        //...
-
-        return true;
-    }
-
-    /**
      * Valida cadastro TXT.
      * @var array $data
      * 
@@ -263,6 +128,146 @@ class Clockregistry extends Model
     }
 
     /**
+     * Valida cadastro.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateAdd(array $data) : bool {
+        $message = null;
+
+        // Funcionário.
+        $employee = Employee::find($data['validatedData']['employee_id']);
+
+        // Verifica se este Registro já foi efetuado.
+        if(Clockregistry::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date'], 'time' => $data['validatedData']['time']])->exists()):
+            $message = 'Registro já efetuado em ' . date_format(date_create($data['validatedData']['date']), 'd/m/Y') . ' ' . $data['validatedData']['time'] . '.';
+        endif;
+
+        // Verifica se o tipo de registro do Funcionário é 'ALTERNATIVO'.
+        if($employee->clock_type != 'REGISTRY'):
+            $message = 'Sem permissão para utilizar esta função.';
+        endif;
+
+        // Verifica se data é domingo.
+        if(date_format(date_create($data['validatedData']['date']), 'l') == 'Sunday'):
+            $message = 'Domingo: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+        endif;
+
+        // Verifica se data é Feriado.
+        if(Holiday::where(['date' => $data['validatedData']['date']])->exists()):
+            $message = 'Feriado: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+        endif;
+
+        // Verifica se Funcionário está de Férias na data.
+        if(Employeevacationday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
+            $message = 'Férias: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+        endif;
+
+        // Verifica se Funcionário está de Folga na data.
+        if(Employeeeasy::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
+            $message = 'Falta computada: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+        endif;
+
+        // Verifica se Funcionário está de Licença na data.
+        if(Employeelicenseday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
+            $message = 'Licença médica: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+        endif;
+
+        // Verifica se Funcionário está de Atestado na data.
+        if(Employeeattestday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
+            $message = 'Atestado médico: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+        endif;
+
+        // Verifica se Funcionário Faltou na data.
+        if(Employeeabsenceday::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
+            $message = 'Falta computada: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+        endif;
+
+        // Define o Horário Permitido para Registrar o Ponto (Semana ou Sábado).
+        if(date_format(date_create($data['validatedData']['date']), 'l') == 'Saturday'):
+            $min  = $employee->limit_start_saturday;
+            $max  = $employee->limit_end_saturday;
+        else:
+            $min  = $employee->limit_start_week;
+            $max  = $employee->limit_end_week;
+        endif;
+
+        //Verifica se está fora do Horário Permitido.
+        $time = General::timeToMinuts($data['validatedData']['time']);
+        $limit_start = $min + 65;
+        $limit_end   = $max - 65;
+
+        if($employee->limit_controll):
+            if(!isset($data['validatedData']['cripto'])):
+                if(!(
+                    // Entre o limite start e + 65 minutos.
+                    (($time >= $min)       && ($time <= $limit_start )) ||
+        
+                    // Entre 10h e 16h.
+                    //(($time >= 600)        && ($time <= 960))           ||
+        
+                    // Entre o limite end e - 65 minutos.
+                    (($time >= $limit_end) && ($time <= $max ))
+                )):
+                    $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
+                endif;
+            endif;
+        endif;
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Cadastra.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function add(array $data) : bool {
+        // Cadastra.
+        Clockregistry::create([
+            'employee_id'   => $data['validatedData']['employee_id'],
+            'employee_name' => $data['validatedData']['employee_name'],
+            'date'          => $data['validatedData']['date'],
+            'time'          => $data['validatedData']['time'],
+        ]);
+
+        // After.
+        $after = Clockregistry::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date'], 'time' => $data['validatedData']['time']])->first();
+
+        // Auditoria.
+        Audit::clockregistryAdd($data, $after);
+
+        // Mensagem.
+        $message = 'Ponto: ' . date_format(date_create($data['validatedData']['date']), 'd/m') . ' às ' . $data['validatedData']['time'] . ' registrado.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de cadastro.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyAdd(array $data) : bool {
+        //...
+
+        return true;
+    }
+
+    /**
      * Valida edição de data.
      * @var array $data
      * 
@@ -270,7 +275,7 @@ class Clockregistry extends Model
      */
     public static function validateEditDate(array $data) : bool {
         $message = null;
-
+        
         dd($data);
 
         // Desvio.
