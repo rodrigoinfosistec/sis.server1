@@ -186,11 +186,11 @@ class Clockregistry extends Model
 
         // Define o Horário Permitido para Registrar o Ponto (Semana ou Sábado).
         if(date_format(date_create($data['validatedData']['date']), 'l') == 'Saturday'):
-            $min  = $employee->limit_start_saturday;
-            $max  = $employee->limit_end_saturday;
+            $min = $employee->limit_start_saturday;
+            $max = $employee->limit_end_saturday;
         else:
-            $min  = $employee->limit_start_week;
-            $max  = $employee->limit_end_week;
+            $min = $employee->limit_start_week;
+            $max = $employee->limit_end_week;
         endif;
 
         //Verifica se está fora do Horário Permitido.
