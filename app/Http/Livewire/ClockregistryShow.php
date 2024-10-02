@@ -150,11 +150,13 @@ class ClockregistryShow extends Component
                 'employee_id' => ['required'],
                 'date'        => ['required'],
                 'time'        => ['required'],
-                'photo'       => ['required', 'image'],
+                //'photo'       => ['required', 'image'],
+                
             ]);
 
             // Estende $validatedData.
             $validatedData['employee_name'] = Employee::find($validatedData['employee_id'])->name;
+            $validatedData['cripto']        = true;
 
             // Define $data.
             $data['config']        = $this->config;
