@@ -81,20 +81,14 @@
                     <x-layout.card.card-body-navigation-search-filter>
 
 {{-- filtro nome --}}
-<option value="pis">PIS</option>
 <option value="name">NOME</option>
-<option value="company_name">EMPRESA</option>
-<option value="created_at">DATA CADASTRO</option>
+<option value="employeegroup_name">GRUPO</option>
 {{-- filtro nome --}}
 
                         </x-layout.card.card-body-navigation-search-filter>
 
 {{-- filtro tipo--}}
-@if($filter == 'created_at')
-    <x-layout.card.card-body-navigation-search-type-date/>
-@else
-    <x-layout.card.card-body-navigation-search-type-search/>
-@endif
+<x-layout.card.card-body-navigation-search-type-search/>
 {{-- filtro tipo--}}
 
                 </x-layout.card.card-body-navigation-search>
