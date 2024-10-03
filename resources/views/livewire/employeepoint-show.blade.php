@@ -159,7 +159,7 @@
 <x-layout.card.card-body-content-table-body-line-cell-action width="120">
     <div style="line-height: 1.5;">
         @foreach(App\Models\Clockregistry::where(['employee_id' => $item->id, 'date' => $date])->orderBy('time', 'ASC')->get() as $key => $clockregistry)
-            <span class="badge rounded-pill bg-danger" style="font-size:9pt;">
+            <span class="badge rounded-pill bg-danger" style="font-size:8.5pt;">
                 {{ $clockregistry->time }}
             </span>
         @endforeach
