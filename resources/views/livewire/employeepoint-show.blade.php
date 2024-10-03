@@ -7,6 +7,8 @@
 
 {{-- plus --}}
 @include('components.' .  $config['name'] . '.modals.add')
+@include('components.' .  $config['name'] . '.modals.edit-employeegroup')
+@include('components.' .  $config['name'] . '.modals.edit-employeeregistry')
 
 {{-- info --}}
 
@@ -68,7 +70,8 @@
                 <x-layout.card.card-header-button-more>
 
 {{-- botão add --}}
-<x-layout.card.card-header-button-more-plus-muted/>
+<x-layout.card.card-header-button-modernize-employeegroup/>
+<x-layout.card.card-header-button-modernize-employeeregistry/>
 {{-- botão add --}}
 
                 </x-layout.card.card-header-button-more>

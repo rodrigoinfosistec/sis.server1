@@ -326,6 +326,140 @@ class EmployeepointShow extends Component
         }
 
     /**
+     * editEmployeegroup()
+     *  modernizeEmployeegroup()
+     */
+    public function editEmployeegroup(int $employee_id)
+    {
+        // Funcionário.
+        $employee = Employee::find($employee_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->employee_id            = $employee->id;
+        $this->company_id             = $employee->company_id;
+        $this->company_name           = $employee->company_name;
+        $this->pis                    = $employee->pis;
+        $this->name                   = $employee->name;
+        $this->journey_start_week     = $employee->journey_start_week;
+        $this->journey_end_week       = $employee->journey_end_week;
+        $this->journey_start_saturday = $employee->journey_start_saturday;
+        $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->journey                = $employee->journey;
+        $this->limit_controll         = $employee->limit_controll;
+        $this->clock_type             = $employee->clock_type;
+        $this->code                   = $employee->code;
+        $this->status                 = $employee->status;
+        $this->trainee                = $employee->trainee;
+        $this->created                = $employee->created_at->format('d/m/Y H:i:s');
+    }
+        public function modernizeEmployeegroup()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'company_id'             => ['required'],
+                'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees,pis,'.$this->employee_id.''],
+                'name'                   => ['required', 'between:3,60'],
+                'journey_start_week'     => ['required'],
+                'journey_end_week'       => ['required'],
+                'journey_start_saturday' => ['required'],
+                'journey_end_saturday'   => ['required'],
+                'journey'                => ['required'],
+                'clock_type'             => ['required'],
+                'code'                   => ['nullable', 'between:4,10', 'unique:employees,code'],
+            ]);
+
+            // Estende $validatedData
+            $validatedData['employee_id']                            = $this->employee_id;
+            $this->status ? $validatedData['status']                 = true : $validatedData['status'] = false;
+            $this->trainee ? $validatedData['trainee']               = true : $validatedData['trainee'] = false;
+            $this->limit_controll ? $validatedData['limit_controll'] = true : $validatedData['limit_controll'] = false;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Employee::validateEdit($data);
+
+            // Atualiza.
+            if ($valid) Employee::edit($data);
+
+            // Executa dependências.
+            if ($valid) Employee::dependencyEdit($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * editEmployeeregistry()
+     *  modernizeEmployeeregistry()
+     */
+    public function editEmployeeregistry(int $employee_id)
+    {
+        // Funcionário.
+        $employee = Employee::find($employee_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->employee_id            = $employee->id;
+        $this->company_id             = $employee->company_id;
+        $this->company_name           = $employee->company_name;
+        $this->pis                    = $employee->pis;
+        $this->name                   = $employee->name;
+        $this->journey_start_week     = $employee->journey_start_week;
+        $this->journey_end_week       = $employee->journey_end_week;
+        $this->journey_start_saturday = $employee->journey_start_saturday;
+        $this->journey_end_saturday   = $employee->journey_end_saturday;
+        $this->journey                = $employee->journey;
+        $this->limit_controll         = $employee->limit_controll;
+        $this->clock_type             = $employee->clock_type;
+        $this->code                   = $employee->code;
+        $this->status                 = $employee->status;
+        $this->trainee                = $employee->trainee;
+        $this->created                = $employee->created_at->format('d/m/Y H:i:s');
+    }
+        public function modernizeEmployeeregistry()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'company_id'             => ['required'],
+                'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees,pis,'.$this->employee_id.''],
+                'name'                   => ['required', 'between:3,60'],
+                'journey_start_week'     => ['required'],
+                'journey_end_week'       => ['required'],
+                'journey_start_saturday' => ['required'],
+                'journey_end_saturday'   => ['required'],
+                'journey'                => ['required'],
+                'clock_type'             => ['required'],
+                'code'                   => ['nullable', 'between:4,10', 'unique:employees,code'],
+            ]);
+
+            // Estende $validatedData
+            $validatedData['employee_id']                            = $this->employee_id;
+            $this->status ? $validatedData['status']                 = true : $validatedData['status'] = false;
+            $this->trainee ? $validatedData['trainee']               = true : $validatedData['trainee'] = false;
+            $this->limit_controll ? $validatedData['limit_controll'] = true : $validatedData['limit_controll'] = false;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Employee::validateEdit($data);
+
+            // Atualiza.
+            if ($valid) Employee::edit($data);
+
+            // Executa dependências.
+            if ($valid) Employee::dependencyEdit($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
      * erase()
      *  exclude()
      */
