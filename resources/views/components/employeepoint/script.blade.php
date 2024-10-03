@@ -4,6 +4,8 @@
         $('#mailModal').modal('hide');
 
         $('#addModal').modal('hide');
+        $('#editEmployeegroupModal').modal('hide');
+        $('#editEmployeeregistryModal').modal('hide');
 
         $('#detailModal').modal('hide');
         $('#editModal').modal('hide');
