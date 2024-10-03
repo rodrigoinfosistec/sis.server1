@@ -13,7 +13,7 @@
 
 {{-- conteúdo --}}
 <x-layout.modal.modal-edit-body-group>
-    <x-layout.modal.modal-edit-body-group-item columms="12">
+    <x-layout.modal.modal-edit-body-group-item columms="6">
         <x-layout.modal.modal-edit-body-group-item-label item="company_id" title="EMPRESA" plus="company"/>
 
         <select wire:model="company_id" class="form-select form-select-sm text-uppercase" id="company_id">
@@ -25,6 +25,20 @@
         </select>
 
         <x-layout.modal.modal-edit-body-group-item-error item="company_id" message="$message"/>
+    </x-layout.modal.modal-edit-body-group-item>
+
+    <x-layout.modal.modal-edit-body-group-item columms="6">
+        <x-layout.modal.modal-edit-body-group-item-label item="employeegroup_id" title="GRUPO" plus=""/>
+
+        <select wire:model="employeegroup_id" class="form-select form-select-sm text-uppercase" id="employeegroup_id">
+            <x-layout.modal.modal-edit-body-group-item-option-muted/>
+
+            @foreach(App\Models\Employeegroup::where('status', true)->get() as $key => $employeegroup)
+                <option value="{{ $employeegroup->id }}">{{ $employeegroup->name }}</option>
+            @endforeach
+        </select>
+
+        <x-layout.modal.modal-edit-body-group-item-error item="employeegroup_id" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
 
@@ -89,20 +103,6 @@
         <input type="time" wire:model="journey" class="form-control form-control-sm" id="journey">
 
         <x-layout.modal.modal-edit-body-group-item-error item="journey" message="$message"/>
-    </x-layout.modal.modal-edit-body-group-item>
-
-    <x-layout.modal.modal-edit-body-group-item columms="6">
-        <x-layout.modal.modal-edit-body-group-item-label item="employeegroup_id" title="GRUPO" plus=""/>
-
-        <select wire:model="employeegroup_id" class="form-select form-select-sm text-uppercase" id="employeegroup_id">
-            <x-layout.modal.modal-edit-body-group-item-option-muted/>
-
-            @foreach(App\Models\Employeegroup::where('status', true)->get() as $key => $employeegroup)
-                <option value="{{ $employeegroup->id }}">{{ $employeegroup->name }}</option>
-            @endforeach
-        </select>
-
-        <x-layout.modal.modal-edit-body-group-item-error item="employeegroup_id" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
 
