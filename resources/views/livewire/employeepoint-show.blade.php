@@ -131,17 +131,15 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            @if(!empty($item->employeegroup_name))
-                {{ $item->employeegroup_name }}
-            @endif
+            <span class="text-muted">
+                @if(!empty($item->employeegroup_name))
+                    {{ $item->employeegroup_name }}
+                @endif
+            </span>
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            @if($item->trainee)
-                <span class="text-danger">
-                    ESTAGIÁRIO
-                </span>
-            @endif
+            {{--  --}}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
