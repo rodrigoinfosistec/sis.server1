@@ -6,6 +6,8 @@ use App\Models\Report;
 use App\Models\General;
 
 use App\Models\Employee;
+use App\Models\Company;
+use App\Models\Employeegroup;
 
 use Livewire\WithPagination;
 use Livewire\Component;
@@ -33,6 +35,8 @@ class EmployeeShow extends Component
     public $employee_id;
     public $company_id;
     public $company_name;
+    public $employeegroup_id;
+    public $employeegroup_name;
     public $pis;
     public $name;
     public $cpf;
@@ -75,6 +79,7 @@ class EmployeeShow extends Component
             'comment'   => ['nullable', 'between:2,255'],
 
             'company_id'             => ['required'],
+            'employeegroup_id'       => ['required'],
             'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees,pis,'.$this->employee_id.''],
             'name'                   => ['required', 'between:3,60'],
             'journey_start_week'     => ['required'],
@@ -125,6 +130,8 @@ class EmployeeShow extends Component
         $this->employee_id            = '';
         $this->company_id             = '';
         $this->company_name           = '';
+        $this->employeegroup_id       = '';
+        $this->employeegroup_name     = '';
         $this->pis                    = '';
         $this->name                   = '';
         $this->cpf                    = '';
@@ -303,6 +310,8 @@ class EmployeeShow extends Component
         $this->employee_id            = $employee->id;
         $this->company_id             = $employee->company_id;
         $this->company_name           = $employee->company_name;
+        $this->employeegroup_id       = $employee->employeegroup_id;
+        $this->employeegroup_name     = $employee->employeegroup_name;
         $this->pis                    = $employee->pis;
         $this->name                   = $employee->name;
         $this->journey_start_week     = $employee->journey_start_week;
@@ -322,6 +331,7 @@ class EmployeeShow extends Component
             // Valida campos.
             $validatedData = $this->validate([
                 'company_id'             => ['required'],
+                'employeegroup_id'       => ['required'],
                 'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees,pis,'.$this->employee_id.''],
                 'name'                   => ['required', 'between:3,60'],
                 'journey_start_week'     => ['required'],

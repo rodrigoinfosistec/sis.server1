@@ -1451,6 +1451,8 @@ class Audit extends Model
                 'id='                     . $before->id                     . '>' . $after->id                     . ',' .
                 'company_id='             . $before->company_id             . '>' . $after->company_id             . ',' .
                 'company_name='           . $before->company_name           . '>' . $after->company_name           . ',' .
+                'employeegroup_id='       . $before->employeegroup_id       . '>' . $after->employeegroup_id       . ',' .
+                'employeegroup_name='     . $before->employeegroup_name     . '>' . $after->employeegroup_name     . ',' .
                 'pis='                    . $before->pis                    . '>' . $after->pis                    . ',' .
                 'name='                   . $before->name                   . '>' . $after->name                   . ',' .
                 'journey_start_week='     . $before->journey_start_week     . '>' . $after->journey_start_week     . ',' .

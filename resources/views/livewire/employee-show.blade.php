@@ -136,7 +136,9 @@
         <br>
 
         <span class="text-muted">
-            {{ $item->pis }}
+            @if(!empty($item->employeegroup_name))
+                {{ $item->employeegroup_name }}
+            @endif
         </span>
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>

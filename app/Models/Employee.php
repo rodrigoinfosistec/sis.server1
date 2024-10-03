@@ -19,6 +19,8 @@ class Employee extends Model
     protected $fillable = [
         'company_id',
         'company_name',
+        'employeegroup_id',
+        'employeegroup_name',
 
         'pis',
         'name',
@@ -58,6 +60,7 @@ class Employee extends Model
      * Relaciona Models.
      */
     public function company(){return $this->belongsTo(Company::class);}
+    public function employeegroup(){return $this->belongsTo(Employeegroup::class);}
 
     /**
      * Converte data.
@@ -242,6 +245,8 @@ class Employee extends Model
         Employee::find($data['validatedData']['employee_id'])->update([
             'company_id'             => $data['validatedData']['company_id'],
             'company_name'           => Company::find($data['validatedData']['company_id'])->name,
+            'employeegroup_id'       => $data['validatedData']['employeegroup_id'],
+            'employeegroup_name'     => Employeegroup::find($data['validatedData']['employeegroup_id'])->name,
             'pis'                    => $data['validatedData']['pis'],
             'name'                   => Str::upper($data['validatedData']['name']),
             'journey_start_week'     => $data['validatedData']['journey_start_week'],
