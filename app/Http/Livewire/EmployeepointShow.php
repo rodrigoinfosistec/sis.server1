@@ -9,6 +9,8 @@ use App\Models\General;
 
 use App\Models\Employee;
 use App\Models\Employeepoint;
+use App\Models\Employeegroup;
+use App\Models\Employeeregistry;
 
 use App\Models\Clockregistry;
 
@@ -329,28 +331,28 @@ class EmployeepointShow extends Component
      * editEmployeegroup()
      *  modernizeEmployeegroup()
      */
-    public function editEmployeegroup(int $employee_id)
+    public function editEmployeegroup()
     {
         // Funcionário.
-        $employee = Employee::find($employee_id);
+        // $employee = Employee::find($employee_id);
 
-        // Inicializa propriedades dinâmicas.
-        $this->employee_id            = $employee->id;
-        $this->company_id             = $employee->company_id;
-        $this->company_name           = $employee->company_name;
-        $this->pis                    = $employee->pis;
-        $this->name                   = $employee->name;
-        $this->journey_start_week     = $employee->journey_start_week;
-        $this->journey_end_week       = $employee->journey_end_week;
-        $this->journey_start_saturday = $employee->journey_start_saturday;
-        $this->journey_end_saturday   = $employee->journey_end_saturday;
-        $this->journey                = $employee->journey;
-        $this->limit_controll         = $employee->limit_controll;
-        $this->clock_type             = $employee->clock_type;
-        $this->code                   = $employee->code;
-        $this->status                 = $employee->status;
-        $this->trainee                = $employee->trainee;
-        $this->created                = $employee->created_at->format('d/m/Y H:i:s');
+        // // Inicializa propriedades dinâmicas.
+        // $this->employee_id            = $employee->id;
+        // $this->company_id             = $employee->company_id;
+        // $this->company_name           = $employee->company_name;
+        // $this->pis                    = $employee->pis;
+        // $this->name                   = $employee->name;
+        // $this->journey_start_week     = $employee->journey_start_week;
+        // $this->journey_end_week       = $employee->journey_end_week;
+        // $this->journey_start_saturday = $employee->journey_start_saturday;
+        // $this->journey_end_saturday   = $employee->journey_end_saturday;
+        // $this->journey                = $employee->journey;
+        // $this->limit_controll         = $employee->limit_controll;
+        // $this->clock_type             = $employee->clock_type;
+        // $this->code                   = $employee->code;
+        // $this->status                 = $employee->status;
+        // $this->trainee                = $employee->trainee;
+        // $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
         public function modernizeEmployeegroup()
         {
@@ -396,28 +398,28 @@ class EmployeepointShow extends Component
      * editEmployeeregistry()
      *  modernizeEmployeeregistry()
      */
-    public function editEmployeeregistry(int $employee_id)
+    public function editEmployeeregistry()
     {
-        // Funcionário.
-        $employee = Employee::find($employee_id);
+        // // Funcionário.
+        // $employee = Employee::find($employee_id);
 
-        // Inicializa propriedades dinâmicas.
-        $this->employee_id            = $employee->id;
-        $this->company_id             = $employee->company_id;
-        $this->company_name           = $employee->company_name;
-        $this->pis                    = $employee->pis;
-        $this->name                   = $employee->name;
-        $this->journey_start_week     = $employee->journey_start_week;
-        $this->journey_end_week       = $employee->journey_end_week;
-        $this->journey_start_saturday = $employee->journey_start_saturday;
-        $this->journey_end_saturday   = $employee->journey_end_saturday;
-        $this->journey                = $employee->journey;
-        $this->limit_controll         = $employee->limit_controll;
-        $this->clock_type             = $employee->clock_type;
-        $this->code                   = $employee->code;
-        $this->status                 = $employee->status;
-        $this->trainee                = $employee->trainee;
-        $this->created                = $employee->created_at->format('d/m/Y H:i:s');
+        // // Inicializa propriedades dinâmicas.
+        // $this->employee_id            = $employee->id;
+        // $this->company_id             = $employee->company_id;
+        // $this->company_name           = $employee->company_name;
+        // $this->pis                    = $employee->pis;
+        // $this->name                   = $employee->name;
+        // $this->journey_start_week     = $employee->journey_start_week;
+        // $this->journey_end_week       = $employee->journey_end_week;
+        // $this->journey_start_saturday = $employee->journey_start_saturday;
+        // $this->journey_end_saturday   = $employee->journey_end_saturday;
+        // $this->journey                = $employee->journey;
+        // $this->limit_controll         = $employee->limit_controll;
+        // $this->clock_type             = $employee->clock_type;
+        // $this->code                   = $employee->code;
+        // $this->status                 = $employee->status;
+        // $this->trainee                = $employee->trainee;
+        // $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
         public function modernizeEmployeeregistry()
         {
