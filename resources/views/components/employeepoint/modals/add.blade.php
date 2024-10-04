@@ -11,7 +11,7 @@
 
 {{-- conteúdo --}}
         <span class="" style="font-size: 15pt;">
-            <span class="text-danger">Registrar ponto para?</span>
+            <span class="text-danger">Registrar ponto para:</span>
             <br>
             {{ $register_employee_name }}
             <br>

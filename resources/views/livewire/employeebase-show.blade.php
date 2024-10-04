@@ -7,11 +7,11 @@
 
     @if(!empty($employee))
 		<div class="alert alert-primary text-center fw-bold" role="alert">
-			{{-- <i class="bi-person-fill"></i> --}}
-			
-			{{ $employee->code }}
-			
-			<i class="bi-caret-right"></i>
+			@if(isset($employee->code))
+				{{ $employee->code }}
+
+				<i class="bi-caret-right"></i>
+			@endif
 
 			{{ Illuminate\Support\Str::limit($employee->name, 30, '') }}
 		</div>

@@ -216,21 +216,28 @@ class Clockregistry extends Model
         if($employee->limit_controll):
             // Verifica se o Ponto não possui acesso irrestrito.
             if(!isset($data['validatedData']['cripto'])):
-                // Verifica se Ponto está fora dos Limites permitidos.
+                // Verifica se o Ponto está fora dos Limites permitidos.
                 if($time < $min || $time > $max):
                     $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
                 endif;
 
                 // Verifica se Funcionário faz parte de algum Grupo.
                 if(isset($employee->employeegroup_id) && isset($employee->company_id)):
-                    // Verifica autorização para intervalo.
-                    if(Employeegroup::getLunch($employee->employeegroup_id)['count'] >=
-                        Employeegroupcompany::where([
+                    // Verifica Grupo está vinculado com Empresa.
+                    if(Employeegroupcompany::where([
                             ['company_id', $employee->company_id],
                             ['employeegroup_id', $employee->employeegroup_id],
-                        ])->first()->limit
+                        ])->exists()
                     ):
-                        $message = 'Falar com sua Gerência.';
+                        // Verifica autorização para intervalo.
+                        if(Employeegroup::getLunch($employee->employeegroup_id)['count'] >=
+                            Employeegroupcompany::where([
+                                ['company_id', $employee->company_id],
+                                ['employeegroup_id', $employee->employeegroup_id],
+                            ])->first()->limit
+                        ):
+                            $message = 'Falar com sua Gerência.';
+                        endif;
                     endif;
                 endif;
             endif;
