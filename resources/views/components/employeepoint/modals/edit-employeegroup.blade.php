@@ -20,7 +20,7 @@
                 </div>
             </th>
             <th scope="col">ALMOÇANDO</th>
-            <th scope="col">EDITE</th>
+            <th scope="col">EDITAR</th>
         </tr>
     </thead>
 
