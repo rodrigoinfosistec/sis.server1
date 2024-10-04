@@ -14,25 +14,32 @@
     <thead>
         <tr class="text-muted" style="font-size: 8pt;">
             <th scope="col">GRUPO</th>
-            <th scope="col">LIMITE</th>
+            <th scope="col" class="text-center">
+                <div style="width: 40px;">
+                    /
+                </div>
+            </th>
             <th scope="col">ALMOÇANDO</th>
-            <th scope="col">ALTERAR</th>
+            <th scope="col">EDITE</th>
         </tr>
     </thead>
 
     <tbody>
-        @foreach(App\Models\Employeegroup::where('status', true)->orderBy('name', 'ASC')->get() as $key => $employeegroup)
-            @if(App\Models\Employee::where(['employeegroup_id' => $employeegroup->id, 'status' => true])->count() > 0)
+        @foreach(App\Models\Employeegroup::where('status', true)->orderBy('name', 'ASC')
+            ->whereNot('name', 'ESTAGIÁRIO')->get() as $key => $employeegroup)
+            @if(App\Models\Employee::where(['company_id' => Auth()->user()->company_id, 'employeegroup_id' => $employeegroup->id, 'status' => true])->count() > 0)
                 <tr class="" style="font-size: 9pt;">
-                    <td>
+                    <td class="align-middle">
                         {{ $employeegroup->name }}
 
-                        ({{ App\Models\Employee::where(['employeegroup_id' => $employeegroup->id, 'status' => true])->count() }})
+                        ({{ App\Models\Employee::where(['company_id' => Auth()->user()->company_id, 'employeegroup_id' => $employeegroup->id, 'status' => true])->count() }})
                     </td>
-                    <td>
-                        {{ App\Models\Employeegroup::getLunch($employeegroup->id)['count'] }}/{{ $employeegroup->limit }}
+                    <td class="align-middle text-center">
+                        <div style="width: 40px;">
+                            {{ App\Models\Employeegroup::getLunch($employeegroup->id)['count'] }}/{{ $employeegroup->limit }}
+                        </div>
                     </td>
-                    <td>
+                    <td class="align-middle" style="padding-top: 0; padding-bottom: 0; margin-top: 0; margin-bottom: 0;">
                         @foreach(App\Models\Employeegroup::getLunch($employeegroup->id)['employees'] as $key => $employee)
                             <span class="text-primary" style="font-size: 8pt;">
                                 {{ Illuminate\Support\Str::words($employee, 1, '') }}
@@ -43,9 +50,9 @@
                             @endif
                         @endforeach
                     </td>
-                    <td>
+                    <td class="align-middle">
                         <input type="number" wire:model="array_employeegroup_limit.{{ $employeegroup->id }}" 
-                            class="form-control form-control-sm text-danger fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 50px;" 
+                            class="form-control form-control-sm text-danger fw-bold" style="font-size: 9pt; padding: 0 2px 0 2px; width: 40px;" 
                             min="1" id="array_employeegroup_limit{{ $employeegroup->id }}"
                             max="{{ App\Models\Employee::where(['employeegroup_id' => $employeegroup->id, 'status' => true])->count() }}" required>
                     </td>
