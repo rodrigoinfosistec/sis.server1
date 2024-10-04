@@ -1,6 +1,6 @@
-<x-layout.modal.modal-edit modal="editEmployeegroup" size="">
+<x-layout.modal.modal-edit modal="editEmployeegroup" size="modal-lg">
     <x-layout.modal.modal-edit-header icon="bi-people-fill" modal="editEmployeegroup">
-        GRUPOS DE FUNCIONÁRIO
+        Grupos de Funcionário
 
         <x-slot:identifier>
             {{-- --}}
@@ -10,7 +10,7 @@
     <x-layout.modal.modal-edit-body method="modernizeEmployeegroup">
 
 {{-- conteúdo --}}
-    
+
 {{-- conteúdo --}}
 
     </x-layout.modal.modal-edit-body>
