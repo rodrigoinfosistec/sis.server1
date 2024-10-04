@@ -10,6 +10,7 @@ use App\Models\General;
 use App\Models\Employee;
 use App\Models\Employeepoint;
 use App\Models\Employeegroup;
+use App\Models\Employeegroupcompany;
 use App\Models\Employeeregistry;
 
 use App\Models\Clockregistry;
@@ -73,6 +74,9 @@ class EmployeepointShow extends Component
 
     public $array_employeegroup_id = [];
     public $array_employeegroup_limit = [];
+
+    public $array_employeegroupcompany_id    = [];
+    public $array_employeegroupcompany_limit = [];
 
     /**
      * Construtor.
@@ -171,8 +175,11 @@ class EmployeepointShow extends Component
         $this->register_employee_id   = '';
         $this->register_employee_name = '';
 
-        $this->array_employeegroup_id = [];
+        $this->array_employeegroup_id    = [];
         $this->array_employeegroup_limit = [];
+
+        $this->array_employeegroupcompany_id   = [];
+        $this->array_employeegroupcompany_limit = [];
 
         $this->txt = '';
     }
@@ -341,9 +348,17 @@ class EmployeepointShow extends Component
     {
         // Percorre os Grupos.
         foreach(Employeegroup::where('status', true)->get() as $key => $employeegroup):
+            // Employeegroupcompany.
+            $employeegroupcompany = Employeegroupcompany::where([
+                ['employeegroup_id', $employeegroup->id],
+                ['company_id', Auth()->user()->company_id],
+            ])->first();
+
             // Define as variáveis dinâmicas.
-            $this->array_employeegroup_id[$employeegroup->id] = $employeegroup->id;
-            $this->array_employeegroup_limit[$employeegroup->id] = $employeegroup->limit;
+            $this->array_employeegroup_id[$employeegroup->id]           = $employeegroup->id;
+            $this->array_employeegroup_limit[$employeegroup->id]        = $employeegroup->limit;
+            $this->array_employeegroupcompany_id[$employeegroup->id]    = $employeegroupcompany->id;
+            $this->array_employeegroupcompany_limit[$employeegroup->id] = $employeegroupcompany->limit;
         endforeach;
     }
         public function modernizeEmployeegroup()
@@ -351,9 +366,9 @@ class EmployeepointShow extends Component
             // Percorre os Grupos.
             foreach(Employeegroup::where('status', true)->get() as $key => $employeegroup):
                 // Verifica se Grupo está definido.
-                if(isset($this->array_employeegroup_limit[$employeegroup->id])):
-                    Employeegroup::find($employeegroup->id)->update([
-                        'limit' => $this->array_employeegroup_limit[$employeegroup->id],
+                if(isset($this->array_employeegroupcompany_id[$employeegroup->id])):
+                    Employeegroupcompany::find($this->array_employeegroupcompany_id[$employeegroup->id])->update([
+                        'limit' => $this->array_employeegroupcompany_limit[$employeegroup->id],
                     ]);
                 endif;
             endforeach;

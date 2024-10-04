@@ -36,7 +36,7 @@
                     </td>
                     <td class="align-middle text-center">
                         <div style="width: 40px;">
-                            {{ App\Models\Employeegroup::getLunch($employeegroup->id)['count'] }}/{{ $employeegroup->limit }}
+                            <span class="text-primary">{{ App\Models\Employeegroup::getLunch($employeegroup->id)['count'] }}</span>/{{ App\Models\Employeegroupcompany::where(['employeegroup_id' => $employeegroup->id, 'company_id' => Auth()->user()->company_id])->first()->limit }}
                         </div>
                     </td>
                     <td class="align-middle" style="padding-top: 0; padding-bottom: 0; margin-top: 0; margin-bottom: 0;">
@@ -51,10 +51,10 @@
                         @endforeach
                     </td>
                     <td class="align-middle">
-                        <input type="number" wire:model="array_employeegroup_limit.{{ $employeegroup->id }}" 
+                        <input type="number" wire:model="array_employeegroupcompany_limit.{{ $employeegroup->id }}" 
                             class="form-control form-control-sm text-danger fw-bold" style="font-size: 9pt; padding: 0 2px 0 2px; width: 40px;" 
-                            min="1" id="array_employeegroup_limit{{ $employeegroup->id }}"
-                            max="{{ App\Models\Employee::where(['employeegroup_id' => $employeegroup->id, 'status' => true])->count() }}" required>
+                            min="1" id="array_employeegroupcompany_limit{{ $employeegroup->id }}"
+                            max="{{ App\Models\Employee::where(['company_id' => Auth()->user()->company_id, 'employeegroup_id' => $employeegroup->id, 'status' => true])->count() }}" required>
                     </td>
                 </tr>
             @endif
