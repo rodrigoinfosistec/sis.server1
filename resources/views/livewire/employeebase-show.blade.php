@@ -187,7 +187,7 @@
                         FOLGAS
                     </div>{{-- card-header --}}
 
-                     <div class="card-body overflow-auto" style="height: 170px;"> 
+                    <div class="card-body overflow-auto" style="height: 170px;"> 
                         <div class="mb-3">
                             @if(App\Models\Employeeeasy::where('employee_id', $employee->id)->exists())
                                 <ul class="list-group list-group-flush">

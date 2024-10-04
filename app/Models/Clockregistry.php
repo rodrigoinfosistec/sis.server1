@@ -198,27 +198,43 @@ class Clockregistry extends Model
         $limit_start = $min + 65;
         $limit_end   = $max - 65;
 
-        if($employee->limit_controll):
-            if(!isset($data['validatedData']['cripto'])):
-                if(!(
-                    // Entre o limite start e + 65 minutos.
-                    (($time >= $min)       && ($time <= $limit_start )) ||
-
-                    // Entre o limite end e - 65 minutos.
-                    (($time >= $limit_end) && ($time <= $max ))
-                )):
-                    $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
-                endif;
-            endif;
-        endif;
-
         // if($employee->limit_controll):
         //     if(!isset($data['validatedData']['cripto'])):
-        //         if(($time < $min) || ($time > $max )):
+        //         if(!(
+        //             // Entre o limite start e + 65 minutos.
+        //             (($time >= $min)       && ($time <= $limit_start )) ||
+
+        //             // Entre o limite end e - 65 minutos.
+        //             (($time >= $limit_end) && ($time <= $max ))
+        //         )):
         //             $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
         //         endif;
         //     endif;
         // endif;
+
+        // Verifica se o Funcionário possui Controle para Ponto.
+        if($employee->limit_controll):
+            // Verifica se o Ponto não possui acesso irrestrito.
+            if(!isset($data['validatedData']['cripto'])):
+                // Verifica se Ponto está fora dos Limites permitidos.
+                if($time < $min || $time > $max):
+                    $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
+                endif;
+
+                // Verifica se Funcionário faz parte de algum Grupo.
+                if(isset($employee->employeegroup_id) && isset($employee->company_id)):
+                    // Verifica autorização para intervalo.
+                    if(Employeegroup::getLunch($employee->employeegroup_id)['count'] >=
+                        Employeegroupcompany::where([
+                            ['company_id', $employee->company_id],
+                            ['employeegroup_id', $employee->employeegroup_id],
+                        ])->first()->limit
+                    ):
+                        $message = 'Falar com sua Gerência.';
+                    endif;
+                endif;
+            endif;
+        endif;
 
         // Desvio.
         if(!empty($message)):
