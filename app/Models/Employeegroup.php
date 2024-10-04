@@ -31,14 +31,31 @@ class Employeegroup extends Model
      * Define Funcionários do Grupo em almoço.
      * @var int $employeegroup_id
      * 
-     * @return int $lunch
+     * @return array $array
      */
-    public static function getLunch(int $lunch) : int {
-        $lunch = 0;
-        $today = date('Y-m-d');
+    public static function getLunch(int $employeegroup_id) : array {
+        // Inicializa variável.
+        $count = 0;
+        $employees = [];
 
-        
+        // Percorre os Funcionários do Grupo.
+        foreach(Employee::where([
+            ['company_id', Auth()->user()->company_id],
+            ['employeegroup_id', $employeegroup_id],
+            ['status', true],
+        ])->get() as $key => $employee):
+            if(Clockregistry::where([
+                ['employee_id', $employee->id],
+                ['date', date('Y-m-d')],
+            ])->count() == 2):
+                $count++;
+                $employees[] = $employee->name;
+            endif;
+        endforeach;
 
-        return $lunch;
+        return [
+            'count'     => $count,
+            'employees' => $employees,
+        ];
     }
 }
