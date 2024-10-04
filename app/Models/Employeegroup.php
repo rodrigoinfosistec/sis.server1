@@ -26,4 +26,19 @@ class Employeegroup extends Model
         'created_at',
         'updated_at',
     ];
+
+    /**
+     * Define Funcionários do Grupo em almoço.
+     * @var int $employeegroup_id
+     * 
+     * @return int $lunch
+     */
+    public static function getLunch(int $lunch) : int {
+        $lunch = 0;
+        $today = date('Y-m-d');
+
+        
+
+        return $lunch;
+    }
 }
