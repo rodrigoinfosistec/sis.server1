@@ -1,13 +1,13 @@
-<x-layout.modal.modal-edit modal="editEmployeeregistry" size="modal-lg">
-    <x-layout.modal.modal-edit-header icon="bi-people-fill" modal="editEmployeeregistry">
-        Registro de Ponto
+<x-layout.modal.modal-edit modal="editEmployeegroup" size="modal-lg">
+    <x-layout.modal.modal-edit-header icon="bi-people-fill" modal="editEmployeegroup">
+        Grupos
 
         <x-slot:identifier>
             {{-- --}}
         </x-slot>
     </x-layout.modal.modal-edit-header>
 
-    <x-layout.modal.modal-edit-body method="modernizeEmployeeregistry">
+    <x-layout.modal.modal-edit-body method="modernizeEmployeegroup">
 
 {{-- conteúdo --}}
 <table class="table table-hover">

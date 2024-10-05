@@ -78,6 +78,11 @@ class EmployeepointShow extends Component
     public $array_employeegroupcompany_id    = [];
     public $array_employeegroupcompany_limit = [];
 
+    public $array_employee_start     = [];
+    public $array_employee_end       = [];
+    public $array_employee_start_sat = [];
+    public $array_employee_end_sat   = [];
+
     /**
      * Construtor.
      */
@@ -180,6 +185,11 @@ class EmployeepointShow extends Component
 
         $this->array_employeegroupcompany_id   = [];
         $this->array_employeegroupcompany_limit = [];
+
+        $this->array_employee_start     = [];
+        $this->array_employee_end       = [];
+        $this->array_employee_start_sat = [];
+        $this->array_employee_end_sat   = [];
 
         $this->txt = '';
     }
@@ -390,38 +400,41 @@ class EmployeepointShow extends Component
     {
         // Percorre os Grupos.
         foreach(Employeegroup::where('status', true)->get() as $key => $employeegroup):
-            // Employeegroupcompany.
-            $employeegroupcompany = Employeegroupcompany::where([
-                ['employeegroup_id', $employeegroup->id],
+            // Employee.
+            $employee = Employee::where([
                 ['company_id', Auth()->user()->company_id],
-            ])->first();
+                ['limit_controll', true],
+                ['clock_type', 'REGISTRY'],
+                ['status', true],
+                ['employeegroup_id', '!=', null],
+            ])->whereIn('employeegroup_id', [1, 2, 3, 9, 10, 12, 13])->first();
 
             // Define as variáveis dinâmicas.
-            $this->array_employeegroup_id[$employeegroup->id]           = $employeegroup->id;
-            $this->array_employeegroup_limit[$employeegroup->id]        = $employeegroup->limit;
-            $this->array_employeegroupcompany_id[$employeegroup->id]    = $employeegroupcompany->id;
-            $this->array_employeegroupcompany_limit[$employeegroup->id] = $employeegroupcompany->limit;
+            $this->array_employee_start[$employee->id]     = General::minutsToTime($employee->limit_start_week);
+            $this->array_employee_end[$employee->id]       = General::minutsToTime($employee->limit_end_week);
+            $this->array_employee_start_sat[$employee->id] = General::minutsToTime($employee->limit_start_saturday);
+            $this->array_employee_end_sat[$employee->id]   = General::minutsToTime($employee->limit_end_saturday);
         endforeach;
     }
         public function modernizeEmployeeregistry()
         {
-            // Percorre os Grupos.
-            foreach(Employeegroup::where('status', true)->get() as $key => $employeegroup):
-                // Verifica se Grupo está definido.
-                if(isset($this->array_employeegroupcompany_id[$employeegroup->id])):
-                    Employeegroupcompany::find($this->array_employeegroupcompany_id[$employeegroup->id])->update([
-                        'limit' => $this->array_employeegroupcompany_limit[$employeegroup->id],
-                    ]);
-                endif;
-            endforeach;
+            // // Percorre os Grupos.
+            // foreach(Employeegroup::where('status', true)->get() as $key => $employeegroup):
+            //     // Verifica se Grupo está definido.
+            //     if(isset($this->array_employeegroupcompany_id[$employeegroup->id])):
+            //         Employeegroupcompany::find($this->array_employeegroupcompany_id[$employeegroup->id])->update([
+            //             'limit' => $this->array_employeegroupcompany_limit[$employeegroup->id],
+            //         ]);
+            //     endif;
+            // endforeach;
 
-            // Mensagem.
-            session()->flash('message', 'Grupos atualizados com sucesso.');
-            session()->flash('color', 'success');
+            // // Mensagem.
+            // session()->flash('message', 'Grupos atualizados com sucesso.');
+            // session()->flash('color', 'success');
 
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
+            // // Fecha modal.
+            // $this->closeModal();
+            // $this->dispatchBrowserEvent('close-modal');
         }
 
     /**

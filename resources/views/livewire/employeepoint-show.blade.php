@@ -71,7 +71,7 @@
 
 {{-- botão add --}}
 <x-layout.card.card-header-button-modernize-employeegroup/>
-{{-- <x-layout.card.card-header-button-modernize-employeeregistry/> --}}
+<x-layout.card.card-header-button-modernize-employeeregistry/>
 {{-- botão add --}}
 
                 </x-layout.card.card-header-button-more>
