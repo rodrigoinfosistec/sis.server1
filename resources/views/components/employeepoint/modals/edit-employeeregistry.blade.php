@@ -1,6 +1,6 @@
 <x-layout.modal.modal-edit modal="editEmployeeregistry" size="modal-lg">
     <x-layout.modal.modal-edit-header icon="bi-people-fill" modal="editEmployeeregistry">
-        Registro de Ponto
+        Limites de Ponto
 
         <x-slot:identifier>
             {{-- --}}
@@ -31,10 +31,28 @@
             <tr class="" style="font-size: 9pt;">
                 <td class="align-middle">
                     {{ $employee->name }}
+
+                    <br>
+
+                    <span class="text-muted" style="font-size: 9pt;">
+                        @if(date_format(date_create(date('Y-m-d')), 'l') == 'Saturday')
+                            {{ $employee->journey_start_saturday }}
+
+                            <i class="bi-caret-right-fill"></i>
+
+                            {{ $employee->journey_end_saturday }}
+                        @else
+                            {{ $employee->journey_start_week }}
+
+                            <i class="bi-caret-right-fill"></i>
+
+                            {{ $employee->journey_end_week }}
+                        @endif
+                    </span>
                 </td>
 
                 {{-- Verifica se é Sábado --}}
-                @if(date_format(date_create($date), 'l') == 'Saturday')
+                @if(date_format(date_create(date('Y-m-d')), 'l') == 'Saturday')
                     <td class="align-middle">
                         <input type="time" wire:model="array_employee_start_sat.{{ $employee->id }}" 
                             class="form-control form-control-sm" 

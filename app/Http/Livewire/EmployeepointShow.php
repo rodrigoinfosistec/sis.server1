@@ -399,15 +399,14 @@ class EmployeepointShow extends Component
     public function editEmployeeregistry()
     {
         // Percorre os Grupos.
-        foreach(Employeegroup::where('status', true)->get() as $key => $employeegroup):
-            // Employee.
-            $employee = Employee::where([
+        foreach(Employee::where([
                 ['company_id', Auth()->user()->company_id],
                 ['limit_controll', true],
                 ['clock_type', 'REGISTRY'],
                 ['status', true],
                 ['employeegroup_id', '!=', null],
-            ])->whereIn('employeegroup_id', [1, 2, 3, 9, 10, 12, 13])->first();
+            ])->whereIn('employeegroup_id', [1, 2, 3, 9, 10, 12, 13])
+            ->get() as $key => $employee):
 
             // Define as variáveis dinâmicas.
             $this->array_employee_start[$employee->id]     = General::minutsToTime($employee->limit_start_week);
@@ -418,23 +417,36 @@ class EmployeepointShow extends Component
     }
         public function modernizeEmployeeregistry()
         {
-            // // Percorre os Grupos.
-            // foreach(Employeegroup::where('status', true)->get() as $key => $employeegroup):
-            //     // Verifica se Grupo está definido.
-            //     if(isset($this->array_employeegroupcompany_id[$employeegroup->id])):
-            //         Employeegroupcompany::find($this->array_employeegroupcompany_id[$employeegroup->id])->update([
-            //             'limit' => $this->array_employeegroupcompany_limit[$employeegroup->id],
-            //         ]);
-            //     endif;
-            // endforeach;
+            // Percorre os Grupos.
+            foreach(Employee::where([
+                ['company_id', Auth()->user()->company_id],
+                ['limit_controll', true],
+                ['clock_type', 'REGISTRY'],
+                ['status', true],
+                ['employeegroup_id', '!=', null],
+            ])->whereIn('employeegroup_id', [1, 2, 3, 9, 10, 12, 13])
+            ->get() as $key => $employee):
+                // Verifica se é Sábado.
+                if(date_format(date_create(date('Y-m-d')), 'l') == 'Saturday'):
+                    Employee::find($employee->id)->update([
+                        'limit_start_saturday' => General::timeToMinuts($this->array_employee_start_sat[$employee->id]),
+                        'limit_end_saturday'   => General::timeToMinuts($this->array_employee_end_sat[$employee->id]),
+                    ]);
+                else:
+                    Employee::find($employee->id)->update([
+                        'limit_start_week' => General::timeToMinuts($this->array_employee_start[$employee->id]),
+                        'limit_end_week'   => General::timeToMinuts($this->array_employee_end[$employee->id]),
+                    ]);
+                endif;
+            endforeach;
 
-            // // Mensagem.
-            // session()->flash('message', 'Grupos atualizados com sucesso.');
-            // session()->flash('color', 'success');
+            // Mensagem.
+            session()->flash('message', 'Limites atualizados com sucesso.');
+            session()->flash('color', 'success');
 
-            // // Fecha modal.
-            // $this->closeModal();
-            // $this->dispatchBrowserEvent('close-modal');
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
         }
 
     /**
