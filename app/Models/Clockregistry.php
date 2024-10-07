@@ -221,14 +221,20 @@ class Clockregistry extends Model
                     ):
                         // Verifica se não é Sábado.
                         if(date_format(date_create($data['validatedData']['date']), 'l') != 'Saturday'):
-                            // Verifica autorização para intervalo.
-                            if(Employeegroup::getLunch($employee->employeegroup_id)['count'] >=
-                                Employeegroupcompany::where([
-                                    ['company_id', $employee->company_id],
-                                    ['employeegroup_id', $employee->employeegroup_id],
-                                ])->first()->limit
-                            ):
-                                $message = 'Falar com sua Gerência.';
+                            // Verifica se o ponto é para almoço.
+                            if(Clockregistry::where([
+                                ['employee_id', $employee->id],
+                                ['date', date('Y-m-d')],
+                            ])->count() == 1):
+                                // Verifica autorização para intervalo.
+                                if(Employeegroup::getLunch($employee->employeegroup_id)['count'] >=
+                                    Employeegroupcompany::where([
+                                        ['company_id', $employee->company_id],
+                                        ['employeegroup_id', $employee->employeegroup_id],
+                                    ])->first()->limit
+                                ):
+                                    $message = 'Limite de almnoço, Falar com sua Gerência.';
+                                endif;
                             endif;
                         endif;
                     endif;

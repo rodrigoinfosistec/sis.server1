@@ -25,8 +25,10 @@
     </thead>
 
     <tbody>
-        @foreach(App\Models\Employeegroup::where('status', true)->orderBy('name', 'ASC')
-            ->whereNot('name', 'ESTAGIÁRIO')->get() as $key => $employeegroup)
+        @foreach(App\Models\Employeegroup::where('status', true)
+            ->whereNotIn('id', [5, 9, 14])
+            ->orderBy('name', 'ASC')
+            ->get() as $key => $employeegroup)
             @if(App\Models\Employee::where(['company_id' => Auth()->user()->company_id, 'employeegroup_id' => $employeegroup->id, 'status' => true])->count() > 0)
                 <tr class="" style="font-size: 9pt;">
                     <td class="align-middle">
