@@ -216,6 +216,7 @@ class EmployeepointShow extends Component
             'list'         => Employee::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
                                 ['company_id', Auth()->user()->company_id],
+                                ['employeegroup_id', '!=', null],
                                 ['status', true],
                                 ['limit_controll', true],
                             ])->orderBy('trainee', 'ASC')->orderBy('name', 'ASC')->paginate(100),

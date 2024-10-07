@@ -166,7 +166,7 @@ class Clockregistry extends Model
 
         // Verifica se Funcionário está de Folga na data.
         if(Employeeeasy::where(['employee_id' => $data['validatedData']['employee_id'], 'date' => $data['validatedData']['date']])->exists()):
-            $message = 'Falta computada: Dia não autorizado para registrar ponto, será reportado à Gerência.';
+            $message = 'Folga computada: Dia não autorizado para registrar ponto, será reportado à Gerência.';
         endif;
 
         // Verifica se Funcionário está de Licença na data.
@@ -184,16 +184,18 @@ class Clockregistry extends Model
             $message = 'Falta computada: Dia não autorizado para registrar ponto, será reportado à Gerência.';
         endif;
 
-        // Define o Horário Permitido para Registrar o Ponto (Semana ou Sábado).
+        // Define Limites Min e Máx (Semana ou Sábado).
         if(date_format(date_create($data['validatedData']['date']), 'l') == 'Saturday'):
+            // Sábado.
             $min = $employee->limit_start_saturday;
             $max = $employee->limit_end_saturday;
         else:
+            // Semana.
             $min = $employee->limit_start_week;
             $max = $employee->limit_end_week;
         endif;
 
-        //Verifica se está fora do Horário Permitido.
+        // Define Limites Atraso (Semana ou Sábado).
         $time = General::timeToMinuts($data['validatedData']['time']);
         $limit_start = $min + $employee->limit_delay;
         $limit_end   = $max - $employee->limit_delay;
@@ -202,18 +204,25 @@ class Clockregistry extends Model
         if($employee->limit_controll):
             // Verifica se o Ponto não possui acesso irrestrito.
             if(!isset($data['validatedData']['cripto'])):
-                // Verifica se o Ponto está fora dos Limites permitidos.
-                // if(!(
-                //     ($time >= $min && $time <= $limit_start) || 
-                //     ($time >= $limit_end && $time <= $max)
-                // )):
+                // Verifique Limites Min e Máx.
                 if($time < $min || $time > $max):
-                    $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
+                    $message = 'Ponto fora do horário autorizado, falar com seu gestor.';
                 endif;
 
-                // Verifica se Funcionário faz parte de algum Grupo.
+                // Verifica se é o ponto de chegada.
+                if(Clockregistry::where([
+                    ['employee_id', $employee->id],
+                    ['date', date('Y-m-d')],
+                ])->doesntExist()):
+                    // Verifica se Funcionário está atrasado.
+                    if($time > $limit_start):
+                        $message = 'Registro com atraso, falar com sua Gerência.';
+                    endif;
+                endif;
+
+                // Verifica se Funcionário faz parte de algum Grupo e Empresa.
                 if(isset($employee->employeegroup_id) && isset($employee->company_id)):
-                    // Verifica Grupo está vinculado com Empresa.
+                    // Verifica se Grupo está vinculado com Empresa.
                     if(Employeegroupcompany::where([
                             ['company_id', $employee->company_id],
                             ['employeegroup_id', $employee->employeegroup_id],
@@ -233,7 +242,7 @@ class Clockregistry extends Model
                                         ['employeegroup_id', $employee->employeegroup_id],
                                     ])->first()->limit
                                 ):
-                                    $message = 'Limite de almnoço, Falar com sua Gerência.';
+                                    $message = 'Limite para almoço excedido, Falar com seu gostor.';
                                 endif;
                             endif;
                         endif;
