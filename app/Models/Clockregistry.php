@@ -195,28 +195,18 @@ class Clockregistry extends Model
 
         //Verifica se está fora do Horário Permitido.
         $time = General::timeToMinuts($data['validatedData']['time']);
-        $limit_start = $min + 65;
-        $limit_end   = $max - 65;
-
-        // if($employee->limit_controll):
-        //     if(!isset($data['validatedData']['cripto'])):
-        //         if(!(
-        //             // Entre o limite start e + 65 minutos.
-        //             (($time >= $min)       && ($time <= $limit_start )) ||
-
-        //             // Entre o limite end e - 65 minutos.
-        //             (($time >= $limit_end) && ($time <= $max ))
-        //         )):
-        //             $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
-        //         endif;
-        //     endif;
-        // endif;
+        $limit_start = $min + $employee->limit_delay;
+        $limit_end   = $max - $employee->limit_delay;
 
         // Verifica se o Funcionário possui Controle para Ponto.
         if($employee->limit_controll):
             // Verifica se o Ponto não possui acesso irrestrito.
             if(!isset($data['validatedData']['cripto'])):
                 // Verifica se o Ponto está fora dos Limites permitidos.
+                // if(!(
+                //     ($time >= $min && $time <= $limit_start) || 
+                //     ($time >= $limit_end && $time <= $max)
+                // )):
                 if($time < $min || $time > $max):
                     $message = 'Registro de Ponto fora do horário autorizado, falar com sua Gerência.';
                 endif;
@@ -229,14 +219,17 @@ class Clockregistry extends Model
                             ['employeegroup_id', $employee->employeegroup_id],
                         ])->exists()
                     ):
-                        // Verifica autorização para intervalo.
-                        if(Employeegroup::getLunch($employee->employeegroup_id)['count'] >=
-                            Employeegroupcompany::where([
-                                ['company_id', $employee->company_id],
-                                ['employeegroup_id', $employee->employeegroup_id],
-                            ])->first()->limit
-                        ):
-                            $message = 'Falar com sua Gerência.';
+                        // Verifica se não é Sábado.
+                        if(date_format(date_create($data['validatedData']['date']), 'l') != 'Saturday'):
+                            // Verifica autorização para intervalo.
+                            if(Employeegroup::getLunch($employee->employeegroup_id)['count'] >=
+                                Employeegroupcompany::where([
+                                    ['company_id', $employee->company_id],
+                                    ['employeegroup_id', $employee->employeegroup_id],
+                                ])->first()->limit
+                            ):
+                                $message = 'Falar com sua Gerência.';
+                            endif;
                         endif;
                     endif;
                 endif;

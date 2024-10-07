@@ -70,7 +70,9 @@
                 <x-layout.card.card-header-button-more>
 
 {{-- botão add --}}
-<x-layout.card.card-header-button-modernize-employeegroup/>
+@if(date_format(date_create(date('Y-m-d')), 'l') != 'Saturday'):
+    <x-layout.card.card-header-button-modernize-employeegroup/>
+@endif
 <x-layout.card.card-header-button-modernize-employeeregistry/>
 {{-- botão add --}}
 
