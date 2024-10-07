@@ -42,6 +42,7 @@ class Employee extends Model
         'limit_end_week',
         'limit_start_saturday',
         'limit_end_saturday',
+        'limit_delay',
 
         'clock_type', // (event/registry)
 

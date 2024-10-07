@@ -82,6 +82,7 @@ class EmployeepointShow extends Component
     public $array_employee_end       = [];
     public $array_employee_start_sat = [];
     public $array_employee_end_sat   = [];
+    public $array_employee_delay     = [];
 
     /**
      * Construtor.
@@ -190,6 +191,7 @@ class EmployeepointShow extends Component
         $this->array_employee_end       = [];
         $this->array_employee_start_sat = [];
         $this->array_employee_end_sat   = [];
+        $this->array_employee_delay     = [];
 
         $this->txt = '';
     }
@@ -413,6 +415,7 @@ class EmployeepointShow extends Component
             $this->array_employee_end[$employee->id]       = General::minutsToTime($employee->limit_end_week);
             $this->array_employee_start_sat[$employee->id] = General::minutsToTime($employee->limit_start_saturday);
             $this->array_employee_end_sat[$employee->id]   = General::minutsToTime($employee->limit_end_saturday);
+            $this->array_employee_delay[$employee->id]     = General::minutsToTime($employee->limit_delay);
         endforeach;
     }
         public function modernizeEmployeeregistry()
@@ -431,11 +434,13 @@ class EmployeepointShow extends Component
                     Employee::find($employee->id)->update([
                         'limit_start_saturday' => General::timeToMinuts($this->array_employee_start_sat[$employee->id]),
                         'limit_end_saturday'   => General::timeToMinuts($this->array_employee_end_sat[$employee->id]),
+                        'limit_delay'          => General::timeToMinuts($this->array_employee_delay[$employee->id]),
                     ]);
                 else:
                     Employee::find($employee->id)->update([
                         'limit_start_week' => General::timeToMinuts($this->array_employee_start[$employee->id]),
                         'limit_end_week'   => General::timeToMinuts($this->array_employee_end[$employee->id]),
+                        'limit_delay'      => General::timeToMinuts($this->array_employee_delay[$employee->id]),
                     ]);
                 endif;
             endforeach;

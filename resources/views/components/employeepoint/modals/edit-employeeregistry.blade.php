@@ -16,6 +16,7 @@
             <th scope="col">FUNCIONÁRIO</th>
             <th scope="col">INÍCIO</th>
             <th scope="col">FINAL</th>
+            <th scope="col">ATRASO</th>
         </tr>
     </thead>
 
@@ -77,6 +78,12 @@
                             style="font-size: 9pt; padding: 0 2px 0 5px; width: 80px;" id="array_employee_end_{{ $employee->id }}" required>
                     </td>
                 @endif
+
+                <td class="align-middle">
+                    <input type="time" wire:model="array_employee_delay.{{ $employee->id }}" 
+                        class="form-control form-control-sm" 
+                        style="font-size: 9pt; padding: 0 2px 0 5px; width: 80px;" id="array_employee_delay_{{ $employee->id }}" required>
+                </td>
             </tr>
         @endforeach
     </tbody>
