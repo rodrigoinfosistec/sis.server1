@@ -119,9 +119,8 @@ class Produce extends Model
     public static function validateGenerate(array $data) : bool {
         $message = null;
 
-        // verifica se existe algum item retornado na pesquisa.
+        // Verifica se existe algum item retornado na pesquisa.
         if($list = Produce::where([
-                ['company_id', auth()->user()->company_id],
                 [$data['filter'], 'like', '%'. $data['search'] . '%'],
             ])->doesntExist()):
 
