@@ -16,19 +16,23 @@ return new class extends Migration
 
             $table->string('name');
 
-            $table->unsignedBigInteger('brand_id');
-            $table->string('brand_name');
+            $table->unsignedBigInteger('producebrand_id');
+            $table->string('producebrand_name');
+
+            $table->unsignedBigInteger('producemeasure_id');
+            $table->string('producemeasure_name');
 
             $table->string('reference')->nullable()->default(null);
             $table->string('ean')->nullable()->default(null);
 
             $table->boolean('status')->default(true);
 
-            $table->text('description');
+            $table->text('observation');
 
             $table->timestamps();
 
-            $table->foreign('brand_id')->references('id')->on('brands');
+            $table->foreign('producebrand_id')->references('id')->on('producebrands');
+            $table->foreign('producemeasure_id')->references('id')->on('producemeasures');
         });
     }
 
