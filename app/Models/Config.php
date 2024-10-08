@@ -293,6 +293,12 @@ class Config extends Model
                 'icon'  => 'bi-alarm',
                 'test'  => true,
             ],
+            [
+                'name'  => 'produce',
+                'title' => 'Produto',
+                'icon'  => 'bi-box',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
