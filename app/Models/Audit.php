@@ -3797,4 +3797,33 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Produce Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function produceAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='                  . $after->id                  . ',' .
+                'name='                . $after->name                . ',' .
+                'reference='           . $after->reference           . ',' .
+                'ean='                 . $after->ean                 . ',' .
+                'producebrand_id='     . $after->producebrand_id     . ',' .
+                'producebrand_name='   . $after->producebrand_name   . ',' .
+                'producemeasure_id='   . $after->producemeasure_id   . ',' .
+                'producemeasure_name=' . $after->producemeasure_name . ',' .
+                'observation='         . $after->observation         . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }

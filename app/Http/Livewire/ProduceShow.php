@@ -2,12 +2,287 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Str;
+
+use App\Models\Report;
+use App\Models\General;
+
+use App\Models\Produce;
+use App\Models\Producemeasure;
+use App\Models\Producebrand;
+
+use Livewire\WithPagination;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class ProduceShow extends Component
 {
-    public function render()
-    {
-        return view('livewire.produce-show');
+    use WithFileUploads;
+    use WithPagination;
+
+    protected $paginationTheme = 'bootstrap';
+    protected $listeners = ['refreshChildren' => 'refreshMe'];
+
+    public function refreshMe(){}
+
+    public $config;
+
+    public $search = '';
+    public $filter = 'name';
+
+    public $report_id;
+    public $mail;
+    public $comment;
+
+    public $produce_id;
+    public $name;
+    public $reference;
+    public $ean;
+    public $producebrand_id;
+    public $producebrand_name;
+    public $producemeasure_id;
+    public $producemeasure_name;
+    public $observation;
+    public $status;
+    public $created;
+
+    /**
+     * Construtor.
+     */
+    public function mount($config){
+        $this->config = $config;
     }
+
+    /**
+     * Valida campos gerais.
+     */
+    protected function rules()
+    {
+        return [
+            'report_id' => ['required'],
+            'mail'      => ['required', 'email', 'between:2,255'],
+            'comment'   => ['nullable', 'between:2,255'],
+
+            'name' => ['required', 'between:2,255'],
+            'reference' => ['nullable', 'between:2,255'],
+            'ean' => ['nullable', 'numeric', 'between:13,14', 'unique:produces,ean,'.$this->produce_id.''],
+            'producebrand_id' => ['required'],
+            'producemeasure_id' => ['required'],
+            'observation' => ['nullable', 'between:2,255'],
+        ];
+    }
+
+    /**
+     * Valida atualização.
+     */
+    public function updated($fields){
+        $this->validateOnly($fields);
+    }
+
+    /**
+     * Fecha Modals.
+     */
+    public function closeModal(){
+        $this->resetInput();
+        $this->resetValidation();
+    }
+
+    /**
+     * Reseta atributos.
+     */
+    public function resetInput()
+    {
+        $this->report_id = '';
+        $this->mail      = '';
+        $this->comment   = '';
+
+        $this->produce_id          = '';
+        $this->name                = '';
+        $this->reference           = '';
+        $this->ean                 = '';
+        $this->producebrand_id     = '';
+        $this->producebrand_name   = '';
+        $this->producemeasure_id   = '';
+        $this->producemeasure_name = '';
+        $this->observation         = '';
+        $this->status              = '';
+        $this->created             = '';
+    }
+
+    /**
+     * Atualiza conteúdo sem atualizar página.
+     */
+    public function refresh()
+    {
+        $this->emit('refreshChildren');
+    }
+
+    /**
+     * Renderiza página.
+     */
+    public function render(){
+        return view('livewire.' . $this->config['name'] . '-show', [
+            'config'       => $this->config,
+            'existsItem'   => Produce::where('status', true)->exists(),
+            'existsReport' => Report::where(['folder' => $this->config['name'], 'reference_1' => auth()->user()->company_id])->exists(),
+            'reports'      => Report::where(['folder' => $this->config['name'], 'reference_1' => auth()->user()->company_id])->orderBy('id', 'DESC')->limit(12)->get(),
+            'list'         => Produce::where([
+                            [$this->filter, 'like', '%'. $this->search . '%'],
+                        ])->orderBy('status', 'DESC')->orderBy('name', 'ASC')->paginate(100),
+        ]);
+    }
+
+    /**
+     * addCsv()
+     *  registerCsv()
+     */
+    public function addCsv()
+    {
+        //...
+    }
+        public function registerCsv()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'csv' => ['file', 'required'],
+                'provider_id' => ['required'],
+                'append' => ['nullable'],
+            ]);
+
+            // Estende $validatedData.
+            $validatedData['provider'] = Provider::find($validatedData['provider_id']);
+            $validatedData['file_name'] = $validatedData['provider_id'] . '_' . Str::random(10) . '.csv';
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = Produce::validateAdd($data);
+
+            // Valida.
+            if ($valid) $data['validatedData']['csvArray'] = $valid['CsvArray'];
+
+            // Cadastra.
+            if ($valid) Produce::add($data);
+
+            // Executa dependências.
+            if ($valid) Produce::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+            return redirect()->to('/produce');
+        }
+
+    /**
+     * add()
+     *  register()
+     */
+    public function add()
+    {
+        //...
+    }
+        public function register()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'name' => ['required', 'between:2,255'],
+                'reference' => ['nullable', 'between:2,255'],
+                'ean' => ['nullable', 'between:13,14', 'unique:produces'],
+                'producebrand_id' => ['required'],
+                'producemeasure_id' => ['required'],
+                'observation' => ['nullable', 'between:2,255'],
+            ]);
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = Produce::validateAdd($data);
+
+            // Cadastra.
+            if ($valid) Produce::add($data);
+
+            // Executa dependências.
+            if ($valid) Produce::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+            return redirect()->to('/produce');
+        }
+
+    /** 
+     * detail()
+     */
+    public function detail(int $product_id)
+    {
+        // ...
+    }
+
+    /**
+     * generate()
+     *  sire()
+     */
+    public function generate()
+    {
+        //...
+    }
+        public function sire()
+        {
+            // Define $data.
+            $data['config'] = $this->config;
+            $data['filter'] = $this->filter;
+            $data['search'] = $this->search;
+
+            // Valida geração de relatório.
+            $valid = Produce::validateGenerate($data);
+
+            // Gera relatório.
+            if ($valid) Produce::generate($data);
+
+            // Executa dependências.
+            if ($valid) Produce::dependencyGenerate($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * mail()
+     *  send()
+     */
+    public function mail()
+    {
+        //...
+    }
+        public function send()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'report_id' => ['required'],
+                'mail'      => ['required', 'email', 'between:2,255'],
+                'comment'   => ['nullable', 'between:2,255'],
+            ]);
+
+            // Define $data
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida envio do e-mail.
+            $valid = Produce::validateMail($data);
+
+            // Envia e-mail.
+            if ($valid) Produce::mail($data);
+
+            // Executa dependências.
+            if ($valid) Produce::dependencyMail($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
 }

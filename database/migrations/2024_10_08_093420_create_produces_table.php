@@ -16,18 +16,18 @@ return new class extends Migration
 
             $table->string('name');
 
+            $table->string('reference')->nullable()->default(null);
+            $table->string('ean')->nullable()->default(null);
+
             $table->unsignedBigInteger('producebrand_id');
             $table->string('producebrand_name');
 
             $table->unsignedBigInteger('producemeasure_id');
             $table->string('producemeasure_name');
 
-            $table->string('reference')->nullable()->default(null);
-            $table->string('ean')->nullable()->default(null);
+            $table->text('observation');
 
             $table->boolean('status')->default(true);
-
-            $table->text('observation');
 
             $table->timestamps();
 
