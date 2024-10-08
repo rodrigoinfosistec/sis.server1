@@ -51,6 +51,9 @@ use App\Http\Controllers\BankController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\ConcessionaireController;
 
+// V2
+use App\Http\Controllers\ProduceController;
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -110,4 +113,7 @@ Route::middleware([
     Route::get('/bank', [BankController::class, 'index'])->name('bank');
     Route::get('/document', [DocumentController::class, 'index'])->name('document');
     Route::get('/concessionaire', [ConcessionaireController::class, 'index'])->name('concessionaire');
+
+    // V2
+    Route::get('/produce', [ProduceController::class, 'index'])->name('produce');
 });
