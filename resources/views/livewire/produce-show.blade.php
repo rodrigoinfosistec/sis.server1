@@ -106,7 +106,7 @@
         <x-layout.card.card-body-content-table-body-line-cell-id-badge>
             {{ $loop->iteration }}
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
-        
+
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
             @if(isset($item->ean))
                 {{ $item->ean }}
@@ -114,7 +114,9 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            
+            @if(isset($item->reference))
+                {{ $item->reference }}
+            @endif
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
@@ -123,15 +125,13 @@
             {{ $item->name }}
             <br>
             <span class="text-muted" style="font-size: 7pt;">
-                @if(isset($item->reference))
-                    {{ $item->reference }}
-                @endif
+                {{ $item->producebrand_name }}
             </span>
         </div>
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
-<x-layout.card.card-body-content-table-body-line-cell-action width="40">
+<x-layout.card.card-body-content-table-body-line-cell-action width="120">
     <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
     <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
     <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
