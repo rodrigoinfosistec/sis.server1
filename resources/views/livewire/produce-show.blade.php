@@ -34,11 +34,7 @@
     <x-layout.card.card-header-button-action-generate-muted/>
 @endif
 
-@if($existsReport)
-    <x-layout.card.card-header-button-action-mail/>
-@else
-    <x-layout.card.card-header-button-action-mail-muted/>
-@endif
+<x-layout.card.card-header-button-action-mail-muted/>
 {{-- botão relatório --}}
 
                     @if($existsReport)
