@@ -54,6 +54,8 @@ class InventoryShow extends Component
     public $array_produce_name = [];
     public $array_produce_reference = [];
     public $array_produce_ean = [];
+    public $array_produce_quantity = [];
+
     public $array_produce_score = [];
 
     /**
@@ -117,14 +119,9 @@ class InventoryShow extends Component
 
         $this->array_produce_id = [];
         $this->array_produce_name = [];
-        $this->array_produce_code = [];
         $this->array_produce_reference = [];
         $this->array_produce_ean = [];
         $this->array_produce_quantity = [];
-
-        $this->array_produce_producemeasure_id = [];
-        $this->array_produce_producemeasure_name = [];
-        $this->array_produce_producemeasure_quantity = [];
 
         $this->array_produce_score = [];
     }
@@ -251,6 +248,7 @@ class InventoryShow extends Component
             // Estende $validatedData.
             $validatedData['inventory_id'] = $this->inventory_id;
             $validatedData['deposit_id'] = $this->deposit_id;
+            $validatedData['producebrand_id'] = $this->producebrand_id;
 
             // Percorre os Produtos do Balanço.
             foreach(Inventoryproduce::where('inventory_id', $this->inventory_id)->get() as $key => $inventoryproduce):

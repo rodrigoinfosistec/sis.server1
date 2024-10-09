@@ -180,7 +180,10 @@ class Inventory extends Model
             'company_id' => auth()->user()->company_id,
             'user_id' => auth()->user()->id,
             'type' => 'balanço',
-            'identification' => 'id:' . $data['validatedData']['inventory_id'],
+            'identification' => '{' . 
+                'inventory_id:'    . $data['validatedData']['inventory_id']    . ',' .
+                'producebrand_id:' . $data['validatedData']['producebrand_id'] . ',' .
+            '}',
             'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
         ]);
 
