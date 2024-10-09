@@ -3848,4 +3848,31 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Inventory Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function inventoryAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='                . $after->id                . ',' .
+                'producebrand_id='   . $after->producebrand_id   . ',' .
+                'producebrand_name=' . $after->producebrand_name . ',' .
+                'deposit_id='        . $after->deposit_id        . ',' .
+                'deposit_name='      . $after->deposit_name      . ',' .
+                'company_id='        . $after->company_id        . ',' .
+                'observation='       . $after->observation       . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }

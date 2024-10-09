@@ -299,6 +299,12 @@ class Config extends Model
                 'icon'  => 'bi-box',
                 'test'  => true,
             ],
+            [
+                'name'  => 'inventory',
+                'title' => 'Balanço de Estoque',
+                'icon'  => 'bi-boxes',
+                'test'  => true,
+            ],
         ];
 
         return $pages;

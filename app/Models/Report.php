@@ -1916,4 +1916,42 @@ class Report extends Model
 
         return true;
     }
+
+    /**
+     * Inventory Generate
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function inventoryGenerate(array $data) : bool {
+        // Define as variáveis.
+        $path = public_path('/storage/pdf/' . $data['config']['name'] . '/');
+        $file_name = 'inventory_' . $data['validatedData']['inventory_id'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
+
+        // Gera o arquivo PDF.
+        $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf', [
+            'user'  => auth()->user()->name,
+            'title' => 'Balanço',
+            'date'  => date('d/m/Y H:i:s'),
+            'inventory' => Inventory::find($data['validatedData']['inventory_id']),
+            'list'  => $list = Inventoryproduce::where(
+                'inventory_id', $data['validatedData']['inventory_id']
+            )->get(), 
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
+
+        // Salva o arquivo PDF.
+        File::makeDirectory($path, $mode = 0777, true, true);
+        $pdf->save($path . $file_name);
+
+        // Registra os dados do arquivo PDF.
+        Report::create([
+            'user_id' => auth()->user()->id,
+            'folder'  => $data['config']['name'],
+            'file'    => $file_name,
+            'reference_1' => $data['validatedData']['inventory_id'],
+            'reference_2' => auth()->user()->company_id,
+        ]);
+
+        return true;
+    }
 }
