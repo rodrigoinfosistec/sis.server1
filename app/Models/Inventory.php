@@ -147,7 +147,7 @@ class Inventory extends Model
      */
     public static function edit(array $data) : bool {
         // Produto do Balanço.
-        $inventoryproduct = Inventoryproduct::find($data['validatedData']['inventoryproduct_id']);
+        $inventoryproduce = Inventoryproduce::find($data['validatedData']['inventoryproduct_id']);
 
         // Atualiza quantidade do Produto no Balanço.
         Inventoryproduct::find($data['validatedData']['inventoryproduct_id'])->update([

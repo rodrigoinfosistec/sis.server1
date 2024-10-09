@@ -54,7 +54,7 @@ class InventoryShow extends Component
     public $array_produce_name = [];
     public $array_produce_reference = [];
     public $array_produce_ean = [];
-    public $array_produce_quantity = [];
+    public $array_produce_score = [];
 
     /**
      * Construtor.
