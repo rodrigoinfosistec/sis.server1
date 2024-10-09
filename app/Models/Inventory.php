@@ -147,45 +147,41 @@ class Inventory extends Model
      */
     public static function edit(array $data) : bool {
         // Produto do Balanço.
-        $inventoryproduce = Inventoryproduce::find($data['validatedData']['inventoryproduct_id']);
+        $inventoryproduce = Inventoryproduce::find($data['validatedData']['inventoryproduce_id']);
 
         // Atualiza quantidade do Produto no Balanço.
-        Inventoryproduct::find($data['validatedData']['inventoryproduct_id'])->update([
+        Inventoryproduce::find($data['validatedData']['inventoryproduce_id'])->update([
             'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
         ]);
 
-        //Verfica se o Produto está vinculado ao depósito.
-        if(Productdeposit::where(['product_id' => $inventoryproduct->product_id, 'deposit_id' => $data['validatedData']['deposit_id']])->exists()):
-            $quantity_old = Productdeposit::where(['product_id' => $inventoryproduct->product_id, 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity;
+        // Verfica se o Produto está vinculado ao depósito.
+        if(Producedeposit::where(['produce_id' => $inventoryproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->exists()):
+            $quantity_old = Producedeposit::where(['produce_id' => $inventoryproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity;
 
             // Atualiza quantidade do Produto no Depósito.
-            Productdeposit::where(['product_id' => $inventoryproduct->product_id, 'deposit_id' => $data['validatedData']['deposit_id']])->update([
+            Producedeposit::where(['produce_id' => $inventoryproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->update([
                 'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
             ]);
         else:
             $quantity_old = 0.00;
 
             // Vincula o Produto ao Depósito e atualiza quantidade do Produto no Depósito.
-            Productdeposit::create([
-                'product_id' => $inventoryproduct->product_id,
+            Producedeposit::create([
+                'produce_id' => $inventoryproduce->produce_id,
                 'deposit_id' => $data['validatedData']['deposit_id'],
                 'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
             ]);
         endif;
 
-        // Atualiza quantidade Total do Produto.
-        $quantity_last = Product::find($inventoryproduct->product_id)->quantity;
-        $quantity_new = $quantity_last + (General::encodeFloat($data['validatedData']['score'], 7)  - $quantity_old);
-        Product::find($inventoryproduct->product_id)->update([
-            'quantity' => $quantity_new,
-        ]);
-
         // Regista Movimentação do produto.
-        Productmoviment::create([
-            'product_id' => $inventoryproduct->product_id,
-            'identification' => 'Balanço:' . $data['validatedData']['inventory_id'],
-            'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
+        Producemoviment::create([
+            'produce_id' => $inventoryproduce->produce_id,
+            'deposit_id' => $data['validatedData']['deposit_id'],
+            'company_id' => auth()->user()->company_id,
             'user_id' => auth()->user()->id,
+            'type' => 'balanço',
+            'identification' => 'id:' . $data['validatedData']['inventory_id'],
+            'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
         ]);
 
         // Mensagem.
