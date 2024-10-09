@@ -56,7 +56,10 @@ class Inventory extends Model
     public static function validateAdd(array $data){
         $message = null;
 
-        // ...
+        // Verifica se não possui Produto vinculado com a Marca.
+        if(Produce::where('producebrand_id', $data['validatedData']['producebrand_id'])->doesntExist()):
+            $message = 'Nenhum Produto vinculado com esta Marca.';
+        endif;
 
         // Desvio.
         if(!empty($message)):
