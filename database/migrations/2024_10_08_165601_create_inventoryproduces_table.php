@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('inventoryproduces', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('inventory_id');
+            $table->unsignedBigInteger('produce_id');
+
+            $table->decimal('quantity', total: 16, places: 7)->default(0);
+
             $table->timestamps();
+
+            $table->foreign('inventory_id')->references('id')->on('inventories');
+            $table->foreign('produce_id')->references('id')->on('produces');
         });
     }
 
