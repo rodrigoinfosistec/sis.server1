@@ -112,7 +112,7 @@ class Inventory extends Model
         // Percorre os Produtos da Marca.
         foreach(Produce::where([
             ['producebrand_id', $data['validatedData']['producebrand_id']],
-            ['company_id' => auth()->user()->company_id],
+            ['company_id', auth()->user()->company_id],
             ['status', true],
         ])->get() as $key => $produce):
             // Cadastra produtos do Balanço.
