@@ -29,6 +29,7 @@ class Produce extends Model
         'producebrand_name',
         'producemeasure_id',
         'producemeasure_name',
+        'company_id',
 
         'observation',
         'status',
@@ -81,6 +82,7 @@ class Produce extends Model
             'producebrand_name'   => Producebrand::find($data['validatedData']['producebrand_id'])->name,
             'producemeasure_id'   => $data['validatedData']['producemeasure_id'],
             'producemeasure_name' => Producemeasure::find($data['validatedData']['producemeasure_id'])->name,
+            'company_id'          => Auth()->user()->company_id,
             'observation'         => $data['validatedData']['observation'],
         ]);
 

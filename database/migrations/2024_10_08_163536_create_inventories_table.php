@@ -13,7 +13,28 @@ return new class extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('provider_id');
+            $table->string('provider_name');
+
+            $table->unsignedBigInteger('deposit_id');
+            $table->string('deposit_name');
+
+            $table->unsignedBigInteger('company_id');
+
+            $table->unsignedBigInteger('user_id');
+            $table->string('user_name');
+
+            $table->text('observation');
+
+            $table->boolean('finished')->default(false);
+
             $table->timestamps();
+
+            $table->foreign('provider_id')->references('id')->on('providers');
+            $table->foreign('deposit_id')->references('id')->on('deposits');
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

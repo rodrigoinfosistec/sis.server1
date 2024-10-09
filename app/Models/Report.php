@@ -1893,12 +1893,13 @@ class Report extends Model
     public static function produceGenerate(array $data) : bool {
         // Gera o arquivo PDF.
         $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf', [
-            'user'  => auth()->user()->name,
-            'title' => $data['config']['title'],
-            'date'  => date('d/m/Y H:i:s'),
-            'list'  => $list = Produce::where([
-                            [$data['filter'], 'like', '%'. $data['search'] . '%'],
-                        ])->orderBy('name', 'ASC')->get(), 
+            'user'         => auth()->user()->name,
+            'title'        => $data['config']['title'],
+            'date'         => date('d/m/Y H:i:s'),
+            'list'         => $list = Produce::where([
+                ['company_id', Auth()->user()->company_id],
+                [$data['filter'], 'like', '%'. $data['search'] . '%'],
+            ])->orderBy('name', 'ASC')->get(), 
         ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
 
         // Salva o arquivo PDF.

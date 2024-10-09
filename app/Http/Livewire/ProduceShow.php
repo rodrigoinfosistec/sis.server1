@@ -127,53 +127,11 @@ class ProduceShow extends Component
             'existsReport' => Report::where(['folder' => $this->config['name'], 'reference_1' => auth()->user()->company_id])->exists(),
             'reports'      => Report::where(['folder' => $this->config['name'], 'reference_1' => auth()->user()->company_id])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Produce::where([
-                            [$this->filter, 'like', '%'. $this->search . '%'],
-                        ])->orderBy('status', 'DESC')->orderBy('name', 'ASC')->paginate(100),
+                ['company_id', Auth()->user()->company_id],
+                [$this->filter, 'like', '%'. $this->search . '%'],
+            ])->orderBy('status', 'DESC')->orderBy('name', 'ASC')->paginate(100),
         ]);
     }
-
-    /**
-     * addCsv()
-     *  registerCsv()
-     */
-    public function addCsv()
-    {
-        //...
-    }
-        public function registerCsv()
-        {
-            // Valida campos.
-            $validatedData = $this->validate([
-                'csv' => ['file', 'required'],
-                'provider_id' => ['required'],
-                'append' => ['nullable'],
-            ]);
-
-            // Estende $validatedData.
-            $validatedData['provider'] = Provider::find($validatedData['provider_id']);
-            $validatedData['file_name'] = $validatedData['provider_id'] . '_' . Str::random(10) . '.csv';
-
-            // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
-
-            // Valida cadastro.
-            $valid = Produce::validateAdd($data);
-
-            // Valida.
-            if ($valid) $data['validatedData']['csvArray'] = $valid['CsvArray'];
-
-            // Cadastra.
-            if ($valid) Produce::add($data);
-
-            // Executa dependências.
-            if ($valid) Produce::dependencyAdd($data);
-
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
-            return redirect()->to('/produce');
-        }
 
     /**
      * add()
@@ -194,6 +152,11 @@ class ProduceShow extends Component
                 'producemeasure_id' => ['required'],
                 'observation' => ['nullable', 'between:2,255'],
             ]);
+
+            // Estende $validatedData
+            if(!isset($validatedData['observation'])):
+                $validatedData['observation'] = '';
+            endif;
 
             // Define $data.
             $data['config']        = $this->config;

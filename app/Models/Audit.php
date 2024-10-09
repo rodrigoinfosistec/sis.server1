@@ -3820,6 +3820,7 @@ class Audit extends Model
                 'producebrand_name='   . $after->producebrand_name   . ',' .
                 'producemeasure_id='   . $after->producemeasure_id   . ',' .
                 'producemeasure_name=' . $after->producemeasure_name . ',' .
+                'company_id='          . $after->company_id          . ',' .
                 'observation='         . $after->observation         . ',' .
             '}',
         ]);

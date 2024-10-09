@@ -13,7 +13,7 @@
         </div>
 
         <div class="float-start fw-bold" style="width: 600px; height: 35px; margin-right: 10px; margin-top: 5px; font-size: 9pt;">
-            {{-- $company->name --}}
+            {{ App\Models\Company::find(Auth()->user()->company_id)->name }}
             <br>
             <span class="fw-normal text-muted">{{-- $company->cnpj --}} </span>
         </div>
