@@ -88,7 +88,7 @@ class Inventory extends Model
             'company_id' => auth()->user()->company_id,
             'user_id' => auth()->user()->id,
             'user_name' => auth()->user()->name,
-            'observation' => $data['validatedData']['observation'],
+            'observation' => Str::upper($data['validatedData']['observation']),
         ])->id;
 
         // After.
