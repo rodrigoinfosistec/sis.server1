@@ -13,7 +13,20 @@ return new class extends Migration
     {
         Schema::create('outproduces', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('out_id');
+            $table->unsignedBigInteger('produce_id');
+
+            $table->decimal('quantity_old', total: 16, places: 7)->default(0);
+
+            $table->decimal('quantity', total: 16, places: 7)->default(0);
+
+            $table->decimal('quantity_diff', total: 16, places: 7)->default(0);
+
             $table->timestamps();
+
+            $table->foreign('out_id')->references('id')->on('outs');
+            $table->foreign('produce_id')->references('id')->on('produces');
         });
     }
 
