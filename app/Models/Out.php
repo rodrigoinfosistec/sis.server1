@@ -135,27 +135,15 @@ class Out extends Model
         // Atualiza quantidade do Produto no Saída.
         Outproduce::find($data['validatedData']['outproduce_id'])->update([
             'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
-            'quantity_diff' => General::encodeFloat($data['validatedData']['score'], 7) - $outproduce->quantity_old 
+            'quantity_diff' => 0 - General::encodeFloat($data['validatedData']['score'], 7)
         ]);
 
-        // Verfica se o Produto está vinculado ao depósito.
-        if(Producedeposit::where(['produce_id' => $outproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->exists()):
-            $quantity_old = Producedeposit::where(['produce_id' => $outproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity;
+        $quantity_old = Producedeposit::where(['produce_id' => $outproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity;
 
-            // Atualiza quantidade do Produto no Depósito.
-            Producedeposit::where(['produce_id' => $outproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->update([
-                'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
-            ]);
-        else:
-            $quantity_old = 0.00;
-
-            // Vincula o Produto ao Depósito e atualiza quantidade do Produto no Depósito.
-            Producedeposit::create([
-                'produce_id' => $outproduce->produce_id,
-                'deposit_id' => $data['validatedData']['deposit_id'],
-                'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
-            ]);
-        endif;
+        // Atualiza quantidade do Produto no Depósito.
+        Producedeposit::where(['produce_id' => $outproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->update([
+            'quantity' => $quantity_old - General::encodeFloat($data['validatedData']['score'], 7),
+        ]);
 
         // Regista Movimentação do produto.
         Producemoviment::create([
@@ -163,16 +151,15 @@ class Out extends Model
             'deposit_id' => $data['validatedData']['deposit_id'],
             'company_id' => auth()->user()->company_id,
             'user_id' => auth()->user()->id,
-            'type' => 'balanço',
+            'type' => 'saída',
             'identification' => '{' . 
                 'out_id:'    . $data['validatedData']['out_id']    . ',' .
-                'producebrand_id:' . $data['validatedData']['producebrand_id'] . ',' .
             '}',
-            'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
+            'quantity' => 0 - General::encodeFloat($data['validatedData']['score'], 7),
         ]);
 
         // Mensagem.
-        $message = 'Saída Consolidado';
+        $message = 'Saída Consolidada';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
