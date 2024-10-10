@@ -104,9 +104,11 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            @if(isset($item->ean))
-                {{ $item->ean }}
-            @endif
+            <span class="text-muted">
+                @if(isset($item->ean))
+                    {{ $item->ean }}
+                @endif
+            </span>
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
@@ -117,14 +119,17 @@
     <x-layout.card.card-body-content-table-body-line-cell-content>
         <div style="line-height: 1;">
             {{ $item->name }}
-            <br>
-            <span class="text-muted" style="font-size: 7pt;">
-                {{ $item->producebrand_name }}
 
+            <br>
+
+            <span class="text-muted">
                 @if(isset($item->reference))
-                    <br>
                     {{ $item->reference }}
+
+                    <i class="bi-caret-right-fill"></i>
                 @endif
+
+                {{ $item->producebrand_name }}
             </span>
         </div>
     </x-layout.card.card-body-content-table-body-line-cell-content>
