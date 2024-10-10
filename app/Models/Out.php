@@ -129,10 +129,10 @@ class Out extends Model
      * @return bool true
      */
     public static function edit(array $data) : bool {
-        // Produto do Balanço.
+        // Produto do Saída.
         $outproduce = Outproduce::find($data['validatedData']['outproduce_id']);
 
-        // Atualiza quantidade do Produto no Balanço.
+        // Atualiza quantidade do Produto no Saída.
         Outproduce::find($data['validatedData']['outproduce_id'])->update([
             'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
             'quantity_diff' => General::encodeFloat($data['validatedData']['score'], 7) - $outproduce->quantity_old 
@@ -172,7 +172,7 @@ class Out extends Model
         ]);
 
         // Mensagem.
-        $message = 'Balanço Consolidado';
+        $message = 'Saída Consolidado';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
