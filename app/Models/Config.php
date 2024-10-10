@@ -305,6 +305,18 @@ class Config extends Model
                 'icon'  => 'bi-boxes',
                 'test'  => true,
             ],
+            [
+                'name'  => 'out',
+                'title' => 'Saída',
+                'icon'  => 'bi-arrow-down',
+                'test'  => true,
+            ],
+            [
+                'name'  => 'in',
+                'title' => 'Entrada',
+                'icon'  => 'bi-plus-square-dotted',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
