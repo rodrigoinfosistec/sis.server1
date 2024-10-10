@@ -22,7 +22,9 @@ class Inventoryproduce extends Model
         'produce_id',
         'produce_name',
 
+        'quantity_old',
         'quantity',
+        'quantity_diff',
 
         'created_at',
         'updated_at',
