@@ -58,8 +58,20 @@
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
+    <div class="" style="width: 40px;">
+        ANTES
+    </div>
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
     <div class="" style="width: 80px;">
-        CONTAGEM
+        BALANÇO
+    </div>
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
+    <div class="" style="width: 40px;">
+        DIFER.
     </div>
 </x-layout.pdf.pdf-table-header-column>
 {{-- conteúdo título --}}
@@ -96,8 +108,15 @@
 
 {{-- DESCRIÇÃO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 320px; line-height: 1.0;">
+    <div class="" style="width: 300px; line-height: 1.0;">
         {{ $item->produce->name }}
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- ANTES --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div class="" style="width: 50px;">
+        {{ App\Models\General::decodeFloat2($item->quantity_old) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
@@ -105,6 +124,13 @@
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="text-dark fw-bold" style="width: 80px; font-size: 10pt;">
         {{ App\Models\General::decodeFloat2($item->quantity) }}
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- DIFER. --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div class="" style="width: 50px;">
+        {{ App\Models\General::decodeFloat2($item->quantity_diff) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 {{-- conteúdo --}}
