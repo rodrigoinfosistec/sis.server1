@@ -92,7 +92,7 @@ class Outproduce extends Model
         $outproduce_id = Outproduce::create([
             'out_id' => $data['validatedData']['out_id'],
             'produce_id' => $data['validatedData']['produce_id'],
-            'produce_name' => Product::find($data['validatedData']['produce_id'])->name,
+            'produce_name' => Produce::find($data['validatedData']['produce_id'])->name,
             'quantity_old' => $qtd_old,
             'quantity' => General::encodeFloat3($data['validatedData']['quantity']),
         ])->id;
@@ -161,13 +161,13 @@ class Outproduce extends Model
      * @return bool true
      */
     public static function erase(array $data) : bool {
-        $depositoutputproduct = Depositoutputproduct::find($data['validatedData']['depositoutputproduct_id']);
+        $outproduce = Outproduce::find($data['validatedData']['outproduce_id']);
 
         // Exclui.
-        Depositoutputproduct::find($data['validatedData']['depositoutputproduct_id'])->delete();
+        Outproduce::find($data['validatedData']['outproduce_id'])->delete();
 
         // Mensagem.
-        $message = 'Produto ' . $depositoutputproduct->product->name . ' excluído com sucesso.';
+        $message = 'Produto ' . $outproduce->produce->name . ' excluído com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
