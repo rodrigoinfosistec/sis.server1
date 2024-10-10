@@ -54,6 +54,8 @@ use App\Http\Controllers\ConcessionaireController;
 // V2
 use App\Http\Controllers\ProduceController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\OutController;
+use App\Http\Controllers\InController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -118,4 +120,6 @@ Route::middleware([
     // V2
     Route::get('/produce', [ProduceController::class, 'index'])->name('produce');
     Route::get('/inventory', [InventoryController::class, 'index'])->name('inventory');
+    Route::get('/out', [OutController::class, 'index'])->name('out');
+    Route::get('/in', [InController::class, 'index'])->name('in');
 });
