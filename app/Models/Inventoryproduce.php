@@ -20,6 +20,7 @@ class Inventoryproduce extends Model
     protected $fillable = [
         'inventory_id',
         'produce_id',
+        'produce_name',
 
         'quantity',
 

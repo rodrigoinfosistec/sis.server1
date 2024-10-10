@@ -117,11 +117,12 @@ class Inventory extends Model
             ['producebrand_id', $data['validatedData']['producebrand_id']],
             ['company_id', auth()->user()->company_id],
             ['status', true],
-        ])->get() as $key => $produce):
+        ])->orderBy('name', 'ASC')->get() as $key => $produce):
             // Cadastra produtos do Balanço.
             Inventoryproduce::create([
                 'inventory_id' => $data['validatedData']['inventory_id'],
                 'produce_id' => $produce->id,
+                'produce_name' => $produce->name,
             ]);
         endforeach;
 

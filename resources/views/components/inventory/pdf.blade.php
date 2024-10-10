@@ -46,13 +46,19 @@
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 350px;">
+    <div class="text-center" style="width: 50px;">
+        EMB.
+    </div>
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
+    <div class="text-center" style="width: 320px;">
         DESCRIÇÃO
     </div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="" style="width: 100px;">
+    <div class="" style="width: 80px;">
         CONTAGEM
     </div>
 </x-layout.pdf.pdf-table-header-column>
@@ -81,16 +87,23 @@
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
+{{-- EMB --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div class="" style="width: 50px; line-height: 1.0;">
+        {{ $item->produce->producemeasure_name }}
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
 {{-- DESCRIÇÃO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 350px; line-height: 1.0;">
+    <div class="" style="width: 320px; line-height: 1.0;">
         {{ $item->produce->name }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- QUANTIDADE --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-dark fw-bold" style="width: 100px; font-size: 10pt;">
+    <div class="text-dark fw-bold" style="width: 80px; font-size: 10pt;">
         {{ App\Models\General::decodeFloat2($item->quantity) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>

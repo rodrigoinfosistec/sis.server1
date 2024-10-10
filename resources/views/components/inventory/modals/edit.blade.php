@@ -52,7 +52,7 @@
         </thead>
 
         <tbody style="font-size: 7pt;">
-            @foreach(App\Models\Inventoryproduce::where('inventory_id', $inventory_id)->get() as $key => $inventoryproduce)
+            @foreach(App\Models\Inventoryproduce::where('inventory_id', $inventory_id)->orderBy('produce_name', 'ASC')->get() as $key => $inventoryproduce)
                 <tr>
                     {{-- # --}}
                     <td rowspan="2" class="align-middle" style="line-height: 1; padding: 0;">
@@ -95,21 +95,21 @@
                     {{-- ATUAL --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text-center" style="width: 75px; font-size: 9pt;">
-                            {{ number_format($inventoryproduce->produce->quantity) }}
+                            {{ number_format(@(int)$array_produce_quantity[$inventoryproduce->produce->id]) }}
                         </div>
                     </td>
 
                     {{-- DIFERENÇA --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="fw-bold text-center" style="width: 75px; font-size: 9pt;">
-                        @if((@(int)$array_produce_score[$inventoryproduce->produce->id] - @(int)$inventoryproduce->produce->quantity) > 0)
+                        @if((@(int)$array_produce_score[$inventoryproduce->produce->id] - @(int)$array_produce_quantity[$inventoryproduce->produce->id]) > 0)
                             <span class="text-primary">
-                        @elseif((@(int)$array_produce_score[$inventoryproduce->produce->id] - @(int)$inventoryproduce->produce->quantity) < 0)
+                        @elseif((@(int)$array_produce_score[$inventoryproduce->produce->id] - @(int)$array_produce_quantity[$inventoryproduce->produce->id]) < 0)
                             <span class="text-danger">
                         @else
                             <span class="text-dark">
                         @endif
-                                {{ @(int)$array_produce_score[$inventoryproduce->produce->id] - @(int)$inventoryproduce->produce->quantity }}
+                                {{ @(int)$array_produce_score[$inventoryproduce->produce->id] - @(int)$array_produce_quantity[$inventoryproduce->produce->id] }}
                             </span>
                         </div>
                     </td>

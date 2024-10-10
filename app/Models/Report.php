@@ -1936,7 +1936,7 @@ class Report extends Model
             'inventory' => Inventory::find($data['validatedData']['inventory_id']),
             'list'  => $list = Inventoryproduce::where(
                 'inventory_id', $data['validatedData']['inventory_id']
-            )->get(), 
+            )->orderBy('produce_name', 'ASC')->get(), 
         ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
 
         // Salva o arquivo PDF.

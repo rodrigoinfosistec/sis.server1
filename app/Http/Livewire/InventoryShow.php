@@ -10,6 +10,7 @@ use App\Models\Inventory;
 use App\Models\Inventoryproduce;
 use App\Models\Produce;
 use App\Models\Producebrand;
+use App\Models\Producedeposit;
 use App\Models\Deposit;
 use App\Models\Company;
 use App\Models\User;
@@ -241,6 +242,15 @@ class InventoryShow extends Component
         foreach(Inventoryproduce::where('inventory_id', $inventory_id)->get() as $key => $inventoryproduce):
             // Inicializa variáveis, dinamicamente.
             $this->array_produce_score[$inventoryproduce->produce->id] = '';
+
+            if(Producedeposit::where([
+                ['produce_id', $inventoryproduce->produce->id],
+                ['deposit_id', $this->deposit_id]
+            ])->exists()):
+                $this->array_produce_quantity[$inventoryproduce->produce->id] = Producedeposit::where(['produce_id' => $inventoryproduce->produce->id, 'deposit_id' => $this->deposit_id])->first()->quantity;
+            else:
+                $this->array_produce_quantity[$inventoryproduce->produce->id] = 0;
+            endif;
         endforeach;
     }
         public function modernize()
