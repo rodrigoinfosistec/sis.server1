@@ -110,9 +110,7 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            @if(isset($item->reference))
-                {{ $item->reference }}
-            @endif
+            {{ $item->producemeasure_name }}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
@@ -122,6 +120,11 @@
             <br>
             <span class="text-muted" style="font-size: 7pt;">
                 {{ $item->producebrand_name }}
+
+                @if(isset($item->reference))
+                    <br>
+                    {{ $item->reference }}
+                @endif
             </span>
         </div>
     </x-layout.card.card-body-content-table-body-line-cell-content>
