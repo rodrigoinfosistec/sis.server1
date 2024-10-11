@@ -374,44 +374,42 @@ class OutShow extends Component
     public function eraseProduce(int $outproduce_id)
     {
         // Saída.
-        $out = Outproduce::find($outproduce_id);
+        $outproduce = Outproduce::find($outproduce_id);
 
         // Inicializa propriedades dinâmicas.
         $this->outproduce_id = $outproduce->id;
-        $this->out_id = $outproduce->out_id;
-        $this->produce_id = $outproduce->produce_id;
-        $this->produce_name = (string)$outproduce->produce_name;
-        $this->company_id = $outproduce->company_id;
-        $this->user_id = $outproduce->user_id;
-        $this->user_name = (string)$outproduce->user_name;
-        $this->observation = (string)$outproduce->observation;
-        $this->finished = $outproduce->finished;
-        $this->created = $outproduce->created_at->format('d/m/Y H:i:s');
+        $this->out_id        = $outproduce->out_id;
+        $this->produce_id    = $outproduce->produce_id;
+        $this->produce_name  = (string)$outproduce->produce_name;
+        $this->quantity_old  = $outproduce->quantity_old;
+        $this->quantity      = $outproduce->quantity;
+        $this->quantity_diff = $outproduce->quantity_diff;
+        $this->created       = $outproduce->created_at->format('d/m/Y H:i:s');
     }
         public function excludeProduce()
         {
             // Define $validatedData
-            $validatedData['out_id']       = $this->out_id;
-            $validatedData['deposit_id']   = $this->deposit_id;
-            $validatedData['deposit_name'] = $this->deposit_name;
-            $validatedData['company_id']   = $this->company_id;
-            $validatedData['user_id']      = $this->user_id;
-            $validatedData['user_name']    = $this->user_name;
-            $validatedData['observation']  = $this->observation;
-            $validatedData['finished']     = $this->finished;
+            $validatedData['outproduce_id'] = $this->outproduce_id;
+            $validatedData['out_id']        = $this->out_id;
+            $validatedData['produce_id']    = $this->produce_id;
+            $validatedData['produce_name']  = $this->produce_name;
+            $validatedData['quantity_old']  = $this->quantity_old;
+            $validatedData['quantity']      = $this->quantity;
+            $validatedData['quantity_diff'] = $this->quantity_diff;
+            $validatedData['created']       = $this->created;
 
             // Define $data.
             $data['config']        = $this->config;
             $data['validatedData'] = $validatedData;
 
             // Valida exclusão.
-            $valid = Out::validateErase($data);
+            $valid = Outproduce::validateErase($data);
 
             // Executa dependências.
-            if ($valid) Out::dependencyErase($data);
+            if ($valid) Outproduce::dependencyErase($data);
 
             // Exclui.
-            if ($valid) Out::erase($data);
+            if ($valid) Outproduce::erase($data);
 
             // Fecha modal.
             $this->closeModal();
