@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Illuminate\Support\Str;
 
 use App\Models\Report;
+use App\Models\General;
 
 use App\Models\Out;
 use App\Models\Outproduce;
@@ -227,8 +228,9 @@ class OutShow extends Component
             ]);
 
             // Estende $validatedData.
-            $validatedData['out_id'] = $this->dout_id;
+            $validatedData['out_id'] = $this->out_id;
             $validatedData['deposit_id'] = $this->deposit_id;
+            $validatedData['quantity_encode'] = General::encodeFloat2($validatedData['quantity']);
 
             // Define $data.
             $data['config']        = $this->config;

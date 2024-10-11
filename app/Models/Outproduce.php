@@ -50,7 +50,7 @@ class Outproduce extends Model
             $message = 'Código de Produto:' . $data['validatedData']['produce_id'] .' não encontrado.';
         else:
             // Verifica se o Produto já está cadastrado na Saída.
-            if(Outproduce::where(['out_id' => $data['validatedData']['out_id'], 'product_id' => $data['validatedData']['produce_id']])->exists()):
+            if(Outproduce::where(['out_id' => $data['validatedData']['out_id'], 'produce_id' => $data['validatedData']['produce_id']])->exists()):
                 $message = 'Produto já cadastrado nesta Saída.';
             endif;
 
@@ -59,8 +59,10 @@ class Outproduce extends Model
                 $message = 'Produto não cadastrado neste Depósito.';
             else:
                 // Verifica se o Depósito possui a quantidade de Produto.
-                $producedeposit = Producedeposit::where(['produce_id' => $data['validatedData']['produce_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->first();
-                $message = 'Quantidade no Depósito:' . General::decodeFloat2($producedeposit->quantity, 2) . ' menor do que a desejada:' . $data['validatedData']['quantity'] . '.';
+                if(Producedeposit::where(['produce_id' => $data['validatedData']['produce_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity < $data['validatedData']['quantity_encode']):
+                    $producedeposit = Producedeposit::where(['produce_id' => $data['validatedData']['produce_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->first();
+                    $message = 'Quantidade no Depósito: ' . General::decodeFloat2($producedeposit->quantity, 2) . ' menor do que a desejada:' . $data['validatedData']['quantity'] . '.';
+                endif;
             endif;
         endif;
 

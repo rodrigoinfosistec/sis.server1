@@ -118,19 +118,11 @@ class Inventory extends Model
             ['company_id', auth()->user()->company_id],
             ['status', true],
         ])->orderBy('name', 'ASC')->get() as $key => $produce):
-            // Define quantidade atual do Produto no Depósito.
-            if(Producedeposit::where(['produce_id' => $produce->id, 'deposit_id' => $data['validatedData']['deposit_id']])->exists()):
-                $qtd_old = Producedeposit::where(['produce_id' => $produce->id, 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity;
-            else:
-                $qtd_old = 0;
-            endif;
-
             // Cadastra produtos do Balanço.
             Inventoryproduce::create([
                 'inventory_id' => $data['validatedData']['inventory_id'],
                 'produce_id' => $produce->id,
                 'produce_name' => $produce->name,
-                'quantity_old' => $qtd_old,
             ]);
         endforeach;
 
@@ -161,12 +153,6 @@ class Inventory extends Model
         // Produto do Balanço.
         $inventoryproduce = Inventoryproduce::find($data['validatedData']['inventoryproduce_id']);
 
-        // Atualiza quantidade do Produto no Balanço.
-        Inventoryproduce::find($data['validatedData']['inventoryproduce_id'])->update([
-            'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
-            'quantity_diff' => General::encodeFloat($data['validatedData']['score'], 7) - $inventoryproduce->quantity_old 
-        ]);
-
         // Verfica se o Produto está vinculado ao depósito.
         if(Producedeposit::where(['produce_id' => $inventoryproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->exists()):
             $quantity_old = Producedeposit::where(['produce_id' => $inventoryproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity;
@@ -185,6 +171,13 @@ class Inventory extends Model
                 'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
             ]);
         endif;
+
+        // Atualiza quantidade do Produto no Balanço.
+        Inventoryproduce::find($data['validatedData']['inventoryproduce_id'])->update([
+            'quantity_old' => $quantity_old,
+            'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
+            'quantity_diff' => General::encodeFloat($data['validatedData']['score'], 7) - $quantity_old 
+        ]);
 
         // Regista Movimentação do produto.
         Producemoviment::create([
