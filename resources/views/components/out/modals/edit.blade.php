@@ -83,10 +83,10 @@
                         </div>
                     </td>
 
-                    {{-- CONTAGEM --}}
+                    {{-- SAÍDA --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="text" style="width: 75px;">
-                            <input type="text" wire:model="array_produce_score.{{ $outproduce->produce->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_produce_score_{{ $outproduce->produce->id }}" required>
+                        <div class="text-center" style="width: 75px; padding-top: 0; margin-top: 0;">
+                            <input type="text" wire:model="array_produce_score.{{ $outproduce->produce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 70px; margin-top: 0;" id="array_produce_score_{{ $outproduce->produce->id }}" required>
                         </div>
                     </td>
 
@@ -100,14 +100,8 @@
                     {{-- DIFERENÇA --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="fw-bold text-center" style="width: 75px; font-size: 9pt;">
-                        @if((@(int)$array_produce_score[$outproduce->produce->id] - @(int)$array_produce_quantity[$outproduce->produce->id]) > 0)
-                            <span class="text-primary">
-                        @elseif((@(int)$array_produce_score[$outproduce->produce->id] - @(int)$array_produce_quantity[$outproduce->produce->id]) < 0)
                             <span class="text-danger">
-                        @else
-                            <span class="text-dark">
-                        @endif
-                                {{ @(int)$array_produce_score[$outproduce->produce->id] - @(int)$array_produce_quantity[$outproduce->produce->id] }}
+                                {{ 0 - @(int)$array_produce_score[$outproduce->produce->id] }}
                             </span>
                         </div>
                     </td>

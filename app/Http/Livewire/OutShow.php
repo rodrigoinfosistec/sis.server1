@@ -293,7 +293,7 @@ class OutShow extends Component
         // Percorre os Produtos da Saída.
         foreach(Outproduce::where('out_id', $out_id)->get() as $key => $outproduce):
             // Inicializa variáveis, dinamicamente.
-            $this->array_produce_score[$outproduce->produce->id] = '';
+            $this->array_produce_score[$outproduce->produce->id] = (int)$outproduce->quantity;
 
             $this->array_produce_quantity[$outproduce->produce->id] = Producedeposit::where(['produce_id' => $outproduce->produce->id, 'deposit_id' => $this->deposit_id])->first()->quantity;
         endforeach;
