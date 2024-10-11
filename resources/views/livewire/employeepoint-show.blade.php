@@ -22,30 +22,6 @@
 
     <x-layout.alert/>
 
-    <div class="card" style="margin-bottom: 20px;">
-        <div class="card-header fw-bold text-primary text-center">
-            <i class="bi bi-info-circle"></i>
-
-            REGISTRO DE PONTO
-        </div>{{-- card-header --}}
-
-        <div class="card-body">
-            <div class="row g-3" style="margin-top: -10px;">
-                <div class="col">
-                    <input type="text" wire:model="code_aux" class="form-control form-control-sm float-start" style="width: 200px; font-size: 13pt;" id="code_aux" onKeyUp="maskCode(this, event)"/>
-
-                    @if($code_aux != '' && $code_aux != null && App\Models\Employee::where(['company_id' => Auth()->user()->company_id, 'code' => $code_aux, 'limit_controll' => true, 'status' => true])->exists())
-                            @if(App\Models\Employee::where(['company_id' => Auth()->user()->company_id, 'code' => $code_aux, 'limit_controll' => true, 'status' => true])->exists())
-                                <a type="button" wire:click="add({{ (int)App\Models\Employee::where(['company_id' => Auth()->user()->company_id, 'code' => $code_aux, 'limit_controll' => true, 'status' => true])->first()->id }})" class="btn btn btn-outline-danger btn-sm fw-bold float-start" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#addModal" title="Registrar Ponto">
-                                    Registrar <i class="bi bi-hand-index-thumb"></i>
-                                </a>
-                            @endif
-                        @endif
-                </div>
-            </div>
-        </div>{{-- card-body --}}
-    </div>{{-- card --}}
-
     <x-layout.card.card>
         <x-layout.card.card-header>
             <x-layout.card.card-header-button>
