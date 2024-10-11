@@ -292,6 +292,61 @@ class InventoryShow extends Component
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
         }
+    
+    /**
+     * erase()
+     *  exclude()
+     */
+    public function erase(int $out_id)
+    {
+        // Balanço.
+        $inventory = Inventory::find($inventory_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->inventory_id      = $inventory->id;
+        $this->producebrand_id   = $inventory->producebrand_id;
+        $this->producebrand_name = (string)$inventory->producebrand_name;
+        $this->deposit_id        = $inventory->deposit_id;
+        $this->deposit_name      = (string)$inventory->deposit_name;
+        $this->company_id        = $inventory->company_id;
+        $this->user_id           = $inventory->user_id;
+        $this->user_name         = (string)$inventory->user_name;
+        $this->observation       = (string)$inventory->observation;
+        $this->finished          = $inventory->finished;
+        $this->created           = $inventory->created_at->format('d/m/Y H:i:s');
+    }
+        public function exclude()
+        {
+            // Define $validatedData
+            $validatedData['inventory_id']      = $this->inventory_id;
+            $validatedData['producebrand_id']   = $this->producebrand_id;
+            $validatedData['producebrand_name'] = $this->producebrand_name;
+            $validatedData['deposit_id']        = $this->deposit_id;
+            $validatedData['deposit_name']      = $this->deposit_name;
+            $validatedData['company_id']        = $this->company_id;
+            $validatedData['user_id']           = $this->user_id;
+            $validatedData['user_name']         = $this->user_name;
+            $validatedData['observation']       = $this->observation;
+            $validatedData['finished']          = $this->finished;
+            $validatedData['created']           = $this->created;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida exclusão.
+            $valid = Inventory::validateErase($data);
+
+            // Executa dependências.
+            if ($valid) Inventory::dependencyErase($data);
+
+            // Exclui.
+            if ($valid) Inventory::erase($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
 
     /**
      * generate()

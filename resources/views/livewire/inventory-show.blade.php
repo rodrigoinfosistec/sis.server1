@@ -112,7 +112,9 @@
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="80">
     @if(!$item->finished)
-        <x-layout.card.card-body-content-table-body-line-cell-action-edit-inventory :id="$item->id"/>
+        <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
+
+        <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
 
