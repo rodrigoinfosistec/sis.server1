@@ -49,8 +49,8 @@ class OutShow extends Component
     public $created;
     public $updated;
 
-    public $product_id;
-    public $product_name;
+    public $produce_id;
+    public $produce_name;
     public $quantity;
 
     public $array_produce_id = [];
@@ -119,8 +119,8 @@ class OutShow extends Component
         $this->created = '';
         $this->updated = '';
 
-        $this->product_id = '';
-        $this->product_name = '';
+        $this->produce_id = '';
+        $this->produce_name = '';
         $this->quantity = '';
 
         $this->array_produce_id = [];
