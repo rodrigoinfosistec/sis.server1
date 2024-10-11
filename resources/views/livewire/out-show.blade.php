@@ -109,11 +109,11 @@
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
-<x-layout.card.card-body-content-table-body-line-cell-action width="150">
+<x-layout.card.card-body-content-table-body-line-cell-action width="80">
     @if(!$item->finished)
         <x-layout.card.card-body-content-table-body-line-cell-action-add-produce :id="$item->id"/>
 
-        @if(App\Models\Outproduce::where('id', $item->id)->exists())
+        @if(App\Models\Outproduce::where('out_id', $item->id)->exists())
             <x-layout.card.card-body-content-table-body-line-cell-action-erase-produce :id="$item->id"/>
 
             <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>

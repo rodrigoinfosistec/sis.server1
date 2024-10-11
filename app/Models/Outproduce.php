@@ -84,18 +84,10 @@ class Outproduce extends Model
      * @return bool true
      */
     public static function add(array $data) : bool {
-        // Define quantidade atual do Produto no Depósito.
-        if(Producedeposit::where(['produce_id' => $data['validatedData']['produce_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->exists()):
-            $qtd_old = Producedeposit::where(['produce_id' => $data['validatedData']['produce_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity;
-        else:
-            $qtd_old = 0;
-        endif;
-
         $outproduce_id = Outproduce::create([
             'out_id' => $data['validatedData']['out_id'],
             'produce_id' => $data['validatedData']['produce_id'],
             'produce_name' => Produce::find($data['validatedData']['produce_id'])->name,
-            'quantity_old' => $qtd_old,
             'quantity' => General::encodeFloat3($data['validatedData']['quantity']),
         ])->id;
 
