@@ -13,7 +13,7 @@
 {{-- ações --}}
 @include('components.' .  $config['name'] . '.modals.detail')
 @include('components.' .  $config['name'] . '.modals.edit')
-@include('components.' .  $config['name'] . '.modals.delete')
+@include('components.' .  $config['name'] . '.modals.erase')
 {{-- modal --}}
 
 <x-layout.alert/>

@@ -14,8 +14,8 @@
 @include('components.' .  $config['name'] . '.modals.detail')
 @include('components.' .  $config['name'] . '.modals.add-produce')
 @include('components.' .  $config['name'] . '.modals.edit')
-@include('components.' .  $config['name'] . '.modals.delete')
-@include('components.' .  $config['name'] . '.modals.delete-produce')
+@include('components.' .  $config['name'] . '.modals.erase')
+@include('components.' .  $config['name'] . '.modals.erase-produce')
 {{-- modal --}}
 
 <x-layout.alert/>
