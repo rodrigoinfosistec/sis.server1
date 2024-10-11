@@ -49,6 +49,10 @@ class OutShow extends Component
     public $created;
     public $updated;
 
+    public $product_id;
+    public $product_name;
+    public $quantity;
+
     public $array_produce_id = [];
     public $array_produce_name = [];
     public $array_produce_reference = [];
@@ -76,6 +80,8 @@ class OutShow extends Component
 
             'deposit_id' => ['required'],
             'observation' => ['nullable', 'between:2,255'],
+
+            'produce_id' => ['required'],
         ];
     }
 
@@ -112,6 +118,10 @@ class OutShow extends Component
         $this->finished = '';
         $this->created = '';
         $this->updated = '';
+
+        $this->product_id = '';
+        $this->product_name = '';
+        $this->quantity = '';
 
         $this->array_produce_id = [];
         $this->array_produce_name = [];
@@ -192,22 +202,33 @@ class OutShow extends Component
      * addProduce()
      *  registerProduce()
      */
-    public function addProduce()
+    public function addProduce(int $out_id)
     {
-        //...
+        // Balanço.
+        $out = Out::find($out_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->out_id = $out_id;
+        $this->deposit_id = $out->deposit_id;
+        $this->deposit_name = $out->deposit_name;
+        $this->user_id = $out->user_id;
+        $this->user_name = $out->user_name;
+        $this->observation = $out->observation;
+        $this->finished = $out->finished;
+        $this->created = $out->created_at->format('d/m/Y H:i:s');
+        $this->updated = $out->updated_at->format('d/m/Y H:i:s');
     }
         public function registerProduce()
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'deposit_id' => ['required'],
-                'observation' => ['nullable', 'between:2,255'],
+                'produce_id' => ['required'],
+                'quantity' => ['required'],
             ]);
 
             // Estende $validatedData.
-            if(!isset($validatedData['observation'])):
-                $validatedData['observation'] = '';
-            endif;
+            $validatedData['out_id'] = $this->dout_id;
+            $validatedData['deposit_id'] = $this->deposit_id;
 
             // Define $data.
             $data['config']        = $this->config;

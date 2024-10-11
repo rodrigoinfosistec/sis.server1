@@ -113,9 +113,9 @@
     @if(!$item->finished)
         <x-layout.card.card-body-content-table-body-line-cell-action-add-produce :id="$item->id"/>
 
-        <x-layout.card.card-body-content-table-body-line-cell-action-erase-produce :id="$item->id"/>
-
         @if(App\Models\Outproduce::where('id', $item->id)->exists())
+            <x-layout.card.card-body-content-table-body-line-cell-action-erase-produce :id="$item->id"/>
+
             <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
         @endif
 
