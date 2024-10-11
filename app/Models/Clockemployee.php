@@ -143,9 +143,9 @@ class Clockemployee extends Model
 
             // Hidrata eventos.
             if($clockemployee->employee->clock_type == 'EVENT'):
-                $events = Clockevent::where(['clock_id' => $clockemployee->clock->id, 'employee_id' => $clockemployee->employee->id, 'date' => $date])->get();
+                $events = Clockevent::where(['clock_id' => $clockemployee->clock->id, 'employee_id' => $clockemployee->employee->id, 'date' => $date])->orderBy('time', 'ASC')->get();
             else:
-                $events = Clockregistry::where(['employee_id' => $clockemployee->employee->id, 'date' => $date])->orderBy('time', 'DESC')->get();
+                $events = Clockregistry::where(['employee_id' => $clockemployee->employee->id, 'date' => $date])->orderBy('time', 'DESC')->orderBy('time', 'ASC')->get();
             endif;
 
             if($events->count() > 0):

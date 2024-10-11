@@ -268,8 +268,8 @@
     <td class="align-middle" style="line-height: 1;">
         <div class="" style="width: 80px;">
             @php
-                $events     = App\Models\Clockevent::where(['clock_id' => $clockemployee_clock_id, 'employee_id' => $clockemployee_employee_id, 'date' => $date])->get();
-                $registries = App\Models\Clockregistry::where(['employee_id' => $clockemployee_employee_id, 'date' => $date])->get();
+                $events     = App\Models\Clockevent::where(['clock_id' => $clockemployee_clock_id, 'employee_id' => $clockemployee_employee_id, 'date' => $date])->orderBy('time', 'ASC')->get();
+                $registries = App\Models\Clockregistry::where(['employee_id' => $clockemployee_employee_id, 'date' => $date])->orderBy('time', 'ASC')->get();
             @endphp
             @if(($events->count() > 0))
                 <div class="dropdown float-start">
