@@ -3940,11 +3940,11 @@ class Audit extends Model
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
             'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
-                'id='                . $data['validatedData']['inventory_id']      . ',' .
-                'deposit_id='        . $data['validatedData']['deposit_id']        . ',' .
-                'deposit_name='      . $data['validatedData']['deposit_name']      . ',' .
-                'company_id='        . $data['validatedData']['company_id']        . ',' .
-                'observation='       . $data['validatedData']['observation']       . ',' .
+                'id='                . $data['validatedData']['out_id']       . ',' .
+                'deposit_id='        . $data['validatedData']['deposit_id']   . ',' .
+                'deposit_name='      . $data['validatedData']['deposit_name'] . ',' .
+                'company_id='        . $data['validatedData']['company_id']   . ',' .
+                'observation='       . $data['validatedData']['observation']  . ',' .
             '}',
         ]);
 
