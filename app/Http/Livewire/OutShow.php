@@ -32,7 +32,7 @@ class OutShow extends Component
     public $config;
 
     public $search = '';
-    public $filter = 'producebrand_name';
+    public $filter = 'deposit_name';
 
     public $report_id;
     public $mail;
@@ -74,7 +74,6 @@ class OutShow extends Component
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
 
-            'producebrand_id' => ['required'],
             'deposit_id' => ['required'],
             'observation' => ['nullable', 'between:2,255'],
         ];
@@ -105,8 +104,6 @@ class OutShow extends Component
         $this->comment   = '';
 
         $this->out_id = '';
-        $this->producebrand_id = '';
-        $this->producebrand_name = '';
         $this->deposit_id = '';
         $this->deposit_name = '';
         $this->user_id = '';
