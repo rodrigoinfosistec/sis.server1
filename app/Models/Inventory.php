@@ -220,4 +220,62 @@ class Inventory extends Model
         return true;
     }
 
+    /**
+     * Valida exclusão.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateErase(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de exclusão.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyErase(array $data) : bool {
+        // Percorre todos os Produtos do Balanço.
+        foreach(Inventoryproduce::where('inventory_id', $data['validatedData']['inventory_id'])->get() as $key => $inventoryproduce):
+            // Exclui Produto do Balanço.
+            Inventoryproduce::find($inventoryproduce->id)->delete();
+        endforeach;
+
+        return true;
+    }
+
+    /**
+     * Exclui.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function erase(array $data) : bool {
+        // Exclui.
+        Inventory::find($data['validatedData']['inventory_id'])->delete();
+
+        // Auditoria.
+        Audit::inventoryErase($data);
+
+        // Mensagem.
+        $message = 'Balanço de Produtos excluído com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
 }

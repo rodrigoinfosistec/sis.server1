@@ -297,7 +297,7 @@ class InventoryShow extends Component
      * erase()
      *  exclude()
      */
-    public function erase(int $out_id)
+    public function erase(int $inventory_id)
     {
         // Balanço.
         $inventory = Inventory::find($inventory_id);
