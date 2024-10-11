@@ -101,7 +101,7 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            {{ $item->created_at->format('d/m/y') }}
+            {{ $item->updated_at->format('d/m/y H:m') }}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
