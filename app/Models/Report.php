@@ -1954,4 +1954,42 @@ class Report extends Model
 
         return true;
     }
+
+    /**
+     * Out Generate
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function outGenerate(array $data) : bool {
+        // Define as variáveis.
+        $path = public_path('/storage/pdf/' . $data['config']['name'] . '/');
+        $file_name = 'out_' . $data['validatedData']['out_id'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
+
+        // Gera o arquivo PDF.
+        $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf', [
+            'user'  => auth()->user()->name,
+            'title' => 'Saída',
+            'date'  => date('d/m/Y H:i:s'),
+            'out'   => Out::find($data['validatedData']['out_id']),
+            'list'  => $list = Outproduce::where(
+                'out_id', $data['validatedData']['out_id']
+            )->orderBy('produce_name', 'ASC')->get(), 
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
+
+        // Salva o arquivo PDF.
+        File::makeDirectory($path, $mode = 0777, true, true);
+        $pdf->save($path . $file_name);
+
+        // Registra os dados do arquivo PDF.
+        Report::create([
+            'user_id' => auth()->user()->id,
+            'folder'  => $data['config']['name'],
+            'file'    => $file_name,
+            'reference_1' => $data['validatedData']['out_id'],
+            'reference_2' => auth()->user()->company_id,
+        ]);
+
+        return true;
+    }
 }
