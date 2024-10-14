@@ -15,7 +15,6 @@
 @include('components.' .  $config['name'] . '.modals.add-produce')
 @include('components.' .  $config['name'] . '.modals.edit')
 @include('components.' .  $config['name'] . '.modals.erase')
-@include('components.' .  $config['name'] . '.modals.erase-produce')
 {{-- modal --}}
 
 <x-layout.alert/>
@@ -93,6 +92,12 @@
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
             {{ $item->deposit_name }}
+
+            @if(!$item->finished)
+                <span class="badge text-bg-danger fw-bold" style="">
+                    ABERTO
+                </span>
+            @endif
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
@@ -102,20 +107,20 @@
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
         <div style="line-height: 1;">
-            <span class="text-muted" style="font-size: 7pt;">
-                {{ $item->observation }}
-            </span>
+            @if($item->observation != '')
+                <span class="text-muted" style="font-size: 7pt;">
+                    {{ $item->observation }}
+                </span>
+            @endif
         </div>
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
-<x-layout.card.card-body-content-table-body-line-cell-action width="80">
+<x-layout.card.card-body-content-table-body-line-cell-action width="120">
     @if(!$item->finished)
         <x-layout.card.card-body-content-table-body-line-cell-action-add-produce :id="$item->id"/>
 
         @if(App\Models\Outproduce::where('out_id', $item->id)->exists())
-            <x-layout.card.card-body-content-table-body-line-cell-action-erase-produce :id="$item->id"/>
-
             <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
         @endif
 
