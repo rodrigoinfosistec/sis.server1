@@ -304,9 +304,9 @@ class OutShow extends Component
             $validatedData['out_id'] = $this->out_id;
             $validatedData['deposit_id'] = $this->deposit_id;
 
-            // Percorre os Produtos do Balanço.
+            // Percorre os Produtos da Saída.
             foreach(Outproduce::where('out_id', $this->out_id)->get() as $key => $outproduce):
-                // Monta array do Produto do balanço.
+                // Monta array do Produto da saída.
                 $validatedData['outproduce_id'] = $outproduce->id;
                 $validatedData['score'] = $this->array_produce_score[$outproduce->produce->id];
 
@@ -324,7 +324,7 @@ class OutShow extends Component
                 if ($valid) Out::dependencyEdit($data);
             endforeach;
 
-            // Consolida balanço.
+            // Consolida saída.
             Out::find($this->out_id)->update([
                 'finished' => true,
             ]);

@@ -210,14 +210,14 @@ class InShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->in_id = $in_id;
-        $this->deposit_id = $in->deposit_id;
-        $this->deposit_name = $in->deposit_name;
-        $this->user_id = $in->user_id;
-        $this->user_name = $in->user_name;
-        $this->observation = $in->observation;
-        $this->finished = $in->finished;
-        $this->created = $in->created_at->format('d/m/Y H:i:s');
-        $this->updated = $in->updated_at->format('d/m/Y H:i:s');
+        $this->deposit_id = $in ->deposit_id;
+        $this->deposit_name = $in ->deposit_name;
+        $this->user_id = $in ->user_id;
+        $this->user_name = $in ->user_name;
+        $this->observation = $in ->observation;
+        $this->finished = $in ->finished;
+        $this->created = $in ->created_at->format('d/m/Y H:i:s');
+        $this->updated = $in ->updated_at->format('d/m/Y H:i:s');
     }
         public function registerProduce()
         {
@@ -260,14 +260,14 @@ class InShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->in_id = $in_id;
-        $this->deposit_id = $in->deposit_id;
-        $this->deposit_name = $in->deposit_name;
-        $this->user_id = $in->user_id;
-        $this->user_name = $in->user_name;
-        $this->observation = $in->observation;
-        $this->finished = $in->finished;
-        $this->created = $in->created_at->format('d/m/Y H:i:s');
-        $this->updated = $in->updated_at->format('d/m/Y H:i:s');
+        $this->deposit_id = $in ->deposit_id;
+        $this->deposit_name = $in ->deposit_name;
+        $this->user_id = $in ->user_id;
+        $this->user_name = $in ->user_name;
+        $this->observation = $in ->observation;
+        $this->finished = $in ->finished;
+        $this->created = $in ->created_at->format('d/m/Y H:i:s');
+        $this->updated = $in ->updated_at->format('d/m/Y H:i:s');
     }
 
     /**
@@ -280,15 +280,15 @@ class InShow extends Component
         $in = In::find($in_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->in_id = $in->id;
-        $this->deposit_id = $in->deposit_id;
-        $this->deposit_name = (string)$in->deposit_name;
-        $this->company_id = $in->company_id;
-        $this->user_id = $in->user_id;
-        $this->user_name = (string)$in->user_name;
-        $this->observation = (string)$in->observation;
-        $this->finished = $in->finished;
-        $this->created = $in->created_at->format('d/m/Y H:i:s');
+        $this->in_id = $in ->id;
+        $this->deposit_id = $in ->deposit_id;
+        $this->deposit_name = (string)$in ->deposit_name;
+        $this->company_id = $in ->company_id;
+        $this->user_id = $in ->user_id;
+        $this->user_name = (string)$in ->user_name;
+        $this->observation = (string)$in ->observation;
+        $this->finished = $in ->finished;
+        $this->created = $in ->created_at->format('d/m/Y H:i:s');
 
         // Percorre os Produtos da Entrada.
         foreach(Inproduce::where('in_id', $in_id)->get() as $key => $inproduce):
@@ -304,9 +304,9 @@ class InShow extends Component
             $validatedData['in_id'] = $this->in_id;
             $validatedData['deposit_id'] = $this->deposit_id;
 
-            // Percorre os Produtos do Balanço.
+            // Percorre os Produtos da Entrada.
             foreach(Inproduce::where('in_id', $this->in_id)->get() as $key => $inproduce):
-                // Monta array do Produto do balanço.
+                // Monta array do Produto da Entrada.
                 $validatedData['inproduce_id'] = $inproduce->id;
                 $validatedData['score'] = $this->array_produce_score[$inproduce->produce->id];
 
@@ -324,7 +324,7 @@ class InShow extends Component
                 if ($valid) In::dependencyEdit($data);
             endforeach;
 
-            // Consolida balanço.
+            // Consolida entrada.
             In::find($this->in_id)->update([
                 'finished' => true,
             ]);
@@ -347,15 +347,15 @@ class InShow extends Component
         $in = In::find($in_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->in_id = $in->id;
-        $this->deposit_id = $in->deposit_id;
-        $this->deposit_name = (string)$in->deposit_name;
-        $this->company_id = $in->company_id;
-        $this->user_id = $in->user_id;
-        $this->user_name = (string)$in->user_name;
-        $this->observation = (string)$in->observation;
-        $this->finished = $in->finished;
-        $this->created = $in->created_at->format('d/m/Y H:i:s');
+        $this->in_id = $in ->id;
+        $this->deposit_id = $in ->deposit_id;
+        $this->deposit_name = (string)$in ->deposit_name;
+        $this->company_id = $in ->company_id;
+        $this->user_id = $in ->user_id;
+        $this->user_name = (string)$in ->user_name;
+        $this->observation = (string)$in ->observation;
+        $this->finished = $in ->finished;
+        $this->created = $in ->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
         {
