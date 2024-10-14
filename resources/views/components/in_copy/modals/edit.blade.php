@@ -117,7 +117,7 @@
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="fw-bold text-center" style="width: 75px; font-size: 9pt;">
                             <span class="text-danger">
-                                {{ 0 - @(int)$array_produce_score[$inproduce->produce->id] }}
+                                {{ @(int)$array_produce_score[$inproduce->produce->id] }}
                             </span>
                         </div>
                     </td>

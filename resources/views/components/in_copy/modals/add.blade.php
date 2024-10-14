@@ -18,7 +18,7 @@
             <x-layout.modal.modal-add-body-group-item-option-muted/>
 
             @foreach(App\Models\Deposit::where('company_id', auth()->user()->company_id)->orderBy('name', 'ASC')->get() as $key => $deposit)
-                <option value="{{ $deposit->id }}">{{ $deposit->name }}</option>
+                <option value="{{ (int)$deposit->id }}">{{ $deposit->name }}</option>
             @endforeach
         </select>
 

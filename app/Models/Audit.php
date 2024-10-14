@@ -3989,7 +3989,7 @@ class Audit extends Model
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
             'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
-                'id='                . $data['validatedData']['out_id']       . ',' .
+                'id='                . $data['validatedData']['in_id']       . ',' .
                 'deposit_id='        . $data['validatedData']['deposit_id']   . ',' .
                 'deposit_name='      . $data['validatedData']['deposit_name'] . ',' .
                 'company_id='        . $data['validatedData']['company_id']   . ',' .
