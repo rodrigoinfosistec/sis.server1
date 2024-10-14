@@ -140,6 +140,15 @@ class Inventory extends Model
 
         // ...
 
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+
         return true;
     }
 

@@ -117,8 +117,24 @@ class Out extends Model
     public static function validateEdit(array $data) : bool {
         $message = null;
 
-        // verifica se algum Produto não possui a quantidade disponível no Depósito.
-        
+        // Percorre todos os produtos da Saída.
+        foreach(Outproduce::where('out_id', $data['validatedData']['out_id'])->get() as $key => $outproduce):
+            // Quantidade do Produto no depósito.
+            $qtd_dep = Producedeposit::where(['produce_id' => $outproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity;
+
+            // Verifica se existe a quantidade no Depósito.
+            if($qtd_dep < $data['validatedData']['score']):
+                $message = "Produto " . $outproduce->produce_name . " com quantidade indisponível no Depósito.";
+            endif;
+        endforeach;
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
 
         return true;
     }
