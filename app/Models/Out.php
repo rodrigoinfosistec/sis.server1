@@ -117,7 +117,8 @@ class Out extends Model
     public static function validateEdit(array $data) : bool {
         $message = null;
 
-        // ...
+        // verifica se algum Produto não possui a quantidade disponível no Depósito.
+        
 
         return true;
     }

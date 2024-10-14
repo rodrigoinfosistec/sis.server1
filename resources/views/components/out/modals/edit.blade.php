@@ -102,7 +102,7 @@
                     {{-- SAÍDA --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text-center" style="width: 75px; padding-top: 0; margin-top: 0;">
-                            <input type="text" wire:model="array_produce_score.{{ $outproduce->produce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 70px; margin-top: 0;" id="array_produce_score_{{ $outproduce->produce->id }}" required>
+                            <input type="number" min="1" wire:model="array_produce_score.{{ $outproduce->produce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 70px; margin-top: 0;" id="array_produce_score_{{ $outproduce->produce->id }}" required>
                         </div>
                     </td>
 
