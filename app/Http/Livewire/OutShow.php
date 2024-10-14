@@ -393,30 +393,22 @@ class OutShow extends Component
      */
     public function eraseProduce(int $outproduce_id)
     {
-        // Saída.
-        $outproduce = Outproduce::find($outproduce_id);
-
-        // Inicializa propriedades dinâmicas.
-        $this->outproduce_id = $outproduce->id;
-        $this->out_id        = $outproduce->out_id;
-        $this->produce_id    = $outproduce->produce_id;
-        $this->produce_name  = (string)$outproduce->produce_name;
-        $this->quantity_old  = $outproduce->quantity_old;
-        $this->quantity      = $outproduce->quantity;
-        $this->quantity_diff = $outproduce->quantity_diff;
-        $this->created       = $outproduce->created_at->format('d/m/Y H:i:s');
+        // ...
     }
-        public function excludeProduce()
+        public function excludeProduce(int $outproduce_id)
         {
+            // Saída.
+            $outproduce = Outproduce::find($outproduce_id);
+
             // Define $validatedData
-            $validatedData['outproduce_id'] = $this->outproduce_id;
-            $validatedData['out_id']        = $this->out_id;
-            $validatedData['produce_id']    = $this->produce_id;
-            $validatedData['produce_name']  = $this->produce_name;
-            $validatedData['quantity_old']  = $this->quantity_old;
-            $validatedData['quantity']      = $this->quantity;
-            $validatedData['quantity_diff'] = $this->quantity_diff;
-            $validatedData['created']       = $this->created;
+            $validatedData['outproduce_id'] = $outproduce->id;
+            $validatedData['out_id']        = $outproduce->out_id;
+            $validatedData['produce_id']    = $outproduce->produce_id;
+            $validatedData['produce_name']  = (string)$outproduce->produce_name;
+            $validatedData['quantity_old']  = $outproduce->quantity_old;
+            $validatedData['quantity']      = $outproduce->quantity;
+            $validatedData['quantity_diff'] = $outproduce->quantity_diff;
+            $validatedData['created']       = $outproduce->created_at->format('d/m/Y H:i:s');
 
             // Define $data.
             $data['config']        = $this->config;

@@ -29,6 +29,13 @@
                     </div>
                 </th>
 
+                {{-- ERASE --}}
+                <th class="" style="padding: 0;">
+                    <div class="text-right" style="width: 26px;">
+                        <i class="bi-trash3-fill" style="font-size: 10pt;"></i>
+                    </div>
+                </th>
+
                 <th class="" style="padding: 0;">
                     <div class="text-center" style="width: 75px;">
                         SAÍDA
@@ -80,6 +87,15 @@
                             <span class="fw-bold text-primary">
                                 {{ $outproduce->produce->reference }}
                             </span>
+                        </div>
+                    </td>
+
+                    {{-- ERASE --}}
+                    <td class="align-middle" style="line-height: 1; padding: 0;">
+                        <div class="" style="width: 30px;">
+                            <a type="button" wire:click="excludeProduce({{ $outproduce->id }})" class="btn btn-link btn-sm" title="Excluir Produto">
+                                <i class="bi-trash3-fill text-danger" style="font-size: 14pt;"></i>
+                            </a>
                         </div>
                     </td>
 
