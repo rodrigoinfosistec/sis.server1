@@ -83,6 +83,7 @@ class InShow extends Component
             'observation' => ['nullable', 'between:2,255'],
 
             'produce_id' => ['required'],
+            'quantity' => ['required'],
         ];
     }
 
@@ -224,13 +225,14 @@ class InShow extends Component
             // Valida campos.
             $validatedData = $this->validate([
                 'produce_id' => ['required'],
-                'quantity' => ['required'],
+                'quantity' => ['required', 'numeric', 'min:1'],
             ]);
 
             // Estende $validatedData.
             $validatedData['in_id'] = $this->in_id;
             $validatedData['deposit_id'] = $this->deposit_id;
-            $validatedData['quantity_encode'] = General::encodeFloat2($validatedData['quantity']);
+            $validatedData['quantity_encode'] = $validatedData['quantity'];
+            $validatedData['quantity'] = General::decodeFloat2($validatedData['quantity']);
 
             // Define $data.
             $data['config']        = $this->config;
