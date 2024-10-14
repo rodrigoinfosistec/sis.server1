@@ -57,12 +57,6 @@ class Inproduce extends Model
             // Verifica se o produto não existe no Depósito.
             if(Producedeposit::where(['produce_id' => $data['validatedData']['produce_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->doesntExist()):
                 $message = 'Produto não cadastrado neste Depósito.';
-            else:
-                // Verifica se o Depósito possui a quantidade de Produto.
-                if(Producedeposit::where(['produce_id' => $data['validatedData']['produce_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity < $data['validatedData']['quantity_encode']):
-                    $producedeposit = Producedeposit::where(['produce_id' => $data['validatedData']['produce_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->first();
-                    $message = 'Quantidade no Depósito: ' . General::decodeFloat2($producedeposit->quantity, 2) . ' menor do que a desejada:' . $data['validatedData']['quantity'] . '.';
-                endif;
             endif;
         endif;
 
