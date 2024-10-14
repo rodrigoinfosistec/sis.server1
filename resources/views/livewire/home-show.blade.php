@@ -11,7 +11,7 @@ Auth()->user()->usergroup_id,
                 <i class="bi-arrow-down"></i>
                 SAÍDA
             </a>
-            <a href="{{ route('in') }}" class="list-group-item list-group-item-action text-success">
+            <a href="{{-- route('in') --}}" class="list-group-item list-group-item-action text-success">
                 <i class="bi-plus-square-dotted"></i>
                 ENTRADA
             </a>
