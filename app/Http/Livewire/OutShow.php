@@ -205,7 +205,7 @@ class OutShow extends Component
      */
     public function addProduce(int $out_id)
     {
-        // Balanço.
+        // Saída.
         $out = Out::find($out_id);
 
         // Inicializa propriedades dinâmicas.
@@ -255,7 +255,7 @@ class OutShow extends Component
      */
     public function detail(int $out_id)
     {
-        // Balanço.
+        // Saída.
         $out = Out::find($out_id);
 
         // Inicializa propriedades dinâmicas.
