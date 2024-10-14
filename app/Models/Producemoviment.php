@@ -23,6 +23,8 @@ class Producemoviment extends Model
         'company_id',
         'user_id',
 
+        'type',
+
         'user_id',
         'identification',
 

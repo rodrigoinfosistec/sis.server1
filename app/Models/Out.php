@@ -152,7 +152,7 @@ class Out extends Model
             'deposit_id' => $data['validatedData']['deposit_id'],
             'company_id' => auth()->user()->company_id,
             'user_id' => auth()->user()->id,
-            'type' => 'saída',
+            'type' => 'saida',
             'identification' => '{' . 
                 'out_id:'    . $data['validatedData']['out_id']    . ',' .
             '}',

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('deposit_id');
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('user_id');
-            $table->enum('type', ['balanço', 'saída', 'entrada', 'transferência']);
+            $table->enum('type', ['balanco', 'saida', 'entrada', 'transferencia']);
 
             $table->string('identification');
 

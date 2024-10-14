@@ -185,7 +185,7 @@ class Inventory extends Model
             'deposit_id' => $data['validatedData']['deposit_id'],
             'company_id' => auth()->user()->company_id,
             'user_id' => auth()->user()->id,
-            'type' => 'balanço',
+            'type' => 'balanco',
             'identification' => '{' . 
                 'inventory_id:'    . $data['validatedData']['inventory_id']    . ',' .
                 'producebrand_id:' . $data['validatedData']['producebrand_id'] . ',' .
