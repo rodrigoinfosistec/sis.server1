@@ -1,5 +1,5 @@
-<x-layin.modal.modal-detail modal="detail" size="modal-fullscreen">
-    <x-layin.modal.modal-detail-header icon="bi-eye" modal="detail">
+<x-layout.modal.modal-detail modal="detail" size="modal-fullscreen">
+    <x-layout.modal.modal-detail-header icon="bi-eye" modal="detail">
         {{ $config['title'] }}
 
         <x-slot:identifier>
@@ -7,9 +7,9 @@
             <br>
             DEPÓSITO<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $deposit_name }}</span>
         </x-slot>
-    </x-layin.modal.modal-detail-header>
+    </x-layout.modal.modal-detail-header>
 
-    <x-layin.modal.modal-detail-body>
+    <x-layout.modal.modal-detail-body>
 
 {{-- conteúdo --}}
 <ol class="list-group list-group-numbered">
@@ -24,5 +24,5 @@
 </ol>
 {{-- conteúdo --}}
 
-    </x-layin.modal.modal-detail-body>
-</x-layin.modal.modal-detail>
+    </x-layout.modal.modal-detail-body>
+</x-layout.modal.modal-detail>

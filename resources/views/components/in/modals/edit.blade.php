@@ -1,5 +1,5 @@
-<x-layin.modal.modal-edit modal="edit" size="modal-fullscreen">
-    <x-layin.modal.modal-edit-header icon="bi-pencil-square" modal="edit">
+<x-layout.modal.modal-edit modal="edit" size="modal-fullscreen">
+    <x-layout.modal.modal-edit-header icon="bi-pencil-square" modal="edit">
         {{ $config['title'] }}
 
         <x-slot:identifier>
@@ -7,9 +7,9 @@
             <br>
             DEPÓSITO<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $deposit_name }}</span>
         </x-slot>
-    </x-layin.modal.modal-edit-header>
+    </x-layout.modal.modal-edit-header>
 
-    <x-layin.modal.modal-edit-body method="modernize">
+    <x-layout.modal.modal-edit-body method="modernize">
 
 {{-- conteúdo --}}
 <div class="table-responsive">
@@ -102,7 +102,7 @@
                     {{-- ENTRADA --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text-center" style="width: 75px; padding-top: 0; margin-top: 0;">
-                            <input type="text" wire:model="array_produce_score.{{ $inproduce->produce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 70px; margin-top: 0;" id="array_produce_score_{{ $inproduce->produce->id }}" required>
+                            <input type="number" min="1" wire:model="array_produce_score.{{ $inproduce->produce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 70px; margin-top: 0;" id="array_produce_score_{{ $inproduce->produce->id }}" required>
                         </div>
                     </td>
 
@@ -128,7 +128,7 @@
 </div>
 {{-- conteúdo --}}
 
-    </x-layin.modal.modal-edit-body>
+    </x-layout.modal.modal-edit-body>
 
-    <x-layin.modal.modal-edit-footer/>
-</x-layin.modal.modal-edit>
+    <x-layout.modal.modal-edit-footer/>
+</x-layout.modal.modal-edit>
