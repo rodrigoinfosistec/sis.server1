@@ -32,7 +32,9 @@
 
             // Monta o array.
             foreach(App\Models\Producedeposit::where('deposit_id', $deposit_id)->get() as $key => $producedeposit):
-                $array[] =  $producedeposit->produce_id;
+                if(App\Models\Produce::find($producedeposit->produce_id)->status):
+                    $array[] =  $producedeposit->produce_id;
+    endif;
             endforeach;
         @endphp
         <input wire:model="produce_id" type="text" class="form-control form-control-sm" list="produces" id="produce_id">

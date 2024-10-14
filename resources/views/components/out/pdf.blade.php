@@ -71,7 +71,7 @@
 
 <x-layout.pdf.pdf-table-header-column>
     <div class="" style="width: 40px;">
-        DIFER.
+        DEPOIS
     </div>
 </x-layout.pdf.pdf-table-header-column>
 {{-- conteúdo título --}}
@@ -120,17 +120,17 @@
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
-{{-- QUANTIDADE --}}
+{{-- SAÍDA --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="text-dark fw-bold" style="width: 80px; font-size: 10pt;">
         {{ App\Models\General::decodeFloat2($item->quantity) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
-{{-- DIFER. --}}
+{{-- DEPOIS --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="" style="width: 50px;">
-        {{ App\Models\General::decodeFloat2($item->quantity_diff) }}
+        {{ App\Models\General::decodeFloat2($item->quantity_old - $item->quantity) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 {{-- conteúdo --}}
