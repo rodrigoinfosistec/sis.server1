@@ -132,17 +132,18 @@ class Out extends Model
         // Produto do Saída.
         $outproduce = Outproduce::find($data['validatedData']['outproduce_id']);
 
-        // Atualiza quantidade do Produto no Saída.
-        Outproduce::find($data['validatedData']['outproduce_id'])->update([
-            'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
-            'quantity_diff' => 0 - General::encodeFloat($data['validatedData']['score'], 7)
-        ]);
-
         $quantity_old = Producedeposit::where(['produce_id' => $outproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity;
 
         // Atualiza quantidade do Produto no Depósito.
         Producedeposit::where(['produce_id' => $outproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->update([
             'quantity' => $quantity_old - General::encodeFloat($data['validatedData']['score'], 7),
+        ]);
+
+        // Atualiza quantidade do Produto no Saída.
+        Outproduce::find($data['validatedData']['outproduce_id'])->update([
+            'quantity_old' => $quantity_old,
+            'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
+            'quantity_diff' => 0 - General::encodeFloat($data['validatedData']['score'], 7)
         ]);
 
         // Regista Movimentação do produto.
