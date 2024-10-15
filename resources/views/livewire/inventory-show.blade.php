@@ -130,7 +130,9 @@
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
 
-        <x-layout.card.card-body-content-table-body-line-cell-action-print-inventory :id="$item->id"/>
+        <a href="{{ asset('storage/pdf/inventory/' . @App\Models\Report::where(['folder' => 'inventory', 'reference_1' => $item->id, 'reference_2' => auth()->user()->company_id])->first()->file) }}" target="_blank" class="btn btn-link btn-sm" style="padding: 0px 5px 0px 5px;" title="PDF">
+            <i class="bi-file-pdf text-secondary" style="font-size: 20px;"></i>
+        </a>
     @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
