@@ -8,12 +8,13 @@
             {{ $reference }}
             <i class="bi-caret-right-fill text-muted"></i>
             <span class="text-muted">{{ $ean }}</span>
-            @foreach(App\Models\Producedeposit::where(['produce_id' => $item->id])->get() as $key => $producedeposit)
+            @foreach(App\Models\Producedeposit::where(['produce_id' => $produce_id])->get() as $key => $producedeposit)
                 <br>
                 <span class="text-danger fw-bold">{{ $loop->iteration }}.</span><span class="text-dark">{{ $producedeposit->deposit->name }}</span>
                 <i class="bi-caret-right-fill text-muted"></i>
                 <span class="text-dark fw-bold" style="font-size: 9pt;">
-                    {{ App\Models\Generate::decodeFloat2($producedeposit->quantity) }}
+                    {{ App\Models\General::decodeFloat2($producedeposit->quantity) }}
+                    {{ $producedeposit->produce->producemeasure_name }}
                 </span>
             @endforeach
         </x-slot>
@@ -57,7 +58,7 @@
 
 {{-- conteúdo --}}
 {{-- CHECKBOX --}}
-<td class="align-middle" style="line-height: 1; padding: 0;">
+<td class="align-middle" style="line-height: 1; padding: 0; padding-top: 10px; padding-bottom: 10px;">
     <div class="" style="width: 22px;">
         <div class="form-check" style="margin: 3px 0 3px 0;">
             <input type="checkbox" class="form-check-input" style="width: 15px; height: 15px;" onchange="closest('tr').classList.toggle('row_selected')">
@@ -68,14 +69,21 @@
 {{-- DESCRIÇÃO --}}
 <td class="align-middle" style="line-height: 1; padding: 0;">
     <div class="fw-bold" style="margin-right: 5px; min-width: 240px; font-size: 10pt;">
-        {{ $producemoviment->identification }}
+        {{ App\Models\Deposit::find($producemoviment->deposit_id)->name }}
+        <br>
+        <span class="text-danger">
+            {{ Illuminate\Support\Str::upper(App\Models\Producemoviment::typeName($producemoviment->type)) }}
+            {{ App\Models\Producemoviment::identification($producemoviment->identification) }}
+        </span>
     </div>
 </td>
 
 {{-- QUANTIDADE --}}
 <td class="align-middle" style="line-height: 1; padding: 0;">
-    <div class="fw-bold" style="width: 90px; font-size: 10pt;">
+    <div class="fw-bold text-primary" style="width: 90px; font-size: 11pt;">
         {{ App\Models\General::decodeFloat2($producemoviment->quantity) }}
+        <br>
+        <span class="text-muted" style="font-size: 8pt;">{{ $producemoviment->produce->producemeasure_name }}</span>
     </div>
 </td>
 
