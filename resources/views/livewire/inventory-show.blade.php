@@ -107,7 +107,9 @@
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
         <div style="line-height: 1;">
-            {{ $item->producebrand_name }}
+            <span class="text-primary fw-bold" style="font-size:9pt;">
+                {{ $item->producebrand_name }}
+            </span>
 
             @if($item->observation != '')
                 <br>
