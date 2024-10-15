@@ -301,7 +301,7 @@ class Config extends Model
             ],
             [
                 'name'  => 'inventory',
-                'title' => 'Balanço de Estoque',
+                'title' => 'Balanço',
                 'icon'  => 'bi-boxes',
                 'test'  => true,
             ],
@@ -315,6 +315,12 @@ class Config extends Model
                 'name'  => 'in',
                 'title' => 'Entrada',
                 'icon'  => 'bi-plus-square-dotted',
+                'test'  => true,
+            ],
+            [
+                'name'  => 'rapier',
+                'title' => 'Estoque',
+                'icon'  => 'bi-box',
                 'test'  => true,
             ],
         ];
