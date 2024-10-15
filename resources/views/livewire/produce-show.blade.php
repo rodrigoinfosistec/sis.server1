@@ -133,6 +133,21 @@
 
                 {{ $item->producebrand_name }}
             </span>
+
+            {{-- DEPÓSITO(S) --}}
+            <div class="fw-bold text-dark" style="font-size: 9pt;">
+                @foreach(App\Models\Producedeposit::where(['produce_id' => $item->id])->get() as $key => $producedeposit)
+                    {{ $producedeposit->deposit->name }}<span class="text-muted"><i class="bi-caret-right-fill"></i></span>
+                    <span class="text-primary" style="font-size: 10pt;">
+                        {{ number_format($producedeposit->quantity) }}
+                    </span>
+                    {{ $item->producemeasure_name }}
+
+                    @if(!$loop->last)
+                        <br>
+                    @endif
+                @endforeach
+            </div>
         </div>
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
