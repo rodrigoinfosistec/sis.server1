@@ -17,10 +17,16 @@
 <ol class="list-group list-group-numbered">
     @foreach(App\Models\Inventoryproduce::where('inventory_id', $inventory_id)->get() as $key => $inventoryproduce)
         <li class="list-group-item d-flex justify-content-between align-items-start" style="font-size: 9pt;">
-            <div class="ms-2 me-auto text-dark" style="font-size: 9pt;">
+            <div class="ms-2 me-auto text-primary fw-bold" style="line-height: 1; font-size: 10pt;">
                 {{ $inventoryproduce->produce->name }}
+                <br>
+                <span class="text-muted" style="font-size: 8pt;">
+                    {{ $inventoryproduce->produce->producebrand_name }}
+                    <i class="bi-caret-right-fill"></i>
+                    {{ $inventoryproduce->produce->producemeasure_name }}
+                </span>
             </div>
-            <span class="badge text-bg-secondary rounded-pill">{{ number_format($inventoryproduce->quantity) }}</span>
+            <span class="badge text-bg-dark rounded-pill" style="font-size: 10pt;">{{ number_format($inventoryproduce->quantity) }}</span>
         </li>
     @endforeach
 </ol>

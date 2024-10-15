@@ -15,8 +15,14 @@
 <ol class="list-group list-group-numbered">
     @foreach(App\Models\Inproduce::where('in_id', $in_id)->get() as $key => $inproduce)
         <li class="list-group-item d-flex justify-content-between align-items-start" style="font-size: 9pt;">
-            <div class="ms-2 me-auto text-primary fw-bold" style="font-size: 10pt;">
+            <div class="ms-2 me-auto text-primary fw-bold" style="line-height: 1; font-size: 10pt;">
                 {{ $inproduce->produce->name }}
+                <br>
+                <span class="text-muted" style="font-size: 8pt;">
+                    {{ $inproduce->produce->producebrand_name }}
+                    <i class="bi-caret-right-fill"></i>
+                    {{ $inproduce->produce->producemeasure_name }}
+                </span>
             </div>
             <span class="badge text-bg-dark rounded-pill" style="font-size: 10pt;">{{ number_format($inproduce->quantity) }}</span>
         </li>
