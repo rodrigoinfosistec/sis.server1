@@ -180,9 +180,24 @@ class ProduceShow extends Component
     /** 
      * detail()
      */
-    public function detail(int $product_id)
+    public function detail(int $produce_id)
     {
-        // ...
+        // Produto.
+        $produce = Produce::find($produce_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->produce_id = $produce_id;
+        $this->name = $produce->name;
+        $this->reference = $produce->reference;
+        $this->ean = $produce->ean;
+        $this->producebrand_id = $produce->producebrand_id;
+        $this->producebrand_name = $produce->producebrand_name;
+        $this->producemeasure_id = $produce->producemeasure_id;
+        $this->producemeasure_name = $produce->producemeasure_name;
+        $this->company_id = $produce->company_id;
+        $this->observation = $produce->observation;
+        $this->status = $produce->status;
+        $this->created = $produce->created_at->format('d/m/Y H:i:s');
     }
 
     /**
