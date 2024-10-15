@@ -109,7 +109,13 @@
 {{-- DESCRIÇÃO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="" style="width: 300px; line-height: 1.0;">
-        {{ $item->produce->name }}
+        <span class="text-dark fw-bold">
+            {{ $item->produce->name }}
+        </span>
+        <br>
+        <span class="text-muted" style="font-size: 7pt;">
+            {{ $item->produce->producebrand_name }}
+        </span>
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
