@@ -88,7 +88,7 @@
                     {{-- CONTAGEM --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text" style="width: 75px;">
-                            <input type="text" wire:model="array_produce_score.{{ $inventoryproduce->produce->id }}" class="form-control form-control-sm" style="font-size: 8pt; padding: 0 2px 0 2px; width: 70px;" id="array_produce_score_{{ $inventoryproduce->produce->id }}" required>
+                            <input type="number" min="1" wire:model="array_produce_score.{{ $inventoryproduce->produce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 70px;" id="array_produce_score_{{ $inventoryproduce->produce->id }}" required>
                         </div>
                     </td>
 
