@@ -64,8 +64,8 @@ class ProduceShow extends Component
             'comment'   => ['nullable', 'between:2,255'],
 
             'name' => ['required', 'between:2,255'],
-            'reference' => ['nullable', 'between:2,255'],
-            'ean' => ['nullable', 'numeric', 'between:13,14', 'unique:produces,ean,'.$this->produce_id.''],
+            'reference' => ['required', 'between:2,255'],
+            'ean' => ['required', 'numeric', 'min:13', 'unique:produces,ean,'.$this->produce_id.''],
             'producebrand_id' => ['required'],
             'producemeasure_id' => ['required'],
             'observation' => ['nullable', 'between:2,255'],
@@ -146,8 +146,8 @@ class ProduceShow extends Component
             // Valida campos.
             $validatedData = $this->validate([
                 'name' => ['required', 'between:2,255'],
-                'reference' => ['nullable', 'between:2,255'],
-                'ean' => ['nullable', 'between:13,14', 'unique:produces'],
+                'reference' => ['required', 'between:2,255'],
+                'ean' => ['required', 'min:13', 'unique:produces'],
                 'producebrand_id' => ['required'],
                 'producemeasure_id' => ['required'],
                 'observation' => ['nullable', 'between:2,255'],
@@ -205,8 +205,8 @@ class ProduceShow extends Component
             // Valida campos.
             $validatedData = $this->validate([
                 'name' => ['required', 'between:2,255'],
-                'reference' => ['nullable', 'between:2,255'],
-                'ean' => ['nullable', 'between:13,14', 'unique:produces'],
+                'reference' => ['required', 'between:2,255'],
+                'ean' => ['required', 'numeric', 'min:13', 'unique:produces,ean,'.$this->produce_id.''],
                 'producebrand_id' => ['required'],
                 'producemeasure_id' => ['required'],
                 'observation' => ['nullable', 'between:2,255'],

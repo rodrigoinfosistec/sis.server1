@@ -3,9 +3,13 @@
         {{ $config['title'] }}
 
         <x-slot:identifier>
-            CNPJ {{ $cnpj }}
+            <span class="text-primary fw-bold" style="font-size: 11pt;">
+                {{ $name }}
+            </span>
             <br>
-            {{ $name }}
+            <span class="text-muted">
+                {{ $producebrand_name }}
+            </span>
         </x-slot>
     </x-layout.modal.modal-edit-header>
 
@@ -14,30 +18,37 @@
 {{-- conteúdo --}}
 <x-layout.modal.modal-edit-body-group>
     <x-layout.modal.modal-edit-body-group-item columms="6">
-        <x-layout.modal.modal-edit-body-group-item-label item="cnpj" title="CNPJ" plus="none"/>
+        <x-layout.modal.modal-edit-body-group-item-label item="producebrand_id" title="MARCA" plus="producebrand"/>
 
-        <input type="text" wire:model="cnpj" class="form-control form-control-sm" id="cnpj" onKeyUp="maskCnpj(this, event)" disabled>
+        <select wire:model="producebrand_id" class="form-select form-select-sm text-uppercase" id="producebrand_id">
+            <x-layout.modal.modal-edit-body-group-item-option-muted/>
 
-        <x-layout.modal.modal-edit-body-group-item-error item="cnpj" message="$message"/>
+            @foreach(App\Models\Producebrand::where('status', true)->orderBy('name', 'ASC')->get() as $key => $producebrand)
+                <option value="{{ $producebrand->id }}">{{ $producebrand->name }}</option>
+            @endforeach
+        </select>
+
+        <x-layout.modal.modal-edit-body-group-item-error item="producebrand_id" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>
 
     <x-layout.modal.modal-edit-body-group-item columms="6">
-        <x-layout.modal.modal-edit-body-group-item-label item="price" title="PREÇO TIPO" plus="none"/>
+        <x-layout.modal.modal-edit-body-group-item-label item="producemeasure_id" title="EMBALAGEM" plus="producemeasure"/>
 
-        <select wire:model="price" class="form-select form-select-sm text-uppercase" id="price">
+        <select wire:model="producemeasure_id" class="form-select form-select-sm text-uppercase" id="producemeasure_id">
             <x-layout.modal.modal-edit-body-group-item-option-muted/>
 
-            <option value="1">1</option>
-            <option value="2">2</option>
+            @foreach(App\Models\Producemeasure::where('status', true)->orderBy('name', 'ASC')->get() as $key => $producemeasure)
+                <option value="{{ $producemeasure->id }}">{{ $producemeasure->name }}</option>
+            @endforeach
         </select>
 
-        <x-layout.modal.modal-edit-body-group-item-error item="price" message="$message"/>
+        <x-layout.modal.modal-edit-body-group-item-error item="producemeasure_id" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
 
 <x-layout.modal.modal-edit-body-group>
     <x-layout.modal.modal-edit-body-group-item columms="12">
-        <x-layout.modal.modal-edit-body-group-item-label item="name" title="RAZÃO SOCIAL" plus="none"/>
+        <x-layout.modal.modal-edit-body-group-item-label item="name" title="NOME" plus="none"/>
 
         <input type="text" wire:model="name" class="form-control form-control-sm" id="name">
 
@@ -46,12 +57,30 @@
 </x-layout.modal.modal-edit-body-group>
 
 <x-layout.modal.modal-edit-body-group>
+    <x-layout.modal.modal-edit-body-group-item columms="6">
+        <x-layout.modal.modal-edit-body-group-item-label item="reference" title="REFERÊNCIA" plus="none"/>
+
+        <input type="text" wire:model="reference" class="form-control form-control-sm" id="reference">
+
+        <x-layout.modal.modal-edit-body-group-item-error item="reference" message="$message"/>
+    </x-layout.modal.modal-edit-body-group-item>
+
+    <x-layout.modal.modal-edit-body-group-item columms="6">
+        <x-layout.modal.modal-edit-body-group-item-label item="ean" title="EAN" plus="none"/>
+
+        <input type="text" wire:model="ean" class="form-control form-control-sm" id="ean">
+
+        <x-layout.modal.modal-edit-body-group-item-error item="ean" message="$message"/>
+    </x-layout.modal.modal-edit-body-group-item>
+</x-layout.modal.modal-edit-body-group>
+
+<x-layout.modal.modal-edit-body-group>
     <x-layout.modal.modal-edit-body-group-item columms="12">
-        <x-layout.modal.modal-edit-body-group-item-label item="nickname" title="NOME FANTASIA" plus="none"/>
+        <textarea wire:model="observation" class="form-control form-control-sm" id="observation" rows="6"></textarea>
 
-        <input type="text" wire:model="nickname" class="form-control form-control-sm" id="nickname">
+        <x-layout.modal.modal-mail-body-group-item-count :comment="$observation"/>
 
-        <x-layout.modal.modal-edit-body-group-item-error item="nickname" message="$message"/>
+        <x-layout.modal.modal-mail-body-group-item-error item="observation" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
 {{-- conteúdo --}}
