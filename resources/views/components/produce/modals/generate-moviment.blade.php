@@ -21,7 +21,12 @@
                     GERAR RELATÓRIO COMPLETO.
                 </div>
 
-                <x-layout.modal.modal-generate-footer/>
+                <div class="modal-footer">
+                    <button wire:loading.attr="disabled" type="submit" class="btn btn-sm btn-dark">
+                        <span wire:loading class="spinner-border spinner-border-sm" role="status"></span>
+                        Gerar
+                    </button>
+                </div>
             </form>
         </div>
     </div>
