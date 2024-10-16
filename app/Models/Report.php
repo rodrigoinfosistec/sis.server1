@@ -2041,7 +2041,7 @@ class Report extends Model
         // Gera o arquivo PDF.
         $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf-moviment', [
             'user'         => auth()->user()->name,
-            'title'        => 'Movimentação do Produto',
+            'title'        => 'Mov. Produto',
             'date'         => date('d/m/Y H:i:s'),
             'produce'      => Produce::find($data['validatedData']['produce_id']),
             'list'         => Producemoviment::where([

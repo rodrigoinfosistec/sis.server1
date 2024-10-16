@@ -1,7 +1,7 @@
 <div wire:ignore.self class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="generateMovimentModal" tabindex="-1" aria-labelledby="generateMovimentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
-            <form wire:submit.prevent="sire" enctype="multipart/form-data">
+            <form wire:submit.prevent="sireMoviment" enctype="multipart/form-data">
                 <div class="modal-header">
                     <div class="modal-title" id="generateMovimentModalLabel" style="line-height: 1.1; margin-right: 10px;">
                         <h5>
