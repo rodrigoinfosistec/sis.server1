@@ -113,6 +113,77 @@ class Produce extends Model
     }
 
     /**
+     * Valida atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateEdit(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Atualiza.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function edit(array $data) : bool {
+        // Before.
+        $before = Produce::find($data['validatedData']['produce_id']);
+
+        // Atualiza.
+        Produce::find($data['validatedData']['produce_id'])->update([
+            'name'                => Str::upper($data['validatedData']['name']),
+            'reference'           => $data['validatedData']['reference'],
+            'ean'                 => $data['validatedData']['ean'],
+            'producebrand_id'     => $data['validatedData']['producebrand_id'],
+            'producebrand_name'   => Producebrand::find($data['validatedData']['producebrand_id'])->name,
+            'producemeasure_id'   => $data['validatedData']['producemeasure_id'],
+            'producemeasure_name' => Producemeasure::find($data['validatedData']['producemeasure_id'])->name,
+            'company_id'          => Auth()->user()->company_id,
+            'observation'         => $data['validatedData']['observation'],
+        ]);
+
+        // After.
+        $after = Produce::find($data['validatedData']['produce_id']);
+
+        // Auditoria.
+        Audit::produceEdit($data, $before, $after);
+
+        // Mensagem.
+        $message = $data['config']['title'] . ' ' .  $after->name . ' atualizada com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyEdit(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
      * Valida geração de relatório.
      * @var array $data
      * 

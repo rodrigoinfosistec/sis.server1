@@ -3829,6 +3829,37 @@ class Audit extends Model
     }
 
     /**
+     * Auditoria Produce Edit.
+     * @var array $data
+     * @var object $before
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function produceEdit(array $data, object $before, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[atualizou]' . $data['config']['title'] . ' {' .
+                'id='                  . $before->id                  . '>' . $after->id                  . ',' .
+                'name='                . $before->name                . '>' . $after->name                . ',' .
+                'reference='           . $before->reference           . '>' . $after->reference           . ',' .
+                'ean='                 . $before->ean                 . '>' . $after->ean                 . ',' .
+                'producebrand_id='     . $before->producebrand_id     . '>' . $after->producebrand_id     . ',' .
+                'producebrand_name='   . $before->producebrand_name   . '>' . $after->producebrand_name   . ',' .
+                'producemeasure_id='   . $before->producemeasure_id   . '>' . $after->producemeasure_id   . ',' .
+                'producemeasure_name=' . $before->producemeasure_name . '>' . $after->producemeasure_name . ',' .
+                'company_id='          . $before->company_id          . '>' . $after->company_id          . ',' .
+                'observation='         . $before->observation         . '>' . $after->observation         . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
      * Auditoria Produce Generate.
      * @var array $data
      * 
@@ -3841,6 +3872,27 @@ class Audit extends Model
             'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
             'page_name' => $data['config']['name'],
             'extensive' => '[gerou relatório]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name'] . ',' .
+                'file_name=' . $data['file_name']      . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Producemoviment Generate.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function produceMovimentGenerate(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[gerou relatório]' . 'Movimentação de Produto' . '{' .
                 'folder='    . $data['config']['name'] . ',' .
                 'file_name=' . $data['file_name']      . ',' .
             '}',
@@ -4000,24 +4052,4 @@ class Audit extends Model
         return true;
     }
 
-    /**
-     * Auditoria Producemoviment Generate.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function produceMovimentGenerate(array $data) : bool {
-        Audit::create([
-            'user_id'   => auth()->user()->id,
-            'user_name' => Str::upper(auth()->user()->name),
-            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
-            'page_name' => $data['config']['name'],
-            'extensive' => '[gerou relatório]' . 'Movimentação de Produto' . '{' .
-                'folder='    . $data['config']['name'] . ',' .
-                'file_name=' . $data['file_name']      . ',' .
-            '}',
-        ]);
-
-        return true;
-    }
 }

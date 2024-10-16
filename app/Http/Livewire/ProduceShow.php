@@ -177,6 +177,67 @@ class ProduceShow extends Component
             return redirect()->to('/produce');
         }
 
+    /**
+     * edit()
+     *  modernize()
+     */
+    public function edit(int $produce_id)
+    {
+        // Produto.
+        $produce = Produce::find($produce_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->produce_id = $produce_id;
+        $this->name = $produce->name;
+        $this->reference = $produce->reference;
+        $this->ean = $produce->ean;
+        $this->producebrand_id = $produce->producebrand_id;
+        $this->producebrand_name = $produce->producebrand_name;
+        $this->producemeasure_id = $produce->producemeasure_id;
+        $this->producemeasure_name = $produce->producemeasure_name;
+        $this->company_id = $produce->company_id;
+        $this->observation = $produce->observation;
+        $this->status = $produce->status;
+        $this->created = $produce->created_at->format('d/m/Y H:i:s');
+    }
+        public function modernize()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'name' => ['required', 'between:2,255'],
+                'reference' => ['nullable', 'between:2,255'],
+                'ean' => ['nullable', 'between:13,14', 'unique:produces'],
+                'producebrand_id' => ['required'],
+                'producemeasure_id' => ['required'],
+                'observation' => ['nullable', 'between:2,255'],
+            ]);
+
+            // Estende $validatedData
+            if(!isset($validatedData['observation'])):
+                $validatedData['observation'] = '';
+            endif;
+
+            // Estende $validatedData
+            $validatedData['produce_id'] = $this->produce_id;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Produce::validateEdit($data);
+
+            // Atualiza.
+            if ($valid) Produce::edit($data);
+
+            // Executa dependências.
+            if ($valid) Produce::dependencyEdit($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
     /** 
      * detail()
      */
