@@ -1,6 +1,6 @@
 <div class="dropdown float-end" style="width: 40px; padding-top: 6px; padding-left: 5px;">
     <a type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="bi-printer text-primary" style="font-size: 20px;" title="Imprimir relatório"></i>
+        <i class="bi-printer text-dark" style="font-size: 20px;" title="Imprimir relatório"></i>
     </a>
     <ul class="dropdown-menu">
         @php
