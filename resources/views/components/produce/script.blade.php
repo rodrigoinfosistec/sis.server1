@@ -9,5 +9,6 @@
         $('#detailModal').modal('hide');
         $('#editModal').modal('hide');
         $('#eraseModal').modal('hide');
+        $('#generaMovimentteModal').modal('hide');
     })
 </script>
