@@ -177,4 +177,69 @@ class Produce extends Model
         return true;
     }
 
+    /**
+     * Valida geração de relatório Movimentação.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateGenerateMovimen(array $data) : bool {
+        $message = null;
+
+        // Verifica se existe alguma movimentação item retornado na pesquisa.
+        if($list = Producemoviment::where([
+                ['produce_id', $data['validatedData']['produce_id']],
+            ])->doesntExist()):
+
+            $message = 'Nenhum ítem selecionado.';
+        endif;
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Gera relatório.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function generateMovimen(array $data) : bool {
+        // Estende $data.
+        $data['path'] = public_path('/storage/pdf/' . $data['config']['name'] . '/');
+        $data['file_name'] = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
+
+        // Gera PDF.
+        Report::produceGenerate($data);
+
+        // Auditoria.
+        Audit::produceGenerate($data);
+
+        // Mensagem.
+        $message = 'Relatório PDF gerado com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de geração de relatório.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyGenerateMovimen(array $data) : bool {
+        //...
+
+        return true;
+    }
+
 }
