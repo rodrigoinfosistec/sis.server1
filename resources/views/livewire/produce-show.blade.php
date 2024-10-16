@@ -161,6 +161,12 @@
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-generate-muted :id="$item->id"/>
     @endif
+
+    @if(App\Models\Report::where(['folder' => 'producemoviment', 'reference_1' => $item->id, 'reference_2' => Auth()->user()->company_id])->exists())
+        <x-layout.card.card-body-content-table-body-line-cell-action-print-produce-moviment :id="$item->id"/>
+    @else
+        <x-layout.card.card-body-content-table-body-line-cell-action-print-muted-slim :id="$item->id"/>
+    @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}}
 
