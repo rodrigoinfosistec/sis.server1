@@ -230,6 +230,35 @@ class ProduceShow extends Component
         }
 
     /**
+     * generateMoviment()
+     *  sireMoviment()
+     */
+    public function generateMoviment(int $produce_id)
+    {
+        //...
+    }
+        public function sireMoviment()
+        {
+            // Define $data.
+            $data['config'] = $this->config;
+            $data['filter'] = $this->filter;
+            $data['search'] = $this->search;
+
+            // Valida geração de relatório.
+            $valid = Produce::validateGenerateMoviment($data);
+
+            // Gera relatório.
+            if ($valid) Produce::generateMoviment($data);
+
+            // Executa dependências.
+            if ($valid) Produce::dependencyGenerateMoviment($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
      * mail()
      *  send()
      */

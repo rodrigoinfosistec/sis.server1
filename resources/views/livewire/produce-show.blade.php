@@ -17,6 +17,7 @@
 @include('components.' .  $config['name'] . '.modals.detail')
 @include('components.' .  $config['name'] . '.modals.edit')
 @include('components.' .  $config['name'] . '.modals.erase')
+@include('components.' .  $config['name'] . '.modals.generate-moviment')
 {{-- modal --}}
 
     <x-layout.alert/>
@@ -112,7 +113,7 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-start>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-end>
-            {{ $item->producemeasure_name }}
+            {{-- $item->producemeasure_name --}}
         </x-layout.card.card-body-content-table-body-line-cell-id-end>
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
@@ -154,8 +155,10 @@
 
 <x-layout.card.card-body-content-table-body-line-cell-action width="120">
     <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
+
+    <x-layout.card.card-body-content-table-body-line-cell-action-generate-produce-moviment :id="$item->id"/>
 </x-layout.card.card-body-content-table-body-line-cell-action>
-{{-- conteúdo --}} 
+{{-- conteúdo --}}
 
                                 </x-layout.card.card-body-content-table-body-line>
                             @endforeach
