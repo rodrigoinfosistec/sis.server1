@@ -123,6 +123,7 @@ class Produce extends Model
 
         // Verifica se existe algum item retornado na pesquisa.
         if($list = Produce::where([
+                ['company_id', Auth()->user()->company_id],
                 [$data['filter'], 'like', '%'. $data['search'] . '%'],
             ])->doesntExist()):
 
@@ -183,7 +184,7 @@ class Produce extends Model
      * 
      * @return bool true
      */
-    public static function validateGenerateMovimen(array $data) : bool {
+    public static function validateGenerateMoviment(array $data) : bool {
         $message = null;
 
         // Verifica se existe alguma movimentação item retornado na pesquisa.
@@ -211,16 +212,16 @@ class Produce extends Model
      * 
      * @return bool true
      */
-    public static function generateMovimen(array $data) : bool {
+    public static function generateMoviment(array $data) : bool {
         // Estende $data.
-        $data['path'] = public_path('/storage/pdf/' . $data['config']['name'] . '/');
-        $data['file_name'] = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
+        $data['path'] = public_path('/storage/pdf/producemoviment/');
+        $data['file_name'] = 'producemoviment_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
 
         // Gera PDF.
-        Report::produceGenerate($data);
+        Report::produceMovimentGenerate($data);
 
         // Auditoria.
-        Audit::produceGenerate($data);
+        Audit::produceMovimentGenerate($data);
 
         // Mensagem.
         $message = 'Relatório PDF gerado com sucesso.';
@@ -236,7 +237,7 @@ class Produce extends Model
      * 
      * @return bool true
      */
-    public static function dependencyGenerateMovimen(array $data) : bool {
+    public static function dependencyGenerateMoviment(array $data) : bool {
         //...
 
         return true;
