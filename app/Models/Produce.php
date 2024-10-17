@@ -84,10 +84,10 @@ class Produce extends Model
             'producemeasure_name' => Producemeasure::find($data['validatedData']['producemeasure_id'])->name,
             'company_id'          => Auth()->user()->company_id,
             'observation'         => $data['validatedData']['observation'],
-        ]);
+        ])->id;
 
         // After.
-        $after = Produce::find($produce_id)->first();
+        $after = Produce::find($produce_id);
 
         // Auditoria.
         Audit::produceAdd($data, $after);

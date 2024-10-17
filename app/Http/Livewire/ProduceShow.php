@@ -174,7 +174,7 @@ class ProduceShow extends Component
             // Fecha modal.
             $this->closeModal();
             $this->dispatchBrowserEvent('close-modal');
-            return redirect()->to('/produce');
+            //return redirect()->to('/produce');
         }
 
     /**
