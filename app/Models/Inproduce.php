@@ -98,7 +98,14 @@ class Inproduce extends Model
      * @return bool true
      */
     public static function dependencyAdd(array $data) : bool {
-        // ...
+        // Verifica se Produto não está cadastrado no Depósito.
+        if(Producedeposit::where(['produce_id' => $data['validatedData']['produce_id'],'deposit_id' => $data['validatedData']['deposit_id']])->doesntExist()):
+            // Vincula o Produto ao Depósito.
+            Producedeposit::create([
+                'produce_id' => $data['validatedData']['produce_id'],
+                'deposit_id' => $data['validatedData']['deposit_id'],
+            ]);
+        endif;
 
         return true;
     }

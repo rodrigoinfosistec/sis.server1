@@ -26,7 +26,7 @@
     <x-layout.modal.modal-add-body-group-item columms="8">
         <x-layout.modal.modal-add-body-group-item-label item="produce_id" title="PESQUISA" plus="none"/>
 
-        @php
+        {{-- @php
             // Inicializa variável.
             $array = [];
 
@@ -36,10 +36,10 @@
                     $array[] =  $producedeposit->produce_id;
                 endif;
             endforeach;
-        @endphp
+        @endphp --}}
         <input wire:model="produce_id" type="text" class="form-control form-control-sm" list="produces" id="produce_id">
         <datalist id="produces">
-            @foreach(App\Models\Produce::where(['company_id' => auth()->user()->company_id, 'status' => true])->whereIn('id', $array)->orderBy('name', 'ASC')->get() as $key => $produce)
+            @foreach(App\Models\Produce::where(['company_id' => auth()->user()->company_id, 'status' => true])->orderBy('name', 'ASC')->get() as $key => $produce)
                 <option value="{{ $produce->id }}">
                     {{ $produce->name }}
                     |
