@@ -53,11 +53,6 @@ class Inproduce extends Model
             if(Inproduce::where(['in_id' => $data['validatedData']['in_id'], 'produce_id' => $data['validatedData']['produce_id']])->exists()):
                 $message = 'Produto já cadastrado nesta Entrada.';
             endif;
-
-            // Verifica se o produto não existe no Depósito.
-            if(Producedeposit::where(['produce_id' => $data['validatedData']['produce_id'], 'deposit_id' => $data['validatedData']['deposit_id']])->doesntExist()):
-                $message = 'Produto não cadastrado neste Depósito.';
-            endif;
         endif;
 
         // Desvio.
