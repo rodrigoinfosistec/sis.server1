@@ -302,9 +302,6 @@ class OutShow extends Component
     }
         public function modernize()
         {
-            // Inicializa $test.
-            $test = true;
-
             // Estende $validatedData.
             $validatedData['out_id'] = $this->out_id;
             $validatedData['deposit_id'] = $this->deposit_id;
@@ -312,28 +309,23 @@ class OutShow extends Component
             // Percorre os Produtos da Saída.
             foreach(Outproduce::where('out_id', $this->out_id)->get() as $key => $outproduce):
                 // Monta array do Produto da saída.
-                $validatedData['outproduce_id'] = $outproduce->id;
-                $validatedData['score'] = $this->array_produce_score[$outproduce->produce->id];
-
-                // Define $data.
-                $data['config']        = $this->config;
-                $data['validatedData'] = $validatedData;
-
-                // Valida atualização.
-                $valid = Out::validateEdit($data);
-
-                // Atualiza.
-                if ($valid) Out::edit($data);
-
-                // Executa dependências.
-                if ($valid) Out::dependencyEdit($data);
-
-                if(!$valid):
-                    $test = false ;
-                endif;
+                $validatedData[$outproduce->id]['score'] = $this->array_produce_score[$outproduce->produce->id];
             endforeach;
 
-            if($test):
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Out::validateEdit($data);
+
+            // Atualiza.
+            if ($valid) Out::edit($data);
+
+            // Executa dependências.
+            if ($valid) Out::dependencyEdit($data);
+
+            if ($valid):
                 // Consolida saída.
                 Out::find($this->out_id)->update([
                     'finished' => true,
