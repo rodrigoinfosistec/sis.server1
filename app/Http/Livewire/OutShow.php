@@ -302,6 +302,9 @@ class OutShow extends Component
     }
         public function modernize()
         {
+            // Inicializa $test.
+            $test = true;
+
             // Estende $validatedData.
             $validatedData['out_id'] = $this->out_id;
             $validatedData['deposit_id'] = $this->deposit_id;
@@ -324,15 +327,21 @@ class OutShow extends Component
 
                 // Executa dependências.
                 if ($valid) Out::dependencyEdit($data);
+
+                if(!$valid):
+                    $test = false ;
+                endif;
             endforeach;
 
-            // Consolida saída.
-            Out::find($this->out_id)->update([
-                'finished' => true,
-            ]);
+            if($test):
+                // Consolida saída.
+                Out::find($this->out_id)->update([
+                    'finished' => true,
+                ]);
 
-            // Gera o Relatório em PDF.
-            Report::outGenerate($data);
+                // Gera o Relatório em PDF.
+                Report::outGenerate($data);
+            endif;
 
             // Fecha modal.
             $this->closeModal();
