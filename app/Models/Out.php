@@ -123,7 +123,7 @@ class Out extends Model
             $qtd_dep = Producedeposit::where(['produce_id' => $outproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity;
 
             // Verifica se existe a quantidade no Depósito.
-            if($qtd_dep < $data['validatedData']['score']):
+            if($qtd_dep < $outproduce->quantity):
                 $message = "Produto " . $outproduce->produce_name . " com quantidade indisponível no Depósito.";
             endif;
         endforeach;

@@ -26,17 +26,6 @@
     <x-layout.modal.modal-add-body-group-item columms="8">
         <x-layout.modal.modal-add-body-group-item-label item="produce_id" title="PESQUISA" plus="none"/>
 
-        {{-- @php
-            // Inicializa variável.
-            $array = [];
-
-            // Monta o array.
-            foreach(App\Models\Producedeposit::where('deposit_id', $deposit_id)->get() as $key => $producedeposit):
-                if(App\Models\Produce::find($producedeposit->produce_id)->status):
-                    $array[] =  $producedeposit->produce_id;
-                endif;
-            endforeach;
-        @endphp --}}
         <input wire:model="produce_id" type="text" class="form-control form-control-sm" list="produces" id="produce_id">
         <datalist id="produces">
             @foreach(App\Models\Produce::where(['company_id' => auth()->user()->company_id, 'status' => true])->orderBy('name', 'ASC')->get() as $key => $produce)
