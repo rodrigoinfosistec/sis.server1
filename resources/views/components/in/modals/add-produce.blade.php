@@ -32,7 +32,7 @@
 {{-- conteúdo --}}
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="8">
-        <x-layout.modal.modal-add-body-group-item-label item="produce_id" title="PESQUISA" plus="none"/>
+        <x-layout.modal.modal-add-body-group-item-label item="produce_id" title="CÓDIGO DO PRODUTO" plus="none"/>
 
         <input wire:model="produce_id" type="text" class="form-control form-control-sm" list="produces" id="produce_id">
         <datalist id="produces">
@@ -63,18 +63,37 @@
 
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="12">
-        <textarea class="form-control form-control-sm bg-light text-primary fw-bold" style="font-size: 12pt;" rows="4" readonly required>{{ @App\Models\Produce::find($produce_id)->name }}
 @if(isset($produce_id))
-    @if(@App\Models\Producedeposit::where(['produce_id' => $produce_id, 'deposit_id' => $deposit_id])->exists())
+    @if(App\Models\Produce::where(['id'=>$produce_id, 'status'=>true])->exists())
         @php
-            $proddep = @App\Models\Producedeposit::where(['produce_id' => $produce_id, 'deposit_id' => $deposit_id])->first();
+            $prod = App\Models\Produce::find($produce_id);
         @endphp
-        {{ @App\Models\General::decodeFloat2($proddep->quantity) }} {{ @App\Models\Produce::find($produce_id)->producemeasure_name }}
+        @if($prod->producebrand_id == $producebrand_id)
+            <span class="text-primary fw-bold">
+                {{ $prod->name }}
+            </span>
+            <br>
+            <span class="fw-bold">
+                @if(@App\Models\Producedeposit::where(['produce_id' => $produce_id, 'deposit_id' => $deposit_id])->exists())
+                    @php
+                        $proddep = @App\Models\Producedeposit::where(['produce_id' => $produce_id, 'deposit_id' => $deposit_id])->first();
+                    @endphp
+                    {{ @App\Models\General::decodeFloat2($proddep->quantity) }} {{ $prod->producemeasure_name }}
+                @else
+                    0,00
+                @endif
+            </span>
+        @else
+            <span class="text-danger fw-bold">
+                CÓDIGO INVÁLIDO
+            </span>
+        @endif
     @else
-        0,00
+        <span class="text-danger fw-bold">
+            CÓDIGO INVÁLIDO
+        </span>
     @endif
 @endif
-        </textarea>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
 {{-- conteúdo --}}

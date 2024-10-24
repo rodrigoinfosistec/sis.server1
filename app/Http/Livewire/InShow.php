@@ -217,16 +217,16 @@ class InShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->in_id = $in_id;
-        $this->deposit_id = $in ->deposit_id;
-        $this->deposit_name = $in ->deposit_name;
-        $this->producebrand_id = $in ->producebrand_id;
-        $this->producebrand_name = $in ->producebrand_name;
-        $this->user_id = $in ->user_id;
-        $this->user_name = $in ->user_name;
-        $this->observation = $in ->observation;
-        $this->finished = $in ->finished;
-        $this->created = $in ->created_at->format('d/m/Y H:i:s');
-        $this->updated = $in ->updated_at->format('d/m/Y H:i:s');
+        $this->deposit_id = $in->deposit_id;
+        $this->deposit_name = $in->deposit_name;
+        $this->producebrand_id = $in->producebrand_id;
+        $this->producebrand_name = $in->producebrand_name;
+        $this->user_id = $in->user_id;
+        $this->user_name = $in->user_name;
+        $this->observation = $in->observation;
+        $this->finished = $in->finished;
+        $this->created = $in->created_at->format('d/m/Y H:i:s');
+        $this->updated = $in->updated_at->format('d/m/Y H:i:s');
     }
         public function registerProduce()
         {
