@@ -156,7 +156,7 @@ class Out extends Model
             ]);
 
             // Atualiza quantidade do Produto no Saída.
-            Outproduce::find($data['validatedData']['outproduce_id'])->update([
+            Outproduce::find($outproduce->id)->update([
                 'quantity_old' => $quantity_old,
                 'quantity' => General::encodeFloat($data['validatedData'][$outproduce->id]['score'], 7),
                 'quantity_diff' => 0 - General::encodeFloat($data['validatedData'][$outproduce->id]['score'], 7)
