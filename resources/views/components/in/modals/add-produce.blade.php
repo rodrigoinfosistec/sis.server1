@@ -3,6 +3,14 @@
         Produto na Entrada
 
         <x-slot:identifier>
+            MARCA
+            <i class="bi bi-caret-right-fill"></i>
+            <span class="text-primary fw-bold">
+                {{ $producebrand_name }}
+            </span>
+
+            <br>
+
             DEPÓSITO
             <i class="bi bi-caret-right-fill"></i>
             <span class="text-dark fw-bold">
@@ -28,13 +36,15 @@
 
         <input wire:model="produce_id" type="text" class="form-control form-control-sm" list="produces" id="produce_id">
         <datalist id="produces">
-            @foreach(App\Models\Produce::where(['company_id' => auth()->user()->company_id, 'status' => true])->orderBy('name', 'ASC')->get() as $key => $produce)
+            @foreach(App\Models\Produce::where(['producebrand_name' => $producebrand_name, 'company_id' => auth()->user()->company_id, 'status' => true])->orderBy('name', 'ASC')->get() as $key => $produce)
                 <option value="{{ $produce->id }}">
+                    {{ $produce->producebrand_name }}
+                    |
                     {{ $produce->name }}
                     |
-                    {{ $produce->ean }}
-                    |
                     {{ $produce->reference }}
+                    |
+                    {{ $produce->ean }}
                 </option>
             @endforeach
         </datalist>

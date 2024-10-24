@@ -3,6 +3,14 @@
         {{ $config['title'] }}
 
         <x-slot:identifier>
+            MARCA
+            <i class="bi bi-caret-right-fill"></i>
+            <span class="text-primary fw-bold">
+                {{ $producebrand_name }}
+            </span>
+
+            <br>
+
             ENTRADA<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $in_id }}</span>
             <br>
             DEPÓSITO<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $deposit_name }}</span>
@@ -23,9 +31,12 @@
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="" style="width: 90px;">
-                        <span class="text-danger">EAN</span>
-                        <span class="text-primary">REF</span>
+                    <div class="" style="width: 200px;">
+                        REF
+                        /
+                        REF
+                        /
+                        EMBALAGEM
                     </div>
                 </th>
 
@@ -70,23 +81,25 @@
 
                     <td colspan="100%" class="align-middle" style="line-height: 1; padding: 6px 0 0 0;">
                         {{-- DESCRIÇÃO --}}
-                        <div class="fw-bolder" style="width: 850px; font-size: 8pt;" title="{{ $inproduce->produce->name }}">
+                        <div class="fw-bold" style="width: 850px; font-size: 9pt; line-height: 1;" title="{{ $inproduce->produce->name }}">
                             {{ mb_strimwidth($inproduce->produce->name, 0, 90, "...") }}
                         </div>
                     </td>
                 </tr>
 
                 <tr style="border-bottom: 1px solid #ddd;">
-                    {{-- INT/EAN/REF --}}
+                    {{-- REF/EAN/EMBALAGEM --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="text" style="width: 90px;">
-                            <span class="fw-bold text-danger">
-                                {{ $inproduce->produce->ean }}
+                        <div class="text-dark" style="width: 200px;">
+                            {{ $inproduce->produce->reference }}
+                            <span class="fw-bold text-muted">
+                                <i class="bi-caret-right-fill"></i>
                             </span>
-                            <br>
-                            <span class="fw-bold text-primary">
-                                {{ $inproduce->produce->reference }}
+                            {{ $inproduce->produce->ean }}
+                            <span class="fw-bold text-muted">
+                                <i class="bi-caret-right-fill"></i>
                             </span>
+                            {{ $inproduce->produce->producemeasure_name }}
                         </div>
                     </td>
 

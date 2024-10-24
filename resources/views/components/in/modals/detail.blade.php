@@ -3,6 +3,14 @@
         {{ $config['title'] }}
 
         <x-slot:identifier>
+            MARCA
+            <i class="bi bi-caret-right-fill"></i>
+            <span class="text-primary fw-bold">
+                {{ $producebrand_name }}
+            </span>
+
+            <br>
+
             ENTRADA<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $in_id }}</span>
             <br>
             DEPÓSITO<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $deposit_name }}</span>
@@ -15,11 +23,13 @@
 <ol class="list-group list-group-numbered">
     @foreach(App\Models\Inproduce::where('in_id', $in_id)->get() as $key => $inproduce)
         <li class="list-group-item d-flex justify-content-between align-items-start" style="font-size: 9pt;">
-            <div class="ms-2 me-auto text-primary fw-bold" style="line-height: 1; font-size: 10pt;">
+            <div class="ms-2 me-auto text-dark fw-bold" style="line-height: 1; font-size: 10pt;">
                 {{ $inproduce->produce->name }}
                 <br>
                 <span class="text-muted" style="font-size: 8pt;">
-                    {{ $inproduce->produce->producebrand_name }}
+                    {{ $inproduce->produce->reference }}
+                    <i class="bi-caret-right-fill"></i>
+                    {{ $inproduce->produce->ean }}
                     <i class="bi-caret-right-fill"></i>
                     {{ $inproduce->produce->producemeasure_name }}
                 </span>
