@@ -239,6 +239,7 @@ class InShow extends Component
             // Estende $validatedData.
             $validatedData['in_id'] = $this->in_id;
             $validatedData['deposit_id'] = $this->deposit_id;
+            $validatedData['producebrand_id'] = $this->producebrand_id;
             $validatedData['quantity_encode'] = $validatedData['quantity'];
             $validatedData['quantity'] = General::decodeFloat2($validatedData['quantity']);
 
@@ -307,9 +308,9 @@ class InShow extends Component
         // Percorre os Produtos da Entrada.
         foreach(Inproduce::where('in_id', $in_id)->get() as $key => $inproduce):
             // Inicializa variáveis, dinamicamente.
-            $this->array_produce_score[$inproduce->produce->id] = (int)$inproduce->quantity;
+            $this->array_produce_score[$inproduce->id] = (int)$inproduce->quantity;
 
-            $this->array_produce_quantity[$inproduce->produce->id] = Producedeposit::where(['produce_id' => $inproduce->produce->id, 'deposit_id' => $this->deposit_id])->first()->quantity;
+            $this->array_produce_quantity[$inproduce->id] = Producedeposit::where(['produce_id' => $inproduce->produce->id, 'deposit_id' => $this->deposit_id])->first()->quantity;
         endforeach;
     }
         public function modernize()
@@ -323,7 +324,7 @@ class InShow extends Component
             foreach(Inproduce::where('in_id', $this->in_id)->get() as $key => $inproduce):
                 // Monta array do Produto da Entrada.
                 $validatedData['inproduce_id'] = $inproduce->id;
-                $validatedData['score'] = $this->array_produce_score[$inproduce->produce->id];
+                $validatedData['score'] = $this->array_produce_score[$inproduce->id];
 
                 // Define $data.
                 $data['config']        = $this->config;

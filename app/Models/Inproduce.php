@@ -53,6 +53,11 @@ class Inproduce extends Model
             if(Inproduce::where(['in_id' => $data['validatedData']['in_id'], 'produce_id' => $data['validatedData']['produce_id']])->exists()):
                 $message = 'Produto já cadastrado nesta Entrada.';
             endif;
+
+            // Verifica se o produto não é da Marca selecionada.
+            if(Produce::find($data['validatedData']['produce_id'])->producebrand_id != $data['validatedData']['producebrand_id']):
+                $message = 'Produto de outra Marca.';
+            endif;
         endif;
 
         // Desvio.
