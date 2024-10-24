@@ -219,6 +219,8 @@ class InShow extends Component
         $this->in_id = $in_id;
         $this->deposit_id = $in ->deposit_id;
         $this->deposit_name = $in ->deposit_name;
+        $this->producebrand_id = $in ->producebrand_id;
+        $this->producebrand_name = $in ->producebrand_name;
         $this->user_id = $in ->user_id;
         $this->user_name = $in ->user_name;
         $this->observation = $in ->observation;
@@ -270,6 +272,8 @@ class InShow extends Component
         $this->in_id = $in_id;
         $this->deposit_id = $in ->deposit_id;
         $this->deposit_name = $in ->deposit_name;
+        $this->producebrand_id = $in ->producebrand_id;
+        $this->producebrand_name = $in ->producebrand_name;
         $this->user_id = $in ->user_id;
         $this->user_name = $in ->user_name;
         $this->observation = $in ->observation;
@@ -291,6 +295,8 @@ class InShow extends Component
         $this->in_id = $in ->id;
         $this->deposit_id = $in ->deposit_id;
         $this->deposit_name = (string)$in ->deposit_name;
+        $this->producebrand_id = $in ->producebrand_id;
+        $this->producebrand_name = $in ->producebrand_name;
         $this->company_id = $in ->company_id;
         $this->user_id = $in ->user_id;
         $this->user_name = (string)$in ->user_name;
@@ -358,6 +364,8 @@ class InShow extends Component
         $this->in_id = $in ->id;
         $this->deposit_id = $in ->deposit_id;
         $this->deposit_name = (string)$in ->deposit_name;
+        $this->producebrand_id = $in ->producebrand_id;
+        $this->producebrand_name = $in ->producebrand_name;
         $this->company_id = $in ->company_id;
         $this->user_id = $in ->user_id;
         $this->user_name = (string)$in ->user_name;
@@ -371,6 +379,8 @@ class InShow extends Component
             $validatedData['in_id']       = $this->in_id;
             $validatedData['deposit_id']   = $this->deposit_id;
             $validatedData['deposit_name'] = $this->deposit_name;
+            $validatedData['producebrand_id']   = $this->producebrand_id;
+            $validatedData['producebrand_name'] = $this->producebrand_name;
             $validatedData['company_id']   = $this->company_id;
             $validatedData['user_id']      = $this->user_id;
             $validatedData['user_name']    = $this->user_name;
