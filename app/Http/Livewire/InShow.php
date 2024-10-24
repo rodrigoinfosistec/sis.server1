@@ -292,17 +292,17 @@ class InShow extends Component
         $in = In::find($in_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->in_id = $in ->id;
-        $this->deposit_id = $in ->deposit_id;
-        $this->deposit_name = (string)$in ->deposit_name;
-        $this->producebrand_id = $in ->producebrand_id;
-        $this->producebrand_name = $in ->producebrand_name;
-        $this->company_id = $in ->company_id;
-        $this->user_id = $in ->user_id;
-        $this->user_name = (string)$in ->user_name;
-        $this->observation = (string)$in ->observation;
-        $this->finished = $in ->finished;
-        $this->created = $in ->created_at->format('d/m/Y H:i:s');
+        $this->in_id = $in->id;
+        $this->deposit_id = $in->deposit_id;
+        $this->deposit_name = (string)$in->deposit_name;
+        $this->producebrand_id = $in->producebrand_id;
+        $this->producebrand_name = $in->producebrand_name;
+        $this->company_id = $in->company_id;
+        $this->user_id = $in->user_id;
+        $this->user_name = (string)$in->user_name;
+        $this->observation = (string)$in->observation;
+        $this->finished = $in->finished;
+        $this->created = $in->created_at->format('d/m/Y H:i:s');
 
         // Percorre os Produtos da Entrada.
         foreach(Inproduce::where('in_id', $in_id)->get() as $key => $inproduce):
@@ -317,6 +317,7 @@ class InShow extends Component
             // Estende $validatedData.
             $validatedData['in_id'] = $this->in_id;
             $validatedData['deposit_id'] = $this->deposit_id;
+            $validatedData['producebrand_id'] = $this->producebrand_id;
 
             // Percorre os Produtos da Entrada.
             foreach(Inproduce::where('in_id', $this->in_id)->get() as $key => $inproduce):

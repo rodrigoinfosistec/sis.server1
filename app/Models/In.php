@@ -168,7 +168,8 @@ class In extends Model
             'user_id' => auth()->user()->id,
             'type' => 'entrada',
             'identification' => '{' . 
-                'in_id:'    . $data['validatedData']['in_id']    . ',' .
+                'in_id:'           . $data['validatedData']['in_id']           . ',' .
+                'producebrand_id:' . $data['validatedData']['producebrand_id'] . ',' .
             '}',
             'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
         ]);
