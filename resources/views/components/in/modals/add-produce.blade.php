@@ -80,7 +80,7 @@
                     @endphp
                     {{ @App\Models\General::decodeFloat2($proddep->quantity) }} {{ $prod->producemeasure_name }}
                 @else
-                    0,00
+                    0,00 {{ $prod->producemeasure_name }}
                 @endif
             </span>
         @else

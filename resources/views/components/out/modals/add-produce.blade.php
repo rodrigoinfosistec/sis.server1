@@ -64,30 +64,35 @@
 
 <x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="12">
-        <textarea class="form-control form-control-sm bg-light text-primary fw-bold" style="font-size: 12pt;" rows="4" readonly required>{{ @App\Models\Produce::find($produce_id)->name }}
 @if(isset($produce_id))
-    @if(@App\Models\Producedeposit::where(['produce_id' => $produce_id, 'deposit_id' => $deposit_id])->exists())
+    @if(App\Models\Produce::where(['id'=>$produce_id, 'status'=>true])->exists())
         @php
-            $proddep = @App\Models\Producedeposit::where(['produce_id' => $produce_id, 'deposit_id' => $deposit_id])->first();
+            $prod = App\Models\Produce::find($produce_id);
         @endphp
-        {{ @App\Models\General::decodeFloat2($proddep->quantity) }} {{ @App\Models\Produce::find($produce_id)->producemeasure_name }}
-    @else
-        0,00
-    @endif
-@endif
-        </textarea>
-    </x-layout.modal.modal-add-body-group-item>
-</x-layout.modal.modal-add-body-group>
-
-<x-layout.modal.modal-add-body-group>
-    <x-layout.modal.modal-add-body-group-item columms="12">
-        @if(isset($proddep) && isset($quantity))
-            @if(@$proddep->quantity < @App\Models\General::encodeFloat2($quantity) || @$proddep->quantity == 0)
-                <span class="text-danger" style="font-size: 10pt;">
-                    QUANTIDADE INDISPONÍVEL
+        <span class="text-primary fw-bold">
+            {{ $prod->producebrand_name }}
+            <br>
+            {{ $prod->name }}
+        </span>
+        <br>
+        <span class="fw-bold">
+            @if(App\Models\Producedeposit::where(['produce_id' => $produce_id, 'deposit_id' => $deposit_id])->exists())
+                @php
+                    $proddep = @App\Models\Producedeposit::where(['produce_id' => $produce_id, 'deposit_id' => $deposit_id])->first();
+                @endphp
+                {{ @App\Models\General::decodeFloat2($proddep->quantity) }} {{ $prod->producemeasure_name }}
+            @else
+                <span class="text-danger fw-bold">
+                    CÓDIGO INVÁLIDO
                 </span>
             @endif
-        @endif
+        </span>
+    @else
+        <span class="text-danger fw-bold">
+            CÓDIGO INVÁLIDO
+        </span>
+    @endif
+@endif
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
 {{-- conteúdo --}}
