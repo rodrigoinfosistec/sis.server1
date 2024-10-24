@@ -107,7 +107,12 @@
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
         <div style="line-height: 1;">
+            <span class="text-muted" style="font-size: 7pt;">
+                {{ $item->user_name }}
+            </span>
+
             @if($item->observation != '')
+            <br>
                 <span class="text-muted" style="font-size: 7pt;">
                     {{ $item->observation }}
                 </span>

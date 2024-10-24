@@ -111,6 +111,11 @@
                 {{ $item->producebrand_name }}
             </span>
 
+            <br>
+            <span class="text-muted" style="font-size: 7pt;">
+                {{ $item->user_name }}
+            </span>
+
             @if($item->observation != '')
                 <br>
 

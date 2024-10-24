@@ -92,7 +92,7 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            {{ $item->producebrand_name }}
+            {{ $item->deposit_name }}
 
             @if(!$item->finished)
                 <span class="badge text-bg-danger fw-bold" style="">
@@ -107,13 +107,22 @@
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
-        <div class="text-muted" style="line-height: 1; font-size: 7pt;">
-            {{ $item->deposit_name }}
+        <div style="line-height: 1;">
+            <span class="text-primary fw-bold" style="font-size:9pt;">
+                {{ $item->producebrand_name }}
+            </span>
 
             <br>
+            <span class="text-muted" style="font-size: 7pt;">
+                {{ $item->user_name }}
+            </span>
 
             @if($item->observation != '')
-                {{ $item->observation }}
+                <br>
+
+                <span class="text-muted" style="font-size: 7pt;">
+                    {{ $item->observation }}
+                </span>
             @endif
         </div>
     </x-layout.card.card-body-content-table-body-line-cell-content>
