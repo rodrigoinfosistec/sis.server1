@@ -17,7 +17,7 @@
         <div class="float-start fw-bold" style="width: 600px; height: 35px; margin-right: 10px; margin-top: 5px; font-size: 9pt;">
             {{ $in->deposit_name }}
             <br>
-            <span class="fw-normal text-muted">{{ $in->company->name }} </span>
+            <span class="fw-normal text-muted">{{ $in->producebrand_name }}</span>
         </div>
 
         <div class="float-end" style="width: 100px; height: 40px;">
@@ -110,7 +110,6 @@
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="" style="width: 300px; line-height: 1.0;">
         <span class="text-dark fw-bold">
-            {{ $item->produce->producebrand_name }}
             {{ $item->produce->name }}
         </span>
     </div>

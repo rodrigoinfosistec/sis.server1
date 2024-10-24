@@ -50,6 +50,7 @@
                     <x-layout.card.card-body-navigation-search-filter>
 
 {{-- filtro nome --}}
+<option value="producebrand_name">MARCA</option>
 <option value="deposit_name">DEPÓSITO</option>
 <option value="user_name">USUÁRIO</option>
 <option value="observation">OBSERVAÇÃO</option>
@@ -91,7 +92,7 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            {{ $item->deposit_name }}
+            {{ $item->producebrand_name }}
 
             @if(!$item->finished)
                 <span class="badge text-bg-danger fw-bold" style="">
@@ -106,11 +107,13 @@
     </x-layout.card.card-body-content-table-body-line-cell-id>
 
     <x-layout.card.card-body-content-table-body-line-cell-content>
-        <div style="line-height: 1;">
+        <div class="text-muted" style="line-height: 1; font-size: 7pt;">
+            {{ $item->deposit_name }}
+
+            <br>
+
             @if($item->observation != '')
-                <span class="text-muted" style="font-size: 7pt;">
-                    {{ $item->observation }}
-                </span>
+                {{ $item->observation }}
             @endif
         </div>
     </x-layout.card.card-body-content-table-body-line-cell-content>
