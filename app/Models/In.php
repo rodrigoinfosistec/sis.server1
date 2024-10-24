@@ -123,7 +123,13 @@ class In extends Model
     public static function validateEdit(array $data) : bool {
         $message = null;
 
-        // ...
+        // Percorre todos os produtos da Saída.
+        foreach(Inproduce::where('in_id', $data['validatedData']['in_id'])->get() as $key => $inproduce):
+            // Quantidade mínima permitida: 1.
+            if($data['validatedData'][$inproduce->id]['score'] < 1):
+                $message = "Saída de " . $inproduce->produce_name . " deve ser no mímimo com 1.";
+            endif;
+        endforeach;
 
         // Desvio.
         if(!empty($message)):

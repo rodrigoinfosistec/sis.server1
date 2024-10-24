@@ -115,14 +115,14 @@
                     {{-- ENTRADA --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text-center" style="width: 75px; padding-top: 0; margin-top: 0;">
-                            <input type="number" min="1" wire:model="array_produce_score.{{ $inproduce->produce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 70px; margin-top: 0;" id="array_produce_score_{{ $inproduce->produce->id }}" required>
+                            <input type="number" min="1" wire:model="array_produce_score.{{ $inproduce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 70px; margin-top: 0;" id="array_produce_score_{{ $inproduce->id }}" required>
                         </div>
                     </td>
 
                     {{-- ATUAL --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="text-center" style="width: 75px; font-size: 9pt;">
-                            {{ number_format(@(int)$array_produce_quantity[$inproduce->produce->id]) }}
+                            {{ number_format(@(int)$array_produce_quantity[$inproduce->id]) }}
                         </div>
                     </td>
 
@@ -130,7 +130,7 @@
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="fw-bold text-center" style="width: 75px; font-size: 9pt;">
                             <span class="text-danger">
-                                {{ @(int)$array_produce_score[$inproduce->produce->id] }}
+                                {{ @(int)$array_produce_score[$inproduce->id] }}
                             </span>
                         </div>
                     </td>

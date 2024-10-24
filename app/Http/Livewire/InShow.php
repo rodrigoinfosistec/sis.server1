@@ -323,30 +323,31 @@ class InShow extends Component
             // Percorre os Produtos da Entrada.
             foreach(Inproduce::where('in_id', $this->in_id)->get() as $key => $inproduce):
                 // Monta array do Produto da Entrada.
-                $validatedData['inproduce_id'] = $inproduce->id;
-                $validatedData['score'] = $this->array_produce_score[$inproduce->id];
-
-                // Define $data.
-                $data['config']        = $this->config;
-                $data['validatedData'] = $validatedData;
-
-                // Valida atualização.
-                $valid = In::validateEdit($data);
-
-                // Atualiza.
-                if ($valid) In::edit($data);
-
-                // Executa dependências.
-                if ($valid) In::dependencyEdit($data);
+                $validatedData[$inproduce->id]['score'] = $this->array_produce_score[$inproduce->id];
             endforeach;
 
-            // Consolida entrada.
-            In::find($this->in_id)->update([
-                'finished' => true,
-            ]);
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
 
-            // Gera o Relatório em PDF.
-            Report::inGenerate($data);
+            // Valida atualização.
+            $valid = In::validateEdit($data);
+
+            // Atualiza.
+            if ($valid) In::edit($data);
+
+            // Executa dependências.
+            if ($valid) In::dependencyEdit($data);
+
+            if ($valid):
+                // Consolida entrada.
+                In::find($this->in_id)->update([
+                    'finished' => true,
+                ]);
+
+                // Gera o Relatório em PDF.
+                Report::inGenerate($data);
+            endif;
 
             // Fecha modal.
             $this->closeModal();

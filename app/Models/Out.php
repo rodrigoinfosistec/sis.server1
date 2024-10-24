@@ -126,6 +126,11 @@ class Out extends Model
             if($qtd_dep < $data['validatedData'][$outproduce->id]['score']):
                 $message = "Produto " . $outproduce->produce_name . " com quantidade indisponível no Depósito.";
             endif;
+
+            // Quantidade mínima permitida: 1.
+            if($data['validatedData'][$outproduce->id]['score'] < 1):
+                $message = "Entrada de " . $outproduce->produce_name . " deve ser no mímimo com 1.";
+            endif;
         endforeach;
 
         // Desvio.
