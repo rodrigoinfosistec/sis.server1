@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->boolean('limit_start_week')
+            $table->integer('limit_start_week')
                 ->after('journey')
                 ->default(475);
 
