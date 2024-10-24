@@ -23,6 +23,9 @@ class In extends Model
         'deposit_id',
         'deposit_name',
 
+        'producebrand_id',
+        'producebrand_name',
+
         'company_id',
 
         'user_id',
@@ -40,6 +43,7 @@ class In extends Model
      * Relaciona Models.
      */
     public function deposit(){return $this->belongsTo(Deposit::class);}
+    public function producebrand(){return $this->belongsTo(Producebrand::class);}
     public function company(){return $this->belongsTo(Company::class);}
     public function user(){return $this->belongsTo(User::class);}
 
@@ -76,6 +80,8 @@ class In extends Model
         $in_id = In::create([
             'deposit_id' => $data['validatedData']['deposit_id'],
             'deposit_name' => Deposit::find($data['validatedData']['deposit_id'])->name,
+            'producebrand_id' => $data['validatedData']['producebrand_id'],
+            'producebrand_name' => Producebrand::find($data['validatedData']['producebrand_id'])->name,
             'company_id' => auth()->user()->company_id,
             'user_id' => auth()->user()->id,
             'user_name' => auth()->user()->name,

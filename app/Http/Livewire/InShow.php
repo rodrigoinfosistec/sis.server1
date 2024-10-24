@@ -33,7 +33,7 @@ class InShow extends Component
     public $config;
 
     public $search = '';
-    public $filter = 'deposit_name';
+    public $filter = 'producebrand_name';
 
     public $report_id;
     public $mail;
@@ -42,6 +42,8 @@ class InShow extends Component
     public $in_id;
     public $deposit_id;
     public $deposit_name;
+    public $producebrand_id;
+    public $producebrand_name;
     public $company_id;
     public $user_id;
     public $user_name;
@@ -80,6 +82,7 @@ class InShow extends Component
             'comment'   => ['nullable', 'between:2,255'],
 
             'deposit_id' => ['required'],
+            'producebrand_id' => ['required'],
             'observation' => ['nullable', 'between:2,255'],
 
             'produce_id' => ['required'],
@@ -114,6 +117,8 @@ class InShow extends Component
         $this->in_id = '';
         $this->deposit_id = '';
         $this->deposit_name = '';
+        $this->producebrand_id = '';
+        $this->producebrand_name = '';
         $this->user_id = '';
         $this->user_name = '';
         $this->observation = '';
@@ -171,6 +176,7 @@ class InShow extends Component
             // Valida campos.
             $validatedData = $this->validate([
                 'deposit_id' => ['required'],
+                'producebrand_id' => ['required'],
                 'observation' => ['nullable', 'between:2,255'],
             ]);
 

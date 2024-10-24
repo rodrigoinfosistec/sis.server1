@@ -4020,6 +4020,8 @@ class Audit extends Model
                 'id='                . $after->id                . ',' .
                 'deposit_id='        . $after->deposit_id        . ',' .
                 'deposit_name='      . $after->deposit_name      . ',' .
+                'producebrand_id='   . $after->producebrand_id   . ',' .
+                'producebrand_name=' . $after->producebrand_name . ',' .
                 'company_id='        . $after->company_id        . ',' .
                 'observation='       . $after->observation       . ',' .
             '}',
