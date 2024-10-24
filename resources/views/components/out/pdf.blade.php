@@ -52,7 +52,7 @@
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 320px;">
+    <div class="text-center" style="width: 280px;">
         DESCRIÇÃO
     </div>
 </x-layout.pdf.pdf-table-header-column>
@@ -70,7 +70,7 @@
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="" style="width: 40px;">
+    <div class="" style="width: 70px;">
         DEPOIS
     </div>
 </x-layout.pdf.pdf-table-header-column>
@@ -108,7 +108,7 @@
 
 {{-- DESCRIÇÃO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 300px; line-height: 1.0;">
+    <div class="" style="width: 280px; line-height: 1.0;">
         <span class="text-dark fw-bold">
             {{ $item->produce->producebrand_name }}
             {{ $item->produce->name }}
@@ -132,7 +132,7 @@
 
 {{-- DEPOIS --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 50px;">
+    <div class="" style="width: 70px;">
         {{ App\Models\General::decodeFloat2($item->quantity_old - $item->quantity) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
@@ -140,6 +140,16 @@
 
                 </x-layout.pdf.pdf-table-body-line>
             @endforeach
+
+            <x-layout.pdf.pdf-table-body-line>
+                <td colspan="5" class="text-uppercase text-break align-middle text-left lh-2" style="font-size: 7.5pt;">
+                    
+                </td>
+                <td colspan="2" class="text-uppercase text-break align-middle text-left lh-2 text-dark fw-bold" style="font-size: 11pt;">
+                    {{ App\Models\General::decodeFloat2(App\Models\Outproduce::where('out_id', $out->id)->sum('quantity')) }}
+                    VOLUMES
+                </td>
+            </x-layout.pdf.pdf-table-body-line>
         </x-layout.pdf.pdf-table-body>
     </x-layout.pdf.pdf-table>
 </x-app.pdf.layout>
