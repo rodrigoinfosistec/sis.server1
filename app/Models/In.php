@@ -149,36 +149,36 @@ class In extends Model
      * @return bool true
      */
     public static function edit(array $data) : bool {
-        // Produto do Entrada.
-        $inproduce = Inproduce::find($data['validatedData']['inproduce_id']);
+        // Percorre todos os produtos da Saída.
+        foreach(Inproduce::where('in_id', $data['validatedData']['in_id'])->get() as $key => $inproduce):
+            $quantity_old = Producedeposit::where(['produce_id' => $inproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity;
 
-        $quantity_old = Producedeposit::where(['produce_id' => $inproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->first()->quantity;
+            // Atualiza quantidade do Produto no Depósito.
+            Producedeposit::where(['produce_id' => $inproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->update([
+                'quantity' => $quantity_old + General::encodeFloat($data['validatedData'][$inproduce->id]['score'], 7),
+            ]);
 
-        // Atualiza quantidade do Produto no Depósito.
-        Producedeposit::where(['produce_id' => $inproduce->produce_id, 'deposit_id' => $data['validatedData']['deposit_id']])->update([
-            'quantity' => $quantity_old + General::encodeFloat($data['validatedData']['score'], 7),
-        ]);
+            // Atualiza quantidade do Produto no Entrada.
+            Inproduce::find($inproduce->id)->update([
+                'quantity_old' => $quantity_old,
+                'quantity' => General::encodeFloat($data['validatedData'][$inproduce->id]['score'], 7),
+                'quantity_diff' => General::encodeFloat($data['validatedData'][$inproduce->id]['score'], 7)
+            ]);
 
-        // Atualiza quantidade do Produto no Entrada.
-        Inproduce::find($data['validatedData']['inproduce_id'])->update([
-            'quantity_old' => $quantity_old,
-            'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
-            'quantity_diff' => General::encodeFloat($data['validatedData']['score'], 7)
-        ]);
-
-        // Regista Movimentação do produto.
-        Producemoviment::create([
-            'produce_id' => $inproduce->produce_id,
-            'deposit_id' => $data['validatedData']['deposit_id'],
-            'company_id' => auth()->user()->company_id,
-            'user_id' => auth()->user()->id,
-            'type' => 'entrada',
-            'identification' => '{' . 
-                'in_id:'           . $data['validatedData']['in_id']           . ',' .
-                'producebrand_id:' . $data['validatedData']['producebrand_id'] . ',' .
-            '}',
-            'quantity' => General::encodeFloat($data['validatedData']['score'], 7),
-        ]);
+            // Regista Movimentação do produto.
+            Producemoviment::create([
+                'produce_id' => $inproduce->produce_id,
+                'deposit_id' => $data['validatedData']['deposit_id'],
+                'company_id' => auth()->user()->company_id,
+                'user_id' => auth()->user()->id,
+                'type' => 'entrada',
+                'identification' => '{' . 
+                    'in_id:'           . $data['validatedData']['in_id']           . ',' .
+                    'producebrand_id:' . $data['validatedData']['producebrand_id'] . ',' .
+                '}',
+                'quantity' => General::encodeFloat($data['validatedData'][$inproduce->id]['score'], 7),
+            ]);
+        endforeach;
 
         // Mensagem.
         $message = 'Entrada Consolidada';
