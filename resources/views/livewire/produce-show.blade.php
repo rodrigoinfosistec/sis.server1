@@ -167,18 +167,16 @@
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>
 
-<x-layout.card.card-body-content-table-body-line-cell-action width="120">
+<x-layout.card.card-body-content-table-body-line-cell-action width="80">
     <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
+
+    <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
 
     @if(App\Models\Producemoviment::where('produce_id', $item->id)->exists())
         <x-layout.card.card-body-content-table-body-line-cell-action-generate-produce-moviment :id="$item->id"/>
     @else
         <x-layout.card.card-body-content-table-body-line-cell-action-generate-muted :id="$item->id"/>
     @endif
-
-    {{--
-    <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
-    --}}
 
     @if(App\Models\Report::where(['folder' => 'producemoviment', 'reference_1' => $item->id, 'reference_2' => Auth()->user()->company_id])->exists())
         <x-layout.card.card-body-content-table-body-line-cell-action-print-produce-moviment :id="$item->id"/>
