@@ -120,6 +120,14 @@
 <x-layout.pdf.pdf-table-body-line-cell>
     <div class="text-muted" style="width: 100px;">
         <span class="text-muted">|</span>
+        &nbsp&nbsp&nbsp&nbsp&nbsp
+        <span class="text-dark fw-bold">
+            @if(App\Models\Producedeposit::where(['produce_id'=>$item->id, 'deposit_id'=>$deposit_id])->exists())
+            {{ App\Models\General::decodeFloat2(App\Models\Producedeposit::where(['produce_id'=>$item->id, 'deposit_id'=>$deposit_id])->first()->quantity) }}
+            @else
+                0,00
+            @endif
+        </span>
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
