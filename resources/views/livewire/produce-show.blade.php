@@ -86,6 +86,8 @@
 <div class="row g-3">
     <div class="col">
         <select wire:model="deposit_id" class="form-select form-select-sm" style="font-size: 8pt; margin: 0;" id="deposit_id">
+            <option value="" checked>TODOS</option>
+
             @foreach(App\Models\Deposit::where(['company_id'=>Auth()->user()->company_id, 'status'=>true])->get() as $key => $deposit)
                 <option value="{{ $deposit->id }}">{{ $deposit->nick }}</option>
             @endforeach

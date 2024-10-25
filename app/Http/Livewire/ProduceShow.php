@@ -48,9 +48,9 @@ class ProduceShow extends Component
     public $status;
     public $created;
 
-    public $deposit_id;
-    public $deposit_name;
-    public $deposit_nick;
+    public $deposit_id = '';
+    public $deposit_name = '';
+    public $deposit_nick = '';
 
     /**
      * Construtor.
@@ -58,23 +58,23 @@ class ProduceShow extends Component
     public function mount($config){
         $this->config = $config;
 
-        if(Deposit::where([
-            ['company_id', Auth()->user()->company_id],
-            ['status', true],
-        ])->exists()):
-            $deposit = Deposit::where([
-                ['company_id', Auth()->user()->company_id],
-                ['status', true],
-            ])->first();
+        // if(Deposit::where([
+        //     ['company_id', Auth()->user()->company_id],
+        //     ['status', true],
+        // ])->exists()):
+        //     $deposit = Deposit::where([
+        //         ['company_id', Auth()->user()->company_id],
+        //         ['status', true],
+        //     ])->first();
 
-            $this->deposit_id = $deposit->id;
-            $this->deposit_name = $deposit->name;
-            $this->deposit_nick = $deposit->nick;
-        else:
-            $this->deposit_id = '';
-            $this->deposit_name = '';
-            $this->deposit_nick = '';
-        endif;
+        //     $this->deposit_id = $deposit->id;
+        //     $this->deposit_name = $deposit->name;
+        //     $this->deposit_nick = $deposit->nick;
+        // else:
+        //     $this->deposit_id = '';
+        //     $this->deposit_name = '';
+        //     $this->deposit_nick = '';
+        // endif;
     }
 
     /**
@@ -146,9 +146,15 @@ class ProduceShow extends Component
      */
     public function render(){
         $array = [];
-        foreach(Producedeposit::where('deposit_id', $this->deposit_id)->get() as $key => $producedeopsit):
-            $array[] = $producedeopsit->produce_id;
-        endforeach;
+        if($this->deposit_id != ''):
+            foreach(Producedeposit::where('deposit_id', $this->deposit_id)->get() as $key => $producedeopsit):
+                $array[] = $producedeopsit->produce_id;
+            endforeach;
+        else:
+            foreach(Produce::where(['company_id'=>Auth()->user()->company_id, 'status'=>true])->get() as $key => $produce):
+                $array[] = $produce->id;
+            endforeach;
+        endif;
 
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
