@@ -2074,4 +2074,81 @@ class Report extends Model
 
         return true;
     }
+
+    /**
+     * Produce Generate
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function rapierGenerate(array $data) : bool {
+        // Define $array.
+        $array = [];
+        foreach(Producedeposit::where('deposit_id', $data['deposit_id'])->get() as $key => $producedeopsit):
+            $array[] = $producedeopsit->produce_id;
+        endforeach;
+
+        // Gera o arquivo PDF.
+        $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf', [
+            'user'         => auth()->user()->name,
+            'title'        => $data['config']['title'],
+            'date'         => date('d/m/Y H:i:s'),
+            'search'       => $data['search'],
+            'deposit_name' => Deposit::find($data['deposit_id'])->name,
+            'list'         => Produce::where([
+                ['company_id', Auth()->user()->company_id],
+                [$data['filter'], 'like', '%'. $data['search'] . '%'],
+                ['status', true],
+            ])->whereIn('id', $array)->orderBy('name', 'ASC')->get(), 
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
+
+        // Salva o arquivo PDF.
+        File::makeDirectory($data['path'], $mode = 0777, true, true);
+        $pdf->save($data['path'] . $data['file_name']);
+
+        // Registra os dados do arquivo PDF.
+        Report::create([
+            'user_id'     => auth()->user()->id,
+            'folder'      => $data['config']['name'],
+            'file'        => $data['file_name'],
+            'reference_1' => auth()->user()->company_id,
+            'reference_2' => $data['deposit_id'],
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Producemoviment Generate
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function rapierMovimentGenerate(array $data) : bool {
+        // Gera o arquivo PDF.
+        $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf-moviment', [
+            'user'         => auth()->user()->name,
+            'title'        => 'Mov. Produto',
+            'date'         => date('d/m/Y H:i:s'),
+            'produce'      => Produce::find($data['validatedData']['produce_id']),
+            'list'         => Producemoviment::where([
+                ['produce_id', $data['validatedData']['produce_id']],
+            ])->orderBy('id', 'DESC')->get(), 
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
+
+        // Salva o arquivo PDF.
+        File::makeDirectory($data['path'], $mode = 0777, true, true);
+        $pdf->save($data['path'] . $data['file_name']);
+
+        // Registra os dados do arquivo PDF.
+        Report::create([
+            'user_id'     => auth()->user()->id,
+            'folder'      => 'producemoviment',
+            'file'        => $data['file_name'],
+            'reference_1' => $data['validatedData']['produce_id'],
+            'reference_2' => auth()->user()->company_id,
+        ]);
+
+        return true;
+    }
 }

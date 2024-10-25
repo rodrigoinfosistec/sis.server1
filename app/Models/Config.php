@@ -319,7 +319,7 @@ class Config extends Model
             ],
             [
                 'name'  => 'rapier',
-                'title' => 'Estoque',
+                'title' => 'Depósito',
                 'icon'  => 'bi-boxes',
                 'test'  => true,
             ],

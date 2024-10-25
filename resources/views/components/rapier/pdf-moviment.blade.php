@@ -7,17 +7,19 @@
         </div>
 
         <div class="float-start" style="width: 120px; height: 30px; margin-right: 10px; margin-top: 2px;">
-            <h2 class="text-uppercase fw-bold" style="font-size: 12pt;">
+            <h2 class="text-uppercase fw-bold" style="font-size: 11pt;">
                 {{ $title }}
             </h2>
         </div>
 
-        <div class="float-start fw-bold" style="line-height: 1; width: 600px; height: 35px; margin-right: 10px; margin-top: 5px; font-size: 9pt;">
-            {{ App\Models\Company::find(Auth()->user()->company_id)->name }}
+        <div class="float-start fw-bold" style="line-hight: 1; width: 600px; height: 35px; margin-right: 10px; margin-top: 5px; font-size: 8pt;">
+            {{ $produce->name }}
             <br>
-            <span class="fw-normal" style="font-size: 8pt;">{{ $deposit_name }}</span>
+            <span class="fw-normal text-muted">{{ $produce->producebrand_name }} </span>
             <br>
-            <span class="fw-normal text-muted" style="font-size: 8pt;">PESQUISA: {{ $search }}</span>
+            <span class="fw-normal text-muted" style="font-size: 7pt;">
+                EAN: {{ $produce->ean }} | REF: {{ $produce->reference }}
+            </span>
         </div>
 
         <div class="float-end" style="width: 100px; height: 40px;">
@@ -34,38 +36,32 @@
 
 {{-- conteúdo título --}}
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 30px;">
+    <div class="text-center" style="width: 40px;">
         #
     </div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 100px;">
-        REF/EAN
-    </div>
-</x-layout.pdf.pdf-table-header-column>
-
-<x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 50px;">
-        EMB.
-    </div>
-</x-layout.pdf.pdf-table-header-column>
-
-<x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 350px;">
+    <div class="text-left" style="width: 260px;">
         DESCRIÇÃO
     </div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 100px;">
+    <div class="text-left" style="width: 80px;">
         QUANTIDADE
     </div>
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 300px;">
-        OBSERVAÇÕES
+    <div class="text-left" style="width: 70px;">
+        EMBALAGEM
+    </div>
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
+    <div class="text-left" style="width: 150px;">
+        CADASTRO
     </div>
 </x-layout.pdf.pdf-table-header-column>
 {{-- conteúdo título --}}
@@ -79,54 +75,43 @@
 {{-- conteúdo --}}
 {{-- # --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-muted text-center" style="width: 30px;">
+    <div class="text-muted text-center" style="width: 40px;">
         {{ str_pad($loop->iteration , Str::length($list->count()), '0', STR_PAD_LEFT) }}
-    </div>
-</x-layout.pdf.pdf-table-body-line-cell>
-
-{{-- REF/EAN --}}
-<x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 100px; line-height: 1.0;">
-        @if(isset($item->reference))
-            <span class="text-muted">
-                | {{ $item->reference }}
-            </span>
-        @endif
-        @if(isset($item->ean))
-            <br>
-            <span class="text-muted">|</span>
-            {{ $item->ean }}
-        @endif
-    </div>
-</x-layout.pdf.pdf-table-body-line-cell>
-
-{{-- EMB. --}}
-<x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 50px; line-height: 1.0;">
-        <span class="text-muted">|</span>
-        {{ $item->producemeasure->name }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- DESCRIÇÃO --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="" style="width: 350px; line-height: 1.0;">
-        <span class="text-muted">|</span>
-        {{ $item->producebrand->name }} {{ $item->name }}
+    <div class="" style="width: 260px; line-height: 1.0;">
+        {{ App\Models\Deposit::find($item->deposit_id)->name }}
+        <br>
+        {{ Illuminate\Support\Str::upper(App\Models\Producemoviment::typeName($item->type)) }}
+        {{ App\Models\Producemoviment::identification($item->identification) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- QUANTIDADE --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-muted" style="width: 100px;">
-        <span class="text-muted">|</span>
+    <div class="text-dark fw-bold" style="width: 80px; font-size: 10pt;">
+        {{ App\Models\General::decodeFloat2($item->quantity) }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 
-{{-- OBSERVAÇÕES --}}
+{{-- EMBALAGEM --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-muted" style="width: 300px;">
-        <span class="text-muted">|</span>
+    <div class="" style="width: 70px; line-height: 1.0;">
+        {{ $produce->producemeasure_name }}
+    </div>
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- CADASTRO --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    <div class="text-muted" style="line-height: 1; width: 150px; font-size: 7pt;">
+        <span class="text-muted" style="">
+            {{ App\Models\User::find($item->user_id)->name }}
+        </span>
+        <br>
+        {{ date_format($item->created_at, 'd/m/Y') }}
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 {{-- conteúdo --}}

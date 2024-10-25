@@ -16,15 +16,15 @@ Auth()->user()->usergroup_id,
                 ENTRADA
             </a>
             <a href="{{ route('rapier') }}" class="list-group-item list-group-item-action text-primary">
-                <i class="bi-box"></i>
-                ESTOQUE
+                <i class="bi-boxes"></i>
+                DEPÓSITO
             </a>
             <a href="{{ route('produce') }}" class="list-group-item list-group-item-action text-dark">
                 <i class="bi-box"></i>
                 PRODUTO
             </a>
             <a href="{{ route('inventory') }}" class="list-group-item list-group-item-action {{-- adisabled --}} text-dark" {{-- aria-disabled="true" --}}>
-                <i class="bi-boxes"></i>
+                <i class="bi-arrow-counterclockwise"></i>
                 BALANÇO
             </a>
         </div>
