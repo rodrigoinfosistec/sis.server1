@@ -1902,6 +1902,8 @@ class Report extends Model
             'user'         => auth()->user()->name,
             'title'        => $data['config']['title'],
             'date'         => date('d/m/Y H:i:s'),
+            'search'       => $data['search'],
+            'deposit_name' => Deposit::find($data['deposit_id'])->name,
             'list'         => Produce::where([
                 ['company_id', Auth()->user()->company_id],
                 [$data['filter'], 'like', '%'. $data['search'] . '%'],

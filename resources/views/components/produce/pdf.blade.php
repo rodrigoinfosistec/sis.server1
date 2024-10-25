@@ -12,10 +12,12 @@
             </h2>
         </div>
 
-        <div class="float-start fw-bold" style="width: 600px; height: 35px; margin-right: 10px; margin-top: 5px; font-size: 9pt;">
+        <div class="float-start fw-bold" style="line-height: 1; width: 600px; height: 35px; margin-right: 10px; margin-top: 5px; font-size: 9pt;">
             {{ App\Models\Company::find(Auth()->user()->company_id)->name }}
             <br>
-            <span class="fw-normal text-muted">{{-- $company->cnpj --}} </span>
+            <span class="fw-normal" style="font-size: 8pt;">{{ $deposit_name }}</span>
+            <br>
+            <span class="fw-normal text-muted" style="font-size: 8pt;">PESQUISA: {{ $search }}</span>
         </div>
 
         <div class="float-end" style="width: 100px; height: 40px;">

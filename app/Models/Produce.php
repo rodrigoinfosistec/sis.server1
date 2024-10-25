@@ -205,11 +205,15 @@ class Produce extends Model
                 [$data['filter'], 'like', '%'. $data['search'] . '%'],
                 ['status', true],
             ])->whereIn('id', $array)->doesntExist()):
-            else:
                 $message = 'Nenhum ítem selecionado.';
             endif;
+
+            // Verifica se houve Pesquisa.
+            if($data['search'] == ''):
+                $message = 'Nenhuma Pesquisa efetuada.';
+            endif;
         else:
-            $message = 'Nenhum ítem selecionado.';
+            $message = 'Nenhum Depósito selecionado.';
         endif;
 
         // Desvio.
