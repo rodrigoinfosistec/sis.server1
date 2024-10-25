@@ -48,9 +48,9 @@ class ProduceShow extends Component
     public $status;
     public $created;
 
-    public $deposit_id = '';
-    public $deposit_name = '';
-    public $deposit_nick = '';
+    public $deposit_id;
+    public $deposit_name;
+    public $deposit_nick;
 
     /**
      * Construtor.
@@ -58,23 +58,23 @@ class ProduceShow extends Component
     public function mount($config){
         $this->config = $config;
 
-        // if(Deposit::where([
-        //     ['company_id', Auth()->user()->company_id],
-        //     ['status', true],
-        // ])->exists()):
-        //     $deposit = Deposit::where([
-        //         ['company_id', Auth()->user()->company_id],
-        //         ['status', true],
-        //     ])->first();
+        if(Deposit::where([
+            ['company_id', Auth()->user()->company_id],
+            ['status', true],
+        ])->exists()):
+            $deposit = Deposit::where([
+                ['company_id', Auth()->user()->company_id],
+                ['status', true],
+            ])->first();
 
-        //     $this->deposit_id = $deposit->id;
-        //     $this->deposit_name = $deposit->name;
-        //     $this->deposit_nick = $deposit->nick;
-        // else:
-        //     $this->deposit_id = '';
-        //     $this->deposit_name = '';
-        //     $this->deposit_nick = '';
-        // endif;
+            $this->deposit_id = $deposit->id;
+            $this->deposit_name = $deposit->name;
+            $this->deposit_nick = $deposit->nick;
+        else:
+            $this->deposit_id = '';
+            $this->deposit_name = '';
+            $this->deposit_nick = '';
+        endif;
     }
 
     /**

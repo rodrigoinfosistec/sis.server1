@@ -198,19 +198,17 @@ class Produce extends Model
             foreach(Producedeposit::where('deposit_id', $data['deposit_id'])->get() as $key => $producedeopsit):
                 $array[] = $producedeopsit->produce_id;
             endforeach;
-        else:
-            foreach(Produce::where(['company_id'=>Auth()->user()->company_id, 'status'=>true])->get() as $key => $produce):
-                $array[] = $produce->id;
-            endforeach;
-        endif;
 
-        // Verifica se existe algum item retornado na pesquisa.
-        if(Produce::where([
+            // Verifica se existe algum item retornado na pesquisa.
+            if(Produce::where([
                 ['company_id', Auth()->user()->company_id],
                 [$data['filter'], 'like', '%'. $data['search'] . '%'],
                 ['status', true],
             ])->whereIn('id', $array)->doesntExist()):
-
+            else:
+                $message = 'Nenhum ítem selecionado.';
+            endif;
+        else:
             $message = 'Nenhum ítem selecionado.';
         endif;
 

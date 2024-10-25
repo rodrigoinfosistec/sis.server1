@@ -1893,15 +1893,9 @@ class Report extends Model
     public static function produceGenerate(array $data) : bool {
         // Define $array.
         $array = [];
-        if($data['deposit_id'] != ''):
-            foreach(Producedeposit::where('deposit_id', $data['deposit_id'])->get() as $key => $producedeopsit):
-                $array[] = $producedeopsit->produce_id;
-            endforeach;
-        else:
-            foreach(Produce::where(['company_id'=>Auth()->user()->company_id, 'status'=>true])->get() as $key => $produce):
-                $array[] = $produce->id;
-            endforeach;
-        endif;
+        foreach(Producedeposit::where('deposit_id', $data['deposit_id'])->get() as $key => $producedeopsit):
+            $array[] = $producedeopsit->produce_id;
+        endforeach;
 
         // Gera o arquivo PDF.
         $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf', [
