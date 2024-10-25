@@ -115,7 +115,7 @@
     <div style="width: 100px;">
         <span class="text-muted">|</span>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <span class="text-dark fw-bold" style="font-size: 11pt;">
+        <span class="text-dark fw-bold" style="font-size: 10pt;">
             @if(App\Models\Producedeposit::where(['produce_id'=>$item->id, 'deposit_id'=>$deposit_id])->exists())
                 {{ App\Models\General::decodeFloat2(App\Models\Producedeposit::where(['produce_id'=>$item->id, 'deposit_id'=>$deposit_id])->first()->quantity) }}
             @else
