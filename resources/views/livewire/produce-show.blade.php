@@ -77,11 +77,21 @@
 
                 </x-layout.card.card-body-navigation-search>
 
+                <div style="width: 100%; height: 8px;"></div>
+
                 <x-layout.card.card-body-navigation-info>
                     <x-layout.card.card-body-navigation-info-action>
 
 {{-- info action --}}
-
+<div class="row g-3">
+    <div class="col">
+        <select wire:model="deposit_id" class="form-select form-select-sm" style="font-size: 8pt; margin: 0;" id="deposit_id">
+            @foreach(App\Models\Deposit::where(['company_id'=>Auth()->user()->company_id, 'status'=>true])->get() as $key => $deposit)
+                <option value="{{ $deposit->id }}">{{ $deposit->nick }}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
 {{-- info action --}}
 
                     </x-layout.card.card-body-navigation-info-action>
@@ -89,6 +99,8 @@
                     <x-layout.card.card-body-navigation-info-count :count="$list->total()"/>
                 </x-layout.card.card-body-navigation-info>
             </x-layout.card.card-body-navigation>
+
+            <div style="width: 100%; height: 5px;"></div>
 
             <x-layout.card.card-body-content>
                 <x-layout.card.card-body-content-table>
