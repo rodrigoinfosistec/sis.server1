@@ -10,6 +10,7 @@ use App\Models\General;
 use App\Models\Produce;
 use App\Models\Producemeasure;
 use App\Models\Producebrand;
+use App\Models\Producedeposit;
 use App\Models\Deposit;
 
 use Livewire\WithPagination;
@@ -144,6 +145,11 @@ class ProduceShow extends Component
      * Renderiza página.
      */
     public function render(){
+        $array = [];
+        foreach(Producedeposit::where('deposit_id', $this->deposit_id)->get() as $key => $producedeopsit):
+            $array[] = $producedeopsit->produce_id;
+        endforeach;
+
         return view('livewire.' . $this->config['name'] . '-show', [
             'config'       => $this->config,
             'existsItem'   => Produce::where('status', true)->exists(),
@@ -152,7 +158,8 @@ class ProduceShow extends Component
             'list'         => Produce::where([
                 ['company_id', Auth()->user()->company_id],
                 [$this->filter, 'like', '%'. $this->search . '%'],
-            ])->orderBy('status', 'DESC')->orderBy('name', 'ASC')->paginate(100),
+            ])->whereIn('id', $array)
+            ->orderBy('status', 'DESC')->orderBy('name', 'ASC')->paginate(100),
         ]);
     }
 
