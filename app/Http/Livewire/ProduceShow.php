@@ -309,9 +309,10 @@ class ProduceShow extends Component
         public function sire()
         {
             // Define $data.
-            $data['config'] = $this->config;
-            $data['filter'] = $this->filter;
-            $data['search'] = $this->search;
+            $data['config']     = $this->config;
+            $data['filter']     = $this->filter;
+            $data['search']     = $this->search;
+            $data['deposit_id'] = $this->deposit_id;
 
             // Valida geração de relatório.
             $valid = Produce::validateGenerate($data);

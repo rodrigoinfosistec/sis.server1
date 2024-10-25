@@ -192,11 +192,24 @@ class Produce extends Model
     public static function validateGenerate(array $data) : bool {
         $message = null;
 
+        // Define $array.
+        $array = [];
+        if($data['deposit_id'] != ''):
+            foreach(Producedeposit::where('deposit_id', $data['deposit_id'])->get() as $key => $producedeopsit):
+                $array[] = $producedeopsit->produce_id;
+            endforeach;
+        else:
+            foreach(Produce::where(['company_id'=>Auth()->user()->company_id, 'status'=>true])->get() as $key => $produce):
+                $array[] = $produce->id;
+            endforeach;
+        endif;
+
         // Verifica se existe algum item retornado na pesquisa.
-        if($list = Produce::where([
+        if(Produce::where([
                 ['company_id', Auth()->user()->company_id],
                 [$data['filter'], 'like', '%'. $data['search'] . '%'],
-            ])->doesntExist()):
+                ['status', true],
+            ])->whereIn('id', $array)->doesntExist()):
 
             $message = 'Nenhum ítem selecionado.';
         endif;

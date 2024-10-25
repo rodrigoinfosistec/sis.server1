@@ -1891,15 +1891,28 @@ class Report extends Model
      * @return bool true
      */
     public static function produceGenerate(array $data) : bool {
+        // Define $array.
+        $array = [];
+        if($data['deposit_id'] != ''):
+            foreach(Producedeposit::where('deposit_id', $data['deposit_id'])->get() as $key => $producedeopsit):
+                $array[] = $producedeopsit->produce_id;
+            endforeach;
+        else:
+            foreach(Produce::where(['company_id'=>Auth()->user()->company_id, 'status'=>true])->get() as $key => $produce):
+                $array[] = $produce->id;
+            endforeach;
+        endif;
+
         // Gera o arquivo PDF.
         $pdf = PDF::loadView('components.' . $data['config']['name'] . '.pdf', [
             'user'         => auth()->user()->name,
             'title'        => $data['config']['title'],
             'date'         => date('d/m/Y H:i:s'),
-            'list'         => $list = Produce::where([
+            'list'         => Produce::where([
                 ['company_id', Auth()->user()->company_id],
                 [$data['filter'], 'like', '%'. $data['search'] . '%'],
-            ])->orderBy('name', 'ASC')->get(), 
+                ['status', true],
+            ])->whereIn('id', $array)->orderBy('name', 'ASC')->get(), 
         ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
 
         // Salva o arquivo PDF.
@@ -1912,6 +1925,7 @@ class Report extends Model
             'folder'      => $data['config']['name'],
             'file'        => $data['file_name'],
             'reference_1' => auth()->user()->company_id,
+            'reference_2' => $data['deposit_id'],
         ]);
 
         return true;
