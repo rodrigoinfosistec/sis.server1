@@ -206,10 +206,10 @@ class Rapier extends Model
         $data['file_name'] = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
 
         // Gera PDF.
-        Report::produceGenerate($data);
+        Report::rapierGenerate($data);
 
         // Auditoria.
-        Audit::produceGenerate($data);
+        Audit::rapierGenerate($data);
 
         // Mensagem.
         $message = 'Relatório PDF gerado com sucesso.';
@@ -267,14 +267,14 @@ class Rapier extends Model
      */
     public static function generateMoviment(array $data) : bool {
         // Estende $data.
-        $data['path'] = public_path('/storage/pdf/producemoviment/');
-        $data['file_name'] = 'producemoviment_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
+        $data['path'] = public_path('/storage/pdf/rapiermoviment/');
+        $data['file_name'] = 'rapiermoviment_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
 
         // Gera PDF.
-        Report::produceMovimentGenerate($data);
+        Report::rapierMovimentGenerate($data);
 
         // Auditoria.
-        Audit::produceMovimentGenerate($data);
+        Audit::rapierMovimentGenerate($data);
 
         // Mensagem.
         $message = 'Relatório PDF gerado com sucesso.';

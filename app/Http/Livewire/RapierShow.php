@@ -298,13 +298,13 @@ class RapierShow extends Component
             $data['deposit_id'] = $this->deposit_id;
 
             // Valida geração de relatório.
-            $valid = Produce::validateGenerate($data);
+            $valid = Rapier::validateGenerate($data);
 
             // Gera relatório.
-            if ($valid) Produce::generate($data);
+            if ($valid) Rapier::generate($data);
 
             // Executa dependências.
-            if ($valid) Produce::dependencyGenerate($data);
+            if ($valid) Rapier::dependencyGenerate($data);
 
             // Fecha modal.
             $this->closeModal();
@@ -357,13 +357,13 @@ class RapierShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida geração de relatório.
-            $valid = Produce::validateGenerateMoviment($data);
+            $valid = Rapier::validateGenerateMoviment($data);
 
             // Gera relatório.
-            if ($valid) Produce::generateMoviment($data);
+            if ($valid) Rapier::generateMoviment($data);
 
             // Executa dependências.
-            if ($valid) Produce::dependencyGenerateMoviment($data);
+            if ($valid) Rapier::dependencyGenerateMoviment($data);
 
             // Fecha modal.
             $this->closeModal();
