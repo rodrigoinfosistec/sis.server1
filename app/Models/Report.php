@@ -2094,13 +2094,14 @@ class Report extends Model
             'title'        => $data['config']['title'],
             'date'         => date('d/m/Y H:i:s'),
             'search'       => $data['search'],
+            'deposit_id'   => $data['deposit_id'],
             'deposit_name' => Deposit::find($data['deposit_id'])->name,
             'list'         => Produce::where([
                 ['company_id', Auth()->user()->company_id],
                 [$data['filter'], 'like', '%'. $data['search'] . '%'],
                 ['status', true],
             ])->whereIn('id', $array)->orderBy('name', 'ASC')->get(), 
-        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'landscape');
+        ])->set_option('isPhpEnabled', true)->setPaper('A4', 'portrait');
 
         // Salva o arquivo PDF.
         File::makeDirectory($data['path'], $mode = 0777, true, true);

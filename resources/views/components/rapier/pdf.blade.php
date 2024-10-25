@@ -62,12 +62,6 @@
         QUANTIDADE
     </div>
 </x-layout.pdf.pdf-table-header-column>
-
-<x-layout.pdf.pdf-table-header-column>
-    <div class="text-center" style="width: 300px;">
-        OBSERVAÇÕES
-    </div>
-</x-layout.pdf.pdf-table-header-column>
 {{-- conteúdo título --}}
 
         </x-layout.pdf.pdf-table-header>
@@ -118,23 +112,16 @@
 
 {{-- QUANTIDADE --}}
 <x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-muted" style="width: 100px;">
+    <div style="width: 100px;">
         <span class="text-muted">|</span>
-        &nbsp&nbsp&nbsp&nbsp&nbsp
-        <span class="text-dark fw-bold">
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="text-dark fw-bold" style="font-size: 11pt;">
             @if(App\Models\Producedeposit::where(['produce_id'=>$item->id, 'deposit_id'=>$deposit_id])->exists())
-            {{ App\Models\General::decodeFloat2(App\Models\Producedeposit::where(['produce_id'=>$item->id, 'deposit_id'=>$deposit_id])->first()->quantity) }}
+                {{ App\Models\General::decodeFloat2(App\Models\Producedeposit::where(['produce_id'=>$item->id, 'deposit_id'=>$deposit_id])->first()->quantity) }}
             @else
                 0,00
             @endif
         </span>
-    </div>
-</x-layout.pdf.pdf-table-body-line-cell>
-
-{{-- OBSERVAÇÕES --}}
-<x-layout.pdf.pdf-table-body-line-cell>
-    <div class="text-muted" style="width: 300px;">
-        <span class="text-muted">|</span>
     </div>
 </x-layout.pdf.pdf-table-body-line-cell>
 {{-- conteúdo --}}
