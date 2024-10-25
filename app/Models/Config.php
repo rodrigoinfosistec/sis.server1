@@ -302,7 +302,7 @@ class Config extends Model
             [
                 'name'  => 'inventory',
                 'title' => 'Balanço',
-                'icon'  => 'bi-boxes',
+                'icon'  => 'bi-arrow-counterclockwise',
                 'test'  => true,
             ],
             [
@@ -320,7 +320,7 @@ class Config extends Model
             [
                 'name'  => 'rapier',
                 'title' => 'Estoque',
-                'icon'  => 'bi-box',
+                'icon'  => 'bi-boxes',
                 'test'  => true,
             ],
         ];
