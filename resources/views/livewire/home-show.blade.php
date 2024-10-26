@@ -3,7 +3,7 @@
 
 @if(in_array(
 Auth()->user()->usergroup_id,
-[1, 2, 14]
+[1, 2, 14, 15]
 ))
 	<div class="container" style="margin-top: 50px; margin-bottom: 50px;">
         <div class="list-group fw-bold">
