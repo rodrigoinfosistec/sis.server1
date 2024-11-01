@@ -3,9 +3,9 @@
         {{ $config['title'] }}
 
         <x-slot:identifier>
-            SAÍDA<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $out_id }}</span>
+            DEPÓSITO<i class="bi bi-caret-right-fill"></i> <span class="text-primary fw-bold">{{ $deposit_name }}</span>
             <br>
-            DEPÓSITO<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $deposit_name }}</span>
+            SAÍDA<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $out_id }}</span>
             <br>
             <span class="text-primary fw-bold" style="font-size: 11pt;">
                 {{ App\Models\General::decodeFloat2(App\Models\Outproduce::where('out_id', $out_id)->sum('quantity')) }}
@@ -43,7 +43,7 @@
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 75px;">
+                    <div class="text-left" style="width: 120px;">
                         SAÍDA
                     </div>
                 </th>
@@ -103,8 +103,12 @@
 
                     {{-- SAÍDA --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="text-center" style="width: 75px; padding-top: 0; margin-top: 0;">
-                            <input type="number" min="1" wire:model="array_produce_score.{{ $outproduce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 70px; margin-top: 0;" id="array_produce_score_{{ $outproduce->id }}" required readonly>
+                        <div class="text-left float-start" style="width: 60px; padding-top: 0; margin-top: 0;">
+                            <input type="number" min="1" wire:model="array_produce_score.{{ $outproduce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 60px; margin-top: 0;" id="array_produce_score_{{ $outproduce->id }}" required readonly>
+                        </div>
+
+                        <div class="float-start text-primary" style="font-size: 8pt; width: 60px; margin-top: 10px;">
+                            {{ $outproduce->produce->producemeasure_name }}
                         </div>
                     </td>
 

@@ -5,9 +5,9 @@
         <x-slot:identifier>
             MARCA<i class="bi bi-caret-right-fill"></i> <span class="text-primary fw-bold" style="font-size: 9pt;">{{ $producebrand_name }}</span>
             <br>
-            ENTRADA<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $in_id }}</span>
+            DEPÓSITO<i class="bi bi-caret-right-fill"></i> <span class="text-primary fw-bold">{{ $deposit_name }}</span>
             <br>
-            DEPÓSITO<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $deposit_name }}</span>
+            ENTRADA<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $in_id }}</span>
             <br>
             <span class="text-primary fw-bold" style="font-size: 11pt;">
                 {{ App\Models\General::decodeFloat2(App\Models\Inproduce::where('in_id', $in_id)->sum('quantity')) }}
@@ -45,11 +45,11 @@
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 75px;">
+                    <div class="text-left" style="width: 120px;">
                         ENTRADA
                     </div>
                 </th>
-                
+
                 <th class="" style="padding: 0;">
                     <div class="text-center" style="width: 75px;">
                         ATUAL
@@ -105,8 +105,12 @@
 
                     {{-- ENTRADA --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="text-center float-start" style="width: 75px; padding-top: 0; margin-top: 0;">
-                            <input type="number" min="1" wire:model="array_produce_score.{{ $inproduce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 70px; margin-top: 0;" id="array_produce_score_{{ $inproduce->id }}" required readonly>
+                        <div class="text-left float-start" style="width: 60px; padding-top: 0; margin-top: 0; letter-spacing: -1px;">
+                            <input type="number" min="1" wire:model="array_produce_score.{{ $inproduce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 60px; margin-top: 0;" id="array_produce_score_{{ $inproduce->id }}" required readonly>
+                        </div>
+
+                        <div class="float-start text-primary" style="font-size: 8pt; width: 60px; margin-top: 10px;">
+                            {{ $inproduce->produce->producemeasure_name }}
                         </div>
                     </td>
 
