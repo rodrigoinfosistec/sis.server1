@@ -31,7 +31,7 @@
         <select wire:model="deposit_id" class="form-select form-select-sm text-uppercase" id="deposit_id">
             <x-layout.modal.modal-add-body-group-item-option-muted/>
 
-            @foreach(App\Models\Deposit::where('company_id', auth()->user()->company_id)->orderBy('name', 'ASC')->get() as $key => $deposit)
+            @foreach(App\Models\Deposit::where(['company_id'=>auth()->user()->company_id, 'status'=>true])->orderBy('name', 'ASC')->get() as $key => $deposit)
                 <option value="{{ $deposit->id }}">{{ $deposit->name }}</option>
             @endforeach
         </select>

@@ -3,17 +3,16 @@
         {{ $config['title'] }}
 
         <x-slot:identifier>
-            MARCA
-            <i class="bi bi-caret-right-fill"></i>
-            <span class="text-primary fw-bold">
-                {{ $producebrand_name }}
-            </span>
-
+            MARCA<i class="bi bi-caret-right-fill"></i> <span class="text-primary fw-bold" style="font-size: 9pt;">{{ $producebrand_name }}</span>
             <br>
-
             ENTRADA<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $in_id }}</span>
             <br>
             DEPÓSITO<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $deposit_name }}</span>
+            <br>
+            <span class="text-primary fw-bold" style="font-size: 11pt;">
+                {{ App\Models\General::decodeFloat2(App\Models\Inproduce::where('in_id', $in_id)->sum('quantity')) }}
+                VOLUMES
+            </span>
         </x-slot>
     </x-layout.modal.modal-edit-header>
 
@@ -31,12 +30,10 @@
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="" style="width: 200px;">
+                    <div class="" style="width: 120px;">
+                        DESCRIÇÃO |
+                        EAN |
                         REF
-                        /
-                        REF
-                        /
-                        EMBALAGEM
                     </div>
                 </th>
 
@@ -81,25 +78,19 @@
 
                     <td colspan="100%" class="align-middle" style="line-height: 1; padding: 6px 0 0 0;">
                         {{-- DESCRIÇÃO --}}
-                        <div class="fw-bold" style="width: 850px; font-size: 9pt; line-height: 1;" title="{{ $inproduce->produce->name }}">
+                        <div class="fw-bold text-primary" style="width: 850px; font-size: 10pt;" title="{{ $inproduce->produce->name }}">
                             {{ mb_strimwidth($inproduce->produce->name, 0, 90, "...") }}
                         </div>
                     </td>
                 </tr>
 
                 <tr style="border-bottom: 1px solid #ddd;">
-                    {{-- REF/EAN/EMBALAGEM --}}
+                    {{-- EAN/REF --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="text-dark" style="width: 200px;">
-                            {{ $inproduce->produce->reference }}
-                            <span class="fw-bold text-muted">
-                                <i class="bi-caret-right-fill"></i>
-                            </span>
+                        <div class="" style="width: 120px; font-size: 9pt;">
                             {{ $inproduce->produce->ean }}
-                            <span class="fw-bold text-muted">
-                                <i class="bi-caret-right-fill"></i>
-                            </span>
-                            {{ $inproduce->produce->producemeasure_name }}
+                            <br>
+                            {{ $inproduce->produce->reference }}
                         </div>
                     </td>
 
@@ -114,8 +105,8 @@
 
                     {{-- ENTRADA --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="text-center" style="width: 75px; padding-top: 0; margin-top: 0;">
-                            <input type="number" min="1" wire:model="array_produce_score.{{ $inproduce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 70px; margin-top: 0;" id="array_produce_score_{{ $inproduce->id }}" required>
+                        <div class="text-center float-start" style="width: 75px; padding-top: 0; margin-top: 0;">
+                            <input type="number" min="1" wire:model="array_produce_score.{{ $inproduce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 70px; margin-top: 0;" id="array_produce_score_{{ $inproduce->id }}" required readonly>
                         </div>
                     </td>
 
