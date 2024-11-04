@@ -11,7 +11,6 @@ use App\Models\Produce;
 use App\Models\Producemeasure;
 use App\Models\Producebrand;
 use App\Models\Producedeposit;
-use App\Models\Deposit;
 
 use Livewire\WithPagination;
 use Livewire\Component;
@@ -47,6 +46,7 @@ class ProduceShow extends Component
     public $observation;
     public $status;
     public $created;
+    public $produce_deposit_id;
 
     public $deposit_id = '';
     public $deposit_name = '';
@@ -75,6 +75,8 @@ class ProduceShow extends Component
             'producebrand_id' => ['required'],
             'producemeasure_id' => ['required'],
             'observation' => ['nullable', 'between:2,255'],
+
+            'produce_deposit_id' => ['required'],
         ];
     }
 
@@ -113,6 +115,7 @@ class ProduceShow extends Component
         $this->observation         = '';
         $this->status              = '';
         $this->created             = '';
+        $this->produce_deposit_id  = '';
     }
 
     /**
@@ -158,7 +161,7 @@ class ProduceShow extends Component
      */
     public function add()
     {
-        //...
+        
     }
         public function register()
         {
@@ -167,6 +170,7 @@ class ProduceShow extends Component
                 'name' => ['required', 'between:2,255'],
                 'reference' => ['required', 'between:2,255'],
                 'ean' => ['required', 'min:13', 'unique:produces'],
+                'produce_deposit_id' => ['required'],
                 'producebrand_id' => ['required'],
                 'producemeasure_id' => ['required'],
                 'observation' => ['nullable', 'between:2,255'],

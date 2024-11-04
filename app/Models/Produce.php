@@ -86,6 +86,12 @@ class Produce extends Model
             'observation'         => $data['validatedData']['observation'],
         ])->id;
 
+        // Vincula o Produto ao Depósito.
+        Deposit::create([
+            'produce_id' => $produce_id,
+            'deposit_id' => $data['validatedData']['produce_deposit_id'],
+        ]);
+
         // After.
         $after = Produce::find($produce_id);
 
