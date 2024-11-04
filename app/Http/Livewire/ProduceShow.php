@@ -72,11 +72,10 @@ class ProduceShow extends Component
             'name' => ['required', 'between:2,255'],
             'reference' => ['required', 'between:2,255'],
             'ean' => ['required', 'numeric', 'min:13', 'unique:produces,ean,'.$this->produce_id.''],
+            'produce_deposit_id' => ['required'],
             'producebrand_id' => ['required'],
             'producemeasure_id' => ['required'],
             'observation' => ['nullable', 'between:2,255'],
-
-            'produce_deposit_id' => ['required'],
         ];
     }
 
