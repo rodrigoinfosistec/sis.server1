@@ -241,7 +241,7 @@ class InventoryShow extends Component
         // Percorre os Produtos do Balanço.
         foreach(Inventoryproduce::where('inventory_id', $inventory_id)->get() as $key => $inventoryproduce):
             // Inicializa variáveis, dinamicamente.
-            $this->array_produce_score[$inventoryproduce->produce->id] = '';
+            $this->array_produce_score[$inventoryproduce->id] = '';
 
             if(Producedeposit::where([
                 ['produce_id', $inventoryproduce->produce->id],
@@ -264,7 +264,7 @@ class InventoryShow extends Component
             foreach(Inventoryproduce::where('inventory_id', $this->inventory_id)->get() as $key => $inventoryproduce):
                 // Monta array do Produto do balanço.
                 $validatedData['inventoryproduce_id'] = $inventoryproduce->id;
-                $validatedData['score'] = $this->array_produce_score[$inventoryproduce->produce->id];
+                $validatedData['score'] = $this->array_produce_score[$inventoryproduce->id];
 
                 // Define $data.
                 $data['config']        = $this->config;

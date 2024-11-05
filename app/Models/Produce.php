@@ -87,7 +87,7 @@ class Produce extends Model
         ])->id;
 
         // Vincula o Produto ao Depósito.
-        Deposit::create([
+        Producedeposit::create([
             'produce_id' => $produce_id,
             'deposit_id' => $data['validatedData']['produce_deposit_id'],
         ]);

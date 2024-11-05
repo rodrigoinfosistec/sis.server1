@@ -3,11 +3,11 @@
         {{ $config['title'] }}
 
         <x-slot:identifier>
+            MARCA<i class="bi bi-caret-right-fill"></i> <span class="text-primary fw-bold" style="font-size: 9pt;">{{ $producebrand_name }}</span>
+            <br>
+            DEPÓSITO<i class="bi bi-caret-right-fill"></i> <span class="text-primary fw-bold">{{ $deposit_name }}</span>
+            <br>
             BALANÇO<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $inventory_id }}</span>
-            <br>
-            DEPÓSITO<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $deposit_name }}</span>
-            <br>
-            MARCA<i class="bi bi-caret-right-fill"></i> <span class="text-dark fw-bold">{{ $producebrand_name }}</span>
         </x-slot>
     </x-layout.modal.modal-edit-header>
 
@@ -25,14 +25,15 @@
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="" style="width: 90px;">
-                        <span class="text-danger">EAN</span>
-                        <span class="text-primary">REF</span>
+                    <div class="" style="width: 120px;">
+                        DESCRIÇÃO |
+                        EAN |
+                        REF
                     </div>
                 </th>
 
                 <th class="" style="padding: 0;">
-                    <div class="text-center" style="width: 75px;">
+                    <div class="text-left" style="width: 120px;">
                         CONTAGEM
                     </div>
                 </th>
@@ -65,30 +66,30 @@
 
                     <td colspan="100%" class="align-middle" style="line-height: 1; padding: 6px 0 0 0;">
                         {{-- DESCRIÇÃO --}}
-                        <div class="fw-bolder" style="width: 850px; font-size: 8pt;" title="{{ $inventoryproduce->produce->name }}">
+                        <div class="fw-bold text-primary" style="width: 850px; font-size: 10pt;" title="{{ $inventoryproduce->produce->name }}">
                             {{ mb_strimwidth($inventoryproduce->produce->name, 0, 90, "...") }}
                         </div>
                     </td>
                 </tr>
 
                 <tr style="border-bottom: 1px solid #ddd;">
-                    {{-- INT/EAN/REF --}}
+                    {{-- EAN/REF --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="text" style="width: 90px;">
-                            <span class="fw-bold text-danger">
-                                {{ $inventoryproduce->produce->ean }}
-                            </span>
+                        <div class="" style="width: 120px; font-size: 9pt;">
+                            {{ $inventoryproduce->produce->ean }}
                             <br>
-                            <span class="fw-bold text-primary">
-                                {{ $inventoryproduce->produce->reference }}
-                            </span>
+                            {{ $inventoryproduce->produce->reference }}
                         </div>
                     </td>
 
                     {{-- CONTAGEM --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
-                        <div class="text" style="width: 75px;">
-                            <input type="number" min="1" wire:model="array_produce_score.{{ $inventoryproduce->produce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 70px;" id="array_produce_score_{{ $inventoryproduce->produce->id }}" required>
+                        <div class="text-left float-start" style="width: 55px; padding-top: 0; margin-top: 0; letter-spacing: -1px;">
+                            <input type="number" min="1" wire:model="array_produce_score.{{ $inventoryproduce->id }}" class="form-control form-control-sm text-primary fw-bold" style="font-size: 10pt; padding: 0 2px 0 2px; width: 55px; margin-top: 0;" id="array_produce_score_{{ $inventoryproduce->id }}" required>
+                        </div>
+
+                        <div class="float-start text-primary" style="font-size: 8pt; width: 60px; margin-top: 10px;">
+                            {{ $inventoryproduce->produce->producemeasure_name }}
                         </div>
                     </td>
 
@@ -102,14 +103,14 @@
                     {{-- DIFERENÇA --}}
                     <td class="align-middle" style="line-height: 1; padding: 0;">
                         <div class="fw-bold text-center" style="width: 75px; font-size: 9pt;">
-                        @if((@(int)$array_produce_score[$inventoryproduce->produce->id] - @(int)$array_produce_quantity[$inventoryproduce->produce->id]) > 0)
+                        @if((@(int)$array_produce_score[$inventoryproduce->id] - @(int)$array_produce_quantity[$inventoryproduce->produce->id]) > 0)
                             <span class="text-primary">
-                        @elseif((@(int)$array_produce_score[$inventoryproduce->produce->id] - @(int)$array_produce_quantity[$inventoryproduce->produce->id]) < 0)
+                        @elseif((@(int)$array_produce_score[$inventoryproduce->id] - @(int)$array_produce_quantity[$inventoryproduce->produce->id]) < 0)
                             <span class="text-danger">
                         @else
                             <span class="text-dark">
                         @endif
-                                {{ @(int)$array_produce_score[$inventoryproduce->produce->id] - @(int)$array_produce_quantity[$inventoryproduce->produce->id] }}
+                                {{ @(int)$array_produce_score[$inventoryproduce->id] - @(int)$array_produce_quantity[$inventoryproduce->produce->id] }}
                             </span>
                         </div>
                     </td>

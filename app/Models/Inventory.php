@@ -57,8 +57,32 @@ class Inventory extends Model
         $message = null;
 
         // Verifica se não possui Produto vinculado com a Marca.
-        if(Produce::where('producebrand_id', (int)$data['validatedData']['producebrand_id'])->doesntExist()):
+        if(Produce::where(['producebrand_id'=>$data['validatedData']['producebrand_id'], 'status'=>true])->doesntExist()):
             $message = 'Nenhum Produto vinculado com esta Marca.';
+        else:
+            // Inicializa $count.
+            $count = false;
+
+            // Percorre os Produtos da Marca.
+            foreach(Produce::where([
+                ['producebrand_id', $data['validatedData']['producebrand_id']],
+                ['company_id', auth()->user()->company_id],
+                ['status', true],
+            ])->orderBy('name', 'ASC')->get() as $key => $produce):
+                // Verifica se Marca não possui Produto vinculado com o Depósito.
+                if(Producedeposit::where(['produce_id'=>$produce->id, 'deposit_id'=>$data['validatedData']['deposit_id']])->exists()):
+                    // Seta $count.
+                    $count= true;
+                endif;
+
+                if($count):
+                    break;
+                endif;
+            endforeach;
+
+            if(!$count):
+                $message = 'Nenhum Produto da Marca vinculado com o Depósito.';
+            endif;
         endif;
 
         // Desvio.
