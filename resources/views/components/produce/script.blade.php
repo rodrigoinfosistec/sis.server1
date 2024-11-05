@@ -8,6 +8,7 @@
 
         $('#detailModal').modal('hide');
         $('#editModal').modal('hide');
+        $('#editDepositModal').modal('hide');
         $('#eraseModal').modal('hide');
         $('#generateMovimentModal').modal('hide');
     })

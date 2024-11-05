@@ -52,6 +52,8 @@ class ProduceShow extends Component
     public $deposit_name = '';
     public $deposit_nick = '';
 
+    public  $array_deposit = [];
+
     /**
      * Construtor.
      */
@@ -115,6 +117,8 @@ class ProduceShow extends Component
         $this->status              = '';
         $this->created             = '';
         $this->produce_deposit_id  = '';
+
+        $this->array_deposit = [];
     }
 
     /**
@@ -254,6 +258,59 @@ class ProduceShow extends Component
 
             // Executa dependências.
             if ($valid) Produce::dependencyEdit($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * edit()
+     *  modernize()
+     */
+    public function editDeposit(int $produce_id)
+    {
+        // Produto.
+        $produce = Produce::find($produce_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->produce_id = $produce_id;
+        $this->name = $produce->name;
+        $this->reference = $produce->reference;
+        $this->ean = $produce->ean;
+        $this->producebrand_id = $produce->producebrand_id;
+        $this->producebrand_name = $produce->producebrand_name;
+        $this->producemeasure_id = $produce->producemeasure_id;
+        $this->producemeasure_name = $produce->producemeasure_name;
+        $this->company_id = $produce->company_id;
+        $this->observation = $produce->observation;
+        $this->status = $produce->status;
+        $this->created = $produce->created_at->format('d/m/Y H:i:s');
+
+        // Percorre os Depósitos.
+        foreach(Deposit::where(['company_id'=>auth()->user()->company_id, 'status'=>true])->orderBy("name", "ASC")->get() as $key => $deposit):
+            // Relaciona Produto aos Depósitos.
+            Producedeposit::where(['produce_id' => $produce_id, 'deposit_id' => $deposit->id])->exists() ? $this->array_deposit[$deposit->id] = true : $this->array_deposit[$deposit->id] = false;
+        endforeach;
+    }
+        public function modernizeDeposit()
+        {
+            // Estende $validatedData
+            $validatedData['produce_id'] = $this->produce_id;
+            $data['array_deposit'] = $this->array_deposit;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Produce::validateEditDeposit($data);
+
+            // Atualiza.
+            if ($valid) Produce::editDeposit($data);
+
+            // Executa dependências.
+            if ($valid) Produce::dependencyEditDeposit($data);
 
             // Fecha modal.
             $this->closeModal();
