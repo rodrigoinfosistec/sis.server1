@@ -120,7 +120,7 @@ class Inventory extends Model
         ])->orderBy('name', 'ASC')->get() as $key => $produce):
             //Verifica se o Produto é deste Depósito.
             if(Producedeposit::where(['produce_id'=>$produce->id, 'deposit_id'=>$data['validatedData']['deposit_id']])->exists()):
-                // Cadastra produtos do Balanço.
+                // Cadastra o Produto do Balanço.
                 Inventoryproduce::create([
                     'inventory_id' => $data['validatedData']['inventory_id'],
                     'produce_id' => $produce->id,
