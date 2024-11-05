@@ -20,10 +20,7 @@
     @foreach(App\Models\Deposit::where(['company_id'=>auth()->user()->company_id, 'status'=>true])->orderBy("name", "ASC")->get() as $key => $deposit)
         <x-layout.modal.modal-edit-body-group-item columms="12">
             <x-layout.modal.modal-edit-body-group-item-switch>
-                <input wire:model="array_deposit.{{ $deposit->id }}" class="form-check-input" type="checkbox" role="switch" id="array_deposit{{ $deposit->id }}"
-                @if($array_deposit[$deposit->id])
-                    readonly
-                @endif>
+                <input wire:model="array_deposit.{{ $deposit->id }}" class="form-check-input" type="checkbox" role="switch" id="array_deposit{{ $deposit->id }}">
                 <label class="form-check-label" for="array_deposit{{ $deposit->id }}">{{ $deposit->name }}</label>
             </x-layout.modal.modal-edit-body-group-item-switch>
         </x-layout.modal.modal-edit-body-group-item>

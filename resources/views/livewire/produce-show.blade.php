@@ -16,6 +16,7 @@
 {{-- ações --}}
 @include('components.' .  $config['name'] . '.modals.detail')
 @include('components.' .  $config['name'] . '.modals.edit')
+@include('components.' .  $config['name'] . '.modals.edit-deposit')
 @include('components.' .  $config['name'] . '.modals.erase')
 @include('components.' .  $config['name'] . '.modals.generate-moviment')
 {{-- modal --}}
