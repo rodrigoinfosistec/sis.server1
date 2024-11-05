@@ -190,6 +190,61 @@ class Produce extends Model
     }
 
     /**
+     * Valida atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateEditDeposit(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Atualiza.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function editDeposit(array $data) : bool {
+        // Before.
+        $produce = Produce::find($data['validatedData']['produce_id']);
+
+        // Atualiza Vinculos do Produto com os Depósitos.
+        
+
+        // Mensagem.
+        $message = 'Depósitos do ' . $data['config']['title'] . ' ' .  $produce->name . ' atualizados com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de atualização.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyEditDeposit(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
      * Valida geração de relatório.
      * @var array $data
      * 

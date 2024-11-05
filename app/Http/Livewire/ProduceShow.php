@@ -297,7 +297,7 @@ class ProduceShow extends Component
         {
             // Estende $validatedData
             $validatedData['produce_id'] = $this->produce_id;
-            $data['array_deposit'] = $this->array_deposit;
+            $validatedData['array_deposit'] = $this->array_deposit;
 
             // Define $data.
             $data['config']        = $this->config;
