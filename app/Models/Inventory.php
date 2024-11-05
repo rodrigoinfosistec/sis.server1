@@ -57,7 +57,7 @@ class Inventory extends Model
         $message = null;
 
         // Verifica se não possui Produto vinculado com a Marca.
-        if(Produce::where('producebrand_id', $data['validatedData']['producebrand_id'])->doesntExist()):
+        if(Produce::where('producebrand_id', (int)$data['validatedData']['producebrand_id'])->doesntExist()):
             $message = 'Nenhum Produto vinculado com esta Marca.';
         endif;
 
@@ -118,12 +118,15 @@ class Inventory extends Model
             ['company_id', auth()->user()->company_id],
             ['status', true],
         ])->orderBy('name', 'ASC')->get() as $key => $produce):
-            // Cadastra produtos do Balanço.
-            Inventoryproduce::create([
-                'inventory_id' => $data['validatedData']['inventory_id'],
-                'produce_id' => $produce->id,
-                'produce_name' => $produce->name,
-            ]);
+            //Verifica se o Produto é deste Depósito.
+            if(Producedeposit::where(['produce_id'=>$produce->id, 'deposit_id'=>$data['validatedData']['deposit_id']])->exists()):
+                // Cadastra produtos do Balanço.
+                Inventoryproduce::create([
+                    'inventory_id' => $data['validatedData']['inventory_id'],
+                    'produce_id' => $produce->id,
+                    'produce_name' => $produce->name,
+                ]);
+            endif;
         endforeach;
 
         return true;
