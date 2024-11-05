@@ -218,11 +218,23 @@ class Produce extends Model
      * @return bool true
      */
     public static function editDeposit(array $data) : bool {
-        // Before.
+        // Produce.
         $produce = Produce::find($data['validatedData']['produce_id']);
 
-        // Atualiza Vinculos do Produto com os Depósitos.
-        
+        // Percorre os Depósitos possíveis para o Produto.
+        foreach($data['validatedData']['array_deposit'] as $deposit_id => $bool):
+            // Verifica se o Produto não está vinculado ao Depósito.
+            if(Producedeposit::where(['produce_id'=>$data['validatedData']['produce_id'], 'deposit_id'=>$deposit_id])->doesntExist()):
+                // Verifica se é para Vincular.
+                if($bool):
+                    // Vincula Produto ao Depósito.
+                    Producedeposit::create([
+                        'produce_id' => $data['validatedData']['produce_id'],
+                        'deposit_id' => $deposit_id,
+                    ]);
+                endif;
+            endif;
+        endforeach;
 
         // Mensagem.
         $message = 'Depósitos do ' . $data['config']['title'] . ' ' .  $produce->name . ' atualizados com sucesso.';
