@@ -73,7 +73,7 @@ class ProduceShow extends Component
 
             'name' => ['required', 'between:2,255'],
             'reference' => ['required', 'between:2,255'],
-            'ean' => ['required', 'numeric', 'min:13', 'unique:produces,ean,'.$this->produce_id.''],
+            'ean' => ['required', 'numeric', 'min:12', 'unique:produces,ean,'.$this->produce_id.''],
             'produce_deposit_id' => ['required'],
             'producebrand_id' => ['required'],
             'producemeasure_id' => ['required'],
@@ -172,7 +172,7 @@ class ProduceShow extends Component
             $validatedData = $this->validate([
                 'name' => ['required', 'between:2,255'],
                 'reference' => ['required', 'between:2,255'],
-                'ean' => ['required', 'min:13', 'unique:produces'],
+                'ean' => ['required', 'min:12', 'unique:produces'],
                 'produce_deposit_id' => ['required'],
                 'producebrand_id' => ['required'],
                 'producemeasure_id' => ['required'],
@@ -232,7 +232,7 @@ class ProduceShow extends Component
             $validatedData = $this->validate([
                 'name' => ['required', 'between:2,255'],
                 'reference' => ['required', 'between:2,255'],
-                'ean' => ['required', 'numeric', 'min:13', 'unique:produces,ean,'.$this->produce_id.''],
+                'ean' => ['required', 'numeric', 'min:12', 'unique:produces,ean,'.$this->produce_id.''],
                 'producebrand_id' => ['required'],
                 'producemeasure_id' => ['required'],
                 'observation' => ['nullable', 'between:2,255'],
