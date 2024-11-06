@@ -149,4 +149,9 @@
             </x-layout.pdf.pdf-table-body-line>
         </x-layout.pdf.pdf-table-body>
     </x-layout.pdf.pdf-table>
+
+    <div class="text-left" style="width: 100%; margin-top: 30px; font-size: 12pt;">
+        OBSERVAÇÃO:
+        {{ $inventory->observation }}
+    </div>
 </x-app.pdf.layout>

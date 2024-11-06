@@ -92,7 +92,13 @@
         </x-layout.card.card-body-content-table-body-line-cell-id-badge>
 
         <x-layout.card.card-body-content-table-body-line-cell-id-start>
-            {{ $item->deposit_name }}
+            @if(isset($item->deposit->color))
+                <span class="{{ $item->deposit->color }}">
+            @else
+                <span class="text-dark">
+            @endif
+                {{ $item->deposit_name }}
+            </span>
 
             @if(!$item->finished)
                 <span class="badge text-bg-danger fw-bold" style="">
