@@ -154,7 +154,9 @@
     </x-layout.pdf.pdf-table>
 
     <div class="text-left" style="width: 100%; margin-top: 30px; font-size: 12pt;">
-        OBSERVAÇÃO:
-        {{ $out->observation }}
+        @if($out->observation != '')
+            OBSERVAÇÃO:
+            {{ $out->observation }}
+        @endif
     </div>
 </x-app.pdf.layout>
