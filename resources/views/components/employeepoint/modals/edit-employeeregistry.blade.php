@@ -27,7 +27,8 @@
             ['clock_type', 'REGISTRY'],
             ['status', true],
             ['employeegroup_id', '!=', null],
-        ])->whereIn('employeegroup_id', [1, 2, 3, 9, 10, 12, 13])
+        ])
+        //->whereIn('employeegroup_id', [1, 2, 3, 9, 10, 12, 13])
         ->orderBy('name', 'ASC')->get() as $key => $employee)
             <tr class="" style="font-size: 9pt;">
                 <td class="align-middle">

@@ -95,8 +95,6 @@ class User extends Authenticatable
         $queryFilter = (new UserFilter)->filter($request);
 
         if(empty( $queryFilter)):
-            var_dump('empty');
-
             return UserResource::collection(User::get());
         endif;
     }

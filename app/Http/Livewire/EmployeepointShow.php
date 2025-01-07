@@ -408,7 +408,8 @@ class EmployeepointShow extends Component
                 ['clock_type', 'REGISTRY'],
                 ['status', true],
                 ['employeegroup_id', '!=', null],
-            ])->whereIn('employeegroup_id', [1, 2, 3, 9, 10, 12, 13])
+            ])
+            //->whereIn('employeegroup_id', [1, 2, 3, 9, 10, 12, 13])
             ->get() as $key => $employee):
 
             // Define as variáveis dinâmicas.

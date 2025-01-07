@@ -26,7 +26,7 @@
 
     <tbody>
         @foreach(App\Models\Employeegroup::where('status', true)
-            ->whereNotIn('id', [5, 9, 14])
+            ->whereNotIn('id', [9])
             ->orderBy('name', 'ASC')
             ->get() as $key => $employeegroup)
             @if(App\Models\Employee::where(['company_id' => Auth()->user()->company_id, 'employeegroup_id' => $employeegroup->id, 'status' => true])->count() > 0)
