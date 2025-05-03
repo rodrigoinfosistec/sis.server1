@@ -19,6 +19,10 @@ Auth()->user()->usergroup_id,
                 <i class="bi-boxes"></i>
                 DEPÓSITO
             </a>
+            <a href="{{ route('producebrand') }}" class="list-group-item list-group-item-action {{-- active --}} text-dark" {{--aria-current="true" --}}>
+                <i class="bi-bookmark"></i>
+                MARCA
+            </a>
             <a href="{{ route('produce') }}" class="list-group-item list-group-item-action text-dark">
                 <i class="bi-box"></i>
                 PRODUTO
