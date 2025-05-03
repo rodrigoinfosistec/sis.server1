@@ -329,6 +329,18 @@ class Config extends Model
                 'icon'  => 'bi-boxes',
                 'test'  => true,
             ],
+            [
+                'name'  => 'task',
+                'title' => 'Tarefa',
+                'icon'  => 'bi-card-checklist',
+                'test'  => true,
+            ],
+            [
+                'name'  => 'activity',
+                'title' => 'Atividade',
+                'icon'  => 'bi-bell',
+                'test'  => true,
+            ],
         ];
 
         return $pages;

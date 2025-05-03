@@ -58,6 +58,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\OutController;
 use App\Http\Controllers\InController;
 use App\Http\Controllers\RapierController;
+use App\Http\Controllers\ActivityController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -126,4 +127,5 @@ Route::middleware([
     Route::get('/out', [OutController::class, 'index'])->name('out');
     Route::get('/in', [InController::class, 'index'])->name('in');
     Route::get('/rapier', [RapierController::class, 'index'])->name('rapier');
+    Route::get('/activity', [ActivityController::class, 'index'])->name('activity');
 });

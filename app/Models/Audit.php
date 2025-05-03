@@ -4210,4 +4210,119 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Activity Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function activityAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='     . $after->id     . ',' .
+                'name='   . $after->name   . ',' .
+                'status=' . $after->status . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Activity Edit.
+     * @var array $data
+     * @var object $before
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function activityEdit(array $data, object $before, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[atualizou]' . $data['config']['title'] . ' {' .
+                'id='     . $before->id     . '>' . $after->id     . ',' .
+                'name='   . $before->name   . '>' . $after->name   . ',' .
+                'status=' . $before->status . '>' . $after->status . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Activity Erase.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function activityErase(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
+                'id='     . $data['validatedData']['activity_id'] . ',' .
+                'name='   . $data['validatedData']['name']    . ',' .
+                'status=' . $data['validatedData']['status']  . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Activity Generate.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function activityGenerate(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[gerou relatório]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name'] . ',' .
+                'file_name=' . $data['file_name']      . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Activity Mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function activityMail(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[enviou e-mail]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name']                    . ',' .
+                'report_id=' . $data['validatedData']['report_id']        . ',' .
+                'email='     . $data['validatedData']['mail']             . ',' .
+                'subject='   . 'Relatório de ' . $data['config']['title'] . ',' .
+                'title='     . $data['config']['title']                   . ',' .
+                'comment='   . $data['validatedData']['comment']          . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }
