@@ -58,4 +58,5 @@ class Employeegroup extends Model
             'employees' => $employees,
         ];
     }
+
 }
