@@ -300,6 +300,12 @@ class Config extends Model
                 'test'  => true,
             ],
             [
+                'name'  => 'producebrand',
+                'title' => 'Marca',
+                'icon'  => 'bi-bookmark',
+                'test'  => true,
+            ],
+            [
                 'name'  => 'inventory',
                 'title' => 'Balanço',
                 'icon'  => 'bi-arrow-counterclockwise',
