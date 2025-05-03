@@ -131,9 +131,9 @@
 <x-layout.card.card-body-content-table-body-line-cell-action width="120">
     <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
 
-    <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
+    <x-layout.card.card-body-content-table-body-line-cell-action-edit-muted :id="$item->id"/>
 
-    <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
+    <x-layout.card.card-body-content-table-body-line-cell-action-erase-muted :id="$item->id"/>
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
 
