@@ -13,6 +13,19 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('employee_id');
+            $table->string('employee_name');
+
+            $table->unsignedBigInteger('activity_id');
+            $table->string('activity_name');
+
+            $table->dateTime('datetime')->nullable();
+
+            $table->text('description');
+
+            $table->boolean('status')->default(true);
+
             $table->timestamps();
         });
     }
