@@ -164,6 +164,11 @@
                             <x-responsive-nav-link href="{{ route('activity') }}" :active="request()->routeIs('activity')" class="text-decoration-none">
                                 <i class="{{ App\Models\Page::getIconByName('activity') }}"></i> {{ App\Models\Page::getTitleByName('activity') }}
                             </x-responsive-nav-link>
+
+                            {{-- Tarefa --}}
+                            <x-responsive-nav-link href="{{ route('task') }}" :active="request()->routeIs('task')" class="text-decoration-none">
+                                <i class="{{ App\Models\Page::getIconByName('task') }}"></i> {{ App\Models\Page::getTitleByName('task') }}
+                            </x-responsive-nav-link>
                         </div>
 
                         <div class="pt-2 pb-0 border-t border-gray-200">
