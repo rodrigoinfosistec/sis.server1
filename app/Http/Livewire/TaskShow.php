@@ -24,15 +24,23 @@ class TaskShow extends Component
     public $config;
 
     public $search = '';
-    public $filter = 'name';
+    public $filter = 'activity_name';
 
     public $report_id;
     public $mail;
     public $comment;
 
     public $task_id;
-    public $name;
-    public $status;
+    public $activity_name;
+    public $activity_id;
+    public $requester_id;
+    public $requester_name;
+    public $responsible_id;
+    public $responsible_name;
+    public $description;
+    public $priority;
+    public $is_completed;
+    public $due_date;
     public $created;
 
     /**
@@ -52,7 +60,12 @@ class TaskShow extends Component
             'mail'      => ['required', 'email', 'between:2,255'],
             'comment'   => ['nullable', 'between:2,255'],
 
-            'name' => ['required', 'between:2,255', 'unique:tasks,name,'.$this->task_id.''],
+            'activity_id'    => ['required'],
+            'requester_id'   => ['required'],
+            'responsible_id' => ['required'],
+            'description'    => ['required', 'between:2,255'],
+            'priority'       => ['required'],
+            'due_date'       => ['required'],
         ];
     }
 
@@ -80,10 +93,18 @@ class TaskShow extends Component
         $this->mail      = '';
         $this->comment   = '';
 
-        $this->task_id = '';
-        $this->name    = '';
-        $this->status  = '';
-        $this->created = '';
+        $this->task_id          = '';
+        $this->activity_name    = '';
+        $this->activity_id      = '';
+        $this->requester_id     = '';
+        $this->requester_name   = '';
+        $this->responsible_id   = '';
+        $this->responsible_name = '';
+        $this->description      = '';
+        $this->priority         = '';
+        $this->is_completed     = '';
+        $this->due_date         = '';
+        $this->created          = '';
     }
 
     /**
@@ -105,7 +126,7 @@ class TaskShow extends Component
             'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
             'list'         => Task::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
-                            ])->orderBy('name', 'ASC')->paginate(12),
+                            ])->orderBy('created_at', 'DESC')->paginate(12),
         ]);
     }
 
@@ -121,7 +142,12 @@ class TaskShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'name' => ['required', 'between:2,255', 'unique:tasks'],
+                'activity_id'    => ['required'],
+                'requester_id'   => ['required'],
+                'responsible_id' => ['required'],
+                'description'    => ['required', 'between:2,255'],
+                'priority'       => ['required'],
+                'due_date'       => ['required'],
             ]);
 
             // Define $data.
@@ -152,9 +178,17 @@ class TaskShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->task_id = $task->id;
-        $this->name    = $task->name;
-        $this->status  = $task->status;
-        $this->created = $task->created_at->format('d/m/Y H:i:s');
+        $this->activity_name    = $task->activity_name;
+        $this->activity_id      = $task->activity_id ;
+        $this->requester_id     = $task->requester_id ;
+        $this->requester_name   = $task->requester_name;
+        $this->responsible_id   = $task->responsible_id ;
+        $this->responsible_name = $task->responsible_name;
+        $this->description      = $task->description ;
+        $this->priority         = $task->priority;
+        $this->is_completed     = $task->is_completed ;
+        $this->due_date         = $task->due_date;
+        $this->created          = $task->created_at->format('d/m/Y H:i:s');
     }
 
     /**
@@ -168,20 +202,33 @@ class TaskShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->task_id = $task->id;
-        $this->name    = $task->name;
-        $this->status  = $task->status;
-        $this->created = $task->created_at->format('d/m/Y H:i:s');
+        $this->activity_name    = $task->activity_name;
+        $this->activity_id      = $task->activity_id ;
+        $this->requester_id     = $task->requester_id ;
+        $this->requester_name   = $task->requester_name;
+        $this->responsible_id   = $task->responsible_id ;
+        $this->responsible_name = $task->responsible_name;
+        $this->description      = $task->description ;
+        $this->priority         = $task->priority;
+        $this->is_completed     = $task->is_completed ;
+        $this->due_date         = $task->due_date;
+        $this->created          = $task->created_at->format('d/m/Y H:i:s');
     }
         public function modernize()
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'name' => ['required', 'between:2,255', 'unique:tasks,name,'.$this->task_id.''],
+                'activity_id'    => ['required'],
+                'requester_id'   => ['required'],
+                'responsible_id' => ['required'],
+                'description'    => ['required', 'between:2,255'],
+                'priority'       => ['required'],
+                'due_date'       => ['required'],
             ]);
 
             // Estende $validatedData
             $validatedData['task_id'] = $this->task_id;
-            $this->status ? $validatedData['status'] = true : $validatedData['status'] = false;
+            $this->status ? $validatedData['is_completed'] = true : $validatedData['is_completed'] = false;
 
             // Define $data.
             $data['config']        = $this->config;
@@ -212,16 +259,32 @@ class TaskShow extends Component
 
         // Inicializa propriedades dinâmicas.
         $this->task_id = $task->id;
-        $this->name    = $task->name;
-        $this->status  = $task->status;
-        $this->created = $task->created_at->format('d/m/Y H:i:s');
+        $this->activity_name    = $task->activity_name;
+        $this->activity_id      = $task->activity_id ;
+        $this->requester_id     = $task->requester_id ;
+        $this->requester_name   = $task->requester_name;
+        $this->responsible_id   = $task->responsible_id ;
+        $this->responsible_name = $task->responsible_name;
+        $this->description      = $task->description ;
+        $this->priority         = $task->priority;
+        $this->is_completed     = $task->is_completed ;
+        $this->due_date         = $task->due_date;
+        $this->created          = $task->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
         {
             // Define $validatedData
-            $validatedData['task_id'] = $this->task_id;
-            $validatedData['name']    = $this->name;
-            $validatedData['status']  = $this->status;
+            $validatedData['task_id']          = $this->id;
+            $validatedData['activity_name']    = $this->activity_name;
+            $validatedData['activity_id']      = $this->activity_id ;
+            $validatedData['requester_id']     = $this->requester_id ;
+            $validatedData['requester_name']   = $this->requester_name;
+            $validatedData['responsible_id']   = $this->responsible_id ;
+            $validatedData['responsible_name'] = $this->responsible_name;
+            $validatedData['description']      = $this->description ;
+            $validatedData['priority']         = $this->priority;
+            $validatedData['is_completed']     = $this->is_completed ;
+            $validatedData['due_date']          = $this->due_date;
 
             // Define $data.
             $data['config']        = $this->config;
