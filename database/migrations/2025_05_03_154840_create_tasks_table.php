@@ -14,17 +14,25 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('employee_id');
-            $table->string('employee_name');
-
-            $table->unsignedBigInteger('activity_id');
             $table->string('activity_name');
+            $table->foreignId('activity_id')
+                ->constrained('activities');
 
-            $table->dateTime('datetime')->nullable();
+            $table->foreignId('requester_id')
+                ->constrained('users');
+            $table->string('requester_name');
+
+            $table->foreignId('responsible_id')
+                ->constrained('users');
+            $table->string('responsible_name');
 
             $table->text('description');
 
-            $table->boolean('status')->default(true);
+            $table->dateTime('due_date')->nullable(); // "prazo"
+
+            $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
+
+            $table->boolean('is_completed')->default(false);
 
             $table->timestamps();
         });
