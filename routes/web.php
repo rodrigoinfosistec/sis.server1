@@ -59,6 +59,7 @@ use App\Http\Controllers\OutController;
 use App\Http\Controllers\InController;
 use App\Http\Controllers\RapierController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\TaskController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -128,4 +129,5 @@ Route::middleware([
     Route::get('/in', [InController::class, 'index'])->name('in');
     Route::get('/rapier', [RapierController::class, 'index'])->name('rapier');
     Route::get('/activity', [ActivityController::class, 'index'])->name('activity');
+    Route::get('/task', [TaskController::class, 'index'])->name('task');
 });
