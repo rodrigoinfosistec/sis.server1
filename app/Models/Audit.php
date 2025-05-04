@@ -4325,4 +4325,143 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Task Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function taskAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='               . $after->id               . ',' .
+                'activity_name='    . $after->activity_name    . ',' .
+                'activity_id='      . $after->activity_id      . ',' .
+                'requester_id='     . $after->requester_id     . ',' .
+                'requester_name='   . $after->requester_name   . ',' .
+                'responsible_id='   . $after->responsible_id   . ',' .
+                'responsible_name=' . $after->responsible_name . ',' .
+                'description='      . $after->description      . ',' .
+                'priority='         . $after->priority         . ',' .
+                'is_completed='     . $after->is_completed     . ',' .
+                'due_date='         . $after->due_date         . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Task Edit.
+     * @var array $data
+     * @var object $before
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function taskEdit(array $data, object $before, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[atualizou]' . $data['config']['title'] . ' {' .
+                'id='               . $before->id               . '>' . $after->id               . ',' .
+                'activity_name='    . $before->activity_name    . '>' . $after->activity_name    . ',' .
+                'activity_id='      . $before->activity_id      . '>' . $after->activity_id      . ',' .
+                'requester_id='     . $before->requester_id     . '>' . $after->requester_id     . ',' .
+                'requester_name='   . $before->requester_name   . '>' . $after->requester_name   . ',' .
+                'responsible_id='   . $before->responsible_id   . '>' . $after->responsible_id   . ',' .
+                'responsible_name=' . $before->responsible_name . '>' . $after->responsible_name . ',' .
+                'description='      . $before->description      . '>' . $after->description      . ',' .
+                'priority='         . $before->priority         . '>' . $after->priority         . ',' .
+                'is_completed='     . $before->is_completed     . '>' . $after->is_completed     . ',' .
+                'due_date='         . $before->due_date         . '>' . $after->due_date         . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Task Erase.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function taskErase(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
+                'id='     . $data['validatedData']['activity_id'] . ',' .
+                'activity_name='    . $data['validatedData']['activity_name']    . ',' .
+                'activity_id='      . $data['validatedData']['activity_id']      . ',' .
+                'requester_id='     . $data['validatedData']['requester_id']     . ',' .
+                'requester_name='   . $data['validatedData']['requester_name']   . ',' .
+                'responsible_id='   . $data['validatedData']['responsible_id']   . ',' .
+                'responsible_name=' . $data['validatedData']['responsible_name'] . ',' .
+                'description='      . $data['validatedData']['description']      . ',' .
+                'priority='         . $data['validatedData']['priority']         . ',' .
+                'is_completed='     . $data['validatedData']['is_completed']     . ',' .
+                'due_date='         . $data['validatedData']['due_date']         . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Task Generate.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function taskGenerate(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[gerou relatório]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name'] . ',' .
+                'file_name=' . $data['file_name']      . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Auditoria Task Mail.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function taskMail(array $data) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[enviou e-mail]' . $data['config']['title'] . '{' .
+                'folder='    . $data['config']['name']                    . ',' .
+                'report_id=' . $data['validatedData']['report_id']        . ',' .
+                'email='     . $data['validatedData']['mail']             . ',' .
+                'subject='   . 'Relatório de ' . $data['config']['title'] . ',' .
+                'title='     . $data['config']['title']                   . ',' .
+                'comment='   . $data['validatedData']['comment']          . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }
