@@ -18,15 +18,15 @@
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
+    MATRÍCULA
+</x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
     JORNADA SEMANA
 </x-layout.pdf.pdf-table-header-column>
 
 <x-layout.pdf.pdf-table-header-column>
     JORNADA SÁBADO
-</x-layout.pdf.pdf-table-header-column>
-
-<x-layout.pdf.pdf-table-header-column>
-    EMPRESA
 </x-layout.pdf.pdf-table-header-column>
 {{-- conteúdo título --}}
 
@@ -51,6 +51,11 @@
     {{ $item->name }}
 </x-layout.pdf.pdf-table-body-line-cell>
 
+{{-- MATRÍCULA --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    {{ $item->registration }}
+</x-layout.pdf.pdf-table-body-line-cell>
+
 {{-- JORNADA SEMANA --}}
 <x-layout.pdf.pdf-table-body-line-cell>
     INÍCIO: {{ $item->journey_start_week }}
@@ -63,11 +68,6 @@
     INÍCIO: {{ $item->journey_start_saturday }}
     <br>
     FIM:    {{ $item->journey_end_saturday }}
-</x-layout.pdf.pdf-table-body-line-cell>
-
-{{-- EMPRESA --}}
-<x-layout.pdf.pdf-table-body-line-cell>
-    {{ $item->company_name }}
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- conteúdo --}}

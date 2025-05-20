@@ -45,6 +45,16 @@
 </x-layout.modal.modal-add-body-group>
 
 <x-layout.modal.modal-add-body-group>
+    <x-layout.modal.modal-add-body-group-item columms="4">
+        <x-layout.modal.modal-add-body-group-item-label item="registration" title="PIS" plus="none"/>
+
+        <input type="number" wire:model="registration" class="form-control form-control-sm" id="registration">
+
+        <x-layout.modal.modal-add-body-group-item-error item="registration" message="$message"/>
+    </x-layout.modal.modal-add-body-group-item>
+</x-layout.modal.modal-add-body-group>
+
+<x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="6">
         <x-layout.modal.modal-add-body-group-item-label item="journey_start_week" title="JORNADA SEMANA (INÍCIO)" plus="none"/>
 

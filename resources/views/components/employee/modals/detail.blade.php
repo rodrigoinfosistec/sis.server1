@@ -30,6 +30,15 @@
 
 <x-layout.modal.modal-detail-body-line>
     <x-layout.modal.modal-detail-body-line-title>
+        MATRÍCULA
+    </x-layout.modal.modal-detail-body-line-title>
+    <x-layout.modal.modal-detail-body-line-content>
+        {{ $registration }}
+    </x-layout.modal.modal-detail-body-line-content>
+</x-layout.modal.modal-detail-body-line>
+
+<x-layout.modal.modal-detail-body-line>
+    <x-layout.modal.modal-detail-body-line-title>
         NOME
     </x-layout.modal.modal-detail-body-line-title>
     <x-layout.modal.modal-detail-body-line-content>
