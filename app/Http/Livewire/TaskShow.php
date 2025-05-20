@@ -136,7 +136,8 @@ class TaskShow extends Component
      */
     public function add()
     {
-        //...
+        // Valores padrão.
+        $this->activity_id = Auth()->user()->id;
     }
         public function register()
         {
