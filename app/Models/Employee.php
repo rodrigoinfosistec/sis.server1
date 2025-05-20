@@ -234,12 +234,12 @@ class Employee extends Model
 
         // Verifica se há funcionário desta empresa utilizando esta matrícula.
         if(Employee::where([
-            ['registration', $data['validatedData']['registration']],
-            ['company_id', $data['validatedData']['company_id']],
-        ])->whereNotIn('id', [$data['validatedData']['employee_id']])->exists()
-    ):
-        $message = 'Já existe um funcionário desta empresa utilizando esta matrícula.';
-    endif;
+                ['registration', $data['validatedData']['registration']],
+                ['company_id', $data['validatedData']['company_id']],
+            ])->whereNot('id', $data['validatedData']['employee_id'])->exists()
+        ):
+            $message = 'Já existe um funcionário desta empresa utilizando esta matrícula.';
+        endif;
 
         // Desvio.
         if(!empty($message)):
