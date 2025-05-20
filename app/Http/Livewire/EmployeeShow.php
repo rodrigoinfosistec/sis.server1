@@ -38,6 +38,7 @@ class EmployeeShow extends Component
     public $employeegroup_id;
     public $employeegroup_name;
     public $pis;
+    public $registration;
     public $name;
     public $cpf;
     public $rg;
@@ -81,6 +82,7 @@ class EmployeeShow extends Component
             'company_id'             => ['required'],
             'employeegroup_id'       => ['required'],
             'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees,pis,'.$this->employee_id.''],
+            'registration'           => ['required', 'between:1,10'],
             'name'                   => ['required', 'between:3,60'],
             'journey_start_week'     => ['required'],
             'journey_end_week'       => ['required'],
@@ -133,6 +135,7 @@ class EmployeeShow extends Component
         $this->employeegroup_id       = '';
         $this->employeegroup_name     = '';
         $this->pis                    = '';
+        $this->registration           = '';
         $this->name                   = '';
         $this->cpf                    = '';
         $this->rg                     = '';
@@ -196,6 +199,7 @@ class EmployeeShow extends Component
             $validatedData = $this->validate([
                 'company_id'             => ['required'],
                 'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees'],
+                'registration'           => ['required', 'between:1,10'],
                 'name'                   => ['required', 'between:3,60'],
                 'journey_start_week'     => ['required'],
                 'journey_end_week'       => ['required'],
@@ -284,6 +288,7 @@ class EmployeeShow extends Component
         $this->company_id             = $employee->company_id;
         $this->company_name           = $employee->company_name;
         $this->pis                    = $employee->pis;
+        $this->registration           = $employee->registration;
         $this->name                   = $employee->name;
         $this->journey_start_week     = $employee->journey_start_week;
         $this->journey_end_week       = $employee->journey_end_week;
@@ -313,6 +318,7 @@ class EmployeeShow extends Component
         $this->employeegroup_id       = $employee->employeegroup_id;
         $this->employeegroup_name     = $employee->employeegroup_name;
         $this->pis                    = $employee->pis;
+        $this->registration           = $employee->registration;
         $this->name                   = $employee->name;
         $this->journey_start_week     = $employee->journey_start_week;
         $this->journey_end_week       = $employee->journey_end_week;
@@ -333,6 +339,7 @@ class EmployeeShow extends Component
                 'company_id'             => ['required'],
                 'employeegroup_id'       => ['required'],
                 'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees,pis,'.$this->employee_id.''],
+                'registration'           => ['required', 'between:1,10'],
                 'name'                   => ['required', 'between:3,60'],
                 'journey_start_week'     => ['required'],
                 'journey_end_week'       => ['required'],
@@ -432,6 +439,7 @@ class EmployeeShow extends Component
         $this->company_id   = $employee->company_id;
         $this->company_name = $employee->company_name;
         $this->pis          = $employee->pis;
+        $this->registration = $employee->registration;
         $this->name         = $employee->name;
         $this->cpf          = $employee->cpf;
         $this->rg           = $employee->rg;
@@ -489,6 +497,7 @@ class EmployeeShow extends Component
         $this->company_id             = $employee->company_id;
         $this->company_name           = $employee->company_name;
         $this->pis                    = $employee->pis;
+        $this->registration           = $employee->registration;
         $this->name                   = $employee->name;
         $this->journey_start_week     = $employee->journey_start_week;
         $this->journey_end_week       = $employee->journey_end_week;
@@ -508,6 +517,7 @@ class EmployeeShow extends Component
             $validatedData['company_id']             = $this->company_id;
             $validatedData['company_name']           = $this->company_name;
             $validatedData['pis']                    = $this->pis;
+            $validatedData['registration']           = $this->registration;
             $validatedData['name']                   = $this->name;
             $validatedData['journey_start_week']     = $this->journey_start_week;
             $validatedData['journey_end_week']       = $this->journey_end_week;

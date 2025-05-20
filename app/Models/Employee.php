@@ -23,6 +23,7 @@ class Employee extends Model
         'employeegroup_name',
 
         'pis',
+        'registration',
         'name',
 
         'cpf',
@@ -118,6 +119,15 @@ class Employee extends Model
             $message = 'Horário final da jornada do sábado deve ser maior que o início da jornada';
         endif;
 
+        // Verifica se há funcionário desta empresa utilizando esta matrícula.
+        if(Employee::where([
+                ['registration', $data['validatedData']['registration']],
+                ['company_id', $data['validatedData']['company_id']],
+            ])->exists()
+        ):
+            $message = 'Já existe um funcionário desta empresa utilizando esta matrícula.';
+        endif;
+
         // Desvio.
         if(!empty($message)):
             session()->flash('message', $message );
@@ -141,6 +151,7 @@ class Employee extends Model
             'company_id'             => $data['validatedData']['company_id'],
             'company_name'           => Company::find($data['validatedData']['company_id'])->name,
             'pis'                    => $data['validatedData']['pis'],
+            'registration'           => $data['validatedData']['registration'],
             'name'                   => Str::upper($data['validatedData']['name']),
             'journey_start_week'     => $data['validatedData']['journey_start_week'],
             'journey_end_week'       => $data['validatedData']['journey_end_week'],
@@ -221,6 +232,15 @@ class Employee extends Model
             $message = 'Horário final da jornada do sábado deve ser maior que o início da jornada';
         endif;
 
+        // Verifica se há funcionário desta empresa utilizando esta matrícula.
+        if(Employee::where([
+            ['registration', $data['validatedData']['registration']],
+            ['company_id', $data['validatedData']['company_id']],
+        ])->whereNotIn('id', [$data['validatedData']['employee_id']])->exists()
+    ):
+        $message = 'Já existe um funcionário desta empresa utilizando esta matrícula.';
+    endif;
+
         // Desvio.
         if(!empty($message)):
             session()->flash('message', $message );
@@ -249,6 +269,7 @@ class Employee extends Model
             'employeegroup_id'       => $data['validatedData']['employeegroup_id'],
             'employeegroup_name'     => Employeegroup::find($data['validatedData']['employeegroup_id'])->name,
             'pis'                    => $data['validatedData']['pis'],
+            'registration'           => $data['validatedData']['registration'],
             'name'                   => Str::upper($data['validatedData']['name']),
             'journey_start_week'     => $data['validatedData']['journey_start_week'],
             'journey_end_week'       => $data['validatedData']['journey_end_week'],

@@ -1421,6 +1421,7 @@ class Audit extends Model
                 'company_id='             . $after->company_id             . ',' .
                 'company_name='           . $after->company_name           . ',' .
                 'pis='                    . $after->pis                    . ',' .
+                'registration='           . $after->registration           . ',' .
                 'name='                   . $after->name                   . ',' .
                 'journey_start_week='     . $after->journey_start_week     . ',' .
                 'journey_end_week='       . $after->journey_end_week       . ',' .
@@ -1454,6 +1455,7 @@ class Audit extends Model
                 'employeegroup_id='       . $before->employeegroup_id       . '>' . $after->employeegroup_id       . ',' .
                 'employeegroup_name='     . $before->employeegroup_name     . '>' . $after->employeegroup_name     . ',' .
                 'pis='                    . $before->pis                    . '>' . $after->pis                    . ',' .
+                'registration='           . $before->registration           . '>' . $after->registration           . ',' .
                 'name='                   . $before->name                   . '>' . $after->name                   . ',' .
                 'journey_start_week='     . $before->journey_start_week     . '>' . $after->journey_start_week     . ',' .
                 'journey_end_week='       . $before->journey_end_week       . '>' . $after->journey_end_week       . ',' .
@@ -1488,6 +1490,7 @@ class Audit extends Model
                 'company_id='             . $data['validatedData']['company_id']             . ',' .
                 'company_name='           . $data['validatedData']['company_name']           . ',' .
                 'pis='                    . $data['validatedData']['pis']                    . ',' .
+                'registration='           . $data['validatedData']['registration']           . ',' .
                 'name='                   . $data['validatedData']['name']                   . ',' .
                 'journey_start_week='     . $data['validatedData']['journey_start_week']     . ',' .
                 'journey_end_week='       . $data['validatedData']['journey_end_week']       . ',' .
