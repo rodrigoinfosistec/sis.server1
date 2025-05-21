@@ -62,7 +62,7 @@
 
 <x-layout.modal.modal-edit-body-group>
     <x-layout.modal.modal-edit-body-group-item columms="4">
-        <x-layout.modal.modal-edit-body-group-item-label item="registration" title="PIS" plus="none"/>
+        <x-layout.modal.modal-edit-body-group-item-label item="registration" title="MATRÍCULA" plus="none"/>
 
             <input type="number" wire:model="registration" class="form-control form-control-sm" id="registration">
 
