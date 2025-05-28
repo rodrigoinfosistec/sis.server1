@@ -326,6 +326,46 @@ class ClockShow extends Component
         }
 
     /**
+     * addTxt()
+     *  registerTxt()
+     */
+    public function addTxtNew()
+    {
+        //...
+    }
+        public function registerTxtNew()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'company_id' => ['required'],
+                'txt'        => ['file', 'required'],
+                'start'      => ['required'],
+                'end'        => ['required'],
+            ]);
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = $txtArray = Clock::validateAddTxtNew($data);
+
+            // Estende $data.
+            if ($valid) $data['txtArray'] = $txtArray;
+
+            // Cadastra.
+            if ($valid) Clock::add($data);
+
+            // Executa dependências.
+            if ($valid) Clock::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+            return redirect()->to('/clock');
+        }
+
+    /**
      * addEmployee()
      *  registerEmployee()
      */
