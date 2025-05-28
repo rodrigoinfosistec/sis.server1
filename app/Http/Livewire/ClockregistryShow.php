@@ -136,6 +136,46 @@ class ClockregistryShow extends Component
     }
 
     /**
+     * addTxt()
+     *  registerTxt()
+     */
+    public function addTxt()
+    {
+        //...
+    }
+        public function registerTxt()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'company_id' => ['required'],
+                'txt'        => ['file', 'required'],
+                'start'      => ['required'],
+                'end'        => ['required'],
+            ]);
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = $txtArray = Clockregistry::validateAddTxt($data);
+
+            // Estende $data
+            if ($valid) $data['txtArray'] = $txtArray;
+
+            // Cadastra.
+            if ($valid) Clockregistry::add($data);
+
+            // Executa dependências.
+            if ($valid) Clockregistry::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+            return redirect()->to('/clockregistry');
+        }
+
+    /**
      * add()
      *  register()
      */
