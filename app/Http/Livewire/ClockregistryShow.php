@@ -147,11 +147,11 @@ class ClockregistryShow extends Component
         {
             // Valida campos.
             $validatedData = $this->validate([
-                'company_id' => ['required'],
-                'txt'        => ['file', 'required'],
-                'start'      => ['required'],
-                'end'        => ['required'],
+                'txt' => ['file', 'required'],
             ]);
+
+            // Define $validatedData
+            $validatedData['company_id'] = auth()->user()->company_id;
 
             // Define $data.
             $data['config']        = $this->config;
@@ -164,10 +164,10 @@ class ClockregistryShow extends Component
             if ($valid) $data['txtArray'] = $txtArray;
 
             // Cadastra.
-            if ($valid) Clockregistry::add($data);
+            if ($valid) Clockregistry::addTxt($data);
 
             // Executa dependências.
-            if ($valid) Clockregistry::dependencyAdd($data);
+            if ($valid) Clockregistry::dependencyAddTxt($data);
 
             // Fecha modal.
             $this->closeModal();

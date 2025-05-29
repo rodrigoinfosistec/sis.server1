@@ -6,6 +6,7 @@
 @include('components.' .  $config['name'] . '.modals.mail')
 
 {{-- plus --}}
+@include('components.' .  $config['name'] . '.modals.add-txt')
 @include('components.' .  $config['name'] . '.modals.add')
 @include('components.' .  $config['name'] . '.modals.erase')
 
@@ -44,6 +45,8 @@
 
 {{-- botão add --}}
 <x-layout.card.card-header-button-more-plus/>
+
+<x-layout.card.card-header-button-more-plus-txt/>
 {{-- botão add --}}
 
                 </x-layout.card.card-header-button-more>
