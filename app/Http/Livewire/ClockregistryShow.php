@@ -45,6 +45,8 @@ class ClockregistryShow extends Component
     public $photo_link;
     public $created;
 
+    public $txt;
+
     /**
      * Construtor.
      */
@@ -66,6 +68,8 @@ class ClockregistryShow extends Component
             'date'        => ['required'],
             'time'        => ['required'],
             'photo'       => ['required'],
+
+            'txt'         => ['file', 'required'],
         ];
     }
 
@@ -102,6 +106,8 @@ class ClockregistryShow extends Component
         $this->photo            = '';
         $this->photo_link       = '';
         $this->created          = '';
+
+        $this->txt              = '';
     }
 
     /**

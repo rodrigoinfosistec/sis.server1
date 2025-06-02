@@ -1099,114 +1099,131 @@ class Report extends Model
         File::makeDirectory($path, $mode = 0777, true, true);
         $data['validatedData']['txt']->storeAs('public/txt/' . $data['config']['name'] . '/', $file_name);
 
-        // Instancia dados do txt.
-        $file = file($path . $file_name);
+        // Caminho completo do arquivo
+        $fullFilePath = $path . $file_name;
 
-        // Verifica se é um txt de ponto.
-        if($file[0][0] == '0' && $file[0][1] == '0'):
+        // Lê conteúdo binário
+        $content = file_get_contents($fullFilePath);
+
+        // Remove BOM UTF-16 LE, se existir
+        if (substr($content, 0, 2) === "\xFF\xFE") {
+            $content = substr($content, 2);
+        }
+
+        // Converte de UTF-16 LE para UTF-8
+        $content = mb_convert_encoding($content, 'UTF-8', 'UTF-16LE');
+
+        // Sobrescreve o arquivo como UTF-8 sem BOM
+        file_put_contents($fullFilePath, $content);
+
+        // Instancia dados do txt como array de linhas
+        $file = file($fullFilePath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        
+        // Remove literal "\t" de todas as linhas
+        $file = array_map(function($line) {
+            return explode("\t", $line);
+        }, $file);
+
+        // Verifica se é um txt de ponto novo (knup).
+        if($file[0][0] == 'No' && $file[0][1] == 'TMNo'):
+            unset($file[0]);
+
             // Inicializa array compacto.
             $txtArrayCompact = [];
             // Percorre todas as linhas do arquivo.
             foreach($file as $key => $line):
-                // Verifica se é uma linha de evento de ponto de funcionário.
-                if($line[9] == '3'):
-                    // Define parâmetros.
-                    $event = $line[0].$line[1].$line[2].$line[3].$line[4].$line[5].$line[6].$line[7].$line[8];
-                    $date  = $line[14].$line[15].$line[16].$line[17].'-'.$line[12].$line[13].'-'.$line[10].$line[11];
-                    $code  = $line[34].$line[35].$line[36].$line[37];
-                    // Verifica se eventos já não está cadastrado.
-                    if(Clockregistry::where(['event' => $event, 'date' => $date, 'code' => $code])->doesntExist()):
-                        $txtArrayCompact[] = [
-                            'pis'   => Employee::encodePis($line[22].$line[23].$line[24].$line[25].$line[26].$line[27].$line[28].$line[29].$line[30].$line[31].$line[32].$line[33]),
-                            'event' => $event,
-                            'date'  => $date,
-                            'time'  => $line[18].$line[19].':'.$line[20].$line[21],
-                            'code'  => $code,
-                        ];
-                    endif;
+                // Define parâmetros.
+                $equipament = $line[1];
+                $registration = $line[2];
+                $event = str_pad($line[0], 6, '0', STR_PAD_LEFT) . str_pad(auth()->user()->company_id, 6, '0', STR_PAD_LEFT) . str_pad($registration, 6, '0', STR_PAD_LEFT);
+                $name = $line[3];
+                $form = $line[7];
+        
+                // Divide em data e hora
+                list($date, $hour) = explode(' ', $line[9]);
+                $time = substr($hour, 0, 5);
+                
+                
+                // Converter para inteiro
+                $code = (int)$event;
+                
+                // Converter para hexadecimal
+                $code = dechex($code);
+
+                // Verifica se eventos já não está cadastrado.
+                if(Clockregistry::where(['event' => $event, 'date' => $date, 'code' => $code])->doesntExist()):
+                    $txtArrayCompact[] = [
+                        'event'        => $event,
+                        'equipament'   => $equipament,
+                        'registration' => $registration,
+                        'name'         => $name,
+                        'form'         => $form,
+                        'date'         => $date,
+                        'time'         => $time,
+                        'code'         => $code,
+                    ];
                 endif;
             endforeach;
 
             // Verifica se existe existe dados no $txtArrayCompact.
             if(count($txtArrayCompact) > 0):
-                // Inicializa array $array_pis.
-                $array_pis = [];
+                // Inicializa array $array_registration.
+                $array_registration = [];
                 // Percorre todas as linhas do arquivo.
                 foreach($txtArrayCompact as $key => $line):
-                    // Verifica se pis já foi salvo.
-                    if(!in_array($line['pis'], $array_pis)):
-                        // Salva pis existentes no arquivo, de forma única.
-                        $array_pis[] = $line['pis'];
+                    // Verifica se matrículas já foi salva.
+                    if(!in_array($line['registration'], $array_registration)):
+                        // Salva matrículas existentes no arquivo, de forma única.
+                        $array_registration[] = $line['registration'];
                     endif;
                 endforeach;
 
                 // Percorre todos os funcionários.
-                foreach($array_pis as $key => $pis):
+                foreach($array_registration as $key => $registration):
                     // Inicializa array $array_date.
-                    $array_date[$pis] = [];
+                    $array_date[$registration] = [];
                     // Percorre todas as linhas do arquivo.
                     foreach($txtArrayCompact as $key => $line):
                         // Verifica se é o funcionário.
-                        if($line['pis'] == $pis):
-                            // Salva todas as datas do pis existentes no arquivo, de forma única.
-                            if(!in_array($line['date'], $array_date[$pis])):
-                                $array_date[$pis][] = $line['date'];
+                        if($line['registration'] == $registration):
+                            // Salva todas as datas das matrículas existentes no arquivo, de forma única.
+                            if(!in_array($line['date'], $array_date[$registration])):
+                                $array_date[$registration][] = $line['date'];
                             endif;
                         endif;
                     endforeach;
                 endforeach;
 
                 // Percorre todos os funcionários.
-                foreach($array_pis as $key_pis => $pis):
+                foreach($array_registration as $key_registration => $registration):
                     // Percorre todas as dastas do funcionário.
-                    foreach($array_date[$pis] as $key_date => $date):
+                    foreach($array_date[$registration] as $key_date => $date):
                         // Inicializa array $array_date.
-                        $array_evento[$pis][$date] = [];
+                        $array_evento[$registration][$date] = [];
                         // Percorre todas as linhas do arquivo.
                         foreach($txtArrayCompact as $key => $line):
                             // Verifica se é o funcionário e a data.
-                            if($line['pis'] == $pis && $line['date'] == $date):
+                            if($line['registration'] == $registration && $line['date'] == $date):
                                 // Salva os eventos do funcionário na data.
-                                $array_evento[$pis][$date][] = [
-                                    'pis'   => $line['pis'],
-                                    'event' => $line['event'],
-                                    'date'  => $line['date'],
-                                    'time'  => $line['time'],
-                                    'code'  => $line['code'],
+                                $array_evento[$registration][$date][] = [
+                                    'registration' => $line['registration'],
+                                    'event'        => $line['event'],
+                                    'date'         => $line['date'],
+                                    'time'         => $line['time'],
+                                    'code'         => $line['code'],
+                                    'equipament'   => $line['equipament'],
+                                    'name'         => $line['name'],
+                                    'form'         => $line['form'],
                                 ];
                             endif;
                         endforeach;
-
-                        // Define eventos necessários na data.
-                        date_format(date_create($date), 'l') == 'Saturday' ? $qtd = 2 : $qtd = 4;
-
-                        // Inicializa variável.
-                        $code  = '';
-                        for($i = 0 ; $i < 3 ; $i++):
-                            // Constrói o código hexadecimal.
-                            $code = $code . dechex(random_int(0, 15));
-                        endfor;
-                        $code = Str::upper($code);
-
-                        // Define o evento.
-                        $event = $code . random_int(10000, 99999);
-
-                        // Percorre eventos não registrados no dia.
-                        for($i = count($array_evento[$pis][$date]); $i < $qtd; $i++):
-                            // Salva os eventos do funcionário na data.
-                            $array_evento[$pis][$date][] = [
-                                'pis'   => $pis,
-                                'event' => $i . $event,
-                                'date'  => $date,
-                                'time'  => '00:00',
-                                'code'  => $i . $code,
-                            ];
-                        endfor;
                     endforeach;
                 endforeach;
 
                 // Atribui à variável.
                 $txt = $array_evento;
+                
+                dd($txt);
             else:
                 // Exclui o arquivo.
                 unlink($path . $file_name);
