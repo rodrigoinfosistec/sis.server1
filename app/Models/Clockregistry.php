@@ -46,7 +46,7 @@ class Clockregistry extends Model
 
         // Salva arquivo, caso seja um txt.
         $txtArray = Report::txtClockregistry($data);
-
+        
         // Verifica se existem dados a serem cadastrados.
         if(!isset($txtArray)):
             $message = 'Registros de Ponto já cadastrados ou inexistentes.';
@@ -64,8 +64,8 @@ class Clockregistry extends Model
             // Percorre todos os funcionários do ponto txt.
             foreach($txtArray as $key => $employee):
                 // Verifica se algum funcionário não está cadastrado.
-                if(Employee::where('pis', $key)->doesntExist()):
-                    $message = 'Funcionário com pis ' . $key . ' não está cadastrado.';
+                if(Employee::where('registration', $key)->doesntExist()):
+                    $message = 'Funcionário com matrícula ' . $key . ' não está cadastrado.';
                 endif;
             endforeach;
         endif;
