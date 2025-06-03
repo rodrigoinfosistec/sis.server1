@@ -102,7 +102,7 @@ class Clockregistry extends Model
                         !Clockregistry::where([
                             ['employee_id', $employee->id],
                             ['date', $event['date']],
-                            ['time'], $event['time'],
+                            ['time', $event['time']],
                         ])->exists()
                     ):
                         // Cadastra.
