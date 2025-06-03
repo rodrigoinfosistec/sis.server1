@@ -89,20 +89,32 @@ class Clockregistry extends Model
      */
     public static function addTxt(array $data) : bool {
         // Percorre todos os funcionários.
-        foreach($data['txtArray'] as $key => $pis):
+        foreach($data['txtArray'] as $key => $registration):
+            //dd($registration);
             // Percorre todas as datas do funcionário.
-            foreach($pis as $key_date => $date):
+            foreach($registration as $key_date => $date):
+                //dd($date);
                 // Percorre todos os eventos do funcionário na data.
                 foreach($date as $key_event => $event):
-                    // Cadastra.
-                    Clockregistry::create([
-                        'employee_id'   => Employee::where('pis', $event['pis'])->first()->id,
-                        'employee_name' => Employee::where('pis', $event['pis'])->first()->name,
-                        'event'         => $event['event'],
-                        'date'          => $event['date'],
-                        'time'          => $event['time'],
-                        'code'          => $event['code'],
-                    ]);
+                    //Verifica se o registro já existe pelo funcionário, data e hora.
+                    $employee = Employee::where('registration', $event['registration'])->first();
+                    if(
+                        !Clockregistry::where([
+                            ['employee_id', $employee->id],
+                            ['date', $event['date']],
+                            ['time'], $event['time'],
+                        ])->exists()
+                    ):
+                        // Cadastra.
+                        Clockregistry::create([
+                            'employee_id'   => $employee->id,
+                            'employee_name' => $employee->name,
+                            'event'         => $event['event'],
+                            'date'          => $event['date'],
+                            'time'          => $event['time'],
+                            'code'          => $event['code'],
+                        ]);
+                    endif;
                 endforeach;
             endforeach;
         endforeach;
