@@ -112,7 +112,7 @@ class Clockregistry extends Model
                             'event'         => $event['event'],
                             'date'          => $event['date'],
                             'time'          => $event['time'],
-                            'code'          => $event['code'],
+                            'code'          => Str::upper($event['code']),
                         ]);
                     endif;
                 endforeach;
