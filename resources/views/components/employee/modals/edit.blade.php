@@ -68,6 +68,20 @@
 
         <x-layout.modal.modal-edit-body-group-item-error item="registration" message="$message"/>
     </x-layout.modal.modal-edit-body-group-item>
+
+    <x-layout.modal.modal-edit-body-group-item columms="8">
+        <x-layout.modal.modal-edit-body-group-item-label item="companyoriginal_id" title="EMPRESA ORIGEM" plus="company"/>
+
+        <select wire:model="companyoriginal_id" class="form-select form-select-sm text-uppercase" id="companyoriginal_id">
+            <x-layout.modal.modal-edit-body-group-item-option-muted/>
+
+            @foreach(App\Models\Company::get() as $key => $company)
+                <option value="{{ $company->id }}">{{ $company->name }}</option>
+            @endforeach
+        </select>
+
+        <x-layout.modal.modal-edit-body-group-item-error item="companyoriginal_id" message="$message"/>
+    </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
 
 <x-layout.modal.modal-edit-body-group>

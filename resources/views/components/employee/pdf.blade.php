@@ -28,6 +28,10 @@
 <x-layout.pdf.pdf-table-header-column>
     JORNADA SÁBADO
 </x-layout.pdf.pdf-table-header-column>
+
+<x-layout.pdf.pdf-table-header-column>
+    EMPRESA
+</x-layout.pdf.pdf-table-header-column>
 {{-- conteúdo título --}}
 
         </x-layout.pdf.pdf-table-header>
@@ -68,6 +72,15 @@
     INÍCIO: {{ $item->journey_start_saturday }}
     <br>
     FIM:    {{ $item->journey_end_saturday }}
+</x-layout.pdf.pdf-table-body-line-cell>
+
+{{-- EMPRESA ORIGINAL --}}
+<x-layout.pdf.pdf-table-body-line-cell>
+    @if(!empty($item->companyoriginal_name))
+        {{ $item->companyoriginal_name }}
+    @else
+        EMPRESA NÃO DEFINIDA
+    @endif
 </x-layout.pdf.pdf-table-body-line-cell>
 
 {{-- conteúdo --}}

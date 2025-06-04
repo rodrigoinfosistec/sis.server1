@@ -1489,6 +1489,8 @@ class Audit extends Model
                 'id='                     . $data['validatedData']['employee_id']            . ',' .
                 'company_id='             . $data['validatedData']['company_id']             . ',' .
                 'company_name='           . $data['validatedData']['company_name']           . ',' .
+                'companyoriginal_id='     . $data['validatedData']['companyoriginal_id']     . ',' .
+                'companyoriginal_name='   . $data['validatedData']['companyoriginal_name']   . ',' .
                 'pis='                    . $data['validatedData']['pis']                    . ',' .
                 'registration='           . $data['validatedData']['registration']           . ',' .
                 'name='                   . $data['validatedData']['name']                   . ',' .

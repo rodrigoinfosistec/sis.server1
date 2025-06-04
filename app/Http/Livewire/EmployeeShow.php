@@ -35,6 +35,8 @@ class EmployeeShow extends Component
     public $employee_id;
     public $company_id;
     public $company_name;
+    public $companyoriginal_id;
+    public $companyoriginal_name;
     public $employeegroup_id;
     public $employeegroup_name;
     public $pis;
@@ -80,6 +82,7 @@ class EmployeeShow extends Component
             'comment'   => ['nullable', 'between:2,255'],
 
             'company_id'             => ['required'],
+            'companyoriginal_id'     => ['required'],
             'employeegroup_id'       => ['required'],
             'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees,pis,'.$this->employee_id.''],
             'registration'           => ['required', 'between:1,10'],
@@ -132,6 +135,8 @@ class EmployeeShow extends Component
         $this->employee_id            = '';
         $this->company_id             = '';
         $this->company_name           = '';
+        $this->companyoriginal_id     = '';
+        $this->companyoriginal_name   = '';
         $this->employeegroup_id       = '';
         $this->employeegroup_name     = '';
         $this->pis                    = '';
@@ -287,6 +292,8 @@ class EmployeeShow extends Component
         $this->employee_id            = $employee->id;
         $this->company_id             = $employee->company_id;
         $this->company_name           = $employee->company_name;
+        $this->companyoriginal_id     = $employee->companyoriginal_id;
+        $this->companyoriginal_name   = $employee->companyoriginal_name;
         $this->pis                    = $employee->pis;
         $this->registration           = $employee->registration;
         $this->name                   = $employee->name;
@@ -315,6 +322,8 @@ class EmployeeShow extends Component
         $this->employee_id            = $employee->id;
         $this->company_id             = $employee->company_id;
         $this->company_name           = $employee->company_name;
+        $this->companyoriginal_id     = $employee->companyoriginal_id;
+        $this->companyoriginal_name   = $employee->companyoriginal_name;
         $this->employeegroup_id       = $employee->employeegroup_id;
         $this->employeegroup_name     = $employee->employeegroup_name;
         $this->pis                    = $employee->pis;
@@ -337,6 +346,7 @@ class EmployeeShow extends Component
             // Valida campos.
             $validatedData = $this->validate([
                 'company_id'             => ['required'],
+                'companyoriginal_id'     => ['required'],
                 'employeegroup_id'       => ['required'],
                 'pis'                    => ['required', 'min:15', 'max:15', 'unique:employees,pis,'.$this->employee_id.''],
                 'registration'           => ['required', 'between:1,10'],
@@ -496,6 +506,8 @@ class EmployeeShow extends Component
         $this->employee_id            = $employee->id;
         $this->company_id             = $employee->company_id;
         $this->company_name           = $employee->company_name;
+        $this->companyoriginal_id     = $employee->companyoriginal_id;
+        $this->companyoriginal_name   = $employee->companyoriginal_name;
         $this->pis                    = $employee->pis;
         $this->registration           = $employee->registration;
         $this->name                   = $employee->name;
@@ -516,6 +528,8 @@ class EmployeeShow extends Component
             $validatedData['employee_id']            = $this->employee_id;
             $validatedData['company_id']             = $this->company_id;
             $validatedData['company_name']           = $this->company_name;
+            $validatedData['companyoriginal_id']     = $this->companyoriginal_id;
+            $validatedData['companyoriginal_name']   = $this->companyoriginal_name;
             $validatedData['pis']                    = $this->pis;
             $validatedData['registration']           = $this->registration;
             $validatedData['name']                   = $this->name;
