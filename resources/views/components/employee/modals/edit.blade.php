@@ -70,7 +70,7 @@
     </x-layout.modal.modal-edit-body-group-item>
 
     <x-layout.modal.modal-edit-body-group-item columms="8">
-        <x-layout.modal.modal-edit-body-group-item-label item="companyoriginal_id" title="EMPRESA ORIGEM" plus="company"/>
+        <x-layout.modal.modal-edit-body-group-item-label item="companyoriginal_id" title="EMPRESA ORIGEM" plus="none"/>
 
         <select wire:model="companyoriginal_id" class="form-select form-select-sm text-uppercase" id="companyoriginal_id">
             <x-layout.modal.modal-edit-body-group-item-option-muted/>

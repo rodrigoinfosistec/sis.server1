@@ -13,9 +13,15 @@
         </div>
 
         <div class="float-start fw-bold" style="width: 600px; height: 35px; margin-right: 10px; margin-top: 5px; font-size: 9pt;">
-            {{ $clockemployee->employee->company->name }}
-            <br>
-            <span class="fw-normal text-muted">{{ $clockemployee->employee->company->cnpj }}</span>
+            @if(!empty($clockemployee->employee->companyoriginal_id))
+                {{ $clockemployee->employee->companyoriginal->name }}
+                <br>
+                <span class="fw-normal text-muted">{{ $clockemployee->employee->companyoriginal->cnpj }}</span>
+            @else
+                {{ $clockemployee->employee->company->name }}
+                <br>
+                <span class="fw-normal text-muted">{{ $clockemployee->employee->company->cnpj }}</span>
+            @endif
         </div>
 
         <div class="float-end" style="width: 100px; height: 40px;">
