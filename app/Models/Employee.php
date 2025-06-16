@@ -55,6 +55,7 @@ class Employee extends Model
 
         'status',
         'trainee',
+        'canonline',
 
         'created_at',
         'updated_at',
@@ -286,6 +287,7 @@ class Employee extends Model
             'code'                   => Employee::codeValidateNull($data['validatedData']['code']),
             'status'                 => $data['validatedData']['status'],
             'trainee'                => $data['validatedData']['trainee'],
+            'canonline'              => $data['validatedData']['canonline'],
         ]);
 
         // After.

@@ -1467,6 +1467,7 @@ class Audit extends Model
                 'code='                   . $before->code                   . '>' . $after->code                   . ',' .
                 'status='                 . $before->status                 . '>' . $after->status                 . ',' .
                 'trainee='                . $before->trainee                . '>' . $after->trainee                . ',' .
+                'canonline='              . $before->canonline              . '>' . $after->canonline              . ',' .
             '}',
         ]);
 

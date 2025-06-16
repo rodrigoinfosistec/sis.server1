@@ -216,6 +216,30 @@
         </div>
     </x-layout.modal.modal-edit-body-group-item>
 </x-layout.modal.modal-edit-body-group>
+
+<x-layout.modal.modal-edit-body-group>
+    <x-layout.modal.modal-edit-body-group-item columms="12">
+        <div class="form-check form-switch">
+            <input wire:model="canonline" class="form-check-input" type="checkbox" role="switch" id="canonline">
+        
+            <label class="form-check-label" for="canonline">
+                <span class="" style="font-size: 9pt;">
+                    PONTO ONLINE?
+                </span>
+
+                @if($canonline)
+                    <span class="text-danger fw-bold" style="font-size: 9pt;">
+                        SIM
+                    </span>
+                @else
+                    <span class="text-muted fw-bold" style="font-size: 9pt;">
+                        NÃO
+                    </span>
+                @endif
+            </label>
+        </div>
+    </x-layout.modal.modal-edit-body-group-item>
+</x-layout.modal.modal-edit-body-group>
 {{-- conteúdo --}}
 
     </x-layout.modal.modal-edit-body>

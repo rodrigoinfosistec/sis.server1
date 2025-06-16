@@ -60,6 +60,7 @@ class EmployeeShow extends Component
     public $code;
     public $status;
     public $trainee;
+    public $canonline;
     public $created;
 
     public $txt;
@@ -160,6 +161,7 @@ class EmployeeShow extends Component
         $this->code                   = '';
         $this->status                 = '';
         $this->trainee                = '';
+        $this->canonline              = '';
         $this->created                = '';
 
         $this->txt = '';
@@ -339,6 +341,7 @@ class EmployeeShow extends Component
         $this->code                   = $employee->code;
         $this->status                 = $employee->status;
         $this->trainee                = $employee->trainee;
+        $this->canonline              = $employee->canonline;
         $this->created                = $employee->created_at->format('d/m/Y H:i:s');
     }
         public function modernize()
@@ -364,6 +367,7 @@ class EmployeeShow extends Component
             $validatedData['employee_id']                            = $this->employee_id;
             $this->status ? $validatedData['status']                 = true : $validatedData['status'] = false;
             $this->trainee ? $validatedData['trainee']               = true : $validatedData['trainee'] = false;
+            $this->canonline ? $validatedData['canonline']           = true : $validatedData['canonline'] = false;
             $this->limit_controll ? $validatedData['limit_controll'] = true : $validatedData['limit_controll'] = false;
 
             // Define $data.
