@@ -85,66 +85,68 @@
         </div>{{-- row --}}
 
         <div class="row">
-            <div class="col-sm-4 mb-4">
-                <div class="card">
-                    <div class="card-header fw-bold text-danger text-center">
-                        <i class="bi bi-fingerprint"></i>
+			@if($employee->canonline)
+				<div class="col-sm-4 mb-4">
+					<div class="card">
+						<div class="card-header fw-bold text-danger text-center">
+							<i class="bi bi-fingerprint"></i>
 
-                        REGISTRO DE PONTO
-                    </div>{{-- card-header --}}
+							REGISTRO DE PONTO
+						</div>{{-- card-header --}}
 
-                    <div class="card-body" style="height: 170px;">
-                        @if(
-							($employee->clock_type == 'REGISTRY')
-							&& (date('l') != 'Sunday')
-							&& (App\Models\Holiday::where('date', date('Y-m-d'))->doesntExist())
-							&& (App\Models\Employeevacationday::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
-							&& (App\Models\Employeeeasy::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
-							&& (App\Models\Employeelicenseday::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
-							&& (App\Models\Employeeattestday::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
-							&& (App\Models\Employeeabsenceday::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
-						)
-                            @if(App\Models\Clockregistry::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->exists())
-                                <h5 class="card-title text-muted" style="font-size: 11pt;">
-                                    REGISTROS DE HOJE
+						<div class="card-body" style="height: 170px;">
+							@if(
+								($employee->clock_type == 'REGISTRY')
+								&& (date('l') != 'Sunday')
+								&& (App\Models\Holiday::where('date', date('Y-m-d'))->doesntExist())
+								&& (App\Models\Employeevacationday::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
+								&& (App\Models\Employeeeasy::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
+								&& (App\Models\Employeelicenseday::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
+								&& (App\Models\Employeeattestday::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
+								&& (App\Models\Employeeabsenceday::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->doesntExist())
+							)
+								@if(App\Models\Clockregistry::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->exists())
+									<h5 class="card-title text-muted" style="font-size: 11pt;">
+										REGISTROS DE HOJE
 
-                                    <i class="bi bi-caret-right-fill"></i>
+										<i class="bi bi-caret-right-fill"></i>
 
-                                    {{ date('d') }}
-                                    de
-                                    {{ App\Models\General::numberToMonth((string)date('m')) }}
-                                </h5>
+										{{ date('d') }}
+										de
+										{{ App\Models\General::numberToMonth((string)date('m')) }}
+									</h5>
 
-                                <p class="card-text">
-                                    @foreach(App\Models\Clockregistry::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->orderBy('time', 'ASC')->get() as $key => $clockregistry)
-										<span class="badge rounded-pill bg-danger" style="font-size:11pt;">
-											{{ $clockregistry->time }}
-										</span>
-									@endforeach
-								</p>
-                            @else
-                                <h5 class="card-title text-muted" style="font-size: 11pt;">
-                                    NENHUM REGISTRO DE HOJE 
+									<p class="card-text">
+										@foreach(App\Models\Clockregistry::where(['employee_id' => $employee->id, 'date' => date('Y-m-d')])->orderBy('time', 'ASC')->get() as $key => $clockregistry)
+											<span class="badge rounded-pill bg-danger" style="font-size:11pt;">
+												{{ $clockregistry->time }}
+											</span>
+										@endforeach
+									</p>
+								@else
+									<h5 class="card-title text-muted" style="font-size: 11pt;">
+										NENHUM REGISTRO DE HOJE 
 
-                                    <i class="bi bi-caret-right-fill"></i>
+										<i class="bi bi-caret-right-fill"></i>
 
-                                    {{ date('d') }}
-                                    de
-                                    {{ App\Models\General::numberToMonth((string)date('m')) }}
-                                </h5>
-                            @endif
+										{{ date('d') }}
+										de
+										{{ App\Models\General::numberToMonth((string)date('m')) }}
+									</h5>
+								@endif
 
-                            <a type="button" wire:click="addRegistry({{ (int)Auth()->User()->employee_id }})" class="btn btn btn-outline-danger btn-sm fw-bold float-end" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#addRegistryModal" title="Registrar Ponto">
-								Registrar <i class="bi bi-hand-index-thumb"></i>
-							</a>
-						@else
-							<h5 class="card-title text-muted" style="font-size: 11pt;">
-								USUÁRIO NÃO REGISTRA PONTO ON-LINE
-							</h5>
-						@endif
-                    </div>{{-- card-body --}}
-                </div>{{-- card --}}
-            </div>{{-- col --}}
+								<a type="button" wire:click="addRegistry({{ (int)Auth()->User()->employee_id }})" class="btn btn btn-outline-danger btn-sm fw-bold float-end" style="font-size: 13pt;" data-bs-toggle="modal" data-bs-target="#addRegistryModal" title="Registrar Ponto">
+									Registrar <i class="bi bi-hand-index-thumb"></i>
+								</a>
+							@else
+								<h5 class="card-title text-muted" style="font-size: 11pt;">
+									USUÁRIO NÃO REGISTRA PONTO ON-LINE
+								</h5>
+							@endif
+						</div>{{-- card-body --}}
+					</div>{{-- card --}}
+				</div>{{-- col --}}
+			@endif
 
             <div class="col-sm-4  mb-4">
                 <div class="card">
