@@ -23,6 +23,8 @@ class Breakdow extends Model
         'deposit_name',
         'producemeasure_id',
         'producemeasure_name',
+        'company_id',
+        'company_name',
 
         'list_path',
         'status',
@@ -37,6 +39,7 @@ class Breakdow extends Model
     public function producebrand(){return $this->belongsTo(Producebrand::class);}
     public function deposit(){return $this->belongsTo(Deposit::class);}
     public function producemeasure(){return $this->belongsTo(Producemeasure::class);}
+    public function company(){return $this->belongsTo(Company::class);}
 
     /**
      * Valida cadastro.
@@ -75,6 +78,8 @@ class Breakdow extends Model
             'deposit_name'        => Deposit::find($data['validatedData']['deposit_id'])->name,
             'producemeasure_id'   => $data['validatedData']['producemeasure_id'],
             'producemeasure_name' => Producemeasure::find($data['validatedData']['producemeasure_id'])->name,
+            'company_id'          => $data['validatedData']['company_id'],
+            'company_name'        => Company::find($data['validatedData']['company_id'])->name,
         ])->id;
 
         // After.
@@ -113,7 +118,7 @@ class Breakdow extends Model
         $message = null;
 
         // Salva arquivo, caso seja um txt.
-        $txtArray = Report::txtEmployee($data);
+        $txtArray = Report::txtBreakdow($data);
 
         // Verifica se é um arquivo txt.
         if(empty($txtArray)):
@@ -151,10 +156,10 @@ class Breakdow extends Model
         endif;
 
         // Verifica se há funcionário desta empresa utilizando esta matrícula.
-        if(Employee::where([
+        if(Breakdow::where([
                 ['registration', $data['validatedData']['registration']],
                 ['company_id', $data['validatedData']['company_id']],
-            ])->whereNot('id', $data['validatedData']['employee_id'])->exists()
+            ])->whereNot('id', $data['validatedData']['breakdow_id'])->exists()
         ):
             $message = 'Já existe um funcionário desta empresa utilizando esta matrícula.';
         endif;
@@ -178,16 +183,16 @@ class Breakdow extends Model
      */
     public static function edit(array $data) : bool {
         // Before.
-        $before = Employee::find($data['validatedData']['employee_id']);
+        $before = Breakdow::find($data['validatedData']['breakdow_id']);
 
         // Atualiza.
-        Employee::find($data['validatedData']['employee_id'])->update([
+        Breakdow::find($data['validatedData']['breakdow_id'])->update([
             'company_id'             => $data['validatedData']['company_id'],
             'company_name'           => Company::find($data['validatedData']['company_id'])->name,
             'companyoriginal_id'     => $data['validatedData']['companyoriginal_id'],
             'companyoriginal_name'   => Company::find($data['validatedData']['companyoriginal_id'])->name,
-            'employeegroup_id'       => $data['validatedData']['employeegroup_id'],
-            'employeegroup_name'     => Employeegroup::find($data['validatedData']['employeegroup_id'])->name,
+            'breakdowgroup_id'       => $data['validatedData']['breakdowgroup_id'],
+            'breakdowgroup_name'     => Breakdowgroup::find($data['validatedData']['breakdowgroup_id'])->name,
             'pis'                    => $data['validatedData']['pis'],
             'registration'           => $data['validatedData']['registration'],
             'name'                   => Str::upper($data['validatedData']['name']),
@@ -198,17 +203,17 @@ class Breakdow extends Model
             'journey'                => $data['validatedData']['journey'],
             'limit_controll'         => $data['validatedData']['limit_controll'],
             'clock_type'             => $data['validatedData']['clock_type'],
-            'code'                   => Employee::codeValidateNull($data['validatedData']['code']),
+            'code'                   => Breakdow::codeValidateNull($data['validatedData']['code']),
             'status'                 => $data['validatedData']['status'],
             'trainee'                => $data['validatedData']['trainee'],
             'canonline'              => $data['validatedData']['canonline'],
         ]);
 
         // After.
-        $after = Employee::find($data['validatedData']['employee_id']);
+        $after = Breakdow::find($data['validatedData']['breakdow_id']);
 
         // Auditoria.
-        Audit::employeeEdit($data, $before, $after);
+        Audit::breakdowEdit($data, $before, $after);
 
         // Mensagem.
         $message = $data['config']['title'] . ' ' .  $after->name . ' atualizado com sucesso.';
@@ -260,10 +265,10 @@ class Breakdow extends Model
      */
     public static function editDoc(array $data) : bool {
         // Before.
-        $before = Employee::find($data['validatedData']['employee_id']);
+        $before = Breakdow::find($data['validatedData']['breakdow_id']);
 
         // Atualiza.
-        Employee::find($data['validatedData']['employee_id'])->update([
+        Breakdow::find($data['validatedData']['breakdow_id'])->update([
             'cpf'  => $data['validatedData']['cpf'],
             'rg'   => $data['validatedData']['rg'],
             'cnh'  => $data['validatedData']['cnh'],
@@ -271,7 +276,7 @@ class Breakdow extends Model
         ]);
 
         // After.
-        $after = Employee::find($data['validatedData']['employee_id']);
+        $after = Breakdow::find($data['validatedData']['breakdow_id']);
 
         // Mensagem.
         $message = 'Documentos do ' . $data['config']['title'] . ' ' .  $after->name . ' atualizado com sucesso.';
@@ -323,10 +328,10 @@ class Breakdow extends Model
      */
     public static function editLimit(array $data) : bool {
         // Before.
-        $before = Employee::find($data['validatedData']['employee_id']);
+        $before = Breakdow::find($data['validatedData']['breakdow_id']);
 
         // Atualiza.
-        Employee::find($data['validatedData']['employee_id'])->update([
+        Breakdow::find($data['validatedData']['breakdow_id'])->update([
             'limit_start_week'     => General::timeToMinuts($data['validatedData']['limit_start_week']),
             'limit_end_week'       => General::timeToMinuts($data['validatedData']['limit_end_week']),
             'limit_start_saturday' => General::timeToMinuts($data['validatedData']['limit_start_saturday']),
@@ -334,10 +339,10 @@ class Breakdow extends Model
         ]);
 
         // After.
-        $after = Employee::find($data['validatedData']['employee_id']);
+        $after = Breakdow::find($data['validatedData']['breakdow_id']);
 
         // Auditoria.
-        Audit::employeeEditLimit($data, $before, $after);
+        Audit::breakdowEditLimit($data, $before, $after);
 
         // Mensagem.
         $message = 'Limites de Ponto do ' . $data['config']['title'] . ' ' .  $after->name . ' atualizados com sucesso.';
@@ -368,26 +373,26 @@ class Breakdow extends Model
     public static function validateErase(array $data) : bool {
         $message = null;
 
-        $employee = Employee::find($data['validatedData']['employee_id']);
+        $breakdow = Breakdow::find($data['validatedData']['breakdow_id']);
 
         // Verifica se Funcionário possui Saldo (+/-) no banco de Horas.
-        if($employee->datatime != 0):
-            if($employee->datatime > 0):
-                $hour  = $employee->datatime / 60;
+        if($breakdow->datatime != 0):
+            if($breakdow->datatime > 0):
+                $hour  = $breakdow->datatime / 60;
                 $hour  = (int)$hour;
-                $minut = $employee->datatime % 60;
+                $minut = $breakdow->datatime % 60;
     
                 $time = '+' . str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
             else:
-                $employee->datatime = abs($employee->datatime);
-                $hour  = $employee->datatime / 60;
+                $breakdow->datatime = abs($breakdow->datatime);
+                $hour  = $breakdow->datatime / 60;
                 $hour  = (int)$hour;
-                $minut = $employee->datatime % 60;
+                $minut = $breakdow->datatime % 60;
     
                 $time = '-' . str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
             endif;
 
-            $message = 'Funcionário ' . $employee->name . ' possui ' . $time . 'H no Banco de Horas.';
+            $message = 'Funcionário ' . $breakdow->name . ' possui ' . $time . 'H no Banco de Horas.';
         endif;
 
         // Desvio.
@@ -421,10 +426,10 @@ class Breakdow extends Model
      */
     public static function erase(array $data) : bool {
         // Exclui.
-        Employee::find($data['validatedData']['employee_id'])->delete();
+        Breakdow::find($data['validatedData']['breakdow_id'])->delete();
 
         // Auditoria.
-        Audit::employeeErase($data);
+        Audit::breakdowErase($data);
 
         // Mensagem.
         $message = $data['config']['title'] . ' ' .  $data['validatedData']['name'] . ' excluído com sucesso.';
@@ -444,7 +449,7 @@ class Breakdow extends Model
         $message = null;
 
         // verifica se existe algum item retornado na pesquisa.
-        if($list = Employee::where([
+        if($list = Breakdow::where([
                 [$data['filter'], 'like', '%'. $data['search'] . '%'],
             ])->doesntExist()):
 
@@ -474,10 +479,10 @@ class Breakdow extends Model
         $data['file_name'] = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
 
         // Gera PDF.
-        Report::employeeGenerate($data);
+        Report::breakdowGenerate($data);
 
         // Auditoria.
-        Audit::employeeGenerate($data);
+        Audit::breakdowGenerate($data);
 
         // Mensagem.
         $message = 'Relatório PDF gerado com sucesso.';
@@ -532,10 +537,10 @@ class Breakdow extends Model
      */
     public static function mail(array $data) : bool {
         // Envia e-mail.
-        Email::employeeMail($data);
+        Email::breakdowMail($data);
 
         // Auditoria.
-        Audit::employeeMail($data);
+        Audit::breakdowMail($data);
 
         // Mensagem.
         $message = 'E-mail para ' . $data['validatedData']['mail'] . ' enviado com sucesso.';

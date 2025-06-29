@@ -2,12 +2,583 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Report;
+use App\Models\General;
+
+use App\Models\Breakdow;
+use App\Models\Deposit;
+use App\Models\Producebrand;
+use App\Models\Producemeasure;
+use App\Models\Company;
+
+use Livewire\WithPagination;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class BreakdowShow extends Component
 {
-    public function render()
-    {
-        return view('livewire.breakdow-show');
+    use WithFileUploads;
+    use WithPagination;
+
+    protected $paginationTheme = 'bootstrap';
+    protected $listeners = ['refreshChildren' => 'refreshMe'];
+
+    public function refreshMe(){}
+
+    public $config;
+
+    public $search = '';
+    public $filter = 'producebrand_name';
+
+    public $report_id;
+    public $mail;
+    public $comment;
+
+    public $breakdow_id;
+    public $producebrand_name;
+    public $producebrand_id;
+    public $deposit_id;
+    public $deposit_name;
+    public $producemeasure_id;
+    public $producemeasure_name;
+    public $company_id;
+    public $company_name;
+    public $list_path;
+    public $status;
+    public $created_at;
+    public $updated_at;
+
+    public $created;
+
+    public $pdf;
+
+    /**
+     * Construtor.
+     */
+    public function mount($config){
+        $this->config = $config;
+
+        // Company
+        $company = Company::find(Auth()->user()->company_id);
+        $this->company_id = Auth()->user()->company_id;
+        $this->company_name = $company->name;
+
+        // Deposit
+        if(!empty($company->depositdefault_id)):
+            $this->deposit_id = $company->depositdefault_id;
+            $this->deposit_name = Deposit::find($this->deposit_id)->name;
+        else:
+            $this->deposit_id = '';
+            $this->deposit_name = '';
+        endif;
     }
+
+    /**
+     * Valida campos gerais.
+     */
+    protected function rules()
+    {
+        return [
+            'report_id' => ['required'],
+            'mail'      => ['required', 'email', 'between:2,255'],
+            'comment'   => ['nullable', 'between:2,255'],
+
+            'producebrand_id'   => ['required'],
+            'deposit_id'        => ['required'],
+            'producemeasure_id' => ['required'],
+
+            'pdf' => ['file', 'required'],
+        ];
+    }
+
+    /**
+     * Valida atualização.
+     */
+    public function updated($fields){
+        $this->validateOnly($fields);
+    }
+
+    /**
+     * Fecha Modals.
+     */
+    public function closeModal(){
+        $this->resetInput();
+        $this->resetValidation();
+    }
+
+    /**
+     * Reseta atributos.
+     */
+    public function resetInput()
+    {
+        $this->report_id = '';
+        $this->mail      = '';
+        $this->comment   = '';
+
+        $this->breakdow_id         = '';
+        $this->producebrand_name   = '';
+        $this->producebrand_id     = '';
+        $this->producemeasure_id   = '';
+        $this->producemeasure_name = '';
+        $this->status              = '';
+        $this->created_at          = '';
+        $this->updated_at          = '';
+        $this->created             = '';
+
+        $this->pdf = '';
+    }
+
+    /**
+     * Atualiza conteúdo sem atualizar página.
+     */
+    public function refresh()
+    {
+        $this->emit('refreshChildren');
+    }
+
+    /**
+     * Renderiza página.
+     */
+    public function render(){
+        return view('livewire.' . $this->config['name'] . '-show', [
+            'config'       => $this->config,
+            'existsItem'   => Breakdow::exists(),
+            'existsReport' => Report::where('folder', $this->config['name'])->exists(),
+            'reports'      => Report::where('folder', $this->config['name'])->orderBy('id', 'DESC')->limit(12)->get(),
+            'list'         => Breakdow::where([
+                                [$this->filter, 'like', '%'. $this->search . '%'],
+                                ['company_id', Auth()->user()->company_id],
+                            ])->orderByRaw("FIELD(status, 'embalado', 'reembolsado', 'destinado')")->orderBy('id', 'DESC')->paginate(12),
+        ]);
+    }
+
+    /**
+     * add()
+     *  register()
+     */
+    public function add()
+    {
+        // Empresa.
+        $this->company_id = Auth()->user()->company_id;
+    }
+        public function register()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'producebrand_id'   => ['required'],
+                'deposit_id'        => ['required'],
+                'producemeasure_id' => ['required'],
+                'company_id'        => ['required'],
+            ]);
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = Breakdow::validateAdd($data);
+
+            // Cadastra.
+            if ($valid) Breakdow::add($data);
+
+            // Executa dependências.
+            if ($valid) Breakdow::dependencyAdd($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * addTxt()
+     *  registerTxt()
+     */
+    public function addTxt()
+    {
+        //...
+    }
+        public function registerTxt()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'company_id' => ['required'],
+                'txt'        => ['file', 'required'],
+            ]);
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida cadastro.
+            $valid = $txtArray = Breakdow::validateAddTxt($data);
+
+            // Valida.
+            if($valid):
+                foreach($txtArray as $key => $breakdow):
+                    // Estende $data['validatedData'].
+                    $data['validatedData']['pis']                    = Breakdow::encodePis((string)$breakdow['pis']);
+                    $data['validatedData']['name']                   = (string)$breakdow['name'];
+                    $data['validatedData']['journey_start_week']     = '08:00';
+                    $data['validatedData']['journey_end_week']       = '17:00';
+                    $data['validatedData']['journey_start_saturday'] = '08:00';
+                    $data['validatedData']['journey_end_saturday']   = '12:00';
+
+                    if(Breakdow::where('pis', $data['validatedData']['pis'])->doesntExist()):
+                        // Cadastra.
+                        if ($valid) Breakdow::add($data);
+
+                        // Executa dependências.
+                        if ($valid) Breakdow::dependencyAdd($data);
+                    endif;
+                endforeach;
+            endif;
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+            return redirect()->to('/breakdow');
+        }
+
+    /** 
+     * detail()
+     */
+    public function detail(int $breakdow_id)
+    {
+        // Funcionário.
+        $breakdow = Breakdow::find($breakdow_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->breakdow_id            = $breakdow->id;
+        $this->company_id             = $breakdow->company_id;
+        $this->company_name           = $breakdow->company_name;
+        $this->companyoriginal_id     = $breakdow->companyoriginal_id;
+        $this->companyoriginal_name   = $breakdow->companyoriginal_name;
+        $this->pis                    = $breakdow->pis;
+        $this->registration           = $breakdow->registration;
+        $this->name                   = $breakdow->name;
+        $this->journey_start_week     = $breakdow->journey_start_week;
+        $this->journey_end_week       = $breakdow->journey_end_week;
+        $this->journey_start_saturday = $breakdow->journey_start_saturday;
+        $this->journey_end_saturday   = $breakdow->journey_end_saturday;
+        $this->journey                = $breakdow->journey;
+        $this->clock_type             = $breakdow->clock_type;
+        $this->code                   = $breakdow->code;
+        $this->status                 = $breakdow->status;
+        $this->trainee                = $breakdow->trainee;
+        $this->created                = $breakdow->created_at->format('d/m/Y H:i:s');
+    }
+
+    /**
+     * edit()
+     *  modernize()
+     */
+    public function edit(int $breakdow_id)
+    {
+        // Funcionário.
+        $breakdow = Breakdow::find($breakdow_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->breakdow_id            = $breakdow->id;
+        $this->company_id             = $breakdow->company_id;
+        $this->company_name           = $breakdow->company_name;
+        $this->companyoriginal_id     = $breakdow->companyoriginal_id;
+        $this->companyoriginal_name   = $breakdow->companyoriginal_name;
+        $this->breakdowgroup_id       = $breakdow->breakdowgroup_id;
+        $this->breakdowgroup_name     = $breakdow->breakdowgroup_name;
+        $this->pis                    = $breakdow->pis;
+        $this->registration           = $breakdow->registration;
+        $this->name                   = $breakdow->name;
+        $this->journey_start_week     = $breakdow->journey_start_week;
+        $this->journey_end_week       = $breakdow->journey_end_week;
+        $this->journey_start_saturday = $breakdow->journey_start_saturday;
+        $this->journey_end_saturday   = $breakdow->journey_end_saturday;
+        $this->journey                = $breakdow->journey;
+        $this->limit_controll         = $breakdow->limit_controll;
+        $this->clock_type             = $breakdow->clock_type;
+        $this->code                   = $breakdow->code;
+        $this->status                 = $breakdow->status;
+        $this->trainee                = $breakdow->trainee;
+        $this->canonline              = $breakdow->canonline;
+        $this->created                = $breakdow->created_at->format('d/m/Y H:i:s');
+    }
+        public function modernize()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'company_id'             => ['required'],
+                'companyoriginal_id'     => ['required'],
+                'breakdowgroup_id'       => ['required'],
+                'pis'                    => ['required', 'min:15', 'max:15', 'unique:breakdows,pis,'.$this->breakdow_id.''],
+                'registration'           => ['required', 'between:1,10'],
+                'name'                   => ['required', 'between:3,60'],
+                'journey_start_week'     => ['required'],
+                'journey_end_week'       => ['required'],
+                'journey_start_saturday' => ['required'],
+                'journey_end_saturday'   => ['required'],
+                'journey'                => ['required'],
+                'clock_type'             => ['required'],
+                'code'                   => ['nullable', 'min:4', 'max:4', 'unique:breakdows,code,'.$this->breakdow_id.''],
+            ]);
+
+            // Estende $validatedData
+            $validatedData['breakdow_id']                            = $this->breakdow_id;
+            $this->status ? $validatedData['status']                 = true : $validatedData['status'] = false;
+            $this->trainee ? $validatedData['trainee']               = true : $validatedData['trainee'] = false;
+            $this->canonline ? $validatedData['canonline']           = true : $validatedData['canonline'] = false;
+            $this->limit_controll ? $validatedData['limit_controll'] = true : $validatedData['limit_controll'] = false;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Breakdow::validateEdit($data);
+
+            // Atualiza.
+            if ($valid) Breakdow::edit($data);
+
+            // Executa dependências.
+            if ($valid) Breakdow::dependencyEdit($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * editDoc()
+     *  modernizeDoc()
+     */
+    public function editDoc(int $breakdow_id)
+    {
+        // Funcionário.
+        $breakdow = Breakdow::find($breakdow_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->breakdow_id  = $breakdow->id;
+        $this->company_id   = $breakdow->company_id;
+        $this->company_name = $breakdow->company_name;
+        $this->pis          = $breakdow->pis;
+        $this->name         = $breakdow->name;
+        $this->cpf          = $breakdow->cpf;
+        $this->rg           = $breakdow->rg;
+        $this->cnh          = $breakdow->cnh;
+        $this->ctps         = $breakdow->ctps;
+    }
+        public function modernizeDoc()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'cpf'  => ['nullable', 'min:14', 'max:14', 'unique:breakdows,cpf,'.$this->breakdow_id.''],
+                'rg'   => ['nullable'],
+                'cnh'  => ['nullable'],
+                'ctps' => ['nullable'],
+            ]);
+
+            // Estende $validatedData
+            $validatedData['breakdow_id'] = $this->breakdow_id;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Breakdow::validateEditDoc($data);
+
+            // Atualiza.
+            if ($valid) Breakdow::editDoc($data);
+
+            // Executa dependências.
+            if ($valid) Breakdow::dependencyEditDoc($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * editLimit()
+     *  modernizeLimit()
+     */
+    public function editLimit(int $breakdow_id)
+    {
+        // Funcionário.
+        $breakdow = Breakdow::find($breakdow_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->breakdow_id  = $breakdow->id;
+        $this->company_id   = $breakdow->company_id;
+        $this->company_name = $breakdow->company_name;
+        $this->pis          = $breakdow->pis;
+        $this->registration = $breakdow->registration;
+        $this->name         = $breakdow->name;
+        $this->cpf          = $breakdow->cpf;
+        $this->rg           = $breakdow->rg;
+        $this->cnh          = $breakdow->cnh;
+        $this->ctps         = $breakdow->ctps;
+
+        $this->limit_start_week     = General::minutsToTime($breakdow->limit_start_week);
+        $this->limit_end_week       = General::minutsToTime($breakdow->limit_end_week);
+        $this->limit_start_saturday = General::minutsToTime($breakdow->limit_start_saturday);
+        $this->limit_end_saturday   = General::minutsToTime($breakdow->limit_end_saturday);
+    }
+        public function modernizeLimit()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'limit_start_week'     => ['required'],
+                'limit_end_week'       => ['required'],
+                'limit_start_saturday' => ['required'],
+                'limit_end_saturday'   => ['required'],
+            ]);
+
+            // Estende $validatedData.
+            $validatedData['breakdow_id'] = $this->breakdow_id;
+            $validatedData['name']        = $this->name;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida atualização.
+            $valid = Breakdow::validateEditLimit($data);
+
+            // Atualiza.
+            if ($valid) Breakdow::editLimit($data);
+
+            // Executa dependências.
+            if ($valid) Breakdow::dependencyEditLimit($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * erase()
+     *  exclude()
+     */
+    public function erase(int $breakdow_id)
+    {
+        // Funcionário.
+        $breakdow = Breakdow::find($breakdow_id);
+
+        // Inicializa propriedades dinâmicas.
+        $this->breakdow_id            = $breakdow->id;
+        $this->company_id             = $breakdow->company_id;
+        $this->company_name           = $breakdow->company_name;
+        $this->companyoriginal_id     = $breakdow->companyoriginal_id;
+        $this->companyoriginal_name   = $breakdow->companyoriginal_name;
+        $this->pis                    = $breakdow->pis;
+        $this->registration           = $breakdow->registration;
+        $this->name                   = $breakdow->name;
+        $this->journey_start_week     = $breakdow->journey_start_week;
+        $this->journey_end_week       = $breakdow->journey_end_week;
+        $this->journey_start_saturday = $breakdow->journey_start_saturday;
+        $this->journey_end_saturday   = $breakdow->journey_end_saturday;
+        $this->journey                = $breakdow->journey;
+        $this->clock_type             = $breakdow->clock_type;
+        $this->code                   = $breakdow->code;
+        $this->status                 = $breakdow->status;
+        $this->trainee                = $breakdow->trainee;
+        $this->created                = $breakdow->created_at->format('d/m/Y H:i:s');
+    }
+        public function exclude()
+        {
+            // Define $validatedData
+            $validatedData['breakdow_id']            = $this->breakdow_id;
+            $validatedData['company_id']             = $this->company_id;
+            $validatedData['company_name']           = $this->company_name;
+            $validatedData['companyoriginal_id']     = $this->companyoriginal_id;
+            $validatedData['companyoriginal_name']   = $this->companyoriginal_name;
+            $validatedData['pis']                    = $this->pis;
+            $validatedData['registration']           = $this->registration;
+            $validatedData['name']                   = $this->name;
+            $validatedData['journey_start_week']     = $this->journey_start_week;
+            $validatedData['journey_end_week']       = $this->journey_end_week;
+            $validatedData['journey_start_saturday'] = $this->journey_start_saturday;
+            $validatedData['journey_end_saturday']   = $this->journey_end_saturday;
+            $validatedData['clock_type']             = $this->clock_type;
+
+            // Define $data.
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida exclusão.
+            $valid = Breakdow::validateErase($data);
+
+            // Executa dependências.
+            if ($valid) Breakdow::dependencyErase($data);
+
+            // Exclui.
+            if ($valid) Breakdow::erase($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * generate()
+     *  sire()
+     */
+    public function generate()
+    {
+        //...
+    }
+        public function sire()
+        {
+            // Define $data.
+            $data['config'] = $this->config;
+            $data['filter'] = $this->filter;
+            $data['search'] = $this->search;
+
+            // Valida geração de relatório.
+            $valid = Breakdow::validateGenerate($data);
+
+            // Gera relatório.
+            if ($valid) Breakdow::generate($data);
+
+            // Executa dependências.
+            if ($valid) Breakdow::dependencyGenerate($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
+
+    /**
+     * mail()
+     *  send()
+     */
+    public function mail()
+    {
+        //...
+    }
+        public function send()
+        {
+            // Valida campos.
+            $validatedData = $this->validate([
+                'report_id' => ['required'],
+                'mail'      => ['required', 'email', 'between:2,255'],
+                'comment'   => ['nullable', 'between:2,255'],
+            ]);
+
+            // Define $data
+            $data['config']        = $this->config;
+            $data['validatedData'] = $validatedData;
+
+            // Valida envio do e-mail.
+            $valid = Breakdow::validateMail($data);
+
+            // Envia e-mail.
+            if ($valid) Breakdow::mail($data);
+
+            // Executa dependências.
+            if ($valid) Breakdow::dependencyMail($data);
+
+            // Fecha modal.
+            $this->closeModal();
+            $this->dispatchBrowserEvent('close-modal');
+        }
 }

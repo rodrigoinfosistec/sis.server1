@@ -4492,6 +4492,8 @@ class Audit extends Model
                 'deposit_name='        . $after->deposit_name        . ',' .
                 'producemeasure_id='   . $after->producemeasure_id   . ',' .
                 'producemeasure_name=' . $after->producemeasure_name . ',' .
+                'company_id='          . $after->company_id          . ',' .
+                'company_name='        . $after->company_name        . ',' .
                 'status='              . $after->status              . ',' .
             '}',
         ]);

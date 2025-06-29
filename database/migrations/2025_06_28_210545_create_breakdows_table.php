@@ -23,6 +23,9 @@ return new class extends Migration
             $table->unsignedBigInteger('producemeasure_id');
             $table->string('producemeasure_name');
 
+            $table->unsignedBigInteger('company_id');
+            $table->string('company_name');
+
             $table->string('list_path', 2048)->nullable();
 
             $table->enum('status', ['embalado', 'reembolsado', 'destinado'])->default('embalado');
@@ -32,6 +35,7 @@ return new class extends Migration
             $table->foreign('producebrand_id')->references('id')->on('producebrands');
             $table->foreign('deposit_id')->references('id')->on('deposits');
             $table->foreign('producemeasure_id')->references('id')->on('producemeasures');
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 
