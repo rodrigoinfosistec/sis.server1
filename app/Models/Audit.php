@@ -4470,4 +4470,32 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Breakdow Add.
+     * @var array $data
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function breakdowAdd(array $data, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[cadastrou]' . $data['config']['title'] . '{' .
+                'id='                  . $after->id                  . ',' .
+                'producebrand_name='   . $after->producebrand_name   . ',' .
+                'producebrand_id='     . $after->producebrand_id     . ',' .
+                'deposit_id='          . $after->deposit_id          . ',' .
+                'deposit_name='        . $after->deposit_name        . ',' .
+                'producemeasure_id='   . $after->producemeasure_id   . ',' .
+                'producemeasure_name=' . $after->producemeasure_name . ',' .
+                'status='              . $after->status              . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }

@@ -349,6 +349,7 @@ class Clock extends Model
                 // Cadastra Clockday.
                 $date = $data['validatedData']['start'];
                 while($date <= $data['validatedData']['end']):
+
                     // Define a Jornada.
                     if(date_format(date_create($date), 'l') != 'Sunday'):
                         if(date_format(date_create($date), 'l') != 'Saturday'):
