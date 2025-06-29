@@ -341,6 +341,12 @@ class Config extends Model
                 'icon'  => 'bi-bell',
                 'test'  => true,
             ],
+            [
+                'name'  => 'breakdow',
+                'title' => 'Avaria',
+                'icon'  => 'bi-hand-thumbs-down',
+                'test'  => true,
+            ],
         ];
 
         return $pages;

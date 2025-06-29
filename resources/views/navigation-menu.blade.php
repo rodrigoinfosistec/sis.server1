@@ -38,6 +38,13 @@
                             <i class="bi-arrow-left-right" style="font-size: 20pt;"></i>
                         </x-nav-link>
                     </div>
+
+                    {{-- Avarias --}}
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link href="{{ route('breakdow') }}" :active="request()->routeIs('breakdow')" class="text-decoration-none" title="Avarias">
+                            <i class="bi-hand-thumbs-down" style="font-size: 20pt;"></i>
+                        </x-nav-link>
+                    </div>
                 @endif
             </div>
 

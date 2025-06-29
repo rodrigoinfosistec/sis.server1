@@ -28,7 +28,7 @@ return new class extends Migration
 
             $table->string('list_path', 2048)->nullable();
 
-            $table->enum('status', ['embalado', 'reembolsado', 'destinado'])->default('embalado');
+            $table->enum('status', ['PENDENTE', 'EMBALADO', 'REEMBOLSADO', 'DESTINADO'])->default('PENDENTE');
 
             $table->timestamps();
 
