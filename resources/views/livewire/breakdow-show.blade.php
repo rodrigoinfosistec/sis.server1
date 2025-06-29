@@ -150,10 +150,14 @@
 <x-layout.card.card-body-content-table-body-line-cell-action width="120">
     <x-layout.card.card-body-content-table-body-line-cell-action-detail :id="$item->id"/>
 
-    <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
-
     @if($item->status == 'PENDENTE')
+        <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
+
         <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
+    @else
+        <a href="{{ asset('storage/pdf/breakdow/' . $item->list_path) }}" target="_blank" class="btn btn-link btn-sm" style="padding: 0px 5px 0px 5px;" title="PDF">
+            <i class="bi-file-pdf text-danger" style="font-size: 20px;"></i>
+        </a>
     @endif
 </x-layout.card.card-body-content-table-body-line-cell-action>
 {{-- conteúdo --}} 
