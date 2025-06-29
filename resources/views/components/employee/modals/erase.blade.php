@@ -1,7 +1,7 @@
 <x-layout.modal.modal-erase modal="erase" method="exclude" form="true" size="">
     <x-layout.modal.modal-erase-header icon="bi-trash3" modal="erase">
         {{ $config['title'] }}
-        
+
         <x-slot:identifier>
             {{-- ... --}}
         </x-slot>
@@ -22,78 +22,34 @@
         ID
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
-        {{ $employee_id }}
+        {{ $breakdow_id }}
     </x-layout.modal.modal-erase-body-line-content>
 </x-layout.modal.modal-erase-body-line>
 
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
-        PIS
+        MARCA
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
-        {{ $pis }}
+        {{ $producebrand_name }}
     </x-layout.modal.modal-erase-body-line-content>
 </x-layout.modal.modal-erase-body-line>
 
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
-        NOME
+        DESCRIÇÃO
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
-        {{ $name }}
+        {{ $description }}
     </x-layout.modal.modal-erase-body-line-content>
 </x-layout.modal.modal-erase-body-line>
 
 <x-layout.modal.modal-erase-body-line>
     <x-layout.modal.modal-erase-body-line-title>
-        JORNADA (SEMANA)
+        DEPÓSITO
     </x-layout.modal.modal-erase-body-line-title>
     <x-layout.modal.modal-erase-body-line-content>
-        {{ $journey_start_week }}
-        <i class="bi-caret-right-fill text-muted"></i>
-        {{ $journey_end_week }}
-    </x-layout.modal.modal-erase-body-line-content>
-</x-layout.modal.modal-erase-body-line>
-
-<x-layout.modal.modal-erase-body-line>
-    <x-layout.modal.modal-erase-body-line-title>
-        JORNADA (SÁBADO)
-    </x-layout.modal.modal-erase-body-line-title>
-    <x-layout.modal.modal-erase-body-line-content>
-        {{ $journey_start_saturday }}
-        <i class="bi-caret-right-fill text-muted"></i>
-        {{ $journey_end_saturday }}
-    </x-layout.modal.modal-erase-body-line-content>
-</x-layout.modal.modal-erase-body-line>
-
-<x-layout.modal.modal-erase-body-line>
-    <x-layout.modal.modal-erase-body-line-title>
-        EMPRESA
-    </x-layout.modal.modal-erase-body-line-title>
-    <x-layout.modal.modal-erase-body-line-content>
-        {{ $company_name }}
-    </x-layout.modal.modal-erase-body-line-content>
-</x-layout.modal.modal-erase-body-line>
-
-<x-layout.modal.modal-erase-body-line>
-    <x-layout.modal.modal-erase-body-line-title>
-        TIPO PONTO
-    </x-layout.modal.modal-erase-body-line-title>
-    <x-layout.modal.modal-erase-body-line-content>
-        @if($clock_type == 'EVENT')
-            LOCAL
-        @else
-            ALTERNATIVO
-        @endif
-    </x-layout.modal.modal-erase-body-line-content>
-</x-layout.modal.modal-erase-body-line>
-
-<x-layout.modal.modal-erase-body-line>
-    <x-layout.modal.modal-erase-body-line-title>
-        CÓDIGO
-    </x-layout.modal.modal-erase-body-line-title>
-    <x-layout.modal.modal-erase-body-line-content>
-       {{ $code }}
+        {{ $deposit_name }}
     </x-layout.modal.modal-erase-body-line-content>
 </x-layout.modal.modal-erase-body-line>
 
