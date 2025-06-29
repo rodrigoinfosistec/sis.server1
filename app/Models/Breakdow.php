@@ -149,24 +149,7 @@ class Breakdow extends Model
     public static function validateEdit(array $data) : bool {
         $message = null;
 
-        // Verifica se final da jornada da semana é maior que o início.
-        if($data['validatedData']['journey_start_week'] >= $data['validatedData']['journey_end_week']):
-            $message = 'Horário final da jornada da semana deve ser maior que o início da jornada';
-        endif;
-
-        // Verifica se final da jornada da semana é maior que o início.
-        if($data['validatedData']['journey_start_saturday'] >= $data['validatedData']['journey_end_saturday']):
-            $message = 'Horário final da jornada do sábado deve ser maior que o início da jornada';
-        endif;
-
-        // Verifica se há funcionário desta empresa utilizando esta matrícula.
-        if(Breakdow::where([
-                ['registration', $data['validatedData']['registration']],
-                ['company_id', $data['validatedData']['company_id']],
-            ])->whereNot('id', $data['validatedData']['breakdow_id'])->exists()
-        ):
-            $message = 'Já existe um funcionário desta empresa utilizando esta matrícula.';
-        endif;
+        // ...
 
         // Desvio.
         if(!empty($message)):
@@ -189,28 +172,14 @@ class Breakdow extends Model
         // Before.
         $before = Breakdow::find($data['validatedData']['breakdow_id']);
 
+        // Tratar pdf.
+
+        $list_path = 'listtestedjhfshfsd.pdf';
+
         // Atualiza.
         Breakdow::find($data['validatedData']['breakdow_id'])->update([
-            'company_id'             => $data['validatedData']['company_id'],
-            'company_name'           => Company::find($data['validatedData']['company_id'])->name,
-            'companyoriginal_id'     => $data['validatedData']['companyoriginal_id'],
-            'companyoriginal_name'   => Company::find($data['validatedData']['companyoriginal_id'])->name,
-            'breakdowgroup_id'       => $data['validatedData']['breakdowgroup_id'],
-            'breakdowgroup_name'     => Breakdowgroup::find($data['validatedData']['breakdowgroup_id'])->name,
-            'pis'                    => $data['validatedData']['pis'],
-            'registration'           => $data['validatedData']['registration'],
-            'name'                   => Str::upper($data['validatedData']['name']),
-            'journey_start_week'     => $data['validatedData']['journey_start_week'],
-            'journey_end_week'       => $data['validatedData']['journey_end_week'],
-            'journey_start_saturday' => $data['validatedData']['journey_start_saturday'],
-            'journey_end_saturday'   => $data['validatedData']['journey_end_saturday'],
-            'journey'                => $data['validatedData']['journey'],
-            'limit_controll'         => $data['validatedData']['limit_controll'],
-            'clock_type'             => $data['validatedData']['clock_type'],
-            'code'                   => Breakdow::codeValidateNull($data['validatedData']['code']),
-            'status'                 => $data['validatedData']['status'],
-            'trainee'                => $data['validatedData']['trainee'],
-            'canonline'              => $data['validatedData']['canonline'],
+            'list_path'=> $list_path,
+            'status' => 'EMBALADO',
         ]);
 
         // After.
