@@ -45,6 +45,7 @@ class BreakdowShow extends Component
     public $company_name;
     public $list_path;
     public $status;
+    public $value;
     public $created_at;
     public $updated_at;
 
@@ -86,6 +87,7 @@ class BreakdowShow extends Component
             'producebrand_id'   => ['required'],
             'deposit_id'        => ['required'],
             'producemeasure_id' => ['required'],
+            'value'             => ['required'],
 
             'pdf' => ['file', 'required'],
         ];
@@ -121,6 +123,7 @@ class BreakdowShow extends Component
         $this->producemeasure_id   = '';
         $this->producemeasure_name = '';
         $this->status              = '';
+        $this->value               = '';
         $this->created_at          = '';
         $this->updated_at          = '';
         $this->created             = '';
@@ -169,6 +172,7 @@ class BreakdowShow extends Component
                 'deposit_id'        => ['required'],
                 'producemeasure_id' => ['required'],
                 'company_id'        => ['required'],
+                'value'             => ['required'],
             ]);
 
             // Define $data.

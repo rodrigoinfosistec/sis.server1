@@ -30,6 +30,8 @@ return new class extends Migration
 
             $table->enum('status', ['PENDENTE', 'EMBALADO', 'REEMBOLSADO', 'DESTINADO'])->default('PENDENTE');
 
+            $table->float('value', 12, 2);
+
             $table->timestamps();
 
             $table->foreign('producebrand_id')->references('id')->on('producebrands');

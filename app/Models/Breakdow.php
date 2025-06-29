@@ -28,6 +28,7 @@ class Breakdow extends Model
 
         'list_path',
         'status',
+        'value',
 
         'created_at',
         'updated_at',
@@ -80,6 +81,7 @@ class Breakdow extends Model
             'producemeasure_name' => Producemeasure::find($data['validatedData']['producemeasure_id'])->name,
             'company_id'          => $data['validatedData']['company_id'],
             'company_name'        => Company::find($data['validatedData']['company_id'])->name,
+            'value'               => General::encodeFloat2($data['validatedData']['value']),
         ])->id;
 
         // After.

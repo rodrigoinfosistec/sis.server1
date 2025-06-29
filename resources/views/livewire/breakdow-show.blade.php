@@ -134,10 +134,9 @@
 
         <br>
 
-        <span class="text-muted">
-            @if(!empty($item->employeegroup_name))
-                {{ $item->employeegroup_name }}
-            @endif
+        <span class="text-primary" style="font-size: 9pt;">
+            <span class="fst-italic">R$</span>
+            {{ App\Models\General::decodeFloat2($item->value) }}
         </span>
     </x-layout.card.card-body-content-table-body-line-cell-content>
 </x-layout.card.card-body-content-table-body-line-cell>

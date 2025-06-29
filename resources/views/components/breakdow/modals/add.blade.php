@@ -41,7 +41,7 @@
 </x-layout.modal.modal-add-body-group>
 
 <x-layout.modal.modal-add-body-group>
-    <x-layout.modal.modal-add-body-group-item columms="8">
+    <x-layout.modal.modal-add-body-group-item columms="4">
         <x-layout.modal.modal-add-body-group-item-label item="producebrand_id" title="MARCA" plus="none"/>
 
         <select wire:model="producebrand_id" class="form-select form-select-sm text-uppercase" id="producebrand_id">
@@ -67,6 +67,14 @@
         </select>
 
         <x-layout.modal.modal-add-body-group-item-error item="producemeasure_id" message="$message"/>
+    </x-layout.modal.modal-add-body-group-item>
+
+    <x-layout.modal.modal-add-body-group-item columms="4">
+        <x-layout.modal.modal-add-body-group-item-label item="value" title="VALOR(R$)" plus="none"/>
+
+        <input type="text" wire:model="value" class="form-control form-control-sm" id="value" onKeyUp="maskFloat2(this, event)">
+
+        <x-layout.modal.modal-add-body-group-item-error item="value" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
 {{-- conteúdo --}}
