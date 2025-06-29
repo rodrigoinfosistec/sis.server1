@@ -46,6 +46,7 @@ class BreakdowShow extends Component
     public $list_path;
     public $status;
     public $value;
+    public $description;
     public $created_at;
     public $updated_at;
 
@@ -88,6 +89,7 @@ class BreakdowShow extends Component
             'deposit_id'        => ['required'],
             'producemeasure_id' => ['required'],
             'value'             => ['required'],
+            'description'       => ['required', 'between:2,100'],
 
             'pdf' => ['file', 'required'],
         ];
@@ -124,6 +126,7 @@ class BreakdowShow extends Component
         $this->producemeasure_name = '';
         $this->status              = '';
         $this->value               = '';
+        $this->description         = '';
         $this->created_at          = '';
         $this->updated_at          = '';
         $this->created             = '';
@@ -151,7 +154,7 @@ class BreakdowShow extends Component
             'list'         => Breakdow::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
                                 ['company_id', Auth()->user()->company_id],
-                            ])->orderByRaw("FIELD(status, 'PENDENTE', 'EMBALADO', 'REEMBOLSADO', 'DESTINADO')")->orderBy('id', 'DESC')->paginate(12),
+                            ])->orderByRaw("FIELD(status, 'PENDENTE', 'EMBALADO', 'REEMBOLSADO', 'RECOLHIDO', 'DESCARTADO')")->orderBy('id', 'DESC')->paginate(12),
         ]);
     }
 
@@ -173,6 +176,7 @@ class BreakdowShow extends Component
                 'producemeasure_id' => ['required'],
                 'company_id'        => ['required'],
                 'value'             => ['required'],
+                'description'       => ['required', 'between:2,100'],
             ]);
 
             // Define $data.
@@ -468,41 +472,37 @@ class BreakdowShow extends Component
         $breakdow = Breakdow::find($breakdow_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->breakdow_id            = $breakdow->id;
-        $this->company_id             = $breakdow->company_id;
-        $this->company_name           = $breakdow->company_name;
-        $this->companyoriginal_id     = $breakdow->companyoriginal_id;
-        $this->companyoriginal_name   = $breakdow->companyoriginal_name;
-        $this->pis                    = $breakdow->pis;
-        $this->registration           = $breakdow->registration;
-        $this->name                   = $breakdow->name;
-        $this->journey_start_week     = $breakdow->journey_start_week;
-        $this->journey_end_week       = $breakdow->journey_end_week;
-        $this->journey_start_saturday = $breakdow->journey_start_saturday;
-        $this->journey_end_saturday   = $breakdow->journey_end_saturday;
-        $this->journey                = $breakdow->journey;
-        $this->clock_type             = $breakdow->clock_type;
-        $this->code                   = $breakdow->code;
-        $this->status                 = $breakdow->status;
-        $this->trainee                = $breakdow->trainee;
-        $this->created                = $breakdow->created_at->format('d/m/Y H:i:s');
+        $this->breakdow_id         = $breakdow->id;
+        $this->producebrand_name   = $breakdow->producebrand_name;
+        $this->producebrand_id     = $breakdow->producebrand_id;
+        $this->deposit_id          = $breakdow->deposit_id;
+        $this->deposit_name        = $breakdow->deposit_name;
+        $this->producemeasure_id   = $breakdow->producemeasure_id;
+        $this->producemeasure_name = $breakdow->producemeasure_name;
+        $this->company_id          = $breakdow->company_id;
+        $this->company_name        = $breakdow->company_name;
+        $this->list_path           = $breakdow->list_path;
+        $this->status              = $breakdow->status;
+        $this->value               = $breakdow->value;
+        $this->description         = $breakdow->description;
+        $this->created             = $breakdow->created_at->format('d/m/Y H:i:s');
     }
         public function exclude()
         {
-            // Define $validatedData
-            $validatedData['breakdow_id']            = $this->breakdow_id;
-            $validatedData['company_id']             = $this->company_id;
-            $validatedData['company_name']           = $this->company_name;
-            $validatedData['companyoriginal_id']     = $this->companyoriginal_id;
-            $validatedData['companyoriginal_name']   = $this->companyoriginal_name;
-            $validatedData['pis']                    = $this->pis;
-            $validatedData['registration']           = $this->registration;
-            $validatedData['name']                   = $this->name;
-            $validatedData['journey_start_week']     = $this->journey_start_week;
-            $validatedData['journey_end_week']       = $this->journey_end_week;
-            $validatedData['journey_start_saturday'] = $this->journey_start_saturday;
-            $validatedData['journey_end_saturday']   = $this->journey_end_saturday;
-            $validatedData['clock_type']             = $this->clock_type;
+            // Define $validatedData.
+            $validatedData['breakdow_id']         = $this->breakdow_id;
+            $validatedData['producebrand_name']   = $this->producebrand_name;
+            $validatedData['producebrand_id']     = $this->producebrand_id;
+            $validatedData['deposit_id']          = $this->deposit_id;
+            $validatedData['deposit_name']        = $this->deposit_name;
+            $validatedData['producemeasure_id']   = $this->producemeasure_id;
+            $validatedData['producemeasure_name'] = $this->producemeasure_name;
+            $validatedData['company_id']          = $this->company_id;
+            $validatedData['company_name']        = $this->company_name;
+            $validatedData['list_path']           = $this->list_path;
+            $validatedData['status']              = $this->status;
+            $validatedData['value']               = $this->value;
+            $validatedData['description']         = $this->description;
 
             // Define $data.
             $data['config']        = $this->config;

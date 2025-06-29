@@ -28,9 +28,11 @@ return new class extends Migration
 
             $table->string('list_path', 2048)->nullable();
 
-            $table->enum('status', ['PENDENTE', 'EMBALADO', 'REEMBOLSADO', 'DESTINADO'])->default('PENDENTE');
+            $table->enum('status', ['PENDENTE', 'EMBALADO', 'REEMBOLSADO', 'RECOLHIDO', 'DESCARTADO'])->default('PENDENTE');
 
             $table->float('value', 12, 2);
+
+            $table->string('description');
 
             $table->timestamps();
 

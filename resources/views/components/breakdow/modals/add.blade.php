@@ -77,6 +77,16 @@
         <x-layout.modal.modal-add-body-group-item-error item="value" message="$message"/>
     </x-layout.modal.modal-add-body-group-item>
 </x-layout.modal.modal-add-body-group>
+
+<x-layout.modal.modal-add-body-group>
+    <x-layout.modal.modal-add-body-group-item columms="12">
+        <x-layout.modal.modal-add-body-group-item-label item="description" title="DESCRIÇÃO" plus="none"/>
+
+        <input type="text" wire:model="description" class="form-control form-control-sm" id="description">
+
+        <x-layout.modal.modal-add-body-group-item-error item="description" message="$message"/>
+    </x-layout.modal.modal-add-body-group-item>
+</x-layout.modal.modal-add-body-group>
 {{-- conteúdo --}}
 
     </x-layout.modal.modal-add-body>

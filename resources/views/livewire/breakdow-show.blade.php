@@ -134,6 +134,12 @@
 
         <br>
 
+        <span class="" style="font-size: 7pt;">
+            {{ $item->description }}
+        </span>
+
+        <br>
+
         <span class="text-primary" style="font-size: 9pt;">
             <span class="fst-italic">R$</span>
             {{ App\Models\General::decodeFloat2($item->value) }}

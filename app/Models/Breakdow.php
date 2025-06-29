@@ -29,6 +29,7 @@ class Breakdow extends Model
         'list_path',
         'status',
         'value',
+        'description',
 
         'created_at',
         'updated_at',
@@ -82,6 +83,7 @@ class Breakdow extends Model
             'company_id'          => $data['validatedData']['company_id'],
             'company_name'        => Company::find($data['validatedData']['company_id'])->name,
             'value'               => General::encodeFloat2($data['validatedData']['value']),
+            'description'         => $data['validatedData']['description'],
         ])->id;
 
         // After.
@@ -377,25 +379,7 @@ class Breakdow extends Model
 
         $breakdow = Breakdow::find($data['validatedData']['breakdow_id']);
 
-        // Verifica se Funcionário possui Saldo (+/-) no banco de Horas.
-        if($breakdow->datatime != 0):
-            if($breakdow->datatime > 0):
-                $hour  = $breakdow->datatime / 60;
-                $hour  = (int)$hour;
-                $minut = $breakdow->datatime % 60;
-    
-                $time = '+' . str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
-            else:
-                $breakdow->datatime = abs($breakdow->datatime);
-                $hour  = $breakdow->datatime / 60;
-                $hour  = (int)$hour;
-                $minut = $breakdow->datatime % 60;
-    
-                $time = '-' . str_pad($hour, 2 ,'0' , STR_PAD_LEFT) . ':' . str_pad($minut, 2 ,'0' , STR_PAD_LEFT);
-            endif;
-
-            $message = 'Funcionário ' . $breakdow->name . ' possui ' . $time . 'H no Banco de Horas.';
-        endif;
+        // 
 
         // Desvio.
         if(!empty($message)):
@@ -434,7 +418,7 @@ class Breakdow extends Model
         Audit::breakdowErase($data);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' ' .  $data['validatedData']['name'] . ' excluído com sucesso.';
+        $message = $data['config']['title'] . ' ' .  $data['validatedData']['producebrand_name'] . ' excluída com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 
