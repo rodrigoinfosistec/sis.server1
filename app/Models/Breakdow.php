@@ -83,7 +83,7 @@ class Breakdow extends Model
             'company_id'          => $data['validatedData']['company_id'],
             'company_name'        => Company::find($data['validatedData']['company_id'])->name,
             'value'               => General::encodeFloat2($data['validatedData']['value']),
-            'description'         => $data['validatedData']['description'],
+            'description'         => Str::upper($data['validatedData']['description']),
         ])->id;
 
         // After.
@@ -172,13 +172,12 @@ class Breakdow extends Model
         // Before.
         $before = Breakdow::find($data['validatedData']['breakdow_id']);
 
-        // Tratar pdf.
-
-        $list_path = 'listtestedjhfshfsd.pdf';
+        // Salva arquivo, caso seja um pdf.
+        $pdf = Report::pdfBreakdow($data);
 
         // Atualiza.
         Breakdow::find($data['validatedData']['breakdow_id'])->update([
-            'list_path'=> $list_path,
+            'list_path'=> $pdf['list_path'],
             'status' => 'EMBALADO',
         ]);
 
@@ -189,7 +188,7 @@ class Breakdow extends Model
         Audit::breakdowEdit($data, $before, $after);
 
         // Mensagem.
-        $message = $data['config']['title'] . ' ' .  $after->name . ' atualizado com sucesso.';
+        $message = $data['config']['title'] . ' ' .  $after->producebrand_name . ' atualizada com sucesso.';
         session()->flash('message', $message);
         session()->flash('color', 'success');
 

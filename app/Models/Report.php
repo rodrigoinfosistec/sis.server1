@@ -2263,4 +2263,23 @@ class Report extends Model
 
         return true;
     }
+
+    /**
+     * Breakdow Pdf
+     * @var array $data
+     * 
+     * @return <object, null> $pdf
+     */
+    public static function pdfBreakdow(array $data){
+        // Salva o arquivo txt.
+        $file_name = $data['config']['name'] . '_' . auth()->user()->id . '_' . Str::random(20) . '.pdf';
+        $path = public_path('/storage/pdf/' . $data['config']['name'] . '/');
+        File::makeDirectory($path, $mode = 0777, true, true);
+        $data['validatedData']['pdf']->storeAs('public/pdf/' . $data['config']['name'] . '/', $file_name);
+
+        // Atribui à variável.
+        $pdf['list_path'] = $file_name;
+
+        return  $pdf;
+    }
 }
