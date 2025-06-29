@@ -206,6 +206,11 @@
             <x-nav-link href="{{ route('deposittransfer') }}" :active="request()->routeIs('deposittransfer')" class="text-decoration-none" style="margin-right: 10px;">
                 <i class="bi-arrow-left-right" style="font-size: 20pt;"></i>
             </x-nav-link>
+
+            {{-- Avaria --}}
+            <x-nav-link href="{{ route('breakdow') }}" :active="request()->routeIs('breakdow')" class="text-decoration-none" style="margin-right: 10px;">
+                <i class="bi-hand-thumbs-down" style="font-size: 20pt;"></i>
+            </x-nav-link>
         </div>
 
         {{-- Responsive Settings Options --}}

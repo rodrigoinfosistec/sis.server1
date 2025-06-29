@@ -148,7 +148,7 @@ class BreakdowShow extends Component
             'list'         => Breakdow::where([
                                 [$this->filter, 'like', '%'. $this->search . '%'],
                                 ['company_id', Auth()->user()->company_id],
-                            ])->orderByRaw("FIELD(status, 'embalado', 'reembolsado', 'destinado')")->orderBy('id', 'DESC')->paginate(12),
+                            ])->orderByRaw("FIELD(status, 'PENDENTE', 'EMBALADO', 'REEMBOLSADO', 'DESTINADO')")->orderBy('id', 'DESC')->paginate(12),
         ]);
     }
 
