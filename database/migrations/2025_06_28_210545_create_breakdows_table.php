@@ -32,6 +32,8 @@ return new class extends Migration
 
             $table->float('value', 12, 2);
 
+            $table->integer('volume');
+
             $table->string('description');
 
             $table->timestamps();

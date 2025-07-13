@@ -90,7 +90,7 @@ class BreakdowShow extends Component
             'deposit_id'        => ['required'],
             'producemeasure_id' => ['required'],
             'value'             => ['required'],
-            'volume'            => ['required', 'min:1'],
+            'volume'            => ['required', 'integer', 'min:1'],
             'description'       => ['required', 'between:2,100'],
 
             'pdf' => ['required', 'file', 'mimes:pdf', 'mimetypes:application/pdf', 'max:5120'],
@@ -179,7 +179,7 @@ class BreakdowShow extends Component
                 'producemeasure_id' => ['required'],
                 'company_id'        => ['required'],
                 'value'             => ['required'],
-                'volume'            => ['required', 'min:1'],
+                'volume'            => ['required', 'integer', 'min:1'],
                 'description'       => ['required', 'between:2,100'],
             ]);
 
@@ -463,6 +463,7 @@ class BreakdowShow extends Component
         $this->list_path           = $breakdow->list_path;
         $this->status              = $breakdow->status;
         $this->value               = $breakdow->value;
+        $this->volume              = $breakdow->volume;
         $this->description         = $breakdow->description;
         $this->created             = $breakdow->created_at->format('d/m/Y H:i:s');
     }
@@ -481,6 +482,7 @@ class BreakdowShow extends Component
             $validatedData['list_path']           = $this->list_path;
             $validatedData['status']              = $this->status;
             $validatedData['value']               = $this->value;
+            $validatedData['volume']              = $this->volume;
             $validatedData['description']         = $this->description;
 
             // Define $data.

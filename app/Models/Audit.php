@@ -4496,6 +4496,7 @@ class Audit extends Model
                 'company_name='        . $after->company_name        . ',' .
                 'status='              . $after->status              . ',' .
                 'value='               . $after->value               . ',' .
+                'volume='              . $after->volume              . ',' .
                 'description='         . $after->description         . ',' .
             '}',
         ]);
