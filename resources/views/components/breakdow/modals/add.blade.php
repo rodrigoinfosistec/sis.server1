@@ -79,6 +79,16 @@
 </x-layout.modal.modal-add-body-group>
 
 <x-layout.modal.modal-add-body-group>
+    <x-layout.modal.modal-add-body-group-item columms="4">
+        <x-layout.modal.modal-add-body-group-item-label item="volume" title="VOLUMES" plus="none"/>
+
+        <input type="number" wire:model="volume" class="form-control form-control-sm" id="volume">
+
+        <x-layout.modal.modal-add-body-group-item-error item="volume" message="$message"/>
+    </x-layout.modal.modal-add-body-group-item>
+</x-layout.modal.modal-add-body-group>
+
+<x-layout.modal.modal-add-body-group>
     <x-layout.modal.modal-add-body-group-item columms="12">
         <x-layout.modal.modal-add-body-group-item-label item="description" title="DESCRIÇÃO" plus="none"/>
 

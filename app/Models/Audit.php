@@ -4518,16 +4518,17 @@ class Audit extends Model
             'extensive' => '[excluíu]' . $data['config']['title'] . '{' .
                 'id='                  . $data['validatedData']['breakdow_id']         . ',' .
                 'producebrand_name='   . $data['validatedData']['producebrand_name']   . ',' .
-                'producebrand_id ='    . $data['validatedData']['producebrand_id']    . ',' .
-                'deposit_id ='         . $data['validatedData']['deposit_id']         . ',' .
+                'producebrand_id ='    . $data['validatedData']['producebrand_id']     . ',' .
+                'deposit_id ='         . $data['validatedData']['deposit_id']          . ',' .
                 'deposit_name='        . $data['validatedData']['deposit_name']        . ',' .
-                'producemeasure_id ='  . $data['validatedData']['producemeasure_id']  . ',' .
+                'producemeasure_id ='  . $data['validatedData']['producemeasure_id']   . ',' .
                 'producemeasure_name=' . $data['validatedData']['producemeasure_name'] . ',' .
-                'company_id ='         . $data['validatedData']['company_id']         . ',' .
+                'company_id ='         . $data['validatedData']['company_id']          . ',' .
                 'company_name='        . $data['validatedData']['company_name']        . ',' .
                 'list_path='           . $data['validatedData']['list_path']           . ',' .
                 'status='              . $data['validatedData']['status']              . ',' .
                 'value='               . $data['validatedData']['value']               . ',' .
+                'volume='              . $data['validatedData']['volume']              . ',' .
                 'description='         . $data['validatedData']['description']         . ',' .
             '}',
         ]);
