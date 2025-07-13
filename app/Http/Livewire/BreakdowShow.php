@@ -302,6 +302,7 @@ class BreakdowShow extends Component
         $this->list_path           = $breakdow->list_path;
         $this->status              = $breakdow->status;
         $this->value               = $breakdow->value;
+        $this->volume              = $breakdow->volume;
         $this->description         = $breakdow->description;
         $this->created             = $breakdow->created_at->format('d/m/Y H:i:s');
     }
@@ -333,36 +334,34 @@ class BreakdowShow extends Component
         }
 
     /**
-     * editDoc()
-     *  modernizeDoc()
+     * editRefunded()
+     *  modernizeRefunded()
      */
-    public function editDoc(int $breakdow_id)
+    public function editRefunded(int $breakdow_id)
     {
         // Funcionário.
         $breakdow = Breakdow::find($breakdow_id);
 
         // Inicializa propriedades dinâmicas.
-        $this->breakdow_id  = $breakdow->id;
-        $this->company_id   = $breakdow->company_id;
-        $this->company_name = $breakdow->company_name;
-        $this->pis          = $breakdow->pis;
-        $this->name         = $breakdow->name;
-        $this->cpf          = $breakdow->cpf;
-        $this->rg           = $breakdow->rg;
-        $this->cnh          = $breakdow->cnh;
-        $this->ctps         = $breakdow->ctps;
+        $this->breakdow_id         = $breakdow->id;
+        $this->producebrand_name   = $breakdow->producebrand_name;
+        $this->producebrand_id     = $breakdow->producebrand_id;
+        $this->deposit_id          = $breakdow->deposit_id;
+        $this->deposit_name        = $breakdow->deposit_name;
+        $this->producemeasure_id   = $breakdow->producemeasure_id;
+        $this->producemeasure_name = $breakdow->producemeasure_name;
+        $this->company_id          = $breakdow->company_id;
+        $this->company_name        = $breakdow->company_name;
+        $this->list_path           = $breakdow->list_path;
+        $this->status              = $breakdow->status;
+        $this->value               = $breakdow->value;
+        $this->volume              = $breakdow->volume;
+        $this->description         = $breakdow->description;
+        $this->created             = $breakdow->created_at->format('d/m/Y H:i:s');
     }
-        public function modernizeDoc()
+        public function modernizeRefunded()
         {
-            // Valida campos.
-            $validatedData = $this->validate([
-                'cpf'  => ['nullable', 'min:14', 'max:14', 'unique:breakdows,cpf,'.$this->breakdow_id.''],
-                'rg'   => ['nullable'],
-                'cnh'  => ['nullable'],
-                'ctps' => ['nullable'],
-            ]);
-
-            // Estende $validatedData
+            // Define $validatedData.
             $validatedData['breakdow_id'] = $this->breakdow_id;
 
             // Define $data.
@@ -370,71 +369,13 @@ class BreakdowShow extends Component
             $data['validatedData'] = $validatedData;
 
             // Valida atualização.
-            $valid = Breakdow::validateEditDoc($data);
+            $valid = Breakdow::validateEditRefunded($data);
 
             // Atualiza.
-            if ($valid) Breakdow::editDoc($data);
+            if ($valid) Breakdow::editRefunded($data);
 
             // Executa dependências.
-            if ($valid) Breakdow::dependencyEditDoc($data);
-
-            // Fecha modal.
-            $this->closeModal();
-            $this->dispatchBrowserEvent('close-modal');
-        }
-
-    /**
-     * editLimit()
-     *  modernizeLimit()
-     */
-    public function editLimit(int $breakdow_id)
-    {
-        // Funcionário.
-        $breakdow = Breakdow::find($breakdow_id);
-
-        // Inicializa propriedades dinâmicas.
-        $this->breakdow_id  = $breakdow->id;
-        $this->company_id   = $breakdow->company_id;
-        $this->company_name = $breakdow->company_name;
-        $this->pis          = $breakdow->pis;
-        $this->registration = $breakdow->registration;
-        $this->name         = $breakdow->name;
-        $this->cpf          = $breakdow->cpf;
-        $this->rg           = $breakdow->rg;
-        $this->cnh          = $breakdow->cnh;
-        $this->ctps         = $breakdow->ctps;
-
-        $this->limit_start_week     = General::minutsToTime($breakdow->limit_start_week);
-        $this->limit_end_week       = General::minutsToTime($breakdow->limit_end_week);
-        $this->limit_start_saturday = General::minutsToTime($breakdow->limit_start_saturday);
-        $this->limit_end_saturday   = General::minutsToTime($breakdow->limit_end_saturday);
-    }
-        public function modernizeLimit()
-        {
-            // Valida campos.
-            $validatedData = $this->validate([
-                'limit_start_week'     => ['required'],
-                'limit_end_week'       => ['required'],
-                'limit_start_saturday' => ['required'],
-                'limit_end_saturday'   => ['required'],
-            ]);
-
-            // Estende $validatedData.
-            $validatedData['breakdow_id'] = $this->breakdow_id;
-            $validatedData['name']        = $this->name;
-
-            // Define $data.
-            $data['config']        = $this->config;
-            $data['validatedData'] = $validatedData;
-
-            // Valida atualização.
-            $valid = Breakdow::validateEditLimit($data);
-
-            // Atualiza.
-            if ($valid) Breakdow::editLimit($data);
-
-            // Executa dependências.
-            if ($valid) Breakdow::dependencyEditLimit($data);
+            if ($valid) Breakdow::dependencyEditRefunded($data);
 
             // Fecha modal.
             $this->closeModal();

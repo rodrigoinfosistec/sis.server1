@@ -210,6 +210,69 @@ class Breakdow extends Model
     }
 
     /**
+     * Valida atualização para REEMBOLSADO.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function validateEditRefunded(array $data) : bool {
+        $message = null;
+
+        // ...
+
+        // Desvio.
+        if(!empty($message)):
+            session()->flash('message', $message );
+            session()->flash('color', 'danger');
+
+            return false;
+        endif;
+
+        return true;
+    }
+
+    /**
+     * Atualiza para REEMBOLSADO.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function editRefunded(array $data) : bool {
+        // Before.
+        $before = Breakdow::find($data['validatedData']['breakdow_id']);
+
+        // Atualiza.
+        Breakdow::find($data['validatedData']['breakdow_id'])->update([
+            'status' => 'REEMBOLSADO',
+        ]);
+
+        // After.
+        $after = Breakdow::find($data['validatedData']['breakdow_id']);
+
+        // Auditoria.
+        Audit::breakdowEdit($data, $before, $after);
+
+        // Mensagem.
+        $message = $data['config']['title'] . ' ' .  $after->producebrand_name . ' atualizada com sucesso.';
+        session()->flash('message', $message);
+        session()->flash('color', 'success');
+
+        return true;
+    }
+
+    /**
+     * Executa dependências de atualização para REEMBOLSADO.
+     * @var array $data
+     * 
+     * @return bool true
+     */
+    public static function dependencyEditRefunded(array $data) : bool {
+        // ...
+
+        return true;
+    }
+
+    /**
      * Valida exclusão.
      * @var array $data
      * 

@@ -14,6 +14,7 @@
 {{-- ações --}}
 @include('components.' .  $config['name'] . '.modals.detail')
 @include('components.' .  $config['name'] . '.modals.edit')
+@include('components.' .  $config['name'] . '.modals.edit-refunded')
 @include('components.' .  $config['name'] . '.modals.erase')
 {{-- modal --}}
 
@@ -160,7 +161,11 @@
         <x-layout.card.card-body-content-table-body-line-cell-action-edit :id="$item->id"/>
 
         <x-layout.card.card-body-content-table-body-line-cell-action-erase :id="$item->id"/>
-    @else
+    @elseif($item->status == 'EMBALADO')
+        <x-layout.card.card-body-content-table-body-line-cell-action-edit-refunded :id="$item->id"/>
+    @endif
+
+    @if($item->status != 'PENDENTE')
         <a href="{{ asset('storage/pdf/breakdow/' . $item->list_path) }}" target="_blank" class="btn btn-link btn-sm" style="padding: 0px 5px 0px 5px;" title="PDF">
             <i class="bi-file-pdf text-danger" style="font-size: 20px;"></i>
         </a>

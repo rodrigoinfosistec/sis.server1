@@ -4560,4 +4560,27 @@ class Audit extends Model
 
         return true;
     }
+
+    /**
+     * Auditoria Breakdow EditRefunded.
+     * @var array $data
+     * @var object $before
+     * @var object $after
+     * 
+     * @return bool true
+     */
+    public static function breakdowEditRefunded(array $data, object $before, object $after) : bool {
+        Audit::create([
+            'user_id'   => auth()->user()->id,
+            'user_name' => Str::upper(auth()->user()->name),
+            'page_id'   => Page::where('name', $data['config']['name'])->first()->id,
+            'page_name' => $data['config']['name'],
+            'extensive' => '[atualizou]' . $data['config']['title'] . ' {' .
+                'id='     . $before->id     . '>' . $after->id     . ',' .
+                'status=' . $before->status . '>' . $after->status . ',' .
+            '}',
+        ]);
+
+        return true;
+    }
 }
