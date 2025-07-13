@@ -210,135 +210,6 @@ class Breakdow extends Model
     }
 
     /**
-     * Valida atualização.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function validateEditDoc(array $data) : bool {
-        $message = null;
-
-        // ...
-
-        // Desvio.
-        if(!empty($message)):
-            session()->flash('message', $message );
-            session()->flash('color', 'danger');
-
-            return false;
-        endif;
-
-        return true;
-    }
-
-    /**
-     * Atualiza.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function editDoc(array $data) : bool {
-        // Before.
-        $before = Breakdow::find($data['validatedData']['breakdow_id']);
-
-        // Atualiza.
-        Breakdow::find($data['validatedData']['breakdow_id'])->update([
-            'cpf'  => $data['validatedData']['cpf'],
-            'rg'   => $data['validatedData']['rg'],
-            'cnh'  => $data['validatedData']['cnh'],
-            'ctps' => $data['validatedData']['ctps'],
-        ]);
-
-        // After.
-        $after = Breakdow::find($data['validatedData']['breakdow_id']);
-
-        // Mensagem.
-        $message = 'Documentos do ' . $data['config']['title'] . ' ' .  $after->name . ' atualizado com sucesso.';
-        session()->flash('message', $message);
-        session()->flash('color', 'success');
-
-        return true;
-    }
-
-    /**
-     * Executa dependências de atualização.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function dependencyEditDoc(array $data) : bool {
-        // ...
-
-        return true;
-    }
-
-    /**
-     * Valida atualização do Limite.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function validateEditLimit(array $data) : bool {
-        $message = null;
-
-        // ...
-
-        // Desvio.
-        if(!empty($message)):
-            session()->flash('message', $message );
-            session()->flash('color', 'danger');
-
-            return false;
-        endif;
-
-        return true;
-    }
-
-    /**
-     * Atualiza.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function editLimit(array $data) : bool {
-        // Before.
-        $before = Breakdow::find($data['validatedData']['breakdow_id']);
-
-        // Atualiza.
-        Breakdow::find($data['validatedData']['breakdow_id'])->update([
-            'limit_start_week'     => General::timeToMinuts($data['validatedData']['limit_start_week']),
-            'limit_end_week'       => General::timeToMinuts($data['validatedData']['limit_end_week']),
-            'limit_start_saturday' => General::timeToMinuts($data['validatedData']['limit_start_saturday']),
-            'limit_end_saturday'   => General::timeToMinuts($data['validatedData']['limit_end_saturday']),
-        ]);
-
-        // After.
-        $after = Breakdow::find($data['validatedData']['breakdow_id']);
-
-        // Auditoria.
-        Audit::breakdowEditLimit($data, $before, $after);
-
-        // Mensagem.
-        $message = 'Limites de Ponto do ' . $data['config']['title'] . ' ' .  $after->name . ' atualizados com sucesso.';
-        session()->flash('message', $message);
-        session()->flash('color', 'success');
-
-        return true;
-    }
-
-    /**
-     * Executa dependências de atualização.
-     * @var array $data
-     * 
-     * @return bool true
-     */
-    public static function dependencyEditLimit(array $data) : bool {
-        // ...
-
-        return true;
-    }
-
-    /**
      * Valida exclusão.
      * @var array $data
      * 
@@ -349,7 +220,7 @@ class Breakdow extends Model
 
         $breakdow = Breakdow::find($data['validatedData']['breakdow_id']);
 
-        // 
+        // ...
 
         // Desvio.
         if(!empty($message)):
