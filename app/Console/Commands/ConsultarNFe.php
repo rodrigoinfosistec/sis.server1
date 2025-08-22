@@ -3,66 +3,68 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Services\NFeService;
-use App\Models\Nfe;
 use App\Models\NfeConfig;
+use App\Models\Nfe;
+use App\Services\NfeService;
 
 class ConsultarNFe extends Command
 {
-    protected $signature = 'nfe:consultar';
-    protected $description = 'Consulta NF-e emitidas contra o CNPJ, salva no banco e guarda o último NSU';
+    protected $signature = 'nfe:consultar {--ano=}';
+    protected $description = 'Baixar todas as NFe por ano especificado (ou todas se não informado)';
 
-    public function handle(NFeService $nfe)
+    public function handle()
     {
-        // Recupera último NSU salvo
-        $config = NfeConfig::firstOrCreate(['chave' => 'ultimo_nsu'], ['valor' => '0']);
-        $ultimoNSU = (int)$config->valor;
+        $anoFiltro = $this->option('ano');
 
-        $resp = $nfe->consultarNotas($ultimoNSU);
+        $config = NfeConfig::firstOrCreate(
+            ['chave' => 'ultimo_nsu'],
+            ['valor' => '0']
+        );
 
-        if (!empty($resp['loteDistDFeInt']['docZip'])) {
-            $docs = $resp['loteDistDFeInt']['docZip'];
+        $ultimoNSU = $config->valor;
+        $nfe = new NfeService();
 
-            // Se vier apenas um documento, transforma em array
-            if (isset($docs['__content__'])) {
-                $docs = [$docs];
+        do {
+            $this->info("Consultando NSU: {$ultimoNSU}");
+            $resp = $nfe->consultarNotas($ultimoNSU);
+
+            // Atualiza o NSU salvo
+            if (!empty($resp['ultNSU'])) {
+                $ultimoNSU = $resp['ultNSU'];
+                $config->valor = $ultimoNSU;
+                $config->save();
             }
 
-            foreach ($docs as $doc) {
-                $xml = gzdecode(base64_decode($doc['__content__']));
-                $chave = pathinfo($doc['schema'], PATHINFO_FILENAME);
+            if (!empty($resp['loteDistDFeInt']['docZip'])) {
+                foreach ($resp['loteDistDFeInt']['docZip'] as $doc) {
+                    $xml = gzdecode(base64_decode($doc['__content__']));
+                    $chave = $doc['schema'];
 
-                // Salvar XML no storage
-                $path = $nfe->salvarXML($xml, $chave);
+                    // extrai data de emissão do XML
+                    $dom = new \DOMDocument();
+                    $dom->loadXML($xml);
+                    $dhEmiNode = $dom->getElementsByTagName('dhEmi')->item(0);
+                    $dhEmi = $dhEmiNode ? substr($dhEmiNode->nodeValue, 0, 10) : null;
+                    $anoEmissao = $dhEmi ? substr($dhEmi, 0, 4) : null;
 
-                // Extrair dados principais
-                $dados = $nfe->extrairDados($xml);
-                if ($dados) {
+                    // se ano foi informado, filtra aqui
+                    if ($anoFiltro && $anoEmissao != $anoFiltro) {
+                        continue;
+                    }
+
                     Nfe::updateOrCreate(
                         ['chave' => $chave],
-                        [
-                            'cnpj_emitente' => $dados['cnpj_emitente'],
-                            'razao_emitente' => $dados['razao_emitente'],
-                            'data_emissao' => $dados['data_emissao'],
-                            'valor' => $dados['valor'],
-                            'xml_path' => $path
-                        ]
+                        ['xml' => $xml, 'data_emissao' => $dhEmi]
                     );
-                    $this->info("NF-e salva: $chave");
-                } else {
-                    $this->warn("NF-e $chave é apenas resumo (resNFe).");
+
+                    $this->info("XML salvo: {$chave}");
                 }
             }
 
-            // Atualizar último NSU retornado
-            if (!empty($resp['loteDistDFeInt']['ultNSU'])) {
-                $novoNSU = (int)$resp['loteDistDFeInt']['ultNSU'];
-                $config->valor = $novoNSU;
-                $config->save();
-                $this->info("Último NSU atualizado para $novoNSU");
-            }
-        } else {
-            $this->info("Nenhuma nova nota encontrada.");
-        }
+            $temMais = ($resp['ultNSU'] != $resp['maxNSU']);
+
+        } while ($temMais);
+
+        $this->info('Consulta finalizada.');
     }
 }

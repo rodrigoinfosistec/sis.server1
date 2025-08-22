@@ -347,6 +347,12 @@ class Config extends Model
                 'icon'  => 'bi-hand-thumbs-down',
                 'test'  => true,
             ],
+            [
+                'name'  => 'nfe',
+                'title' => 'NFe',
+                'icon'  => 'bi-receipt',
+                'test'  => true,
+            ],
         ];
 
         return $pages;
